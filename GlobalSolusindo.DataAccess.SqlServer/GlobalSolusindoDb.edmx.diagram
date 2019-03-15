@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5f5cfd0de7714dc79855e3947d3c3aa2" Name="Diagram1">
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Area" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Aset" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_AsetKategori" Width="1.5" PointX="3" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_AuthParam" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_BTS" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_BTSStatus" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Cabang" Width="1.5" PointX="3" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_CostKategori" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_DeliveryArea" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_IzinCutiStatus" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_KategoriJabatan" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Kota" Width="1.5" PointX="3" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_MappingRoleToRoleGroup" Width="1.5" PointX="3" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_MappingUserToAuthParam" Width="1.5" PointX="3" PointY="28.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_MappingUserToRoleGroup" Width="1.5" PointX="3" PointY="31.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Operator" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_PMHistori" Width="1.5" PointX="8.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Project" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Role" Width="1.5" PointX="3" PointY="35" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_RoleGroup" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Status" Width="1.5" PointX="0.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_User" Width="1.5" PointX="5.25" PointY="32.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_UserDetail" Width="1.5" PointX="3" PointY="42.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_AsetHistori" Width="1.5" PointX="7.5" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_CheckIn" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_Cost" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_IzinCuti" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOW" Width="1.5" PointX="11.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOWAssign" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOWTrack" Width="1.5" PointX="5.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_UserHistori" Width="1.5" PointX="8.25" PointY="32.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_UserPayroll" Width="1.5" PointX="13.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_Aset_KategoriAset_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_Aset_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_AsetHistori_Aset_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_KategoriAset_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_AuthParam_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_Cabang_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_Kota_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_MappingRoleToRoleGroup_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_MappingUserToAuthParam_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_MappingUserToRoleGroup_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_Role_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_AsetHistori_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_User_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserDetail_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserHistori_Status_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_AsetHistori_UserDetail_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
