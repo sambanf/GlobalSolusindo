@@ -11,17 +11,17 @@
 
     angular
         .module('global-solusindo')
-        .factory('RoleBindingService', RoleEntry);
+        .factory('RoleBindingService', RoleBindingService);
 
-    RoleEntry.$inject = ['HttpService', '$state'];
+    RoleBindingService.$inject = ['HttpService', '$state'];
 
-    function RoleEntry(http, $state) {
+    function RoleBindingService(http, $state) {
         var self = this;
         var controller = {};
 
         self.applyBinding = function (id) {
             return http.get('role/form/' + id);
-        }
+        };
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -32,8 +32,8 @@
                     controller.formControls = res.data.formControls;
                     resolve(res);
                 });
-            }); 
-        }
+            });
+        };
 
         return self;
     }
