@@ -47,7 +47,7 @@
                     oncancel: cancel
                 }).show(true, 'confirm');
             }
-        }
+        };
 
         return self;
     }
