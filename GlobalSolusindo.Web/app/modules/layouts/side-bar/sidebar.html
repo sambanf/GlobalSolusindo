@@ -1,90 +1,105 @@
 <div class="sidebar">
-  <div class="company-info">
-    <div class="company-icon">
-      <i class="fas fa-broadcast-tower"></i>
+    <div class="company-info">
+        <div class="company-icon">
+            <i class="fas fa-broadcast-tower"></i>
+        </div>
+        <div class="company-title">
+            Global Solusindo
+        </div>
     </div>
-    <div class="company-title">
-      Global Solusindo
-    </div>
-  </div>
-  <nav class="sidebar-nav">
-
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="app.dashboard">
-          <i class="fas fa-home"></i> <span>Homepage</span></a>
-      </li>
-      <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
-        <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-          <i class="fa fa-user"></i> <span>User Management</span></a>
-        <ul class="nav-dropdown-items">
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.user-list">
-              <i class="fas fa-circle"></i> <span>User</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.role-list">
-              <i class="fas fa-circle"></i> <span>Role</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active"  ui-sref="app.roleGroupList">
-              <i class="fas fa-circle"></i> <span>Role Group</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.availability-summary">
-              <i class="fas fa-circle"></i> <span>Mapping Role to Role Group</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.availability-summary">
-              <i class="fas fa-circle"></i> <span>Mapping User Role Group</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.availability-summary">
-              <i class="fas fa-circle"></i> <span>Auth Param</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.availability-summary">
-              <i class="fas fa-circle"></i> <span>Mapping User to Auth Param</span></a>
-          </li>
+    <nav class="sidebar-nav">
+        <ul class="nav">
+            <li class="nav-item">
+                <a class="nav-link" ui-sref-active="active" ui-sref="app.dashboard">
+                    <i class="fas fa-home"></i> <span>Homepage</span>
+                </a>
+            </li>
+            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
+                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
+                    <i class="fa fa-user"></i> <span>User Management</span>
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.user-list">
+                            <i class="fas fa-circle"></i> <span>User</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.role-list">
+                            <i class="fas fa-circle"></i> <span>Role</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.roleGroupList">
+                            <i class="fas fa-circle"></i> <span>Role Group</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.availability-summary">
+                            <i class="fas fa-circle"></i> <span>Mapping Role to Role Group</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.availability-summary">
+                            <i class="fas fa-circle"></i> <span>Mapping User Role Group</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.authParamList">
+                            <i class="fas fa-circle"></i> <span>Auth Param</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.availability-summary">
+                            <i class="fas fa-circle"></i> <span>Mapping User to Auth Param</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
+                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
+                    <i class="icon-screen-desktop"></i> <span>Car Carrier</span>
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.car-carrier-activity">
+                            <i class="icon-chart"></i> <span>Car Carrier Activity</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.car-carrier-activity-summary">
+                            <i class="icon-chart"></i> <span>Car Carrier Activity Summary</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
+                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
+                    <i class="icon-screen-desktop"></i> <span>Utilitas CC</span>
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.utilitas-cc-monthly">
+                            <i class="icon-chart"></i> <span>Utilitas CC Monthly</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.utilitas-cc-yearly">
+                            <i class="icon-chart"></i> <span>Utilitas CC Yearly</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" ui-sref-active="active" ui-sref="app.actual-on-time-arrival">
+                    <i class="icon-chart"></i> <span>Actual On Time Arrival</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" ui-sref-active="active" ui-sref="app.violation-traffic">
+                    <i class="icon-chart"></i> <span>Violation Traffic</span>
+                </a>
+            </li>
         </ul>
-      </li>
-      <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
-        <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-          <i class="icon-screen-desktop"></i> <span>Car Carrier</span></a>
-        <ul class="nav-dropdown-items">
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.car-carrier-activity">
-              <i class="icon-chart"></i> <span>Car Carrier Activity</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.car-carrier-activity-summary">
-              <i class="icon-chart"></i> <span>Car Carrier Activity Summary</span></a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
-        <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-          <i class="icon-screen-desktop"></i> <span>Utilitas CC</span></a>
-        <ul class="nav-dropdown-items">
-
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.utilitas-cc-monthly">
-              <i class="icon-chart"></i> <span>Utilitas CC Monthly</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" ui-sref-active="active" ui-sref="app.utilitas-cc-yearly">
-              <i class="icon-chart"></i> <span>Utilitas CC Yearly</span></a>
-          </li>
-        </ul>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="app.actual-on-time-arrival">
-          <i class="icon-chart"></i> <span>Actual On Time Arrival</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" ui-sref-active="active" ui-sref="app.violation-traffic">
-          <i class="icon-chart"></i> <span>Violation Traffic</span></a>
-      </li>
-    </ul>
-  </nav>
+    </nav>
 </div>

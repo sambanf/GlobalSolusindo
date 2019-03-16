@@ -53,6 +53,21 @@
   <ItemGroup>
     <Compile Include="AccessControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AuthParam\DML\AuthParamCreateHandler.cs" />
+    <Compile Include="AuthParam\DML\AuthParamDeleteHandler.cs" />
+    <Compile Include="AuthParam\DML\AuthParamUpdateHandler.cs" />
+    <Compile Include="AuthParam\EntryForm\AuthParamEntryControlBuilder.cs" />
+    <Compile Include="AuthParam\EntryForm\AuthParamEntryDataProvider.cs" />
+    <Compile Include="AuthParam\EntryForm\AuthParamEntryFormData.cs" />
+    <Compile Include="AuthParam\EntryForm\AuthParamEntryModel.cs" />
+    <Compile Include="AuthParam\ListForm\AuthParamListDataProvider.cs" />
+    <Compile Include="AuthParam\ListForm\AuthParamListFormData.cs" />
+    <Compile Include="AuthParam\ListForm\AuthParamListModel.cs" />
+    <Compile Include="AuthParam\Queries\AuthParamQuery.cs" />
+    <Compile Include="AuthParam\Queries\AuthParamSearch.cs" />
+    <Compile Include="AuthParam\AuthParamDTO.cs" />
+    <Compile Include="AuthParam\AuthParamFactory.cs" />
+    <Compile Include="AuthParam\AuthParamValidator.cs" />
     <Compile Include="RoleGroup\DML\RoleGroupCreateHandler.cs" />
     <Compile Include="RoleGroup\DML\RoleGroupDeleteHandler.cs" />
     <Compile Include="RoleGroup\DML\RoleGroupUpdateHandler.cs" />

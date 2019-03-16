@@ -61,7 +61,7 @@
                     },
                     {
                         "title": "auth param",
-                        "path": "homepage",
+                        "path": "app.authParam",
                         "icon": "fas fa-chart-line"
                     },
                     {
