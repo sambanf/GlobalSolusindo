@@ -134,7 +134,7 @@
     <Content Include="app\modules\role-entry\roleBindingService.js" />
     <Content Include="app\modules\role-entry\roleEntryCtrl.js" />
     <Content Include="app\modules\role-entry\roleEntryRoute.js" />
-    <Content Include="app\modules\role-entry\roleEntrySaveService.js" />
+    <Content Include="app\modules\role-entry\roleSaveService.js" />
     <Content Include="app\modules\role\role.html" />
     <Content Include="app\modules\role\roleCtrl.js" />
     <Content Include="app\modules\role\roleDeleteService.js" />
