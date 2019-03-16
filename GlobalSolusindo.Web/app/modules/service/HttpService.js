@@ -20,7 +20,7 @@
         // var base_url = cs.config.getApiUrl();
         var base_url = "http://ws.gs.local/";
         var base_host = "";
-
+        console.log(base_url);
         var auth = {};
         auth.getAccessToken = function () {
             return '';
