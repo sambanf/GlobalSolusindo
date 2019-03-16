@@ -16,6 +16,7 @@ namespace GlobalSolusindo.Identity.Role
         {
             if (roleDTO == null)
                 throw new ArgumentNullException("Role model is null.");
+            roleDTO.Status_FK = (int)RecordStatus.Active;
             roleDTO.CreatedBy = User.Username;
             roleDTO.CreatedDate = dateStamp;
             roleDTO.UpdatedBy = User.Username;
@@ -34,7 +35,7 @@ namespace GlobalSolusindo.Identity.Role
             if (role == null)
                 throw new KairosException($"Record with key '{roleDTO.Role_PK}' is not found.");
 
-            role.UpdateValueFrom(roleDTO, "Role_PK");
+            role.UpdateValueFrom(roleDTO, "Role_PK", "Status_FK");
             roleDTO.CreatedBy = role.CreatedBy;
             roleDTO.CreatedDate = role.CreatedDate;
             role.UpdatedBy = roleDTO.UpdatedBy = User.Username;

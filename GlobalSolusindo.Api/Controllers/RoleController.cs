@@ -21,28 +21,28 @@ namespace GlobalSolusindo.Api.Controllers
 
         [Route("role/{id}")]
         [HttpGet]
-        public IHttpActionResult Get(int rolePK)
+        public IHttpActionResult Get(int id)
         {
             string accessType = "Role_ViewAll";
             ThrowIfUserCannotAccess(accessType);
             using (RoleQuery roleQuery = new RoleQuery(Db))
             {
-                var data = roleQuery.GetByPrimaryKey(rolePK);
-                SaveLog("Role", "Get", JsonConvert.SerializeObject(new { primaryKey = rolePK }));
+                var data = roleQuery.GetByPrimaryKey(id);
+                SaveLog("Role", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
                 return Ok(new SuccessResponse(data));
             }
         }
 
         [Route("role/form/{id}")]
         [HttpGet]
-        public IHttpActionResult GetForm(int rolePK)
+        public IHttpActionResult GetForm(int id)
         {
             string accessType = "Role_ViewAll";
             ThrowIfUserCannotAccess(accessType);
             using (RoleEntryDataProvider roleEntryDataProvider = new RoleEntryDataProvider(Db, ActiveUser, AccessControl, new RoleQuery(Db)))
             {
-                var data = roleEntryDataProvider.Get(rolePK);
-                SaveLog("Role", "GetForm", JsonConvert.SerializeObject(new { primaryKey = rolePK }));
+                var data = roleEntryDataProvider.Get(id);
+                SaveLog("Role", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -77,8 +77,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var roleCreateHandler = new RoleCreateHandler(Db, ActiveUser, new RoleValidator(), new RoleFactory(Db, ActiveUser), new RoleQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                {
-
+                { 
                     var saveResult = roleCreateHandler.Save(roleDTO: role, dateStamp: DateTime.UtcNow);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -102,10 +101,14 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (var roleUpdateHandler = new RoleUpdateHandler(Db, ActiveUser, new RoleValidator(), new RoleFactory(Db, ActiveUser), new RoleQuery(Db), AccessControl))
             {
-                var saveResult = roleUpdateHandler.Save(role, DateTime.UtcNow);
-                if (saveResult.Success)
-                    return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                using (var transaction = new TransactionScope())
+                {
+                    var saveResult = roleUpdateHandler.Save(role, DateTime.UtcNow);
+                    transaction.Complete();
+                    if (saveResult.Success)
+                        return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
+                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                }
             }
         }
 

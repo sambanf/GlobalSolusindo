@@ -9,13 +9,19 @@ namespace GlobalSolusindo.Api
     {
         public static string GetToken(System.Net.Http.HttpRequestMessage httpRequest)
         {
-            return httpRequest.Headers.Authorization.Parameter;
+            return httpRequest.Headers.Authorization?.Parameter;
         }
     }
 
     public class ApiControllerBase : ApiController
     {
         private const bool requireAccessControl = false;
+
+        public ApiControllerBase()
+        {
+            //ActiveUser = ActiveUserProvider.Get(RequestHeaderQuery.GetToken(this.Request));
+            //Db = GlobalSolusindoDbProvider.GetInstance();
+        }
 
         public tblM_User ActiveUser
         {
@@ -25,13 +31,7 @@ namespace GlobalSolusindo.Api
             }
         }
 
-        public GlobalSolusindoDb Db
-        {
-            get
-            {
-                return GlobalSolusindoDbProvider.GetInstance();
-            }
-        }
+        public GlobalSolusindoDb Db { get; private set; } = new GlobalSolusindoDb();
 
         public AccessControl AccessControl
         {
@@ -44,7 +44,7 @@ namespace GlobalSolusindo.Api
         public void ThrowIfUserCannotAccess(string roleTitle)
         {
             if (!requireAccessControl)
-            { 
+            {
                 return;
             }
             if (!AccessControl.CanAccess(roleTitle))

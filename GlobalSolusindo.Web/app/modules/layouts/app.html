@@ -1,0 +1,43 @@
+<!-- Navbar -->
+<div ng-include="'app/modules/layouts/nav-bar/navbar.html'" include-replace></div>
+<div class="app-body">
+  <!-- Navigation -->
+  <div ng-include="'app/modules/layouts/side-bar/sidebar.html'" include-replace></div>
+  <!-- Main content -->
+  <main class="main">
+    <!-- Breadcrumb -->
+    <ol class="breadcrumb" breadcrumb>
+      <ncy-breadcrumb></ncy-breadcrumb>
+      <span class="controls">
+
+        <span class='mr-3'>{{ lastUpdate }}</span>
+        <span class="scroll-control" ng-if="$state.current.name == 'app.alert' || $state.current.name == 'app.summary'">
+          <i class="icon-control-start" id='ticker-previous'></i>
+          <i class="icon-control-play" id='start' ng-click='start(true)'></i>
+          <i class="icon-control-pause" id='stop' ng-click='start(false)'></i>
+          <i class="icon-control-end" id='ticker-next'></i>
+        </span>
+
+
+        <i class="icon-reload" id='reload'></i>
+        <i class="icon-list" id='paginate-icon' ng-click="changeView(true)" ng-if="$state.current.name == 'app.alert' || $state.current.name == 'app.summary'"></i>
+        <i class="icon-grid" id='scroll-icon' ng-click="changeView(false)"></i>
+        
+        <i class="icon-printer" onclick="window.print();"></i>
+
+        <i class="icon-size-fullscreen icon-full" ng-click="fullscreen(true)"></i>
+        <i class="icon-size-actual icon-actual" ng-click="fullscreen(false)"></i>
+      </span>
+    </ol>
+    <div class="container-fluid">
+      <ui-view></ui-view>
+    </div>
+    <!-- /.conainer-fluid -->
+  </main>
+
+</div>
+<div class="back-loader flex-row align-items-center">
+  <div loader-css="line-scale" class="preload-login"></div>
+</div>
+<!-- Footer -->
+<div ng-include="'app/modules/layouts/footer.html'" include-replace></div>

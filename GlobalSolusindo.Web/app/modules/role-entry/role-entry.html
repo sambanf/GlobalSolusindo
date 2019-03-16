@@ -1,0 +1,33 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Tambah Role</div>
+                    <div class="col-md-8">
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Role Name :</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="title" ng-model="vm.model.title"
+                                    placeholder="Role Name">
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Description :</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" ng-model="vm.model.description" placeholder="Description">
+                                        </textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" ui-sref="app.role-list">Kembali</button> <button class="btn btn-success float-right"
+                                    id="saveButton">Tambah Role</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

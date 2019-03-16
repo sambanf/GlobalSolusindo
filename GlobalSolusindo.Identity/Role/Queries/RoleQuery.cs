@@ -12,7 +12,7 @@ namespace GlobalSolusindo.Identity.Role.Queries
         private const int deleted = (int)RecordStatus.Deleted;
 
         public int GetTotalRecords()
-        { 
+        {
             return GetQuery().Count();
         }
 
@@ -37,7 +37,8 @@ namespace GlobalSolusindo.Identity.Role.Queries
                             CreatedBy = role.CreatedBy,
                             CreatedDate = role.CreatedDate,
                             UpdatedBy = role.UpdatedBy,
-                            UpdatedDate = role.UpdatedDate
+                            UpdatedDate = role.UpdatedDate,
+                            Status_FK = role.Status_FK
                         };
 
             return query;
@@ -57,7 +58,7 @@ namespace GlobalSolusindo.Identity.Role.Queries
         }
 
         public int CountBy(string fieldName, string value)
-        { 
+        {
             string sql = $"SELECT TOP 1 * FROM tblM_Role WHERE Status_FK != {deleted} AND {fieldName} = @value";
             SqlParameter sqlParameter = new SqlParameter("@value", value);
             return Db.tblM_Role.SqlQuery(sql, sqlParameter).Count();
