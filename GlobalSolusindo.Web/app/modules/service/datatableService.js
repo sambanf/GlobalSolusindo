@@ -18,8 +18,7 @@
     function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state) {
         var self = this;
 
-        self.init = function dt(tableIdOrClass, apiUrl, param) {
-            console.log('this');
+        self.init = function dt(tableIdOrClass, apiUrl, param) { 
             var defaultDom = "lftip";
 
             var dt = $(tableIdOrClass).DataTable({
@@ -44,10 +43,8 @@
                 rowGroup: {
                     enable: param.rowGroup === undefined ? false : true,
                     dataSrc: param.rowGroup === undefined ? null : param.rowGroup
-                },
-
-                ajax: function (data, callback, setting) {
-                    var api = new $.fn.dataTable.Api(setting);
+                }, 
+                ajax: function (data, callback, setting) { 
                     var pageIndex = Math.floor((data.start / data.length)) + 1;
 
                     var defaultRequestData = {
@@ -69,57 +66,27 @@
                     }
 
                     var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
-                    //console.log(requestData);
-                    if (!requestData.Keyword) {
+                    if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
                     }
-                    // ajaxService.post(apiUrl, requestData, function (json) {
-                    //     //console.log(json);
-                    //     $('.backdrop-login').fadeOut();
-                    //     if (param.onAjaxSuccess) {
-                    //         param.onAjaxSuccess(json);
-                    //     }
-                    //     callback({
-                    //         recordsTotal: json.data.totalRecords,
-                    //         recordsFiltered: json.data.totalRecordsFiltered,
-                    //         data: json.data.Data
-                    //     }); 
-                    // }, function (json) {
-                    //     $('.backdrop-login').fadeOut();
-                    //     if (param.onAjaxFailed)
-                    //         param.onAjaxFailed(json);
-                    //     kairos.alert.error(json.message);
-                    // });
 
-                    http.get(apiUrl, {
-                        pageIndex: requestData.pageIndex,
-                        pageSize: requestData.pageSize
-                    }).then(function (res) {
+                    http.get(apiUrl, requestData).then(function (res) {
                         callback({
                             recordsTotal: res.data.count.totalRecords,
                             recordsFiltered: res.data.count.totalFiltered,
                             data: res.data.records
                         });
-
-                        console.log(res.data.count.totalRecords);
                     });
-
                 },
                 columns: param.columns,
                 dom: (typeof (param.dom) == 'undefined') ? defaultDom : param.dom,
-                // language: {
-                //     search: "",
-                //     lengthMenu: "_MENU_",
-                //     searchPlaceholder: "Search ..."
-                // },
-                searchDelay: 600,
+                searchDelay: 400,
                 drawCallback: function (setting) {
                     var elem = $('[rel="tooltip"]');
                     elem.tooltip({
                         trigger: 'hover',
                         container: 'main'
-                    });
-
+                    }); 
                 },
                 order: typeof param.order === 'undefined' ? [
                     [0, "desc"]
@@ -138,17 +105,16 @@
 
             $(tableIdOrClass + ' tbody').on("dblclick", "tr", function () {
                 var data = dt.row(this).data();
-                //console.log(data);
                 var id = data["Id"];
                 if (param.route) {
-                    (param.customRoute) ? param.route(data): param.route(id);
+                    (param.customRoute) ? param.route(data) : param.route(id);
                 }
             });
 
             $('.dataTables_filter input[type=search]').val('').change();
 
             return dt;
-        }
+        };
 
         return self;
     }
