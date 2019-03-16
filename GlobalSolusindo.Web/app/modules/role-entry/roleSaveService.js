@@ -20,7 +20,6 @@
         var controller;
 
         self.create = function (model) {
-            console.log(model);
             http.post('role', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
@@ -28,10 +27,9 @@
                     ui.alert.error(res.message);
                 }
             });
-        }
+        };
 
         self.update = function (model) {
-            console.log(model);
             http.put('role', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
@@ -39,15 +37,15 @@
                     ui.alert.error(res.message);
                 }
             });
-        }
+        };
 
         self.save = function (model) {
-            if (model.role_pk == 0) {
+            if (model.role_pk === 0) {
                 return self.create(model);
             } else {
                 return self.update(model);
             }
-        }
+        };
 
         self.init = function (ctrl) {
             controller = ctrl;
