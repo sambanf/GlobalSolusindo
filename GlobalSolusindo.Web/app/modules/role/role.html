@@ -4,20 +4,25 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-title">List Role</div>
-                    <div class="col-md-12">
-                        <button class="btn btn-success" ui-sref="app.role-entry({ id: '0'})">Tambah Role</button>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <button class="btn btn-success" ui-sref="app.role-entry({ id: '0'})">Tambah Role</button>
+                            <button id="deleteButton" class="btn btn-danger">Delete Selected</button>
+                        </div> 
                     </div>
-                    <div class="col-md-12">
-                        <table id="role">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                        </table>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="role">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Title</th>
+                                        <th>Description</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

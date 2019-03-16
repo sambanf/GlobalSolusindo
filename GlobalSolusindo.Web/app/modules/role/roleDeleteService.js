@@ -19,8 +19,8 @@
         var self = this;
         var controller;
 
-        self.delete = function (data) {
-            return http.delete('role', data).then(function (response) {
+        function deleteRecords(ids) {
+            return http.delete('role', ids).then(function (response) {
                 var res = response;
                 if (res.success) {
                     controller.datatable.draw();
@@ -29,15 +29,54 @@
                     ui.alert.error(res.message);
                 }
             });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.role_pk];
+            ui.alert.confirm("Are you sure want to delete role '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
         };
 
-        self.init = function(ctrl){
-            controller = ctrl; 
-            $('#role tbody').on( 'click', '#delete', function () {
-                var data = controller.datatable.row($(this).parents('tr')).data();
-                self.delete([data.role_pk]);
-            } );
-        }
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].role_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#role tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
 
         return self;
     }
