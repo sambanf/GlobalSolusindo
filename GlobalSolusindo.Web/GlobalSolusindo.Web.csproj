@@ -134,13 +134,14 @@
     <Content Include="app\modules\role-entry\roleBindingService.js" />
     <Content Include="app\modules\role-entry\roleEntryCtrl.js" />
     <Content Include="app\modules\role-entry\roleEntryRoute.js" />
-    <Content Include="app\modules\role-entry\roleSaveService.js" />
+    <Content Include="app\modules\role-entry\roleEntrySaveService.js" />
     <Content Include="app\modules\role\role.html" />
     <Content Include="app\modules\role\roleCtrl.js" />
     <Content Include="app\modules\role\roleDeleteService.js" />
     <Content Include="app\modules\role\roleDtService.js" />
     <Content Include="app\modules\role\roleRoute.js" />
     <Content Include="app\modules\role\roleViewService.js" />
+    <Content Include="app\modules\service\validationService.js" />
     <Content Include="app\modules\service\datatableService.js" />
     <Content Include="app\modules\service\Directive\autoNumericDirective.js" />
     <Content Include="app\modules\service\Directive\datetimePickerDirective.js" />

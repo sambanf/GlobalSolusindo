@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('RoleSaveService', RoleEntry);
 
-    RoleEntry.$inject = ['HttpService', 'uiService'];
+    RoleEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function RoleEntry(http, ui) {
+    function RoleEntry($state, http, ui, validation) {
         var self = this;
         var controller;
 
@@ -23,8 +23,10 @@
             http.post('role', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    $state.go('app.role-entry', { id: res.data.model.role_pk });
                 } else {
                     ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -33,8 +35,10 @@
             http.put('role', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    //$state.go('app.role-entry', { id: res.data.model.role_pk });
                 } else {
                     ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
                 }
             });
         };

@@ -461,11 +461,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .controller('RoleEntryCtrl', RoleEntry);
+        .controller('RoleEntryCtrl', RoleEntryCtrl);
 
-    RoleEntry.$inject = ['$scope', '$stateParams', '$state', 'RoleSaveService', 'RoleBindingService', 'FormControlService'];
+    RoleEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'RoleSaveService', 'RoleBindingService', 'FormControlService'];
 
-    function RoleEntry($scope, sParam, $state, saveService, bindingService, formControlService) {
+    function RoleEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
         var self = this;
         self.stateParam = sParam;
 
@@ -575,17 +575,17 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('RoleBindingService', RoleEntry);
+        .factory('RoleBindingService', RoleBindingService);
 
-    RoleEntry.$inject = ['HttpService', '$state'];
+    RoleBindingService.$inject = ['HttpService', '$state'];
 
-    function RoleEntry(http, $state) {
+    function RoleBindingService(http, $state) {
         var self = this;
         var controller = {};
 
         self.applyBinding = function (id) {
             return http.get('role/form/' + id);
-        }
+        };
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -596,8 +596,8 @@ angular.module('global-solusindo')
                     controller.formControls = res.data.formControls;
                     resolve(res);
                 });
-            }); 
-        }
+            });
+        };
 
         return self;
     }
@@ -618,41 +618,41 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('RoleSaveService', RoleEntry);
 
-    RoleEntry.$inject = ['HttpService', 'uiService'];
+    RoleEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function RoleEntry(http, ui) {
+    function RoleEntry($state, http, ui, validation) {
         var self = this;
         var controller;
 
         self.create = function (model) {
-            console.log(model);
             http.post('role', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
                 } else {
                     ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
                 }
             });
-        }
+        };
 
         self.update = function (model) {
-            console.log(model);
             http.put('role', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
                 } else {
                     ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
                 }
             });
-        }
+        };
 
         self.save = function (model) {
-            if (model.role_pk == 0) {
+            if (model.role_pk === 0) {
                 return self.create(model);
             } else {
                 return self.update(model);
             }
-        }
+        };
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -1060,8 +1060,13 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
-        var base_url = "http://ws.gs.local/";
+        var base_url = "http://global-solusindo-ws.local/";
         var base_host = "";
+        console.log(base_url);
+        var auth = {};
+        auth.getAccessToken = function () {
+            return '';
+        };
 
         delete $http.defaults.headers.common['X-Requested-With'];
         return {
@@ -1090,8 +1095,7 @@ angular.module('global-solusindo')
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
-                }, function (response) {
-                    //console.log(response.xhrStatus);
+                }, function (response) { 
                     PendingRequest.remove(url);
                     deferred.reject(response.data);
                 });
@@ -1100,10 +1104,7 @@ angular.module('global-solusindo')
             },
             post: function (_url, requestData) {
                 var deferred = $q.defer();
-                var url = base_url + _url;
-                //console.log("masuk");
-                //console.log(url);
-                //console.log(requestData);
+                var url = base_url + _url; 
 
                 var data = JSON.stringify(requestData);
 
@@ -1171,7 +1172,7 @@ angular.module('global-solusindo')
                     PendingRequest.remove(url);
                     deferred.reject();
 
-                    auth.isAuth(response.status);
+                   // auth.isAuth(response.status);
                 });
 
                 return deferred.promise;
@@ -1315,6 +1316,68 @@ angular.module('global-solusindo')
                     onok: accept,
                     oncancel: cancel
                 }).show(true, 'confirm');
+            }
+        }
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:kairosService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('validationService', validationService);
+
+    validationService.$inject = [];
+
+    function validationService() {
+        var self = this;
+
+        self.serverValidation = function (obj) {
+            var controls = document.querySelectorAll('[name]');
+
+            var errors = obj;
+            var tableErrors = obj.TableErrors;
+            errors = (typeof (errors) == 'undefined' ? obj : errors);
+            var validClass = "form-control is-valid";
+            var invalidClass = "form-control is-invalid";
+            controls.forEach(function (item) {
+                item.className = item.className.replace(validClass, "");
+                item.className = item.className.replace(invalidClass, "");
+                item.className += " " + validClass;
+            });
+
+            console.log(controls);
+            if (errors) {
+                for (var i = 0; i < errors.length; i++) {
+                    var error = errors[i];
+                    controls.forEach(function (item) {
+                        console.log(item);
+                        //$scope.$apply(function () {
+                        var fieldName = item.name;
+
+                            if (error.propertyName.toLowerCase() == fieldName.toLowerCase()) {
+                                item.className = item.className.replace(validClass, invalidClass);
+
+                                var childNodes = item.parentElement.childNodes;
+                                childNodes.forEach(function (item) {
+                                    if (item.className == 'invalid-feedback') {
+                                        item.innerHTML = error.message;
+                                    }
+                                });
+                            }
+                        //});
+                    });
+                }
             }
         }
 

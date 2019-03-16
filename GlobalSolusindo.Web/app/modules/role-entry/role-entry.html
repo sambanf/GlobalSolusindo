@@ -8,14 +8,15 @@
                         <div class="row form-group">
                             <label class="control-label col-sm-2">Role Name :</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="title" ng-model="vm.model.title"
+                                <input type="text" class="form-control" id="title" ng-model="vm.model.title" name="title"
                                     placeholder="Role Name">
+                                <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="row form-group">
                             <label class="control-label col-sm-2">Description :</label>
                             <div class="col-sm-10">
-                                <textarea class="form-control" ng-model="vm.model.description" placeholder="Description">
+                                <textarea class="form-control" ng-model="vm.model.description" name="description" placeholder="Description">
                                         </textarea>
                             </div>
                         </div>
