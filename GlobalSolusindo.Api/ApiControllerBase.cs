@@ -16,13 +16,7 @@ namespace GlobalSolusindo.Api
     public class ApiControllerBase : ApiController
     {
         private const bool requireAccessControl = false;
-
-        public ApiControllerBase()
-        {
-            //ActiveUser = ActiveUserProvider.Get(RequestHeaderQuery.GetToken(this.Request));
-            //Db = GlobalSolusindoDbProvider.GetInstance();
-        }
-
+ 
         public tblM_User ActiveUser
         {
             get

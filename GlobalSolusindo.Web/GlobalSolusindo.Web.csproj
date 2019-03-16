@@ -130,6 +130,17 @@
     <Content Include="app\modules\login\login.html" />
     <Content Include="app\modules\login\loginCtrl.js" />
     <Content Include="app\modules\login\loginRoute.js" />
+    <Content Include="app\modules\roleGroupEntry\roleGroupEntry.html" />
+    <Content Include="app\modules\roleGroupEntry\roleBindingService.js" />
+    <Content Include="app\modules\roleGroupEntry\roleEntryCtrl.js" />
+    <Content Include="app\modules\roleGroupEntry\roleEntryRoute.js" />
+    <Content Include="app\modules\roleGroupEntry\roleSaveService.js" />
+    <Content Include="app\modules\roleGroup\roleGroup.html" />
+    <Content Include="app\modules\roleGroup\roleGroupCtrl.js" />
+    <Content Include="app\modules\roleGroup\roleGroupDeleteService.js" />
+    <Content Include="app\modules\roleGroup\roleGroupDtService.js" />
+    <Content Include="app\modules\roleGroup\roleGroupRoute.js" />
+    <Content Include="app\modules\roleGroup\roleGroupViewService.js" />
     <Content Include="app\modules\role-entry\role-entry.html" />
     <Content Include="app\modules\role-entry\roleBindingService.js" />
     <Content Include="app\modules\role-entry\roleEntryCtrl.js" />

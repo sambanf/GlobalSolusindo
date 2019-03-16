@@ -53,6 +53,21 @@
   <ItemGroup>
     <Compile Include="AccessControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleGroup\DML\RoleGroupCreateHandler.cs" />
+    <Compile Include="RoleGroup\DML\RoleGroupDeleteHandler.cs" />
+    <Compile Include="RoleGroup\DML\RoleGroupUpdateHandler.cs" />
+    <Compile Include="RoleGroup\EntryForm\RoleGroupEntryControlBuilder.cs" />
+    <Compile Include="RoleGroup\EntryForm\RoleGroupEntryDataProvider.cs" />
+    <Compile Include="RoleGroup\EntryForm\RoleGroupEntryFormData.cs" />
+    <Compile Include="RoleGroup\EntryForm\RoleGroupEntryModel.cs" />
+    <Compile Include="RoleGroup\ListForm\RoleGroupListDataProvider.cs" />
+    <Compile Include="RoleGroup\ListForm\RoleGroupListFormData.cs" />
+    <Compile Include="RoleGroup\ListForm\RoleGroupListModel.cs" />
+    <Compile Include="RoleGroup\Queries\RoleGroupQuery.cs" />
+    <Compile Include="RoleGroup\Queries\RoleGroupSearch.cs" />
+    <Compile Include="RoleGroup\RoleGroupDTO.cs" />
+    <Compile Include="RoleGroup\RoleGroupFactory.cs" />
+    <Compile Include="RoleGroup\RoleGroupValidator.cs" />
     <Compile Include="Role\DML\RoleCreateHandler.cs" />
     <Compile Include="Role\DML\RoleDeleteHandler.cs" />
     <Compile Include="Role\DML\RoleUpdateHandler.cs" />

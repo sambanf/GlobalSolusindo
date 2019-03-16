@@ -46,7 +46,7 @@
                         "icon": "fas fa-chart-line"
                     },{
                         "title": "role group",
-                        "path": "homepage",
+                        "path": "app.roleGroup",
                         "icon": "fas fa-chart-line"
                     }, 
                     {
