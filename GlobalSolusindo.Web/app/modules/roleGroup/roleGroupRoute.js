@@ -10,7 +10,7 @@ angular.module('global-solusindo')
                 controller: 'RoleGroupCtrl',
                 controllerAs: 'brc',
                 ncyBreadcrumb: {
-                    label: 'RoleGroup'
+                    label: 'Role Group'
                 }
             });
     }]);

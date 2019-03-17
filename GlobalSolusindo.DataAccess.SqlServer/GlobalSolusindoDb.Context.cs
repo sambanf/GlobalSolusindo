@@ -24,6 +24,7 @@ namespace GlobalSolusindo.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tblM_Area> tblM_Area { get; set; }
         public virtual DbSet<tblM_Aset> tblM_Aset { get; set; }
         public virtual DbSet<tblM_AsetKategori> tblM_AsetKategori { get; set; }

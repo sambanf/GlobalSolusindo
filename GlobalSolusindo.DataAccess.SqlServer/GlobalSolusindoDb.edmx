@@ -4,7 +4,17 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GlobalSolusindoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GlobalSolusindoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="tblM_Area">
           <Key>
             <PropertyRef Name="Area_PK" />
@@ -289,6 +299,7 @@
           </Key>
           <Property Name="User_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserDetail_FK" Type="int" Nullable="false" />
+          <Property Name="RoleGroup_FK" Type="int" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -678,6 +689,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="GlobalSolusindoModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Area" EntityType="Self.tblM_Area" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Aset" EntityType="Self.tblM_Aset" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_AsetKategori" EntityType="Self.tblM_AsetKategori" Schema="dbo" store:Type="Tables" />
@@ -783,20 +795,136 @@
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GlobalSolusindoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="GlobalSolusindoDb" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="GlobalSolusindoModel.sysdiagram" />
+          <EntitySet Name="tblM_Area" EntityType="GlobalSolusindoModel.tblM_Area" />
+          <EntitySet Name="tblM_Aset" EntityType="GlobalSolusindoModel.tblM_Aset" />
+          <EntitySet Name="tblM_AsetKategori" EntityType="GlobalSolusindoModel.tblM_AsetKategori" />
+          <EntitySet Name="tblM_AuthParam" EntityType="GlobalSolusindoModel.tblM_AuthParam" />
+          <EntitySet Name="tblM_BTS" EntityType="GlobalSolusindoModel.tblM_BTS" />
+          <EntitySet Name="tblM_BTSStatus" EntityType="GlobalSolusindoModel.tblM_BTSStatus" />
+          <EntitySet Name="tblM_Cabang" EntityType="GlobalSolusindoModel.tblM_Cabang" />
+          <EntitySet Name="tblM_CostKategori" EntityType="GlobalSolusindoModel.tblM_CostKategori" />
+          <EntitySet Name="tblM_DeliveryArea" EntityType="GlobalSolusindoModel.tblM_DeliveryArea" />
+          <EntitySet Name="tblM_IzinCutiStatus" EntityType="GlobalSolusindoModel.tblM_IzinCutiStatus" />
+          <EntitySet Name="tblM_KategoriJabatan" EntityType="GlobalSolusindoModel.tblM_KategoriJabatan" />
+          <EntitySet Name="tblM_Kota" EntityType="GlobalSolusindoModel.tblM_Kota" />
+          <EntitySet Name="tblM_MappingRoleToRoleGroup" EntityType="GlobalSolusindoModel.tblM_MappingRoleToRoleGroup" />
+          <EntitySet Name="tblM_MappingUserToAuthParam" EntityType="GlobalSolusindoModel.tblM_MappingUserToAuthParam" />
+          <EntitySet Name="tblM_MappingUserToRoleGroup" EntityType="GlobalSolusindoModel.tblM_MappingUserToRoleGroup" />
+          <EntitySet Name="tblM_Operator" EntityType="GlobalSolusindoModel.tblM_Operator" />
+          <EntitySet Name="tblM_PMHistori" EntityType="GlobalSolusindoModel.tblM_PMHistori" />
+          <EntitySet Name="tblM_Project" EntityType="GlobalSolusindoModel.tblM_Project" />
+          <EntitySet Name="tblM_Role" EntityType="GlobalSolusindoModel.tblM_Role" />
+          <EntitySet Name="tblM_RoleGroup" EntityType="GlobalSolusindoModel.tblM_RoleGroup" />
+          <EntitySet Name="tblM_Status" EntityType="GlobalSolusindoModel.tblM_Status" />
+          <EntitySet Name="tblM_User" EntityType="GlobalSolusindoModel.tblM_User" />
+          <EntitySet Name="tblM_UserDetail" EntityType="GlobalSolusindoModel.tblM_UserDetail" />
+          <EntitySet Name="tblT_AsetHistori" EntityType="GlobalSolusindoModel.tblT_AsetHistori" />
+          <EntitySet Name="tblT_CheckIn" EntityType="GlobalSolusindoModel.tblT_CheckIn" />
+          <EntitySet Name="tblT_Cost" EntityType="GlobalSolusindoModel.tblT_Cost" />
+          <EntitySet Name="tblT_IzinCuti" EntityType="GlobalSolusindoModel.tblT_IzinCuti" />
+          <EntitySet Name="tblT_SOW" EntityType="GlobalSolusindoModel.tblT_SOW" />
+          <EntitySet Name="tblT_SOWAssign" EntityType="GlobalSolusindoModel.tblT_SOWAssign" />
+          <EntitySet Name="tblT_SOWTrack" EntityType="GlobalSolusindoModel.tblT_SOWTrack" />
+          <EntitySet Name="tblT_UserHistori" EntityType="GlobalSolusindoModel.tblT_UserHistori" />
+          <EntitySet Name="tblT_UserPayroll" EntityType="GlobalSolusindoModel.tblT_UserPayroll" />
+          <AssociationSet Name="FK_tblM_Aset_KategoriAset_FK" Association="GlobalSolusindoModel.FK_tblM_Aset_KategoriAset_FK">
+            <End Role="tblM_AsetKategori" EntitySet="tblM_AsetKategori" />
+            <End Role="tblM_Aset" EntitySet="tblM_Aset" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_Aset_Status_FK" Association="GlobalSolusindoModel.FK_tblM_Aset_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_Aset" EntitySet="tblM_Aset" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_AsetHistori_Aset_FK" Association="GlobalSolusindoModel.FK_tblM_AsetHistori_Aset_FK">
+            <End Role="tblM_Aset" EntitySet="tblM_Aset" />
+            <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_KategoriAset_Status_FK" Association="GlobalSolusindoModel.FK_tblM_KategoriAset_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_AsetKategori" EntitySet="tblM_AsetKategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_AuthParam_Status_FK" Association="GlobalSolusindoModel.FK_tblM_AuthParam_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_AuthParam" EntitySet="tblM_AuthParam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_Cabang_Status_FK" Association="GlobalSolusindoModel.FK_tblM_Cabang_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_Cabang" EntitySet="tblM_Cabang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_Kota_Status_FK" Association="GlobalSolusindoModel.FK_tblM_Kota_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_Kota" EntitySet="tblM_Kota" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_MappingRoleToRoleGroup_Status_FK" Association="GlobalSolusindoModel.FK_tblM_MappingRoleToRoleGroup_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_MappingRoleToRoleGroup" EntitySet="tblM_MappingRoleToRoleGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_MappingUserToAuthParam_Status_FK" Association="GlobalSolusindoModel.FK_tblM_MappingUserToAuthParam_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_MappingUserToAuthParam" EntitySet="tblM_MappingUserToAuthParam" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_MappingUserToRoleGroup_Status_FK" Association="GlobalSolusindoModel.FK_tblM_MappingUserToRoleGroup_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_MappingUserToRoleGroup" EntitySet="tblM_MappingUserToRoleGroup" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_Role_Status_FK" Association="GlobalSolusindoModel.FK_tblM_Role_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_Role" EntitySet="tblM_Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_AsetHistori_Status_FK" Association="GlobalSolusindoModel.FK_tblM_AsetHistori_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_User_Status_FK" Association="GlobalSolusindoModel.FK_tblM_User_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_User" EntitySet="tblM_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_UserDetail_Status_FK" Association="GlobalSolusindoModel.FK_tblM_UserDetail_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_UserHistori_Status_FK" Association="GlobalSolusindoModel.FK_tblM_UserHistori_Status_FK">
+            <End Role="tblM_Status" EntitySet="tblM_Status" />
+            <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_User_UserDetail_FK" Association="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK">
+            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
+            <End Role="tblM_User" EntitySet="tblM_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_AsetHistori_UserDetail_FK" Association="GlobalSolusindoModel.FK_tblM_AsetHistori_UserDetail_FK">
+            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
+            <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblM_UserHistori_UserDetail_FK" Association="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK">
+            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
+            <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
         <EntityType Name="tblM_Area">
           <Key>
             <PropertyRef Name="Area_PK" />
           </Key>
           <Property Name="Area_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -806,56 +934,56 @@
           </Key>
           <Property Name="Aset_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KategoriAset_FK" Type="Int32" Nullable="false" />
-          <Property Name="AsetID" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AsetID" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_AsetKategori" Relationship="Self.FK_tblM_Aset_KategoriAset_FK" FromRole="tblM_Aset" ToRole="tblM_AsetKategori" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_Aset_Status_FK" FromRole="tblM_Aset" ToRole="tblM_Status" />
-          <NavigationProperty Name="tblT_AsetHistori" Relationship="Self.FK_tblM_AsetHistori_Aset_FK" FromRole="tblM_Aset" ToRole="tblT_AsetHistori" />
+          <NavigationProperty Name="tblM_AsetKategori" Relationship="GlobalSolusindoModel.FK_tblM_Aset_KategoriAset_FK" FromRole="tblM_Aset" ToRole="tblM_AsetKategori" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_Aset_Status_FK" FromRole="tblM_Aset" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblT_AsetHistori" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_Aset_FK" FromRole="tblM_Aset" ToRole="tblT_AsetHistori" />
         </EntityType>
         <EntityType Name="tblM_AsetKategori">
           <Key>
             <PropertyRef Name="AsetKategori_PK" />
           </Key>
           <Property Name="AsetKategori_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Aset" Relationship="Self.FK_tblM_Aset_KategoriAset_FK" FromRole="tblM_AsetKategori" ToRole="tblM_Aset" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_KategoriAset_Status_FK" FromRole="tblM_AsetKategori" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_Aset" Relationship="GlobalSolusindoModel.FK_tblM_Aset_KategoriAset_FK" FromRole="tblM_AsetKategori" ToRole="tblM_Aset" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_KategoriAset_Status_FK" FromRole="tblM_AsetKategori" ToRole="tblM_Status" />
         </EntityType>
         <EntityType Name="tblM_AuthParam">
           <Key>
             <PropertyRef Name="AuthParam_PK" />
           </Key>
           <Property Name="AuthParam_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_AuthParam_Status_FK" FromRole="tblM_AuthParam" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_AuthParam_Status_FK" FromRole="tblM_AuthParam" ToRole="tblM_Status" />
         </EntityType>
         <EntityType Name="tblM_BTS">
           <Key>
             <PropertyRef Name="BTS_PK" />
           </Key>
           <Property Name="BTS_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerSite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TowerID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CellID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CustomerSite" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TowerID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CellID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Operator_FK" Type="Int32" Nullable="false" />
           <Property Name="StatusBTS_FK" Type="Int32" />
           <Property Name="Longitude" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -863,10 +991,10 @@
           <Property Name="Area_FK" Type="Int32" Nullable="false" />
           <Property Name="Kota_FK" Type="Int32" Nullable="false" />
           <Property Name="Cabang_FK" Type="Int32" Nullable="false" />
-          <Property Name="Alamat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Alamat" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -875,10 +1003,10 @@
             <PropertyRef Name="BTSStatus_PK" />
           </Key>
           <Property Name="BTSStatus_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -887,24 +1015,24 @@
             <PropertyRef Name="Cabang_PK" />
           </Key>
           <Property Name="Cabang_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_Cabang_Status_FK" FromRole="tblM_Cabang" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_Cabang_Status_FK" FromRole="tblM_Cabang" ToRole="tblM_Status" />
         </EntityType>
         <EntityType Name="tblM_CostKategori">
           <Key>
             <PropertyRef Name="CostKategori_PK" />
           </Key>
           <Property Name="CostKategori_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -913,10 +1041,10 @@
             <PropertyRef Name="DeliveryArea_PK" />
           </Key>
           <Property Name="DeliveryArea_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -925,10 +1053,10 @@
             <PropertyRef Name="IzinCutiStatus_PK" />
           </Key>
           <Property Name="IzinCutiStatus_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -937,10 +1065,10 @@
             <PropertyRef Name="KategoriJabatan_PK" />
           </Key>
           <Property Name="KategoriJabatan_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -949,13 +1077,13 @@
             <PropertyRef Name="Kota_PK" />
           </Key>
           <Property Name="Kota_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_Kota_Status_FK" FromRole="tblM_Kota" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_Kota_Status_FK" FromRole="tblM_Kota" ToRole="tblM_Status" />
         </EntityType>
         <EntityType Name="tblM_MappingRoleToRoleGroup">
           <Key>
@@ -964,12 +1092,12 @@
           </Key>
           <Property Name="Role_PK" Type="Int32" Nullable="false" />
           <Property Name="RoleGroup_PK" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_MappingRoleToRoleGroup_Status_FK" FromRole="tblM_MappingRoleToRoleGroup" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_MappingRoleToRoleGroup_Status_FK" FromRole="tblM_MappingRoleToRoleGroup" ToRole="tblM_Status" />
         </EntityType>
         <EntityType Name="tblM_MappingUserToAuthParam">
           <Key>
@@ -978,12 +1106,12 @@
           </Key>
           <Property Name="User_PK" Type="Int32" Nullable="false" />
           <Property Name="AuthParam_PK" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_MappingUserToAuthParam_Status_FK" FromRole="tblM_MappingUserToAuthParam" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_MappingUserToAuthParam_Status_FK" FromRole="tblM_MappingUserToAuthParam" ToRole="tblM_Status" />
         </EntityType>
         <EntityType Name="tblM_MappingUserToRoleGroup">
           <Key>
@@ -992,22 +1120,22 @@
           </Key>
           <Property Name="User_PK" Type="Int32" Nullable="false" />
           <Property Name="RoleGroup_PK" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_MappingUserToRoleGroup_Status_FK" FromRole="tblM_MappingUserToRoleGroup" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_MappingUserToRoleGroup_Status_FK" FromRole="tblM_MappingUserToRoleGroup" ToRole="tblM_Status" />
         </EntityType>
         <EntityType Name="tblM_Operator">
           <Key>
             <PropertyRef Name="Operator_PK" />
           </Key>
           <Property Name="Operator_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1020,9 +1148,9 @@
           <Property Name="Project_FK" Type="Int32" />
           <Property Name="TglMulai" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1034,9 +1162,9 @@
           <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Operator_FK" Type="Int32" />
           <Property Name="DeliveryArea_FK" Type="Int32" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1045,25 +1173,25 @@
             <PropertyRef Name="Role_PK" />
           </Key>
           <Property Name="Role_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_Role_Status_FK" FromRole="tblM_Role" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_Role_Status_FK" FromRole="tblM_Role" ToRole="tblM_Status" />
         </EntityType>
         <EntityType Name="tblM_RoleGroup">
           <Key>
             <PropertyRef Name="RoleGroup_PK" />
           </Key>
           <Property Name="RoleGroup_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1072,24 +1200,24 @@
             <PropertyRef Name="Status_PK" />
           </Key>
           <Property Name="Status_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="tblM_Aset" Relationship="Self.FK_tblM_Aset_Status_FK" FromRole="tblM_Status" ToRole="tblM_Aset" />
-          <NavigationProperty Name="tblM_AsetKategori" Relationship="Self.FK_tblM_KategoriAset_Status_FK" FromRole="tblM_Status" ToRole="tblM_AsetKategori" />
-          <NavigationProperty Name="tblM_AuthParam" Relationship="Self.FK_tblM_AuthParam_Status_FK" FromRole="tblM_Status" ToRole="tblM_AuthParam" />
-          <NavigationProperty Name="tblM_Cabang" Relationship="Self.FK_tblM_Cabang_Status_FK" FromRole="tblM_Status" ToRole="tblM_Cabang" />
-          <NavigationProperty Name="tblM_Kota" Relationship="Self.FK_tblM_Kota_Status_FK" FromRole="tblM_Status" ToRole="tblM_Kota" />
-          <NavigationProperty Name="tblM_MappingRoleToRoleGroup" Relationship="Self.FK_tblM_MappingRoleToRoleGroup_Status_FK" FromRole="tblM_Status" ToRole="tblM_MappingRoleToRoleGroup" />
-          <NavigationProperty Name="tblM_MappingUserToAuthParam" Relationship="Self.FK_tblM_MappingUserToAuthParam_Status_FK" FromRole="tblM_Status" ToRole="tblM_MappingUserToAuthParam" />
-          <NavigationProperty Name="tblM_MappingUserToRoleGroup" Relationship="Self.FK_tblM_MappingUserToRoleGroup_Status_FK" FromRole="tblM_Status" ToRole="tblM_MappingUserToRoleGroup" />
-          <NavigationProperty Name="tblM_Role" Relationship="Self.FK_tblM_Role_Status_FK" FromRole="tblM_Status" ToRole="tblM_Role" />
-          <NavigationProperty Name="tblT_AsetHistori" Relationship="Self.FK_tblM_AsetHistori_Status_FK" FromRole="tblM_Status" ToRole="tblT_AsetHistori" />
-          <NavigationProperty Name="tblM_User" Relationship="Self.FK_tblM_User_Status_FK" FromRole="tblM_Status" ToRole="tblM_User" />
-          <NavigationProperty Name="tblM_UserDetail" Relationship="Self.FK_tblM_UserDetail_Status_FK" FromRole="tblM_Status" ToRole="tblM_UserDetail" />
-          <NavigationProperty Name="tblT_UserHistori" Relationship="Self.FK_tblM_UserHistori_Status_FK" FromRole="tblM_Status" ToRole="tblT_UserHistori" />
+          <NavigationProperty Name="tblM_Aset" Relationship="GlobalSolusindoModel.FK_tblM_Aset_Status_FK" FromRole="tblM_Status" ToRole="tblM_Aset" />
+          <NavigationProperty Name="tblM_AsetKategori" Relationship="GlobalSolusindoModel.FK_tblM_KategoriAset_Status_FK" FromRole="tblM_Status" ToRole="tblM_AsetKategori" />
+          <NavigationProperty Name="tblM_AuthParam" Relationship="GlobalSolusindoModel.FK_tblM_AuthParam_Status_FK" FromRole="tblM_Status" ToRole="tblM_AuthParam" />
+          <NavigationProperty Name="tblM_Cabang" Relationship="GlobalSolusindoModel.FK_tblM_Cabang_Status_FK" FromRole="tblM_Status" ToRole="tblM_Cabang" />
+          <NavigationProperty Name="tblM_Kota" Relationship="GlobalSolusindoModel.FK_tblM_Kota_Status_FK" FromRole="tblM_Status" ToRole="tblM_Kota" />
+          <NavigationProperty Name="tblM_MappingRoleToRoleGroup" Relationship="GlobalSolusindoModel.FK_tblM_MappingRoleToRoleGroup_Status_FK" FromRole="tblM_Status" ToRole="tblM_MappingRoleToRoleGroup" />
+          <NavigationProperty Name="tblM_MappingUserToAuthParam" Relationship="GlobalSolusindoModel.FK_tblM_MappingUserToAuthParam_Status_FK" FromRole="tblM_Status" ToRole="tblM_MappingUserToAuthParam" />
+          <NavigationProperty Name="tblM_MappingUserToRoleGroup" Relationship="GlobalSolusindoModel.FK_tblM_MappingUserToRoleGroup_Status_FK" FromRole="tblM_Status" ToRole="tblM_MappingUserToRoleGroup" />
+          <NavigationProperty Name="tblM_Role" Relationship="GlobalSolusindoModel.FK_tblM_Role_Status_FK" FromRole="tblM_Status" ToRole="tblM_Role" />
+          <NavigationProperty Name="tblT_AsetHistori" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_Status_FK" FromRole="tblM_Status" ToRole="tblT_AsetHistori" />
+          <NavigationProperty Name="tblM_User" Relationship="GlobalSolusindoModel.FK_tblM_User_Status_FK" FromRole="tblM_Status" ToRole="tblM_User" />
+          <NavigationProperty Name="tblM_UserDetail" Relationship="GlobalSolusindoModel.FK_tblM_UserDetail_Status_FK" FromRole="tblM_Status" ToRole="tblM_UserDetail" />
+          <NavigationProperty Name="tblT_UserHistori" Relationship="GlobalSolusindoModel.FK_tblM_UserHistori_Status_FK" FromRole="tblM_Status" ToRole="tblT_UserHistori" />
         </EntityType>
         <EntityType Name="tblM_User">
           <Key>
@@ -1097,39 +1225,40 @@
           </Key>
           <Property Name="User_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserDetail_FK" Type="Int32" Nullable="false" />
-          <Property Name="Username" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleGroup_FK" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_User_Status_FK" FromRole="tblM_User" ToRole="tblM_Status" />
-          <NavigationProperty Name="tblM_UserDetail" Relationship="Self.FK_tblM_User_UserDetail_FK" FromRole="tblM_User" ToRole="tblM_UserDetail" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_User_Status_FK" FromRole="tblM_User" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_UserDetail" Relationship="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" FromRole="tblM_User" ToRole="tblM_UserDetail" />
         </EntityType>
         <EntityType Name="tblM_UserDetail">
           <Key>
             <PropertyRef Name="UserDetail_PK" />
           </Key>
           <Property Name="UserDetail_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="TglLahir" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="NoKTP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="NoHP" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="NoKTP" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NoHP" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_UserDetail_Status_FK" FromRole="tblM_UserDetail" ToRole="tblM_Status" />
-          <NavigationProperty Name="tblM_User" Relationship="Self.FK_tblM_User_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblM_User" />
-          <NavigationProperty Name="tblT_AsetHistori" Relationship="Self.FK_tblM_AsetHistori_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblT_AsetHistori" />
-          <NavigationProperty Name="tblT_UserHistori" Relationship="Self.FK_tblM_UserHistori_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblT_UserHistori" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_UserDetail_Status_FK" FromRole="tblM_UserDetail" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_User" Relationship="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblM_User" />
+          <NavigationProperty Name="tblT_AsetHistori" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblT_AsetHistori" />
+          <NavigationProperty Name="tblT_UserHistori" Relationship="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblT_UserHistori" />
         </EntityType>
         <EntityType Name="tblT_AsetHistori">
           <Key>
@@ -1140,14 +1269,14 @@
           <Property Name="Aset_FK" Type="Int32" Nullable="false" />
           <Property Name="TglMulai" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Aset" Relationship="Self.FK_tblM_AsetHistori_Aset_FK" FromRole="tblT_AsetHistori" ToRole="tblM_Aset" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_AsetHistori_Status_FK" FromRole="tblT_AsetHistori" ToRole="tblM_Status" />
-          <NavigationProperty Name="tblM_UserDetail" Relationship="Self.FK_tblM_AsetHistori_UserDetail_FK" FromRole="tblT_AsetHistori" ToRole="tblM_UserDetail" />
+          <NavigationProperty Name="tblM_Aset" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_Aset_FK" FromRole="tblT_AsetHistori" ToRole="tblM_Aset" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_Status_FK" FromRole="tblT_AsetHistori" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_UserDetail" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_UserDetail_FK" FromRole="tblT_AsetHistori" ToRole="tblM_UserDetail" />
         </EntityType>
         <EntityType Name="tblT_CheckIn">
           <Key>
@@ -1155,18 +1284,18 @@
           </Key>
           <Property Name="CheckIn_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SOWAssign_FK" Type="Int32" Nullable="false" />
-          <Property Name="File" Type="Binary" MaxLength="50" FixedLength="false" Nullable="false" />
+          <Property Name="File" Type="Binary" Nullable="false" MaxLength="50" FixedLength="false" />
           <Property Name="WaktuCheckIn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LongitudeCheckIn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LatitudeCheckIn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CellIDCheckIn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LongitudeCheckIn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LatitudeCheckIn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CellIDCheckIn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="WaktuCheckOut" Type="DateTime" Precision="3" />
-          <Property Name="LongitudeCheckOut" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="LatitudeCheckOut" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CellIDCheckOut" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LongitudeCheckOut" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LatitudeCheckOut" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CellIDCheckOut" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1178,9 +1307,9 @@
           <Property Name="KategoriCost_FK" Type="Int32" />
           <Property Name="SOW_FK" Type="Int32" />
           <Property Name="Tanggal" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1192,13 +1321,13 @@
           <Property Name="User_FK" Type="Int32" Nullable="false" />
           <Property Name="TglMulai" Type="DateTime" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
-          <Property Name="Alasan" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Alasan" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FilePendukung" Type="Binary" MaxLength="50" FixedLength="false" />
           <Property Name="ApprovalUserDetail_FK" Type="Int32" />
           <Property Name="IzinCutiStatus_FK" Type="Int32" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1213,9 +1342,9 @@
           <Property Name="TglMulai" Type="DateTime" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
           <Property Name="StatusSOW_FK" Type="Int32" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1229,9 +1358,9 @@
           <Property Name="KategoriJabatan_FK" Type="Int32" />
           <Property Name="TglMulai" Type="DateTime" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1243,9 +1372,9 @@
           <Property Name="SOW_FK" Type="Int32" />
           <Property Name="Technology_FK" Type="Int32" />
           <Property Name="File" Type="Binary" MaxLength="50" FixedLength="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
@@ -1257,13 +1386,13 @@
           <Property Name="UserDetail_FK" Type="Int32" Nullable="false" />
           <Property Name="TglMulai" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_UserHistori_Status_FK" FromRole="tblT_UserHistori" ToRole="tblM_Status" />
-          <NavigationProperty Name="tblM_UserDetail" Relationship="Self.FK_tblM_UserHistori_UserDetail_FK" FromRole="tblT_UserHistori" ToRole="tblM_UserDetail" />
+          <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_UserHistori_Status_FK" FromRole="tblT_UserHistori" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblM_UserDetail" Relationship="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK" FromRole="tblT_UserHistori" ToRole="tblM_UserDetail" />
         </EntityType>
         <EntityType Name="tblT_UserPayroll">
           <Key>
@@ -1271,18 +1400,18 @@
           </Key>
           <Property Name="UserPayroll_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserDetail_FK" Type="Int32" Nullable="false" />
-          <Property Name="Nominal" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Nominal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="TglMulai" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_tblM_Aset_KategoriAset_FK">
-          <End Role="tblM_AsetKategori" Type="Self.tblM_AsetKategori" Multiplicity="1" />
-          <End Role="tblM_Aset" Type="Self.tblM_Aset" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_AsetKategori" Role="tblM_AsetKategori" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_Aset" Role="tblM_Aset" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_AsetKategori">
               <PropertyRef Name="AsetKategori_PK" />
@@ -1293,8 +1422,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_Aset_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_Aset" Type="Self.tblM_Aset" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_Aset" Role="tblM_Aset" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1305,8 +1434,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_AsetHistori_Aset_FK">
-          <End Role="tblM_Aset" Type="Self.tblM_Aset" Multiplicity="1" />
-          <End Role="tblT_AsetHistori" Type="Self.tblT_AsetHistori" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Aset" Role="tblM_Aset" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblT_AsetHistori" Role="tblT_AsetHistori" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Aset">
               <PropertyRef Name="Aset_PK" />
@@ -1317,8 +1446,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_KategoriAset_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_AsetKategori" Type="Self.tblM_AsetKategori" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_AsetKategori" Role="tblM_AsetKategori" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1329,8 +1458,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_AuthParam_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_AuthParam" Type="Self.tblM_AuthParam" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_AuthParam" Role="tblM_AuthParam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1341,8 +1470,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_Cabang_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_Cabang" Type="Self.tblM_Cabang" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_Cabang" Role="tblM_Cabang" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1353,8 +1482,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_Kota_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_Kota" Type="Self.tblM_Kota" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_Kota" Role="tblM_Kota" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1365,8 +1494,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_MappingRoleToRoleGroup_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_MappingRoleToRoleGroup" Type="Self.tblM_MappingRoleToRoleGroup" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_MappingRoleToRoleGroup" Role="tblM_MappingRoleToRoleGroup" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1377,8 +1506,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_MappingUserToAuthParam_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_MappingUserToAuthParam" Type="Self.tblM_MappingUserToAuthParam" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_MappingUserToAuthParam" Role="tblM_MappingUserToAuthParam" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1389,8 +1518,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_MappingUserToRoleGroup_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_MappingUserToRoleGroup" Type="Self.tblM_MappingUserToRoleGroup" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_MappingUserToRoleGroup" Role="tblM_MappingUserToRoleGroup" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1401,8 +1530,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_Role_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_Role" Type="Self.tblM_Role" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_Role" Role="tblM_Role" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1413,8 +1542,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_AsetHistori_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblT_AsetHistori" Type="Self.tblT_AsetHistori" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblT_AsetHistori" Role="tblT_AsetHistori" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1425,8 +1554,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_User_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_User" Type="Self.tblM_User" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_User" Role="tblM_User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1437,8 +1566,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_UserDetail_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblM_UserDetail" Type="Self.tblM_UserDetail" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_UserDetail" Role="tblM_UserDetail" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1449,8 +1578,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_UserHistori_Status_FK">
-          <End Role="tblM_Status" Type="Self.tblM_Status" Multiplicity="1" />
-          <End Role="tblT_UserHistori" Type="Self.tblT_UserHistori" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_Status" Role="tblM_Status" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblT_UserHistori" Role="tblT_UserHistori" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_Status">
               <PropertyRef Name="Status_PK" />
@@ -1461,8 +1590,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_User_UserDetail_FK">
-          <End Role="tblM_UserDetail" Type="Self.tblM_UserDetail" Multiplicity="1" />
-          <End Role="tblM_User" Type="Self.tblM_User" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_UserDetail" Role="tblM_UserDetail" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblM_User" Role="tblM_User" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_UserDetail">
               <PropertyRef Name="UserDetail_PK" />
@@ -1473,8 +1602,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_AsetHistori_UserDetail_FK">
-          <End Role="tblM_UserDetail" Type="Self.tblM_UserDetail" Multiplicity="1" />
-          <End Role="tblT_AsetHistori" Type="Self.tblT_AsetHistori" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_UserDetail" Role="tblM_UserDetail" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblT_AsetHistori" Role="tblT_AsetHistori" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_UserDetail">
               <PropertyRef Name="UserDetail_PK" />
@@ -1485,8 +1614,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tblM_UserHistori_UserDetail_FK">
-          <End Role="tblM_UserDetail" Type="Self.tblM_UserDetail" Multiplicity="1" />
-          <End Role="tblT_UserHistori" Type="Self.tblT_UserHistori" Multiplicity="*" />
+          <End Type="GlobalSolusindoModel.tblM_UserDetail" Role="tblM_UserDetail" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblT_UserHistori" Role="tblT_UserHistori" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tblM_UserDetail">
               <PropertyRef Name="UserDetail_PK" />
@@ -1496,600 +1625,506 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GlobalSolusindoDb" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblM_Area" EntityType="Self.tblM_Area" />
-          <EntitySet Name="tblM_Aset" EntityType="Self.tblM_Aset" />
-          <EntitySet Name="tblM_AsetKategori" EntityType="Self.tblM_AsetKategori" />
-          <EntitySet Name="tblM_AuthParam" EntityType="Self.tblM_AuthParam" />
-          <EntitySet Name="tblM_BTS" EntityType="Self.tblM_BTS" />
-          <EntitySet Name="tblM_BTSStatus" EntityType="Self.tblM_BTSStatus" />
-          <EntitySet Name="tblM_Cabang" EntityType="Self.tblM_Cabang" />
-          <EntitySet Name="tblM_CostKategori" EntityType="Self.tblM_CostKategori" />
-          <EntitySet Name="tblM_DeliveryArea" EntityType="Self.tblM_DeliveryArea" />
-          <EntitySet Name="tblM_IzinCutiStatus" EntityType="Self.tblM_IzinCutiStatus" />
-          <EntitySet Name="tblM_KategoriJabatan" EntityType="Self.tblM_KategoriJabatan" />
-          <EntitySet Name="tblM_Kota" EntityType="Self.tblM_Kota" />
-          <EntitySet Name="tblM_MappingRoleToRoleGroup" EntityType="Self.tblM_MappingRoleToRoleGroup" />
-          <EntitySet Name="tblM_MappingUserToAuthParam" EntityType="Self.tblM_MappingUserToAuthParam" />
-          <EntitySet Name="tblM_MappingUserToRoleGroup" EntityType="Self.tblM_MappingUserToRoleGroup" />
-          <EntitySet Name="tblM_Operator" EntityType="Self.tblM_Operator" />
-          <EntitySet Name="tblM_PMHistori" EntityType="Self.tblM_PMHistori" />
-          <EntitySet Name="tblM_Project" EntityType="Self.tblM_Project" />
-          <EntitySet Name="tblM_Role" EntityType="Self.tblM_Role" />
-          <EntitySet Name="tblM_RoleGroup" EntityType="Self.tblM_RoleGroup" />
-          <EntitySet Name="tblM_Status" EntityType="Self.tblM_Status" />
-          <EntitySet Name="tblM_User" EntityType="Self.tblM_User" />
-          <EntitySet Name="tblM_UserDetail" EntityType="Self.tblM_UserDetail" />
-          <EntitySet Name="tblT_AsetHistori" EntityType="Self.tblT_AsetHistori" />
-          <EntitySet Name="tblT_CheckIn" EntityType="Self.tblT_CheckIn" />
-          <EntitySet Name="tblT_Cost" EntityType="Self.tblT_Cost" />
-          <EntitySet Name="tblT_IzinCuti" EntityType="Self.tblT_IzinCuti" />
-          <EntitySet Name="tblT_SOW" EntityType="Self.tblT_SOW" />
-          <EntitySet Name="tblT_SOWAssign" EntityType="Self.tblT_SOWAssign" />
-          <EntitySet Name="tblT_SOWTrack" EntityType="Self.tblT_SOWTrack" />
-          <EntitySet Name="tblT_UserHistori" EntityType="Self.tblT_UserHistori" />
-          <EntitySet Name="tblT_UserPayroll" EntityType="Self.tblT_UserPayroll" />
-          <AssociationSet Name="FK_tblM_Aset_KategoriAset_FK" Association="Self.FK_tblM_Aset_KategoriAset_FK">
-            <End Role="tblM_AsetKategori" EntitySet="tblM_AsetKategori" />
-            <End Role="tblM_Aset" EntitySet="tblM_Aset" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_Aset_Status_FK" Association="Self.FK_tblM_Aset_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_Aset" EntitySet="tblM_Aset" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_AsetHistori_Aset_FK" Association="Self.FK_tblM_AsetHistori_Aset_FK">
-            <End Role="tblM_Aset" EntitySet="tblM_Aset" />
-            <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_KategoriAset_Status_FK" Association="Self.FK_tblM_KategoriAset_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_AsetKategori" EntitySet="tblM_AsetKategori" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_AuthParam_Status_FK" Association="Self.FK_tblM_AuthParam_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_AuthParam" EntitySet="tblM_AuthParam" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_Cabang_Status_FK" Association="Self.FK_tblM_Cabang_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_Cabang" EntitySet="tblM_Cabang" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_Kota_Status_FK" Association="Self.FK_tblM_Kota_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_Kota" EntitySet="tblM_Kota" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_MappingRoleToRoleGroup_Status_FK" Association="Self.FK_tblM_MappingRoleToRoleGroup_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_MappingRoleToRoleGroup" EntitySet="tblM_MappingRoleToRoleGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_MappingUserToAuthParam_Status_FK" Association="Self.FK_tblM_MappingUserToAuthParam_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_MappingUserToAuthParam" EntitySet="tblM_MappingUserToAuthParam" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_MappingUserToRoleGroup_Status_FK" Association="Self.FK_tblM_MappingUserToRoleGroup_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_MappingUserToRoleGroup" EntitySet="tblM_MappingUserToRoleGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_Role_Status_FK" Association="Self.FK_tblM_Role_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_Role" EntitySet="tblM_Role" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_AsetHistori_Status_FK" Association="Self.FK_tblM_AsetHistori_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_User_Status_FK" Association="Self.FK_tblM_User_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_User" EntitySet="tblM_User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_UserDetail_Status_FK" Association="Self.FK_tblM_UserDetail_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_UserHistori_Status_FK" Association="Self.FK_tblM_UserHistori_Status_FK">
-            <End Role="tblM_Status" EntitySet="tblM_Status" />
-            <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_User_UserDetail_FK" Association="Self.FK_tblM_User_UserDetail_FK">
-            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
-            <End Role="tblM_User" EntitySet="tblM_User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_AsetHistori_UserDetail_FK" Association="Self.FK_tblM_AsetHistori_UserDetail_FK">
-            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
-            <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_UserHistori_UserDetail_FK" Association="Self.FK_tblM_UserHistori_UserDetail_FK">
-            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
-            <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="GlobalSolusindoModelStoreContainer" CdmEntityContainer="GlobalSolusindoDb">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblM_Area">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Area">
               <MappingFragment StoreEntitySet="tblM_Area">
-                <ScalarProperty Name="Area_PK" ColumnName="Area_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Area_PK" ColumnName="Area_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_Aset">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Aset">
               <MappingFragment StoreEntitySet="tblM_Aset">
-                <ScalarProperty Name="Aset_PK" ColumnName="Aset_PK" />
-                <ScalarProperty Name="KategoriAset_FK" ColumnName="KategoriAset_FK" />
-                <ScalarProperty Name="AsetID" ColumnName="AsetID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="FilePhoto" ColumnName="FilePhoto" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FilePhoto" ColumnName="FilePhoto" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AsetID" ColumnName="AsetID" />
+                <ScalarProperty Name="KategoriAset_FK" ColumnName="KategoriAset_FK" />
+                <ScalarProperty Name="Aset_PK" ColumnName="Aset_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_AsetKategori">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_AsetKategori">
               <MappingFragment StoreEntitySet="tblM_AsetKategori">
-                <ScalarProperty Name="AsetKategori_PK" ColumnName="AsetKategori_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AsetKategori_PK" ColumnName="AsetKategori_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_AuthParam">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_AuthParam">
               <MappingFragment StoreEntitySet="tblM_AuthParam">
-                <ScalarProperty Name="AuthParam_PK" ColumnName="AuthParam_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AuthParam_PK" ColumnName="AuthParam_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_BTS">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_BTS">
               <MappingFragment StoreEntitySet="tblM_BTS">
-                <ScalarProperty Name="BTS_PK" ColumnName="BTS_PK" />
-                <ScalarProperty Name="CustomerSite" ColumnName="CustomerSite" />
-                <ScalarProperty Name="TowerID" ColumnName="TowerID" />
-                <ScalarProperty Name="CellID" ColumnName="CellID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Operator_FK" ColumnName="Operator_FK" />
-                <ScalarProperty Name="StatusBTS_FK" ColumnName="StatusBTS_FK" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Area_FK" ColumnName="Area_FK" />
-                <ScalarProperty Name="Kota_FK" ColumnName="Kota_FK" />
-                <ScalarProperty Name="Cabang_FK" ColumnName="Cabang_FK" />
-                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
+                <ScalarProperty Name="Cabang_FK" ColumnName="Cabang_FK" />
+                <ScalarProperty Name="Kota_FK" ColumnName="Kota_FK" />
+                <ScalarProperty Name="Area_FK" ColumnName="Area_FK" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="StatusBTS_FK" ColumnName="StatusBTS_FK" />
+                <ScalarProperty Name="Operator_FK" ColumnName="Operator_FK" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CellID" ColumnName="CellID" />
+                <ScalarProperty Name="TowerID" ColumnName="TowerID" />
+                <ScalarProperty Name="CustomerSite" ColumnName="CustomerSite" />
+                <ScalarProperty Name="BTS_PK" ColumnName="BTS_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_BTSStatus">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_BTSStatus">
               <MappingFragment StoreEntitySet="tblM_BTSStatus">
-                <ScalarProperty Name="BTSStatus_PK" ColumnName="BTSStatus_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="BTSStatus_PK" ColumnName="BTSStatus_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_Cabang">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Cabang">
               <MappingFragment StoreEntitySet="tblM_Cabang">
-                <ScalarProperty Name="Cabang_PK" ColumnName="Cabang_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Cabang_PK" ColumnName="Cabang_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_CostKategori">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_CostKategori">
               <MappingFragment StoreEntitySet="tblM_CostKategori">
-                <ScalarProperty Name="CostKategori_PK" ColumnName="CostKategori_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CostKategori_PK" ColumnName="CostKategori_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_DeliveryArea">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_DeliveryArea">
               <MappingFragment StoreEntitySet="tblM_DeliveryArea">
-                <ScalarProperty Name="DeliveryArea_PK" ColumnName="DeliveryArea_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="DeliveryArea_PK" ColumnName="DeliveryArea_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_IzinCutiStatus">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_IzinCutiStatus">
               <MappingFragment StoreEntitySet="tblM_IzinCutiStatus">
-                <ScalarProperty Name="IzinCutiStatus_PK" ColumnName="IzinCutiStatus_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IzinCutiStatus_PK" ColumnName="IzinCutiStatus_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_KategoriJabatan">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_KategoriJabatan">
               <MappingFragment StoreEntitySet="tblM_KategoriJabatan">
-                <ScalarProperty Name="KategoriJabatan_PK" ColumnName="KategoriJabatan_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="KategoriJabatan_PK" ColumnName="KategoriJabatan_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_Kota">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Kota">
               <MappingFragment StoreEntitySet="tblM_Kota">
-                <ScalarProperty Name="Kota_PK" ColumnName="Kota_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Kota_PK" ColumnName="Kota_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_MappingRoleToRoleGroup">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_MappingRoleToRoleGroup">
               <MappingFragment StoreEntitySet="tblM_MappingRoleToRoleGroup">
-                <ScalarProperty Name="Role_PK" ColumnName="Role_PK" />
-                <ScalarProperty Name="RoleGroup_PK" ColumnName="RoleGroup_PK" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleGroup_PK" ColumnName="RoleGroup_PK" />
+                <ScalarProperty Name="Role_PK" ColumnName="Role_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_MappingUserToAuthParam">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_MappingUserToAuthParam">
               <MappingFragment StoreEntitySet="tblM_MappingUserToAuthParam">
-                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
-                <ScalarProperty Name="AuthParam_PK" ColumnName="AuthParam_PK" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AuthParam_PK" ColumnName="AuthParam_PK" />
+                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_MappingUserToRoleGroup">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_MappingUserToRoleGroup">
               <MappingFragment StoreEntitySet="tblM_MappingUserToRoleGroup">
-                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
-                <ScalarProperty Name="RoleGroup_PK" ColumnName="RoleGroup_PK" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="RoleGroup_PK" ColumnName="RoleGroup_PK" />
+                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_Operator">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Operator">
               <MappingFragment StoreEntitySet="tblM_Operator">
-                <ScalarProperty Name="Operator_PK" ColumnName="Operator_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Operator_PK" ColumnName="Operator_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_PMHistori">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_PMHistori">
               <MappingFragment StoreEntitySet="tblM_PMHistori">
-                <ScalarProperty Name="PMHistori_PK" ColumnName="PMHistori_PK" />
-                <ScalarProperty Name="PMUser_FK" ColumnName="PMUser_FK" />
-                <ScalarProperty Name="Project_FK" ColumnName="Project_FK" />
-                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
-                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="Project_FK" ColumnName="Project_FK" />
+                <ScalarProperty Name="PMUser_FK" ColumnName="PMUser_FK" />
+                <ScalarProperty Name="PMHistori_PK" ColumnName="PMHistori_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_Project">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Project">
               <MappingFragment StoreEntitySet="tblM_Project">
-                <ScalarProperty Name="Project_PK" ColumnName="Project_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Operator_FK" ColumnName="Operator_FK" />
-                <ScalarProperty Name="DeliveryArea_FK" ColumnName="DeliveryArea_FK" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DeliveryArea_FK" ColumnName="DeliveryArea_FK" />
+                <ScalarProperty Name="Operator_FK" ColumnName="Operator_FK" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Project_PK" ColumnName="Project_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_Role">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Role">
               <MappingFragment StoreEntitySet="tblM_Role">
-                <ScalarProperty Name="Role_PK" ColumnName="Role_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Role_PK" ColumnName="Role_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_RoleGroup">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_RoleGroup">
               <MappingFragment StoreEntitySet="tblM_RoleGroup">
-                <ScalarProperty Name="RoleGroup_PK" ColumnName="RoleGroup_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="RoleGroup_PK" ColumnName="RoleGroup_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_Status">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Status">
               <MappingFragment StoreEntitySet="tblM_Status">
-                <ScalarProperty Name="Status_PK" ColumnName="Status_PK" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Status_PK" ColumnName="Status_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_User">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_User">
               <MappingFragment StoreEntitySet="tblM_User">
-                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
-                <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="RoleGroup_FK" ColumnName="RoleGroup_FK" />
+                <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
+                <ScalarProperty Name="User_PK" ColumnName="User_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblM_UserDetail">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_UserDetail">
               <MappingFragment StoreEntitySet="tblM_UserDetail">
-                <ScalarProperty Name="UserDetail_PK" ColumnName="UserDetail_PK" />
-                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="TglLahir" ColumnName="TglLahir" />
-                <ScalarProperty Name="FilePhoto" ColumnName="FilePhoto" />
-                <ScalarProperty Name="NoKTP" ColumnName="NoKTP" />
-                <ScalarProperty Name="NoHP" ColumnName="NoHP" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Address" ColumnName="Address" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NoHP" ColumnName="NoHP" />
+                <ScalarProperty Name="NoKTP" ColumnName="NoKTP" />
+                <ScalarProperty Name="FilePhoto" ColumnName="FilePhoto" />
+                <ScalarProperty Name="TglLahir" ColumnName="TglLahir" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserCode" ColumnName="UserCode" />
+                <ScalarProperty Name="UserDetail_PK" ColumnName="UserDetail_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblT_AsetHistori">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_AsetHistori">
               <MappingFragment StoreEntitySet="tblT_AsetHistori">
-                <ScalarProperty Name="AsetHistori_PK" ColumnName="AsetHistori_PK" />
-                <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
-                <ScalarProperty Name="Aset_FK" ColumnName="Aset_FK" />
-                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
-                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="Aset_FK" ColumnName="Aset_FK" />
+                <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
+                <ScalarProperty Name="AsetHistori_PK" ColumnName="AsetHistori_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblT_CheckIn">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_CheckIn">
               <MappingFragment StoreEntitySet="tblT_CheckIn">
-                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
-                <ScalarProperty Name="SOWAssign_FK" ColumnName="SOWAssign_FK" />
-                <ScalarProperty Name="File" ColumnName="File" />
-                <ScalarProperty Name="WaktuCheckIn" ColumnName="WaktuCheckIn" />
-                <ScalarProperty Name="LongitudeCheckIn" ColumnName="LongitudeCheckIn" />
-                <ScalarProperty Name="LatitudeCheckIn" ColumnName="LatitudeCheckIn" />
-                <ScalarProperty Name="CellIDCheckIn" ColumnName="CellIDCheckIn" />
-                <ScalarProperty Name="WaktuCheckOut" ColumnName="WaktuCheckOut" />
-                <ScalarProperty Name="LongitudeCheckOut" ColumnName="LongitudeCheckOut" />
-                <ScalarProperty Name="LatitudeCheckOut" ColumnName="LatitudeCheckOut" />
-                <ScalarProperty Name="CellIDCheckOut" ColumnName="CellIDCheckOut" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CellIDCheckOut" ColumnName="CellIDCheckOut" />
+                <ScalarProperty Name="LatitudeCheckOut" ColumnName="LatitudeCheckOut" />
+                <ScalarProperty Name="LongitudeCheckOut" ColumnName="LongitudeCheckOut" />
+                <ScalarProperty Name="WaktuCheckOut" ColumnName="WaktuCheckOut" />
+                <ScalarProperty Name="CellIDCheckIn" ColumnName="CellIDCheckIn" />
+                <ScalarProperty Name="LatitudeCheckIn" ColumnName="LatitudeCheckIn" />
+                <ScalarProperty Name="LongitudeCheckIn" ColumnName="LongitudeCheckIn" />
+                <ScalarProperty Name="WaktuCheckIn" ColumnName="WaktuCheckIn" />
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="SOWAssign_FK" ColumnName="SOWAssign_FK" />
+                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblT_Cost">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_Cost">
               <MappingFragment StoreEntitySet="tblT_Cost">
-                <ScalarProperty Name="Cost_PK" ColumnName="Cost_PK" />
-                <ScalarProperty Name="KategoriCost_FK" ColumnName="KategoriCost_FK" />
-                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
-                <ScalarProperty Name="Tanggal" ColumnName="Tanggal" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Tanggal" ColumnName="Tanggal" />
+                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
+                <ScalarProperty Name="KategoriCost_FK" ColumnName="KategoriCost_FK" />
+                <ScalarProperty Name="Cost_PK" ColumnName="Cost_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblT_IzinCuti">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_IzinCuti">
               <MappingFragment StoreEntitySet="tblT_IzinCuti">
-                <ScalarProperty Name="IzinCuti_PK" ColumnName="IzinCuti_PK" />
-                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
-                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
-                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
-                <ScalarProperty Name="Alasan" ColumnName="Alasan" />
-                <ScalarProperty Name="FilePendukung" ColumnName="FilePendukung" />
-                <ScalarProperty Name="ApprovalUserDetail_FK" ColumnName="ApprovalUserDetail_FK" />
-                <ScalarProperty Name="IzinCutiStatus_FK" ColumnName="IzinCutiStatus_FK" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IzinCutiStatus_FK" ColumnName="IzinCutiStatus_FK" />
+                <ScalarProperty Name="ApprovalUserDetail_FK" ColumnName="ApprovalUserDetail_FK" />
+                <ScalarProperty Name="FilePendukung" ColumnName="FilePendukung" />
+                <ScalarProperty Name="Alasan" ColumnName="Alasan" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="IzinCuti_PK" ColumnName="IzinCuti_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblT_SOW">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOW">
               <MappingFragment StoreEntitySet="tblT_SOW">
-                <ScalarProperty Name="SOW_PK" ColumnName="SOW_PK" />
-                <ScalarProperty Name="SOWName" ColumnName="SOWName" />
-                <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
-                <ScalarProperty Name="Project_FK" ColumnName="Project_FK" />
-                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
-                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
-                <ScalarProperty Name="StatusSOW_FK" ColumnName="StatusSOW_FK" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusSOW_FK" ColumnName="StatusSOW_FK" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="Project_FK" ColumnName="Project_FK" />
+                <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
+                <ScalarProperty Name="SOWName" ColumnName="SOWName" />
+                <ScalarProperty Name="SOW_PK" ColumnName="SOW_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblT_SOWAssign">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOWAssign">
               <MappingFragment StoreEntitySet="tblT_SOWAssign">
-                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
-                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
-                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
-                <ScalarProperty Name="KategoriJabatan_FK" ColumnName="KategoriJabatan_FK" />
-                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
-                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="KategoriJabatan_FK" ColumnName="KategoriJabatan_FK" />
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
+                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblT_SOWTrack">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOWTrack">
               <MappingFragment StoreEntitySet="tblT_SOWTrack">
-                <ScalarProperty Name="SOWTrack_PK" ColumnName="SOWTrack_PK" />
-                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
-                <ScalarProperty Name="Technology_FK" ColumnName="Technology_FK" />
-                <ScalarProperty Name="File" ColumnName="File" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="Technology_FK" ColumnName="Technology_FK" />
+                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
+                <ScalarProperty Name="SOWTrack_PK" ColumnName="SOWTrack_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblT_UserHistori">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_UserHistori">
               <MappingFragment StoreEntitySet="tblT_UserHistori">
-                <ScalarProperty Name="UserHistori_PK" ColumnName="UserHistori_PK" />
-                <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
-                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
-                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
+                <ScalarProperty Name="UserHistori_PK" ColumnName="UserHistori_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblT_UserPayroll">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_UserPayroll">
               <MappingFragment StoreEntitySet="tblT_UserPayroll">
-                <ScalarProperty Name="UserPayroll_PK" ColumnName="UserPayroll_PK" />
-                <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
-                <ScalarProperty Name="Nominal" ColumnName="Nominal" />
-                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
-                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="Nominal" ColumnName="Nominal" />
+                <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
+                <ScalarProperty Name="UserPayroll_PK" ColumnName="UserPayroll_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

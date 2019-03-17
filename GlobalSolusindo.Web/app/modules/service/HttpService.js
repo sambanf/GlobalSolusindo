@@ -87,9 +87,7 @@
                     console.log("http " + response.status);
 
                     PendingRequest.remove(url);
-                    deferred.reject();
-
-                    auth.isAuth(response.status);
+                    deferred.reject(); 
                 });
                 //}, function (response) {
                 //    //console.log(response.xhrStatus);
@@ -127,8 +125,6 @@
                 }, function (response) { 
                     PendingRequest.remove(url);
                     deferred.reject();
-
-                    // auth.isAuth(response.status);
                 });
 
                 return deferred.promise;
@@ -188,12 +184,9 @@
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
-                }, function (response) {
-                    //console.log(response.xhrStatus);
+                }, function (response) { 
                     PendingRequest.remove(url);
-                    deferred.reject();
-
-                    auth.isAuth(response.status);
+                    deferred.reject(); 
                 });
 
                 return deferred.promise;

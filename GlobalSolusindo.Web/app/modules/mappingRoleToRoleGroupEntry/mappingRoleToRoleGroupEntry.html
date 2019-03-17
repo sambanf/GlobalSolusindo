@@ -1,0 +1,55 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Mapping Role To Role Group</div>
+                    <div class="col-md-8">
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Role Group Name :</label>
+                            <label class="control-label col-sm-2" type="text" id="title" name="title">
+                                {{vm.model.title}}
+                            </label>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Description :</label>
+                            <label class="control-label col-sm-2" name="description" placeholder="Description">
+                                {{vm.model.description}}
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" ui-sref="app.mappingRoleToRoleGroupList">Kembali</button>
+                                <button class="btn btn-success float-right" id="saveButton">
+                                    Add Role
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">List Role Group</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="mappingRoleToRoleGroupEntry">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Role Pk</th>
+                                        <th>Role Name</th>
+                                        <th>Description</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

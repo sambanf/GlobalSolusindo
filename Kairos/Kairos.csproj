@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cryptography\MD5Encryptor.cs" />
     <Compile Include="DataAnnotations\IValidator.cs" />
     <Compile Include="DataAnnotations\UniqueAttribute.cs" />
     <Compile Include="Data\ModelValidationResult.cs" />

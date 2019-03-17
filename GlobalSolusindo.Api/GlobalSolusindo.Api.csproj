@@ -94,9 +94,12 @@
     <Compile Include="ActiveUserProvider.cs" />
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\MappingRoleToRoleGroupController.cs" />
     <Compile Include="Controllers\AuthParamController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\RoleGroupController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="CustomExceptionFilterAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

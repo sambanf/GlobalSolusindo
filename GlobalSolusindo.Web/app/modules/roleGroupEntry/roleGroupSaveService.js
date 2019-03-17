@@ -43,6 +43,7 @@
         };
 
         self.save = function (model) {
+            validation.clearValidationErrors({});
             if (model.roleGroup_pk === 0) {
                 return self.create(model);
             } else {

@@ -37,7 +37,7 @@
                 "children": [
                     {
                         "title": "user",
-                        "path": "app.user-list",
+                        "path": "app.userList",
                         "icon": "fas fa-chart-line"
                     },
                     {
@@ -56,7 +56,7 @@
                     },
                     {
                         "title": "mapping user to role group",
-                        "path": "homepage",
+                        "path": "app.mappingRoleToRoleGroupList",
                         "icon": "fas fa-chart-line"
                     },
                     {
@@ -66,7 +66,7 @@
                     },
                     {
                         "title": "mapping user to auth param",
-                        "path": "homepage",
+                        "path": "app.mappingRoleToRoleGroup",
                         "icon": "fas fa-chart-line"
                     },
                 ]

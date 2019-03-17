@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-16. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-18. 
 * @author Wizzytech
 */
 (function() {
@@ -101,6 +101,46 @@
 })();
 'use strict';
 
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.authParamList', {
+                url: '/authParamList',
+                templateUrl: 'app/modules/authParam/authParam.html',
+                controller: 'AuthParamCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'AuthParam'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.authParamEntry', {
+                url: '/authParamEntry/:id',
+                templateUrl: 'app/modules/authParamEntry/authParamEntry.html',
+                controller: 'AuthParamEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Auth Param Entry'
+                }
+            });
+    }]);
+'use strict';
+
 /**
  * @ngdoc function
  * @name app.route:orderRoute
@@ -166,6 +206,46 @@ angular.module('global-solusindo')
 	}]);
 'use strict';
 
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.mappingRoleToRoleGroupList', {
+                url: '/mappingRoleToRoleGroupList',
+                templateUrl: 'app/modules/mappingRoleToRoleGroup/mappingRoleToRoleGroup.html',
+                controller: 'MappingRoleToRoleGroupCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Mapping Role To Role Group'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.mappingRoleToRoleGroupEntry', {
+                url: '/mappingRoleToRoleGroupEntry/:id',
+                templateUrl: 'app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupEntry.html',
+                controller: 'MappingRoleToRoleGroupEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Role Group Entry'
+                }
+            });
+    }]);
+'use strict';
+
 /**
  * @ngdoc function
  * @name app.route:orderRoute
@@ -204,6 +284,133 @@ angular.module('global-solusindo')
                 }
             });
     }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.roleGroupList', {
+                url: '/roleGroupList',
+                templateUrl: 'app/modules/roleGroup/roleGroup.html',
+                controller: 'RoleGroupCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Role Group'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.roleGroupEntry', {
+                url: '/roleGroupEntry/:id',
+                templateUrl: 'app/modules/roleGroupEntry/roleGroupEntry.html',
+                controller: 'RoleGroupEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Role Group Entry'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.userList', {
+                url: '/userList',
+                templateUrl: 'app/modules/user/user.html',
+                controller: 'UserCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'User'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.userEntry', {
+                url: '/userEntry/:id',
+                templateUrl: 'app/modules/userEntry/userEntry.html',
+                controller: 'UserEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'User Entry'
+                }
+            });
+    }]);
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('AuthParamCtrl', AuthParamCtrl);
+
+    AuthParamCtrl.$inject = ['$scope', '$state', 'authParamDtService', 'authParamDeleteService', 'authParamViewService'];
+
+    function AuthParamCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        self.datatable = dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('AuthParamEntryCtrl', AuthParamEntryCtrl);
+
+    AuthParamEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'AuthParamSaveService', 'AuthParamBindingService', 'FormControlService'];
+
+    function AuthParamEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
+        return self;
+    }
+})();
 (function () {
     'use strict';
 
@@ -328,7 +535,7 @@ angular.module('global-solusindo')
                 "children": [
                     {
                         "title": "user",
-                        "path": "app.user-list",
+                        "path": "app.userList",
                         "icon": "fas fa-chart-line"
                     },
                     {
@@ -337,7 +544,7 @@ angular.module('global-solusindo')
                         "icon": "fas fa-chart-line"
                     },{
                         "title": "role group",
-                        "path": "homepage",
+                        "path": "app.roleGroup",
                         "icon": "fas fa-chart-line"
                     }, 
                     {
@@ -347,17 +554,17 @@ angular.module('global-solusindo')
                     },
                     {
                         "title": "mapping user to role group",
-                        "path": "homepage",
+                        "path": "app.mappingRoleToRoleGroupList",
                         "icon": "fas fa-chart-line"
                     },
                     {
                         "title": "auth param",
-                        "path": "homepage",
+                        "path": "app.authParam",
                         "icon": "fas fa-chart-line"
                     },
                     {
                         "title": "mapping user to auth param",
-                        "path": "homepage",
+                        "path": "app.mappingRoleToRoleGroup",
                         "icon": "fas fa-chart-line"
                     },
                 ]
@@ -451,6 +658,53 @@ angular.module('global-solusindo')
 (function () {
     'use strict';
 
+    angular.module('global-solusindo')
+        .controller('MappingRoleToRoleGroupCtrl', MappingRoleToRoleGroupCtrl);
+
+    MappingRoleToRoleGroupCtrl.$inject = ['$scope', '$state', 'mappingRoleToRoleGroupDtService', 'mappingRoleToRoleGroupViewService'];
+
+    function MappingRoleToRoleGroupCtrl($scope, $state, dtService, viewService) {
+        var self = this;
+
+        self.datatable = dtService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('MappingRoleToRoleGroupEntryCtrl', MappingRoleToRoleGroupEntryCtrl);
+
+    MappingRoleToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingRoleToRoleGroupSaveService', 'MappingRoleToRoleGroupBindingService', 'FormControlService', 'mappingRoleToRoleGroupEntryDtService'];
+
+    function MappingRoleToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            //formControlService.setFormControl(self);
+            saveService.init(self);
+            dtService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
     /**
      * @ngdoc function
      * @name app.controller:userEntryCtrl
@@ -494,6 +748,388 @@ angular.module('global-solusindo')
 
         return self;
     }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('RoleGroupCtrl', RoleGroupCtrl);
+
+    RoleGroupCtrl.$inject = ['$scope', '$state', 'roleGroupDtService', 'roleGroupDeleteService', 'roleGroupViewService'];
+
+    function RoleGroupCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        self.datatable = dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('RoleGroupEntryCtrl', RoleGroupEntryCtrl);
+
+    RoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'RoleGroupSaveService', 'RoleGroupBindingService', 'FormControlService'];
+
+    function RoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('UserCtrl', UserCtrl);
+
+    UserCtrl.$inject = ['$scope', '$state', 'userDtService', 'userDeleteService', 'userViewService'];
+
+    function UserCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        self.datatable = dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('UserEntryCtrl', UserEntryCtrl);
+
+    UserEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserSaveService', 'UserBindingService', 'FormControlService'];
+
+    function UserEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('authParamDeleteService', authParam);
+
+    authParam.$inject = ['HttpService', 'uiService'];
+
+    function authParam(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('authParam', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.authParam_pk];
+            ui.alert.confirm("Are you sure want to delete authParam '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].authParam_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#authParam tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('authParamDtService', authParam);
+
+    authParam.$inject = ['DatatableService'];
+
+    function authParam(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            return ds.init("#authParam", "authParam/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "authParam_pk"
+                },
+                {
+                    "data": "title"
+                },
+                {
+                    "data": "description"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('authParamViewService', authParamView);
+
+    authParamView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function authParamView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.authParamEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#authParam tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.authParam_pk);
+            });
+
+            $("#authParam tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["authParam_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('AuthParamBindingService', AuthParamBindingService);
+
+    AuthParamBindingService.$inject = ['HttpService', '$state'];
+
+    function AuthParamBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('authParam/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('AuthParamSaveService', AuthParamEntry);
+
+    AuthParamEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function AuthParamEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('authParam', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.authParamEntry', { id: res.data.model.authParam_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('authParam', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.authParam_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
 })();
 (function() {
 	'use strict';
@@ -575,6 +1211,268 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('mappingRoleToRoleGroupDtService', mappingRoleToRoleGroup);
+
+    mappingRoleToRoleGroup.$inject = ['DatatableService'];
+
+    function mappingRoleToRoleGroup(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            return ds.init("#mappingRoleToRoleGroup", "roleGroup/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "roleGroup_pk"
+                },
+                {
+                    "data": "title"
+                },
+                {
+                    "data": "description"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='view'   title='View Role' data-placement='left' class='btn btn-success'>Role</button>";
+                    }
+                }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('mappingRoleToRoleGroupViewService', mappingRoleToRoleGroupView);
+
+    mappingRoleToRoleGroupView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function mappingRoleToRoleGroupView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.mappingRoleToRoleGroupEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#mappingRoleToRoleGroup tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.roleGroup_pk);
+            });
+
+            $("#mappingRoleToRoleGroup tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["roleGroup_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MappingRoleToRoleGroupBindingService', MappingRoleToRoleGroupBindingService);
+
+    MappingRoleToRoleGroupBindingService.$inject = ['HttpService', '$state'];
+
+    function MappingRoleToRoleGroupBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('roleGroup/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('mappingRoleToRoleGroupEntryDtService', mappingRoleToRoleGroupEntryDtService);
+
+    mappingRoleToRoleGroupEntryDtService.$inject = ['DatatableService'];
+
+    function mappingRoleToRoleGroupEntryDtService(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var roleGroup_pk = ctrl.stateParam.id;
+
+            var titleColumnIndex = 1;
+            return ds.init("#mappingRoleToRoleGroupEntry", "mappingRoleToRoleGroup/search", {
+                extendRequestData: {
+                    roleGroup_pk: roleGroup_pk,
+                    pageIndex: 2,
+                    pageSize: 5
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "roleGroup_pk"
+                    },
+                    {
+                        "orderable": false,
+                        "data": "role_pk"
+                    },
+                    {
+                        "data": "roleName"
+                    },
+                    {
+                        "data": "roleDescription"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                        }
+                    }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MappingRoleToRoleGroupSaveService', MappingRoleToRoleGroupEntry);
+
+    MappingRoleToRoleGroupEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function MappingRoleToRoleGroupEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('mappingRoleToRoleGroup', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.mappingRoleToRoleGroupEntry', { id: res.data.model.mappingRoleToRoleGroup_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('mappingRoleToRoleGroup', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.mappingRoleToRoleGroup_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('RoleBindingService', RoleBindingService);
 
     RoleBindingService.$inject = ['HttpService', '$state'];
@@ -628,6 +1526,7 @@ angular.module('global-solusindo')
             http.post('role', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    $state.go('app.role-entry', { id: res.data.model.role_pk });
                 } else {
                     ui.alert.error(res.message);
                     validation.serverValidation(res.data.errors);
@@ -639,6 +1538,7 @@ angular.module('global-solusindo')
             http.put('role', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    //$state.go('app.role-entry', { id: res.data.model.role_pk });
                 } else {
                     ui.alert.error(res.message);
                     validation.serverValidation(res.data.errors);
@@ -647,6 +1547,7 @@ angular.module('global-solusindo')
         };
 
         self.save = function (model) {
+            validation.clearValidationErrors({});
             if (model.role_pk === 0) {
                 return self.create(model);
             } else {
@@ -686,8 +1587,8 @@ angular.module('global-solusindo')
         var self = this;
         var controller;
 
-        self.delete = function (data) {
-            return http.delete('role', data).then(function (response) {
+        function deleteRecords(ids) {
+            return http.delete('role', ids).then(function (response) {
                 var res = response;
                 if (res.success) {
                     controller.datatable.draw();
@@ -696,15 +1597,54 @@ angular.module('global-solusindo')
                     ui.alert.error(res.message);
                 }
             });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.role_pk];
+            ui.alert.confirm("Are you sure want to delete role '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
         };
 
-        self.init = function(ctrl){
-            controller = ctrl; 
-            $('#role tbody').on( 'click', '#delete', function () {
-                var data = controller.datatable.row($(this).parents('tr')).data();
-                self.delete([data.role_pk]);
-            } );
-        }
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].role_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#role tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
 
         return self;
     }
@@ -736,25 +1676,26 @@ angular.module('global-solusindo')
                     pageIndex: 1,
                     pageSize: 10
                 },
+                order: [1, "asc"],
                 columns: [{
-                        "orderable": false,
-                        "data": "role_pk"
-                    },
-                    {
-                        "data": "title"
-                    },
-                    {
-                        "data": "description"
-                    },
-                    {
-                        "orderable": false,
-                        "className": "text-center",
-                        "render": function (data) {
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
-                        }
+                    "orderable": false,
+                    "data": "role_pk"
+                },
+                {
+                    "data": "title"
+                },
+                {
+                    "data": "description"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
                     }
+                }
                 ]
             });
         }
@@ -820,6 +1761,294 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('roleGroupDeleteService', roleGroup);
+
+    roleGroup.$inject = ['HttpService', 'uiService'];
+
+    function roleGroup(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('roleGroup', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.roleGroup_pk];
+            ui.alert.confirm("Are you sure want to delete roleGroup '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].roleGroup_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#roleGroup tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('roleGroupDtService', roleGroup);
+
+    roleGroup.$inject = ['DatatableService'];
+
+    function roleGroup(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            return ds.init("#roleGroup", "roleGroup/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "roleGroup_pk"
+                },
+                {
+                    "data": "title"
+                },
+                {
+                    "data": "description"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('roleGroupViewService', roleGroupView);
+
+    roleGroupView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function roleGroupView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.roleGroupEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#roleGroup tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.roleGroup_pk);
+            });
+
+            $("#roleGroup tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["roleGroup_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('RoleGroupBindingService', RoleGroupBindingService);
+
+    RoleGroupBindingService.$inject = ['HttpService', '$state'];
+
+    function RoleGroupBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('roleGroup/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('RoleGroupSaveService', RoleGroupEntry);
+
+    RoleGroupEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function RoleGroupEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('roleGroup', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.roleGroupEntry', { id: res.data.model.roleGroup_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('roleGroup', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.roleGroup_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('DatatableService', DtService);
 
     DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state'];
@@ -827,8 +2056,7 @@ angular.module('global-solusindo')
     function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state) {
         var self = this;
 
-        self.init = function dt(tableIdOrClass, apiUrl, param) {
-            console.log('this');
+        self.init = function dt(tableIdOrClass, apiUrl, param) { 
             var defaultDom = "lftip";
 
             var dt = $(tableIdOrClass).DataTable({
@@ -853,10 +2081,8 @@ angular.module('global-solusindo')
                 rowGroup: {
                     enable: param.rowGroup === undefined ? false : true,
                     dataSrc: param.rowGroup === undefined ? null : param.rowGroup
-                },
-
-                ajax: function (data, callback, setting) {
-                    var api = new $.fn.dataTable.Api(setting);
+                }, 
+                ajax: function (data, callback, setting) { 
                     var pageIndex = Math.floor((data.start / data.length)) + 1;
 
                     var defaultRequestData = {
@@ -878,57 +2104,27 @@ angular.module('global-solusindo')
                     }
 
                     var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
-                    //console.log(requestData);
-                    if (!requestData.Keyword) {
+                    if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
                     }
-                    // ajaxService.post(apiUrl, requestData, function (json) {
-                    //     //console.log(json);
-                    //     $('.backdrop-login').fadeOut();
-                    //     if (param.onAjaxSuccess) {
-                    //         param.onAjaxSuccess(json);
-                    //     }
-                    //     callback({
-                    //         recordsTotal: json.data.totalRecords,
-                    //         recordsFiltered: json.data.totalRecordsFiltered,
-                    //         data: json.data.Data
-                    //     }); 
-                    // }, function (json) {
-                    //     $('.backdrop-login').fadeOut();
-                    //     if (param.onAjaxFailed)
-                    //         param.onAjaxFailed(json);
-                    //     kairos.alert.error(json.message);
-                    // });
 
-                    http.get(apiUrl, {
-                        pageIndex: requestData.pageIndex,
-                        pageSize: requestData.pageSize
-                    }).then(function (res) {
+                    http.get(apiUrl, requestData).then(function (res) {
                         callback({
                             recordsTotal: res.data.count.totalRecords,
                             recordsFiltered: res.data.count.totalFiltered,
                             data: res.data.records
                         });
-
-                        console.log(res.data.count.totalRecords);
                     });
-
                 },
                 columns: param.columns,
                 dom: (typeof (param.dom) == 'undefined') ? defaultDom : param.dom,
-                // language: {
-                //     search: "",
-                //     lengthMenu: "_MENU_",
-                //     searchPlaceholder: "Search ..."
-                // },
-                searchDelay: 600,
+                searchDelay: 400,
                 drawCallback: function (setting) {
                     var elem = $('[rel="tooltip"]');
                     elem.tooltip({
                         trigger: 'hover',
                         container: 'main'
-                    });
-
+                    }); 
                 },
                 order: typeof param.order === 'undefined' ? [
                     [0, "desc"]
@@ -947,17 +2143,16 @@ angular.module('global-solusindo')
 
             $(tableIdOrClass + ' tbody').on("dblclick", "tr", function () {
                 var data = dt.row(this).data();
-                //console.log(data);
                 var id = data["Id"];
                 if (param.route) {
-                    (param.customRoute) ? param.route(data): param.route(id);
+                    (param.customRoute) ? param.route(data) : param.route(id);
                 }
             });
 
             $('.dataTables_filter input[type=search]').val('').change();
 
             return dt;
-        }
+        };
 
         return self;
     }
@@ -1060,9 +2255,8 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
-        var base_url = "http://global-solusindo-ws.local/";
+        var base_url = "http://ws.gs.local/";
         var base_host = "";
-        console.log(base_url);
         var auth = {};
         auth.getAccessToken = function () {
             return '';
@@ -1073,7 +2267,7 @@ angular.module('global-solusindo')
             login: function (_url, requestData) {
                 var deferred = $q.defer();
 
-               var url = base_host + _url;
+                var url = base_host + _url;
 
                 var data = $httpParamSerializer(requestData);
 
@@ -1095,7 +2289,7 @@ angular.module('global-solusindo')
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
-                }, function (response) { 
+                }, function (response) {
                     PendingRequest.remove(url);
                     deferred.reject(response.data);
                 });
@@ -1104,7 +2298,7 @@ angular.module('global-solusindo')
             },
             post: function (_url, requestData) {
                 var deferred = $q.defer();
-                var url = base_url + _url; 
+                var url = base_url + _url;
 
                 var data = JSON.stringify(requestData);
 
@@ -1130,9 +2324,7 @@ angular.module('global-solusindo')
                     console.log("http " + response.status);
 
                     PendingRequest.remove(url);
-                    deferred.reject();
-
-                    auth.isAuth(response.status);
+                    deferred.reject(); 
                 });
                 //}, function (response) {
                 //    //console.log(response.xhrStatus);
@@ -1167,12 +2359,9 @@ angular.module('global-solusindo')
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
-                }, function (response) {
-                    //console.log(response.xhrStatus);
+                }, function (response) { 
                     PendingRequest.remove(url);
                     deferred.reject();
-
-                   // auth.isAuth(response.status);
                 });
 
                 return deferred.promise;
@@ -1232,12 +2421,9 @@ angular.module('global-solusindo')
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
-                }, function (response) {
-                    //console.log(response.xhrStatus);
+                }, function (response) { 
                     PendingRequest.remove(url);
-                    deferred.reject();
-
-                    auth.isAuth(response.status);
+                    deferred.reject(); 
                 });
 
                 return deferred.promise;
@@ -1317,7 +2503,7 @@ angular.module('global-solusindo')
                     oncancel: cancel
                 }).show(true, 'confirm');
             }
-        }
+        };
 
         return self;
     }
@@ -1342,11 +2528,47 @@ angular.module('global-solusindo')
     function validationService() {
         var self = this;
 
+        self.clearValidationErrors = function (obj) {
+            var controls = document.querySelectorAll('[name]');
+
+            var validClass = "is-valid";
+            var invalidClass = "is-invalid";
+            //Clear state
+            controls.forEach(function (item) {
+                item.className = item.className.replace(validClass, "");
+                item.className = item.className.replace(invalidClass, "");
+            });
+        };
+
+        self.setError = function (selector, errorMessage) {
+            var element = document.getElementById(selector);
+
+            var validClass = "form-control is-valid";
+            var invalidClass = "form-control is-invalid";
+
+            element.className = element.className.replace(validClass, "");
+            element.className = element.className.replace(invalidClass, "");
+            element.className += " " + validClass;
+
+
+            element.className = element.className.replace(validClass, invalidClass);
+
+            var childNodes = element.parentElement.childNodes;
+            childNodes.forEach(function (element) {
+                if (element.className == 'invalid-feedback') {
+                    element.innerHTML = errorMessage;
+                }
+            });
+
+            $('#submit').prop('disabled', false);
+        };
+
         self.serverValidation = function (obj) {
             var controls = document.querySelectorAll('[name]');
 
             var errors = obj;
-            var tableErrors = obj.TableErrors;
+            var subErrors = obj.subErrors;
+
             errors = (typeof (errors) == 'undefined' ? obj : errors);
             var validClass = "form-control is-valid";
             var invalidClass = "form-control is-invalid";
@@ -1356,33 +2578,356 @@ angular.module('global-solusindo')
                 item.className += " " + validClass;
             });
 
-            console.log(controls);
             if (errors) {
                 for (var i = 0; i < errors.length; i++) {
                     var error = errors[i];
                     controls.forEach(function (item) {
-                        console.log(item);
                         //$scope.$apply(function () {
                         var fieldName = item.name;
 
-                            if (error.propertyName.toLowerCase() == fieldName.toLowerCase()) {
-                                item.className = item.className.replace(validClass, invalidClass);
+                        if (error.propertyName.toLowerCase() == fieldName.toLowerCase()) {
+                            item.className = item.className.replace(validClass, invalidClass);
 
-                                var childNodes = item.parentElement.childNodes;
-                                childNodes.forEach(function (item) {
-                                    if (item.className == 'invalid-feedback') {
-                                        item.innerHTML = error.message;
-                                    }
-                                });
-                            }
+                            var childNodes = item.parentElement.childNodes;
+                            childNodes.forEach(function (item) {
+                                if (item.className == 'invalid-feedback') {
+                                    item.innerHTML = error.message;
+                                }
+                            });
+                        }
                         //});
                     });
                 }
             }
-        }
+        };
 
         return self;
     }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('userDeleteService', user);
+
+    user.$inject = ['HttpService', 'uiService'];
+
+    function user(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('user', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.user_pk];
+            ui.alert.confirm("Are you sure want to delete user '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].user_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#user tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('userDtService', user);
+
+    user.$inject = ['DatatableService'];
+
+    function user(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            return ds.init("#user", "user/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "user_pk"
+                },
+                {
+                    "data": "userCode"
+                },
+                {
+                    "data": "name"
+                },
+                //{
+                //    "data": "position"
+                //},
+                //{
+                //    "data": "roleName"
+                //},
+                {
+                    "data": "noHP"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('userViewService', userView);
+
+    userView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function userView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.userEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#user tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.user_pk);
+            });
+
+            $("#user tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["user_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('UserBindingService', UserBindingService);
+
+    UserBindingService.$inject = ['HttpService', '$state'];
+
+    function UserBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('user/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('UserSaveService', UserEntry);
+
+    UserEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function UserEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('user', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.userEntry', { id: res.data.model.user_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('user', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        function validate() {
+            validation.clearValidationErrors({});
+            console.log(controller.model.password);
+            console.log(controller.model.reTypePassword);
+
+            var password = controller.model.password;
+            var reTypePassword = controller.model.reTypePassword;
+
+            if (password == '' || password == null || password == 'undefined') {
+                validation.setError("password", "Password is required.");
+                return false;
+            }
+            if (reTypePassword == '' || reTypePassword == null || reTypePassword == 'undefined') {
+                validation.setError("reTypePassword", "Please re type password.");
+                return false;
+            }
+            if (password != reTypePassword) {
+                validation.setError("reTypePassword", "Password do not match.");
+                return false;
+            }
+
+            return true;
+        }
+
+        self.save = function (model) {
+
+            if (!validate())
+                return;
+
+            model.userCode = model.username;
+            if (model.user_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
 })();
 (function () {
     'use strict';

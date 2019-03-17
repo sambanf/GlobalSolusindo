@@ -1,0 +1,119 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Tambah User</div>
+                    <div class="col-md-8">
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Upload Image:</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="filePhoto" ng-model="vm.model.filePhoto" name="filePhoto" placeholder="image file" disabled>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Name:</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="name" name="name" ng-model="vm.model.name" placeholder="Name">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Role:</label>
+                            <div class="col-sm-6">
+                                <select id="cboRoleGroup" class="form-control input-lg" size="0" ng-model="vm.model.roleGroup_pk" name="roleGroup" required>
+                                    <option ng-repeat="x in vm.formData.roleGroups" value="{{x.roleGroup_pk}}">{{x.title}}</option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Position:</label>
+                            <div class="col-sm-6">
+                                <select id="cboposition" class="form-control input-lg" size="0" ng-model="vm.model.position_pk" name="position" required>
+                                    <option ng-repeat="x in vm.formData.positions" value="{{x.position_pk}}">{{x.title}}</option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Phone Number:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="noHP" name="noHP" ng-model="vm.model.noHP" placeholder="Phone Number">
+                                <div class="invalid-feedback"></div>
+                            </div>
+
+                            <label class="control-label col-md-1.5">Email:</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control" id="email" name="email" ng-model="vm.model.email" placeholder="Email">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Nomor KTP:</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="noKTP" name="noKTP" ng-model="vm.model.noKTP" placeholder="Nomor KTP">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Username:</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="username" name="username" ng-model="vm.model.username" placeholder="Username">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Password:</label>
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control" id="password" name="password" ng-model="vm.model.password" placeholder="Password">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Retype Password:</label>
+                            <div class="col-sm-6">
+                                <input type="password" class="form-control" id="reTypePassword" name="reTypePassword" ng-model="vm.model.reTypePassword" placeholder="Retype Password">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Address:</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="address" name="address" ng-model="vm.model.address" placeholder="Address">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Description:</label>
+                            <div class="col-sm-6">
+                                <input type="text" class="form-control" id="description" name="description" ng-model="vm.model.description" placeholder="Description">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-8">
+                                <button class="btn btn-default" ui-sref="app.userList">Kembali</button> <button class="btn btn-success float-right" id="saveButton">
+                                    Tambah User
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

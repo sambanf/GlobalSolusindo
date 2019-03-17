@@ -20,6 +20,7 @@ namespace GlobalSolusindo.Identity
 
         public bool CanAccess(string roleTitle)
         {
+            //Todo: create implementation of access control
             throw new NotImplementedException();
         }
     }

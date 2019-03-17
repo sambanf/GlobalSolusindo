@@ -14,6 +14,7 @@ namespace GlobalSolusindo.DataAccess
     {
         public int User_PK { get; set; }
         public int UserDetail_FK { get; set; }
+        public int RoleGroup_FK { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string CreatedBy { get; set; }

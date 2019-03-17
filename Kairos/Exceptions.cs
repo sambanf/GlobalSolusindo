@@ -101,4 +101,14 @@ namespace Kairos
             ValidationResult = validationResult;
         }
     }
+
+    public class ValidationException : KairosException
+    {
+       public ModelValidationResult ValidationResult { get; private set; }
+
+        public ValidationException(string message, ModelValidationResult validationResult) : base(message)
+        {
+            ValidationResult = validationResult;
+        }
+    }
 }
