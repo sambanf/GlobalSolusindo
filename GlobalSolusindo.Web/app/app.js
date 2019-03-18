@@ -11,27 +11,28 @@
 	*/
 	angular.module('global-solusindo', []);
 
-	angular.module('global-solusindo-app', [
-		'ui.router',
-		'ngResource',
-		'ngAria',
-		'ui.bootstrap',
-		'ngCookies',
-		'ngAnimate',
-		'ngTouch',
-		'ngSanitize',
-		'ncy-angular-breadcrumb',
-		'ui.layout',
-		'ui.select',
-		'datatables',
-		'datatables.scroller',
-		'datatables.select',
-		'datatables.fixedcolumns',
-		'angular-fancytree',
-		'daterangepicker',
+    angular.module('global-solusindo-app', [
+        'ui.router',
+        'ngResource',
+        'ngAria',
+        'ui.bootstrap',
+        'ngCookies',
+        'ngAnimate',
+        'ngTouch',
+        'ngSanitize',
+        'ncy-angular-breadcrumb',
+        'ui.layout',
+        'ui.select',
+        'datatables',
+        'datatables.scroller',
+        'datatables.select',
+        'datatables.fixedcolumns',
+        'angular-fancytree',
+        'daterangepicker',
         'ngStorage',
         'ngTagsInput',
 		//'Alertify',
+        'checklist-model',
 		'global-solusindo'
 	]);
 })();
