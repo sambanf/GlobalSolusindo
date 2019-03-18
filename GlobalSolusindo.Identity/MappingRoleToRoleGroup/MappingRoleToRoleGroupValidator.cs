@@ -12,5 +12,13 @@ namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup
             validator.Validate(mappingRoleToRoleGroup);
             return validator.ValidationResult;
         }
+
+        public ModelValidationResult ValidateRoleMapping(RoleMapping mappingRole)
+        {
+            ModelValidator validator = new ModelValidator();
+
+            validator.ValidateForEach(mappingRole.MappingRoleToRoleGroups, "mappingRoleToRoleGroups");
+            return validator.ValidationResult;
+        }
     }
 }

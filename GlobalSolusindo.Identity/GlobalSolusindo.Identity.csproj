@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessControl.cs" />
+    <Compile Include="MappingRoleToRoleGroup\DML\RoleMappingCreateHandler.cs" />
     <Compile Include="MappingRoleToRoleGroup\DML\MappingRoleToRoleGroupCreateHandler.cs" />
     <Compile Include="MappingRoleToRoleGroup\DML\MappingRoleToRoleGroupDeleteHandler.cs" />
     <Compile Include="MappingRoleToRoleGroup\DML\MappingRoleToRoleGroupUpdateHandler.cs" />

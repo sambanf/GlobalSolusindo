@@ -40,16 +40,20 @@ namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup.EntryForm
 
             MappingRoleToRoleGroupEntryFormData formData = new MappingRoleToRoleGroupEntryFormData();
             List<Control> formControls = CreateFormControls(roleGroupPK);
-            List<MappingRoleToRoleGroupDTO> mappingRoleToRoleGroupDTO = mappingRoleToRoleGroupQuery.GetMappingListByRoleGroupPk(roleGroupPK);
 
-            if (mappingRoleToRoleGroupDTO == null && mappingRoleToRoleGroupDTO.Count == 0)
-                throw new KairosException($"Fatal error on query process.");
+            var  roleGroupDTO = new RoleGroup.Queries.RoleGroupQuery(Db).GetByPrimaryKey(roleGroupPK);
+            var roleMapping = new RoleMapping();
+
+            roleMapping.RoleGroup_PK = roleGroupPK;
+            roleMapping.Title = roleGroupDTO.Title;
+            roleMapping.Description = roleGroupDTO.Description;
+            roleMapping.MappingRoleToRoleGroups = mappingRoleToRoleGroupQuery.GetMappingListByRoleGroupPk(roleGroupPK); 
 
             return new MappingRoleToRoleGroupEntryModel()
             {
                 FormData = formData,
                 FormControls = formControls,
-                Model = mappingRoleToRoleGroupDTO,
+                Model = roleMapping,
             };
         }
 

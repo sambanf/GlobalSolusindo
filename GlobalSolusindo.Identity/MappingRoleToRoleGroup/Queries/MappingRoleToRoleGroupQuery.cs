@@ -9,6 +9,7 @@ namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup.Queries
     public class MappingRoleToRoleGroupQuery : QueryBase
     {
         private const int deleted = (int)RecordStatus.Deleted;
+        private const int active = (int)RecordStatus.Active;
 
         public int GetTotalRecords()
         {
@@ -32,6 +33,7 @@ namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup.Queries
                         from role in roleTemp.DefaultIfEmpty()
                         where
                         mappingRoleToRoleGroup.Status_FK != deleted
+                        && role.Status_FK != deleted
                         select new MappingRoleToRoleGroupDTO
                         {
                             RoleGroup_PK = mappingRoleToRoleGroup.RoleGroup_PK,
@@ -51,27 +53,37 @@ namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup.Queries
 
         public List<MappingRoleToRoleGroupDTO> GetMappingListByRoleGroupPk(int roleGroupPk)
         {
-            string sql = @"
+
+            string sql = $@"
 SELECT 
 	RoleMapping.RoleGroup_PK,
 	RoleGroup.Title AS RoleGroupName,
 	Role.Role_PK,
 	Role.Title AS RoleName,
 	Role.Description AS RoleDescription,
-	CASE 
-		WHEN RoleMapping.Role_PK IS NULL
-		THEN CONVERT(BIT, 0)
-		ELSE CONVERT(BIT, 1) 
-	END
-		AS IsChecked 
+	CONVERT(BIT, 1) AS IsChecked
 FROM 
-	[tblM_Role] Role
-	left join tblM_MappingRoleToRoleGroup RoleMapping ON Role.Role_PK = RoleMapping.Role_PK
-	left join tblM_RoleGroup RoleGroup ON RoleGroup.RoleGroup_PK = RoleMapping.RoleGroup_PK 
-WHERE
-	RoleMapping.RoleGroup_PK = @RoleGroup_PK 
-	OR RoleMapping.RoleGroup_PK IS NULL
-    AND AND RoleGroup.RoleGroup_PK IS NOT NULL
+	tblM_MappingRoleToRoleGroup RoleMapping
+	INNER JOIN [tblM_Role] Role ON Role.Role_PK = RoleMapping.Role_PK
+	INNER JOIN tblM_RoleGroup RoleGroup ON RoleGroup.RoleGroup_PK = RoleMapping.RoleGroup_PK 
+WHERE 
+	RoleMapping.RoleGroup_PK = @RoleGroup_PK
+	AND Role.Status_FK = {active}
+		
+UNION ALL
+	
+SELECT 
+	0 As RoleGroup_PK,
+	'' AS RoleGroupName,
+	Role.Role_PK,
+	Role.Title AS RoleName,
+	Role.Description AS RoleDescription,
+	CONVERT(BIT, 0) AS IsChecked
+FROM 
+	[tblM_Role] Role  
+WHERE 
+	Role.Role_PK NOT IN (SELECT Role_PK  FROM tblM_MappingRoleToRoleGroup WHERE RoleGroup_PK = @RoleGroup_PK)
+	AND Role.Status_FK = {active}
 ";
             SqlParameter roleGroupParameter = new SqlParameter("@RoleGroup_PK", roleGroupPk);
             var queryResult = Db.Database.SqlQuery<MappingRoleToRoleGroupDTO>(sql, roleGroupParameter).ToList();

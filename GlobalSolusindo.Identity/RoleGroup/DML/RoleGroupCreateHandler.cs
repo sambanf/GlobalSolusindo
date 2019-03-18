@@ -51,6 +51,6 @@ namespace GlobalSolusindo.Identity.RoleGroup.DML
                 Model = model,
                 ValidationResult = validationResult
             };
-        } 
+        }
     }
 }

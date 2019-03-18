@@ -13,6 +13,6 @@ namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup.EntryForm
         public List<Control> FormControls { get; set; }
 
         [JsonProperty("model")]
-        public List<MappingRoleToRoleGroupDTO> Model { get; set; }
+        public RoleMapping Model { get; set; }
     }
 }

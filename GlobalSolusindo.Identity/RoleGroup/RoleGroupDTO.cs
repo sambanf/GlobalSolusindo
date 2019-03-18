@@ -1,7 +1,9 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Identity.MappingRoleToRoleGroup;
 using GlobalSolusindo.Identity.RoleGroup.Queries;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GlobalSolusindo.Identity.RoleGroup
@@ -18,6 +20,6 @@ namespace GlobalSolusindo.Identity.RoleGroup
         [Required]
         [JsonProperty("title")]
         [Unique(typeof(RoleGroupQuery), nameof(RoleGroup_PK))]
-        public string Title { get; set; }
+        public string Title { get; set; } 
     }
 }

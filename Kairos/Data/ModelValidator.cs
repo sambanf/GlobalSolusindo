@@ -69,7 +69,7 @@ namespace Kairos.Data
 
                 if (validationErrors.Count > 0)
                 {
-                    AddErrorToValidationResultIfThereIsNone(propertyName);
+                    //AddErrorToValidationResultIfThereIsNone(propertyName);
 
                     foreach (var error in ValidationResult.Errors)
                     {

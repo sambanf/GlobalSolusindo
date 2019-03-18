@@ -18,7 +18,7 @@ namespace GlobalSolusindo.Api.Controllers
         public MappingRoleToRoleGroupController()
         {
         }
- 
+
 
         [Route("mappingRoleToRoleGroup/form/{id}")]
         [HttpGet]
@@ -49,48 +49,22 @@ namespace GlobalSolusindo.Api.Controllers
                 return Ok(new SuccessResponse(data));
             }
         }
-
+  
         [Route("mappingRoleToRoleGroup")]
         [HttpPost]
-        public IHttpActionResult Create([FromBody]MappingRoleToRoleGroupDTO mappingRoleToRoleGroup)
+        public IHttpActionResult CreateRange([FromBody]RoleMapping roleMapping)
         {
             string accessType = "";
             ThrowIfUserCannotAccess(accessType);
-            if (mappingRoleToRoleGroup == null)
-                throw new KairosException("Missing model parameter");
 
-            if (mappingRoleToRoleGroup.RoleGroup_PK != 0)
-                throw new KairosException("Post method is not allowed because the requested primary key is must be '0' (zero) .");
-            using (var mappingRoleToRoleGroupCreateHandler = new MappingRoleToRoleGroupCreateHandler(Db, ActiveUser, new MappingRoleToRoleGroupValidator(), new MappingRoleToRoleGroupFactory(Db, ActiveUser), new MappingRoleToRoleGroupQuery(Db), AccessControl))
-            {
-                using (var transaction = new TransactionScope())
-                { 
-                    var saveResult = mappingRoleToRoleGroupCreateHandler.Save(mappingRoleToRoleGroupDTO: mappingRoleToRoleGroup, dateStamp: DateTime.UtcNow);
-                    transaction.Complete();
-                    if (saveResult.Success)
-                        return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
-                }
-            }
-        }
+            if (roleMapping.RoleGroup_PK == 0)
+                throw new KairosException("Role group primary key is 0, it's not allowed.");
 
-        [Route("mappingRoleToRoleGroup/bulk")]
-        [HttpPost]
-        public IHttpActionResult CreateRange([FromBody]List<MappingRoleToRoleGroupDTO> mappingRoleToRoleGroups)
-        {
-            string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
-            if (mappingRoleToRoleGroups == null || mappingRoleToRoleGroups.Count == 0)
-                throw new KairosException("Missing model parameter");
-
-            if (mappingRoleToRoleGroups[0].RoleGroup_PK != 0)
-                throw new KairosException("Post method is not allowed because the requested primary key is must be '0' (zero) .");
-
-            using (var mappingRoleToRoleGroupCreateHandler = new MappingRoleToRoleGroupCreateHandler(Db, ActiveUser, new MappingRoleToRoleGroupValidator(), new MappingRoleToRoleGroupFactory(Db, ActiveUser), new MappingRoleToRoleGroupQuery(Db), AccessControl))
+            using (var roleMappingCreateHandler = new RoleMappingCreateHandler(Db, ActiveUser, new MappingRoleToRoleGroupValidator(), new MappingRoleToRoleGroupFactory(Db, ActiveUser), new MappingRoleToRoleGroupQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = mappingRoleToRoleGroupCreateHandler.SaveRange(mappingRoleToRoleGroupDTOs: mappingRoleToRoleGroups, dateStamp: DateTime.UtcNow);
+                    var saveResult = roleMappingCreateHandler.Save(roleMapping: roleMapping, dateStamp: DateTime.UtcNow);
                     transaction.Complete();
                     return Ok(new SuccessResponse(saveResult, "SUCCESS"));
                 }
@@ -109,14 +83,18 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (var mappingRoleToRoleGroupDeleteHandler = new MappingRoleToRoleGroupDeleteHandler(Db, ActiveUser))
             {
-                var result = new List<DeleteResult<tblM_MappingRoleToRoleGroup>>();
-
-                foreach (var id in ids)
+                using (var transaction = new TransactionScope())
                 {
-                    result.Add(mappingRoleToRoleGroupDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                }
+                    var result = new List<DeleteResult<tblM_MappingRoleToRoleGroup>>();
 
-                return Ok(new SuccessResponse(result));
+                    foreach (var id in ids)
+                    {
+                        result.Add(mappingRoleToRoleGroupDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                    }
+
+                    transaction.Complete();
+                    return Ok(new SuccessResponse(result));
+                }
             }
         }
     }

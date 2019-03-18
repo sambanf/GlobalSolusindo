@@ -21,9 +21,13 @@
 
         bindingService.init(self).then(function (res) {
             //formControlService.setFormControl(self);
-            saveService.init(self);
+            //saveService.init(self);
             dtService.init(self);
         });
+
+        self.roleModalCallback = function () {
+            self.roleDt.draw();
+        };
 
         return self;
     }

@@ -51,12 +51,12 @@
             }
         };
 
-        self.init = function (ctrl) {
-            controller = ctrl;
-            angular.element('#saveButton').on('click', function () {
-                self.save(controller.model);
-            });
-        };
+        //self.init = function (ctrl) {
+        //    controller = ctrl;
+        //    angular.element('#saveButton').on('click', function () {
+        //        self.save(controller.model);
+        //    });
+        //};
 
         return self;
     }

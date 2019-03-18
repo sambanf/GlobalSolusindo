@@ -142,6 +142,12 @@
     <Content Include="app\modules\authParamEntry\authParamEntryRoute.js" />
     <Content Include="app\modules\authParamEntry\authParamSaveService.js" />
     <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupDtService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalCancelService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalSaveService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalBindingService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModal.html" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalCtrl.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalDirective.js" />
     <Content Include="app\modules\mappingRoleToRoleGroup\mappingRoleToRoleGroup.html" />
     <Content Include="app\modules\mappingRoleToRoleGroup\mappingRoleToRoleGroupCtrl.js" />
     <Content Include="app\modules\mappingRoleToRoleGroup\mappingRoleToRoleGroupDtService.js" />

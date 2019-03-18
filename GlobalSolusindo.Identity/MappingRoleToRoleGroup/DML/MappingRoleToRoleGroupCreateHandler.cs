@@ -25,16 +25,6 @@ namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup.DML
             this.mappingRoleToRoleGroupEntryDataProvider = new MappingRoleToRoleGroupEntryDataProvider(db, user, accessControl, mappingRoleToRoleGroupQuery);
         }
 
-        private void Delete(int roleGroupPk)
-        {
-            var mappingRoleToRoleGroups = Db.tblM_MappingRoleToRoleGroup.Where(x => x.RoleGroup_PK == roleGroupPk);
-
-            foreach (var mappingRoleToRoleGroup in mappingRoleToRoleGroups)
-            {
-                Db.tblM_MappingRoleToRoleGroup.Remove(mappingRoleToRoleGroup);
-            }
-        }
-
         public tblM_MappingRoleToRoleGroup Insert(MappingRoleToRoleGroupDTO mappingRoleToRoleGroupDTO, DateTime dateStamp)
         {
             if (mappingRoleToRoleGroupDTO == null)
@@ -64,27 +54,6 @@ namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup.DML
                 Model = model,
                 ValidationResult = validationResult
             };
-        }
-
-        public List<SaveResult<MappingRoleToRoleGroupEntryModel>> SaveRange(List<MappingRoleToRoleGroupDTO> mappingRoleToRoleGroupDTOs, DateTime dateStamp)
-        {
-            if (mappingRoleToRoleGroupDTOs == null || mappingRoleToRoleGroupDTOs.Count == 0)
-                throw new ArgumentNullException("MappingRoleToRoleGroup model is null.");
-
-            var roleGroupPk = mappingRoleToRoleGroupDTOs[0].RoleGroup_PK.Value;
-            Delete(roleGroupPk);
-
-            List<ModelValidationResult> validationResults = new List<ModelValidationResult>();
-            List<SaveResult<MappingRoleToRoleGroupEntryModel>> saveResults = new List<SaveResult<MappingRoleToRoleGroupEntryModel>>();
-            foreach (var mappingRoleToRoleGroupDTO in mappingRoleToRoleGroupDTOs)
-            {
-                var saveResult = Save(mappingRoleToRoleGroupDTO, dateStamp);
-                if (!saveResult.ValidationResult.IsValid)
-                    throw new ValidationException("ValidationException", saveResult.ValidationResult);
-
-                saveResults.Add(saveResult);
-            }
-            return saveResults;
         }
     }
 }

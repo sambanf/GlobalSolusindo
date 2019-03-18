@@ -1,9 +1,17 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Identity.RoleGroup;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup
 {
+    public class RoleMapping : RoleGroupDTO
+    {
+        [JsonProperty("mappingRoleToRoleGroups")]
+        public List<MappingRoleToRoleGroupDTO> MappingRoleToRoleGroups { get; set; } = new List<MappingRoleToRoleGroupDTO>();
+    }
+
     public class MappingRoleToRoleGroupDTO : DTO
     {
         [Required]
