@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('mappingRoleToRoleGroupEntryDtService', mappingRoleToRoleGroupEntryDtService);
+        .factory('MappingUserToRoleGroupEntryDtService', MappingUserToRoleGroupEntryDtService);
 
-    mappingRoleToRoleGroupEntryDtService.$inject = ['DatatableService'];
+    MappingUserToRoleGroupEntryDtService.$inject = ['DatatableService'];
 
-    function mappingRoleToRoleGroupEntryDtService(ds) {
+    function MappingUserToRoleGroupEntryDtService(ds) {
         var self = this;
         var controller;
         var datatable;
@@ -31,7 +31,7 @@
             var roleGroup_pk = ctrl.stateParam.id;
 
             var titleColumnIndex = 1;
-            datatable = ds.init("#mappingRoleToRoleGroupEntry", "mappingRoleToRoleGroup/search", {
+            datatable = ds.init("#mappingUserToRoleGroupEntry", "MappingUserToRoleGroup/search", {
                 extendRequestData: {
                     roleGroup_pk: roleGroup_pk,
                     pageIndex: 2,

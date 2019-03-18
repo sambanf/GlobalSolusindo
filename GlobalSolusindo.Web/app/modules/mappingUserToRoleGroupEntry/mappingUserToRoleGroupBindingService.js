@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('MappingRoleToRoleGroupBindingService', MappingRoleToRoleGroupBindingService);
+        .factory('MappingUserToRoleGroupBindingService', MappingUserToRoleGroupBindingService);
 
-    MappingRoleToRoleGroupBindingService.$inject = ['HttpService', '$state'];
+    MappingUserToRoleGroupBindingService.$inject = ['HttpService', '$state'];
 
-    function MappingRoleToRoleGroupBindingService(http, $state) {
+    function MappingUserToRoleGroupBindingService(http, $state) {
         var self = this;
         var controller = {};
 

@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h6 class="modal-title">Mapping Group to Role Group</h6>
+</div>
+
+<div class="modal-body">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="row">
+                <div class="col-md-4" ng-repeat="item in vm.roles">
+                    <label class="control control--checkbox">
+                        {{ item.title }}
+                        <input tabindex="26" type="checkbox" name="role"
+                               checked="checked" checklist-value="item" checklist-model="vm.model.roles" />
+                        <span class="control__indicator"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.ok()">Simpan</button>
+    <button class="btn btn-default" type="button" ng-click="vm.cancel()">Cancel</button>
+</div>

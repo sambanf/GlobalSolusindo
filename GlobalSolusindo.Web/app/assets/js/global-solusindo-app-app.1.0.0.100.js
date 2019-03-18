@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-18. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-19. 
 * @author Wizzytech
 */
 (function() {
@@ -15,27 +15,28 @@
 	*/
 	angular.module('global-solusindo', []);
 
-	angular.module('global-solusindo-app', [
-		'ui.router',
-		'ngResource',
-		'ngAria',
-		'ui.bootstrap',
-		'ngCookies',
-		'ngAnimate',
-		'ngTouch',
-		'ngSanitize',
-		'ncy-angular-breadcrumb',
-		'ui.layout',
-		'ui.select',
-		'datatables',
-		'datatables.scroller',
-		'datatables.select',
-		'datatables.fixedcolumns',
-		'angular-fancytree',
-		'daterangepicker',
+    angular.module('global-solusindo-app', [
+        'ui.router',
+        'ngResource',
+        'ngAria',
+        'ui.bootstrap',
+        'ngCookies',
+        'ngAnimate',
+        'ngTouch',
+        'ngSanitize',
+        'ncy-angular-breadcrumb',
+        'ui.layout',
+        'ui.select',
+        'datatables',
+        'datatables.scroller',
+        'datatables.select',
+        'datatables.fixedcolumns',
+        'angular-fancytree',
+        'daterangepicker',
         'ngStorage',
         'ngTagsInput',
 		//'Alertify',
+        'checklist-model',
 		'global-solusindo'
 	]);
 })();
@@ -238,6 +239,46 @@ angular.module('global-solusindo')
                 url: '/mappingRoleToRoleGroupEntry/:id',
                 templateUrl: 'app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupEntry.html',
                 controller: 'MappingRoleToRoleGroupEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Role Group Entry'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.mappingUserToRoleGroupList', {
+                url: '/mappingUserToRoleGroupList',
+                templateUrl: 'app/modules/mappingUserToRoleGroup/mappingUserToRoleGroup.html',
+                controller: 'MappingUserToRoleGroupCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Mapping User To Role Group'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.mappingUserToRoleGroupEntry', {
+                url: '/mappingUserToRoleGroupEntry/:id',
+                templateUrl: 'app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupEntry.html',
+                controller: 'MappingUserToRoleGroupEntryCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Role Group Entry'
@@ -696,8 +737,163 @@ angular.module('global-solusindo')
         bindingService.init(self).then(function (res) {
             //formControlService.setFormControl(self);
             saveService.init(self);
-            dtService.init(self);
+            self.datatable = dtService.init(self);
+            self.onCallback = dtService.reloadDatatable;
         });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:orderCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('ModalMappingRoleToRoleGroupCtrl', ModalMappingRoleToRoleGroup);
+
+    ModalMappingRoleToRoleGroup.$inject = ['$scope', '$uibModalInstance', 'HttpService', 'MappingRoleToRoleGroupBindingModalService', 'param'];
+
+    /*
+     * recommend
+     * Using function declarations
+     * and bindable members up top.
+     */
+
+    function ModalMappingRoleToRoleGroup($scope, $uibModalInstance, HttpService, bindingService, param) {
+        /*jshint validthis: true */
+        var self = this;
+        var http = HttpService;
+
+        bindingService.init(self).then(function (res) {
+            console.log(self.model);
+        });
+
+        self.ok = function () {
+            var result = [];
+            self.model.roles.forEach(function (i) {
+                result.push({
+                    roleGroup_pk: param.id,
+                    role_pk: i.role_pk
+                });
+            });
+
+            http.post('mappingRoleToRoleGroup/bulk', result);
+            $uibModalInstance.close();
+        };
+
+        self.cancel = function () {
+            $uibModalInstance.close();
+        };
+
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('MappingUserToRoleGroupCtrl', MappingUserToRoleGroupCtrl);
+
+    MappingUserToRoleGroupCtrl.$inject = ['$scope', '$state', 'mappingUserToRoleGroupDtService', 'mappingUserToRoleGroupViewService'];
+
+    function MappingUserToRoleGroupCtrl($scope, $state, dtService, viewService) {
+        var self = this;
+
+        self.datatable = dtService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('MappingUserToRoleGroupEntryCtrl', MappingUserToRoleGroupEntryCtrl);
+
+    MappingUserToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToRoleGroupSaveService', 'MappingUserToRoleGroupBindingService', 'FormControlService', 'mappingRoleToRoleGroupEntryDtService'];
+
+    function MappingUserToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            //formControlService.setFormControl(self);
+            saveService.init(self);
+            self.datatable = dtService.init(self);
+            self.onCallback = dtService.reloadDatatable;
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:orderCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('ModalMappingUserToRoleGroupCtrl', MappingUserToRoleGroup);
+
+    MappingUserToRoleGroup.$inject = ['$scope', '$uibModalInstance', 'HttpService', 'MappingRoleToRoleGroupBindingModalService', 'param'];
+
+    /*
+     * recommend
+     * Using function declarations
+     * and bindable members up top.
+     */
+
+    function MappingUserToRoleGroup($scope, $uibModalInstance, HttpService, bindingService, param) {
+        /*jshint validthis: true */
+        var self = this;
+        var http = HttpService;
+
+        bindingService.init(self).then(function (res) {
+            console.log(self.model);
+        });
+
+        self.ok = function () {
+            var result = [];
+            self.model.roles.forEach(function (i) {
+                result.push({
+                    roleGroup_pk: param.id,
+                    role_pk: i.role_pk
+                });
+            });
+
+            http.post('mappingUserToRoleGroup/bulk', result);
+            $uibModalInstance.close();
+        };
+
+        self.cancel = function () {
+            $uibModalInstance.close();
+        };
+
 
         return self;
     }
@@ -1240,7 +1436,7 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view'   title='View Role' data-placement='left' class='btn btn-success'>Role</button>";
+                        return "<button id='view' title='View Role' data-placement='left' class='btn btn-success'>Role</button>";
                     }
                 }
                 ]
@@ -1325,6 +1521,7 @@ angular.module('global-solusindo')
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
+                    console.log(res);
                     controller.model = res.data.model;
                     controller.formControls = res.data.formControls;
                     resolve(res);
@@ -1355,12 +1552,21 @@ angular.module('global-solusindo')
 
     function mappingRoleToRoleGroupEntryDtService(ds) {
         var self = this;
+        var controller;
+        var datatable;
+
+        self.reloadDatatable = function () {
+            console.log(controller);
+            controller.datatable.draw();
+            console.log('finish');
+        };
 
         self.init = function (ctrl) {
+            controller = ctrl;
             var roleGroup_pk = ctrl.stateParam.id;
 
             var titleColumnIndex = 1;
-            return ds.init("#mappingRoleToRoleGroupEntry", "mappingRoleToRoleGroup/search", {
+            datatable = ds.init("#mappingRoleToRoleGroupEntry", "mappingRoleToRoleGroup/search", {
                 extendRequestData: {
                     roleGroup_pk: roleGroup_pk,
                     pageIndex: 2,
@@ -1391,7 +1597,52 @@ angular.module('global-solusindo')
                     }
                 ]
             });
-        }
+
+            return datatable;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MappingRoleToRoleGroupBindingModalService', MappingRoleToRoleGroupBindingModalService);
+
+    MappingRoleToRoleGroupBindingModalService.$inject = ['HttpService', '$state'];
+
+    function MappingRoleToRoleGroupBindingModalService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function () {
+            return http.get('role/search', {
+                pageIndex: 1,
+                pageSize: 100
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding().then(function (res) {
+                    controller.roles = res.data.records;
+                    resolve(res);
+                });
+            });
+        };
+
         return self;
     }
 
@@ -1443,6 +1694,323 @@ angular.module('global-solusindo')
         self.save = function (model) {
             validation.clearValidationErrors({});
             if (model.mappingRoleToRoleGroup_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('mappingUserToRoleGroupDtService', MappingUserToRoleGroup);
+
+    MappingUserToRoleGroup.$inject = ['DatatableService'];
+
+    function MappingUserToRoleGroup(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            return ds.init("#mappingUserToRoleGroup", "roleGroup/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "roleGroup_pk"
+                },
+                {
+                    "data": "title"
+                },
+                {
+                    "data": "description"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='view' title='View Role' data-placement='left' class='btn btn-success'>Role</button>";
+                    }
+                }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('mappingUserToRoleGroupViewService', mappingUserToRoleGroupView);
+
+    mappingUserToRoleGroupView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function mappingUserToRoleGroupView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.mappingUserToRoleGroupEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#mappingUserToRoleGroup tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.roleGroup_pk);
+            });
+
+            $("#mappingUserToRoleGroup tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["roleGroup_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MappingUserToRoleGroupBindingService', MappingUserToRoleGroupBindingService);
+
+    MappingUserToRoleGroupBindingService.$inject = ['HttpService', '$state'];
+
+    function MappingUserToRoleGroupBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('roleGroup/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    console.log(res);
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MappingUserToRoleGroupEntryDtService', MappingUserToRoleGroupEntryDtService);
+
+    MappingUserToRoleGroupEntryDtService.$inject = ['DatatableService'];
+
+    function MappingUserToRoleGroupEntryDtService(ds) {
+        var self = this;
+        var controller;
+        var datatable;
+
+        self.reloadDatatable = function () {
+            console.log(controller);
+            controller.datatable.draw();
+            console.log('finish');
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var roleGroup_pk = ctrl.stateParam.id;
+
+            var titleColumnIndex = 1;
+            datatable = ds.init("#mappingUserToRoleGroupEntry", "MappingUserToRoleGroup/search", {
+                extendRequestData: {
+                    roleGroup_pk: roleGroup_pk,
+                    pageIndex: 2,
+                    pageSize: 5
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "roleGroup_pk"
+                    },
+                    {
+                        "orderable": false,
+                        "data": "role_pk"
+                    },
+                    {
+                        "data": "roleName"
+                    },
+                    {
+                        "data": "roleDescription"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                        }
+                    }
+                ]
+            });
+
+            return datatable;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MappingUserToRoleGroupBindingModalService', MappingUserToRoleGroupBindingModalService);
+
+    MappingUserToRoleGroupBindingModalService.$inject = ['HttpService', '$state'];
+
+    function MappingUserToRoleGroupBindingModalService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function () {
+            return http.get('role/search', {
+                pageIndex: 1,
+                pageSize: 100
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding().then(function (res) {
+                    controller.roles = res.data.records;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MappingUserToRoleGroupSaveService', MappingUserToRoleGroupEntry);
+
+    MappingUserToRoleGroupEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function MappingUserToRoleGroupEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('mappingUserToRoleGroup', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.mappingUserToRoleGroupEntry', { id: res.data.model.mappingUserToRoleGroup_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('mappingUserToRoleGroup', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.mappingUserToRoleGroup_pk === 0) {
                 return self.create(model);
             } else {
                 return self.update(model);
@@ -2255,7 +2823,7 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
-        var base_url = "http://ws.gs.local/";
+        var base_url = "http://global-solusindo-ws.local/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {
@@ -2955,6 +3523,94 @@ angular.module('global-solusindo')
      */
 
     angular
+        .module('global-solusindo')
+        .directive('modalMappingRoleToRoleGroup', modalDirective);
+
+    function modalDirective($uibModal) {
+        return {
+            restrict: 'A',
+            scope: {
+                onCallback: '=',
+                param: '='
+            },
+            link: function (scope, element, attrs) {
+                element.on('click', function () {
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupModal/mappingRoleToRoleGroupModal.html',
+                        controller: 'ModalMappingRoleToRoleGroupCtrl',
+                        controllerAs: 'vm',
+                        resolve: {
+                            param: function () {
+                                return scope.param;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function (data) {
+                        scope.onCallback(data);
+                    }, function () { });
+                });
+            }
+        };
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.directive:Directive
+     * @description
+     * # navbarDirective
+     * Directive of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .directive('modalMappingUserToRoleGroup', modalDirective);
+
+    function modalDirective($uibModal) {
+        return {
+            restrict: 'A',
+            scope: {
+                onCallback: '=',
+                param: '='
+            },
+            link: function (scope, element, attrs) {
+                element.on('click', function () {
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupModal/mappingUserToRoleGroupModal.html',
+                        controller: 'ModalMappingUserToRoleGroupCtrl',
+                        controllerAs: 'vm',
+                        resolve: {
+                            param: function () {
+                                return scope.param;
+                            }
+                        }
+                    });
+
+                    modalInstance.result.then(function (data) {
+                        scope.onCallback(data);
+                    }, function () { });
+                });
+            }
+        };
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.directive:Directive
+     * @description
+     * # navbarDirective
+     * Directive of the app
+     */
+
+    angular
         .module('global-solusindo-app')
         .directive('crNumeric', autoNumeric);
 
@@ -3015,6 +3671,181 @@ angular.module('global-solusindo')
         } // return
     }
 })();
+/**
+ * Checklist-model
+ * AngularJS directive for list of checkboxes
+ * https://github.com/vitalets/checklist-model
+ * License: MIT http://opensource.org/licenses/MIT
+ */
+
+/* commonjs package manager support (eg componentjs) */
+if (typeof module !== "undefined" && typeof exports !== "undefined" && module.exports === exports) {
+    module.exports = 'checklist-model';
+}
+
+angular.module('checklist-model', [])
+    .directive('checklistModel', ['$parse', '$compile', function ($parse, $compile) {
+        // contains
+        function contains(arr, item, comparator) {
+            if (angular.isArray(arr)) {
+                for (var i = arr.length; i--;) {
+                    if (comparator(arr[i], item)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        // add
+        function add(arr, item, comparator) {
+            arr = angular.isArray(arr) ? arr : [];
+            if (!contains(arr, item, comparator)) {
+                arr.push(item);
+            }
+            return arr;
+        }
+
+        // remove
+        function remove(arr, item, comparator) {
+            if (angular.isArray(arr)) {
+                for (var i = arr.length; i--;) {
+                    if (comparator(arr[i], item)) {
+                        arr.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+            return arr;
+        }
+
+        // http://stackoverflow.com/a/19228302/1458162
+        function postLinkFn(scope, elem, attrs) {
+            // exclude recursion, but still keep the model
+            var checklistModel = attrs.checklistModel;
+            attrs.$set("checklistModel", null);
+            // compile with `ng-model` pointing to `checked`
+            $compile(elem)(scope);
+            attrs.$set("checklistModel", checklistModel);
+
+            // getter for original model
+            var checklistModelGetter = $parse(checklistModel);
+            var checklistChange = $parse(attrs.checklistChange);
+            var checklistBeforeChange = $parse(attrs.checklistBeforeChange);
+            var ngModelGetter = $parse(attrs.ngModel);
+
+
+
+            var comparator = function (a, b) {
+                if (!isNaN(a) && !isNaN(b)) {
+                    return String(a) === String(b);
+                } else {
+                    return angular.equals(a, b);
+                }
+            };
+
+            if (attrs.hasOwnProperty('checklistComparator')) {
+                if (attrs.checklistComparator[0] == '.') {
+                    var comparatorExpression = attrs.checklistComparator.substring(1);
+                    comparator = function (a, b) {
+                        return a[comparatorExpression] === b[comparatorExpression];
+                    };
+
+                } else {
+                    comparator = $parse(attrs.checklistComparator)(scope.$parent);
+                }
+            }
+
+            // watch UI checked change
+            var unbindModel = scope.$watch(attrs.ngModel, function (newValue, oldValue) {
+                if (newValue === oldValue) {
+                    return;
+                }
+
+                if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
+                    ngModelGetter.assign(scope, contains(checklistModelGetter(scope.$parent), getChecklistValue(), comparator));
+                    return;
+                }
+
+                setValueInChecklistModel(getChecklistValue(), newValue);
+
+                if (checklistChange) {
+                    checklistChange(scope);
+                }
+            });
+
+            // watches for value change of checklistValue
+            var unbindCheckListValue = scope.$watch(getChecklistValue, function (newValue, oldValue) {
+                if (newValue != oldValue && angular.isDefined(oldValue) && scope[attrs.ngModel] === true) {
+                    var current = checklistModelGetter(scope.$parent);
+                    checklistModelGetter.assign(scope.$parent, remove(current, oldValue, comparator));
+                    checklistModelGetter.assign(scope.$parent, add(current, newValue, comparator));
+                }
+            }, true);
+
+            var unbindDestroy = scope.$on('$destroy', destroy);
+
+            function destroy() {
+                unbindModel();
+                unbindCheckListValue();
+                unbindDestroy();
+            }
+
+            function getChecklistValue() {
+                return attrs.checklistValue ? $parse(attrs.checklistValue)(scope.$parent) : attrs.value;
+            }
+
+            function setValueInChecklistModel(value, checked) {
+                var current = checklistModelGetter(scope.$parent);
+                if (angular.isFunction(checklistModelGetter.assign)) {
+                    if (checked === true) {
+                        checklistModelGetter.assign(scope.$parent, add(current, value, comparator));
+                    } else {
+                        checklistModelGetter.assign(scope.$parent, remove(current, value, comparator));
+                    }
+                }
+
+            }
+
+            // declare one function to be used for both $watch functions
+            function setChecked(newArr, oldArr) {
+                if (checklistBeforeChange && (checklistBeforeChange(scope) === false)) {
+                    setValueInChecklistModel(getChecklistValue(), ngModelGetter(scope));
+                    return;
+                }
+                ngModelGetter.assign(scope, contains(newArr, getChecklistValue(), comparator));
+            }
+
+            // watch original model change
+            // use the faster $watchCollection method if it's available
+            if (angular.isFunction(scope.$parent.$watchCollection)) {
+                scope.$parent.$watchCollection(checklistModel, setChecked);
+            } else {
+                scope.$parent.$watch(checklistModel, setChecked, true);
+            }
+        }
+
+        return {
+            restrict: 'A',
+            priority: 1000,
+            terminal: true,
+            scope: true,
+            compile: function (tElement, tAttrs) {
+
+                if (!tAttrs.checklistValue && !tAttrs.value) {
+                    throw 'You should provide `value` or `checklist-value`.';
+                }
+
+                // by default ngModel is 'checked', so we set it if not specified
+                if (!tAttrs.ngModel) {
+                    // local scope var storing individual checkbox model
+                    tAttrs.$set("ngModel", "checked");
+                }
+
+                return postLinkFn;
+            }
+        };
+    }]);
 (function () {
     'use strict';
 

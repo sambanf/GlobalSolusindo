@@ -982,6 +982,10 @@ div.dataTables_filter {
     height: 300px;
 }
 
+.modal-dialog{
+    max-width: 60%;
+}
+
 .modal .modal-table {
     max-width: calc(100% - 400px);
 }
@@ -1400,7 +1404,7 @@ table.dataTable.no-footer {
 
 table.dataTable .btn {
     font-size: 8pt;
-    width: 30px;
+    min-width: 30px;
     height: 30px;
     border-radius: 20px;
     padding: 5px 8px;
@@ -1414,6 +1418,14 @@ table.dataTable .btn {
 
 .ajs-hidden {
     display: none;
+}
+
+.overlay-login div {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+    color: #fff;
 }
 
 @media only screen and (max-width: 992px) {
