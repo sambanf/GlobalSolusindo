@@ -1169,27 +1169,15 @@ angular.module('global-solusindo')
             formControlService.setFormControl(self);
             saveService.init(self);
 
-            wizzy.ui.selectAjax({
-                elementIdOrClass: '#cboCourier',
-                getMethod: 'GetCourier',
-                valueMember: 'Id',
-                displayMember: 'Name',
-                applyModel: function (data) {
-                    $scope.$apply(function () {
-                        $scope.formData.Couriers = data;
-                    });
-                }
-            });
-
             select2Service.liveSearch("position/search", {
-                selector: '#cboCourier',
-                valueMember: 'Id',
-                displayMember: 'Name',
-                callback: function (response) {
-                    $scope.$apply(function () {
-                        console.log(response);
-                        self.formData.positions = response;
-                    });
+                selector: '#position_fk',
+                valueMember: 'position_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    self.formData.positions = data;
+                },
+                onSelected: function (data) {
+                    self.model.position_fk = data.position_pk;
                 }
             });
         });
@@ -3456,10 +3444,8 @@ angular.module('global-solusindo')
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
                 }, function (response) {
-                    console.log("http " + response.status);
-
                     PendingRequest.remove(url);
-                    deferred.reject(); 
+                    deferred.reject();
                 });
                 //}, function (response) {
                 //    //console.log(response.xhrStatus);
@@ -3494,7 +3480,7 @@ angular.module('global-solusindo')
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
-                }, function (response) { 
+                }, function (response) {
                     PendingRequest.remove(url);
                     deferred.reject();
                 });
@@ -3556,9 +3542,9 @@ angular.module('global-solusindo')
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
-                }, function (response) { 
+                }, function (response) {
                     PendingRequest.remove(url);
-                    deferred.reject(); 
+                    deferred.reject();
                 });
 
                 return deferred.promise;
@@ -3645,21 +3631,9 @@ angular.module('global-solusindo')
                         if (param.onPreAjaxPost) {
                             param.onPreAjaxPost(requestData);
                         }
-                        return http.get(apiUrl, requestData).then(function (res) {
+                        return http.get(apiUrl, requestData).then(function (response) {
                             success(response);
                         });
-
-                        //return ajaxService.post(param.getMethod, requestData, function (response) {
-                        //    success(response);
-                        //    if (param.onAjaxSuccess) {
-                        //        param.onAjaxSuccess(response);
-                        //    }
-                        //}, function (response) {
-                        //    if (param.onAjaxFailed) {
-                        //        param.onAjaxFailed(response);
-                        //    }
-                        //    wizzy.alert.error(response.message);
-                        //});
                     },
                     processResults: function (response, params) {
                         params.page = params.page || 1;
@@ -3667,7 +3641,7 @@ angular.module('global-solusindo')
                         if (param.onBeforeProcessResults) {
                             param.onBeforeProcessResults(response);
                         }
-                        var data = response;
+                        var data = response.data.records;
 
                         if (typeof (data) !== 'undefined') {
                             data.forEach(function (item) {
@@ -3682,13 +3656,12 @@ angular.module('global-solusindo')
                                 res.push(item);
                             });
 
-                            //res.push(data);
-                            param.callback(res);
+                            param.callback(data);
                             return {
                                 results: data,
-                                pagination: {
-                                    more: (params.page * 5) < response.data.TotalRecordsFiltered
-                                }
+                                //pagination: {
+                                //    more: (params.page * 5) < response.data.count.totalFiltered
+                                //}
                             };
                         }
                         return { results: [] };
@@ -3720,13 +3693,13 @@ angular.module('global-solusindo')
                 }
             });
             $(param.selector).on('select2:unselecting', function (e) {
-                $(this).data('unselecting', true);
+                //$(this).data('unselecting', true);
             });
             $(param.selector).on('select2:opening', function (e) {
-                if ($(this).data('unselecting')) {
-                    $(this).removeData('unselecting');
-                    e.preventDefault();
-                }
+                //if ($(this).data('unselecting')) {
+                //    $(this).removeData('unselecting');
+                //    e.preventDefault();
+                //}
                 if (param.onOpening) {
                     param.onOpening(e);
                 }
@@ -4108,6 +4081,7 @@ angular.module('global-solusindo')
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
                     controller.model = res.data.model;
                     controller.formControls = res.data.formControls;
                     resolve(res);
@@ -4165,8 +4139,6 @@ angular.module('global-solusindo')
 
         function validate() {
             validation.clearValidationErrors({});
-            console.log(controller.model.password);
-            console.log(controller.model.reTypePassword);
 
             var password = controller.model.password;
             var reTypePassword = controller.model.reTypePassword;
@@ -4188,7 +4160,6 @@ angular.module('global-solusindo')
         }
 
         self.save = function (model) {
-
             if (!validate())
                 return;
 
