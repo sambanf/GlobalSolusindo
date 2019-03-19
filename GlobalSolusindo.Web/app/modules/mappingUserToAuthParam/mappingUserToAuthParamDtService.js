@@ -11,16 +11,17 @@
 
     angular
         .module('global-solusindo')
-        .factory('mappingUserToRoleGroupDtService', MappingUserToRoleGroup);
+        .factory('mappingUserToAuthParamDtService', mappingUserToAuthParam);
 
-    MappingUserToRoleGroup.$inject = ['DatatableService'];
+    mappingUserToAuthParam.$inject = ['DatatableService'];
 
-    function MappingUserToRoleGroup(ds) {
+    function mappingUserToAuthParam(ds) {
         var self = this;
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
-            return ds.init("#mappingUserToRoleGroup", "roleGroup/search", {
+
+            return ds.init("#mappingUserToAuthParam", "authParam/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
@@ -28,7 +29,7 @@
                 order: [titleColumnIndex, "asc"],
                 columns: [{
                     "orderable": false,
-                    "data": "roleGroup_pk"
+                    "data": "authParam_pk"
                 },
                 {
                     "data": "title"
@@ -40,12 +41,13 @@
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' title='View Role' data-placement='left' class='btn btn-primary'>User</button>";
+                        return "<button id='view' rel='tooltip' title='View' data-placement='left' class='btn btn-primary'>User</button>"
                     }
                 }
                 ]
             });
-        }
+            
+        };
         return self;
     }
 
