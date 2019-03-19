@@ -111,8 +111,6 @@
     <Content Include="app\assets\images\sort_desc_disabled.png" />
     <Content Include="app\assets\images\tower-bts.jpg" />
     <Content Include="app\assets\images\trucks.png" />
-    <Content Include="app\assets\js\global-solusindo-app-app.1.0.0.100.js" />
-    <Content Include="app\assets\js\global-solusindo-app-dist.1.0.0.100.js" />
     <Content Include="app\assets\webfonts\fa-brands-400.svg" />
     <Content Include="app\assets\webfonts\fa-regular-400.svg" />
     <Content Include="app\assets\webfonts\fa-solid-900.svg" />
@@ -173,7 +171,19 @@
     <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupEntryCtrl.js" />
     <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupEntryRoute.js" />
     <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupSaveService.js" />
+    <Content Include="app\modules\position\position.html" />
+    <Content Include="app\modules\position\positionCtrl.js" />
+    <Content Include="app\modules\position\positionDeleteService.js" />
+    <Content Include="app\modules\position\positionDtService.js" />
+    <Content Include="app\modules\position\positionRoute.js" />
+    <Content Include="app\modules\position\positionViewService.js" />
+    <Content Include="app\modules\positionEntry\positionBindingService.js" />
+    <Content Include="app\modules\positionEntry\positionEntry.html" />
+    <Content Include="app\modules\positionEntry\positionEntryCtrl.js" />
+    <Content Include="app\modules\positionEntry\positionEntryRoute.js" />
+    <Content Include="app\modules\positionEntry\positionSaveService.js" />
     <Content Include="app\modules\service\Directive\checkboxDirective.js" />
+    <Content Include="app\modules\service\select2Service.js" />
     <Content Include="app\modules\userEntry\userBindingService.js" />
     <Content Include="app\modules\userEntry\userEntry.html" />
     <Content Include="app\modules\userEntry\userEntryCtrl.js" />
@@ -262,6 +272,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="app\assets\js\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

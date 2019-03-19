@@ -69,6 +69,11 @@
                         "path": "app.mappingRoleToRoleGroup",
                         "icon": "fas fa-chart-line"
                     },
+                    {
+                        "title": "Position",
+                        "path": "app.positionList",
+                        "icon": "fas fa-chart-line"
+                    },
                 ]
             },
             {

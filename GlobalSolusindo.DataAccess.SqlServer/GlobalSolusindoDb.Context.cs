@@ -9,9 +9,10 @@
 
 namespace GlobalSolusindo.DataAccess
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    
     public partial class GlobalSolusindoDb : DbContext
     {
         public GlobalSolusindoDb()
@@ -42,6 +43,7 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblM_MappingUserToRoleGroup> tblM_MappingUserToRoleGroup { get; set; }
         public virtual DbSet<tblM_Operator> tblM_Operator { get; set; }
         public virtual DbSet<tblM_PMHistori> tblM_PMHistori { get; set; }
+        public virtual DbSet<tblM_Position> tblM_Position { get; set; }
         public virtual DbSet<tblM_Project> tblM_Project { get; set; }
         public virtual DbSet<tblM_Role> tblM_Role { get; set; }
         public virtual DbSet<tblM_RoleGroup> tblM_RoleGroup { get; set; }

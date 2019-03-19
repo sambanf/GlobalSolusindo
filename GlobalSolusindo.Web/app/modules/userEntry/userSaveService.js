@@ -44,8 +44,6 @@
 
         function validate() {
             validation.clearValidationErrors({});
-            console.log(controller.model.password);
-            console.log(controller.model.reTypePassword);
 
             var password = controller.model.password;
             var reTypePassword = controller.model.reTypePassword;
@@ -67,7 +65,6 @@
         }
 
         self.save = function (model) {
-
             if (!validate())
                 return;
 

@@ -124,14 +124,18 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (var authParamDeleteHandler = new AuthParamDeleteHandler(Db, ActiveUser))
             {
-                var result = new List<DeleteResult<tblM_AuthParam>>();
-
-                foreach (var id in ids)
+                using (var transaction = new TransactionScope())
                 {
-                    result.Add(authParamDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                    var result = new List<DeleteResult<tblM_AuthParam>>();
+
+                    foreach (var id in ids)
+                    {
+                        result.Add(authParamDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                    }
+                    transaction.Complete(); 
+                    return Ok(new SuccessResponse(result));
                 }
 
-                return Ok(new SuccessResponse(result));
             }
         }
     }

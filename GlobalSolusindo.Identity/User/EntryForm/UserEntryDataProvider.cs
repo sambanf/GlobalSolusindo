@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.Position.Queries;
 using GlobalSolusindo.Identity.User.Queries;
 using Kairos;
 using Kairos.UI;
@@ -53,6 +54,12 @@ namespace GlobalSolusindo.Identity.User.EntryForm
 
             if (userDTO == null)
                 throw new KairosException($"Record with primary key '{userDTO.User_PK}' is not found.");
+
+            var position = new PositionQuery(this.Db).GetByPrimaryKey(userDTO.Position_FK);
+            if (position != null)
+            {
+                formData.Positions.Add(position);
+            }
 
             return new UserEntryModel()
             {

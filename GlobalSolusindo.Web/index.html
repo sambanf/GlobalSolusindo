@@ -33,6 +33,7 @@
 	<link rel="stylesheet" href="/app/assets/css/bootstrap-datetimepicker.css">
 	<link rel="stylesheet" href="/app/assets/css/dx-lite-app-style.0.1.0.100.css">
 	<link rel="stylesheet" href="/app/assets/css/dx-lite-app-style.1.0.0.100.css">
+	<link rel="stylesheet" href="/app/assets/css/global-solusindo-app-style.1.0.0.100.css">
 	<link rel="stylesheet" href="/app/assets/css/main.min.css">
 	<link rel="stylesheet" href="/app/assets/css/select2.css">
 	<link rel="stylesheet" href="/app/assets/css/style.css">
@@ -55,6 +56,8 @@
     <script src="/app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupEntryRoute.js"></script>
     <script src="/app/modules/mappingUserToRoleGroup/mappingUserToRoleGroupRoute.js"></script>
     <script src="/app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupEntryRoute.js"></script>
+    <script src="/app/modules/position/positionRoute.js"></script>
+    <script src="/app/modules/positionEntry/positionEntryRoute.js"></script>
     <script src="/app/modules/role-entry/roleEntryRoute.js"></script>
     <script src="/app/modules/role/roleRoute.js"></script>
     <script src="/app/modules/roleGroup/roleGroupRoute.js"></script>
@@ -69,7 +72,13 @@
     <script src="/app/modules/login/loginCtrl.js"></script>
     <script src="/app/modules/mappingRoleToRoleGroup/mappingRoleToRoleGroupCtrl.js"></script>
     <script src="/app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupEntryCtrl.js"></script>
+    <script src="/app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupModal/mappingRoleToRoleGroupModalCtrl.js"></script>
     <script src="/app/modules/mappingRoleToRoleGroupEntry/modal/roleModalCtrl.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroup/mappingUserToRoleGroupCtrl.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupEntryCtrl.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupModal/mappingUserToRoleGroupModalCtrl.js"></script>
+    <script src="/app/modules/position/positionCtrl.js"></script>
+    <script src="/app/modules/positionEntry/positionEntryCtrl.js"></script>
     <script src="/app/modules/role-entry/roleEntryCtrl.js"></script>
     <script src="/app/modules/role/roleCtrl.js"></script>
     <script src="/app/modules/roleGroup/roleGroupCtrl.js"></script>
@@ -92,6 +101,17 @@
     <script src="/app/modules/mappingRoleToRoleGroupEntry/modal/roleModalBindingService.js"></script>
     <script src="/app/modules/mappingRoleToRoleGroupEntry/modal/roleModalCancelService.js"></script>
     <script src="/app/modules/mappingRoleToRoleGroupEntry/modal/roleModalSaveService.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroup/mappingUserToRoleGroupDtService.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroup/mappingUserToRoleGroupViewService.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupBindingService.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupDtService.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupModal/mappingUserToRoleGroupModalBindingService.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupSaveService.js"></script>
+    <script src="/app/modules/position/positionDeleteService.js"></script>
+    <script src="/app/modules/position/positionDtService.js"></script>
+    <script src="/app/modules/position/positionViewService.js"></script>
+    <script src="/app/modules/positionEntry/positionBindingService.js"></script>
+    <script src="/app/modules/positionEntry/positionSaveService.js"></script>
     <script src="/app/modules/role-entry/roleBindingService.js"></script>
     <script src="/app/modules/role-entry/roleSaveService.js"></script>
     <script src="/app/modules/role/roleDeleteService.js"></script>
@@ -106,6 +126,7 @@
     <script src="/app/modules/service/filterService.js"></script>
     <script src="/app/modules/service/formControlService.js"></script>
     <script src="/app/modules/service/HttpService.js"></script>
+    <script src="/app/modules/service/select2Service.js"></script>
     <script src="/app/modules/service/uiService.js"></script>
     <script src="/app/modules/service/validationService.js"></script>
     <script src="/app/modules/user/userDeleteService.js"></script>
@@ -114,7 +135,9 @@
     <script src="/app/modules/userEntry/userBindingService.js"></script>
     <script src="/app/modules/userEntry/userSaveService.js"></script>
     <script src="/app/modules/layouts/directive/Directive.js"></script>
+    <script src="/app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupModal/mappingRoleToRoleGroupModalDirective.js"></script>
     <script src="/app/modules/mappingRoleToRoleGroupEntry/modal/roleModalDirective.js"></script>
+    <script src="/app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupModal/mappingUserToRoleGroupModalDirective.js"></script>
     <script src="/app/modules/service/Directive/autoNumericDirective.js"></script>
     <script src="/app/modules/service/Directive/checkboxDirective.js"></script>
     <script src="/app/modules/service/Directive/datetimePickerDirective.js"></script>

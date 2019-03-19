@@ -18,7 +18,7 @@
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
-        var base_url = "http://global-solusindo-ws.local/";
+        var base_url = "http://ws.gs.local/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {
@@ -84,10 +84,8 @@
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
                 }, function (response) {
-                    console.log("http " + response.status);
-
                     PendingRequest.remove(url);
-                    deferred.reject(); 
+                    deferred.reject();
                 });
                 //}, function (response) {
                 //    //console.log(response.xhrStatus);
@@ -122,7 +120,7 @@
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
-                }, function (response) { 
+                }, function (response) {
                     PendingRequest.remove(url);
                     deferred.reject();
                 });
@@ -184,9 +182,9 @@
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
-                }, function (response) { 
+                }, function (response) {
                     PendingRequest.remove(url);
-                    deferred.reject(); 
+                    deferred.reject();
                 });
 
                 return deferred.promise;

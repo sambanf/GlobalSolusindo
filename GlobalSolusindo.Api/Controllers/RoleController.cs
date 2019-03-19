@@ -124,14 +124,17 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (var roleDeleteHandler = new RoleDeleteHandler(Db, ActiveUser))
             {
-                var result = new List<DeleteResult<tblM_Role>>();
-
-                foreach (var id in ids)
+                using (var transaction = new TransactionScope())
                 {
-                    result.Add(roleDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                }
+                    var result = new List<DeleteResult<tblM_Role>>();
 
-                return Ok(new SuccessResponse(result));
+                    foreach (var id in ids)
+                    {
+                        result.Add(roleDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                    }
+                    transaction.Complete();
+                    return Ok(new SuccessResponse(result));
+                }
             }
         }
     }

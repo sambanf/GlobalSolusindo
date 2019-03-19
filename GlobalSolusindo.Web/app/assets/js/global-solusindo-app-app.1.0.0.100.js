@@ -287,6 +287,46 @@ angular.module('global-solusindo')
     }]);
 'use strict';
 
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.positionList', {
+                url: '/positionList',
+                templateUrl: 'app/modules/position/position.html',
+                controller: 'PositionCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Position'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.positionEntry', {
+                url: '/positionEntry/:id',
+                templateUrl: 'app/modules/positionEntry/positionEntry.html',
+                controller: 'PositionEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Position Entry'
+                }
+            });
+    }]);
+'use strict';
+
 /**
  * @ngdoc function
  * @name app.route:orderRoute
@@ -608,6 +648,11 @@ angular.module('global-solusindo')
                         "path": "app.mappingRoleToRoleGroup",
                         "icon": "fas fa-chart-line"
                     },
+                    {
+                        "title": "Position",
+                        "path": "app.positionList",
+                        "icon": "fas fa-chart-line"
+                    },
                 ]
             },
             {
@@ -736,10 +781,13 @@ angular.module('global-solusindo')
 
         bindingService.init(self).then(function (res) {
             //formControlService.setFormControl(self);
-            saveService.init(self);
-            self.datatable = dtService.init(self);
-            self.onCallback = dtService.reloadDatatable;
+            //saveService.init(self);
+            dtService.init(self);
         });
+
+        self.roleModalCallback = function () {
+            self.roleDt.draw();
+        };
 
         return self;
     }
@@ -773,14 +821,26 @@ angular.module('global-solusindo')
         var http = HttpService;
 
         bindingService.init(self).then(function (res) {
-            //formControlService.setFormControl(self);
-            //saveService.init(self);
-            dtService.init(self);
+            console.log(self.model);
         });
 
-        self.roleModalCallback = function () {
-            console.log(self);
+        self.ok = function () {
+            var result = [];
+            self.model.roles.forEach(function (i) {
+                result.push({
+                    roleGroup_pk: param.id,
+                    role_pk: i.role_pk
+                });
+            });
+
+            http.post('mappingRoleToRoleGroup/bulk', result);
+            $uibModalInstance.close();
         };
+
+        self.cancel = function () {
+            $uibModalInstance.close();
+        };
+
 
         return self;
     }
@@ -928,6 +988,53 @@ angular.module('global-solusindo')
 (function () {
     'use strict';
 
+    angular.module('global-solusindo')
+        .controller('PositionCtrl', PositionCtrl);
+
+    PositionCtrl.$inject = ['$scope', '$state', 'positionDtService', 'positionDeleteService', 'positionViewService'];
+
+    function PositionCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        self.datatable = dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('PositionEntryCtrl', PositionEntryCtrl);
+
+    PositionEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'PositionSaveService', 'PositionBindingService', 'FormControlService'];
+
+    function PositionEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
     /**
      * @ngdoc function
      * @name app.controller:userEntryCtrl
@@ -1052,15 +1159,39 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('UserEntryCtrl', UserEntryCtrl);
 
-    UserEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserSaveService', 'UserBindingService', 'FormControlService'];
+    UserEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserSaveService', 'UserBindingService', 'FormControlService', 'select2Service'];
 
-    function UserEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
+    function UserEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
+
+            wizzy.ui.selectAjax({
+                elementIdOrClass: '#cboCourier',
+                getMethod: 'GetCourier',
+                valueMember: 'Id',
+                displayMember: 'Name',
+                applyModel: function (data) {
+                    $scope.$apply(function () {
+                        $scope.formData.Couriers = data;
+                    });
+                }
+            });
+
+            select2Service.liveSearch("position/search", {
+                selector: '#cboCourier',
+                valueMember: 'Id',
+                displayMember: 'Name',
+                callback: function (response) {
+                    $scope.$apply(function () {
+                        console.log(response);
+                        self.formData.positions = response;
+                    });
+                }
+            });
         });
 
         return self;
@@ -1463,7 +1594,7 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view'   title='View Role' data-placement='left' class='btn btn-success'>Role</button>";
+                        return "<button id='view' title='View Role' data-placement='left' class='btn btn-success'>Role</button>";
                     }
                 }
                 ]
@@ -1548,6 +1679,7 @@ angular.module('global-solusindo')
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
+                    console.log(res);
                     controller.model = res.data.model;
                     controller.formControls = res.data.formControls;
                     resolve(res);
@@ -1578,12 +1710,21 @@ angular.module('global-solusindo')
 
     function mappingRoleToRoleGroupEntryDtService(ds) {
         var self = this;
+        var controller;
+        var datatable;
+
+        self.reloadDatatable = function () {
+            console.log(controller);
+            controller.datatable.draw();
+            console.log('finish');
+        };
 
         self.init = function (ctrl) {
+            controller = ctrl;
             var roleGroup_pk = ctrl.stateParam.id;
 
             var titleColumnIndex = 1;
-            return ds.init("#mappingRoleToRoleGroupEntry", "mappingRoleToRoleGroup/search", {
+            var dt = ds.init("#mappingRoleToRoleGroupEntry", "mappingRoleToRoleGroup/search", {
                 extendRequestData: {
                     roleGroup_pk: roleGroup_pk,
                     pageIndex: 2,
@@ -1614,7 +1755,52 @@ angular.module('global-solusindo')
                     //}
                 ]
             });
+
+            ctrl.roleDt = dt;
+            return dt;
         };
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MappingRoleToRoleGroupBindingModalService', MappingRoleToRoleGroupBindingModalService);
+
+    MappingRoleToRoleGroupBindingModalService.$inject = ['HttpService', '$state'];
+
+    function MappingRoleToRoleGroupBindingModalService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function () {
+            return http.get('role/search', {
+                pageIndex: 1,
+                pageSize: 100
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding().then(function (res) {
+                    controller.roles = res.data.records;
+                    resolve(res);
+                });
+            });
+        };
+
         return self;
     }
 
@@ -1797,377 +1983,6 @@ angular.module('global-solusindo')
             angular.element('#saveButton').on('click', function () {
                 self.save(controller.model);
                 //console.log(controller.model);
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('RoleBindingService', RoleBindingService);
-
-    RoleBindingService.$inject = ['HttpService', '$state'];
-
-    function RoleBindingService(http, $state) {
-        var self = this;
-        var controller = {};
-
-        self.applyBinding = function (id) {
-            return http.get('role/form/' + id);
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            var id = ctrl.stateParam.id;
-            return new Promise(function (resolve, reject) {
-                self.applyBinding(id).then(function (res) {
-                    controller.model = res.data.model;
-                    controller.formControls = res.data.formControls;
-                    resolve(res);
-                });
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('RoleSaveService', RoleEntry);
-
-    RoleEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
-
-    function RoleEntry($state, http, ui, validation) {
-        var self = this;
-        var controller;
-
-        self.create = function (model) {
-            http.post('role', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success(res.message);
-                    $state.go('app.role-entry', { id: res.data.model.role_pk });
-                } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
-                }
-            });
-        };
-
-        self.update = function (model) {
-            http.put('role', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success(res.message);
-                    //$state.go('app.role-entry', { id: res.data.model.role_pk });
-                } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
-                }
-            });
-        };
-
-        self.save = function (model) {
-            validation.clearValidationErrors({});
-            if (model.role_pk === 0) {
-                return self.create(model);
-            } else {
-                return self.update(model);
-            }
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            angular.element('#saveButton').on('click', function () {
-                self.save(controller.model);
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('mappingRoleToRoleGroupViewService', mappingRoleToRoleGroupView);
-
-    mappingRoleToRoleGroupView.$inject = ['HttpService', '$state', 'uiService'];
-
-    function mappingRoleToRoleGroupView(http, $state, ui) {
-        var self = this;
-        var controller;
-
-        self.view = function (data) {
-            $state.go('app.mappingRoleToRoleGroupEntry', {
-                id: data
-            });
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            $('#mappingRoleToRoleGroup tbody').on('click', '#view', function () {
-                var data = controller.datatable.row($(this).parents('tr')).data();
-                self.view(data.roleGroup_pk);
-            });
-
-            $("#mappingRoleToRoleGroup tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["roleGroup_pk"];
-                self.view(id);
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('MappingRoleToRoleGroupBindingService', MappingRoleToRoleGroupBindingService);
-
-    MappingRoleToRoleGroupBindingService.$inject = ['HttpService', '$state'];
-
-    function MappingRoleToRoleGroupBindingService(http, $state) {
-        var self = this;
-        var controller = {};
-
-        self.applyBinding = function (id) {
-            return http.get('roleGroup/form/' + id);
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            var id = ctrl.stateParam.id;
-            return new Promise(function (resolve, reject) {
-                self.applyBinding(id).then(function (res) {
-                    console.log(res);
-                    controller.model = res.data.model;
-                    controller.formControls = res.data.formControls;
-                    resolve(res);
-                });
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('mappingRoleToRoleGroupEntryDtService', mappingRoleToRoleGroupEntryDtService);
-
-    mappingRoleToRoleGroupEntryDtService.$inject = ['DatatableService'];
-
-    function mappingRoleToRoleGroupEntryDtService(ds) {
-        var self = this;
-        var controller;
-        var datatable;
-
-        self.reloadDatatable = function () {
-            console.log(controller);
-            controller.datatable.draw();
-            console.log('finish');
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            var roleGroup_pk = ctrl.stateParam.id;
-
-            var titleColumnIndex = 1;
-            datatable = ds.init("#mappingRoleToRoleGroupEntry", "mappingRoleToRoleGroup/search", {
-                extendRequestData: {
-                    roleGroup_pk: roleGroup_pk,
-                    pageIndex: 2,
-                    pageSize: 5
-                },
-                order: [titleColumnIndex, "asc"],
-                columns: [
-                    {
-                        "orderable": false,
-                        "data": "roleGroup_pk"
-                    },
-                    {
-                        "orderable": false,
-                        "data": "role_pk"
-                    },
-                    {
-                        "data": "roleName"
-                    },
-                    {
-                        "data": "roleDescription"
-                    },
-                    {
-                        "orderable": false,
-                        "className": "text-center",
-                        "render": function (data) {
-                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
-                        }
-                    }
-                ]
-            });
-
-            return datatable;
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('MappingRoleToRoleGroupBindingModalService', MappingRoleToRoleGroupBindingModalService);
-
-    MappingRoleToRoleGroupBindingModalService.$inject = ['HttpService', '$state'];
-
-    function MappingRoleToRoleGroupBindingModalService(http, $state) {
-        var self = this;
-        var controller = {};
-
-        self.applyBinding = function () {
-            return http.get('role/search', {
-                pageIndex: 1,
-                pageSize: 100
-            });
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            return new Promise(function (resolve, reject) {
-                self.applyBinding().then(function (res) {
-                    controller.roles = res.data.records;
-                    resolve(res);
-                });
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('MappingRoleToRoleGroupSaveService', MappingRoleToRoleGroupEntry);
-
-    MappingRoleToRoleGroupEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
-
-    function MappingRoleToRoleGroupEntry($state, http, ui, validation) {
-        var self = this;
-        var controller;
-
-        self.create = function (model) {
-            http.post('mappingRoleToRoleGroup', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success(res.message);
-                    $state.go('app.mappingRoleToRoleGroupEntry', { id: res.data.model.mappingRoleToRoleGroup_pk });
-                } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
-                }
-            });
-        };
-
-        self.update = function (model) {
-            http.put('mappingRoleToRoleGroup', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success(res.message);
-                } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
-                }
-            });
-        };
-
-        self.save = function (model) {
-            validation.clearValidationErrors({});
-            if (model.mappingRoleToRoleGroup_pk === 0) {
-                return self.create(model);
-            } else {
-                return self.update(model);
-            }
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            angular.element('#saveButton').on('click', function () {
-                self.save(controller.model);
             });
         };
 
@@ -2475,6 +2290,294 @@ angular.module('global-solusindo')
         self.save = function (model) {
             validation.clearValidationErrors({});
             if (model.mappingUserToRoleGroup_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('positionDeleteService', position);
+
+    position.$inject = ['HttpService', 'uiService'];
+
+    function position(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('position', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.position_pk];
+            ui.alert.confirm("Are you sure want to delete position '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].position_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#position tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('positionDtService', position);
+
+    position.$inject = ['DatatableService'];
+
+    function position(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            return ds.init("#position", "position/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "position_pk"
+                },
+                {
+                    "data": "name"
+                },
+                {
+                    "data": "description"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('positionViewService', positionView);
+
+    positionView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function positionView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.positionEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#position tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.position_pk);
+            });
+
+            $("#position tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["position_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('PositionBindingService', PositionBindingService);
+
+    PositionBindingService.$inject = ['HttpService', '$state'];
+
+    function PositionBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('position/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('PositionSaveService', PositionEntry);
+
+    PositionEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function PositionEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('position', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.positionEntry', { id: res.data.model.position_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('position', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.position_pk === 0) {
                 return self.create(model);
             } else {
                 return self.update(model);
@@ -3287,7 +3390,7 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
-        var base_url = "http://global-solusindo-ws.local/";
+        var base_url = "http://ws.gs.local/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {
@@ -3484,6 +3587,153 @@ angular.module('global-solusindo')
         };
 
         return this;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:kairosService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('select2Service', select2Service);
+
+    select2Service.$inject = ['HttpService'];
+
+    function select2Service(http) {
+        var self = this;
+
+        self.liveSearch = function (apiUrl, param) {
+            var res = [];
+            var $p = $(param.selector).parent();
+            $(param.selector).select2({
+                ajax: {
+                    delay: 300,
+                    data: function (params) {
+                        return {
+                            q: params.term,
+                            page: params.page || 1
+                        };
+                    },
+                    transport: function (params, success, failure) {
+                        var defaultRequestData = {
+                            "pageIndex": params.data.page,
+                            "pageSize": 5,
+                            "sortName": param.displayMember,
+                            "sortDir": "asc",
+                            "keyword": typeof (params.data.q) === 'undefined' ? '' : params.data.q
+                        };
+
+                        var extendRequestData = param.extendRequestData;
+
+                        if (extendRequestData) {
+                            extendRequestData.pageIndex = defaultRequestData.pageIndex;
+                            extendRequestData.pageSize = defaultRequestData.pageSize;
+                            extendRequestData.keyword = defaultRequestData.keyword;
+                            extendRequestData.sortName = defaultRequestData.sortName;
+                            extendRequestData.sortDir = defaultRequestData.sortDir;
+                        }
+
+                        var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+
+                        if (param.onPreAjaxPost) {
+                            param.onPreAjaxPost(requestData);
+                        }
+                        return http.get(apiUrl, requestData).then(function (res) {
+                            success(response);
+                        });
+
+                        //return ajaxService.post(param.getMethod, requestData, function (response) {
+                        //    success(response);
+                        //    if (param.onAjaxSuccess) {
+                        //        param.onAjaxSuccess(response);
+                        //    }
+                        //}, function (response) {
+                        //    if (param.onAjaxFailed) {
+                        //        param.onAjaxFailed(response);
+                        //    }
+                        //    wizzy.alert.error(response.message);
+                        //});
+                    },
+                    processResults: function (response, params) {
+                        params.page = params.page || 1;
+
+                        if (param.onBeforeProcessResults) {
+                            param.onBeforeProcessResults(response);
+                        }
+                        var data = response;
+
+                        if (typeof (data) !== 'undefined') {
+                            data.forEach(function (item) {
+                                for (var prop in item) {
+                                    if (prop == param.valueMember) {
+                                        item.id = item[prop];
+                                    }
+                                    if (prop == param.displayMember) {
+                                        item.text = item[prop];
+                                    }
+                                }
+                                res.push(item);
+                            });
+
+                            //res.push(data);
+                            param.callback(res);
+                            return {
+                                results: data,
+                                pagination: {
+                                    more: (params.page * 5) < response.data.TotalRecordsFiltered
+                                }
+                            };
+                        }
+                        return { results: [] };
+                    }
+                },
+                dropdownAutoWidth: true,
+                placeholder: (param.placeholder) ? param.placeholder : 'Search..',
+                allowClear: param.allowClear,
+                escapeMarkup: function (m) {
+                    return m;
+                },
+                templateResult: (typeof (param.templateResult) !== 'undefined') ? param.templateResult : function (item) {
+                    var markup = "<div class='select2-result-repository__statistics'>" +
+                        "<div>" + item.text + "</div>" +
+                        "</div>" +
+                        "</div></div>";
+
+                    return markup;
+                },
+                templateSelection: typeof (param.templateSelection) !== 'undefined' ? param.templateSelection : function (item) {
+                    return item.text;
+                },
+                dropdownParent: $p
+            });
+
+            $(param.selector).on('select2:select', function (e) {
+                if (param.onSelected) {
+                    param.onSelected(e.params.data);
+                }
+            });
+            $(param.selector).on('select2:unselecting', function (e) {
+                $(this).data('unselecting', true);
+            });
+            $(param.selector).on('select2:opening', function (e) {
+                if ($(this).data('unselecting')) {
+                    $(this).removeData('unselecting');
+                    e.preventDefault();
+                }
+                if (param.onOpening) {
+                    param.onOpening(e);
+                }
+            });
+        };
+
+        return self;
     }
 })();
 (function () {
@@ -3937,224 +4187,6 @@ angular.module('global-solusindo')
             return true;
         }
 
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('userDtService', user);
-
-    user.$inject = ['DatatableService'];
-
-    function user(ds) {
-        var self = this;
-
-        self.init = function (ctrl) {
-            var titleColumnIndex = 1;
-            return ds.init("#user", "user/search", {
-                extendRequestData: {
-                    pageIndex: 1,
-                    pageSize: 10
-                },
-                order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "user_pk"
-                },
-                {
-                    "data": "userCode"
-                },
-                {
-                    "data": "name"
-                },
-                //{
-                //    "data": "position"
-                //},
-                //{
-                //    "data": "roleName"
-                //},
-                {
-                    "data": "noHP"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
-                    }
-                }
-                ]
-            });
-        }
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('userViewService', userView);
-
-    userView.$inject = ['HttpService', '$state', 'uiService'];
-
-    function userView(http, $state, ui) {
-        var self = this;
-        var controller;
-
-        self.view = function (data) {
-            $state.go('app.userEntry', {
-                id: data
-            });
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            $('#user tbody').on('click', '#view', function () {
-                var data = controller.datatable.row($(this).parents('tr')).data();
-                self.view(data.user_pk);
-            });
-
-            $("#user tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["user_pk"];
-                self.view(id);
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('UserBindingService', UserBindingService);
-
-    UserBindingService.$inject = ['HttpService', '$state'];
-
-    function UserBindingService(http, $state) {
-        var self = this;
-        var controller = {};
-
-        self.applyBinding = function (id) {
-            return http.get('user/form/' + id);
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            var id = ctrl.stateParam.id;
-            return new Promise(function (resolve, reject) {
-                self.applyBinding(id).then(function (res) {
-                    controller.model = res.data.model;
-                    controller.formControls = res.data.formControls;
-                    resolve(res);
-                });
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('UserSaveService', UserEntry);
-
-    UserEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
-
-    function UserEntry($state, http, ui, validation) {
-        var self = this;
-        var controller;
-
-        self.create = function (model) {
-            http.post('user', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success(res.message);
-                    $state.go('app.userEntry', { id: res.data.model.user_pk });
-                } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
-                }
-            });
-        };
-
-        self.update = function (model) {
-            http.put('user', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success(res.message);
-                } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
-                }
-            });
-        };
-
-        function validate() {
-            validation.clearValidationErrors({});
-            console.log(controller.model.password);
-            console.log(controller.model.reTypePassword);
-
-            var password = controller.model.password;
-            var reTypePassword = controller.model.reTypePassword;
-
-            if (password == '' || password == null || password == 'undefined') {
-                validation.setError("password", "Password is required.");
-                return false;
-            }
-            if (reTypePassword == '' || reTypePassword == null || reTypePassword == 'undefined') {
-                validation.setError("reTypePassword", "Please re type password.");
-                return false;
-            }
-            if (password != reTypePassword) {
-                validation.setError("reTypePassword", "Password do not match.");
-                return false;
-            }
-
-            return true;
-        }
-
         self.save = function (model) {
 
             if (!validate())
@@ -4206,119 +4238,6 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .directive('roleModal', roleModal);
-
-    function roleModal($uibModal) {
-        return {
-            restrict: 'A',
-            scope: {
-                onCallback: '='
-            },
-            link: function (scope, element, attrs) {
-                element.on('click', function () {
-                    var modalInstance = $uibModal.open({
-                        templateUrl: 'app/modules/mappingRoleToRoleGroupEntry/modal/roleModal.html',
-                        controller: 'roleModalCtrl',
-                        controllerAs: 'vm',
-                        windowTopClass: 'modal-list-role'
-                    });
-
-                    modalInstance.result.then(function (data) {
-                        if (scope.onCallback) {
-                            scope.onCallback(data);
-                        }
-                    }, function () { });
-                });
-            }
-        };
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.directive:Directive
-     * @description
-     * # navbarDirective
-     * Directive of the app
-     */
-
-    angular
-        .module('global-solusindo-app')
-        .directive('crNumeric', autoNumeric);
-
-    function autoNumeric() {
-        
-        // Declare a empty options object
-        var options = {};
-        return {
-            // Require ng-model in the element attribute for watching changes.
-            require: '?ngModel',
-            // This directive only works when used in element's attribute (e.g: cr-numeric)
-            restrict: 'A',
-            compile: function (tElm, tAttrs) {
-
-                var isTextInput = tElm.is('input:text');
-
-                return function (scope, elm, attrs, controller) {
-                    // Get instance-specific options.
-                    var opts = angular.extend({}, options, scope.$eval(attrs.crNumeric));
-
-                    // Helper method to update autoNumeric with new value.
-                    var updateElement = function (element, newVal) {
-                        // Only set value if value is numeric
-                        if ($.isNumeric(newVal))
-                            element.autoNumeric('set', newVal);
-                    };
-
-                    // Initialize element as autoNumeric with options.
-                    elm.autoNumeric(opts);
-
-                    // if element has controller, wire it (only for <input type="text" />)
-                    if (controller && isTextInput) {
-                        // watch for external changes to model and re-render element
-                        scope.$watch(tAttrs.ngModel, function (current, old) {
-                            controller.$render();
-                        });
-                        // render element as autoNumeric
-                        controller.$render = function () {
-                            updateElement(elm, controller.$viewValue);
-                        }
-                        // Detect changes on element and update model.
-                        elm.on('change', function (e) {
-                            scope.$apply(function () {
-                                controller.$setViewValue(elm.autoNumeric('get'));
-                            });
-                        });
-                    } else {
-                        // Listen for changes to value changes and re-render element.
-                        // Useful when binding to a readonly input field.
-                        if (isTextInput) {
-                            attrs.$observe('value', function (val) {
-                                updateElement(elm, val);
-                            });
-                        }
-                    }
-                }
-            } // compile
-        } // return
-    }
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.directive:Directive
-     * @description
-     * # navbarDirective
-     * Directive of the app
-     */
-
-    angular
-        .module('global-solusindo')
         .directive('modalMappingRoleToRoleGroup', modalDirective);
 
     function modalDirective($uibModal) {
@@ -4343,6 +4262,47 @@ angular.module('global-solusindo')
 
                     modalInstance.result.then(function (data) {
                         scope.onCallback(data);
+                    }, function () { });
+                });
+            }
+        };
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.directive:Directive
+     * @description
+     * # navbarDirective
+     * Directive of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .directive('roleModal', roleModal);
+
+    function roleModal($uibModal) {
+        return {
+            restrict: 'A',
+            scope: {
+                onCallback: '='
+            },
+            link: function (scope, element, attrs) {
+                element.on('click', function () {
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'app/modules/mappingRoleToRoleGroupEntry/modal/roleModal.html',
+                        controller: 'roleModalCtrl',
+                        controllerAs: 'vm',
+                        windowTopClass: 'modal-list-role'
+                    });
+
+                    modalInstance.result.then(function (data) {
+                        if (scope.onCallback) {
+                            scope.onCallback(data);
+                        }
                     }, function () { });
                 });
             }

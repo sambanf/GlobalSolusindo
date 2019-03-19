@@ -9,12 +9,14 @@
 
 namespace GlobalSolusindo.DataAccess
 {
-
+    using System;
+    using System.Collections.Generic;
+    
     public partial class tblM_User
     {
         public int User_PK { get; set; }
         public int UserDetail_FK { get; set; }
-        public int RoleGroup_FK { get; set; }
+        public int Position_FK { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string CreatedBy { get; set; }

@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cryptography\MD5Encryptor.cs" />
+    <Compile Include="DataAnnotations\ForeignKeyAttribute.cs" />
     <Compile Include="DataAnnotations\IValidator.cs" />
     <Compile Include="DataAnnotations\UniqueAttribute.cs" />
     <Compile Include="Data\ModelValidationResult.cs" />
@@ -60,7 +61,6 @@
     <Compile Include="Linq\IUniqueQuery.cs" />
     <Compile Include="Linq\Sorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UIControl.cs" />
     <Compile Include="UI\Button.cs" />
     <Compile Include="UI\Control.cs" />
   </ItemGroup>

@@ -45,8 +45,8 @@ namespace GlobalSolusindo.Identity.User.Queries
                             Address = userDetail.Address,
                             Description = userDetail.Description,
                             Username = user.Username,
+                            Position_FK = user.Position_FK,
                             //Password = user.Password,
-
                             CreatedBy = user.CreatedBy,
                             CreatedDate = user.CreatedDate,
                             UpdatedBy = user.UpdatedBy,
