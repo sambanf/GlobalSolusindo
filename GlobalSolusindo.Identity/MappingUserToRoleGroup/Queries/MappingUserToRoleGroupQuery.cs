@@ -37,7 +37,7 @@ namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.Queries
                         from userDetail in userDetailTemp.DefaultIfEmpty()
                         where
                         mappingUserToRoleGroup.Status_FK != deleted
-                       // && user.Status_FK != deleted
+                        && user.Status_FK != deleted
                         select new MappingUserToRoleGroupDTO
                         {
                             RoleGroup_PK = mappingUserToRoleGroup.RoleGroup_PK,

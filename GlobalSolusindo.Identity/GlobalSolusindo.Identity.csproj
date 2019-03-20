@@ -52,6 +52,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessControl.cs" />
+    <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamCreateHandler.cs" />
+    <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamDeleteHandler.cs" />
+    <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamUpdateHandler.cs" />
+    <Compile Include="MappingUserToAuthParam\EntryForm\MappingUserToAuthParamEntryControlBuilder.cs" />
+    <Compile Include="MappingUserToAuthParam\EntryForm\MappingUserToAuthParamEntryDataProvider.cs" />
+    <Compile Include="MappingUserToAuthParam\EntryForm\MappingUserToAuthParamEntryFormData.cs" />
+    <Compile Include="MappingUserToAuthParam\EntryForm\MappingUserToAuthParamEntryModel.cs" />
+    <Compile Include="MappingUserToAuthParam\ListForm\MappingUserToAuthParamListDataProvider.cs" />
+    <Compile Include="MappingUserToAuthParam\ListForm\MappingUserToAuthParamListFormData.cs" />
+    <Compile Include="MappingUserToAuthParam\ListForm\MappingUserToAuthParamListModel.cs" />
+    <Compile Include="MappingUserToAuthParam\MappingUserToAuthParamDTO.cs" />
+    <Compile Include="MappingUserToAuthParam\MappingUserToAuthParamFactory.cs" />
+    <Compile Include="MappingUserToAuthParam\MappingUserToAuthParamValidator.cs" />
+    <Compile Include="MappingUserToAuthParam\Queries\MappingUserToAuthParamQuery.cs" />
+    <Compile Include="MappingUserToAuthParam\Queries\MappingUserToAuthParamSearch.cs" />
     <Compile Include="MappingUserToRoleGroup\DML\MappingUserToRoleGroupCreateHandler.cs" />
     <Compile Include="MappingUserToRoleGroup\DML\MappingUserToRoleGroupDeleteHandler.cs" />
     <Compile Include="MappingUserToRoleGroup\DML\MappingUserToRoleGroupUpdateHandler.cs" />
