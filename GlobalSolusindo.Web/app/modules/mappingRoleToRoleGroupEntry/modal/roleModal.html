@@ -4,7 +4,7 @@
 
 <div class="modal-body">
     <div class="row">
-        <div class="col-md-12 p-0">
+        <!--<div class="col-md-12 p-0">
             <table id="roleModal" class="table">
                 <thead>
                     <tr>
@@ -22,9 +22,17 @@
                         <td class="text-center"> <input type="checkbox" ng-checked="i.isChecked" ng-model="i.isChecked"></td>
                     </tr>
                 </tbody>
-            </table>
+            </table>-->
+
+            <div class="col-md-4" ng-repeat="i in vm.model.mappingRoleToRoleGroups">
+                <label class="control control--checkbox">
+                    {{i.roleName}}
+                    <input tabindex="26" type="checkbox" name="role"
+                           checked="checked"  ng-checked="i.isChecked" ng-model="i.isChecked" />
+                    <span class="control__indicator"></span>
+                </label>
+            </div>
         </div>
-    </div>
 </div>
 
 <div class="modal-footer">

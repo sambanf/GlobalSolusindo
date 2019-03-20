@@ -218,6 +218,12 @@
     <Content Include="app\modules\positionEntry\positionEntryCtrl.js" />
     <Content Include="app\modules\positionEntry\positionEntryRoute.js" />
     <Content Include="app\modules\positionEntry\positionSaveService.js" />
+    <Content Include="app\modules\asset\asset.html" />
+    <Content Include="app\modules\asset\assetCtrl.js" />
+    <Content Include="app\modules\asset\assetDeleteService.js" />
+    <Content Include="app\modules\asset\assetDtService.js" />
+    <Content Include="app\modules\asset\assetRoute.js" />
+    <Content Include="app\modules\asset\assetViewService.js" />
     <Content Include="app\modules\service\Directive\checkboxDirective.js" />
     <Content Include="app\modules\service\select2Service.js" />
     <Content Include="app\modules\userEntry\userBindingService.js" />

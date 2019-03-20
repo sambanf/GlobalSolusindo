@@ -49,6 +49,7 @@ input {
 
 .state-text {
     text-align: right;
+    min-height: 50px;
 }
 
     .state-text h1 {
@@ -315,12 +316,23 @@ span.loc {
 }
 
 .the-icons i {
-    font-size: 40pt;
-    padding: 10px 0;
+    font-size: 25pt;
+}
+
+.value-dashboard h4 {
+    text-align: center;
+    padding: 20px 0;
+    color: #0acd31;
+    font-weight: 700;
 }
 
 .nav-link.nav-dropdown-toggle.active {
     background-color: #0083BC;
+}
+
+.col-md-20p {
+    width: 20%;
+    padding: 0 15px;
 }
 
 main.full {
@@ -921,6 +933,13 @@ div.dataTables_filter {
     cursor: pointer;
 }
 
+.top-dashboard {
+    background-color: #0acd31;
+    border-radius: 0 0 0 50px;
+    padding: 15px 15px 15px 30px;
+    color: #fff;
+}
+
 #top-summary .box-item:nth-child(4n) {
     padding-right: 15px;
 }
@@ -982,7 +1001,7 @@ div.dataTables_filter {
     height: 300px;
 }
 
-.modal-dialog{
+.modal-dialog {
     max-width: 60%;
 }
 
