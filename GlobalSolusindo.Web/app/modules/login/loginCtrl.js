@@ -13,7 +13,7 @@
         .module('global-solusindo')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$scope', '$state', 'validationService', '$localStorage', '$cookies', 'uiService', 'HttpService'];
+    LoginCtrl.$inject = ['$scope', '$state', 'validationService', '$localStorage', '$cookies', 'uiService', 'HttpService', '$window'];
 
     /*
     * recommend
@@ -21,7 +21,7 @@
     * and bindable members up top.
     */
 
-    function LoginCtrl($scope, $state, validation, localStorage, $cookies, ui, http) {
+    function LoginCtrl($scope, $state, validation, localStorage, $cookies, ui, http, $window) {
         /*jshint validthis: true */
         var self = this;
 
