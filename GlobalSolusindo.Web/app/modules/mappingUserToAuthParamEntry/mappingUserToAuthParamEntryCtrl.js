@@ -13,18 +13,20 @@
         .module('global-solusindo')
         .controller('MappingUserToAuthParamEntryCtrl', MappingUserToAuthParamEntryCtrl);
 
-    MappingUserToAuthParamEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToAuthParamSaveService', 'MappingUserToAuthParamBindingService', 'FormControlService', 'MappingUserToAuthParamEntryDtService'];
+    MappingUserToAuthParamEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToAuthParamSaveService', 'MappingUserToAuthParamBindingService', 'FormControlService', 'mappingUserToAuthParamEntryDtService', 'select2Service', 'mappingUserToAuthParamDeleteService'];
 
-    function MappingUserToAuthParamEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService) {
+    function MappingUserToAuthParamEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, select2Service, deleteService) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
-            //formControlService.setFormControl(self);
-            saveService.init(self);
-            self.datatable = dtService.init(self);
-            self.onCallback = dtService.reloadDatatable;
+            dtService.init(self);
+            deleteService.init(self);
         });
+
+        self.userAuthParamModalCallback = function () {
+            self.userDt.draw();
+        };
 
         return self;
     }

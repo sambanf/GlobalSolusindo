@@ -3,26 +3,23 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-title">Mapping Role To Role Group</div>
+                    <div class="card-title">Mapping User To Auth Param</div>
                     <div class="col-md-8">
                         <div class="row form-group">
-                            <label class="control-label col-sm-2">Role Group Name :</label>
+                            <label class="control-label col-sm-3">Mapping User To Auth Param Name:</label>
                             <label class="control-label col-sm-2" type="text" id="title" name="title">
                                 {{vm.model.title}}
                             </label>
                         </div>
-                        <div class="row form-group">
-                            <label class="control-label col-sm-2">Description :</label>
+                        <div class="row">
+                            <label class="control-label col-sm-3">Description:</label>
                             <label class="control-label col-sm-2" name="description" placeholder="Description">
                                 {{vm.model.description}}
                             </label>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button class="btn btn-default" ui-sref="app.mappingRoleToRoleGroupList">Kembali</button>
-                                <button class="btn btn-success float-right" modal-mapping-user-to-auth-param param="vm.stateParam" on-callback="vm.onCallback">
-                                    Add Role
-                                </button>
+                                <button class="btn btn-default" ui-sref="app.mappingUserToAuthParamList">Kembali</button> 
                             </div>
                         </div>
                     </div>
@@ -32,18 +29,26 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-title">List user</div>
+                    <div class="card-title">List Mapping User To Auth Param</div>
+                    <div class="row"> 
+                        <div class="col-md-12">
+                            <button user--auth-param-modal on-callback="vm.userAuthParamModalCallback" class="btn btn-success" id="modalRoleButton">
+                                Add New User
+                            </button>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <table id="mappingUserToAuthParam">
                                 <thead>
                                     <tr>
-                                        <th>No</th>
-                                        <th>ID User</th>
+                                        <th>Auth Param PK</th>
+                                        <th>User PK</th>
+                                        <th>User Id</th>
                                         <th>Username</th>
                                         <th>Name</th>
                                         <th>Position</th>
-                                        <th>Remove</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                             </table>

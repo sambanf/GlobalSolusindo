@@ -2,11 +2,11 @@
     'use strict';
 
     angular.module('global-solusindo')
-        .controller('MappingUserToAuthParamCtrl', MappingUserToAuthParam);
+        .controller('MappingUserToAuthParamCtrl', MappingUserToAuthParamCtrl);
 
-    MappingUserToAuthParam.$inject = ['$scope', '$state', 'mappingUserToAuthParamDtService', 'mappingUserToAuthParamViewService'];
+    MappingUserToAuthParamCtrl.$inject = ['$scope', '$state', 'mappingUserToAuthParamDtService', 'mappingUserToAuthParamViewService'];
 
-    function MappingUserToAuthParam($scope, $state, dtService, viewService) {
+    function MappingUserToAuthParamCtrl($scope, $state, dtService, viewService) {
         var self = this;
 
         self.datatable = dtService.init(self);

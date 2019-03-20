@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-20. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-21. 
 * @author Wizzytech
 */
 (function() {
@@ -273,7 +273,7 @@ angular.module('global-solusindo')
                 controller: 'MappingUserToAuthParamCtrl',
                 controllerAs: 'brc',
                 ncyBreadcrumb: {
-                    label: 'Mapping User To Auth Paran'
+                    label: 'Mapping User To Auth Param'
                 }
             });
     }]);
@@ -297,7 +297,7 @@ angular.module('global-solusindo')
                 controller: 'MappingUserToAuthParamEntryCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'Role Group Entry'
+                    label: 'Mapping User To Auth Param Entry'
                 }
             });
     }]);
@@ -1015,11 +1015,11 @@ angular.module('global-solusindo')
     'use strict';
 
     angular.module('global-solusindo')
-        .controller('MappingUserToAuthParamCtrl', MappingUserToAuthParam);
+        .controller('MappingUserToAuthParamCtrl', MappingUserToAuthParamCtrl);
 
-    MappingUserToAuthParam.$inject = ['$scope', '$state', 'mappingUserToAuthParamDtService', 'mappingUserToAuthParamViewService'];
+    MappingUserToAuthParamCtrl.$inject = ['$scope', '$state', 'mappingUserToAuthParamDtService', 'mappingUserToAuthParamViewService'];
 
-    function MappingUserToAuthParam($scope, $state, dtService, viewService) {
+    function MappingUserToAuthParamCtrl($scope, $state, dtService, viewService) {
         var self = this;
 
         self.datatable = dtService.init(self);
@@ -1043,18 +1043,20 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('MappingUserToAuthParamEntryCtrl', MappingUserToAuthParamEntryCtrl);
 
-    MappingUserToAuthParamEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToAuthParamSaveService', 'MappingUserToAuthParamBindingService', 'FormControlService', 'MappingUserToAuthParamEntryDtService'];
+    MappingUserToAuthParamEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToAuthParamSaveService', 'MappingUserToAuthParamBindingService', 'FormControlService', 'mappingUserToAuthParamEntryDtService', 'select2Service', 'mappingUserToAuthParamDeleteService'];
 
-    function MappingUserToAuthParamEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService) {
+    function MappingUserToAuthParamEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, select2Service, deleteService) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
-            //formControlService.setFormControl(self);
-            saveService.init(self);
-            self.datatable = dtService.init(self);
-            self.onCallback = dtService.reloadDatatable;
+            dtService.init(self);
+            deleteService.init(self);
         });
+
+        self.userAuthParamModalCallback = function () {
+            self.userDt.draw();
+        };
 
         return self;
     }
@@ -1064,7 +1066,7 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
-     * @name app.controller:orderCtrl
+     * @name app.controller:userAuthParamModal
      * @description
      * # dashboardCtrl
      * Controller of the app
@@ -1072,42 +1074,53 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .controller('ModalMappingUserToAuthParamCtrl', MappingUserToAuthParam);
+        .controller('userAuthParamModalCtrl', userAuthParamModalCtrl);
 
-    MappingUserToAuthParam.$inject = ['$scope', '$uibModalInstance', 'HttpService', 'MappingUserToAuthParamModalService', 'param'];
+    userAuthParamModalCtrl.$inject = ['$scope', '$uibModalInstance', 'userAuthParamModalBindingService', '$stateParams', 'userAuthParamModalSaveService', 'userAuthParamModalCancelService', 'select2Service'];
 
     /*
      * recommend
      * Using function declarations
      * and bindable members up top.
      */
-
-    function MappingUserToAuthParam($scope, $uibModalInstance, HttpService, bindingService, param) {
-        /*jshint validthis: true */
+    function userAuthParamModalCtrl($scope, $uibModalInstance, bindingService, sParam, saveService, cancelService, select2Service) {
         var self = this;
-        var http = HttpService;
+        self.stateParam = sParam;
+        self.modalInstance = $uibModalInstance;
 
-        bindingService.init(self).then(function (res) {
-            console.log(self.model);
+        self.formData = {};
+        self.formData.users = [{
+            user_pk: "1",
+            name: "sadfasdf"
+        }];
+
+        self.model = {
+            roleGroup_pk: sParam.id,
+            user_pk: 0
+        };
+
+        angular.element(document).ready(function () {
+            select2Service.liveSearch("user/search", {
+                selector: '#user_pk',
+                valueMember: 'user_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    self.formData.users = data;
+                },
+                onSelected: function (data) {
+                    self.model.user_pk = data.user_pk;
+                }
+            });
         });
 
-        self.ok = function () {
-            var result = [];
-            self.model.roles.forEach(function (i) {
-                result.push({
-                    roleGroup_pk: param.id,
-                    role_pk: i.role_pk
-                });
-            });
+        bindingService.init(self).then(function (res) {
+            saveService.init(self);
+            cancelService.init(self);
+        });
 
-            http.post('mappingUserToRoleGroup/bulk', result);
-            $uibModalInstance.close();
-        };
-
-        self.cancel = function () {
-            $uibModalInstance.close();
-        };
-
+        $scope.$on('ui.layout.resize', function (e, beforeContainer, afterContainer) {
+            ctrl.datatable.columns.adjust();
+        });
 
         return self;
     }
@@ -1146,13 +1159,13 @@ angular.module('global-solusindo')
 
     MappingUserToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToRoleGroupSaveService', 'MappingUserToRoleGroupBindingService', 'FormControlService', 'mappingUserToRoleGroupEntryDtService', 'select2Service', 'mappingUserToRoleGroupDeleteService'];
 
-    function MappingUserToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, select2Service, mappingUserToRoleGroupDeleteService) {
+    function MappingUserToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, select2Service, deleteService) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
             dtService.init(self);
-            mappingUserToRoleGroupDeleteService.init(self);
+            deleteService.init(self);
         });
 
         self.userModalCallback = function () {
@@ -2461,16 +2474,15 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('mappingUserToAuthParamDtService', mappingUserToAuthParam);
+        .factory('mappingUserToAuthParamDtService', MappingUserToAuthParam);
 
-    mappingUserToAuthParam.$inject = ['DatatableService'];
+    MappingUserToAuthParam.$inject = ['DatatableService'];
 
-    function mappingUserToAuthParam(ds) {
+    function MappingUserToAuthParam(ds) {
         var self = this;
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
-
             return ds.init("#mappingUserToAuthParam", "authParam/search", {
                 extendRequestData: {
                     pageIndex: 1,
@@ -2491,13 +2503,12 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='View' data-placement='left' class='btn btn-primary'>User</button>"
+                        return "<button id='view' title='View Users' data-placement='left' class='btn btn-success'>User</button>";
                     }
                 }
                 ]
             });
-            
-        };
+        }
         return self;
     }
 
@@ -2569,7 +2580,7 @@ angular.module('global-solusindo')
         var controller = {};
 
         self.applyBinding = function (id) {
-            return http.get('roleGroup/form/' + id);
+            return http.get('authParam/form/' + id);
         };
 
         self.init = function (ctrl) {
@@ -2577,7 +2588,6 @@ angular.module('global-solusindo')
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
-                    console.log(res);
                     controller.model = res.data.model;
                     controller.formControls = res.data.formControls;
                     resolve(res);
@@ -2602,11 +2612,64 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('MappingUserToAuthParamEntryDtService', MappingUserToAuthParamEntryDtService);
+        .factory('mappingUserToAuthParamDeleteService', mappingUserToAuthParam);
 
-    MappingUserToAuthParamEntryDtService.$inject = ['DatatableService'];
+    mappingUserToAuthParam.$inject = ['HttpService', 'uiService'];
 
-    function MappingUserToAuthParamEntryDtService(ds) {
+    function mappingUserToAuthParam(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(data) {
+            return http.delete('mappingUserToAuthParam', data).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.userDt.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            ui.alert.confirm("Are you sure want to delete selected user '" + data.userUsername + "'?", function () {
+                return deleteRecords(data);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#mappingUserToAuthParam tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.userDt.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('mappingUserToAuthParamEntryDtService', mappingUserToAuthParamEntryDtService);
+
+    mappingUserToAuthParamEntryDtService.$inject = ['DatatableService'];
+
+    function mappingUserToAuthParamEntryDtService(ds) {
         var self = this;
         var controller;
         var datatable;
@@ -2619,12 +2682,12 @@ angular.module('global-solusindo')
 
         self.init = function (ctrl) {
             controller = ctrl;
-            var roleGroup_pk = ctrl.stateParam.id;
+            var authParam_pk = ctrl.stateParam.id;
 
             var titleColumnIndex = 1;
-            datatable = ds.init("#mappingUserToAuthParamEntry", "MappingUserToAuthParam/search", {
+            var dt = ds.init("#mappingUserToAuthParam", "mappingUserToAuthParam/search", {
                 extendRequestData: {
-                    roleGroup_pk: roleGroup_pk,
+                    authParam_pk: authParam_pk,
                     pageIndex: 2,
                     pageSize: 5
                 },
@@ -2632,20 +2695,23 @@ angular.module('global-solusindo')
                 columns: [
                     {
                         "orderable": false,
-                        "data": "roleGroup_pk"
+                        "data": "authParam_pk"
                     },
                     {
                         "orderable": false,
                         "data": "user_pk"
                     },
                     {
-                        "data": "username"
+                        "data": "userCode"
                     },
                     {
-                        "data": "name"
+                        "data": "userUsername"
                     },
                     {
-                        "data": "position"
+                        "data": "userName"
+                    },
+                    {
+                        "data": "positionName"
                     },
                     {
                         "orderable": false,
@@ -2657,9 +2723,9 @@ angular.module('global-solusindo')
                 ]
             });
 
-            return datatable;
+            ctrl.userDt = dt;
+            return dt;
         };
-
         return self;
     }
 
@@ -2717,10 +2783,53 @@ angular.module('global-solusindo')
             }
         };
 
+        //self.init = function (ctrl) {
+        //    controller = ctrl;
+        //    angular.element('#saveButton').on('click', function () {
+        //        self.save(controller.model);
+        //    });
+        //};
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('userAuthParamModalBindingService', userAuthParamModalBindingService);
+
+    userAuthParamModalBindingService.$inject = ['HttpService', '$state'];
+
+    function userAuthParamModalBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('mappingUserToAuthParam/form/' + id);
+        };
+
         self.init = function (ctrl) {
             controller = ctrl;
-            angular.element('#saveButton').on('click', function () {
-                self.save(controller.model);
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    if (res.success) {
+                        controller.model = res.data.model;
+                        controller.formControls = res.data.formControls;
+                    }
+                    resolve(res);
+                });
             });
         };
 
@@ -2741,28 +2850,66 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('MappingUserToAuthParamBindingModalService', MappingUserToAuthParamBindingModalService);
+        .factory('userAuthParamModalCancelService', userAuthParamModalCancelService);
 
-    MappingUserToAuthParamBindingModalService.$inject = ['HttpService', '$state'];
+    userAuthParamModalCancelService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function MappingUserToAuthParamBindingModalService(http, $state) {
+    function userAuthParamModalCancelService($state, http, ui, validation) {
         var self = this;
-        var controller = {};
-
-        self.applyBinding = function () {
-            return http.get('role/search', {
-                pageIndex: 1,
-                pageSize: 100
+        var controller;
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#cancelButton').on('click', function () {
+                controller.modalInstance.close();
             });
+        };
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('userAuthParamModalSaveService', userAuthParamModalSaveService);
+
+    userAuthParamModalSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function userAuthParamModalSaveService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.createOrUpdate = function (model) {
+            http.post('mappingUserToAuthParam', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    controller.modalInstance.close();
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            return self.createOrUpdate(model);
         };
 
         self.init = function (ctrl) {
             controller = ctrl;
-            return new Promise(function (resolve, reject) {
-                self.applyBinding().then(function (res) {
-                    controller.roles = res.data.records;
-                    resolve(res);
-                });
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+                //console.log(controller.model);
             });
         };
 
@@ -2933,7 +3080,7 @@ angular.module('global-solusindo')
             return http.delete('mappingUserToRoleGroup', data).then(function (response) {
                 var res = response;
                 if (res.success) {
-                    controller.datatable.draw();
+                    controller.userDt.draw();
                     ui.alert.success(res.message);
                 } else {
                     ui.alert.error(res.message);
@@ -2941,20 +3088,20 @@ angular.module('global-solusindo')
             });
         }
 
-        self.delete = function (data) { 
-            ui.alert.confirm("Are you sure want to delete selected user '" + data.username + "'?", function () {
+        self.delete = function (data) {
+            ui.alert.confirm("Are you sure want to delete selected user '" + data.userUsername + "'?", function () {
                 return deleteRecords(data);
             });
-        }; 
+        };
 
         self.init = function (ctrl) {
             controller = ctrl;
 
             //Row delete button event
             $('#mappingUserToRoleGroup tbody').on('click', '#delete', function () {
-                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                var selectedRecord = controller.userDt.row($(this).parents('tr')).data();
                 self.delete(selectedRecord);
-            }); 
+            });
         };
 
         return self;
@@ -2994,7 +3141,7 @@ angular.module('global-solusindo')
             var roleGroup_pk = ctrl.stateParam.id;
 
             var titleColumnIndex = 1;
-            var dt = ds.init("#mappingUserToRoleGroupEntry", "mappingUserToRoleGroup/search", {
+            var dt = ds.init("#mappingUserToRoleGroup", "mappingUserToRoleGroup/search", {
                 extendRequestData: {
                     roleGroup_pk: roleGroup_pk,
                     pageIndex: 2,
@@ -5255,30 +5402,27 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .directive('modalMappingUserToAuthParam', modalDirective);
+        .directive('userAuthParamModal', userAuthParamModal);
 
-    function modalDirective($uibModal) {
+    function userAuthParamModal($uibModal) {
         return {
             restrict: 'A',
             scope: {
-                onCallback: '=',
-                param: '='
+                onCallback: '='
             },
             link: function (scope, element, attrs) {
                 element.on('click', function () {
                     var modalInstance = $uibModal.open({
-                        templateUrl: 'app/modules/mappingUserToAuthParamEntry/mappingUserToAuthParamModal/mappingUserToAuthParamModal.html',
-                        controller: 'ModalMappingUserToAuthParamCtrl',
+                        templateUrl: 'app/modules/mappingUserToAuthParamEntry/modal/userAuthParamModal.html',
+                        controller: 'userAuthParamModalCtrl',
                         controllerAs: 'vm',
-                        resolve: {
-                            param: function () {
-                                return scope.param;
-                            }
-                        }
+                        windowTopClass: 'modal-list-user'
                     });
 
                     modalInstance.result.then(function (data) {
-                        scope.onCallback(data);
+                        if (scope.onCallback) {
+                            scope.onCallback(data);
+                        }
                     }, function () { });
                 });
             }

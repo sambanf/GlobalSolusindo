@@ -10,7 +10,7 @@ angular.module('global-solusindo')
                 controller: 'MappingUserToAuthParamCtrl',
                 controllerAs: 'brc',
                 ncyBreadcrumb: {
-                    label: 'Mapping User To Auth Paran'
+                    label: 'Mapping User To Auth Param'
                 }
             });
     }]);

@@ -11,16 +11,15 @@
 
     angular
         .module('global-solusindo')
-        .factory('mappingUserToAuthParamDtService', mappingUserToAuthParam);
+        .factory('mappingUserToAuthParamDtService', MappingUserToAuthParam);
 
-    mappingUserToAuthParam.$inject = ['DatatableService'];
+    MappingUserToAuthParam.$inject = ['DatatableService'];
 
-    function mappingUserToAuthParam(ds) {
+    function MappingUserToAuthParam(ds) {
         var self = this;
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
-
             return ds.init("#mappingUserToAuthParam", "authParam/search", {
                 extendRequestData: {
                     pageIndex: 1,
@@ -41,13 +40,12 @@
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='View' data-placement='left' class='btn btn-primary'>User</button>"
+                        return "<button id='view' title='View Users' data-placement='left' class='btn btn-success'>User</button>";
                     }
                 }
                 ]
             });
-            
-        };
+        }
         return self;
     }
 

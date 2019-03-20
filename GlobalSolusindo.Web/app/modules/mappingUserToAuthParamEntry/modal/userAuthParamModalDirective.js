@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     'use strict';
 
     /**
@@ -11,30 +11,27 @@
 
     angular
         .module('global-solusindo')
-        .directive('modalMappingUserToAuthParam', modalDirective);
+        .directive('userAuthParamModal', userAuthParamModal);
 
-    function modalDirective($uibModal) {
+    function userAuthParamModal($uibModal) {
         return {
             restrict: 'A',
             scope: {
-                onCallback: '=',
-                param: '='
+                onCallback: '='
             },
             link: function (scope, element, attrs) {
                 element.on('click', function () {
                     var modalInstance = $uibModal.open({
-                        templateUrl: 'app/modules/mappingUserToAuthParamEntry/mappingUserToAuthParamModal/mappingUserToAuthParamModal.html',
-                        controller: 'ModalMappingUserToAuthParamCtrl',
+                        templateUrl: 'app/modules/mappingUserToAuthParamEntry/modal/userAuthParamModal.html',
+                        controller: 'userAuthParamModalCtrl',
                         controllerAs: 'vm',
-                        resolve: {
-                            param: function () {
-                                return scope.param;
-                            }
-                        }
+                        windowTopClass: 'modal-list-user'
                     });
 
                     modalInstance.result.then(function (data) {
-                        scope.onCallback(data);
+                        if (scope.onCallback) {
+                            scope.onCallback(data);
+                        }
                     }, function () { });
                 });
             }

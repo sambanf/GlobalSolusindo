@@ -18,7 +18,7 @@ angular.module('global-solusindo')
                 controller: 'MappingUserToAuthParamEntryCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'Role Group Entry'
+                    label: 'Mapping User To Auth Param Entry'
                 }
             });
     }]);

@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('MappingUserToAuthParamEntryDtService', MappingUserToAuthParamEntryDtService);
+        .factory('mappingUserToAuthParamEntryDtService', mappingUserToAuthParamEntryDtService);
 
-    MappingUserToAuthParamEntryDtService.$inject = ['DatatableService'];
+    mappingUserToAuthParamEntryDtService.$inject = ['DatatableService'];
 
-    function MappingUserToAuthParamEntryDtService(ds) {
+    function mappingUserToAuthParamEntryDtService(ds) {
         var self = this;
         var controller;
         var datatable;
@@ -28,12 +28,12 @@
 
         self.init = function (ctrl) {
             controller = ctrl;
-            var roleGroup_pk = ctrl.stateParam.id;
+            var authParam_pk = ctrl.stateParam.id;
 
             var titleColumnIndex = 1;
-            datatable = ds.init("#mappingUserToAuthParamEntry", "MappingUserToAuthParam/search", {
+            var dt = ds.init("#mappingUserToAuthParam", "mappingUserToAuthParam/search", {
                 extendRequestData: {
-                    roleGroup_pk: roleGroup_pk,
+                    authParam_pk: authParam_pk,
                     pageIndex: 2,
                     pageSize: 5
                 },
@@ -41,20 +41,23 @@
                 columns: [
                     {
                         "orderable": false,
-                        "data": "roleGroup_pk"
+                        "data": "authParam_pk"
                     },
                     {
                         "orderable": false,
                         "data": "user_pk"
                     },
                     {
-                        "data": "username"
+                        "data": "userCode"
                     },
                     {
-                        "data": "name"
+                        "data": "userUsername"
                     },
                     {
-                        "data": "position"
+                        "data": "userName"
+                    },
+                    {
+                        "data": "positionName"
                     },
                     {
                         "orderable": false,
@@ -66,9 +69,9 @@
                 ]
             });
 
-            return datatable;
+            ctrl.userDt = dt;
+            return dt;
         };
-
         return self;
     }
 
