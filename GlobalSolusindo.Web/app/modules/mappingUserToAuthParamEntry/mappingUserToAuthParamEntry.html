@@ -6,20 +6,23 @@
                     <div class="card-title">Mapping Role To Role Group</div>
                     <div class="col-md-8">
                         <div class="row form-group">
-                            <label class="control-label col-sm-3">Role Group Name:</label>
+                            <label class="control-label col-sm-2">Role Group Name :</label>
                             <label class="control-label col-sm-2" type="text" id="title" name="title">
                                 {{vm.model.title}}
                             </label>
                         </div>
-                        <div class="row">
-                            <label class="control-label col-sm-3">Description:</label>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Description :</label>
                             <label class="control-label col-sm-2" name="description" placeholder="Description">
                                 {{vm.model.description}}
                             </label>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <button class="btn btn-default" ui-sref="app.mappingUserToRoleGroupList">Kembali</button> 
+                                <button class="btn btn-default" ui-sref="app.mappingRoleToRoleGroupList">Kembali</button>
+                                <button class="btn btn-success float-right" modal-mapping-user-to-auth-param param="vm.stateParam" on-callback="vm.onCallback">
+                                    Add Role
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -29,21 +32,13 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-title">List Role Group</div>
-                    <div class="row"> 
-                        <div class="col-md-12">
-                            <button role-modal on-callback="vm.userModalCallback" class="btn btn-success" id="modalUserButton">
-                                Manage User
-                            </button>
-                        </div>
-                    </div>
+                    <div class="card-title">List user</div>
                     <div class="row">
                         <div class="col-md-12">
-                            <table id="mappingUserToRoleGroupEntry">
+                            <table id="mappingUserToAuthParam">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>User Pk</th>
                                         <th>ID User</th>
                                         <th>Username</th>
                                         <th>Name</th>
