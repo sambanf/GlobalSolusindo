@@ -124,6 +124,11 @@
     <Content Include="app\modules\asset\assetModal\assetModalDirective.js" />
     <Content Include="app\modules\asset\assetRoute.js" />
     <Content Include="app\modules\asset\assetViewService.js" />
+    <Content Include="app\modules\dashboard\dashboard.html" />
+    <Content Include="app\modules\dashboard\dashboardCtrl.js" />
+    <Content Include="app\modules\dashboard\dashboardModule.js" />
+    <Content Include="app\modules\dashboard\dashboardRoute.js" />
+    <Content Include="app\modules\dashboard\dashboardService.js" />
     <Content Include="app\modules\layouts\app.html" />
     <Content Include="app\modules\layouts\appCtrl.js" />
     <Content Include="app\modules\layouts\appRoute.js" />

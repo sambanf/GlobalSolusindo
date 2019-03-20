@@ -100,6 +100,21 @@
         });
     }
 })();
+(function () {
+	'use strict';
+
+	/**
+	 * @ngdoc function
+	 * @name app.module:dashboardModule
+	 * @description
+	 * # dashboardModule
+	 * Module of the app
+	 */
+
+  	angular.module('global-solusindo', []);
+
+})();
+
 'use strict';
 
 angular.module('global-solusindo')
@@ -156,6 +171,32 @@ angular.module('global-solusindo')
                 }
             });
     }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:dashboardRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+	.config(['$stateProvider', function ($stateProvider) {
+		
+		$stateProvider
+			.state('app.dashboard', {
+				url:'/',
+				templateUrl: 'app/modules/dashboard/dashboard.html',
+				controller: 'DashboardCtrl',
+				controllerAs: 'db',
+				ncyBreadcrumb: {
+                    label: 'Dashboard'
+                },
+			});
+		
+	}]);
+
 'use strict';
 
 /**
@@ -619,6 +660,36 @@ angular.module('global-solusindo')
         return self;
     }
 })();
+(function() {
+	'use strict';
+
+	/**
+	* @ngdoc function
+	* @name app.controller:dashboardCtrl
+	* @description
+	* # dashboardCtrl
+	* Controller of the app
+	*/
+
+  	angular
+		.module('global-solusindo')
+		.controller('DashboardCtrl', Dashboard);
+
+		Dashboard.$inject = ['$scope'];
+
+		/*
+		* recommend
+		* Using function declarations
+		* and bindable members up top.
+		*/
+
+		function Dashboard($scope) {
+			/*jshint validthis: true */
+			var db = this;
+
+		}
+})();
+
 (function () {
     'use strict';
 
@@ -1095,7 +1166,7 @@ angular.module('global-solusindo')
         }];
 
         self.model = {
-            roleGroup_pk: sParam.id,
+            authParam_pk: sParam.id,
             user_pk: 0
         };
 
@@ -1957,6 +2028,31 @@ angular.module('global-solusindo')
     }
 
 })();
+(function() {
+	'use strict';
+
+	/**
+	 * @ngdoc function
+	 * @name app.service:dashboardService
+	 * @description
+	 * # dashboardService
+	 * Service of the app
+	 */
+
+  	angular
+		.module('global-solusindo')
+		.factory('DashboardService', Dashboard);
+		// Inject your dependencies as .$inject = ['$http', 'someSevide'];
+		// function Name ($http, someSevide) {...}
+
+		Dashboard.$inject = ['$http'];
+
+		function Dashboard ($http) {
+
+		}
+
+})();
+
 (function() {
 	'use strict';
 
