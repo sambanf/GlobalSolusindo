@@ -31,7 +31,7 @@
             var roleGroup_pk = ctrl.stateParam.id;
 
             var titleColumnIndex = 1;
-            var dt = ds.init("#mappingUserToRoleGroupEntry", "mappingUserToRoleGroup/search", {
+            var dt = ds.init("#mappingUserToRoleGroup", "mappingUserToRoleGroup/search", {
                 extendRequestData: {
                     roleGroup_pk: roleGroup_pk,
                     pageIndex: 2,
@@ -58,18 +58,18 @@
                     },
                     {
                         "data": "positionName"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                        }
                     }
-                    //{
-                    //    "orderable": false,
-                    //    "className": "text-center",
-                    //    "render": function (data) {
-                    //        return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
-                    //    }
-                    //}
                 ]
             });
 
-            ctrl.roleDt = dt;
+            ctrl.userDt = dt;
             return dt;
         };
         return self;

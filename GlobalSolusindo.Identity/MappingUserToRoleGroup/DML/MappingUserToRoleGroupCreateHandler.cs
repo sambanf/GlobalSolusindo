@@ -29,6 +29,11 @@ namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.DML
         {
             if (mappingUserToRoleGroupDTO == null)
                 throw new ArgumentNullException("MappingUserToRoleGroup model is null.");
+
+            var recordIsExist = Db.tblM_MappingUserToRoleGroup.Find(mappingUserToRoleGroupDTO.User_PK, mappingUserToRoleGroupDTO.RoleGroup_PK) != null;
+            if (recordIsExist)
+                throw new KairosException("User already exist in the group.");
+
             tblM_MappingUserToRoleGroup mappingUserToRoleGroup = mappingUserToRoleGroupFactory.CreateFromDTO(mappingUserToRoleGroupDTO, dateStamp);
             return Db.tblM_MappingUserToRoleGroup.Add(mappingUserToRoleGroup);
         }

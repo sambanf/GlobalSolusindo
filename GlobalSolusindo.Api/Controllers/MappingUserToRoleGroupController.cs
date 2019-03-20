@@ -21,28 +21,28 @@ namespace GlobalSolusindo.Api.Controllers
 
         [Route("mappingUserToRoleGroup/{roleGroupPk}/{userPk}")]
         [HttpGet]
-        public IHttpActionResult Get(int roleGroupPk, int userPk)
+        public IHttpActionResult Get([FromBody]UserRoleMapPK userRoleMapPK)
         {
             string accessType = "MappingUserToRoleGroup_ViewAll";
             ThrowIfUserCannotAccess(accessType);
             using (MappingUserToRoleGroupQuery mappingUserToRoleGroupQuery = new MappingUserToRoleGroupQuery(Db))
             {
-                var data = mappingUserToRoleGroupQuery.GetByPrimaryKey(roleGroupPk, userPk);
-                SaveLog("MappingUserToRoleGroup", "Get", JsonConvert.SerializeObject(new { primaryKey = roleGroupPk }));
+                var data = mappingUserToRoleGroupQuery.GetByPrimaryKey(userRoleMapPK.RoleGroupPK, userRoleMapPK.UserPK);
+                SaveLog("MappingUserToRoleGroup", "Get", JsonConvert.SerializeObject(new { primaryKey = userRoleMapPK.RoleGroupPK }));
                 return Ok(new SuccessResponse(data));
             }
         }
 
-        [Route("mappingUserToRoleGroup/form/{roleGroupPk}/{userPk}")]
+        [Route("mappingUserToRoleGroup/form")]
         [HttpGet]
-        public IHttpActionResult GetForm(int roleGroupPk, int userPk)
+        public IHttpActionResult GetForm([FromBody]UserRoleMapPK userRoleMapPK)
         {
             string accessType = "MappingUserToRoleGroup_ViewAll";
             ThrowIfUserCannotAccess(accessType);
             using (MappingUserToRoleGroupEntryDataProvider mappingUserToRoleGroupEntryDataProvider = new MappingUserToRoleGroupEntryDataProvider(Db, ActiveUser, AccessControl, new MappingUserToRoleGroupQuery(Db)))
             {
-                var data = mappingUserToRoleGroupEntryDataProvider.Get(roleGroupPk, userPk);
-                SaveLog("MappingUserToRoleGroup", "GetForm", JsonConvert.SerializeObject(new { primaryKey = roleGroupPk }));
+                var data = mappingUserToRoleGroupEntryDataProvider.Get(userRoleMapPK.RoleGroupPK, userRoleMapPK.UserPK);
+                SaveLog("MappingUserToRoleGroup", "GetForm", JsonConvert.SerializeObject(new { primaryKey = userRoleMapPK.RoleGroupPK }));
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -131,10 +131,10 @@ namespace GlobalSolusindo.Api.Controllers
 
     public class UserRoleMapPK
     {
-        [JsonProperty("roleGroupPK")]
+        [JsonProperty("roleGroup_pk")]
         public int RoleGroupPK { get; set; }
 
-        [JsonProperty("roleGroupPK")]
+        [JsonProperty("user_pk")]
         public int UserPK { get; set; }
     }
 }

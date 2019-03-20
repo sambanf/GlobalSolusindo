@@ -24,7 +24,7 @@ namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.DML
 
         public DeleteResult<tblM_MappingUserToRoleGroup> Execute(int roleGroupPk, int userPk, DeleteMethod deleteMethod)
         {
-            tblM_MappingUserToRoleGroup mappingUserToRoleGroup = Db.tblM_MappingUserToRoleGroup.Find(roleGroupPk, userPk); 
+            tblM_MappingUserToRoleGroup mappingUserToRoleGroup = Db.tblM_MappingUserToRoleGroup.Find(userPk, roleGroupPk);
             if (mappingUserToRoleGroup == null)
             {
                 return new DeleteResult<tblM_MappingUserToRoleGroup>()
@@ -47,7 +47,7 @@ namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.DML
                     break;
             }
 
-            Db.SaveChanges(); 
+            Db.SaveChanges();
 
             return new DeleteResult<tblM_MappingUserToRoleGroup>()
             {

@@ -11,9 +11,9 @@
 
     angular
         .module('global-solusindo')
-        .directive('roleModal', roleModal);
+        .directive('userModal', userModal);
 
-    function roleModal($uibModal) {
+    function userModal($uibModal) {
         return {
             restrict: 'A',
             scope: {
@@ -22,10 +22,10 @@
             link: function (scope, element, attrs) {
                 element.on('click', function () {
                     var modalInstance = $uibModal.open({
-                        templateUrl: 'app/modules/mappingUserToRoleGroupEntry/modal/roleModal.html',
-                        controller: 'roleModalCtrl',
+                        templateUrl: 'app/modules/mappingUserToRoleGroupEntry/modal/userModal.html',
+                        controller: 'userModalCtrl',
                         controllerAs: 'vm',
-                        windowTopClass: 'modal-list-role'
+                        windowTopClass: 'modal-list-user'
                     });
 
                     modalInstance.result.then(function (data) {

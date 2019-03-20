@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('roleModalCancelService', roleModalCancelService);
+        .factory('userModalCancelService', userModalCancelService);
 
-    roleModalCancelService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    userModalCancelService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function roleModalCancelService($state, http, ui, validation) {
+    function userModalCancelService($state, http, ui, validation) {
         var self = this;
         var controller;
         self.init = function (ctrl) {

@@ -71,11 +71,13 @@
                     }
 
                     http.get(apiUrl, requestData).then(function (res) {
-                        callback({
-                            recordsTotal: res.data.count.totalRecords,
-                            recordsFiltered: res.data.count.totalFiltered,
-                            data: res.data.records
-                        });
+                        if (res.success) {
+                            callback({
+                                recordsTotal: res.data.count.totalRecords,
+                                recordsFiltered: res.data.count.totalFiltered,
+                                data: res.data.records
+                            });
+                        }
                     });
                 },
                 columns: param.columns,

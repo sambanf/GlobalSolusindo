@@ -13,20 +13,19 @@
         .module('global-solusindo')
         .controller('MappingUserToRoleGroupEntryCtrl', MappingUserToRoleGroupEntryCtrl);
 
-    MappingUserToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToRoleGroupSaveService', 'MappingUserToRoleGroupBindingService', 'FormControlService', 'mappingUserToRoleGroupEntryDtService'];
+    MappingUserToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToRoleGroupSaveService', 'MappingUserToRoleGroupBindingService', 'FormControlService', 'mappingUserToRoleGroupEntryDtService', 'select2Service', 'mappingUserToRoleGroupDeleteService'];
 
-    function MappingUserToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService) {
+    function MappingUserToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, select2Service, deleteService) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
-            //formControlService.setFormControl(self);
-            //saveService.init(self);
             dtService.init(self);
+            deleteService.init(self);
         });
 
-        self.roleModalCallback = function () {
-            self.roleDt.draw();
+        self.userModalCallback = function () {
+            self.userDt.draw();
         };
 
         return self;

@@ -1,25 +1,15 @@
 ﻿<div class="modal-header">
-    <h5 class="modal-title">Roles</h5>
+    <h5 class="modal-title">Add New User</h5>
 </div>
 
 <div class="modal-body">
-    <div class="row">
-        <div class="row form-group">
-            <label class="control-label col-sm-2">Name:</label>
-            <div class="col-sm-6">
-                <input type="text" class="form-control" id="roleGroupName" name="roleGroupName" ng-model="vm.model.roleGroupName" placeholder="Name">
-                <div class="invalid-feedback"></div>
-            </div>
-        </div>
-
-        <div class="row form-group">
-            <label class="control-label col-sm-2">Position:</label>
-            <div class="col-sm-6">
-                <select id="position_fk" name="position_fk" class="form-control input-lg" size="0" ng-model="vm.model.userPk" required>
-                    <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.username}}</option>
-                </select>
-                <div class="invalid-feedback"></div>
-            </div>
+    <div class="row form-group">
+        <label class="control-label col-sm-2">User:</label>
+        <div class="col-sm-6">
+            <select id="user_pk" name="user_pk" class="form-control input-lg" size="0" ng-model="vm.model.user_pk" required>
+                <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.name}}</option>
+            </select>
+            <div class="invalid-feedback"></div>
         </div>
     </div>
 </div>

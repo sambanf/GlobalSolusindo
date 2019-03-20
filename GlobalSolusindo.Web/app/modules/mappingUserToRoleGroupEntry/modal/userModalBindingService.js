@@ -28,8 +28,10 @@
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
-                    controller.model = res.data.model;
-                    controller.formControls = res.data.formControls;
+                    if (res.success) {
+                        controller.model = res.data.model;
+                        controller.formControls = res.data.formControls;
+                    }
                     resolve(res);
                 });
             });
