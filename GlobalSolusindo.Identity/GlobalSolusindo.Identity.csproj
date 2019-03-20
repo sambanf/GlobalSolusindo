@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessControl.cs" />
+    <Compile Include="Login\LoginManager.cs" />
     <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamCreateHandler.cs" />
     <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamDeleteHandler.cs" />
     <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamUpdateHandler.cs" />

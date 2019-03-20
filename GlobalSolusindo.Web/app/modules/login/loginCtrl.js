@@ -11,9 +11,9 @@
 
     angular
         .module('global-solusindo')
-        .controller('LoginCtrl', Login);
+        .controller('LoginCtrl', LoginCtrl);
 
-    Login.$inject = ['$scope', '$state'];
+    LoginCtrl.$inject = ['$scope', '$state', 'validationService', '$localStorage', '$cookies', 'uiService', 'HttpService'];
 
     /*
     * recommend
@@ -21,13 +21,31 @@
     * and bindable members up top.
     */
 
-    function Login($scope, $state) {
+    function LoginCtrl($scope, $state, validation, localStorage, $cookies, ui, http) {
         /*jshint validthis: true */
-        var login = this;
-        login.loginSubmit = function () {
+        var self = this;
 
-        };
+        self.model = {};
 
-        return login;
+        angular.element('#loginButton').on('click', function () {
+            validation.clearValidationErrors({});
+            http.post('token', self.model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    if (typeof (res.token) != 'undefined') {
+                        $cookies.put('token', res.token);
+                        $window.localStorage.setItem('user', res.model);
+                        $state.go('app.dashboard');
+                    } else {
+                        ui.alert.error(res.message);
+                    }
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        });
+
+        return self;
     }
 })();

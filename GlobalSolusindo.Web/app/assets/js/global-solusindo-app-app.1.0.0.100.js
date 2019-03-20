@@ -920,7 +920,7 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('LoginCtrl', Login);
 
-    Login.$inject = ['$scope', '$state'];
+    Login.$inject = ['$scope', '$state', 'validationService', '$localStorage', '$cookies', 'uiService', 'HttpService'];
 
     /*
     * recommend
@@ -928,14 +928,34 @@ angular.module('global-solusindo')
     * and bindable members up top.
     */
 
-    function Login($scope, $state) {
+    function Login($scope, $state, validation, localStorage, $cookies, ui, http) {
         /*jshint validthis: true */
-        var login = this;
-        login.loginSubmit = function () {
+        var self = this;
 
+        var model = {
+            username: "",
+            password: ""
         };
 
-        return login;
+        self.login = function () {
+            http.post('token', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    if (typeof (response.access_token) != 'undefined') {
+                        $cookies.put('token', response.token);
+                        $window.localStorage.setItem('user', response.model);
+                        state.go('app.dashboard');
+                    } else {
+                        ui.alert.error(res.message);
+                    }
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        return self;
     }
 })();
 

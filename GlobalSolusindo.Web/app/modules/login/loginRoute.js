@@ -15,7 +15,7 @@ angular.module('global-solusindo')
 			.state('login', {
 				url: '/login',
 				templateUrl: 'app/modules/login/login.html',
-				controller: 'LoginCtrl',
+                controller: 'LoginCtrl',
 				controllerAs: 'login'
 			});
 

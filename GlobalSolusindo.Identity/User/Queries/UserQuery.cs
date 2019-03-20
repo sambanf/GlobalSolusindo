@@ -63,6 +63,12 @@ namespace GlobalSolusindo.Identity.User.Queries
             return record;
         }
 
+        public UserDTO GetUsernamePassword(string username)
+        {
+            UserDTO record = GetQuery().FirstOrDefault(user => user.Username == username);
+            return record;
+        }
+
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {
