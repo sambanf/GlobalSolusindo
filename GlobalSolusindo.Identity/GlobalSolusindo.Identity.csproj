@@ -52,6 +52,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessControl.cs" />
+    <Compile Include="MappingUserToRoleGroup\DML\MappingUserToRoleGroupCreateHandler.cs" />
+    <Compile Include="MappingUserToRoleGroup\DML\MappingUserToRoleGroupDeleteHandler.cs" />
+    <Compile Include="MappingUserToRoleGroup\DML\MappingUserToRoleGroupUpdateHandler.cs" />
+    <Compile Include="MappingUserToRoleGroup\EntryForm\MappingUserToRoleGroupEntryControlBuilder.cs" />
+    <Compile Include="MappingUserToRoleGroup\EntryForm\MappingUserToRoleGroupEntryDataProvider.cs" />
+    <Compile Include="MappingUserToRoleGroup\EntryForm\MappingUserToRoleGroupEntryFormData.cs" />
+    <Compile Include="MappingUserToRoleGroup\EntryForm\MappingUserToRoleGroupEntryModel.cs" />
+    <Compile Include="MappingUserToRoleGroup\ListForm\MappingUserToRoleGroupListDataProvider.cs" />
+    <Compile Include="MappingUserToRoleGroup\ListForm\MappingUserToRoleGroupListFormData.cs" />
+    <Compile Include="MappingUserToRoleGroup\ListForm\MappingUserToRoleGroupListModel.cs" />
+    <Compile Include="MappingUserToRoleGroup\MappingUserToRoleGroupDTO.cs" />
+    <Compile Include="MappingUserToRoleGroup\MappingUserToRoleGroupFactory.cs" />
+    <Compile Include="MappingUserToRoleGroup\MappingUserToRoleGroupValidator.cs" />
+    <Compile Include="MappingUserToRoleGroup\Queries\MappingUserToRoleGroupQuery.cs" />
+    <Compile Include="MappingUserToRoleGroup\Queries\MappingUserToRoleGroupSearch.cs" />
     <Compile Include="MappingRoleToRoleGroup\DML\RoleMappingCreateHandler.cs" />
     <Compile Include="MappingRoleToRoleGroup\DML\MappingRoleToRoleGroupCreateHandler.cs" />
     <Compile Include="MappingRoleToRoleGroup\DML\MappingRoleToRoleGroupDeleteHandler.cs" />

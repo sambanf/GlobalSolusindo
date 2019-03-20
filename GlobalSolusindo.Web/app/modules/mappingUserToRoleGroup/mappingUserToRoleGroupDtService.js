@@ -40,7 +40,7 @@
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' title='View Role' data-placement='left' class='btn btn-success'>Role</button>";
+                        return "<button id='view' title='View Users' data-placement='left' class='btn btn-success'>User</button>";
                     }
                 }
                 ]

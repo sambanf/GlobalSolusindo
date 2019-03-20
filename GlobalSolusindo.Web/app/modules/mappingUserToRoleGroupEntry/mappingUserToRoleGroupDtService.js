@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('MappingUserToRoleGroupEntryDtService', MappingUserToRoleGroupEntryDtService);
+        .factory('mappingUserToRoleGroupEntryDtService', mappingUserToRoleGroupEntryDtService);
 
-    MappingUserToRoleGroupEntryDtService.$inject = ['DatatableService'];
+    mappingUserToRoleGroupEntryDtService.$inject = ['DatatableService'];
 
-    function MappingUserToRoleGroupEntryDtService(ds) {
+    function mappingUserToRoleGroupEntryDtService(ds) {
         var self = this;
         var controller;
         var datatable;
@@ -31,7 +31,7 @@
             var roleGroup_pk = ctrl.stateParam.id;
 
             var titleColumnIndex = 1;
-            datatable = ds.init("#mappingUserToRoleGroupEntry", "MappingUserToRoleGroup/search", {
+            var dt = ds.init("#mappingUserToRoleGroupEntry", "mappingUserToRoleGroup/search", {
                 extendRequestData: {
                     roleGroup_pk: roleGroup_pk,
                     pageIndex: 2,
@@ -45,27 +45,33 @@
                     },
                     {
                         "orderable": false,
-                        "data": "role_pk"
+                        "data": "user_pk"
                     },
                     {
-                        "data": "roleName"
+                        "data": "userCode"
                     },
                     {
-                        "data": "roleDescription"
+                        "data": "userUsername"
                     },
                     {
-                        "orderable": false,
-                        "className": "text-center",
-                        "render": function (data) {
-                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
-                        }
+                        "data": "userName"
+                    },
+                    {
+                        "data": "positionName"
                     }
+                    //{
+                    //    "orderable": false,
+                    //    "className": "text-center",
+                    //    "render": function (data) {
+                    //        return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                    //    }
+                    //}
                 ]
             });
 
-            return datatable;
+            ctrl.roleDt = dt;
+            return dt;
         };
-
         return self;
     }
 

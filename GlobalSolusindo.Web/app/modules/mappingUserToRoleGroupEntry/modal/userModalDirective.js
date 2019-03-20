@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     'use strict';
 
     /**
@@ -11,30 +11,27 @@
 
     angular
         .module('global-solusindo')
-        .directive('modalMappingUserToRoleGroup', modalDirective);
+        .directive('roleModal', roleModal);
 
-    function modalDirective($uibModal) {
+    function roleModal($uibModal) {
         return {
             restrict: 'A',
             scope: {
-                onCallback: '=',
-                param: '='
+                onCallback: '='
             },
             link: function (scope, element, attrs) {
                 element.on('click', function () {
                     var modalInstance = $uibModal.open({
-                        templateUrl: 'app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupModal/mappingUserToRoleGroupModal.html',
-                        controller: 'ModalMappingUserToRoleGroupCtrl',
+                        templateUrl: 'app/modules/mappingUserToRoleGroupEntry/modal/roleModal.html',
+                        controller: 'roleModalCtrl',
                         controllerAs: 'vm',
-                        resolve: {
-                            param: function () {
-                                return scope.param;
-                            }
-                        }
+                        windowTopClass: 'modal-list-role'
                     });
 
                     modalInstance.result.then(function (data) {
-                        scope.onCallback(data);
+                        if (scope.onCallback) {
+                            scope.onCallback(data);
+                        }
                     }, function () { });
                 });
             }

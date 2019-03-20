@@ -43,24 +43,7 @@
         };
 
         function validate() {
-            validation.clearValidationErrors({});
-
-            var password = controller.model.password;
-            var reTypePassword = controller.model.reTypePassword;
-
-            if (password == '' || password == null || password == 'undefined') {
-                validation.setError("password", "Password is required.");
-                return false;
-            }
-            if (reTypePassword == '' || reTypePassword == null || reTypePassword == 'undefined') {
-                validation.setError("reTypePassword", "Please re type password.");
-                return false;
-            }
-            if (password != reTypePassword) {
-                validation.setError("reTypePassword", "Password do not match.");
-                return false;
-            }
-
+            
             return true;
         }
 

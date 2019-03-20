@@ -11,26 +11,25 @@
 
     angular
         .module('global-solusindo')
-        .factory('MappingUserToRoleGroupBindingModalService', MappingUserToRoleGroupBindingModalService);
+        .factory('userModalBindingService', userModalBindingService);
 
-    MappingUserToRoleGroupBindingModalService.$inject = ['HttpService', '$state'];
+    userModalBindingService.$inject = ['HttpService', '$state'];
 
-    function MappingUserToRoleGroupBindingModalService(http, $state) {
+    function userModalBindingService(http, $state) {
         var self = this;
         var controller = {};
 
-        self.applyBinding = function () {
-            return http.get('role/search', {
-                pageIndex: 1,
-                pageSize: 100
-            });
+        self.applyBinding = function (id) {
+            return http.get('mappingUserToRoleGroup/form/' + id);
         };
 
         self.init = function (ctrl) {
             controller = ctrl;
+            var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
-                self.applyBinding().then(function (res) {
-                    controller.roles = res.data.records;
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
                     resolve(res);
                 });
             });

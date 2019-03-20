@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-19. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-20. 
 * @author Wizzytech
 */
 (function() {
@@ -916,7 +916,7 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('MappingUserToRoleGroupEntryCtrl', MappingUserToRoleGroupEntryCtrl);
 
-    MappingUserToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToRoleGroupSaveService', 'MappingUserToRoleGroupBindingService', 'FormControlService', 'mappingRoleToRoleGroupEntryDtService'];
+    MappingUserToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToRoleGroupSaveService', 'MappingUserToRoleGroupBindingService', 'FormControlService', 'mappingUserToRoleGroupEntryDtService'];
 
     function MappingUserToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService) {
         var self = this;
@@ -924,10 +924,13 @@ angular.module('global-solusindo')
 
         bindingService.init(self).then(function (res) {
             //formControlService.setFormControl(self);
-            saveService.init(self);
-            self.datatable = dtService.init(self);
-            self.onCallback = dtService.reloadDatatable;
+            //saveService.init(self);
+            dtService.init(self);
         });
+
+        self.roleModalCallback = function () {
+            self.roleDt.draw();
+        };
 
         return self;
     }
@@ -937,7 +940,7 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
-     * @name app.controller:orderCtrl
+     * @name app.controller:roleModal
      * @description
      * # dashboardCtrl
      * Controller of the app
@@ -945,42 +948,28 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .controller('ModalMappingUserToRoleGroupCtrl', MappingUserToRoleGroup);
+        .controller('roleModalCtrl', roleModalCtrl);
 
-    MappingUserToRoleGroup.$inject = ['$scope', '$uibModalInstance', 'HttpService', 'MappingRoleToRoleGroupBindingModalService', 'param'];
+    roleModalCtrl.$inject = ['$scope', '$uibModalInstance', 'roleModalBindingService', '$stateParams', 'roleModalSaveService', 'roleModalCancelService'];
 
     /*
      * recommend
      * Using function declarations
      * and bindable members up top.
      */
-
-    function MappingUserToRoleGroup($scope, $uibModalInstance, HttpService, bindingService, param) {
-        /*jshint validthis: true */
+    function roleModalCtrl($scope, $uibModalInstance, bindingService, sParam, saveService, cancelService) {
         var self = this;
-        var http = HttpService;
+        self.stateParam = sParam;
+        self.modalInstance = $uibModalInstance;
 
         bindingService.init(self).then(function (res) {
-            console.log(self.model);
+            saveService.init(self);
+            cancelService.init(self);
         });
-
-        self.ok = function () {
-            var result = [];
-            self.model.roles.forEach(function (i) {
-                result.push({
-                    roleGroup_pk: param.id,
-                    role_pk: i.role_pk
-                });
-            });
-
-            http.post('mappingUserToRoleGroup/bulk', result);
-            $uibModalInstance.close();
-        };
-
-        self.cancel = function () {
-            $uibModalInstance.close();
-        };
-
+      
+        $scope.$on('ui.layout.resize', function (e, beforeContainer, afterContainer) {
+            ctrl.datatable.columns.adjust();
+        });
 
         return self;
     }
@@ -2020,7 +2009,7 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' title='View Role' data-placement='left' class='btn btn-success'>Role</button>";
+                        return "<button id='view' title='View Users' data-placement='left' class='btn btn-success'>User</button>";
                     }
                 }
                 ]
@@ -2105,7 +2094,6 @@ angular.module('global-solusindo')
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
-                    console.log(res);
                     controller.model = res.data.model;
                     controller.formControls = res.data.formControls;
                     resolve(res);
@@ -2130,11 +2118,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('MappingUserToRoleGroupEntryDtService', MappingUserToRoleGroupEntryDtService);
+        .factory('mappingUserToRoleGroupEntryDtService', mappingUserToRoleGroupEntryDtService);
 
-    MappingUserToRoleGroupEntryDtService.$inject = ['DatatableService'];
+    mappingUserToRoleGroupEntryDtService.$inject = ['DatatableService'];
 
-    function MappingUserToRoleGroupEntryDtService(ds) {
+    function mappingUserToRoleGroupEntryDtService(ds) {
         var self = this;
         var controller;
         var datatable;
@@ -2150,7 +2138,7 @@ angular.module('global-solusindo')
             var roleGroup_pk = ctrl.stateParam.id;
 
             var titleColumnIndex = 1;
-            datatable = ds.init("#mappingUserToRoleGroupEntry", "MappingUserToRoleGroup/search", {
+            var dt = ds.init("#mappingUserToRoleGroupEntry", "mappingUserToRoleGroup/search", {
                 extendRequestData: {
                     roleGroup_pk: roleGroup_pk,
                     pageIndex: 2,
@@ -2162,71 +2150,29 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "data": "roleGroup_pk"
                     },
-                    {
-                        "orderable": false,
-                        "data": "role_pk"
-                    },
+                    //{
+                    //    "orderable": false,
+                    //    "data": "role_pk"
+                    //},
                     {
                         "data": "roleName"
                     },
                     {
                         "data": "roleDescription"
                     },
-                    {
-                        "orderable": false,
-                        "className": "text-center",
-                        "render": function (data) {
-                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
-                        }
-                    }
+                    //{
+                    //    "orderable": false,
+                    //    "className": "text-center",
+                    //    "render": function (data) {
+                    //        return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                    //    }
+                    //}
                 ]
             });
 
-            return datatable;
+            ctrl.roleDt = dt;
+            return dt;
         };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('MappingUserToRoleGroupBindingModalService', MappingUserToRoleGroupBindingModalService);
-
-    MappingUserToRoleGroupBindingModalService.$inject = ['HttpService', '$state'];
-
-    function MappingUserToRoleGroupBindingModalService(http, $state) {
-        var self = this;
-        var controller = {};
-
-        self.applyBinding = function () {
-            return http.get('role/search', {
-                pageIndex: 1,
-                pageSize: 100
-            });
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            return new Promise(function (resolve, reject) {
-                self.applyBinding().then(function (res) {
-                    controller.roles = res.data.records;
-                    resolve(res);
-                });
-            });
-        };
-
         return self;
     }
 
@@ -2284,10 +2230,131 @@ angular.module('global-solusindo')
             }
         };
 
+        //self.init = function (ctrl) {
+        //    controller = ctrl;
+        //    angular.element('#saveButton').on('click', function () {
+        //        self.save(controller.model);
+        //    });
+        //};
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('roleModalBindingService', roleModalBindingService);
+
+    roleModalBindingService.$inject = ['HttpService', '$state'];
+
+    function roleModalBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('mappingRoleToRoleGroup/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('roleModalCancelService', roleModalCancelService);
+
+    roleModalCancelService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function roleModalCancelService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#cancelButton').on('click', function () {
+                controller.modalInstance.close();
+            });
+        };
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('roleModalSaveService', roleModalSaveService);
+
+    roleModalSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function roleModalSaveService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.createOrUpdate = function (model) {
+            http.post('mappingRoleToRoleGroup', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    controller.modalInstance.close();
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            return self.createOrUpdate(model);
+        };
+
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element('#saveButton').on('click', function () {
                 self.save(controller.model);
+                //console.log(controller.model);
             });
         };
 
@@ -4294,30 +4361,27 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .directive('modalMappingUserToRoleGroup', modalDirective);
+        .directive('roleModal', roleModal);
 
-    function modalDirective($uibModal) {
+    function roleModal($uibModal) {
         return {
             restrict: 'A',
             scope: {
-                onCallback: '=',
-                param: '='
+                onCallback: '='
             },
             link: function (scope, element, attrs) {
                 element.on('click', function () {
                     var modalInstance = $uibModal.open({
-                        templateUrl: 'app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupModal/mappingUserToRoleGroupModal.html',
-                        controller: 'ModalMappingUserToRoleGroupCtrl',
+                        templateUrl: 'app/modules/mappingRoleToRoleGroupEntry/modal/roleModal.html',
+                        controller: 'roleModalCtrl',
                         controllerAs: 'vm',
-                        resolve: {
-                            param: function () {
-                                return scope.param;
-                            }
-                        }
+                        windowTopClass: 'modal-list-role'
                     });
 
                     modalInstance.result.then(function (data) {
-                        scope.onCallback(data);
+                        if (scope.onCallback) {
+                            scope.onCallback(data);
+                        }
                     }, function () { });
                 });
             }

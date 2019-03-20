@@ -144,11 +144,13 @@
     <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupEntry.html" />
     <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupEntryCtrl.js" />
     <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupEntryRoute.js" />
-    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupModal\mappingUserToRoleGroupModal.html" />
-    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupModal\mappingUserToRoleGroupModalBindingService.js" />
-    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupModal\mappingUserToRoleGroupModalCtrl.js" />
-    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupModal\mappingUserToRoleGroupModalDirective.js" />
     <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupSaveService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModal.html" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalBindingService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalCancelService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalCtrl.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalDirective.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalSaveService.js" />
     <Content Include="app\modules\mappingUserToRoleGroup\mappingUserToRoleGroup.html" />
     <Content Include="app\modules\mappingUserToRoleGroup\mappingUserToRoleGroupCtrl.js" />
     <Content Include="app\modules\mappingUserToRoleGroup\mappingUserToRoleGroupDtService.js" />
