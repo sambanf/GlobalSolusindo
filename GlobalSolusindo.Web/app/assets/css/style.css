@@ -70,7 +70,10 @@ input {
 .dashboard-icon {
     padding: 10px;
 }
-
+/*.form-group>label{
+    text-align: right;
+    font-weight: 600;
+}*/
 .table td,
 .table th {
     border: 0;
