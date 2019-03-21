@@ -1,0 +1,60 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Tambah Aset</div>
+                    <div class="col-md-8">
+                        <div class="row form-group">
+                            <label class="control-label col-sm-4">Kategory Asset :</label>
+                            <div class="col-sm-8">
+                                <select id="kategoriAset_fk" name="kategoriAset_fk" class="form-control input-lg" size="0" ng-model="asetVm.model.kategoriAset_fk" required>
+                                    <option ng-repeat="x in asetVm.formData.asetKategoris" ng-value="x.asetKategori_pk">{{x.title}}</option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-4">Asset ID:</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="asetId" name="asetId" class="form-control" ng-model="asetVm.model.asetId" required />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-4">Nama Asset :</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="name" name="name" class="form-control" ng-model="asetVm.model.name" required />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-4">Gambar Asset :</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="filePhoto" name="filePhoto" class="form-control" ng-model="asetVm.model.filePhoto" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-4">Deskripsi :</label>
+                            <div class="col-sm-8">
+                                <textarea id="description" name="description" class="form-control" ng-model="asetVm.model.description"></textarea>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" ui-sref="app.asetList">Kembali</button>
+                                <button class="btn btn-success float-right" id="saveButton">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

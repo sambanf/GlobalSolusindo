@@ -5,8 +5,6 @@ using GlobalSolusindo.Identity.MappingUserToRoleGroup.Queries;
 using Kairos;
 using Kairos.Data;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.DML
 {

@@ -94,12 +94,14 @@
     <Compile Include="ActiveUserProvider.cs" />
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AsetController.cs" />
     <Compile Include="Controllers\MappingRoleToRoleGroupController.cs" />
     <Compile Include="Controllers\AuthParamController.cs" />
     <Compile Include="Controllers\MappingUserToAuthParamController.cs" />
     <Compile Include="Controllers\PositionController.cs" />
     <Compile Include="Controllers\MappingUserToRoleGroupController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\AsetKategoriController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\RoleGroupController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
@@ -128,6 +130,10 @@
     <ProjectReference Include="..\GlobalSolusindo.Base\GlobalSolusindo.Base.csproj">
       <Project>{f3a62027-fa51-4f0a-b5ba-42385de0d331}</Project>
       <Name>GlobalSolusindo.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GlobalSolusindo.Business\GlobalSolusindo.Business.csproj">
+      <Project>{F039649D-4116-4DE0-868A-0B2B8E6CE2E4}</Project>
+      <Name>GlobalSolusindo.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\GlobalSolusindo.DataAccess.SqlServer\GlobalSolusindo.DataAccess.SqlServer.csproj">
       <Project>{84e76e65-832e-4168-87cb-680ff40418ba}</Project>

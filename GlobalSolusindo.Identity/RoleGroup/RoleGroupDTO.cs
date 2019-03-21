@@ -1,9 +1,7 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Identity.MappingRoleToRoleGroup;
 using GlobalSolusindo.Identity.RoleGroup.Queries;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GlobalSolusindo.Identity.RoleGroup

@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F039649D-4116-4DE0-868A-0B2B8E6CE2E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GlobalSolusindo.Business</RootNamespace>
+    <AssemblyName>GlobalSolusindo.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AsetKategori\AsetKategoriDTO.cs" />
+    <Compile Include="AsetKategori\AsetKategoriFactory.cs" />
+    <Compile Include="AsetKategori\AsetKategoriValidator.cs" />
+    <Compile Include="AsetKategori\DML\AsetKategoriCreateHandler.cs" />
+    <Compile Include="AsetKategori\DML\AsetKategoriDeleteHandler.cs" />
+    <Compile Include="AsetKategori\DML\AsetKategoriUpdateHandler.cs" />
+    <Compile Include="AsetKategori\EntryForm\AsetKategoriEntryControlBuilder.cs" />
+    <Compile Include="AsetKategori\EntryForm\AsetKategoriEntryDataProvider.cs" />
+    <Compile Include="AsetKategori\EntryForm\AsetKategoriEntryFormData.cs" />
+    <Compile Include="AsetKategori\EntryForm\AsetKategoriEntryModel.cs" />
+    <Compile Include="AsetKategori\ListForm\AsetKategoriListDataProvider.cs" />
+    <Compile Include="AsetKategori\ListForm\AsetKategoriListFormData.cs" />
+    <Compile Include="AsetKategori\ListForm\AsetKategoriListModel.cs" />
+    <Compile Include="AsetKategori\Queries\AsetKategoriQuery.cs" />
+    <Compile Include="AsetKategori\Queries\AsetKategoriSearch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Aset\DML\AsetCreateHandler.cs" />
+    <Compile Include="Aset\DML\AsetDeleteHandler.cs" />
+    <Compile Include="Aset\DML\AsetUpdateHandler.cs" />
+    <Compile Include="Aset\EntryForm\AsetEntryControlBuilder.cs" />
+    <Compile Include="Aset\EntryForm\AsetEntryDataProvider.cs" />
+    <Compile Include="Aset\EntryForm\AsetEntryFormData.cs" />
+    <Compile Include="Aset\EntryForm\AsetEntryModel.cs" />
+    <Compile Include="Aset\ListForm\AsetListDataProvider.cs" />
+    <Compile Include="Aset\ListForm\AsetListFormData.cs" />
+    <Compile Include="Aset\ListForm\AsetListModel.cs" />
+    <Compile Include="Aset\Queries\AsetQuery.cs" />
+    <Compile Include="Aset\Queries\AsetSearch.cs" />
+    <Compile Include="Aset\AsetDTO.cs" />
+    <Compile Include="Aset\AsetFactory.cs" />
+    <Compile Include="Aset\AsetValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GlobalSolusindo.Base\GlobalSolusindo.Base.csproj">
+      <Project>{F3A62027-FA51-4F0A-B5BA-42385DE0D331}</Project>
+      <Name>GlobalSolusindo.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GlobalSolusindo.DataAccess.SqlServer\GlobalSolusindo.DataAccess.SqlServer.csproj">
+      <Project>{84E76E65-832E-4168-87CB-680FF40418BA}</Project>
+      <Name>GlobalSolusindo.DataAccess.SqlServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GlobalSolusindo.Identity\GlobalSolusindo.Identity.csproj">
+      <Project>{871E4555-9108-454E-95B0-A60CC4141F62}</Project>
+      <Name>GlobalSolusindo.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kairos\Kairos.csproj">
+      <Project>{8C434AAF-6A6C-4727-AD32-0C875FF6D9A9}</Project>
+      <Name>Kairos</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

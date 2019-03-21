@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kairos", "Kairos\Kairos.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalSolusindo.Web", "GlobalSolusindo.Web\GlobalSolusindo.Web.csproj", "{9FCD2590-8E1D-484A-BFDB-C2AE5EE7DC1B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GlobalSolusindo.Business", "GlobalSolusindo.Business\GlobalSolusindo.Business.csproj", "{F039649D-4116-4DE0-868A-0B2B8E6CE2E4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{9FCD2590-8E1D-484A-BFDB-C2AE5EE7DC1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FCD2590-8E1D-484A-BFDB-C2AE5EE7DC1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FCD2590-8E1D-484A-BFDB-C2AE5EE7DC1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F039649D-4116-4DE0-868A-0B2B8E6CE2E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F039649D-4116-4DE0-868A-0B2B8E6CE2E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F039649D-4116-4DE0-868A-0B2B8E6CE2E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F039649D-4116-4DE0-868A-0B2B8E6CE2E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -62,6 +68,7 @@ Global
 		{E1D7F79C-A6C6-4E5B-AA58-5291B3D97CDA} = {85B06D3D-5F45-4C65-9E54-D4C3498CA619}
 		{8C434AAF-6A6C-4727-AD32-0C875FF6D9A9} = {DE8F318A-E28D-4F35-8B25-3DE9EAFF7DBF}
 		{9FCD2590-8E1D-484A-BFDB-C2AE5EE7DC1B} = {7EE663DB-1EB1-4DA9-9DAE-8A914F6F4716}
+		{F039649D-4116-4DE0-868A-0B2B8E6CE2E4} = {85B06D3D-5F45-4C65-9E54-D4C3498CA619}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {827136FD-DBB0-495E-9A2D-BEF2C356E08B}

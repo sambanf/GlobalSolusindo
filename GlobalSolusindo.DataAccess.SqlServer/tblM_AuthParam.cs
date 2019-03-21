@@ -9,9 +9,7 @@
 
 namespace GlobalSolusindo.DataAccess
 {
-    using System;
-    using System.Collections.Generic;
-    
+
     public partial class tblM_AuthParam
     {
         public int AuthParam_PK { get; set; }

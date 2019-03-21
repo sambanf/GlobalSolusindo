@@ -22,17 +22,18 @@
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
-
-            select2Service.liveSearch("position/search", {
-                selector: '#position_fk',
-                valueMember: 'position_pk',
-                displayMember: 'name',
-                callback: function (data) {
-                    self.formData.positions = data;
-                },
-                onSelected: function (data) {
-                    self.model.position_fk = data.position_pk;
-                }
+            angular.element(document).ready(function () {
+                select2Service.liveSearch("position/search", {
+                    selector: '#position_fk',
+                    valueMember: 'position_pk',
+                    displayMember: 'name',
+                    callback: function (data) {
+                        self.formData.positions = data;
+                    },
+                    onSelected: function (data) {
+                        self.model.position_fk = data.position_pk;
+                    }
+                });
             });
         });
 

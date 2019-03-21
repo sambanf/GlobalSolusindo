@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-21. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-22. 
 * @author Wizzytech
 */
 (function() {
@@ -82,20 +82,20 @@
             var state = trans._targetState._definition.name;
             $rootScope.stateName = state;
             if (state == 'login') {
-                //if ($cookies.get('Token')) {
-                //    $timeout(function () {
-                //        $state.go('app.dashboard');
-                //        return false;
-                //    });
-                //}
+                if ($cookies.get('token')) {
+                    $timeout(function () {
+                        $state.go('app.dashboard');
+                        return false;
+                    });
+                }
             }
 
-            // if ($cookies.get('Token') == undefined) {
-            //     $timeout(function () {
-            //         $state.go('login');
-            //         return false;
-            //     });
-            // }
+             if ($cookies.get('token') == undefined) {
+                 $timeout(function () {
+                     $state.go('login');
+                     return false;
+                 });
+             }
             console.log();
         });
     }
@@ -115,6 +115,86 @@
 
 })();
 
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.asetList', {
+                url: '/asetList',
+                templateUrl: 'app/modules/aset/aset.html',
+                controller: 'AsetCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Aset'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.asetEntry', {
+                url: '/asetEntry/:id',
+                templateUrl: 'app/modules/asetEntry/asetEntry.html',
+                controller: 'AsetEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Aset Entry'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.asetKategoriList', {
+                url: '/asetKategoriList',
+                templateUrl: 'app/modules/asetKategori/asetKategori.html',
+                controller: 'AsetKategoriCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Aset Kategori'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.asetKategoriEntry', {
+                url: '/asetKategoriEntry/:id',
+                templateUrl: 'app/modules/asetKategoriEntry/asetKategoriEntry.html',
+                controller: 'AsetKategoriEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Aset Kategori Entry'
+                }
+            });
+    }]);
 'use strict';
 
 angular.module('global-solusindo')
@@ -257,7 +337,7 @@ angular.module('global-solusindo')
 			.state('login', {
 				url: '/login',
 				templateUrl: 'app/modules/login/login.html',
-				controller: 'LoginCtrl',
+                controller: 'LoginCtrl',
 				controllerAs: 'login'
 			});
 
@@ -546,6 +626,100 @@ angular.module('global-solusindo')
     'use strict';
 
     angular.module('global-solusindo')
+        .controller('AsetCtrl', AsetCtrl);
+
+    AsetCtrl.$inject = ['$scope', '$state', 'asetDtService', 'asetDeleteService', 'asetViewService'];
+
+    function AsetCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        self.datatable = dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('AsetEntryCtrl', AsetEntryCtrl);
+
+    AsetEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'AsetSaveService', 'AsetBindingService', 'FormControlService'];
+
+    function AsetEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('AsetKategoriCtrl', AsetKategoriCtrl);
+
+    AsetKategoriCtrl.$inject = ['$scope', '$state', 'asetKategoriDtService', 'asetKategoriDeleteService', 'asetKategoriViewService'];
+
+    function AsetKategoriCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        self.datatable = dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('AsetKategoriEntryCtrl', AsetKategoriEntryCtrl);
+
+    AsetKategoriEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'AsetKategoriSaveService', 'AsetKategoriBindingService', 'FormControlService'];
+
+    function AsetKategoriEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
         .controller('AssetCtrl', AssetCtrl);
 
     AssetCtrl.$inject = ['$scope', '$state', 'roleDtService', 'roleDeleteService', 'roleViewService'];
@@ -803,103 +977,108 @@ angular.module('global-solusindo')
         var vm = this;
 
         vm.menu = [{
-                "title": "homepage",
+            "title": "homepage",
+            "path": "homepage",
+            "icon": "fas fa-chart-line"
+        },
+        {
+            "title": "user management",
+            "path": "",
+            "icon": "fas fa-chart-line",
+            "children": [
+                {
+                    "title": "user",
+                    "path": "app.userList",
+                    "icon": "fas fa-chart-line"
+                },
+                {
+                    "title": "role",
+                    "path": "homepage",
+                    "icon": "fas fa-chart-line"
+                }, {
+                    "title": "role group",
+                    "path": "app.roleGroup",
+                    "icon": "fas fa-chart-line"
+                },
+                {
+                    "title": "mapping role to role group",
+                    "path": "homepage",
+                    "icon": "fas fa-chart-line"
+                },
+                {
+                    "title": "mapping user to role group",
+                    "path": "app.mappingRoleToRoleGroupList",
+                    "icon": "fas fa-chart-line"
+                },
+                {
+                    "title": "auth param",
+                    "path": "app.authParam",
+                    "icon": "fas fa-chart-line"
+                },
+                {
+                    "title": "mapping user to auth param",
+                    "path": "app.mappingRoleToRoleGroup",
+                    "icon": "fas fa-chart-line"
+                },
+                {
+                    "title": "Position",
+                    "path": "app.positionList",
+                    "icon": "fas fa-chart-line"
+                },
+            ]
+        },
+        {
+            "title": "master data",
+            "path": "homepage",
+            "icon": "fas fa-chart-line",
+            "children": [{
+                "title": "BTS",
                 "path": "homepage",
                 "icon": "fas fa-chart-line"
             },
             {
-                "title": "user management",
-                "path": "",
-                "icon": "fas fa-chart-line",
-                "children": [
-                    {
-                        "title": "user",
-                        "path": "app.userList",
-                        "icon": "fas fa-chart-line"
-                    },
-                    {
-                        "title": "role",
-                        "path": "homepage",
-                        "icon": "fas fa-chart-line"
-                    },{
-                        "title": "role group",
-                        "path": "app.roleGroup",
-                        "icon": "fas fa-chart-line"
-                    }, 
-                    {
-                        "title": "mapping role to role group",
-                        "path": "homepage",
-                        "icon": "fas fa-chart-line"
-                    },
-                    {
-                        "title": "mapping user to role group",
-                        "path": "app.mappingRoleToRoleGroupList",
-                        "icon": "fas fa-chart-line"
-                    },
-                    {
-                        "title": "auth param",
-                        "path": "app.authParam",
-                        "icon": "fas fa-chart-line"
-                    },
-                    {
-                        "title": "mapping user to auth param",
-                        "path": "app.mappingRoleToRoleGroup",
-                        "icon": "fas fa-chart-line"
-                    },
-                    {
-                        "title": "Position",
-                        "path": "app.positionList",
-                        "icon": "fas fa-chart-line"
-                    },
-                ]
+                "title": "Asset Kategori",
+                "path": "app.asetKategoriList",
+                "icon": "fas fa-chart-line"
             },
             {
-                "title": "master data",
-                "path": "homepage",
-                "icon": "fas fa-chart-line",
-                "children": [{
-                        "title": "BTS",
-                        "path": "homepage",
-                        "icon": "fas fa-chart-line"
-                    },
-                    {
-                        "title": "Asset",
-                        "path": "homepage",
-                        "icon": "fas fa-chart-line"
-                    },
-                    {
-                        "title": "sow",
-                        "path": "homepage",
-                        "icon": "fas fa-chart-line"
-                    }
-                ]
-            },
-            {
-                "title": "approval izin/ cuti",
+                "title": "Asset",
                 "path": "homepage",
                 "icon": "fas fa-chart-line"
             },
             {
-                "title": "report",
+                "title": "sow",
                 "path": "homepage",
-                "icon": "fas fa-chart-line",
-                "children": [{
-                        "title": "timesheet engineer",
-                        "path": "homepage",
-                        "icon": "fas fa-chart-line"
-                    },
-                    {
-                        "title": "task engineer",
-                        "path": "homepage",
-                        "icon": "fas fa-chart-line"
-                    },
-                    {
-                        "title": "daily task",
-                        "path": "homepage",
-                        "icon": "fas fa-chart-line"
-                    }
-                ]
+                "icon": "fas fa-chart-line"
             }
+            ]
+        },
+        {
+            "title": "approval izin/ cuti",
+            "path": "homepage",
+            "icon": "fas fa-chart-line"
+        },
+        {
+            "title": "report",
+            "path": "homepage",
+            "icon": "fas fa-chart-line",
+            "children": [{
+                "title": "timesheet engineer",
+                "path": "homepage",
+                "icon": "fas fa-chart-line"
+            },
+            {
+                "title": "task engineer",
+                "path": "homepage",
+                "icon": "fas fa-chart-line"
+            },
+            {
+                "title": "daily task",
+                "path": "homepage",
+                "icon": "fas fa-chart-line"
+            }
+            ]
+        }
         ];
         return vm;
     }
@@ -918,9 +1097,9 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .controller('LoginCtrl', Login);
+        .controller('LoginCtrl', LoginCtrl);
 
-    Login.$inject = ['$scope', '$state', 'validationService', '$localStorage', '$cookies', 'uiService', 'HttpService'];
+    LoginCtrl.$inject = ['$scope', '$state', 'serverErrorService', '$localStorage', '$cookies', 'uiService', 'HttpService', '$window'];
 
     /*
     * recommend
@@ -928,32 +1107,37 @@ angular.module('global-solusindo')
     * and bindable members up top.
     */
 
-    function Login($scope, $state, validation, localStorage, $cookies, ui, http) {
+    function LoginCtrl($scope, $state, serverError, localStorage, $cookies, ui, http, $window) {
         /*jshint validthis: true */
         var self = this;
 
-        var model = {
-            username: "",
-            password: ""
-        };
+        self.model = {};
 
-        self.login = function () {
-            http.post('token', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success(res.message);
-                    if (typeof (response.access_token) != 'undefined') {
-                        $cookies.put('token', response.token);
-                        $window.localStorage.setItem('user', response.model);
-                        state.go('app.dashboard');
+        function setTokenInfo(token) {
+            $cookies.put('token', token);
+        }
+
+        function setUserInfo(userInfo) {
+            $window.localStorage.setItem('user', userInfo);
+        }
+
+        function goToDashboard() {
+            $state.go('app.dashboard');
+        }
+
+        angular.element('#loginButton').on('click', function () {
+            http.post('token', self.model)
+                .then(function (res) {
+                    if (res.success) {
+                        ui.alert.success(res.message);
+                        setTokenInfo(res.token);
+                        setUserInfo(res.model);
+                        goToDashboard();
                     } else {
-                        ui.alert.error(res.message);
+                        serverError.show(res);
                     }
-                } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
-                }
-            });
-        };
+                });
+        });
 
         return self;
     }
@@ -1529,6 +1713,582 @@ angular.module('global-solusindo')
 
         return self;
     }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetDeleteService', aset);
+
+    aset.$inject = ['HttpService', 'uiService'];
+
+    function aset(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('aset', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.aset_pk];
+            ui.alert.confirm("Are you sure want to delete aset '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].aset_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#aset tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetDtService', aset);
+
+    aset.$inject = ['DatatableService'];
+
+    function aset(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            return ds.init("#aset", "aset/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "aset_pk"
+                },
+                {
+                    "data": "asetId"
+                },
+                {
+                    "data": "kategoriAsetName"
+                },
+                {
+                    "data": "name"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetViewService', asetView);
+
+    asetView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function asetView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.asetEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#aset tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.aset_pk);
+            });
+
+            $("#aset tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["aset_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('AsetBindingService', AsetBindingService);
+
+    AsetBindingService.$inject = ['HttpService', '$state'];
+
+    function AsetBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('aset/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('AsetSaveService', AsetEntry);
+
+    AsetEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function AsetEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('aset', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.asetEntry', { id: res.data.model.aset_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('aset', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.aset_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetKategoriDeleteService', asetKategori);
+
+    asetKategori.$inject = ['HttpService', 'uiService'];
+
+    function asetKategori(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('asetKategori', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.asetKategori_pk];
+            ui.alert.confirm("Are you sure want to delete asetKategori '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].asetKategori_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#asetKategori tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetKategoriDtService', asetKategori);
+
+    asetKategori.$inject = ['DatatableService'];
+
+    function asetKategori(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            return ds.init("#asetKategori", "asetKategori/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "asetKategori_pk"
+                },
+                {
+                    "data": "title"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetKategoriViewService', asetKategoriView);
+
+    asetKategoriView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function asetKategoriView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.asetKategoriEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#asetKategori tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.asetKategori_pk);
+            });
+
+            $("#asetKategori tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["asetKategori_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('AsetKategoriBindingService', AsetKategoriBindingService);
+
+    AsetKategoriBindingService.$inject = ['HttpService', '$state'];
+
+    function AsetKategoriBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('asetKategori/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('AsetKategoriSaveService', AsetKategoriEntry);
+
+    AsetKategoriEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function AsetKategoriEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('asetKategori', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.asetKategoriEntry', { id: res.data.model.asetKategori_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('asetKategori', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.asetKategori_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
 })();
 (function () {
     'use strict';
@@ -2430,8 +3190,12 @@ angular.module('global-solusindo')
                 if (res.success) {
                     ui.alert.success(res.message);
                 } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res) {
+                        ui.alert.error(res.message);
+                        if (res.data && res.data.errors) {
+                            validation.serverValidation(res.data.errors);
+                        }
+                    }
                 }
             });
         };
@@ -4901,6 +5665,42 @@ angular.module('global-solusindo')
                     param.onOpening(e);
                 }
             });
+        };
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:kairosService
+     * @description 
+     * When we hit api and the server return error either a message or validation errors, this service handle the response and 
+     * show it on error and/or bind the message to the ui
+     * # serverErrorService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('serverErrorService', serverErrorService);
+
+    serverErrorService.$inject = ['validationService', 'uiService'];
+
+    function serverErrorService(validationService, ui) {
+        var self = this;
+
+        self.show = function (res) {
+            debugger;
+            if (res) {
+                validationService.clearValidationErrors({});
+                ui.alert.error(res.message);
+                if (res.data && res.data.errors) {
+                    validationService.serverValidation(res.data.errors);
+                }
+            }
         };
 
         return self;

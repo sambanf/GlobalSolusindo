@@ -36,8 +36,12 @@
                 if (res.success) {
                     ui.alert.success(res.message);
                 } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res) {
+                        ui.alert.error(res.message);
+                        if (res.data && res.data.errors) {
+                            validation.serverValidation(res.data.errors);
+                        }
+                    }
                 }
             });
         };

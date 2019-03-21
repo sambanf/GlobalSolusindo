@@ -1,13 +1,10 @@
-﻿using GlobalSolusindo.DataAccess;
-using GlobalSolusindo.Identity.MappingUserToRoleGroup;
+﻿using GlobalSolusindo.Identity.MappingUserToRoleGroup;
 using GlobalSolusindo.Identity.MappingUserToRoleGroup.DML;
 using GlobalSolusindo.Identity.MappingUserToRoleGroup.EntryForm;
 using GlobalSolusindo.Identity.MappingUserToRoleGroup.Queries;
 using Kairos;
-using Kairos.Data;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Transactions;
 using System.Web.Http;
 

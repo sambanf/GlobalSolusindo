@@ -1,13 +1,10 @@
-﻿using GlobalSolusindo.DataAccess;
-using GlobalSolusindo.Identity.MappingUserToAuthParam;
+﻿using GlobalSolusindo.Identity.MappingUserToAuthParam;
 using GlobalSolusindo.Identity.MappingUserToAuthParam.DML;
 using GlobalSolusindo.Identity.MappingUserToAuthParam.EntryForm;
 using GlobalSolusindo.Identity.MappingUserToAuthParam.Queries;
 using Kairos;
-using Kairos.Data;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Transactions;
 using System.Web.Http;
 

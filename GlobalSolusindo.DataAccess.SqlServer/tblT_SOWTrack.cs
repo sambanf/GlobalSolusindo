@@ -10,8 +10,7 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class tblT_SOWTrack
     {
         public int SOWTrack_PK { get; set; }
