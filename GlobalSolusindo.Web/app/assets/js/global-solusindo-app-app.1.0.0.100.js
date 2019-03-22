@@ -297,6 +297,46 @@ angular.module('global-solusindo')
     .config(['$stateProvider', function ($stateProvider) {
 
         $stateProvider
+            .state('app.btsList', {
+                url: '/btsList',
+                templateUrl: 'app/modules/bts/bts.html',
+                controller: 'BTSCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'BTS'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.btsEntry', {
+                url: '/btsEntry/:id',
+                templateUrl: 'app/modules/btsEntry/btsEntry.html',
+                controller: 'BTSEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'BTS Entry'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
             .state('app.cabangList', {
                 url: '/cabangList',
                 templateUrl: 'app/modules/cabang/cabang.html',
@@ -1064,6 +1104,54 @@ angular.module('global-solusindo')
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('BTSCtrl', BTSCtrl);
+
+    BTSCtrl.$inject = ['$scope', '$state', 'btsDtService', 'btsDeleteService', 'btsViewService'];
+
+    function BTSCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        self.datatable = dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('BTSEntryCtrl', BTSEntryCtrl);
+
+    BTSEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'BTSSaveService', 'BTSBindingService', 'FormControlService', 'BTSSelect2Service'];
+
+    function BTSEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, BTSSelect2Service) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+            BTSSelect2Service.init(self);
         });
 
         return self;
@@ -3535,6 +3623,407 @@ angular.module('global-solusindo')
             controller = ctrl;
             angular.element('#saveButton').on('click', function () {
                 self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('btsDeleteService', bts);
+
+    bts.$inject = ['HttpService', 'uiService'];
+
+    function bts(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('bts', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.bts_pk];
+            ui.alert.confirm("Are you sure want to delete bts '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].bts_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#bts tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('btsDtService', bts);
+
+    bts.$inject = ['DatatableService'];
+
+    function bts(ds) {
+        var self = this;
+
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            return ds.init("#bts", "bts/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "bts_pk"
+                },
+                {
+                    "data": "name"
+                },
+                {
+                    "data": "operatorTitle"
+                },
+                {
+                    "data": "cellId"
+                },
+                {
+                    "data": "statusBtsTitle"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+        }
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('btsViewService', btsView);
+
+    btsView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function btsView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.btsEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#bts tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.bts_pk);
+            });
+
+            $("#bts tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["bts_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('BTSBindingService', BTSBindingService);
+
+    BTSBindingService.$inject = ['HttpService', '$state'];
+
+    function BTSBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('bts/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('BTSSaveService', BTSEntry);
+
+    BTSEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function BTSEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('bts', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.btsEntry', { id: res.data.model.bts_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('bts', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.bts_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('BTSSelect2Service', BTSSelect2Service);
+
+    BTSSelect2Service.$inject = ['$state', 'HttpService', 'uiService', 'select2Service'];
+
+    function BTSSelect2Service($state, http, ui, select2Service) {
+        var self = this;
+        var controller; 
+
+        function getOperators() {
+            select2Service.liveSearch("operator/search", {
+                selector: '#operator_fk',
+                valueMember: 'operator_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.operators = data;
+                },
+                onSelected: function (data) {
+                    controller.model.operator_fk = data.operator_pk;
+                }
+            });
+        }
+
+        function getBtsStatuses() {
+            select2Service.liveSearch("btsStatus/search", {
+                selector: '#statusBts_fk',
+                valueMember: 'btsStatus_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.btsStatuses = data;
+                },
+                onSelected: function (data) {
+                    controller.model.statusBts_fk = data.btsStatus_pk;
+                }
+            });
+        }
+
+        function getAreas() {
+            select2Service.liveSearch("area/search", {
+                selector: '#area_fk',
+                valueMember: 'area_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.areas = data;
+                },
+                onSelected: function (data) {
+                    controller.model.area_fk = data.area_pk;
+                }
+            });
+        }
+
+        function getKotas() {
+            select2Service.liveSearch("kota/search", {
+                selector: '#kota_fk',
+                valueMember: 'kota_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.kotas = data;
+                },
+                onSelected: function (data) {
+                    controller.model.kota_fk = data.kota_pk;
+                }
+            });
+        }
+
+        function getCabang() {
+            select2Service.liveSearch("cabang/search", {
+                selector: '#cabang_fk',
+                valueMember: 'cabang_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.cabangs = data;
+                },
+                onSelected: function (data) {
+                    controller.model.cabang_fk = data.cabang_pk;
+                }
+            });
+        }
+      
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element(document).ready(function () {
+                getOperators();
+                getBtsStatuses();
+                getAreas();
+                getKotas();
+                getCabang();
             });
         };
 

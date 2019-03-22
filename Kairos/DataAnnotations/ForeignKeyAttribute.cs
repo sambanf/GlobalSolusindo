@@ -10,12 +10,13 @@ namespace Kairos.DataAnnotations
     {
         private IUniqueQuery uniqueQuery;
         private string foreignKeyName;
+        private bool allowNullOrZero;
 
-        public ForeignKeyAttribute(Type uniqueQuery, string foreignKeyName)
+        public ForeignKeyAttribute(Type uniqueQuery, string foreignKeyName, bool allowNullOrZero = false)
         {
             this.uniqueQuery = Activator.CreateInstance(uniqueQuery, null) as IUniqueQuery;
             this.foreignKeyName = foreignKeyName;
-            // this.FK = foreignKeyName;
+            this.allowNullOrZero = allowNullOrZero;
         }
 
         protected bool RecordIsExist(string fieldName, string parameterValue)
@@ -36,21 +37,22 @@ namespace Kairos.DataAnnotations
             if (props[validationContext.MemberName] == null) throw new KairosException($"Foreign key with name '{memberName}' is not found or invalid. ");
             var fkValue = props[memberName].GetValue(record);
 
+            var valueIsNullOrZero = (fkValue == null || fkValue.ToString() == "0");
+            if (allowNullOrZero && valueIsNullOrZero)
+            {
+                return ValidationResult.Success; 
+            }
+            if (!allowNullOrZero && valueIsNullOrZero)
+            {
+                var errorMessage = string.IsNullOrEmpty(this.ErrorMessage) ? $"This field is required." : this.ErrorMessage;
+                return new ValidationResult(errorMessage, new List<string>() { validationContext.MemberName });
+            }
+
             if (!RecordIsExist(this.foreignKeyName, fkValue.ToString()))
             {
                 var errorMessage = string.IsNullOrEmpty(this.ErrorMessage) ? $"Referenced value '{fkValue}' is invalid. Probably the record is no longer exist." : this.ErrorMessage;
                 return new ValidationResult(errorMessage, new List<string>() { validationContext.MemberName });
             }
-
-            //if (fkValue.ToString() != "0")
-            //{
-            //    if (!RecordIsExist(this.foreignKeyName, fkValue.ToString()))
-            //    {
-            //        var errorMessage = string.IsNullOrEmpty(this.ErrorMessage) ? $"Referenced value '{fkValue}' is invalid. Probably the record is no longer exist." : this.ErrorMessage;
-            //        return new ValidationResult(errorMessage, new List<string>() { validationContext.MemberName });
-            //    }
-            //}
-
             return ValidationResult.Success;
         }
     }

@@ -51,6 +51,36 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BTSStatus\BTSStatusDTO.cs" />
+    <Compile Include="BTSStatus\BTSStatusFactory.cs" />
+    <Compile Include="BTSStatus\BTSStatusValidator.cs" />
+    <Compile Include="BTSStatus\DML\BTSStatusCreateHandler.cs" />
+    <Compile Include="BTSStatus\DML\BTSStatusDeleteHandler.cs" />
+    <Compile Include="BTSStatus\DML\BTSStatusUpdateHandler.cs" />
+    <Compile Include="BTSStatus\EntryForm\BTSStatusEntryControlBuilder.cs" />
+    <Compile Include="BTSStatus\EntryForm\BTSStatusEntryDataProvider.cs" />
+    <Compile Include="BTSStatus\EntryForm\BTSStatusEntryFormData.cs" />
+    <Compile Include="BTSStatus\EntryForm\BTSStatusEntryModel.cs" />
+    <Compile Include="BTSStatus\ListForm\BTSStatusListDataProvider.cs" />
+    <Compile Include="BTSStatus\ListForm\BTSStatusListFormData.cs" />
+    <Compile Include="BTSStatus\ListForm\BTSStatusListModel.cs" />
+    <Compile Include="BTSStatus\Queries\BTSStatusQuery.cs" />
+    <Compile Include="BTSStatus\Queries\BTSStatusSearch.cs" />
+    <Compile Include="BTS\BTSDTO.cs" />
+    <Compile Include="BTS\BTSFactory.cs" />
+    <Compile Include="BTS\BTSValidator.cs" />
+    <Compile Include="BTS\DML\BTSCreateHandler.cs" />
+    <Compile Include="BTS\DML\BTSDeleteHandler.cs" />
+    <Compile Include="BTS\DML\BTSUpdateHandler.cs" />
+    <Compile Include="BTS\EntryForm\BTSEntryControlBuilder.cs" />
+    <Compile Include="BTS\EntryForm\BTSEntryDataProvider.cs" />
+    <Compile Include="BTS\EntryForm\BTSEntryFormData.cs" />
+    <Compile Include="BTS\EntryForm\BTSEntryModel.cs" />
+    <Compile Include="BTS\ListForm\BTSListDataProvider.cs" />
+    <Compile Include="BTS\ListForm\BTSListFormData.cs" />
+    <Compile Include="BTS\ListForm\BTSListModel.cs" />
+    <Compile Include="BTS\Queries\BTSQuery.cs" />
+    <Compile Include="BTS\Queries\BTSSearch.cs" />
     <Compile Include="Cabang\CabangDTO.cs" />
     <Compile Include="Cabang\CabangFactory.cs" />
     <Compile Include="Cabang\CabangValidator.cs" />
