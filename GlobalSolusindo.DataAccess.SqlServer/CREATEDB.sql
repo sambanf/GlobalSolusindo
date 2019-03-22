@@ -1,6 +1,6 @@
 ﻿USE [GlobalSolusindo]
 GO
-/****** Object:  Table [dbo].[tblM_BTSStatus]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_BTSStatus]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -24,7 +24,7 @@ INSERT [dbo].[tblM_BTSStatus] ([BTSStatus_PK], [Title], [CreatedBy], [CreatedDat
 INSERT [dbo].[tblM_BTSStatus] ([BTSStatus_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, N'Rusak', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_BTSStatus] ([BTSStatus_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, N'Tidak aktif', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_BTSStatus] OFF
-/****** Object:  Table [dbo].[tblM_BTS]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_BTS]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -55,10 +55,12 @@ CREATE TABLE [dbo].[tblM_BTS](
 ) ON [PRIMARY]
 GO
 SET IDENTITY_INSERT [dbo].[tblM_BTS] ON
-INSERT [dbo].[tblM_BTS] ([BTS_PK], [CustomerSite], [TowerID], [CellID], [Name], [Operator_FK], [StatusBTS_FK], [Longitude], [Latitude], [Area_FK], [Kota_FK], [Cabang_FK], [Alamat], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (1, N'SiteIndosat01', N'T01', N'Cell01', N'Tower Mampang', 1, NULL, NULL, NULL, 1, 1, 1, N'Alamat 1', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
-INSERT [dbo].[tblM_BTS] ([BTS_PK], [CustomerSite], [TowerID], [CellID], [Name], [Operator_FK], [StatusBTS_FK], [Longitude], [Latitude], [Area_FK], [Kota_FK], [Cabang_FK], [Alamat], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, N'SiteTelkomsel01', N'Tel01', N'Tcell01', N'Tower Mampang Telkomsel', 2, NULL, NULL, NULL, 1, 1, 1, N'Mampang', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
+INSERT [dbo].[tblM_BTS] ([BTS_PK], [CustomerSite], [TowerID], [CellID], [Name], [Operator_FK], [StatusBTS_FK], [Longitude], [Latitude], [Area_FK], [Kota_FK], [Cabang_FK], [Alamat], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (1, N'SiteIndosat01', N'T01', N'Cell01', N'Tower Mampang', 1, 2, N'9090.1', N'909123', 108, 2, 5, N'Jalan Raya diponegoro', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'admin', CAST(0x0000AA18010F136B AS DateTime), 1)
+INSERT [dbo].[tblM_BTS] ([BTS_PK], [CustomerSite], [TowerID], [CellID], [Name], [Operator_FK], [StatusBTS_FK], [Longitude], [Latitude], [Area_FK], [Kota_FK], [Cabang_FK], [Alamat], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, N'SiteTelkomsel01', N'Tel01', N'Tcell01', N'Tower Mampang Telkomsel', 2, 3, NULL, NULL, 1, 1, 1, N'Mampang', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'admin', CAST(0x0000AA18011076AC AS DateTime), 1)
+INSERT [dbo].[tblM_BTS] ([BTS_PK], [CustomerSite], [TowerID], [CellID], [Name], [Operator_FK], [StatusBTS_FK], [Longitude], [Latitude], [Area_FK], [Kota_FK], [Cabang_FK], [Alamat], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, N'002', N'T043', N'5432211', N'BTS Manggarai', 3, 1, NULL, NULL, 103, 3, 4, N'', N'admin', CAST(0x0000AA18011041AF AS DateTime), N'admin', CAST(0x0000AA1801106EC7 AS DateTime), 1)
+INSERT [dbo].[tblM_BTS] ([BTS_PK], [CustomerSite], [TowerID], [CellID], [Name], [Operator_FK], [StatusBTS_FK], [Longitude], [Latitude], [Area_FK], [Kota_FK], [Cabang_FK], [Alamat], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, N'q', N'q', N'q', N'q', 3, 4, NULL, NULL, 2, 21, 5, N'', N'admin', CAST(0x0000AA1801109E65 AS DateTime), N'admin', CAST(0x0000AA180110C7A2 AS DateTime), 3)
 SET IDENTITY_INSERT [dbo].[tblM_BTS] OFF
-/****** Object:  Table [dbo].[tblM_KategoriJabatan]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_KategoriJabatan]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -83,7 +85,7 @@ INSERT [dbo].[tblM_KategoriJabatan] ([KategoriJabatan_PK], [Title], [CreatedBy],
 INSERT [dbo].[tblM_KategoriJabatan] ([KategoriJabatan_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, N'Rigger', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_KategoriJabatan] ([KategoriJabatan_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, N'Surveyor', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_KategoriJabatan] OFF
-/****** Object:  Table [dbo].[tblM_IzinCutiStatus]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_IzinCutiStatus]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -102,7 +104,7 @@ CREATE TABLE [dbo].[tblM_IzinCutiStatus](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tblM_DeliveryArea]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_DeliveryArea]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -136,7 +138,7 @@ INSERT [dbo].[tblM_DeliveryArea] ([DeliveryArea_PK], [Title], [CreatedBy], [Crea
 INSERT [dbo].[tblM_DeliveryArea] ([DeliveryArea_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (12, N'South Sumatra', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_DeliveryArea] ([DeliveryArea_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (13, N'North Sumatra', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_DeliveryArea] OFF
-/****** Object:  Table [dbo].[tblM_CostKategori]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_CostKategori]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -161,7 +163,7 @@ INSERT [dbo].[tblM_CostKategori] ([CostKategori_PK], [Title], [Order], [CreatedB
 INSERT [dbo].[tblM_CostKategori] ([CostKategori_PK], [Title], [Order], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, N'Sewa mobil', 2, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_CostKategori] ([CostKategori_PK], [Title], [Order], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, N'Lain-lain', 3, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_CostKategori] OFF
-/****** Object:  Table [dbo].[tblM_Project]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_Project]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -182,7 +184,7 @@ CREATE TABLE [dbo].[tblM_Project](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tblM_Position]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_Position]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -207,7 +209,7 @@ INSERT [dbo].[tblM_Position] ([Position_PK], [Name], [Description], [CreatedBy],
 INSERT [dbo].[tblM_Position] ([Position_PK], [Name], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, N'.Net Developer', N'Programmer', N'admin', CAST(0x0000AA1500CFAD02 AS DateTime), N'admin', CAST(0x0000AA1500CFAD02 AS DateTime), 1)
 INSERT [dbo].[tblM_Position] ([Position_PK], [Name], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, N'Java Developer', N'Programmer', N'admin', CAST(0x0000AA1500CFBAE6 AS DateTime), N'admin', CAST(0x0000AA1500CFBAE6 AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_Position] OFF
-/****** Object:  Table [dbo].[tblM_PMHistori]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_PMHistori]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -229,7 +231,7 @@ CREATE TABLE [dbo].[tblM_PMHistori](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tblM_Operator]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_Operator]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -253,8 +255,10 @@ INSERT [dbo].[tblM_Operator] ([Operator_PK], [Title], [CreatedBy], [CreatedDate]
 INSERT [dbo].[tblM_Operator] ([Operator_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, N'HW-ISAT', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Operator] ([Operator_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, N'HW-TSEL', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Operator] ([Operator_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, N'HW-XL', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
+INSERT [dbo].[tblM_Operator] ([Operator_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, N'Indosat Aja', N'admin', CAST(0x0000AA1800E02C4D AS DateTime), N'admin', CAST(0x0000AA1800E02C4D AS DateTime), 1)
+INSERT [dbo].[tblM_Operator] ([Operator_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (6, N'Telkomsel', N'admin', CAST(0x0000AA1800E03622 AS DateTime), N'admin', CAST(0x0000AA1800E4B957 AS DateTime), 3)
 SET IDENTITY_INSERT [dbo].[tblM_Operator] OFF
-/****** Object:  Table [dbo].[tblM_Status]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_Status]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -277,7 +281,7 @@ INSERT [dbo].[tblM_Status] ([Status_PK], [Title], [CreatedBy], [CreatedDate], [U
 INSERT [dbo].[tblM_Status] ([Status_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (2, N'Inactive', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime))
 INSERT [dbo].[tblM_Status] ([Status_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate]) VALUES (3, N'Deleted', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime))
 SET IDENTITY_INSERT [dbo].[tblM_Status] OFF
-/****** Object:  Table [dbo].[tblM_RoleGroup]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_RoleGroup]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -305,7 +309,7 @@ INSERT [dbo].[tblM_RoleGroup] ([RoleGroup_PK], [Title], [Description], [CreatedB
 INSERT [dbo].[tblM_RoleGroup] ([RoleGroup_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, N'Bid', N'Bid', N'admin', CAST(0x0000AA1200E39815 AS DateTime), N'admin', CAST(0x0000AA1200E39815 AS DateTime), 3)
 INSERT [dbo].[tblM_RoleGroup] ([RoleGroup_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (6, N'direksi', N'group direksi', N'admin', CAST(0x0000AA1200E98A2D AS DateTime), N'admin', CAST(0x0000AA1200E98A2D AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_RoleGroup] OFF
-/****** Object:  Table [dbo].[tblM_Area]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_Area]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -502,8 +506,9 @@ INSERT [dbo].[tblM_Area] ([Area_PK], [Title], [CreatedBy], [CreatedDate], [Updat
 INSERT [dbo].[tblM_Area] ([Area_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (173, N'TEGAL', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Area] ([Area_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (174, N'PONOROGO', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Area] ([Area_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (175, N'PURWODADI', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
+INSERT [dbo].[tblM_Area] ([Area_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (176, N'Leuwiliang 1', N'admin', CAST(0x0000AA1800E4C524 AS DateTime), N'admin', CAST(0x0000AA1800E4D230 AS DateTime), 3)
 SET IDENTITY_INSERT [dbo].[tblM_Area] OFF
-/****** Object:  Table [dbo].[tblT_UserPayroll]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblT_UserPayroll]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -525,7 +530,7 @@ CREATE TABLE [dbo].[tblT_UserPayroll](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tblT_SOWTrack]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblT_SOWTrack]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -550,7 +555,7 @@ CREATE TABLE [dbo].[tblT_SOWTrack](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[tblT_SOWAssign]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblT_SOWAssign]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -573,7 +578,7 @@ CREATE TABLE [dbo].[tblT_SOWAssign](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tblT_SOW]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblT_SOW]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -597,7 +602,7 @@ CREATE TABLE [dbo].[tblT_SOW](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tblT_IzinCuti]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblT_IzinCuti]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -626,7 +631,7 @@ CREATE TABLE [dbo].[tblT_IzinCuti](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[tblT_Cost]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblT_Cost]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -647,7 +652,7 @@ CREATE TABLE [dbo].[tblT_Cost](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tblT_CheckIn]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblT_CheckIn]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -679,7 +684,7 @@ CREATE TABLE [dbo].[tblT_CheckIn](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[tblM_UserDetail]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_UserDetail]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -717,10 +722,11 @@ INSERT [dbo].[tblM_UserDetail] ([UserDetail_PK], [UserCode], [Name], [TglLahir],
 INSERT [dbo].[tblM_UserDetail] ([UserDetail_PK], [UserCode], [Name], [TglLahir], [FilePhoto], [NoKTP], [NoHP], [Email], [Address], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (9, N'irpan', N'Irpan Supendi', CAST(0x00000000 AS Date), NULL, N'32750202', N'081290909', N'123', N'Jakarta - Bogor', N'123', N'admin', CAST(0x0000AA1301303405 AS DateTime), N'admin', CAST(0x0000AA1301303405 AS DateTime), 3)
 INSERT [dbo].[tblM_UserDetail] ([UserDetail_PK], [UserCode], [Name], [TglLahir], [FilePhoto], [NoKTP], [NoHP], [Email], [Address], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (10, N'sadf', N'irpan supendi', CAST(0x00000000 AS Date), NULL, N'asdf', N'98912', N'irpan@rma.com', N'asdf', NULL, N'admin', CAST(0x0000AA130130A92D AS DateTime), N'admin', CAST(0x0000AA130130A92D AS DateTime), 3)
 INSERT [dbo].[tblM_UserDetail] ([UserDetail_PK], [UserCode], [Name], [TglLahir], [FilePhoto], [NoKTP], [NoHP], [Email], [Address], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (11, N'irpan2', N'irpan supendi', CAST(0x00000000 AS Date), NULL, N'32750202022', N'08122', N'irpan@rma.com2', N'Alamat 1.2.3', NULL, N'admin', CAST(0x0000AA130131CC08 AS DateTime), N'admin', CAST(0x0000AA130131CC08 AS DateTime), 3)
-INSERT [dbo].[tblM_UserDetail] ([UserDetail_PK], [UserCode], [Name], [TglLahir], [FilePhoto], [NoKTP], [NoHP], [Email], [Address], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (12, N'asdf', N'Denny Samudra', CAST(0x00000000 AS Date), NULL, N'asdf', N'0812222', N'irpan@rma.com22', N'asdf', N'asdf', N'admin', CAST(0x0000AA130134504A AS DateTime), N'admin', CAST(0x0000AA15010A062F AS DateTime), 1)
+INSERT [dbo].[tblM_UserDetail] ([UserDetail_PK], [UserCode], [Name], [TglLahir], [FilePhoto], [NoKTP], [NoHP], [Email], [Address], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (12, N'asdf', N'Denny Samudra', CAST(0x00000000 AS Date), NULL, N'asdf', N'0812222', N'irpan@rma.com22', N'asdf', N'asdf', N'admin', CAST(0x0000AA130134504A AS DateTime), N'admin', CAST(0x0000AA15010A062F AS DateTime), 3)
 INSERT [dbo].[tblM_UserDetail] ([UserDetail_PK], [UserCode], [Name], [TglLahir], [FilePhoto], [NoKTP], [NoHP], [Email], [Address], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (13, N'admin@gmail.com', N'Irpan Supendi', CAST(0x00000000 AS Date), NULL, N'123', N'08129090909012', N'123', N'Jalan jalan', N'123123', N'admin', CAST(0x0000AA1500FF76BF AS DateTime), N'admin', CAST(0x0000AA1500FF76BF AS DateTime), 1)
+INSERT [dbo].[tblM_UserDetail] ([UserDetail_PK], [UserCode], [Name], [TglLahir], [FilePhoto], [NoKTP], [NoHP], [Email], [Address], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (14, N'irpan', N'Irpan Supendi', CAST(0x00000000 AS Date), NULL, N'09', N'09', N'09', N'Jakarta', NULL, N'admin', CAST(0x0000AA1601309F52 AS DateTime), N'admin', CAST(0x0000AA1601309F52 AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_UserDetail] OFF
-/****** Object:  Table [dbo].[tblM_Role]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_Role]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -765,9 +771,9 @@ INSERT [dbo].[tblM_Role] ([Role_PK], [Title], [Description], [CreatedBy], [Creat
 INSERT [dbo].[tblM_Role] ([Role_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (25, N'asdf', N'asdf', N'admin', CAST(0x0000AA1200D72DDB AS DateTime), N'admin', CAST(0x0000AA1200D7340B AS DateTime), 3)
 INSERT [dbo].[tblM_Role] ([Role_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (26, N'Barang baru', N'Barang baru', N'admin', CAST(0x0000AA1200D7471F AS DateTime), N'admin', CAST(0x0000AA1200D7471F AS DateTime), 3)
 INSERT [dbo].[tblM_Role] ([Role_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (27, N'Role Baru', N'buat super admin', N'admin', CAST(0x0000AA1200E92216 AS DateTime), N'admin', CAST(0x0000AA1200E92216 AS DateTime), 1)
-INSERT [dbo].[tblM_Role] ([Role_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (28, N'asdf', N'aasdf', N'admin', CAST(0x0000AA1300E0C060 AS DateTime), N'admin', CAST(0x0000AA1300E0C060 AS DateTime), 1)
+INSERT [dbo].[tblM_Role] ([Role_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (28, N'asdf', N'aasdf', N'admin', CAST(0x0000AA1300E0C060 AS DateTime), N'admin', CAST(0x0000AA1300E0C060 AS DateTime), 3)
 SET IDENTITY_INSERT [dbo].[tblM_Role] OFF
-/****** Object:  Table [dbo].[tblM_MappingUserToRoleGroup]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_MappingUserToRoleGroup]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -787,9 +793,9 @@ CREATE TABLE [dbo].[tblM_MappingUserToRoleGroup](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-INSERT [dbo].[tblM_MappingUserToRoleGroup] ([User_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (1, 1, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingUserToRoleGroup] ([User_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, 1, N'admin', CAST(0x0000AA1601169541 AS DateTime), N'admin', CAST(0x0000AA1601169541 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingUserToRoleGroup] ([User_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, 2, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
-/****** Object:  Table [dbo].[tblM_MappingUserToAuthParam]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_MappingUserToAuthParam]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -809,7 +815,9 @@ CREATE TABLE [dbo].[tblM_MappingUserToAuthParam](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tblM_MappingRoleToRoleGroup]    Script Date: 03/19/2019 23:14:38 ******/
+INSERT [dbo].[tblM_MappingUserToAuthParam] ([User_PK], [AuthParam_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, 4, N'admin', CAST(0x0000AA16011F513D AS DateTime), N'admin', CAST(0x0000AA16011F513D AS DateTime), 1)
+INSERT [dbo].[tblM_MappingUserToAuthParam] ([User_PK], [AuthParam_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (10, 4, N'admin', CAST(0x0000AA16011F2764 AS DateTime), N'admin', CAST(0x0000AA16011F2764 AS DateTime), 1)
+/****** Object:  Table [dbo].[tblM_MappingRoleToRoleGroup]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -829,44 +837,42 @@ CREATE TABLE [dbo].[tblM_MappingRoleToRoleGroup](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, 2, N'admin', CAST(0x0000AA1601103275 AS DateTime), N'admin', CAST(0x0000AA1601103275 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, 2, N'admin', CAST(0x0000AA140177B28A AS DateTime), N'admin', CAST(0x0000AA140177B28A AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, 2, N'admin', CAST(0x0000AA1601103275 AS DateTime), N'admin', CAST(0x0000AA1601103275 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (7, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (7, 2, N'admin', CAST(0x0000AA140177B28A AS DateTime), N'admin', CAST(0x0000AA140177B28A AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (7, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (7, 2, N'admin', CAST(0x0000AA1601103275 AS DateTime), N'admin', CAST(0x0000AA1601103275 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (7, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (8, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (8, 2, N'admin', CAST(0x0000AA140177B28A AS DateTime), N'admin', CAST(0x0000AA140177B28A AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (8, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (8, 2, N'admin', CAST(0x0000AA1601103275 AS DateTime), N'admin', CAST(0x0000AA1601103275 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (8, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (9, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (9, 2, N'admin', CAST(0x0000AA140177B28A AS DateTime), N'admin', CAST(0x0000AA140177B28A AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (9, 2, N'admin', CAST(0x0000AA1601103275 AS DateTime), N'admin', CAST(0x0000AA1601103275 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (9, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (11, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (11, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (11, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (12, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (12, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (13, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (13, 2, N'admin', CAST(0x0000AA140177B28A AS DateTime), N'admin', CAST(0x0000AA140177B28A AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (13, 2, N'admin', CAST(0x0000AA1601103275 AS DateTime), N'admin', CAST(0x0000AA1601103275 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (13, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (14, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (14, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (14, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (15, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (15, 2, N'admin', CAST(0x0000AA140177B28A AS DateTime), N'admin', CAST(0x0000AA140177B28A AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (15, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (15, 2, N'admin', CAST(0x0000AA1601103275 AS DateTime), N'admin', CAST(0x0000AA1601103275 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (15, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (16, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (16, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (16, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (17, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (17, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (17, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (18, 1, N'admin', CAST(0x0000AA140180A2B1 AS DateTime), N'admin', CAST(0x0000AA140180A2B1 AS DateTime), 1)
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (18, 1, N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), N'admin', CAST(0x0000AA15012BB2F5 AS DateTime), 1)
 INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (18, 6, N'admin', CAST(0x0000AA14017875EF AS DateTime), N'admin', CAST(0x0000AA14017875EF AS DateTime), 1)
-INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (27, 2, N'admin', CAST(0x0000AA140177B28A AS DateTime), N'admin', CAST(0x0000AA140177B28A AS DateTime), 1)
-/****** Object:  Table [dbo].[tblM_Kota]    Script Date: 03/19/2019 23:14:38 ******/
+INSERT [dbo].[tblM_MappingRoleToRoleGroup] ([Role_PK], [RoleGroup_PK], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (27, 2, N'admin', CAST(0x0000AA1601103275 AS DateTime), N'admin', CAST(0x0000AA1601103275 AS DateTime), 1)
+/****** Object:  Table [dbo].[tblM_Kota]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -921,8 +927,9 @@ INSERT [dbo].[tblM_Kota] ([Kota_PK], [Title], [CreatedBy], [CreatedDate], [Updat
 INSERT [dbo].[tblM_Kota] ([Kota_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (33, N'KABUPATEN KENDAL', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Kota] ([Kota_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (34, N'KABUPATEN BOJONEGORO', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Kota] ([Kota_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (35, N'KABUPATEN SEMARANG', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
+INSERT [dbo].[tblM_Kota] ([Kota_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (36, N'Banjarbaru', N'admin', CAST(0x0000AA1800E4EBC8 AS DateTime), N'admin', CAST(0x0000AA1800E4F70B AS DateTime), 3)
 SET IDENTITY_INSERT [dbo].[tblM_Kota] OFF
-/****** Object:  Table [dbo].[tblM_Cabang]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_Cabang]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -961,8 +968,9 @@ INSERT [dbo].[tblM_Cabang] ([Cabang_PK], [Title], [CreatedBy], [CreatedDate], [U
 INSERT [dbo].[tblM_Cabang] ([Cabang_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (17, N'BALOM', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Cabang] ([Cabang_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (18, N'South Sumatra', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Cabang] ([Cabang_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (19, N'North Sumatra', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
+INSERT [dbo].[tblM_Cabang] ([Cabang_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (20, N'KUDUS aja', N'admin', CAST(0x0000AA1800E510BB AS DateTime), N'admin', CAST(0x0000AA1800E521E1 AS DateTime), 3)
 SET IDENTITY_INSERT [dbo].[tblM_Cabang] OFF
-/****** Object:  Table [dbo].[tblM_AuthParam]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_AuthParam]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -987,8 +995,9 @@ INSERT [dbo].[tblM_AuthParam] ([AuthParam_PK], [Title], [Description], [CreatedB
 INSERT [dbo].[tblM_AuthParam] ([AuthParam_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, N'Entah ini', N'datanya apa', N'admin', CAST(0x0000AA1200E76387 AS DateTime), N'admin', CAST(0x0000AA1200E76387 AS DateTime), 3)
 INSERT [dbo].[tblM_AuthParam] ([AuthParam_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, N'a01', N'baba', N'admin', CAST(0x0000AA1200E78A9E AS DateTime), N'admin', CAST(0x0000AA1200E78A9E AS DateTime), 3)
 INSERT [dbo].[tblM_AuthParam] ([AuthParam_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, N'a01', N'xxxxx', N'admin', CAST(0x0000AA1200E9C962 AS DateTime), N'admin', CAST(0x0000AA1200E9C962 AS DateTime), 1)
+INSERT [dbo].[tblM_AuthParam] ([AuthParam_PK], [Title], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, N'p01', N'p0', N'admin', CAST(0x0000AA170144DA9C AS DateTime), N'admin', CAST(0x0000AA17014545DE AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_AuthParam] OFF
-/****** Object:  Table [dbo].[tblM_AsetKategori]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_AsetKategori]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1010,8 +1019,13 @@ GO
 SET IDENTITY_INSERT [dbo].[tblM_AsetKategori] ON
 INSERT [dbo].[tblM_AsetKategori] ([AsetKategori_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (1, N'Handphone', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_AsetKategori] ([AsetKategori_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, N'Laptop', N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
+INSERT [dbo].[tblM_AsetKategori] ([AsetKategori_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, N'Light Vehicle', N'admin', CAST(0x0000AA170159F06E AS DateTime), N'admin', CAST(0x0000AA170159F06E AS DateTime), 1)
+INSERT [dbo].[tblM_AsetKategori] ([AsetKategori_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, N'ATK', N'admin', CAST(0x0000AA170159FF27 AS DateTime), N'admin', CAST(0x0000AA170159FF27 AS DateTime), 3)
+INSERT [dbo].[tblM_AsetKategori] ([AsetKategori_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (5, N'Alat Kantor', N'admin', CAST(0x0000AA17015A05EE AS DateTime), N'admin', CAST(0x0000AA17015A05EE AS DateTime), 3)
+INSERT [dbo].[tblM_AsetKategori] ([AsetKategori_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (6, N'Pulpen', N'admin', CAST(0x0000AA17015A0BAD AS DateTime), N'admin', CAST(0x0000AA17015A0BAD AS DateTime), 3)
+INSERT [dbo].[tblM_AsetKategori] ([AsetKategori_PK], [Title], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (7, N'Kipas Angin', N'admin', CAST(0x0000AA17015A2982 AS DateTime), N'admin', CAST(0x0000AA17015A2982 AS DateTime), 3)
 SET IDENTITY_INSERT [dbo].[tblM_AsetKategori] OFF
-/****** Object:  Table [dbo].[tblM_Aset]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_Aset]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1043,8 +1057,10 @@ INSERT [dbo].[tblM_Aset] ([Aset_PK], [KategoriAset_FK], [AsetID], [Name], [FileP
 INSERT [dbo].[tblM_Aset] ([Aset_PK], [KategoriAset_FK], [AsetID], [Name], [FilePhoto], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, 1, N'1214', N'Samsung S6 G1214', NULL, NULL, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Aset] ([Aset_PK], [KategoriAset_FK], [AsetID], [Name], [FilePhoto], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, 2, N'1311', N'Asus G1311', NULL, NULL, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblM_Aset] ([Aset_PK], [KategoriAset_FK], [AsetID], [Name], [FilePhoto], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (4, 2, N'1312', N'Asus G1312', NULL, NULL, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
+INSERT [dbo].[tblM_Aset] ([Aset_PK], [KategoriAset_FK], [AsetID], [Name], [FilePhoto], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (9, 1, N'A01', N'Lenovo Laptop T420', NULL, NULL, N'admin', CAST(0x0000AA17016D27CC AS DateTime), N'admin', CAST(0x0000AA17016D8C36 AS DateTime), 1)
+INSERT [dbo].[tblM_Aset] ([Aset_PK], [KategoriAset_FK], [AsetID], [Name], [FilePhoto], [Description], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (10, 3, N'K09', N'Motor Mio Sporty', NULL, N'Barang inventaris yang di berikan kepada bang arfro', N'admin', CAST(0x0000AA17016DF96B AS DateTime), N'admin', CAST(0x0000AA17016E713B AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_Aset] OFF
-/****** Object:  Table [dbo].[tblT_UserHistori]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblT_UserHistori]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1070,7 +1086,7 @@ INSERT [dbo].[tblT_UserHistori] ([UserHistori_PK], [UserDetail_FK], [TglMulai], 
 INSERT [dbo].[tblT_UserHistori] ([UserHistori_PK], [UserDetail_FK], [TglMulai], [TglSelesai], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, 5, CAST(0x0000A9C900000000 AS DateTime), NULL, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblT_UserHistori] ([UserHistori_PK], [UserDetail_FK], [TglMulai], [TglSelesai], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (3, 4, CAST(0x0000A9D600000000 AS DateTime), NULL, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblT_UserHistori] OFF
-/****** Object:  Table [dbo].[tblM_User]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblM_User]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1099,10 +1115,11 @@ INSERT [dbo].[tblM_User] ([User_PK], [UserDetail_FK], [Position_FK], [Username],
 INSERT [dbo].[tblM_User] ([User_PK], [UserDetail_FK], [Position_FK], [Username], [Password], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (6, 9, 0, N'irpan', N'irpan123', N'admin', CAST(0x0000AA1301303405 AS DateTime), N'admin', CAST(0x0000AA1301303405 AS DateTime), 3)
 INSERT [dbo].[tblM_User] ([User_PK], [UserDetail_FK], [Position_FK], [Username], [Password], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (7, 10, 0, N'sadf', N'sadf', N'admin', CAST(0x0000AA130130A92D AS DateTime), N'admin', CAST(0x0000AA130130A92D AS DateTime), 3)
 INSERT [dbo].[tblM_User] ([User_PK], [UserDetail_FK], [Position_FK], [Username], [Password], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (8, 11, 0, N'irpan2', N'123', N'admin', CAST(0x0000AA130131CC08 AS DateTime), N'admin', CAST(0x0000AA130131CC08 AS DateTime), 3)
-INSERT [dbo].[tblM_User] ([User_PK], [UserDetail_FK], [Position_FK], [Username], [Password], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (9, 12, 3, N'asdf', N'e3d62c4e5a3db420b797ec6fd5081acc', N'admin', CAST(0x0000AA130134504A AS DateTime), N'admin', CAST(0x0000AA15010A062F AS DateTime), 1)
+INSERT [dbo].[tblM_User] ([User_PK], [UserDetail_FK], [Position_FK], [Username], [Password], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (9, 12, 3, N'asdf', N'e3d62c4e5a3db420b797ec6fd5081acc', N'admin', CAST(0x0000AA130134504A AS DateTime), N'admin', CAST(0x0000AA15010A062F AS DateTime), 3)
 INSERT [dbo].[tblM_User] ([User_PK], [UserDetail_FK], [Position_FK], [Username], [Password], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (10, 13, 3, N'admin@gmail.com', N'202cb962ac59075b964b07152d234b70', N'admin', CAST(0x0000AA1500FF76BF AS DateTime), N'admin', CAST(0x0000AA1500FF76BF AS DateTime), 1)
+INSERT [dbo].[tblM_User] ([User_PK], [UserDetail_FK], [Position_FK], [Username], [Password], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (11, 14, 2, N'irpan', N'063ea9a2f7dc8b57386402e7eb3ec652', N'admin', CAST(0x0000AA1601309F52 AS DateTime), N'admin', CAST(0x0000AA1601309F52 AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblM_User] OFF
-/****** Object:  Table [dbo].[tblT_AsetHistori]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Table [dbo].[tblT_AsetHistori]    Script Date: 03/22/2019 23:51:30 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1128,112 +1145,112 @@ SET IDENTITY_INSERT [dbo].[tblT_AsetHistori] ON
 INSERT [dbo].[tblT_AsetHistori] ([AsetHistori_PK], [UserDetail_FK], [Aset_FK], [TglMulai], [TglSelesai], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (1, 4, 1, CAST(0x0000A9C800000000 AS DateTime), CAST(0x0000A9C900000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 INSERT [dbo].[tblT_AsetHistori] ([AsetHistori_PK], [UserDetail_FK], [Aset_FK], [TglMulai], [TglSelesai], [CreatedBy], [CreatedDate], [UpdatedBy], [UpdatedDate], [Status_FK]) VALUES (2, 4, 2, CAST(0x0000A9E800000000 AS DateTime), NULL, N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), N'SYSTEM', CAST(0x0000A9C800000000 AS DateTime), 1)
 SET IDENTITY_INSERT [dbo].[tblT_AsetHistori] OFF
-/****** Object:  Default [DF_tblM_User_RoleGroup_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  Default [DF_tblM_User_RoleGroup_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_User] ADD  CONSTRAINT [DF_tblM_User_RoleGroup_FK]  DEFAULT ((0)) FOR [Position_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_Aset_KategoriAset_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_Aset_KategoriAset_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_Aset]  WITH CHECK ADD  CONSTRAINT [FK_tblM_Aset_KategoriAset_FK] FOREIGN KEY([KategoriAset_FK])
 REFERENCES [dbo].[tblM_AsetKategori] ([AsetKategori_PK])
 GO
 ALTER TABLE [dbo].[tblM_Aset] CHECK CONSTRAINT [FK_tblM_Aset_KategoriAset_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_Aset_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_Aset_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_Aset]  WITH CHECK ADD  CONSTRAINT [FK_tblM_Aset_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_Aset] CHECK CONSTRAINT [FK_tblM_Aset_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_KategoriAset_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_KategoriAset_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_AsetKategori]  WITH CHECK ADD  CONSTRAINT [FK_tblM_KategoriAset_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_AsetKategori] CHECK CONSTRAINT [FK_tblM_KategoriAset_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_AuthParam_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_AuthParam_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_AuthParam]  WITH CHECK ADD  CONSTRAINT [FK_tblM_AuthParam_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_AuthParam] CHECK CONSTRAINT [FK_tblM_AuthParam_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_Cabang_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_Cabang_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_Cabang]  WITH CHECK ADD  CONSTRAINT [FK_tblM_Cabang_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_Cabang] CHECK CONSTRAINT [FK_tblM_Cabang_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_Kota_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_Kota_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_Kota]  WITH CHECK ADD  CONSTRAINT [FK_tblM_Kota_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_Kota] CHECK CONSTRAINT [FK_tblM_Kota_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_MappingRoleToRoleGroup_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_MappingRoleToRoleGroup_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_MappingRoleToRoleGroup]  WITH CHECK ADD  CONSTRAINT [FK_tblM_MappingRoleToRoleGroup_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_MappingRoleToRoleGroup] CHECK CONSTRAINT [FK_tblM_MappingRoleToRoleGroup_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_MappingUserToAuthParam_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_MappingUserToAuthParam_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_MappingUserToAuthParam]  WITH CHECK ADD  CONSTRAINT [FK_tblM_MappingUserToAuthParam_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_MappingUserToAuthParam] CHECK CONSTRAINT [FK_tblM_MappingUserToAuthParam_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_MappingUserToRoleGroup_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_MappingUserToRoleGroup_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_MappingUserToRoleGroup]  WITH CHECK ADD  CONSTRAINT [FK_tblM_MappingUserToRoleGroup_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_MappingUserToRoleGroup] CHECK CONSTRAINT [FK_tblM_MappingUserToRoleGroup_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_Role_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_Role_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_Role]  WITH CHECK ADD  CONSTRAINT [FK_tblM_Role_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_Role] CHECK CONSTRAINT [FK_tblM_Role_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_User_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_User_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_User]  WITH CHECK ADD  CONSTRAINT [FK_tblM_User_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_User] CHECK CONSTRAINT [FK_tblM_User_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_User_UserDetail_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_User_UserDetail_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_User]  WITH CHECK ADD  CONSTRAINT [FK_tblM_User_UserDetail_FK] FOREIGN KEY([UserDetail_FK])
 REFERENCES [dbo].[tblM_UserDetail] ([UserDetail_PK])
 GO
 ALTER TABLE [dbo].[tblM_User] CHECK CONSTRAINT [FK_tblM_User_UserDetail_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_UserDetail_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_UserDetail_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblM_UserDetail]  WITH CHECK ADD  CONSTRAINT [FK_tblM_UserDetail_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblM_UserDetail] CHECK CONSTRAINT [FK_tblM_UserDetail_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_AsetHistori_Aset_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_AsetHistori_Aset_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblT_AsetHistori]  WITH CHECK ADD  CONSTRAINT [FK_tblM_AsetHistori_Aset_FK] FOREIGN KEY([Aset_FK])
 REFERENCES [dbo].[tblM_Aset] ([Aset_PK])
 GO
 ALTER TABLE [dbo].[tblT_AsetHistori] CHECK CONSTRAINT [FK_tblM_AsetHistori_Aset_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_AsetHistori_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_AsetHistori_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblT_AsetHistori]  WITH CHECK ADD  CONSTRAINT [FK_tblM_AsetHistori_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblT_AsetHistori] CHECK CONSTRAINT [FK_tblM_AsetHistori_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_AsetHistori_UserDetail_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_AsetHistori_UserDetail_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblT_AsetHistori]  WITH CHECK ADD  CONSTRAINT [FK_tblM_AsetHistori_UserDetail_FK] FOREIGN KEY([UserDetail_FK])
 REFERENCES [dbo].[tblM_UserDetail] ([UserDetail_PK])
 GO
 ALTER TABLE [dbo].[tblT_AsetHistori] CHECK CONSTRAINT [FK_tblM_AsetHistori_UserDetail_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_UserHistori_Status_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_UserHistori_Status_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblT_UserHistori]  WITH CHECK ADD  CONSTRAINT [FK_tblM_UserHistori_Status_FK] FOREIGN KEY([Status_FK])
 REFERENCES [dbo].[tblM_Status] ([Status_PK])
 GO
 ALTER TABLE [dbo].[tblT_UserHistori] CHECK CONSTRAINT [FK_tblM_UserHistori_Status_FK]
 GO
-/****** Object:  ForeignKey [FK_tblM_UserHistori_UserDetail_FK]    Script Date: 03/19/2019 23:14:38 ******/
+/****** Object:  ForeignKey [FK_tblM_UserHistori_UserDetail_FK]    Script Date: 03/22/2019 23:51:30 ******/
 ALTER TABLE [dbo].[tblT_UserHistori]  WITH CHECK ADD  CONSTRAINT [FK_tblM_UserHistori_UserDetail_FK] FOREIGN KEY([UserDetail_FK])
 REFERENCES [dbo].[tblM_UserDetail] ([UserDetail_PK])
 GO
