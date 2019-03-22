@@ -21,7 +21,6 @@
         var self = this;
 
         self.show = function (res) {
-            debugger;
             if (res) {
                 validationService.clearValidationErrors({});
                 ui.alert.error(res.message);

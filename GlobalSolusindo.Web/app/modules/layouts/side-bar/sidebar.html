@@ -83,8 +83,34 @@
                     </li>
                 </ul>
             </li>
-
-                <!--
+            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
+                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
+                    <i class="fa fa-luggage-cart"></i> <span>Complementary</span>
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.operatorList">
+                            <i class="fa fa-train"></i> <span>Operator/Tower Provider</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.areaList">
+                            <i class="fa fa-train"></i> <span>Area</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.kotaList">
+                            <i class="fa fa-user"></i> <span>Kota</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.cabangList">
+                            <i class="fa fa-user"></i> <span>Cabang</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <!--
             <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
                 <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
                     <i class="icon-screen-desktop"></i> <span>Utilitas CC</span>
