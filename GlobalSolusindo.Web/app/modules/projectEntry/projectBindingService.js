@@ -11,16 +11,16 @@
 
     angular
         .module('global-solusindo')
-        .factory('AreaBindingService', AreaBindingService);
+        .factory('ProjectBindingService', ProjectBindingService);
 
-    AreaBindingService.$inject = ['HttpService', '$state'];
+    ProjectBindingService.$inject = ['HttpService', '$state'];
 
-    function AreaBindingService(http, $state) {
+    function ProjectBindingService(http, $state) {
         var self = this;
         var controller = {};
 
         self.applyBinding = function (id) {
-            return http.get('area/form/' + id);
+            return http.get('project/form/' + id);
         };
 
         self.init = function (ctrl) {

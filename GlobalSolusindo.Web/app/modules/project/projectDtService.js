@@ -11,18 +11,19 @@
 
     angular
         .module('global-solusindo')
-        .factory('areaDtService', area);
+        .factory('projectDtService', project);
 
-    area.$inject = ['DatatableService'];
+    project.$inject = ['DatatableService'];
 
-    function area(ds) {
+    function project(ds) {
         var self = this;
         var controller = {};
 
         self.init = function (ctrl) {
             controller = ctrl;
+
             var titleColumnIndex = 1;
-            var dt = ds.init("#area", "area/search", {
+            var dt = ds.init("#project", "project/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
@@ -30,10 +31,16 @@
                 order: [titleColumnIndex, "asc"],
                 columns: [{
                     "orderable": false,
-                    "data": "area_pk"
+                    "data": "project_pk"
                 },
                 {
                     "data": "title"
+                },
+                {
+                    "data": "operatorTitle"
+                },
+                {
+                    "data": "deliveryAreaTitle"
                 },
                 {
                     "orderable": false,
@@ -49,7 +56,6 @@
             controller.datatable = dt;
             return dt;
         };
-
         return self;
     }
 
