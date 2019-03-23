@@ -9,13 +9,13 @@ namespace Kairos.DataAnnotations
     public class ForeignKeyAttribute : ValidationAttribute
     {
         private IUniqueQuery uniqueQuery;
-        private string foreignKeyName;
+        private string referencedTablePrimaryKeyName;
         private bool allowNullOrZero;
 
-        public ForeignKeyAttribute(Type uniqueQuery, string foreignKeyName, bool allowNullOrZero = false)
+        public ForeignKeyAttribute(Type uniqueQuery, string referencedTablePrimaryKeyName, bool allowNullOrZero = false)
         {
             this.uniqueQuery = Activator.CreateInstance(uniqueQuery, null) as IUniqueQuery;
-            this.foreignKeyName = foreignKeyName;
+            this.referencedTablePrimaryKeyName = referencedTablePrimaryKeyName;
             this.allowNullOrZero = allowNullOrZero;
         }
 
@@ -48,7 +48,7 @@ namespace Kairos.DataAnnotations
                 return new ValidationResult(errorMessage, new List<string>() { validationContext.MemberName });
             }
 
-            if (!RecordIsExist(this.foreignKeyName, fkValue.ToString()))
+            if (!RecordIsExist(this.referencedTablePrimaryKeyName, fkValue.ToString()))
             {
                 var errorMessage = string.IsNullOrEmpty(this.ErrorMessage) ? $"Referenced value '{fkValue}' is invalid. Probably the record is no longer exist." : this.ErrorMessage;
                 return new ValidationResult(errorMessage, new List<string>() { validationContext.MemberName });

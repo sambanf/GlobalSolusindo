@@ -94,6 +94,9 @@
     <Compile Include="ActiveUserProvider.cs" />
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\CostKategoriController.cs" />
+    <Compile Include="Controllers\DeliveryAreaController.cs" />
     <Compile Include="Controllers\BTSStatusController.cs" />
     <Compile Include="Controllers\BTSController.cs" />
     <Compile Include="Controllers\CabangController.cs" />
