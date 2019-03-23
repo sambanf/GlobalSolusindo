@@ -9,7 +9,9 @@
 
 namespace GlobalSolusindo.DataAccess
 {
-
+    using System;
+    using System.Collections.Generic;
+    
     public partial class tblM_MappingRoleToRoleGroup
     {
         public int Role_PK { get; set; }

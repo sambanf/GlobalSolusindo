@@ -10,7 +10,8 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class tblT_CheckIn
     {
         public int CheckIn_PK { get; set; }

@@ -29,6 +29,13 @@ namespace GlobalSolusindo.Identity.User.Queries
             var query = from user in Db.tblM_User
                         join userDetail in Db.tblM_UserDetail on user.UserDetail_FK equals userDetail.UserDetail_PK into userDetailTemp
                         from userDetail in userDetailTemp.DefaultIfEmpty()
+                        join userRoleGroupMapping in Db.tblM_MappingUserToRoleGroup on user.User_PK equals userRoleGroupMapping.User_PK into userRoleGroupMappingTemp
+                        from userRoleGroupMapping in userRoleGroupMappingTemp.DefaultIfEmpty()
+                        join roleGroup in Db.tblM_RoleGroup on userRoleGroupMapping.RoleGroup_PK equals roleGroup.RoleGroup_PK into roleGroupTemp
+                        from roleGroup in roleGroupTemp.DefaultIfEmpty()
+                        join jabatan in Db.tblM_KategoriJabatan on user.KategoriJabatan_FK equals jabatan.KategoriJabatan_PK into jabatanTemp
+                        from jabatan in jabatanTemp.DefaultIfEmpty()
+
                         where
                         user.Status_FK != deleted
                         select new UserDTO
@@ -45,7 +52,9 @@ namespace GlobalSolusindo.Identity.User.Queries
                             Address = userDetail.Address,
                             Description = userDetail.Description,
                             Username = user.Username,
-                            Position_FK = user.Position_FK,
+                            KategoriJabatan_FK = user.KategoriJabatan_FK,
+                            KategoriJabatanTitle = jabatan.Title,
+                            RoleGroupTitle = string.IsNullOrEmpty(roleGroup.Title) ? "N/A" : roleGroup.Title,
                             //Password = user.Password,
                             CreatedBy = user.CreatedBy,
                             CreatedDate = user.CreatedDate,

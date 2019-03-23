@@ -1,4 +1,4 @@
-﻿using GlobalSolusindo.Identity.Position.Queries;
+﻿using GlobalSolusindo.Identity.KategoriJabatan.Queries;
 using GlobalSolusindo.Identity.User.Queries;
 using GlobalSolusindo.Identity.UserDetail;
 using Kairos.DataAnnotations;
@@ -16,9 +16,15 @@ namespace GlobalSolusindo.Identity.User
         public int UserDetail_FK { get; set; }
 
         [Required]
-        [ForeignKey(typeof(PositionQuery), "Position_PK")]
-        [JsonProperty("position_fk")]
-        public int Position_FK { get; set; }
+        [ForeignKey(typeof(KategoriJabatanQuery), "KategoriJabatan_PK")]
+        [JsonProperty("kategoriJabatan_fk")]
+        public int KategoriJabatan_FK { get; set; }
+
+        [JsonProperty("kategoriJabatanTitle")]
+        public string KategoriJabatanTitle { get; set; }
+
+        [JsonProperty("roleGroupTitle")]
+        public string RoleGroupTitle { get; set; }
 
         [Required]
         [JsonProperty("username")]

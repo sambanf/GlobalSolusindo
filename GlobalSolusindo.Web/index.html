@@ -67,6 +67,8 @@
     <script src="/app/modules/dashboard/dashboardRoute.js"></script>
     <script src="/app/modules/deliveryArea/deliveryAreaRoute.js"></script>
     <script src="/app/modules/deliveryAreaEntry/deliveryAreaEntryRoute.js"></script>
+    <script src="/app/modules/kategoriJabatan/kategoriJabatanRoute.js"></script>
+    <script src="/app/modules/kategoriJabatanEntry/kategoriJabatanEntryRoute.js"></script>
     <script src="/app/modules/kota/kotaRoute.js"></script>
     <script src="/app/modules/kotaEntry/kotaEntryRoute.js"></script>
     <script src="/app/modules/layouts/appRoute.js"></script>
@@ -79,8 +81,6 @@
     <script src="/app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupEntryRoute.js"></script>
     <script src="/app/modules/operator/operatorRoute.js"></script>
     <script src="/app/modules/operatorEntry/operatorEntryRoute.js"></script>
-    <script src="/app/modules/position/positionRoute.js"></script>
-    <script src="/app/modules/positionEntry/positionEntryRoute.js"></script>
     <script src="/app/modules/project/projectRoute.js"></script>
     <script src="/app/modules/projectEntry/projectEntryRoute.js"></script>
     <script src="/app/modules/role-entry/roleEntryRoute.js"></script>
@@ -109,6 +109,8 @@
     <script src="/app/modules/dashboard/dashboardCtrl.js"></script>
     <script src="/app/modules/deliveryArea/deliveryAreaCtrl.js"></script>
     <script src="/app/modules/deliveryAreaEntry/deliveryAreaEntryCtrl.js"></script>
+    <script src="/app/modules/kategoriJabatan/kategoriJabatanCtrl.js"></script>
+    <script src="/app/modules/kategoriJabatanEntry/kategoriJabatanEntryCtrl.js"></script>
     <script src="/app/modules/kota/kotaCtrl.js"></script>
     <script src="/app/modules/kotaEntry/kotaEntryCtrl.js"></script>
     <script src="/app/modules/layouts/appCtrl.js"></script>
@@ -127,8 +129,6 @@
     <script src="/app/modules/mappingUserToRoleGroupEntry/modal/userModalCtrl.js"></script>
     <script src="/app/modules/operator/operatorCtrl.js"></script>
     <script src="/app/modules/operatorEntry/operatorEntryCtrl.js"></script>
-    <script src="/app/modules/position/positionCtrl.js"></script>
-    <script src="/app/modules/positionEntry/positionEntryCtrl.js"></script>
     <script src="/app/modules/project/projectCtrl.js"></script>
     <script src="/app/modules/projectEntry/projectEntryCtrl.js"></script>
     <script src="/app/modules/role-entry/roleEntryCtrl.js"></script>
@@ -185,6 +185,11 @@
     <script src="/app/modules/deliveryArea/deliveryAreaViewService.js"></script>
     <script src="/app/modules/deliveryAreaEntry/deliveryAreaBindingService.js"></script>
     <script src="/app/modules/deliveryAreaEntry/deliveryAreaSaveService.js"></script>
+    <script src="/app/modules/kategoriJabatan/kategoriJabatanDeleteService.js"></script>
+    <script src="/app/modules/kategoriJabatan/kategoriJabatanDtService.js"></script>
+    <script src="/app/modules/kategoriJabatan/kategoriJabatanViewService.js"></script>
+    <script src="/app/modules/kategoriJabatanEntry/kategoriJabatanBindingService.js"></script>
+    <script src="/app/modules/kategoriJabatanEntry/kategoriJabatanSaveService.js"></script>
     <script src="/app/modules/kota/kotaDeleteService.js"></script>
     <script src="/app/modules/kota/kotaDtService.js"></script>
     <script src="/app/modules/kota/kotaViewService.js"></script>
@@ -224,11 +229,6 @@
     <script src="/app/modules/operator/operatorViewService.js"></script>
     <script src="/app/modules/operatorEntry/operatorBindingService.js"></script>
     <script src="/app/modules/operatorEntry/operatorSaveService.js"></script>
-    <script src="/app/modules/position/positionDeleteService.js"></script>
-    <script src="/app/modules/position/positionDtService.js"></script>
-    <script src="/app/modules/position/positionViewService.js"></script>
-    <script src="/app/modules/positionEntry/positionBindingService.js"></script>
-    <script src="/app/modules/positionEntry/positionSaveService.js"></script>
     <script src="/app/modules/project/projectDeleteService.js"></script>
     <script src="/app/modules/project/projectDtService.js"></script>
     <script src="/app/modules/project/projectViewService.js"></script>
@@ -262,6 +262,7 @@
     <script src="/app/modules/user/userViewService.js"></script>
     <script src="/app/modules/userEntry/userBindingService.js"></script>
     <script src="/app/modules/userEntry/userSaveService.js"></script>
+    <script src="/app/modules/userEntry/userSelect2Service.js"></script>
     <script src="/app/modules/asset/assetModal/assetModalDirective.js"></script>
     <script src="/app/modules/layouts/directive/Directive.js"></script>
     <script src="/app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupModal/mappingRoleToRoleGroupModalDirective.js"></script>

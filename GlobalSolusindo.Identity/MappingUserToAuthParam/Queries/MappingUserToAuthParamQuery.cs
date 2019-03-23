@@ -29,8 +29,8 @@ namespace GlobalSolusindo.Identity.MappingUserToAuthParam.Queries
                         from authParam in authParamTemp.DefaultIfEmpty()
                         join user in Db.tblM_User on mappingUserToAuthParam.User_PK equals user.User_PK into userTemp
                         from user in userTemp.DefaultIfEmpty()
-                        join position in Db.tblM_Position on user.Position_FK equals position.Position_PK into positionTemp
-                        from position in positionTemp.DefaultIfEmpty()
+                        join kategoriJabatan in Db.tblM_KategoriJabatan on user.KategoriJabatan_FK equals kategoriJabatan.KategoriJabatan_PK into kategoriJabatanTemp
+                        from kategoriJabatan in kategoriJabatanTemp.DefaultIfEmpty()
                         join userDetail in Db.tblM_UserDetail on user.UserDetail_FK equals userDetail.UserDetail_PK into userDetailTemp
                         from userDetail in userDetailTemp.DefaultIfEmpty()
                         where
@@ -44,7 +44,7 @@ namespace GlobalSolusindo.Identity.MappingUserToAuthParam.Queries
                             UserUsername = user.Username,
                             UserCode = userDetail.UserCode,
                             UserName = userDetail.Name,
-                            positionName = position.Name,
+                            KategoriJabatanName = kategoriJabatan.Title,
                             CreatedBy = mappingUserToAuthParam.CreatedBy,
                             CreatedDate = mappingUserToAuthParam.CreatedDate,
                             UpdatedBy = mappingUserToAuthParam.UpdatedBy,

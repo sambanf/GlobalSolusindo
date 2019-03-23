@@ -26,7 +26,7 @@ namespace GlobalSolusindo.Identity.MappingUserToRoleGroup
         [JsonProperty("userName")]
         public string UserName { get; set; }
 
-        [JsonProperty("positionName")]
-        public string positionName { get; set; }
+        [JsonProperty("kategoriJabatanName")]
+        public string KategoriJabatanName { get; set; }
     }
 }

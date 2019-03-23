@@ -52,6 +52,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessControl.cs" />
+    <Compile Include="KategoriJabatan\KategoriJabatanDTO.cs" />
+    <Compile Include="KategoriJabatan\KategoriJabatanFactory.cs" />
+    <Compile Include="KategoriJabatan\KategoriJabatanValidator.cs" />
+    <Compile Include="KategoriJabatan\DML\KategoriJabatanCreateHandler.cs" />
+    <Compile Include="KategoriJabatan\DML\KategoriJabatanDeleteHandler.cs" />
+    <Compile Include="KategoriJabatan\DML\KategoriJabatanUpdateHandler.cs" />
+    <Compile Include="KategoriJabatan\EntryForm\KategoriJabatanEntryControlBuilder.cs" />
+    <Compile Include="KategoriJabatan\EntryForm\KategoriJabatanEntryDataProvider.cs" />
+    <Compile Include="KategoriJabatan\EntryForm\KategoriJabatanEntryFormData.cs" />
+    <Compile Include="KategoriJabatan\EntryForm\KategoriJabatanEntryModel.cs" />
+    <Compile Include="KategoriJabatan\ListForm\KategoriJabatanListDataProvider.cs" />
+    <Compile Include="KategoriJabatan\ListForm\KategoriJabatanListFormData.cs" />
+    <Compile Include="KategoriJabatan\ListForm\KategoriJabatanListModel.cs" />
+    <Compile Include="KategoriJabatan\Queries\KategoriJabatanQuery.cs" />
+    <Compile Include="KategoriJabatan\Queries\KategoriJabatanSearch.cs" />
     <Compile Include="Login\LoginManager.cs" />
     <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamCreateHandler.cs" />
     <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamDeleteHandler.cs" />
@@ -115,21 +130,6 @@
     <Compile Include="MappingRoleToRoleGroup\Queries\MappingRoleToRoleGroupSearch.cs" />
     <Compile Include="MappingRoleToRoleGroup\MappingRoleToRoleGroupDTO.cs" />
     <Compile Include="MappingRoleToRoleGroup\MappingRoleToRoleGroupValidator.cs" />
-    <Compile Include="Position\DML\PositionCreateHandler.cs" />
-    <Compile Include="Position\DML\PositionDeleteHandler.cs" />
-    <Compile Include="Position\DML\PositionUpdateHandler.cs" />
-    <Compile Include="Position\EntryForm\PositionEntryControlBuilder.cs" />
-    <Compile Include="Position\EntryForm\PositionEntryDataProvider.cs" />
-    <Compile Include="Position\EntryForm\PositionEntryFormData.cs" />
-    <Compile Include="Position\EntryForm\PositionEntryModel.cs" />
-    <Compile Include="Position\ListForm\PositionListDataProvider.cs" />
-    <Compile Include="Position\ListForm\PositionListFormData.cs" />
-    <Compile Include="Position\ListForm\PositionListModel.cs" />
-    <Compile Include="Position\Queries\PositionQuery.cs" />
-    <Compile Include="Position\Queries\PositionSearch.cs" />
-    <Compile Include="Position\PositionDTO.cs" />
-    <Compile Include="Position\PositionFactory.cs" />
-    <Compile Include="Position\PositionValidator.cs" />
     <Compile Include="UserDetail\DML\UserDetailCreateHandler.cs" />
     <Compile Include="UserDetail\DML\UserDetailDeleteHandler.cs" />
     <Compile Include="UserDetail\DML\UserDetailUpdateHandler.cs" />

@@ -48,6 +48,7 @@
         }
 
         self.save = function (model) {
+            validation.clearValidationErrors({});
             if (!validate())
                 return;
 

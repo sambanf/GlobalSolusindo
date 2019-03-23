@@ -12,13 +12,13 @@ angular.module('global-solusindo')
     .config(['$stateProvider', function ($stateProvider) {
 
         $stateProvider
-            .state('app.positionEntry', {
-                url: '/positionEntry/:id',
-                templateUrl: 'app/modules/positionEntry/positionEntry.html',
-                controller: 'PositionEntryCtrl',
+            .state('app.kategoriJabatanEntry', {
+                url: '/kategoriJabatanEntry/:id',
+                templateUrl: 'app/modules/kategoriJabatanEntry/kategoriJabatanEntry.html',
+                controller: 'KategoriJabatanEntryCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'Position Entry'
+                    label: 'KategoriJabatan Entry'
                 }
             });
     }]);

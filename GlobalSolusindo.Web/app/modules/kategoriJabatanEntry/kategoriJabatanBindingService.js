@@ -11,16 +11,16 @@
 
     angular
         .module('global-solusindo')
-        .factory('PositionBindingService', PositionBindingService);
+        .factory('KategoriJabatanBindingService', KategoriJabatanBindingService);
 
-    PositionBindingService.$inject = ['HttpService', '$state'];
+    KategoriJabatanBindingService.$inject = ['HttpService', '$state'];
 
-    function PositionBindingService(http, $state) {
+    function KategoriJabatanBindingService(http, $state) {
         var self = this;
         var controller = {};
 
         self.applyBinding = function (id) {
-            return http.get('position/form/' + id);
+            return http.get('kategoriJabatan/form/' + id);
         };
 
         self.init = function (ctrl) {
@@ -28,6 +28,7 @@
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
                     controller.model = res.data.model;
                     controller.formControls = res.data.formControls;
                     resolve(res);

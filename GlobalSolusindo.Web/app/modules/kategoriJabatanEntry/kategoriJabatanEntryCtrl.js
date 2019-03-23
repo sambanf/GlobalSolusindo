@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .controller('PositionEntryCtrl', PositionEntryCtrl);
+        .controller('KategoriJabatanEntryCtrl', KategoriJabatanEntryCtrl);
 
-    PositionEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'PositionSaveService', 'PositionBindingService', 'FormControlService'];
+    KategoriJabatanEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'KategoriJabatanSaveService', 'KategoriJabatanBindingService', 'FormControlService', 'select2Service'];
 
-    function PositionEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
+    function KategoriJabatanEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
         var self = this;
         self.stateParam = sParam;
 

@@ -242,19 +242,6 @@
           <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
           <Property Name="Status_FK" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="tblM_Position">
-          <Key>
-            <PropertyRef Name="Position_PK" />
-          </Key>
-          <Property Name="Position_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
-          <Property Name="Status_FK" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="tblM_Project">
           <Key>
             <PropertyRef Name="Project_PK" />
@@ -312,7 +299,7 @@
           </Key>
           <Property Name="User_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserDetail_FK" Type="int" Nullable="false" />
-          <Property Name="Position_FK" Type="int" Nullable="false" />
+          <Property Name="KategoriJabatan_FK" Type="int" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -720,7 +707,6 @@
           <EntitySet Name="tblM_MappingUserToRoleGroup" EntityType="Self.tblM_MappingUserToRoleGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Operator" EntityType="Self.tblM_Operator" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_PMHistori" EntityType="Self.tblM_PMHistori" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblM_Position" EntityType="Self.tblM_Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Project" EntityType="Self.tblM_Project" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Role" EntityType="Self.tblM_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_RoleGroup" EntityType="Self.tblM_RoleGroup" Schema="dbo" store:Type="Tables" />
@@ -832,7 +818,6 @@
           <EntitySet Name="tblM_MappingUserToRoleGroup" EntityType="GlobalSolusindoModel.tblM_MappingUserToRoleGroup" />
           <EntitySet Name="tblM_Operator" EntityType="GlobalSolusindoModel.tblM_Operator" />
           <EntitySet Name="tblM_PMHistori" EntityType="GlobalSolusindoModel.tblM_PMHistori" />
-          <EntitySet Name="tblM_Position" EntityType="GlobalSolusindoModel.tblM_Position" />
           <EntitySet Name="tblM_Project" EntityType="GlobalSolusindoModel.tblM_Project" />
           <EntitySet Name="tblM_Role" EntityType="GlobalSolusindoModel.tblM_Role" />
           <EntitySet Name="tblM_RoleGroup" EntityType="GlobalSolusindoModel.tblM_RoleGroup" />
@@ -1169,19 +1154,6 @@
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="tblM_Position">
-          <Key>
-            <PropertyRef Name="Position_PK" />
-          </Key>
-          <Property Name="Position_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Status_FK" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="tblM_Project">
           <Key>
             <PropertyRef Name="Project_PK" />
@@ -1253,7 +1225,7 @@
           </Key>
           <Property Name="User_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserDetail_FK" Type="Int32" Nullable="false" />
-          <Property Name="Position_FK" Type="Int32" Nullable="false" />
+          <Property Name="KategoriJabatan_FK" Type="Int32" Nullable="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1911,20 +1883,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblM_Position">
-            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Position">
-              <MappingFragment StoreEntitySet="tblM_Position">
-                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Position_PK" ColumnName="Position_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblM_Project">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Project">
               <MappingFragment StoreEntitySet="tblM_Project">
@@ -1990,7 +1948,7 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Position_FK" ColumnName="Position_FK" />
+                <ScalarProperty Name="KategoriJabatan_FK" ColumnName="KategoriJabatan_FK" />
                 <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
                 <ScalarProperty Name="User_PK" ColumnName="User_PK" />
               </MappingFragment>

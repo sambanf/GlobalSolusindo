@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace GlobalSolusindo.Identity.User.Queries
 {
-    public enum UserPositionFilter
+    public enum UserKategoriJabatanFilter
     {
         All = 0,
         TeamLeader = 1,
@@ -17,7 +17,7 @@ namespace GlobalSolusindo.Identity.User.Queries
 
     public class UserSearchFilter : SearchFilter
     {
-        public UserPositionFilter UserPositionFilter { get; set; }
+        public UserKategoriJabatanFilter UserKategoriJabatanFilter { get; set; }
     }
 
     public class UserSearch : QueryBase
@@ -44,11 +44,11 @@ namespace GlobalSolusindo.Identity.User.Queries
                     || user.Description.Contains(filter.Keyword)
                     );
 
-            if (filter.UserPositionFilter != UserPositionFilter.All)
+            if (filter.UserKategoriJabatanFilter != UserKategoriJabatanFilter.All)
             {
                 filteredRecords = filteredRecords
                     .Where(user =>
-                    user.Position_FK == (int)filter.UserPositionFilter);
+                    user.KategoriJabatan_FK == (int)filter.UserKategoriJabatanFilter);
             }
 
             var displayedRecords = filteredRecords.

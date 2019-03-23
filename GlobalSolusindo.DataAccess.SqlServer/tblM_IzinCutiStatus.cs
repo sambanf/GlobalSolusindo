@@ -9,7 +9,9 @@
 
 namespace GlobalSolusindo.DataAccess
 {
-
+    using System;
+    using System.Collections.Generic;
+    
     public partial class tblM_IzinCutiStatus
     {
         public int IzinCutiStatus_PK { get; set; }

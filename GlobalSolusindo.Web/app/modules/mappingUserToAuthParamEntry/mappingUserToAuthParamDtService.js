@@ -57,7 +57,7 @@
                         "data": "userName"
                     },
                     {
-                        "data": "positionName"
+                        "data": "kategoriJabatanName"
                     },
                     {
                         "orderable": false,

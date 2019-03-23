@@ -483,6 +483,46 @@ angular.module('global-solusindo')
     .config(['$stateProvider', function ($stateProvider) {
 
         $stateProvider
+            .state('app.kategoriJabatanList', {
+                url: '/kategoriJabatanList',
+                templateUrl: 'app/modules/kategoriJabatan/kategoriJabatan.html',
+                controller: 'KategoriJabatanCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Kategori Jabatan'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.kategoriJabatanEntry', {
+                url: '/kategoriJabatanEntry/:id',
+                templateUrl: 'app/modules/kategoriJabatanEntry/kategoriJabatanEntry.html',
+                controller: 'KategoriJabatanEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'KategoriJabatan Entry'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
             .state('app.kotaList', {
                 url: '/kotaList',
                 templateUrl: 'app/modules/kota/kota.html',
@@ -739,46 +779,6 @@ angular.module('global-solusindo')
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Operator Entry'
-                }
-            });
-    }]);
-'use strict';
-
-angular.module('global-solusindo')
-    .config(['$stateProvider', function ($stateProvider) {
-
-        $stateProvider
-            .state('app.positionList', {
-                url: '/positionList',
-                templateUrl: 'app/modules/position/position.html',
-                controller: 'PositionCtrl',
-                controllerAs: 'brc',
-                ncyBreadcrumb: {
-                    label: 'Position'
-                }
-            });
-    }]);
-'use strict';
-
-/**
- * @ngdoc function
- * @name app.route:orderRoute
- * @description
- * # dashboardRoute
- * Route of the app
- */
-
-angular.module('global-solusindo')
-    .config(['$stateProvider', function ($stateProvider) {
-
-        $stateProvider
-            .state('app.positionEntry', {
-                url: '/positionEntry/:id',
-                templateUrl: 'app/modules/positionEntry/positionEntry.html',
-                controller: 'PositionEntryCtrl',
-                controllerAs: 'vm',
-                ncyBreadcrumb: {
-                    label: 'Position Entry'
                 }
             });
     }]);
@@ -1437,6 +1437,53 @@ angular.module('global-solusindo')
     DeliveryAreaEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'DeliveryAreaSaveService', 'DeliveryAreaBindingService', 'FormControlService', 'select2Service'];
 
     function DeliveryAreaEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('KategoriJabatanCtrl', KategoriJabatanCtrl);
+
+    KategoriJabatanCtrl.$inject = ['$scope', '$state', 'kategoriJabatanDtService', 'kategoriJabatanDeleteService', 'kategoriJabatanViewService'];
+
+    function KategoriJabatanCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('KategoriJabatanEntryCtrl', KategoriJabatanEntryCtrl);
+
+    KategoriJabatanEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'KategoriJabatanSaveService', 'KategoriJabatanBindingService', 'FormControlService', 'select2Service'];
+
+    function KategoriJabatanEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
         var self = this;
         self.stateParam = sParam;
 
@@ -2196,53 +2243,6 @@ angular.module('global-solusindo')
     'use strict';
 
     angular.module('global-solusindo')
-        .controller('PositionCtrl', PositionCtrl);
-
-    PositionCtrl.$inject = ['$scope', '$state', 'positionDtService', 'positionDeleteService', 'positionViewService'];
-
-    function PositionCtrl($scope, $state, dtService, deleteService, viewService) {
-        var self = this;
-
-        self.datatable = dtService.init(self);
-        deleteService.init(self);
-        viewService.init(self);
-
-        return self;
-    }
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.controller:userEntryCtrl
-     * @description
-     * # dashboardCtrl
-     * Controller of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .controller('PositionEntryCtrl', PositionEntryCtrl);
-
-    PositionEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'PositionSaveService', 'PositionBindingService', 'FormControlService'];
-
-    function PositionEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
-        var self = this;
-        self.stateParam = sParam;
-
-        bindingService.init(self).then(function (res) {
-            formControlService.setFormControl(self);
-            saveService.init(self);
-        });
-
-        return self;
-    }
-})();
-(function () {
-    'use strict';
-
-    angular.module('global-solusindo')
         .controller('ProjectCtrl', ProjectCtrl);
 
     ProjectCtrl.$inject = ['$scope', '$state', 'projectDtService', 'projectDeleteService', 'projectViewService'];
@@ -2485,28 +2485,16 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('UserEntryCtrl', UserEntryCtrl);
 
-    UserEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserSaveService', 'UserBindingService', 'FormControlService', 'select2Service'];
+    UserEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserSaveService', 'UserBindingService', 'FormControlService', 'UserSelect2Service'];
 
-    function UserEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+    function UserEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, UserSelect2Service) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
-            angular.element(document).ready(function () {
-                select2Service.liveSearch("position/search", {
-                    selector: '#position_fk',
-                    valueMember: 'position_pk',
-                    displayMember: 'name',
-                    callback: function (data) {
-                        self.formData.positions = data;
-                    },
-                    onSelected: function (data) {
-                        self.model.position_fk = data.position_pk;
-                    }
-                });
-            });
+            UserSelect2Service.init(self);
         });
 
         return self;
@@ -5192,6 +5180,297 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('kategoriJabatanDeleteService', kategoriJabatan);
+
+    kategoriJabatan.$inject = ['HttpService', 'uiService'];
+
+    function kategoriJabatan(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('kategoriJabatan', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.kategoriJabatan_pk];
+            ui.alert.confirm("Are you sure want to delete kategori jabatan '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].kategoriJabatan_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#kategoriJabatan tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('kategoriJabatanDtService', kategoriJabatan);
+
+    kategoriJabatan.$inject = ['DatatableService'];
+
+    function kategoriJabatan(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#kategoriJabatan", "kategoriJabatan/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "kategoriJabatan_pk"
+                },
+                {
+                    "data": "title"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('kategoriJabatanViewService', kategoriJabatanView);
+
+    kategoriJabatanView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function kategoriJabatanView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.kategoriJabatanEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#kategoriJabatan tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.kategoriJabatan_pk);
+            });
+
+            $("#kategoriJabatan tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["kategoriJabatan_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('KategoriJabatanBindingService', KategoriJabatanBindingService);
+
+    KategoriJabatanBindingService.$inject = ['HttpService', '$state'];
+
+    function KategoriJabatanBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('kategoriJabatan/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name 
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('KategoriJabatanSaveService', KategoriJabatanEntry);
+
+    KategoriJabatanEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function KategoriJabatanEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('kategoriJabatan', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.kategoriJabatanEntry', { id: res.data.model.kategoriJabatan_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('kategoriJabatan', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.kategoriJabatan_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('kotaDeleteService', kota);
 
     kota.$inject = ['HttpService', 'uiService'];
@@ -6222,7 +6501,7 @@ angular.module('global-solusindo')
                         "data": "userName"
                     },
                     {
-                        "data": "positionName"
+                        "data": "kategoriJabatanName"
                     },
                     {
                         "orderable": false,
@@ -6678,7 +6957,7 @@ angular.module('global-solusindo')
                         "data": "userName"
                     },
                     {
-                        "data": "positionName"
+                        "data": "kategoriJabatanName"
                     },
                     {
                         "orderable": false,
@@ -7152,294 +7431,6 @@ angular.module('global-solusindo')
         self.save = function (model) {
             validation.clearValidationErrors({});
             if (model.operator_pk === 0) {
-                return self.create(model);
-            } else {
-                return self.update(model);
-            }
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            angular.element('#saveButton').on('click', function () {
-                self.save(controller.model);
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('positionDeleteService', position);
-
-    position.$inject = ['HttpService', 'uiService'];
-
-    function position(http, ui) {
-        var self = this;
-        var controller;
-
-        function deleteRecords(ids) {
-            return http.delete('position', ids).then(function (response) {
-                var res = response;
-                if (res.success) {
-                    controller.datatable.draw();
-                    ui.alert.success(res.message);
-                } else {
-                    ui.alert.error(res.message);
-                }
-            });
-        }
-
-        self.delete = function (data) {
-            var ids = [data.position_pk];
-            ui.alert.confirm("Are you sure want to delete position '" + data.title + "'?", function () {
-                return deleteRecords(ids);
-            });
-        };
-
-        self.deleteMultiple = function (selectedRecords) {
-            var ids = [];
-
-            if (selectedRecords) {
-                for (var i = 0; i < selectedRecords.length; i++) {
-                    ids.push(selectedRecords[i].position_pk);
-                }
-            }
-
-            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
-                return deleteRecords(ids);
-            });
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-
-            //Row delete button event
-            $('#position tbody').on('click', '#delete', function () {
-                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
-                self.delete(selectedRecord);
-            });
-
-            //Toolbar delete button event
-            angular.element('#deleteButton').on('click', function () {
-                var selectedRows = controller.datatable.rows('.selected').data();
-                var rowsAreSelected = selectedRows.length > 0;
-                if (!rowsAreSelected) {
-                    ui.alert.error('Please select the record you want to delete.');
-                    return;
-                }
-
-                var selectedRecords = [];
-                for (var i = 0; i < selectedRows.length; i++) {
-                    selectedRecords.push(selectedRows[i]);
-                }
-                self.deleteMultiple(selectedRecords);
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('positionDtService', position);
-
-    position.$inject = ['DatatableService'];
-
-    function position(ds) {
-        var self = this;
-
-        self.init = function (ctrl) {
-            var titleColumnIndex = 1;
-            return ds.init("#position", "position/search", {
-                extendRequestData: {
-                    pageIndex: 1,
-                    pageSize: 10
-                },
-                order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "position_pk"
-                },
-                {
-                    "data": "name"
-                },
-                {
-                    "data": "description"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
-                    }
-                }
-                ]
-            });
-        }
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('positionViewService', positionView);
-
-    positionView.$inject = ['HttpService', '$state', 'uiService'];
-
-    function positionView(http, $state, ui) {
-        var self = this;
-        var controller;
-
-        self.view = function (data) {
-            $state.go('app.positionEntry', {
-                id: data
-            });
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            $('#position tbody').on('click', '#view', function () {
-                var data = controller.datatable.row($(this).parents('tr')).data();
-                self.view(data.position_pk);
-            });
-
-            $("#position tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["position_pk"];
-                self.view(id);
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('PositionBindingService', PositionBindingService);
-
-    PositionBindingService.$inject = ['HttpService', '$state'];
-
-    function PositionBindingService(http, $state) {
-        var self = this;
-        var controller = {};
-
-        self.applyBinding = function (id) {
-            return http.get('position/form/' + id);
-        };
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            var id = ctrl.stateParam.id;
-            return new Promise(function (resolve, reject) {
-                self.applyBinding(id).then(function (res) {
-                    controller.model = res.data.model;
-                    controller.formControls = res.data.formControls;
-                    resolve(res);
-                });
-            });
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
-        .factory('PositionSaveService', PositionEntry);
-
-    PositionEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
-
-    function PositionEntry($state, http, ui, validation) {
-        var self = this;
-        var controller;
-
-        self.create = function (model) {
-            http.post('position', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success(res.message);
-                    $state.go('app.positionEntry', { id: res.data.model.position_pk });
-                } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
-                }
-            });
-        };
-
-        self.update = function (model) {
-            http.put('position', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success(res.message);
-                } else {
-                    ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
-                }
-            });
-        };
-
-        self.save = function (model) {
-            validation.clearValidationErrors({});
-            if (model.position_pk === 0) {
                 return self.create(model);
             } else {
                 return self.update(model);
@@ -9481,12 +9472,12 @@ angular.module('global-solusindo')
                 {
                     "data": "name"
                 },
-                //{
-                //    "data": "position"
-                //},
-                //{
-                //    "data": "roleName"
-                //},
+                {
+                    "data": "kategoriJabatanTitle"
+                },
+                {
+                    "data": "roleGroupTitle"
+                },
                 {
                     "data": "noHP"
                 },
@@ -9658,6 +9649,52 @@ angular.module('global-solusindo')
             controller = ctrl;
             angular.element('#saveButton').on('click', function () {
                 self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('UserSelect2Service', UserSelect2Service);
+
+    UserSelect2Service.$inject = ['$state', 'HttpService', 'uiService', 'select2Service'];
+
+    function UserSelect2Service($state, http, ui, select2Service) {
+        var self = this;
+        var controller;
+
+        function getKategoriJabatans() {
+            select2Service.liveSearch("kategoriJabatan/search", {
+                selector: '#kategoriJabatan_fk',
+                valueMember: 'kategoriJabatan_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.kategoriJabatans = data;
+                },
+                onSelected: function (data) {
+                    controller.model.kategoriJabatan_fk = data.kategoriJabatan_pk;
+                }
+            });
+        }
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element(document).ready(function () {
+                getKategoriJabatans();
             });
         };
 

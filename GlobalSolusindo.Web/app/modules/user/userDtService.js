@@ -36,12 +36,12 @@
                 {
                     "data": "name"
                 },
-                //{
-                //    "data": "position"
-                //},
-                //{
-                //    "data": "roleName"
-                //},
+                {
+                    "data": "kategoriJabatanTitle"
+                },
+                {
+                    "data": "roleGroupTitle"
+                },
                 {
                     "data": "noHP"
                 },

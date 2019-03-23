@@ -1,8 +1,8 @@
-﻿using GlobalSolusindo.DataAccess;
-using GlobalSolusindo.Identity.Position;
-using GlobalSolusindo.Identity.Position.DML;
-using GlobalSolusindo.Identity.Position.EntryForm;
-using GlobalSolusindo.Identity.Position.Queries;
+﻿using GlobalSolusindo.Identity.KategoriJabatan;
+using GlobalSolusindo.Identity.KategoriJabatan.DML;
+using GlobalSolusindo.Identity.KategoriJabatan.EntryForm;
+using GlobalSolusindo.Identity.KategoriJabatan.Queries;
+using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
 using Newtonsoft.Json;
@@ -13,72 +13,72 @@ using System.Web.Http;
 
 namespace GlobalSolusindo.Api.Controllers
 {
-    public class PositionController : ApiControllerBase
+    public class KategoriJabatanController : ApiControllerBase
     {
-        public PositionController()
+        public KategoriJabatanController()
         {
         }
 
-        [Route("position/{id}")]
+        [Route("kategoriJabatan/{id}")]
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "Position_ViewAll";
+            string accessType = "KategoriJabatan_ViewAll";
             ThrowIfUserCannotAccess(accessType);
-            using (PositionQuery positionQuery = new PositionQuery(Db))
+            using (KategoriJabatanQuery kategoriJabatanQuery = new KategoriJabatanQuery(Db))
             {
-                var data = positionQuery.GetByPrimaryKey(id);
-                SaveLog("Position", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                var data = kategoriJabatanQuery.GetByPrimaryKey(id);
+                SaveLog("KategoriJabatan", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
                 return Ok(new SuccessResponse(data));
             }
         }
 
-        [Route("position/form/{id}")]
+        [Route("kategoriJabatan/form/{id}")]
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "Position_ViewAll";
+            string accessType = "KategoriJabatan_ViewAll";
             ThrowIfUserCannotAccess(accessType);
-            using (PositionEntryDataProvider positionEntryDataProvider = new PositionEntryDataProvider(Db, ActiveUser, AccessControl, new PositionQuery(Db)))
+            using (KategoriJabatanEntryDataProvider kategoriJabatanEntryDataProvider = new KategoriJabatanEntryDataProvider(Db, ActiveUser, AccessControl, new KategoriJabatanQuery(Db)))
             {
-                var data = positionEntryDataProvider.Get(id);
-                SaveLog("Position", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                var data = kategoriJabatanEntryDataProvider.Get(id);
+                SaveLog("KategoriJabatan", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
                 return Ok(new SuccessResponse(data));
             }
         }
 
-        [Route("position/search")]
+        [Route("kategoriJabatan/search")]
         [HttpGet]
-        public IHttpActionResult Search([FromUri]PositionSearchFilter filter)
+        public IHttpActionResult Search([FromUri]KategoriJabatanSearchFilter filter)
         {
-            string accessType = "Position_ViewAll";
+            string accessType = "KategoriJabatan_ViewAll";
             ThrowIfUserCannotAccess(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
-            using (var positionSearch = new PositionSearch(Db))
+            using (var kategoriJabatanSearch = new KategoriJabatanSearch(Db))
             {
-                var data = positionSearch.GetDataByFilter(filter);
+                var data = kategoriJabatanSearch.GetDataByFilter(filter);
                 return Ok(new SuccessResponse(data));
             }
         }
 
-        [Route("position")]
+        [Route("kategoriJabatan")]
         [HttpPost]
-        public IHttpActionResult Create([FromBody]PositionDTO position)
+        public IHttpActionResult Create([FromBody]KategoriJabatanDTO kategoriJabatan)
         {
             string accessType = "";
             ThrowIfUserCannotAccess(accessType);
-            if (position == null)
+            if (kategoriJabatan == null)
                 throw new KairosException("Missing model parameter");
 
-            if (position.Position_PK != 0)
+            if (kategoriJabatan.KategoriJabatan_PK != 0)
                 throw new KairosException("Post method is not allowed because the requested primary key is must be '0' (zero) .");
-            using (var positionCreateHandler = new PositionCreateHandler(Db, ActiveUser, new PositionValidator(), new PositionFactory(Db, ActiveUser), new PositionQuery(Db), AccessControl))
+            using (var kategoriJabatanCreateHandler = new KategoriJabatanCreateHandler(Db, ActiveUser, new KategoriJabatanValidator(), new KategoriJabatanFactory(Db, ActiveUser), new KategoriJabatanQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
                 { 
-                    var saveResult = positionCreateHandler.Save(positionDTO: position, dateStamp: DateTime.UtcNow);
+                    var saveResult = kategoriJabatanCreateHandler.Save(kategoriJabatanDTO: kategoriJabatan, dateStamp: DateTime.UtcNow);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -87,23 +87,23 @@ namespace GlobalSolusindo.Api.Controllers
             }
         }
 
-        [Route("position")]
+        [Route("kategoriJabatan")]
         [HttpPut]
-        public IHttpActionResult Update([FromBody]PositionDTO position)
+        public IHttpActionResult Update([FromBody]KategoriJabatanDTO kategoriJabatan)
         {
             string accessType = "";
             ThrowIfUserCannotAccess(accessType);
-            if (position == null)
+            if (kategoriJabatan == null)
                 throw new KairosException("Missing model parameter");
 
-            if (position.Position_PK == 0)
+            if (kategoriJabatan.KategoriJabatan_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
-            using (var positionUpdateHandler = new PositionUpdateHandler(Db, ActiveUser, new PositionValidator(), new PositionFactory(Db, ActiveUser), new PositionQuery(Db), AccessControl))
+            using (var kategoriJabatanUpdateHandler = new KategoriJabatanUpdateHandler(Db, ActiveUser, new KategoriJabatanValidator(), new KategoriJabatanFactory(Db, ActiveUser), new KategoriJabatanQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = positionUpdateHandler.Save(position, DateTime.UtcNow);
+                    var saveResult = kategoriJabatanUpdateHandler.Save(kategoriJabatan, DateTime.UtcNow);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -112,7 +112,7 @@ namespace GlobalSolusindo.Api.Controllers
             }
         }
 
-        [Route("position")]
+        [Route("kategoriJabatan")]
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
@@ -122,15 +122,15 @@ namespace GlobalSolusindo.Api.Controllers
             string accessType = "";
             ThrowIfUserCannotAccess(accessType);
 
-            using (var positionDeleteHandler = new PositionDeleteHandler(Db, ActiveUser))
+            using (var kategoriJabatanDeleteHandler = new KategoriJabatanDeleteHandler(Db, ActiveUser))
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var result = new List<DeleteResult<tblM_Position>>();
+                    var result = new List<DeleteResult<tblM_KategoriJabatan>>();
 
                     foreach (var id in ids)
                     {
-                        result.Add(positionDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        result.Add(kategoriJabatanDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
                     return Ok(new SuccessResponse(result));

@@ -11,16 +11,18 @@
 
     angular
         .module('global-solusindo')
-        .factory('positionDtService', position);
+        .factory('kategoriJabatanDtService', kategoriJabatan);
 
-    position.$inject = ['DatatableService'];
+    kategoriJabatan.$inject = ['DatatableService'];
 
-    function position(ds) {
+    function kategoriJabatan(ds) {
         var self = this;
+        var controller = {};
 
         self.init = function (ctrl) {
+            controller = ctrl;
             var titleColumnIndex = 1;
-            return ds.init("#position", "position/search", {
+            var dt = ds.init("#kategoriJabatan", "kategoriJabatan/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
@@ -28,13 +30,10 @@
                 order: [titleColumnIndex, "asc"],
                 columns: [{
                     "orderable": false,
-                    "data": "position_pk"
+                    "data": "kategoriJabatan_pk"
                 },
                 {
-                    "data": "name"
-                },
-                {
-                    "data": "description"
+                    "data": "title"
                 },
                 {
                     "orderable": false,
@@ -47,7 +46,10 @@
                 }
                 ]
             });
-        }
+            controller.datatable = dt;
+            return dt;
+        };
+
         return self;
     }
 

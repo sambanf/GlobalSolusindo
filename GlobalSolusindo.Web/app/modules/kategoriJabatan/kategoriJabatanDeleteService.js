@@ -11,16 +11,16 @@
 
     angular
         .module('global-solusindo')
-        .factory('positionDeleteService', position);
+        .factory('kategoriJabatanDeleteService', kategoriJabatan);
 
-    position.$inject = ['HttpService', 'uiService'];
+    kategoriJabatan.$inject = ['HttpService', 'uiService'];
 
-    function position(http, ui) {
+    function kategoriJabatan(http, ui) {
         var self = this;
         var controller;
 
         function deleteRecords(ids) {
-            return http.delete('position', ids).then(function (response) {
+            return http.delete('kategoriJabatan', ids).then(function (response) {
                 var res = response;
                 if (res.success) {
                     controller.datatable.draw();
@@ -32,8 +32,8 @@
         }
 
         self.delete = function (data) {
-            var ids = [data.position_pk];
-            ui.alert.confirm("Are you sure want to delete position '" + data.title + "'?", function () {
+            var ids = [data.kategoriJabatan_pk];
+            ui.alert.confirm("Are you sure want to delete kategori jabatan '" + data.title + "'?", function () {
                 return deleteRecords(ids);
             });
         };
@@ -43,7 +43,7 @@
 
             if (selectedRecords) {
                 for (var i = 0; i < selectedRecords.length; i++) {
-                    ids.push(selectedRecords[i].position_pk);
+                    ids.push(selectedRecords[i].kategoriJabatan_pk);
                 }
             }
 
@@ -56,7 +56,7 @@
             controller = ctrl;
 
             //Row delete button event
-            $('#position tbody').on('click', '#delete', function () {
+            $('#kategoriJabatan tbody').on('click', '#delete', function () {
                 var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
                 self.delete(selectedRecord);
             });
