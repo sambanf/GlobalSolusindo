@@ -9,10 +9,9 @@
 
 namespace GlobalSolusindo.DataAccess
 {
-    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class GlobalSolusindoDb : DbContext
     {
         public GlobalSolusindoDb()
@@ -55,6 +54,7 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblT_IzinCuti> tblT_IzinCuti { get; set; }
         public virtual DbSet<tblT_SOW> tblT_SOW { get; set; }
         public virtual DbSet<tblT_SOWAssign> tblT_SOWAssign { get; set; }
+        public virtual DbSet<tblT_SOWStatus> tblT_SOWStatus { get; set; }
         public virtual DbSet<tblT_SOWTrack> tblT_SOWTrack { get; set; }
         public virtual DbSet<tblT_UserHistori> tblT_UserHistori { get; set; }
         public virtual DbSet<tblT_UserPayroll> tblT_UserPayroll { get; set; }

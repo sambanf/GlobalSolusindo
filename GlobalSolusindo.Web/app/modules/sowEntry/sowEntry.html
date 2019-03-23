@@ -1,0 +1,105 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Tambah SOW</div>
+                    <div class="col-md-8">
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">SOW Name:</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="sowName" name="sowName" class="form-control" ng-model="vm.model.sowName" placeholder="SOW Name">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Project:</label>
+                            <div class="col-sm-6">
+                                <select id="project_fk" name="project_fk" class="form-control input-lg" size="0" ng-model="vm.model.project_fk" required>
+                                    <option ng-repeat="x in vm.formData.projects" ng-value="x.project_pk">{{x.title}}</option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">BTS:</label>
+                            <div class="col-sm-6">
+                                <select id="bts_fk" name="bts_fk" class="form-control input-lg" size="0" ng-model="vm.model.bts_fk" required>
+                                    <option ng-repeat="x in vm.formData.btses" ng-value="x.bts_pk">{{x.name}}</option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Tanggal :</label>
+                            <div class="col-sm-6">
+                                <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <fieldset>
+                                <legend>Assign</legend>
+                                <div class="col-md-12">
+                                    <table id="sowAssign">
+                                        <thead>
+                                            <tr>
+                                                <th hidden>SOWAssign_PK</th>
+                                                <th hidden>SOW FK</th>
+                                                <th hidden>Jabatan FK</th>
+                                                <th>Jabatan Title</th>
+                                                <th>User</th>
+                                                <!--<th>Tgl Mulai</th>
+                                                <th>Tgl Selesai</th>-->
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="sowAssign in vm.model.sowAssigns">
+                                                <td class="text-center" hidden>
+                                                    <input type="text" id="sowAssign_pk" name="sowAssign_pk" ng-model="sowAssign.sowAssign_pk" disabled />
+                                                    <div class="invalid-feedback"></div>
+                                                </td>
+                                                <td class="text-center" hidden>
+                                                    <input type="text" id="sow_fk" name="sow_fk" ng-model="sowAssign.sow_fk" disabled />
+                                                    <div class="invalid-feedback"></div>
+                                                </td>
+                                                <td class="text-left" hidden>
+                                                    <input type="text" id="kategoriJabatan_fk" name="kategoriJabatan_fk" class="form-control" ng-model="sowAssign.kategoriJabatan_fk" disabled />
+                                                    <div class="invalid-feedback"></div>
+                                                </td>
+                                                <td class="text-left">
+                                                    <input type="text" id="kategoriJabatanTitle" name="kategoriJabatanTitle" class="form-control" ng-model="sowAssign.kategoriJabatanTitle" disabled />
+                                                    <div class="invalid-feedback"></div>
+                                                </td>
+                                                <td class="text-right" style="width:200px;">
+                                                    <select id="user_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="sowAssign.user_fk" required>
+                                                        <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.title}}</option>
+                                                    </select>
+                                                    <div class="invalid-feedback"></div>
+                                                </td>
+                                                <!--<td class="text-right">
+                                                    <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
+                                                    <div class="invalid-feedback"></div>
+                                                </td>
+                                                <td class="text-right">
+                                                    <input type="text" id="tglSelesai" name="tglSelesai" ng-model="vm.model.tglSelesai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
+                                                    <div class="invalid-feedback"></div>
+                                                </td>-->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" ui-sref="app.sowList">Kembali</button>
+                                <button class="btn btn-success float-right" id="saveButton">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

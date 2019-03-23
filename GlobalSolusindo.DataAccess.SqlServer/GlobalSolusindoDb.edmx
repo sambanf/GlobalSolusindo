@@ -429,6 +429,18 @@
           <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
           <Property Name="Status_FK" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblT_SOWStatus">
+          <Key>
+            <PropertyRef Name="SOWStatus_PK" />
+          </Key>
+          <Property Name="SOWStatus_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblT_SOWTrack">
           <Key>
             <PropertyRef Name="SOWTrack_PK" />
@@ -719,6 +731,7 @@
           <EntitySet Name="tblT_IzinCuti" EntityType="Self.tblT_IzinCuti" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_SOW" EntityType="Self.tblT_SOW" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_SOWAssign" EntityType="Self.tblT_SOWAssign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblT_SOWStatus" EntityType="Self.tblT_SOWStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_SOWTrack" EntityType="Self.tblT_SOWTrack" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_UserHistori" EntityType="Self.tblT_UserHistori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_UserPayroll" EntityType="Self.tblT_UserPayroll" Schema="dbo" store:Type="Tables" />
@@ -830,6 +843,7 @@
           <EntitySet Name="tblT_IzinCuti" EntityType="GlobalSolusindoModel.tblT_IzinCuti" />
           <EntitySet Name="tblT_SOW" EntityType="GlobalSolusindoModel.tblT_SOW" />
           <EntitySet Name="tblT_SOWAssign" EntityType="GlobalSolusindoModel.tblT_SOWAssign" />
+          <EntitySet Name="tblT_SOWStatus" EntityType="GlobalSolusindoModel.tblT_SOWStatus" />
           <EntitySet Name="tblT_SOWTrack" EntityType="GlobalSolusindoModel.tblT_SOWTrack" />
           <EntitySet Name="tblT_UserHistori" EntityType="GlobalSolusindoModel.tblT_UserHistori" />
           <EntitySet Name="tblT_UserPayroll" EntityType="GlobalSolusindoModel.tblT_UserPayroll" />
@@ -1358,6 +1372,18 @@
           <Property Name="KategoriJabatan_FK" Type="Int32" />
           <Property Name="TglMulai" Type="DateTime" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblT_SOWStatus">
+          <Key>
+            <PropertyRef Name="SOWStatus_PK" />
+          </Key>
+          <Property Name="SOWStatus_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2079,6 +2105,19 @@
                 <ScalarProperty Name="User_FK" ColumnName="User_FK" />
                 <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
                 <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblT_SOWStatus">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOWStatus">
+              <MappingFragment StoreEntitySet="tblT_SOWStatus">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SOWStatus_PK" ColumnName="SOWStatus_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

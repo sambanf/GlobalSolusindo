@@ -69,8 +69,7 @@ namespace GlobalSolusindo.Business.BTS.EntryForm
                 formData.Cabangs.Add(cabang);
 
             return formData;
-        }
-
+        } 
 
         private BTSEntryModel GetCreateStateModel()
         { 

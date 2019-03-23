@@ -9,9 +9,7 @@
 
 namespace GlobalSolusindo.DataAccess
 {
-    using System;
-    using System.Collections.Generic;
-    
+
     public partial class tblM_Kota
     {
         public int Kota_PK { get; set; }

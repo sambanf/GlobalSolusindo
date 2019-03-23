@@ -1,8 +1,8 @@
-﻿using GlobalSolusindo.Identity.KategoriJabatan;
+﻿using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.KategoriJabatan;
 using GlobalSolusindo.Identity.KategoriJabatan.DML;
 using GlobalSolusindo.Identity.KategoriJabatan.EntryForm;
 using GlobalSolusindo.Identity.KategoriJabatan.Queries;
-using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
 using Newtonsoft.Json;

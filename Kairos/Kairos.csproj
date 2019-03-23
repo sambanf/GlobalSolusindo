@@ -51,6 +51,7 @@
     <Compile Include="DataAnnotations\UniqueAttribute.cs" />
     <Compile Include="Data\ModelValidationResult.cs" />
     <Compile Include="Data\ModelValidator.cs" />
+    <Compile Include="Data\ObjectExtension.cs" />
     <Compile Include="Data\ObjectMapper.cs" />
     <Compile Include="Data\PagingFilter.cs" />
     <Compile Include="Data\PagingCount.cs" />

@@ -1,6 +1,5 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
-using GlobalSolusindo.Identity;
 using Kairos.UI;
 using System.Collections.Generic;
 

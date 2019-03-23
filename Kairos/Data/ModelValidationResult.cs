@@ -14,23 +14,30 @@ namespace Kairos.Data
         [JsonProperty("message")]
         public string Message { get; set; }
 
+        [JsonProperty("attemptedValue")]
+        public AttemptedValue AttemptedValue { get; set; }
+
         [JsonProperty("subErrors")]
         public List<IndexedValidationError> SubErrors { get; set; }
 
-        public ValidationError(string propertyName, string errorMessage)
+        public ValidationError(string propertyName, string errorMessage, AttemptedValue attemptedValue)
         {
             PropertyName = propertyName;
             Message = errorMessage;
+            AttemptedValue = attemptedValue;
             SubErrors = new List<IndexedValidationError>();
         }
     }
 
-    public class IndexedValidationError : ValidationError
+    public class IndexedValidationError
     {
         [JsonProperty("index")]
         public int Index { get; set; }
 
-        public IndexedValidationError(int index, string propertyName, string errorMessage) : base(propertyName, errorMessage)
+        [JsonProperty("errors")]
+        public List<ValidationError> Errors { get; set; } = new List<ValidationError>();
+
+        public IndexedValidationError(int index)
         {
             Index = index;
         }
@@ -63,5 +70,5 @@ namespace Kairos.Data
         {
             Errors = new List<ValidationError>();
         }
-    } 
+    }
 }

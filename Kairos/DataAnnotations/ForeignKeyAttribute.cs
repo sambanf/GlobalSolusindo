@@ -50,7 +50,7 @@ namespace Kairos.DataAnnotations
 
             if (!RecordIsExist(this.referencedTablePrimaryKeyName, fkValue.ToString()))
             {
-                var errorMessage = string.IsNullOrEmpty(this.ErrorMessage) ? $"Referenced value '{fkValue}' is invalid. Probably the record is no longer exist." : this.ErrorMessage;
+                var errorMessage = string.IsNullOrEmpty(this.ErrorMessage) ? $"Invalid fk value '{fkValue}'." : this.ErrorMessage;
                 return new ValidationResult(errorMessage, new List<string>() { validationContext.MemberName });
             }
             return ValidationResult.Success;

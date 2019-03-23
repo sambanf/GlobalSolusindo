@@ -10,8 +10,7 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class tblM_PMHistori
     {
         public int PMHistori_PK { get; set; }

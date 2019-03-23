@@ -53,11 +53,47 @@
             $('#submit').prop('disabled', false);
         };
 
+        function handleSubErrors(subErrors) {
+            var validClass = "form-control is-valid";
+            var invalidClass = "form-control is-invalid";
+            if (subErrors) {
+                var tables = document.getElementsByTagName('table');
+                for (var m = 0; m < tables.length; m++) {
+                    var table = tables[m];
+                    for (var j = 0; j < subErrors.length; j++) {
+                        var subError = subErrors[j];
+                        var rows = table.tBodies[0].rows;
+                        for (var k = 0; k < rows.length; k++) {
+                            var cells = rows[k].querySelectorAll('[name]');
+                            cells.forEach(function (cell) {
+                                var rowIndex = cell.parentElement.parentElement.sectionRowIndex;
+                                var elementName = cell.getAttribute('name');
+                                if (subError.index == rowIndex) {
+                                    subError.errors.forEach(function (subErrorItem) {
+                                        if (subErrorItem.propertyName.toLowerCase() == elementName.toLowerCase()) {
+                                            cell.className = cell.className.replace(validClass, invalidClass);
+                                            var childNodes = cell.parentElement.childNodes;
+                                            childNodes.forEach(function (cell) {
+                                                if (cell.className == 'invalid-feedback') {
+                                                    cell.innerHTML = subErrorItem.message;
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    }
+                }
+
+            }
+        }
+
         self.serverValidation = function (obj) {
             var controls = document.querySelectorAll('[name]');
 
             var errors = obj;
-            var subErrors = obj.subErrors;
+
 
             errors = (typeof (errors) == 'undefined' ? obj : errors);
             var validClass = "form-control is-valid";
@@ -87,6 +123,7 @@
                         }
                         //});
                     });
+                    handleSubErrors(error.subErrors);
                 }
             }
         };

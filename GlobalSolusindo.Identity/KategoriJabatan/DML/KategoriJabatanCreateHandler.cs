@@ -1,8 +1,7 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity.KategoriJabatan.EntryForm;
 using GlobalSolusindo.Identity.KategoriJabatan.Queries;
-using GlobalSolusindo.DataAccess;
-using GlobalSolusindo.Identity;
 using Kairos.Data;
 using System;
 

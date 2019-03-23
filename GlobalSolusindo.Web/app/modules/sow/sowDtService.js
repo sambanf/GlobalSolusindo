@@ -11,35 +11,38 @@
 
     angular
         .module('global-solusindo')
-        .factory('SOWDtService', SOW);
+        .factory('sowDtService', sow);
 
-    SOW.$inject = ['DatatableService'];
+    sow.$inject = ['DatatableService'];
 
-    function SOW(ds) {
+    function sow(ds) {
         var self = this;
+        var controller = {};
 
         self.init = function (ctrl) {
-            return ds.init("#SOW", "SOW/search", {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#sow", "sow/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
                 },
-                order: [1, "asc"],
+                order: [titleColumnIndex, "asc"],
                 columns: [{
                     "orderable": false,
-                    "data": "SOW_pk"
+                    "data": "sow_pk"
                 },
                 {
-                    "data": "SOW_code"
+                    "data": "sowName"
                 },
                 {
-                    "data": "created_date"
+                    "data": "btsName"
                 },
                 {
-                    "data": "catrgory"
+                    "data": "tglMulai"
                 },
                 {
-                    "data": "name"
+                    "data": "sowStatusTitle"
                 },
                 {
                     "orderable": false,
@@ -49,10 +52,20 @@
                             "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
                             "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
                     }
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='approve' rel='tooltip' title='Approval' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button>";
+                    }
                 }
                 ]
             });
-        }
+            controller.datatable = dt;
+            return dt;
+        };
+
         return self;
     }
 

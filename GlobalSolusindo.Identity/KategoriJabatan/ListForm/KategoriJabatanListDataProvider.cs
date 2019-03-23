@@ -1,6 +1,6 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Identity.KategoriJabatan.Queries;
 using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.KategoriJabatan.Queries;
 using Kairos.Data;
 
 namespace GlobalSolusindo.Identity.KategoriJabatan.ListForm

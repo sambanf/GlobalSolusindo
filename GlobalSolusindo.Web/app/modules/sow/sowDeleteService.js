@@ -11,16 +11,16 @@
 
     angular
         .module('global-solusindo')
-        .factory('SOWDeleteService', SOW);
+        .factory('sowDeleteService', sow);
 
-    SOW.$inject = ['HttpService', 'uiService'];
+    sow.$inject = ['HttpService', 'uiService'];
 
-    function SOW(http, ui) {
+    function sow(http, ui) {
         var self = this;
         var controller;
 
         function deleteRecords(ids) {
-            return http.delete('SOW', ids).then(function (response) {
+            return http.delete('sow', ids).then(function (response) {
                 var res = response;
                 if (res.success) {
                     controller.datatable.draw();
@@ -32,8 +32,8 @@
         }
 
         self.delete = function (data) {
-            var ids = [data.SOW_pk];
-            ui.alert.confirm("Are you sure want to delete SOW '" + data.title + "'?", function () {
+            var ids = [data.sow_pk];
+            ui.alert.confirm("Are you sure want to delete sow '" + data.title + "'?", function () {
                 return deleteRecords(ids);
             });
         };
@@ -43,7 +43,7 @@
 
             if (selectedRecords) {
                 for (var i = 0; i < selectedRecords.length; i++) {
-                    ids.push(selectedRecords[i].SOW_pk);
+                    ids.push(selectedRecords[i].sow_pk);
                 }
             }
 
@@ -56,7 +56,7 @@
             controller = ctrl;
 
             //Row delete button event
-            $('#SOW tbody').on('click', '#delete', function () {
+            $('#sow tbody').on('click', '#delete', function () {
                 var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
                 self.delete(selectedRecord);
             });

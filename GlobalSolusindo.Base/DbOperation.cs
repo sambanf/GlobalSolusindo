@@ -7,10 +7,21 @@ namespace GlobalSolusindo.Base
     {
         public GlobalSolusindoDb Db { get; private set; }
 
+        public DbOperation()
+        {
+            Db = new GlobalSolusindoDb();
+            Db.Configuration.LazyLoadingEnabled = false;
+        }
+
         public DbOperation(GlobalSolusindoDb db)
         {
             Db = db;
             Db.Configuration.LazyLoadingEnabled = false;
+        }
+
+        public int SaveChanges()
+        {
+            return Db.SaveChanges();
         }
 
         #region IDisposable Member
@@ -112,7 +123,7 @@ namespace GlobalSolusindo.Base
         public FactoryBase(GlobalSolusindoDb db, tblM_User user) : base(db)
         {
             this.User = user;
-        } 
+        }
     }
 
     public class BuilderBase : DbOperation

@@ -1,6 +1,316 @@
 angular.module('global-solusindo-app').run(['$templateCache', function($templateCache) {
   'use strict';
 
+  $templateCache.put('app/modules/area/area.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Area</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.areaEntry({ id: '0'})\">Tambah Area</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"area\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Title</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/areaEntry/areaEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Area</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Area Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
+    "\n" +
+    "                                    placeholder=\"Area Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div> \r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.areaList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/aset/aset.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Aset</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.asetEntry({ id: '0'})\">Tambah Aset</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"aset\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Kode Aset</th>\r" +
+    "\n" +
+    "                                        <th>Kategori</th>\r" +
+    "\n" +
+    "                                        <th>Nama Aset</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/asetEntry/asetEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Aset</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-4\">Kategory Asset :</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                                <select id=\"kategoriAset_fk\" name=\"kategoriAset_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"asetVm.model.kategoriAset_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in asetVm.formData.asetKategoris\" ng-value=\"x.asetKategori_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-4\">Asset ID:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"asetId\" name=\"asetId\" class=\"form-control\" ng-model=\"asetVm.model.asetId\" required />\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-4\">Nama Asset :</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"name\" name=\"name\" class=\"form-control\" ng-model=\"asetVm.model.name\" required />\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-4\">Gambar Asset :</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"filePhoto\" name=\"filePhoto\" class=\"form-control\" ng-model=\"asetVm.model.filePhoto\" />\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-4\">Deskripsi :</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                                <textarea id=\"description\" name=\"description\" class=\"form-control\" ng-model=\"asetVm.model.description\"></textarea>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.asetList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/asetKategori/asetKategori.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -47,6 +357,63 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                </thead>\r" +
     "\n" +
     "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/asetKategoriEntry/asetKategoriEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah AsetKategori</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Kategori Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
+    "\n" +
+    "                                    placeholder=\"Aset Kategori Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div> \r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.asetKategoriList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -374,6 +741,568 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/bts/bts.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List BTS</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.btsEntry({ id: '0'})\">Tambah BTS</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"bts\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>BTS Name</th>\r" +
+    "\n" +
+    "                                        <th>Provider</th>\r" +
+    "\n" +
+    "                                        <th>Technology</th>\r" +
+    "\n" +
+    "                                        <th>BTS Status</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/btsEntry/btsEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Data BTS</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Customer Site ID:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"customerSite\" name=\"customerSite\" class=\"form-control\" ng-model=\"vm.model.customerSite\" placeholder=\"Customer Site ID\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Tower ID:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"towerId\" name=\"towerId\" class=\"form-control\" ng-model=\"vm.model.towerId\" placeholder=\"Tower ID\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Cell ID:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"cellId\" name=\"cellId\" class=\"form-control\" ng-model=\"vm.model.cellId\" placeholder=\"Cell ID\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">BTS Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"name\" name=\"name\" class=\"form-control\" ng-model=\"vm.model.name\" placeholder=\"Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Tower Provider:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <select id=\"operator_fk\" name=\"operator_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.operator_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in vm.formData.operators\" ng-value=\"x.operator_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Longitude:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"longitude\" name=\"longitude\" class=\"form-control\" ng-model=\"vm.model.longitude\" placeholder=\"Longitude\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <label class=\"control-label col-md-1.5\">Latitude:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-3\">\r" +
+    "\n" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"latitude\" name=\"latitude\" ng-model=\"vm.model.latitude\" placeholder=\"Latitude\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">BTS Status:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <select id=\"statusBts_fk\" name=\"statusBts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.statusBts_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in vm.formData.btsStatuses\" ng-value=\"x.btsStatus_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Area:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <select id=\"area_fk\" name=\"area_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.area_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in vm.formData.areas\" ng-value=\"x.area_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Kota:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <select id=\"kota_fk\" name=\"kota_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.kota_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in vm.formData.kotas\" ng-value=\"x.kota_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Cabang:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <select id=\"cabang_fk\" name=\"cabang_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.cabang_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in vm.formData.cabangs\" ng-value=\"x.cabang_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Alamat:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <textarea class=\"form-control\" ng-model=\"vm.model.alamat\" name=\"alamat\" placeholder=\"Alamat\">\r" +
+    "\n" +
+    "                                        </textarea>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.btsList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/cabang/cabang.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Cabang</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.cabangEntry({ id: '0'})\">Tambah Cabang</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"cabang\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Title</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/cabangEntry/cabangEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Cabang</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Cabang:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
+    "\n" +
+    "                                    placeholder=\"Cabang Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div> \r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.cabangList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/costKategori/costKategori.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Cost Kategori</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.costKategoriEntry({ id: '0'})\">Tambah Cost Kategori</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"costKategori\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Title</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/costKategoriEntry/costKategoriEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Cost Kategori</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Cost Kategori Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
+    "\n" +
+    "                                    placeholder=\"Cost Kategori Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div> \r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.costKategoriList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/dashboard/dashboard.html',
     "<div class=\"container-fluid animated fadeIn\">\n" +
     "    <div class=\"row card-header\">\r" +
@@ -591,6 +1520,366 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\r" +
     "\n" +
     "    </div>\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/deliveryArea/deliveryArea.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Delivery Area</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.deliveryAreaEntry({ id: '0'})\">Tambah Delivery Area</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"deliveryArea\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Title</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/deliveryAreaEntry/deliveryAreaEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Delivery Area</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Delivery Area Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
+    "\n" +
+    "                                    placeholder=\"Delivery Area Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div> \r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.deliveryAreaList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/kategoriJabatan/kategoriJabatan.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Kategori Jabatan</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.kategoriJabatanEntry({ id: '0'})\">Tambah Kategori Jabatan</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"kategoriJabatan\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Title</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/kategoriJabatanEntry/kategoriJabatanEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Kategori Jabatan</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Kategori Jabatan:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
+    "\n" +
+    "                                    placeholder=\"Kategori Jabatan\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div> \r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.kategoriJabatanList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/kota/kota.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Kota</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.kotaEntry({ id: '0'})\">Tambah Kota</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"kota\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Title</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/kotaEntry/kotaEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Kota</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Kota:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
+    "\n" +
+    "                                    placeholder=\"Kota Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div> \r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.kotaList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
     "</div>"
   );
 
@@ -837,13 +2126,15 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <li class=\"nav-item\">\r" +
     "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.positionList\">\r" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.kategoriJabatanList\">\r" +
     "\n" +
-    "                            <i class=\"fas fa-circle\"></i> <span>Position</span>\r" +
+    "                            <i class=\"fas fa-circle\"></i> <span>Kategori Jabatan</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
     "                    </li>\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                </ul>\r" +
     "\n" +
@@ -861,7 +2152,27 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <li class=\"nav-item\">\r" +
     "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.assetList\">\r" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.btsList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>BTS</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.projectList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Project</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.asetList\">\r" +
     "\n" +
     "                            <i class=\"fa fa-train\"></i> <span>Asset</span>\r" +
     "\n" +
@@ -883,9 +2194,91 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            </li>\r" +
     "\n" +
-    "\r" +
+    "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
     "\n" +
-    "                <!--\r" +
+    "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
+    "\n" +
+    "                    <i class=\"fa fa-luggage-cart\"></i> <span>Complementary</span>\r" +
+    "\n" +
+    "                </a>\r" +
+    "\n" +
+    "                <ul class=\"nav-dropdown-items\">\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.operatorList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Operator/Tower Provider</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.costKategoriList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Cost Kategori</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.areaList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Area</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.deliveryAreaList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Delivery Area</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.kotaList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-user\"></i> <span>Kota</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.cabangList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-user\"></i> <span>Cabang</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.asetKategoriList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Aset Kategori</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                </ul>\r" +
+    "\n" +
+    "            </li>\r" +
+    "\n" +
+    "            <!--\r" +
     "\n" +
     "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
     "\n" +
@@ -1346,7 +2739,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                    <div class=\"card-title\">Mapping User To Auth Param</div>\n" +
     "                    <div class=\"col-md-8\">\n" +
     "                        <div class=\"row form-group\">\n" +
-    "                            <label class=\"control-label col-sm-3\">Mapping User To Auth Param Name:</label>\n" +
+    "                            <label class=\"control-label col-sm-3\">Auth Param Name:</label>\n" +
     "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\n" +
     "                                {{vm.model.title}}\n" +
     "                            </label>\n" +
@@ -1383,9 +2776,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                <thead>\n" +
     "                                    <tr>\r" +
     "\n" +
-    "                                        <th hidden>Auth Param PK</th>\r" +
+    "                                        <th>Auth Param PK</th>\r" +
     "\n" +
-    "                                        <th hidden>User PK</th>\r" +
+    "                                        <th>User PK</th>\r" +
     "\n" +
     "                                        <th>User Id</th>\r" +
     "\n" +
@@ -1507,54 +2900,97 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/mappingUserToRoleGroupEntry/mappingUserToRoleGroupEntry.html',
-    "<div class=\"animated fadeIn\">\n" +
-    "    <form class=\"form-horizontal\">\n" +
-    "        <div class=\"row\">\n" +
-    "            <div class=\"col-md-12\">\n" +
-    "                <div class=\"card\">\n" +
-    "                    <div class=\"card-title\">Mapping User To Role Group</div>\n" +
-    "                    <div class=\"col-md-8\">\n" +
-    "                        <div class=\"row form-group\">\n" +
-    "                            <label class=\"control-label col-sm-3\">Mapping User To Role Group Name:</label>\n" +
-    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\n" +
-    "                                {{vm.model.title}}\n" +
-    "                            </label>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"row\">\n" +
-    "                            <label class=\"control-label col-sm-3\">Description:</label>\n" +
-    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\n" +
-    "                                {{vm.model.description}}\n" +
-    "                            </label>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"row\">\n" +
-    "                            <div class=\"col-md-12\">\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingUserToRoleGroupList\">Kembali</button> \n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div class=\"row\">\n" +
-    "            <div class=\"col-md-12\">\n" +
-    "                <div class=\"card\">\n" +
-    "                    <div class=\"card-title\">List Mapping User To Role Group</div>\n" +
-    "                    <div class=\"row\"> \n" +
-    "                        <div class=\"col-md-12\">\n" +
-    "                            <button user-modal on-callback=\"vm.userModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\n" +
-    "                                Add New User\n" +
-    "                            </button>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"row\">\n" +
-    "                        <div class=\"col-md-12\">\n" +
-    "                            <table id=\"mappingUserToRoleGroup\">\n" +
-    "                                <thead>\n" +
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Mapping User To Role Group</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-3\">Role Group Name:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\r" +
+    "\n" +
+    "                                {{vm.model.title}}\r" +
+    "\n" +
+    "                            </label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-3\">Description:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\r" +
+    "\n" +
+    "                                {{vm.model.description}}\r" +
+    "\n" +
+    "                            </label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingUserToRoleGroupList\">Kembali</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Mapping User To Role Group</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <button user-modal on-callback=\"vm.userModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\r" +
+    "\n" +
+    "                                Add New User\r" +
+    "\n" +
+    "                            </button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"mappingUserToRoleGroup\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
     "                                    <tr>\r" +
     "\n" +
-    "                                        <th hidden>RoleGroup PK</th>\r" +
+    "                                        <th>RoleGroup PK</th>\r" +
     "\n" +
-    "                                        <th hidden>User PK</th>\r" +
+    "                                        <th>User PK</th>\r" +
     "\n" +
     "                                        <th>User Id</th>\r" +
     "\n" +
@@ -1562,19 +2998,28 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Name</th>\r" +
     "\n" +
-    "                                        <th>Position</th>\r" +
+    "                                        <th>Kategori Jabatan</th>\r" +
     "\n" +
     "                                        <th></th>\r" +
     "\n" +
-    "                                    </tr>\n" +
-    "                                </thead>\n" +
-    "                            </table>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </form>\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
     "</div>"
   );
 
@@ -1622,7 +3067,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
-  $templateCache.put('app/modules/position/position.html',
+  $templateCache.put('app/modules/operator/operator.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
     "    <form class=\"form-horizontal\">\r" +
@@ -1633,17 +3078,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <div class=\"card\">\r" +
     "\n" +
-    "                    <div class=\"card-title\">List Position</div>\r" +
+    "                    <div class=\"card-title\">List Operator</div>\r" +
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
     "                        <div class=\"form-group col-md-12\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.positionEntry({ id: '0'})\">Tambah Position</button>\r" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.operatorEntry({ id: '0'})\">Tambah Operator</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
-    "                        </div> \r" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -1651,7 +3096,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-md-12\">\r" +
     "\n" +
-    "                            <table id=\"position\">\r" +
+    "                            <table id=\"operator\">\r" +
     "\n" +
     "                                <thead>\r" +
     "\n" +
@@ -1659,9 +3104,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>No</th>\r" +
     "\n" +
-    "                                        <th>Name</th>\r" +
-    "\n" +
-    "                                        <th>Description</th>\r" +
+    "                                        <th>Operator Name</th>\r" +
     "\n" +
     "                                        <th></th>\r" +
     "\n" +
@@ -1687,7 +3130,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
-  $templateCache.put('app/modules/positionEntry/positionEntry.html',
+  $templateCache.put('app/modules/operatorEntry/operatorEntry.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
     "    <form class=\"form-horizontal\">\r" +
@@ -1698,19 +3141,143 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <div class=\"card\">\r" +
     "\n" +
-    "                    <div class=\"card-title\">Tambah Position</div>\r" +
+    "                    <div class=\"card-title\">Tambah Operator</div>\r" +
     "\n" +
     "                    <div class=\"col-md-8\">\r" +
     "\n" +
     "                        <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Position Name:</label>\r" +
+    "                            <label class=\"control-label col-sm-2\">Operator Name:</label>\r" +
     "\n" +
     "                            <div class=\"col-sm-10\">\r" +
     "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"name\" name=\"title\" ng-model=\"vm.model.name\"\r" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
     "\n" +
-    "                                       placeholder=\"Position Name\">\r" +
+    "                                    placeholder=\"Operator Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div> \r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.operatorList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/project/project.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Project</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.projectEntry({ id: '0'})\">Tambah Project</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"project\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Project Name</th>\r" +
+    "\n" +
+    "                                        <th>Operator</th>\r" +
+    "\n" +
+    "                                        <th>Delivery Area</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/projectEntry/projectEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Project</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Project Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
+    "\n" +
+    "                                       placeholder=\"Project Name\">\r" +
     "\n" +
     "                                <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -1720,13 +3287,33 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Description:</label>\r" +
+    "                            <label class=\"control-label col-sm-2\">Operator:</label>\r" +
     "\n" +
-    "                            <div class=\"col-sm-10\">\r" +
+    "                            <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                <textarea class=\"form-control\" ng-model=\"vm.model.description\" name=\"description\" placeholder=\"Description\">\r" +
+    "                                <select id=\"operator_fk\" name=\"operator_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.operator_fk\" required>\r" +
     "\n" +
-    "                                        </textarea>\r" +
+    "                                    <option ng-repeat=\"x in vm.formData.operators\" ng-value=\"x.operator_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Delivery Area:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <select id=\"deliveryArea_fk\" name=\"deliveryArea_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.deliveryArea_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in vm.formData.deliveryAreas\" ng-value=\"x.deliveryArea_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
     "\n" +
     "                                <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -1738,13 +3325,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.positionList\">Kembali</button>\r" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.projectList\">Kembali</button>\r" +
     "\n" +
-    "                                <button id=\"saveButton\" class=\"btn btn-success float-right\">\r" +
-    "\n" +
-    "                                    Tambah\r" +
-    "\n" +
-    "                                </button>\r" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -2044,6 +3627,290 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/sow/sow.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List SOW</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.sowEntry({ id: '0'})\">Add Task</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"sow\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>SOW</th>\r" +
+    "\n" +
+    "                                        <th>BTS</th>\r" +
+    "\n" +
+    "                                        <th>Tanggal</th>\r" +
+    "\n" +
+    "                                        <th>Status</th>\r" +
+    "\n" +
+    "                                        <th>Action</th>\r" +
+    "\n" +
+    "                                        <th>Approval</th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/sowEntry/sowEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah SOW</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">SOW Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"sowName\" name=\"sowName\" class=\"form-control\" ng-model=\"vm.model.sowName\" placeholder=\"SOW Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Project:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <select id=\"project_fk\" name=\"project_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.project_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in vm.formData.projects\" ng-value=\"x.project_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">BTS:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <select id=\"bts_fk\" name=\"bts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.bts_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in vm.formData.btses\" ng-value=\"x.bts_pk\">{{x.name}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Tanggal :</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"tglMulai\" name=\"tglMulai\" ng-model=\"vm.model.tglMulai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" required />\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <fieldset>\r" +
+    "\n" +
+    "                                <legend>Assign</legend>\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <table id=\"sowAssign\">\r" +
+    "\n" +
+    "                                        <thead>\r" +
+    "\n" +
+    "                                            <tr>\r" +
+    "\n" +
+    "                                                <th hidden>SOWAssign_PK</th>\r" +
+    "\n" +
+    "                                                <th hidden>SOW FK</th>\r" +
+    "\n" +
+    "                                                <th hidden>Jabatan FK</th>\r" +
+    "\n" +
+    "                                                <th>Jabatan Title</th>\r" +
+    "\n" +
+    "                                                <th>User</th>\r" +
+    "\n" +
+    "                                                <!--<th>Tgl Mulai</th>\r" +
+    "\n" +
+    "                                                <th>Tgl Selesai</th>-->\r" +
+    "\n" +
+    "                                            </tr>\r" +
+    "\n" +
+    "                                        </thead>\r" +
+    "\n" +
+    "                                        <tbody>\r" +
+    "\n" +
+    "                                            <tr ng-repeat=\"sowAssign in vm.model.sowAssigns\">\r" +
+    "\n" +
+    "                                                <td class=\"text-center\" hidden>\r" +
+    "\n" +
+    "                                                    <input type=\"text\" id=\"sowAssign_pk\" name=\"sowAssign_pk\" ng-model=\"sowAssign.sowAssign_pk\" disabled />\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                                <td class=\"text-center\" hidden>\r" +
+    "\n" +
+    "                                                    <input type=\"text\" id=\"sow_fk\" name=\"sow_fk\" ng-model=\"sowAssign.sow_fk\" disabled />\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                                <td class=\"text-left\" hidden>\r" +
+    "\n" +
+    "                                                    <input type=\"text\" id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatan_fk\" disabled />\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                                <td class=\"text-left\">\r" +
+    "\n" +
+    "                                                    <input type=\"text\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatanTitle\" disabled />\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                                <td class=\"text-right\" style=\"width:200px;\">\r" +
+    "\n" +
+    "                                                    <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"sowAssign.user_fk\" required>\r" +
+    "\n" +
+    "                                                        <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                                    </select>\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                                <!--<td class=\"text-right\">\r" +
+    "\n" +
+    "                                                    <input type=\"text\" id=\"tglMulai\" name=\"tglMulai\" ng-model=\"vm.model.tglMulai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" required />\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                                <td class=\"text-right\">\r" +
+    "\n" +
+    "                                                    <input type=\"text\" id=\"tglSelesai\" name=\"tglSelesai\" ng-model=\"vm.model.tglSelesai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" required />\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>-->\r" +
+    "\n" +
+    "                                            </tr>\r" +
+    "\n" +
+    "                                        </tbody>\r" +
+    "\n" +
+    "                                    </table>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </fieldset>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.sowList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/user/user.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -2085,9 +3952,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Name</th>\r" +
     "\n" +
-    "                                        <!--<th>Position</th>\r" +
+    "                                        <th>Position</th>\r" +
     "\n" +
-    "                                        <th>Role</th>-->\r" +
+    "                                        <th>Role</th>\r" +
     "\n" +
     "                                        <th>Phone Number</th>\r" +
     "\n" +
@@ -2168,9 +4035,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                <select id=\"position_fk\" name=\"position_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.position_fk\" required>\r" +
+    "                                <select id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.kategoriJabatan_fk\" required>\r" +
     "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.positions\" ng-value=\"x.position_pk\">{{x.name}}</option>\r" +
+    "                                    <option ng-repeat=\"x in vm.formData.kategoriJabatans\" ng-value=\"x.kategoriJabatan_pk\">{{x.title}}</option>\r" +
     "\n" +
     "                                </select>\r" +
     "\n" +

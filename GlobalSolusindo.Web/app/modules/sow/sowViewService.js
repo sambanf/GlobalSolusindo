@@ -11,33 +11,33 @@
 
     angular
         .module('global-solusindo')
-        .factory('SOWViewService', SOWView);
+        .factory('sowViewService', sowView);
 
-    SOWView.$inject = ['HttpService', '$state', 'uiService'];
+    sowView.$inject = ['HttpService', '$state', 'uiService'];
 
-    function SOWView(http, $state, ui) {
+    function sowView(http, $state, ui) {
         var self = this;
         var controller;
 
         self.view = function (data) {
-            $state.go('app.sow-entry', {
+            $state.go('app.sowEntry', {
                 id: data
-            })
+            });
         };
 
         self.init = function (ctrl) {
             controller = ctrl;
-            $('#SOW tbody').on('click', '#view', function () {
+            $('#sow tbody').on('click', '#view', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
-                self.view(data.SOW_pk);
+                self.view(data.sow_pk);
             });
 
-            $("#SOW tbody").on("dblclick", "tr", function () {
+            $("#sow tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["SOW_pk"];
+                var id = data["sow_pk"];
                 self.view(id);
             });
-        }
+        };
 
         return self;
     }

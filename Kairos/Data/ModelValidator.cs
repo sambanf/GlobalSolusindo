@@ -1,9 +1,34 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Kairos.Data
 {
+    public class AttemptedValue
+    {
+        public AttemptedValue(object value)
+        {
+            Value = value;
+        }
+
+        [JsonProperty("value")]
+        public object Value { get; set; }
+
+        [JsonProperty("type")]
+        public string Type
+        {
+            get
+            {
+                if (Value != null)
+                {
+                    return Value.GetType().FullName;
+                }
+                return "null";
+            }
+        }
+    }
+
     public class ModelValidator
     {
         public ModelValidationResult ValidationResult { get; private set; }
@@ -13,7 +38,7 @@ namespace Kairos.Data
             this.ValidationResult = new ModelValidationResult();
         }
 
-        private List<ValidationError> GetErrors(object model)
+        private List<ValidationError> GetErrors(object model, params string[] ignores)
         {
             List<ValidationError> validationErrors = new List<ValidationError>();
             var validationContext = new ValidationContext(model);
@@ -22,17 +47,32 @@ namespace Kairos.Data
 
             foreach (var validationResult in validationResults)
             {
+                var skipByIgnore = false;
+                foreach (var ignore in ignores)
+                {
+                    if (validationResult.MemberNames.First() == ignore)
+                    {
+                        skipByIgnore = true;
+                        break;
+                    }
+                }
+
                 var skip = false;
                 foreach (var error in validationErrors)
                 {
-                    if (error.PropertyName == validationResult.MemberNames.First())
+                    var errorIsExist = error.PropertyName == validationResult.MemberNames.First();
+                    if (errorIsExist)
                     {
                         skip = true;
                         break;
                     }
+
                 }
-                if (!skip)
-                    validationErrors.Add(new ValidationError(validationResult.MemberNames.First(), validationResult.ErrorMessage));
+                if (!skip && !skipByIgnore)
+                {
+                    var value = validationContext.ObjectInstance.GetValueByPropertyName(validationResult.MemberNames.First());
+                    validationErrors.Add(new ValidationError(validationResult.MemberNames.First(), validationResult.ErrorMessage, new AttemptedValue(value)));
+                }
             }
 
             return validationErrors;
@@ -42,9 +82,9 @@ namespace Kairos.Data
         /// Validate single model
         /// </summary>
         /// <param name="model"></param>
-        public void Validate(object model)
+        public void Validate(object model, params string[] ignores)
         {
-            var fieldErrors = GetErrors(model);
+            var fieldErrors = GetErrors(model, ignores);
             if (fieldErrors.Count > 0)
             {
                 ValidationResult.Errors = fieldErrors;
@@ -57,35 +97,47 @@ namespace Kairos.Data
         /// <typeparam name="T"></typeparam>
         /// <param name="listOfObject"></param>
         /// <param name="propertyName"></param>
-        public void ValidateForEach<T>(List<T> listOfObject, string propertyName)
+        public void ValidateForEach<T>(List<T> listOfObject, string propertyName, params string[] ignores)
         {
+            AddErrorToValidationResultIfThereIsNone(propertyName, listOfObject);
             if (listOfObject == null) return;
 
             var index = 0;
 
             foreach (var obj in listOfObject)
             {
-                var validationErrors = GetErrors(obj);
+                var validationErrors = GetErrors(obj, ignores);
 
                 if (validationErrors.Count > 0)
                 {
-                    //AddErrorToValidationResultIfThereIsNone(propertyName);
-
                     foreach (var error in ValidationResult.Errors)
                     {
                         if (error.PropertyName == propertyName)
-                            error.SubErrors.Add(new IndexedValidationError(index, error.PropertyName, error.Message));
+                        {
+                            var errors = new List<ValidationError>();
+                            foreach (var item in validationErrors)
+                            {
+                                errors.Add(item);
+                            }
+                            if (errors.Count > 0)
+                            {
+                                error.SubErrors.Add(new IndexedValidationError(index)
+                                {
+                                    Errors = errors
+                                });
+                            }
+                        }
                     }
                 }
                 index += 1;
             }
         }
 
-        private void AddErrorToValidationResultIfThereIsNone(string propertyName)
+        private void AddErrorToValidationResultIfThereIsNone(string propertyName, object value)
         {
             if (ValidationResult.Errors.Count == 0)
             {
-                ValidationResult.Errors.Add(new ValidationError(propertyName, "Please correct sub errors."));
+                ValidationResult.Errors.Add(new ValidationError(propertyName, "Please correct sub errors.", new AttemptedValue(value)));
                 return;
             }
 
@@ -100,7 +152,7 @@ namespace Kairos.Data
             }
 
             if (!errorIsExist)
-                ValidationResult.Errors.Add(new ValidationError(propertyName, "Please correct sub errors."));
+                ValidationResult.Errors.Add(new ValidationError(propertyName, "Please correct sub errors.", new AttemptedValue(value)));
         }
     }
 }

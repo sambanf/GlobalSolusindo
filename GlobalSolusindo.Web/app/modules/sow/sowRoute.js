@@ -5,10 +5,10 @@ angular.module('global-solusindo')
 
         $stateProvider
             .state('app.sowList', {
-                url: '/sow-list',
+                url: '/sowList',
                 templateUrl: 'app/modules/sow/sow.html',
                 controller: 'SOWCtrl',
-                controllerAs: 'vm',
+                controllerAs: 'brc',
                 ncyBreadcrumb: {
                     label: 'SOW'
                 }

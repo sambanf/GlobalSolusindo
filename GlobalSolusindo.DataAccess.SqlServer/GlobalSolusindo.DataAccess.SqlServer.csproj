@@ -159,6 +159,9 @@
     <Compile Include="tblT_SOWAssign.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblT_SOWStatus.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblT_SOWTrack.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
