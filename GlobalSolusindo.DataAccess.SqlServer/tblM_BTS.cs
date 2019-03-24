@@ -10,7 +10,8 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class tblM_BTS
     {
         public int BTS_PK { get; set; }

@@ -1,5 +1,4 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.Cost.Queries;
 using GlobalSolusindo.Business.CostKategori.Queries;
 using GlobalSolusindo.Business.SOW.Queries;
 using Kairos.DataAnnotations;
@@ -29,6 +28,15 @@ namespace GlobalSolusindo.Business.Cost
 
         [JsonProperty("sowName")]
         public string SOWName { get; set; }
+
+        [Required]
+        [Range(1, 1000000000)]
+        [JsonProperty("nominal")]
+        public double Nominal { get; set; }
+
+        [Required]
+        [JsonProperty("deskripsi")]
+        public string Deskripsi { get; set; }
 
         [Required]
         [JsonProperty("tanggal")]

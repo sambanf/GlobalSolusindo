@@ -10,7 +10,8 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class tblT_SOWAssign
     {
         public int SOWAssign_PK { get; set; }

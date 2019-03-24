@@ -962,7 +962,7 @@ angular.module('global-solusindo')
                 controller: 'SOWInfoCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'SOW Entry'
+                    label: 'SOW Detail'
                 }
             });
     }]);
@@ -2493,6 +2493,69 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
+     * @name app.controller:costEntryModal
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('costEntryModalCtrl', costEntryModalCtrl);
+
+    costEntryModalCtrl.$inject = ['$scope', '$uibModalInstance', 'costEntryModalBindingService', '$stateParams', 'costEntryModalSaveService', 'costEntryModalCancelService', 'select2Service','cost_pk'];
+
+    /*
+     * recommend
+     * Using function declarations
+     * and bindable members up top.
+     */
+    function costEntryModalCtrl($scope, $uibModalInstance, bindingService, sParam, saveService, cancelService, select2Service, cost_pk) {
+        var self = this;
+        self.stateParam = sParam;
+        self.model = {};
+        self.model.cost_pk = cost_pk;
+        self.model.sow_fk = sParam.id; 
+        self.modalInstance = $uibModalInstance;
+
+        self.formData = {};
+        self.formData.costKategoris = [{
+            costKategori_pk: "1",
+            title: ""
+        }];
+ 
+        bindingService.init(self).then(function (res) {
+            saveService.init(self);
+            cancelService.init(self);
+            
+            angular.element(document).ready(function () {
+                select2Service.liveSearch("costKategori/search", {
+                    selector: '#kategoriCost_fk',
+                    valueMember: 'costKategori_pk',
+                    displayMember: 'title',
+                    callback: function (data) {
+                        self.formData.costKategoris = data;
+                    },
+                    onSelected: function (data) {
+                        self.model.kategoriCost_fk = data.costKategori_pk;
+                    }
+                });
+            });
+
+        });
+
+        $scope.$on('ui.layout.resize', function (e, beforeContainer, afterContainer) {
+            ctrl.datatable.columns.adjust();
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
      * @name app.controller:userEntryCtrl
      * @description
      * # dashboardCtrl
@@ -2503,13 +2566,16 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('SOWInfoCtrl', SOWInfoCtrl);
 
-    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService'];
+    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService', 'costDtService', 'costShowModalService', 'costDeleteService'];
 
-    function SOWInfoCtrl($scope, sParam, $state, bindingService, http) {
+    function SOWInfoCtrl($scope, sParam, $state, bindingService, http, costDtService, costShowModalService, costDeleteService) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
+            costDtService.init(self);
+            costShowModalService.init(self);
+            costDeleteService.init(self);
         });
 
         return self;
@@ -9629,6 +9695,319 @@ angular.module('global-solusindo')
                 getProjects();
                 getBTSs();
                 //controller.getUsers = getUsers;
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('costDeleteService', costDeleteService);
+
+    costDeleteService.$inject = ['HttpService', 'uiService'];
+
+    function costDeleteService(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('cost', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.cost_pk];
+            ui.alert.confirm("Are you sure want to delete cost '" + data.kategoriCostTitle + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+ 
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#cost tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            }); 
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('costDtService', costDtService);
+
+    costDtService.$inject = ['DatatableService'];
+
+    function costDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#cost", "cost/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    sow_fk: controller.stateParam.id
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "cost_pk"
+                },
+                {
+                    "data": "kategoriCostTitle"
+                },
+                {
+                    "data": "nominal"
+                },
+                {
+                    "data": "deskripsi"
+                },
+                {
+                    "data": "tanggal"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('costEntryModalBindingService', costEntryModalBindingService);
+
+    costEntryModalBindingService.$inject = ['HttpService', '$state'];
+
+    function costEntryModalBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('cost/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.model.cost_pk;
+          
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    if (res.success) {
+                        controller.formData = res.data.formData;
+                        controller.model = res.data.model;
+                        controller.formControls = res.data.formControls; 
+
+                        controller.model.sow_fk = controller.stateParam.id;
+                    }
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('costEntryModalCancelService', costEntryModalCancelService);
+
+    costEntryModalCancelService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function costEntryModalCancelService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#cancelButton').on('click', function () {
+                controller.modalInstance.close();
+            });
+        };
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('costEntryModalSaveService', costEntryModalSaveService);
+
+    costEntryModalSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function costEntryModalSaveService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('cost', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    controller.modalInstance.close();
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('cost', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.cost_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('costShowModalService', costShowModalService);
+
+    costShowModalService.$inject = ['$state', 'HttpService', 'uiService', 'validationService', '$uibModal'];
+
+    function costShowModalService($state, http, ui, validation, $uibModal) {
+        var self = this;
+        var controller;
+
+        function openModal(cost_pk) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'app/modules/sowInfo/costEntryModal/costEntryModal.html',
+                controller: 'costEntryModalCtrl',
+                controllerAs: 'vm',
+                windowTopClass: 'modal-list-user',
+                resolve: {
+                    cost_pk: function () {
+                        return cost_pk;
+                    }
+                }
+            });
+            return modalInstance;
+        }
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#addCost').on('click', function () { 
+                openModal(0);
+            });
+
+            //Row delete button event
+            $('#cost tbody').on('click', '#view', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                openModal(selectedRecord.cost_pk);
             });
         };
 

@@ -1,12 +1,15 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
 using Kairos.Data;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.Cost.Queries
 {
     public class CostSearchFilter : SearchFilter
-    {
+    { 
+        [JsonProperty("sow_fk")] 
+        public int SOW_FK { get; set; }
     }
 
     public class CostSearch : QueryBase
@@ -24,7 +27,15 @@ namespace GlobalSolusindo.Business.Cost.Queries
             var filteredRecords =
                 costQuery.GetQuery()
                 .Where(cost =>
-                    cost.KategoriCostTitle.Contains(filter.Keyword));
+                    cost.KategoriCostTitle.Contains(filter.Keyword)
+                    || cost.Deskripsi.Contains(filter.Keyword)
+                    || cost.Nominal.ToString().Contains(filter.Keyword)
+                    );
+
+            if (filter.SOW_FK > 0)
+            {
+                filteredRecords = filteredRecords.Where(cost => cost.SOW_FK == filter.SOW_FK);
+            }
 
             var displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)

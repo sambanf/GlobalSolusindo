@@ -10,7 +10,8 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class sysdiagram
     {
         public string name { get; set; }

@@ -27,12 +27,22 @@ namespace GlobalSolusindo.Business.Cost.Queries
         public IQueryable<CostDTO> GetQuery()
         {
             var query = from cost in Db.tblT_Cost
+                        join costCategory in Db.tblM_CostKategori on cost.KategoriCost_FK equals costCategory.CostKategori_PK into costCategoryTemp
+                        from costCategory in costCategoryTemp.DefaultIfEmpty()
+                        join sow in Db.tblT_SOW on cost.SOW_FK equals sow.SOW_PK into sowTemp
+                        from sow in sowTemp.DefaultIfEmpty()
                         where
                         cost.Status_FK != deleted
                         select new CostDTO
                         {
-                            Cost_PK = cost.Cost_PK, 
-
+                            Cost_PK = cost.Cost_PK,
+                            KategoriCost_FK = cost.KategoriCost_FK.Value,
+                            KategoriCostTitle = costCategory.Title,
+                            SOW_FK = cost.SOW_FK.Value,
+                            SOWName = sow.SOWName,
+                            Tanggal = cost.Tanggal.Value,
+                            Nominal = cost.Nominal,
+                            Deskripsi = cost.Deskripsi,
                             CreatedBy = cost.CreatedBy,
                             CreatedDate = cost.CreatedDate,
                             UpdatedBy = cost.UpdatedBy,

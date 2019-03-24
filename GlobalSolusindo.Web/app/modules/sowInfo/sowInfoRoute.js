@@ -18,7 +18,7 @@ angular.module('global-solusindo')
                 controller: 'SOWInfoCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'SOW Entry'
+                    label: 'SOW Detail'
                 }
             });
     }]);

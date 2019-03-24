@@ -114,6 +114,14 @@
     <Content Include="app\assets\webfonts\fa-brands-400.svg" />
     <Content Include="app\assets\webfonts\fa-regular-400.svg" />
     <Content Include="app\assets\webfonts\fa-solid-900.svg" />
+    <Content Include="app\modules\sowInfo\costDtService.js" />
+    <Content Include="app\modules\sowInfo\costShowModalService.js" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModal.html" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModalBindingService.js" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModalCancelService.js" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModalCtrl.js" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModalSaveService.js" />
+    <Content Include="app\modules\sowInfo\costDeleteService.js" />
     <Content Include="app\modules\sowInfo\sowInfoBindingService.js" />
     <Content Include="app\modules\sowInfo\sowInfo.html" />
     <Content Include="app\modules\sowInfo\sowInfoCtrl.js" />

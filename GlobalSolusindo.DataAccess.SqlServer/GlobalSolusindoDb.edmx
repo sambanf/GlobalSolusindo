@@ -371,6 +371,8 @@
           <Property Name="Cost_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="KategoriCost_FK" Type="int" />
           <Property Name="SOW_FK" Type="int" />
+          <Property Name="Nominal" Type="float" Nullable="false" />
+          <Property Name="Deskripsi" Type="nvarchar" MaxLength="250" />
           <Property Name="Tanggal" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -1320,6 +1322,8 @@
           <Property Name="Cost_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KategoriCost_FK" Type="Int32" />
           <Property Name="SOW_FK" Type="Int32" />
+          <Property Name="Nominal" Type="Double" Nullable="false" />
+          <Property Name="Deskripsi" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Tanggal" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -2048,6 +2052,8 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Tanggal" ColumnName="Tanggal" />
+                <ScalarProperty Name="Deskripsi" ColumnName="Deskripsi" />
+                <ScalarProperty Name="Nominal" ColumnName="Nominal" />
                 <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
                 <ScalarProperty Name="KategoriCost_FK" ColumnName="KategoriCost_FK" />
                 <ScalarProperty Name="Cost_PK" ColumnName="Cost_PK" />

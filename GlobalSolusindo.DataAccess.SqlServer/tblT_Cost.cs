@@ -10,12 +10,15 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class tblT_Cost
     {
         public int Cost_PK { get; set; }
         public Nullable<int> KategoriCost_FK { get; set; }
         public Nullable<int> SOW_FK { get; set; }
+        public double Nominal { get; set; }
+        public string Deskripsi { get; set; }
         public Nullable<System.DateTime> Tanggal { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
