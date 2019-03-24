@@ -944,6 +944,30 @@ angular.module('global-solusindo')
     }]);
 'use strict';
 
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.sowInfo', {
+                url: '/sowInfo/:id',
+                templateUrl: 'app/modules/sowInfo/sowInfo.html',
+                controller: 'SOWInfoCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'SOW Entry'
+                }
+            });
+    }]);
+'use strict';
+
 angular.module('global-solusindo')
     .config(['$stateProvider', function ($stateProvider) {
 
@@ -2438,9 +2462,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('SOWEntryCtrl', SOWEntryCtrl);
 
-    SOWEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWSaveService', 'SOWBindingService', 'FormControlService', 'SOWSelect2Service'];
+    SOWEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWSaveService', 'SOWBindingService', 'FormControlService', 'SOWSelect2Service', 'HttpService'];
 
-    function SOWEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, SOWSelect2Service) {
+    function SOWEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, SOWSelect2Service, http) {
         var self = this;
         self.stateParam = sParam;
 
@@ -2448,6 +2472,44 @@ angular.module('global-solusindo')
             formControlService.setFormControl(self);
             saveService.init(self);
             SOWSelect2Service.init(self);
+
+            self.getUsers = function (jabatanFk, keyword) {
+                http.get('user/search', {
+                    pageIndex: 1,
+                    pageSize: 5,
+                    keyword: keyword,
+                    kategoriJabatan_fk: jabatanFk
+                }).then(function (response) {
+                    self.formData.users = response.data.records;
+                });
+            };
+        });
+         
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('SOWInfoCtrl', SOWInfoCtrl);
+
+    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService'];
+
+    function SOWInfoCtrl($scope, sParam, $state, bindingService, http) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
         });
 
         return self;
@@ -7776,7 +7838,7 @@ angular.module('global-solusindo')
                     controller.formData.operators = data;
                 },
                 onSelected: function (data) {
-                    //controller.model.operator_fk = data.operator_pk;
+                    controller.model.operator_fk = data.operator_pk;
                 }
             });
         }
@@ -8819,6 +8881,13 @@ angular.module('global-solusindo')
 
     select2Service.$inject = ['HttpService'];
 
+    function exception(message) {
+        this.message = message;
+        this.toString = function () {
+            return this.message;
+        };
+    }
+
     function select2Service(http) {
         var self = this;
 
@@ -8862,14 +8931,14 @@ angular.module('global-solusindo')
                             success(response);
                         });
                     },
-                    processResults: function (response, params) { 
+                    processResults: function (response, params) {
                         params.page = params.page || 1;
 
                         if (param.onBeforeProcessResults) {
                             param.onBeforeProcessResults(response);
                         }
-                        var data = response.data.recorsds; 
-                    
+                        var data = response.data.records;
+
                         if (typeof (data) !== 'undefined') {
                             data.forEach(function (item) {
                                 for (var prop in item) {
@@ -8882,10 +8951,12 @@ angular.module('global-solusindo')
                                 }
                                 res.push(item);
                             });
+                          
+                            if (param.callback)
+                                param.callback(data);
 
-                            param.callback(data);
                             return {
-                                results: data
+                                results: data,
                                 //pagination: {
                                 //    more: (params.page * 5) < response.data.count.totalFiltered
                                 //}
@@ -8927,7 +8998,6 @@ angular.module('global-solusindo')
                 //    $(this).removeData('unselecting');
                 //    e.preventDefault();
                 //}
-                e.preventDefault();
                 if (param.onOpening) {
                     param.onOpening(e);
                 }
@@ -9097,7 +9167,7 @@ angular.module('global-solusindo')
                                 var rowIndex = cell.parentElement.parentElement.sectionRowIndex;
                                 var elementName = cell.getAttribute('name');
                                 if (subError.index == rowIndex) {
-                                    subError.errors.forEach(function (subErrorItem) {
+                                    subError.errors.forEach(function (subErrorItem) { 
                                         if (subErrorItem.propertyName.toLowerCase() == elementName.toLowerCase()) {
                                             cell.className = cell.className.replace(validClass, invalidClass);
                                             var childNodes = cell.parentElement.childNodes;
@@ -9136,9 +9206,11 @@ angular.module('global-solusindo')
                 for (var i = 0; i < errors.length; i++) {
                     var error = errors[i];
                     controls.forEach(function (item) {
-                        //$scope.$apply(function () {
-                        var fieldName = item.name;
-
+                        if (item.nodeName == 'META')
+                            return true;
+                        var fieldName = item.name; 
+                        if (fieldName == undefined)
+                            return true;
                         if (error.propertyName.toLowerCase() == fieldName.toLowerCase()) {
                             item.className = item.className.replace(validClass, invalidClass);
 
@@ -9148,8 +9220,7 @@ angular.module('global-solusindo')
                                     item.innerHTML = error.message;
                                 }
                             });
-                        }
-                        //});
+                        } 
                     });
                     handleSubErrors(error.subErrors);
                 }
@@ -9194,7 +9265,7 @@ angular.module('global-solusindo')
 
         self.delete = function (data) {
             var ids = [data.sow_pk];
-            ui.alert.confirm("Are you sure want to delete sow '" + data.title + "'?", function () {
+            ui.alert.confirm("Are you sure want to delete sow '" + data.sowName + "'?", function () {
                 return deleteRecords(ids);
             });
         };
@@ -9293,7 +9364,7 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                        return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
                             "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
                             "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
                     }
@@ -9302,7 +9373,7 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='approve' rel='tooltip' title='Approval' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button>";
+                        return "<button id='approve' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info'>Approval</button>";
                     }
                 }
                 ]
@@ -9342,11 +9413,22 @@ angular.module('global-solusindo')
             });
         };
 
+        self.info = function (data) {
+            $state.go('app.sowInfo', {
+                id: data
+            });
+        };
+
         self.init = function (ctrl) {
             controller = ctrl;
             $('#sow tbody').on('click', '#view', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
                 self.view(data.sow_pk);
+            });
+
+            $('#sow tbody').on('click', '#info', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.info(data.sow_pk);
             });
 
             $("#sow tbody").on("dblclick", "tr", function () {
@@ -9392,6 +9474,7 @@ angular.module('global-solusindo')
                 self.applyBinding(id).then(function (res) {
                     controller.formData = res.data.formData;
                     controller.model = res.data.model;
+                    controller.formData.users = [];
                     controller.formControls = res.data.formControls;
                     resolve(res);
                 });
@@ -9485,7 +9568,7 @@ angular.module('global-solusindo')
 
     function SOWSelect2Service($state, http, ui, select2Service) {
         var self = this;
-        var controller;
+        var controller = {};
 
         function getProjects() {
             select2Service.liveSearch("project/search", {
@@ -9515,26 +9598,79 @@ angular.module('global-solusindo')
             });
         }
 
-        function getUsers() {
-            select2Service.liveSearch("user/search", {
-                selector: '#user_fk',
-                valueMember: 'user_pk',
-                displayMember: 'name',
-                callback: function (data) {
-                    controller.formData.users = data;
-                },
-                onSelected: function (data) {
-                    controller.model.user_fk = data.user_pk;
-                }
+        //function getUsers() {
+        //    select2Service.liveSearch("user/search", {
+        //        selector: '#user_fk',
+        //        valueMember: 'user_pk',
+        //        displayMember: 'name',
+        //        callback: function (data) {
+        //            controller.formData.users = data;
+        //        },
+        //        onSelected: function (data) {
+        //            controller.model.user_fk = data.user_pk;
+        //        }
+        //    });
+        //}
+
+        function getUsers(jabatanFk, keyword) {
+            http.get('user/search', {
+                pageIndex: 1,
+                pageSize: 5,
+                keyword: keyword,
+                kategoriJabatan_fk: jabatanFk
+            }).then(function (response) {
+                controller.formData.users = response.data.records;
             });
-        }
+        };
 
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element(document).ready(function () {
                 getProjects();
                 getBTSs();
-                getUsers();
+                //controller.getUsers = getUsers;
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('SOWInfoBindingService', SOWInfoBindingService);
+
+    SOWInfoBindingService.$inject = ['HttpService', '$state'];
+
+    function SOWInfoBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('sow/info/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
             });
         };
 

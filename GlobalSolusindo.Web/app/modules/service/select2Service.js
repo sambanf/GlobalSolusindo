@@ -15,6 +15,13 @@
 
     select2Service.$inject = ['HttpService'];
 
+    function exception(message) {
+        this.message = message;
+        this.toString = function () {
+            return this.message;
+        };
+    }
+
     function select2Service(http) {
         var self = this;
 
@@ -78,8 +85,10 @@
                                 }
                                 res.push(item);
                             });
+                          
+                            if (param.callback)
+                                param.callback(data);
 
-                            param.callback(data);
                             return {
                                 results: data,
                                 //pagination: {

@@ -17,7 +17,7 @@
 
     function SOWSelect2Service($state, http, ui, select2Service) {
         var self = this;
-        var controller;
+        var controller = {};
 
         function getProjects() {
             select2Service.liveSearch("project/search", {
@@ -47,26 +47,37 @@
             });
         }
 
-        function getUsers() {
-            select2Service.liveSearch("user/search", {
-                selector: '#user_fk',
-                valueMember: 'user_pk',
-                displayMember: 'name',
-                callback: function (data) {
-                    controller.formData.users = data;
-                },
-                onSelected: function (data) {
-                    controller.model.user_fk = data.user_pk;
-                }
+        //function getUsers() {
+        //    select2Service.liveSearch("user/search", {
+        //        selector: '#user_fk',
+        //        valueMember: 'user_pk',
+        //        displayMember: 'name',
+        //        callback: function (data) {
+        //            controller.formData.users = data;
+        //        },
+        //        onSelected: function (data) {
+        //            controller.model.user_fk = data.user_pk;
+        //        }
+        //    });
+        //}
+
+        function getUsers(jabatanFk, keyword) {
+            http.get('user/search', {
+                pageIndex: 1,
+                pageSize: 5,
+                keyword: keyword,
+                kategoriJabatan_fk: jabatanFk
+            }).then(function (response) {
+                controller.formData.users = response.data.records;
             });
-        }
+        };
 
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element(document).ready(function () {
                 getProjects();
                 getBTSs();
-                getUsers();
+                //controller.getUsers = getUsers;
             });
         };
 

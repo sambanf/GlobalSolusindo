@@ -25,11 +25,22 @@
             });
         };
 
+        self.info = function (data) {
+            $state.go('app.sowInfo', {
+                id: data
+            });
+        };
+
         self.init = function (ctrl) {
             controller = ctrl;
             $('#sow tbody').on('click', '#view', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
                 self.view(data.sow_pk);
+            });
+
+            $('#sow tbody').on('click', '#info', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.info(data.sow_pk);
             });
 
             $("#sow tbody").on("dblclick", "tr", function () {

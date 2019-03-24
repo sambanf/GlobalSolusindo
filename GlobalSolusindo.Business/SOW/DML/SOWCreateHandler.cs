@@ -31,6 +31,7 @@ namespace GlobalSolusindo.Business.SOW.DML
             if (sowDTO == null)
                 throw new ArgumentNullException("SOW model is null.");
             tblT_SOW sow = sowFactory.CreateFromDTO(sowDTO, dateStamp);
+            sowDTO.SOW_PK = sow.SOW_PK;
             return Db.tblT_SOW.Add(sow);
         }
 
@@ -56,7 +57,9 @@ namespace GlobalSolusindo.Business.SOW.DML
             {
                 tblT_SOW sow = Insert(sowDTO, dateStamp);
                 SaveChanges();
+                sowDTO.SOW_PK = sow.SOW_PK;
                 InsertSowAssign(sowDTO, dateStamp);
+                SaveChanges();
 
                 success = true;
                 model = sowEntryDataProvider.Get(sow.SOW_PK);

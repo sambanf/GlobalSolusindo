@@ -114,6 +114,10 @@
     <Content Include="app\assets\webfonts\fa-brands-400.svg" />
     <Content Include="app\assets\webfonts\fa-regular-400.svg" />
     <Content Include="app\assets\webfonts\fa-solid-900.svg" />
+    <Content Include="app\modules\sowInfo\sowInfoBindingService.js" />
+    <Content Include="app\modules\sowInfo\sowInfo.html" />
+    <Content Include="app\modules\sowInfo\sowInfoCtrl.js" />
+    <Content Include="app\modules\sowInfo\sowInfoRoute.js" />
     <Content Include="app\modules\sowEntry\sowBindingService.js" />
     <Content Include="app\modules\sowEntry\sowEntry.html" />
     <Content Include="app\modules\sowEntry\sowEntryCtrl.js" />

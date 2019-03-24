@@ -69,7 +69,7 @@
                                 var rowIndex = cell.parentElement.parentElement.sectionRowIndex;
                                 var elementName = cell.getAttribute('name');
                                 if (subError.index == rowIndex) {
-                                    subError.errors.forEach(function (subErrorItem) {
+                                    subError.errors.forEach(function (subErrorItem) { 
                                         if (subErrorItem.propertyName.toLowerCase() == elementName.toLowerCase()) {
                                             cell.className = cell.className.replace(validClass, invalidClass);
                                             var childNodes = cell.parentElement.childNodes;
@@ -108,9 +108,11 @@
                 for (var i = 0; i < errors.length; i++) {
                     var error = errors[i];
                     controls.forEach(function (item) {
-                        //$scope.$apply(function () {
-                        var fieldName = item.name;
-
+                        if (item.nodeName == 'META')
+                            return true;
+                        var fieldName = item.name; 
+                        if (fieldName == undefined)
+                            return true;
                         if (error.propertyName.toLowerCase() == fieldName.toLowerCase()) {
                             item.className = item.className.replace(validClass, invalidClass);
 
@@ -120,8 +122,7 @@
                                     item.innerHTML = error.message;
                                 }
                             });
-                        }
-                        //});
+                        } 
                     });
                     handleSubErrors(error.subErrors);
                 }

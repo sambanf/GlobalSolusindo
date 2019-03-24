@@ -51,6 +51,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cost\CostDTO.cs" />
+    <Compile Include="Cost\CostFactory.cs" />
+    <Compile Include="Cost\CostValidator.cs" />
+    <Compile Include="Cost\DML\CostCreateHandler.cs" />
+    <Compile Include="Cost\DML\CostDeleteHandler.cs" />
+    <Compile Include="Cost\DML\CostUpdateHandler.cs" />
+    <Compile Include="Cost\EntryForm\CostEntryControlBuilder.cs" />
+    <Compile Include="Cost\EntryForm\CostEntryDataProvider.cs" />
+    <Compile Include="Cost\EntryForm\CostEntryFormData.cs" />
+    <Compile Include="Cost\EntryForm\CostEntryModel.cs" />
+    <Compile Include="Cost\ListForm\CostListDataProvider.cs" />
+    <Compile Include="Cost\ListForm\CostListFormData.cs" />
+    <Compile Include="Cost\ListForm\CostListModel.cs" />
+    <Compile Include="Cost\Queries\CostQuery.cs" />
+    <Compile Include="Cost\Queries\CostSearch.cs" />
     <Compile Include="SOWAssign\SOWAssignDTO.cs" />
     <Compile Include="SOWAssign\SOWAssignFactory.cs" />
     <Compile Include="SOWAssign\SOWAssignValidator.cs" />
@@ -81,6 +96,8 @@
     <Compile Include="SOWStatus\ListForm\SOWStatusListModel.cs" />
     <Compile Include="SOWStatus\Queries\SOWStatusQuery.cs" />
     <Compile Include="SOWStatus\Queries\SOWStatusSearch.cs" />
+    <Compile Include="SOW\InfoForm\SOWInfoDataProvider.cs" />
+    <Compile Include="SOW\InfoForm\SOWInfoModel.cs" />
     <Compile Include="SOW\SOWDTO.cs" />
     <Compile Include="SOW\SOWFactory.cs" />
     <Compile Include="SOW\SOWValidator.cs" />

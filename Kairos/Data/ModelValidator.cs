@@ -99,7 +99,7 @@ namespace Kairos.Data
         /// <param name="propertyName"></param>
         public void ValidateForEach<T>(List<T> listOfObject, string propertyName, params string[] ignores)
         {
-            AddErrorToValidationResultIfThereIsNone(propertyName, listOfObject);
+           
             if (listOfObject == null) return;
 
             var index = 0;
@@ -110,6 +110,7 @@ namespace Kairos.Data
 
                 if (validationErrors.Count > 0)
                 {
+                    AddErrorToValidationResultIfThereIsNone(propertyName, listOfObject);
                     foreach (var error in ValidationResult.Errors)
                     {
                         if (error.PropertyName == propertyName)

@@ -39,7 +39,7 @@
                         </div>
                         <div class="row">
                             <fieldset>
-                                <legend>Assign</legend>
+                                <div class="card-title">Assign</div>
                                 <div class="col-md-12">
                                     <table id="sowAssign">
                                         <thead>
@@ -47,15 +47,13 @@
                                                 <th hidden>SOWAssign_PK</th>
                                                 <th hidden>SOW FK</th>
                                                 <th hidden>Jabatan FK</th>
-                                                <th>Jabatan Title</th>
+                                                <th>Jabatan</th>
                                                 <th>User</th>
-                                                <!--<th>Tgl Mulai</th>
-                                                <th>Tgl Selesai</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="sowAssign in vm.model.sowAssigns">
-                                                <td class="text-center" hidden>
+                                                <td hidden>
                                                     <input type="text" id="sowAssign_pk" name="sowAssign_pk" ng-model="sowAssign.sowAssign_pk" disabled />
                                                     <div class="invalid-feedback"></div>
                                                 </td>
@@ -71,20 +69,16 @@
                                                     <input type="text" id="kategoriJabatanTitle" name="kategoriJabatanTitle" class="form-control" ng-model="sowAssign.kategoriJabatanTitle" disabled />
                                                     <div class="invalid-feedback"></div>
                                                 </td>
-                                                <td class="text-right" style="width:200px;">
-                                                    <select id="user_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="sowAssign.user_fk" required>
-                                                        <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.title}}</option>
-                                                    </select>
+                                                <td>
+                                                    <ui-select id="user_fk" name="user_fk" ng-model="sowAssign.user_fk" size="0" theme="select2" ng-disabled="vm.disabled" title="Find user"
+                                                               required style="width:200px">
+                                                        <ui-select-match placeholder="Find user">{{$select.selected.name}}</ui-select-match>
+                                                        <ui-select-choices refresh="vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)" refresh-delay="0" repeat="user.user_pk as user in vm.formData.users">
+                                                            <div ng-bind-html="user.name | highlight: $select.search"></div>
+                                                        </ui-select-choices>
+                                                    </ui-select>
                                                     <div class="invalid-feedback"></div>
                                                 </td>
-                                                <!--<td class="text-right">
-                                                    <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
-                                                    <div class="invalid-feedback"></div>
-                                                </td>
-                                                <td class="text-right">
-                                                    <input type="text" id="tglSelesai" name="tglSelesai" ng-model="vm.model.tglSelesai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
-                                                    <div class="invalid-feedback"></div>
-                                                </td>-->
                                             </tr>
                                         </tbody>
                                     </table>

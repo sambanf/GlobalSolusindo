@@ -1,6 +1,7 @@
 ﻿using GlobalSolusindo.Business.SOW;
 using GlobalSolusindo.Business.SOW.DML;
 using GlobalSolusindo.Business.SOW.EntryForm;
+using GlobalSolusindo.Business.SOW.InfoForm;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign;
 using GlobalSolusindo.DataAccess;
@@ -33,7 +34,7 @@ namespace GlobalSolusindo.Api.Controllers
                 return Ok(new SuccessResponse(data));
             }
         }
-
+        
         [Route("sow/form/{id}")]
         [HttpGet]
         public IHttpActionResult GetForm(int id)
@@ -44,6 +45,20 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 var data = sowEntryDataProvider.Get(id);
                 SaveLog("SOW", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                return Ok(new SuccessResponse(data));
+            }
+        }
+
+        [Route("sow/info/{id}")]
+        [HttpGet]
+        public IHttpActionResult GetInfo(int id)
+        {
+            string accessType = "SOW_ViewAll";
+            ThrowIfUserCannotAccess(accessType);
+            using (SOWInfoDataProvider sowEntryDataProvider = new SOWInfoDataProvider(Db, ActiveUser, AccessControl, new SOWQuery(Db)))
+            {
+                var data = sowEntryDataProvider.Get(id);
+                SaveLog("SOW", "GetInfo", JsonConvert.SerializeObject(new { primaryKey = id }));
                 return Ok(new SuccessResponse(data));
             }
         }

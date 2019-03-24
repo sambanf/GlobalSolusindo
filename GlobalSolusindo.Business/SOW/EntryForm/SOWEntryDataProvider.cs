@@ -3,12 +3,14 @@ using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.Project.Queries;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign;
+using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos;
 using Kairos.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW.EntryForm
 {
@@ -58,12 +60,17 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
 
         private SOWDTO CreateModel(int pk)
         {
-            var now = DateTime.Now;
-
+            var now = DateTime.Now; 
+            if (pk > 0)
+            {
+                SOWDTO sow =  sowQuery.GetByPrimaryKey(pk);
+                sow.SOWAssigns = new SOWAssignQuery(Db).GetBySOW_FK(pk).ToList(); 
+                return sow;
+            }
             SOWDTO sowDTO = new SOWDTO()
             {
                 TglMulai = now,
-                TglSelesai = now,
+                TglSelesai = now
             };
 
             List<SOWAssignDTO> sowAssigns = new List<SOWAssignDTO>();
@@ -124,7 +131,6 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 TglSelesai = now
             });
 
-
             //Rigger
             sowAssigns.Add(new SOWAssignDTO()
             {
@@ -161,7 +167,7 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
         private SOWEntryModel GetUpdateStateModel(int sowPK)
         {
             List<Control> formControls = CreateFormControls(sowPK);
-            SOWDTO sowDTO = sowQuery.GetByPrimaryKey(sowPK);
+            SOWDTO sowDTO = CreateModel(sowPK);
 
             if (sowDTO == null)
                 throw new KairosException($"Record with primary key '{sowDTO.SOW_PK}' is not found.");

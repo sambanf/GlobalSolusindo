@@ -48,7 +48,7 @@
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                        return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
                             "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
                             "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
                     }
@@ -57,7 +57,7 @@
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='approve' rel='tooltip' title='Approval' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button>";
+                        return "<button id='approve' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info'>Approval</button>";
                     }
                 }
                 ]

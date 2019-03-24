@@ -1,6 +1,7 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
 using Kairos.Data;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace GlobalSolusindo.Identity.User.Queries
@@ -17,7 +18,8 @@ namespace GlobalSolusindo.Identity.User.Queries
 
     public class UserSearchFilter : SearchFilter
     {
-        public UserKategoriJabatanFilter UserKategoriJabatanFilter { get; set; }
+        [JsonProperty("kategoriJabatan_fk")]
+        public int KategoriJabatan_FK{ get; set; }
     }
 
     public class UserSearch : QueryBase
@@ -44,11 +46,11 @@ namespace GlobalSolusindo.Identity.User.Queries
                     || user.Description.Contains(filter.Keyword)
                     );
 
-            if (filter.UserKategoriJabatanFilter != UserKategoriJabatanFilter.All)
+            if ((UserKategoriJabatanFilter)filter.KategoriJabatan_FK != UserKategoriJabatanFilter.All)
             {
                 filteredRecords = filteredRecords
                     .Where(user =>
-                    user.KategoriJabatan_FK == (int)filter.UserKategoriJabatanFilter);
+                    user.KategoriJabatan_FK == (int)filter.KategoriJabatan_FK);
             }
 
             var displayedRecords = filteredRecords.

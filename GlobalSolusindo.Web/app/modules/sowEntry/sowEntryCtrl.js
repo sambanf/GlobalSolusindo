@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .controller('SOWEntryCtrl', SOWEntryCtrl);
 
-    SOWEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWSaveService', 'SOWBindingService', 'FormControlService', 'SOWSelect2Service'];
+    SOWEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWSaveService', 'SOWBindingService', 'FormControlService', 'SOWSelect2Service', 'HttpService'];
 
-    function SOWEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, SOWSelect2Service) {
+    function SOWEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, SOWSelect2Service, http) {
         var self = this;
         self.stateParam = sParam;
 
@@ -23,8 +23,19 @@
             formControlService.setFormControl(self);
             saveService.init(self);
             SOWSelect2Service.init(self);
-        });
 
+            self.getUsers = function (jabatanFk, keyword) {
+                http.get('user/search', {
+                    pageIndex: 1,
+                    pageSize: 5,
+                    keyword: keyword,
+                    kategoriJabatan_fk: jabatanFk
+                }).then(function (response) {
+                    self.formData.users = response.data.records;
+                });
+            };
+        });
+         
         return self;
     }
 })();

@@ -33,7 +33,7 @@
 
         self.delete = function (data) {
             var ids = [data.sow_pk];
-            ui.alert.confirm("Are you sure want to delete sow '" + data.title + "'?", function () {
+            ui.alert.confirm("Are you sure want to delete sow '" + data.sowName + "'?", function () {
                 return deleteRecords(ids);
             });
         };

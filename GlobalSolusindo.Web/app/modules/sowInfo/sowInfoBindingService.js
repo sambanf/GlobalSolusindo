@@ -11,16 +11,16 @@
 
     angular
         .module('global-solusindo')
-        .factory('SOWBindingService', SOWBindingService);
+        .factory('SOWInfoBindingService', SOWInfoBindingService);
 
-    SOWBindingService.$inject = ['HttpService', '$state'];
+    SOWInfoBindingService.$inject = ['HttpService', '$state'];
 
-    function SOWBindingService(http, $state) {
+    function SOWInfoBindingService(http, $state) {
         var self = this;
         var controller = {};
 
         self.applyBinding = function (id) {
-            return http.get('sow/form/' + id);
+            return http.get('sow/info/' + id);
         };
 
         self.init = function (ctrl) {
@@ -29,8 +29,7 @@
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
                     controller.formData = res.data.formData;
-                    controller.model = res.data.model;
-                    controller.formData.users = [];
+                    controller.model = res.data;
                     controller.formControls = res.data.formControls;
                     resolve(res);
                 });
