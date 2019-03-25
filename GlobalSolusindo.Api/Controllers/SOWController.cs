@@ -34,7 +34,7 @@ namespace GlobalSolusindo.Api.Controllers
                 return Ok(new SuccessResponse(data));
             }
         }
-        
+
         [Route("sow/form/{id}")]
         [HttpGet]
         public IHttpActionResult GetForm(int id)
@@ -93,7 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var sowCreateHandler = new SOWCreateHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = sowCreateHandler.Save(sowDTO: sow, dateStamp: DateTime.UtcNow);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -115,7 +115,7 @@ namespace GlobalSolusindo.Api.Controllers
             if (sow.SOW_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
-            using (var sowUpdateHandler = new SOWUpdateHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl))
+            using (var sowUpdateHandler = new SOWUpdateHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
                 {

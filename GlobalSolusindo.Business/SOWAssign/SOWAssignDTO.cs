@@ -22,14 +22,14 @@ namespace GlobalSolusindo.Business.SOWAssign
         [JsonProperty("sowName")]
         public string SOWName { get; set; }
 
-        [Required]
+        //[Required]
         [JsonProperty("user_fk")]
-        [ForeignKey(typeof(UserQuery), "User_PK")]
+        [ForeignKey(typeof(UserQuery), "User_PK", true)]
         public int User_FK { get; set; }
 
         [JsonProperty("userName")]
         public string UserName { get; set; }
-         
+
         [JsonProperty("kategoriJabatan_fk")]
         [ForeignKey(typeof(KategoriJabatanQuery), "KategoriJabatan_PK")]
         public int KategoriJabatan_FK { get; set; }

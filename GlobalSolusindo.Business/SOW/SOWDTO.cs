@@ -42,7 +42,7 @@ namespace GlobalSolusindo.Business.SOW
         [JsonProperty("tglMulai")] 
         public DateTime? TglMulai { get; set; }
 
-        [Required]
+        //[Required]
         [JsonProperty("tglSelesai")]
         public DateTime? TglSelesai { get; set; }
 

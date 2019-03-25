@@ -60,17 +60,17 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
 
         private SOWDTO CreateModel(int pk)
         {
-            var now = DateTime.Now; 
+            var now = DateTime.Now;
             if (pk > 0)
             {
-                SOWDTO sow =  sowQuery.GetByPrimaryKey(pk);
-                sow.SOWAssigns = new SOWAssignQuery(Db).GetBySOW_FK(pk).ToList(); 
+                SOWDTO sow = sowQuery.GetByPrimaryKey(pk);
+                sow.SOWAssigns = new SOWAssignQuery(Db).GetBySOW_FK(pk);
                 return sow;
             }
             SOWDTO sowDTO = new SOWDTO()
             {
                 TglMulai = now,
-                TglSelesai = now
+                //TglSelesai = now
             };
 
             List<SOWAssignDTO> sowAssigns = new List<SOWAssignDTO>();
@@ -86,7 +86,6 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 User_FK = 0,
                 UserName = "",
                 TglMulai = now,
-                TglSelesai = now
             });
 
             //RF
@@ -100,7 +99,6 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 User_FK = 0,
                 UserName = "",
                 TglMulai = now,
-                TglSelesai = now
             });
 
             //RNO
@@ -114,7 +112,6 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 User_FK = 0,
                 UserName = "",
                 TglMulai = now,
-                TglSelesai = now
             });
 
             //Rigger
@@ -128,7 +125,6 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 User_FK = 0,
                 UserName = "",
                 TglMulai = now,
-                TglSelesai = now
             });
 
             //Rigger
@@ -142,7 +138,6 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 User_FK = 0,
                 UserName = "",
                 TglMulai = now,
-                TglSelesai = now
             });
 
             sowDTO.SOWAssigns = sowAssigns;

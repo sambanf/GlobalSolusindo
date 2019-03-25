@@ -61,11 +61,11 @@ namespace GlobalSolusindo.Business.SOW.Queries
         public SOWDTO GetByPrimaryKey(int primaryKey)
         {
             SOWDTO record = GetQuery().FirstOrDefault(sow => sow.SOW_PK == primaryKey);
-            if (record != null)
-            {
-                var sowAssigns = new SOWAssignQuery(this.Db).GetBySOW_FK(record.SOW_PK);
-                record.SOWAssigns = sowAssigns.OrderByDescending(sowAssign => sowAssign.SOWAssign_PK).ToList();
-            }
+            //if (record != null)
+            //{
+            //    var sowAssigns = new SOWAssignQuery(this.Db).GetBySOW_FK(record.SOW_PK);
+            //    record.SOWAssigns = sowAssigns.OrderByDescending(sowAssign => sowAssign.SOWAssign_PK).ToList();
+            //}
             return record;
         }
 
