@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-24. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-26. 
 * @author Wizzytech
 */
 (function() {
@@ -8733,7 +8733,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
         //var base_url = "http://global-solusindo-ws.local/";
-        var base_url = "http://ws.gs.local/";
+        //var base_url = "http://ws.gs.local/";
+        var base_url = "http://globalone.kairos-it.com:8092/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {

@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-24. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-26. 
 * @author Wizzytech
 */
 /*! jQuery v3.3.1 | (c) JS Foundation and other contributors | jquery.org/license */

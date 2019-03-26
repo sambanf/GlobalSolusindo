@@ -71,8 +71,6 @@
     <Content Include="app\app.js" />
     <Content Include="app\assets\css\angular-wizard.css" />
     <Content Include="app\assets\css\bootstrap-datetimepicker.css" />
-    <Content Include="app\assets\css\dx-lite-app-style.0.1.0.100.css" />
-    <Content Include="app\assets\css\dx-lite-app-style.1.0.0.100.css" />
     <Content Include="app\assets\css\main.min.css" />
     <Content Include="app\assets\css\select2.css" />
     <Content Include="app\assets\css\style.css" />
@@ -111,6 +109,8 @@
     <Content Include="app\assets\images\sort_desc_disabled.png" />
     <Content Include="app\assets\images\tower-bts.jpg" />
     <Content Include="app\assets\images\trucks.png" />
+    <Content Include="app\assets\js\global-solusindo-app-app.1.0.0.100.js" />
+    <Content Include="app\assets\js\global-solusindo-app-dist.1.0.0.100.js" />
     <Content Include="app\assets\webfonts\fa-brands-400.svg" />
     <Content Include="app\assets\webfonts\fa-regular-400.svg" />
     <Content Include="app\assets\webfonts\fa-solid-900.svg" />
@@ -440,6 +440,7 @@
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -447,9 +448,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="app\assets\js\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
