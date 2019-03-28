@@ -19,8 +19,8 @@
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
         //var base_url = "http://global-solusindo-ws.local/";
-        //var base_url = "http://ws.gs.local/";
-        var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://kairosapi.local/";
+        //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {

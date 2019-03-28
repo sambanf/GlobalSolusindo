@@ -85,9 +85,8 @@
                                 }
                                 res.push(item);
                             });
-                          
-                            if (param.callback)
-                                param.callback(data);
+
+                            param.callback(data);
 
                             return {
                                 results: data,
