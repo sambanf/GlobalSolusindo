@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-28. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-29. 
 * @author Kairos
 */
 (function() {
@@ -8733,7 +8733,7 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
         //var base_url = "http://global-solusindo-ws.local/";
-        var base_url = "http://ws.gs.local/";
+        var base_url = "http://kairosapi.local:8110/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
         var auth = {};

@@ -1,4 +1,7 @@
-﻿using System.Web.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
 
 namespace GlobalSolusindo.Api
 {
@@ -7,7 +10,7 @@ namespace GlobalSolusindo.Api
         public static void Register(HttpConfiguration config)
         {
             // Web API configuration and services
-
+            config.Filters.Add(new CustomExceptionFilterAttribute());
             // Web API routes
             config.MapHttpAttributeRoutes();
 
@@ -16,8 +19,6 @@ namespace GlobalSolusindo.Api
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            config.Filters.Add(new CustomExceptionFilterAttribute());
         }
     }
 }
