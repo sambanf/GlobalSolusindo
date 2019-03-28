@@ -9,7 +9,7 @@
     "build": "grunt build",
     "test": "karma start karma.conf.js"
   },
-  "author": "Wizzytech",
+  "author": "Kairos",
   "license": "ISC",
   "dependencies": {
     "@uirouter/angularjs": "~1.0.20",

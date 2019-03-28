@@ -20,7 +20,7 @@
         // var base_url = cs.config.getApiUrl();
         //var base_url = "http://global-solusindo-ws.local/";
         //var base_url = "http://ws.gs.local/";
-        var base_url = "http://globalone.kairos-it.com:8092/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {
