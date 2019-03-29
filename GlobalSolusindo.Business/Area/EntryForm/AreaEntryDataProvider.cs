@@ -42,7 +42,7 @@ namespace GlobalSolusindo.Business.Area.EntryForm
             {
                 FormData = formData,
                 FormControls = formControls,
-                Model = new AreaDTO(),
+                Model = areaDTO,
             };
         }
 

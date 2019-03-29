@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-29. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-30. 
 * @author Kairos
 */
 (function() {
@@ -474,6 +474,46 @@ angular.module('global-solusindo')
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Delivery Area Entry'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.izinCutiList', {
+                url: '/izinCutiList',
+                templateUrl: 'app/modules/izinCuti/izinCuti.html',
+                controller: 'IzinCutiCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Izin Cuti'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.izinCutiEntry', {
+                url: '/izinCutiEntry/:id',
+                templateUrl: 'app/modules/izinCutiEntry/izinCutiEntry.html',
+                controller: 'IzinCutiEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Pengajuan Izin Cuti'
                 }
             });
     }]);
@@ -1500,6 +1540,53 @@ angular.module('global-solusindo')
     'use strict';
 
     angular.module('global-solusindo')
+        .controller('IzinCutiCtrl', IzinCutiCtrl);
+
+    IzinCutiCtrl.$inject = ['$scope', '$state', 'izinCutiDtService', 'izinCutiDeleteService', 'izinCutiViewService'];
+
+    function IzinCutiCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('IzinCutiEntryCtrl', IzinCutiEntryCtrl);
+
+    IzinCutiEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'IzinCutiSaveService', 'IzinCutiBindingService', 'FormControlService', 'select2Service'];
+
+    function IzinCutiEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
         .controller('KategoriJabatanCtrl', KategoriJabatanCtrl);
 
     KategoriJabatanCtrl.$inject = ['$scope', '$state', 'kategoriJabatanDtService', 'kategoriJabatanDeleteService', 'kategoriJabatanViewService'];
@@ -1825,7 +1912,7 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$scope', '$state', 'serverErrorService', '$localStorage', '$cookies', 'uiService', 'HttpService', '$window'];
+    LoginCtrl.$inject = ['$scope', '$state', 'serverErrorService', '$localStorage', '$cookies', 'uiService', 'HttpService', '$window', 'userInfoService'];
 
     /*
     * recommend
@@ -1833,7 +1920,7 @@ angular.module('global-solusindo')
     * and bindable members up top.
     */
 
-    function LoginCtrl($scope, $state, serverError, localStorage, $cookies, ui, http, $window) {
+    function LoginCtrl($scope, $state, serverError, localStorage, $cookies, ui, http, $window, userInfoService) {
         /*jshint validthis: true */
         var self = this;
 
@@ -1844,7 +1931,7 @@ angular.module('global-solusindo')
         }
 
         function setUserInfo(userInfo) {
-            $window.localStorage.setItem('user', userInfo);
+            userInfoService.setUserInfo(userInfo)
         }
 
         function goToDashboard() {
@@ -5309,6 +5396,314 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('izinCutiDeleteService', izinCuti);
+
+    izinCuti.$inject = ['HttpService', 'uiService'];
+
+    function izinCuti(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('izinCuti', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.izinCuti_pk];
+            ui.alert.confirm("Are you sure want to delete izinCuti '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].izinCuti_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#izinCuti tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('izinCutiDtService', izinCuti);
+
+    izinCuti.$inject = ['DatatableService'];
+
+    function izinCuti(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var tanggalColumnIndex = 5;
+            var dt = ds.init("#izinCuti", "izinCuti/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [tanggalColumnIndex, "desc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "izinCuti_pk"
+                },
+                {
+                    "render": function (data) {
+                        return '';
+                    }
+                },
+                {
+                    "data": "userIzinCutiName"
+                },
+                {
+                    "data": "userIzinCutiJabatan"
+                },
+                {
+                    "data": "alasan"
+                },
+                {
+                    "data": "tglMulai"
+                },
+                {
+                    "data": "izinCutiStatusTitle"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('izinCutiViewService', izinCutiView);
+
+    izinCutiView.$inject = ['HttpService', '$state', 'uiService'];
+
+    function izinCutiView(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.izinCutiEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#izinCuti tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.izinCuti_pk);
+            });
+
+            $("#izinCuti tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["izinCuti_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('IzinCutiBindingService', IzinCutiBindingService);
+
+    IzinCutiBindingService.$inject = ['HttpService', '$state'];
+
+    function IzinCutiBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('izinCuti/form/' + id);
+        };
+
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('IzinCutiSaveService', IzinCutiEntry);
+
+    IzinCutiEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function IzinCutiEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('izinCuti', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.izinCutiEntry', { id: res.data.model.izinCuti_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('izinCuti', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.izinCuti_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('kategoriJabatanDeleteService', kategoriJabatan);
 
     kategoriJabatan.$inject = ['HttpService', 'uiService'];
@@ -8733,8 +9128,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
         //var base_url = "http://global-solusindo-ws.local/";
-        var base_url = "http://kairosapi.local:8110/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {
@@ -9161,6 +9556,38 @@ angular.module('global-solusindo')
 
         return self;
     }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('userInfoService', userInfoService);
+
+    userInfoService.$inject = ['$state', 'HttpService', 'uiService', 'validationService', '$window'];
+
+    function userInfoService($state, http, ui, validation, $window) {
+        var self = this;
+
+        self.getUserInfo = function() {
+            return $window.localStorage.getItem('user');
+        }
+
+        self.setUserInfo = function (userInfo) {
+            $window.localStorage.setItem('user', JSON.stringify(userInfo));
+        }
+
+        return self;
+    }
+
 })();
 (function () {
     'use strict';

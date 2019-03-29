@@ -85,15 +85,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-sm-10\">\r" +
     "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
-    "\n" +
-    "                                    placeholder=\"Area Name\">\r" +
+    "                                <input type=\"text\" id=\"title\" name=\"title\" class=\"form-control\" ng-model=\"vm.model.title\" placeholder=\"Area Name\">\r" +
     "\n" +
     "                                <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                        </div> \r" +
+    "                        </div>\r" +
     "\n" +
     "                        <div class=\"row\">\r" +
     "\n" +
@@ -1644,6 +1642,196 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/izinCuti/izinCuti.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Izin Cuti</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.izinCutiEntry({ id: '0'})\">Tambah Izin Cuti</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"izinCuti\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Kode Izin/Cuti</th>\r" +
+    "\n" +
+    "                                        <th>User</th>\r" +
+    "\n" +
+    "                                        <th>Position</th>\r" +
+    "\n" +
+    "                                        <th>Keterangan</th>\r" +
+    "\n" +
+    "                                        <th>Tanggal Izin/Cuti</th>\r" +
+    "\n" +
+    "                                        <th>Approval Status</th>\r" +
+    "\n" +
+    "                                        <th>Detail</th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/izinCutiEntry/izinCutiEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Pengajuan Izin Cuti</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\" hidden>User fk:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-2\" hidden>\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"user_fk\" name=\"user_fk\" class=\"form-control\" ng-model=\"vm.model.user_fk\" placeholder=\"User ID\" disabled>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Nama Pengaju:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-3\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"userIzinCutiName\" name=\"userIzinCutiName\" class=\"form-control\" ng-model=\"vm.model.userIzinCutiName\" placeholder=\"Nama Pengaju\" disabled>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Posisi:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"userIzinCutiJabatan\" name=\"userIzinCutiJabatan\" class=\"form-control\" ng-model=\"vm.model.userIzinCutiJabatan\" placeholder=\"Posisi\" disabled>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Tanggal Izin/Cuti:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"tglMulai\" name=\"tglMulai\" ng-model=\"vm.model.tglMulai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" required />\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Alasan:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                                <textarea id=\"alasan\" name=\"alasan\" class=\"form-control\" ng-model=\"vm.model.alasan\" placeholder=\"Alasan\"></textarea>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.izinCutiList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/kategoriJabatan/kategoriJabatan.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -2278,13 +2466,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            </li>\r" +
     "\n" +
-    "            <!--\r" +
+    "\r" +
     "\n" +
     "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
     "\n" +
     "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
     "\n" +
-    "                    <i class=\"icon-screen-desktop\"></i> <span>Utilitas CC</span>\r" +
+    "                    <i class=\"fa fa-luggage-cart\"></i> <span>Izin / Cuti</span>\r" +
     "\n" +
     "                </a>\r" +
     "\n" +
@@ -2292,9 +2480,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <li class=\"nav-item\">\r" +
     "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.utilitas-cc-monthly\">\r" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.izinCutiList\">\r" +
     "\n" +
-    "                            <i class=\"icon-chart\"></i> <span>Utilitas CC Monthly</span>\r" +
+    "                            <i class=\"fa fa-train\"></i> <span>Pengajuan Izin/Cuti</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -2302,9 +2490,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <li class=\"nav-item\">\r" +
     "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.utilitas-cc-yearly\">\r" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.approvalIzinCuti\">\r" +
     "\n" +
-    "                            <i class=\"icon-chart\"></i> <span>Utilitas CC Yearly</span>\r" +
+    "                            <i class=\"fa fa-train\"></i> <span>Approval Izin/Cuti</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -2313,28 +2501,6 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                </ul>\r" +
     "\n" +
     "            </li>\r" +
-    "\n" +
-    "            <li class=\"nav-item\">\r" +
-    "\n" +
-    "                <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.actual-on-time-arrival\">\r" +
-    "\n" +
-    "                    <i class=\"icon-chart\"></i> <span>Actual On Time Arrival</span>\r" +
-    "\n" +
-    "                </a>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "            <li class=\"nav-item\">\r" +
-    "\n" +
-    "                <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.violation-traffic\">\r" +
-    "\n" +
-    "                    <i class=\"icon-chart\"></i> <span>Violation Traffic</span>\r" +
-    "\n" +
-    "                </a>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "            -->\r" +
     "\n" +
     "        </ul>\r" +
     "\n" +
@@ -2365,7 +2531,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <div class=\"overlay-login\">\r" +
     "\n" +
-    "                                        <div>We are doing greate works</div>\r" +
+    "                                        <div>We are doing great works</div>\r" +
     "\n" +
     "                                    </div>\r" +
     "\n" +

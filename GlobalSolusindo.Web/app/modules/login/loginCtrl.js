@@ -13,7 +13,7 @@
         .module('global-solusindo')
         .controller('LoginCtrl', LoginCtrl);
 
-    LoginCtrl.$inject = ['$scope', '$state', 'serverErrorService', '$localStorage', '$cookies', 'uiService', 'HttpService', '$window'];
+    LoginCtrl.$inject = ['$scope', '$state', 'serverErrorService', '$localStorage', '$cookies', 'uiService', 'HttpService', '$window', 'userInfoService'];
 
     /*
     * recommend
@@ -21,7 +21,7 @@
     * and bindable members up top.
     */
 
-    function LoginCtrl($scope, $state, serverError, localStorage, $cookies, ui, http, $window) {
+    function LoginCtrl($scope, $state, serverError, localStorage, $cookies, ui, http, $window, userInfoService) {
         /*jshint validthis: true */
         var self = this;
 
@@ -32,7 +32,7 @@
         }
 
         function setUserInfo(userInfo) {
-            $window.localStorage.setItem('user', userInfo);
+            userInfoService.setUserInfo(userInfo)
         }
 
         function goToDashboard() {

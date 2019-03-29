@@ -57,7 +57,7 @@ namespace GlobalSolusindo.Identity.User
 
             if (!string.IsNullOrEmpty(userDTO.Password))
             {
-                user.Password = new MD5PasswordHasher().Hash(user.Password);
+                user.Password = new MD5PasswordHasher().Hash(userDTO.Password);
             }
             else
             {

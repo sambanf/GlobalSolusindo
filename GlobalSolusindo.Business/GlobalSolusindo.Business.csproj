@@ -51,6 +51,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IzinCutiStatus\IzinCutiStatusDTO.cs" />
+    <Compile Include="IzinCutiStatus\IzinCutiStatusFactory.cs" />
+    <Compile Include="IzinCutiStatus\IzinCutiStatusValidator.cs" />
+    <Compile Include="IzinCutiStatus\DML\IzinCutiStatusCreateHandler.cs" />
+    <Compile Include="IzinCutiStatus\DML\IzinCutiStatusDeleteHandler.cs" />
+    <Compile Include="IzinCutiStatus\DML\IzinCutiStatusUpdateHandler.cs" />
+    <Compile Include="IzinCutiStatus\EntryForm\IzinCutiStatusEntryControlBuilder.cs" />
+    <Compile Include="IzinCutiStatus\EntryForm\IzinCutiStatusEntryDataProvider.cs" />
+    <Compile Include="IzinCutiStatus\EntryForm\IzinCutiStatusEntryFormData.cs" />
+    <Compile Include="IzinCutiStatus\EntryForm\IzinCutiStatusEntryModel.cs" />
+    <Compile Include="IzinCutiStatus\ListForm\IzinCutiStatusListDataProvider.cs" />
+    <Compile Include="IzinCutiStatus\ListForm\IzinCutiStatusListFormData.cs" />
+    <Compile Include="IzinCutiStatus\ListForm\IzinCutiStatusListModel.cs" />
+    <Compile Include="IzinCutiStatus\Queries\IzinCutiStatusQuery.cs" />
+    <Compile Include="IzinCutiStatus\Queries\IzinCutiStatusSearch.cs" />
+    <Compile Include="IzinCuti\DML\IzinCutiApprovalHandler.cs" />
+    <Compile Include="IzinCuti\IzinCutiDTO.cs" />
+    <Compile Include="IzinCuti\IzinCutiFactory.cs" />
+    <Compile Include="IzinCuti\IzinCutiValidator.cs" />
+    <Compile Include="IzinCuti\DML\IzinCutiCreateHandler.cs" />
+    <Compile Include="IzinCuti\DML\IzinCutiDeleteHandler.cs" />
+    <Compile Include="IzinCuti\DML\IzinCutiUpdateHandler.cs" />
+    <Compile Include="IzinCuti\EntryForm\IzinCutiEntryControlBuilder.cs" />
+    <Compile Include="IzinCuti\EntryForm\IzinCutiEntryDataProvider.cs" />
+    <Compile Include="IzinCuti\EntryForm\IzinCutiEntryFormData.cs" />
+    <Compile Include="IzinCuti\EntryForm\IzinCutiEntryModel.cs" />
+    <Compile Include="IzinCuti\ListForm\IzinCutiListDataProvider.cs" />
+    <Compile Include="IzinCuti\ListForm\IzinCutiListFormData.cs" />
+    <Compile Include="IzinCuti\ListForm\IzinCutiListModel.cs" />
+    <Compile Include="IzinCuti\Queries\IzinCutiQuery.cs" />
+    <Compile Include="IzinCuti\Queries\IzinCutiSearch.cs" />
     <Compile Include="Cost\CostDTO.cs" />
     <Compile Include="Cost\CostFactory.cs" />
     <Compile Include="Cost\CostValidator.cs" />

@@ -13,7 +13,7 @@
     <RootNamespace>GlobalSolusindo.Api</RootNamespace>
     <AssemblyName>GlobalSolusindo.Api</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -89,6 +89,8 @@
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="ApiResponse.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\IzinCutiStatusController.cs" />
+    <Compile Include="Controllers\IzinController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\AsetController.cs" />
     <Compile Include="Controllers\AsetKategoriController.cs" />
@@ -168,7 +170,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57390</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58732/</IISUrl>
+          <IISUrl>http://gsapi.local</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

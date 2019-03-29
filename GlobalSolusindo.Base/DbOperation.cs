@@ -62,9 +62,6 @@ namespace GlobalSolusindo.Base
             this.User = user;
         }
 
-        public void SaveLog(string moduleName, string actionName, string data)
-        {
-        }
     }
 
     public class UpdateOperation : DbOperation
@@ -76,9 +73,6 @@ namespace GlobalSolusindo.Base
             this.User = user;
         }
 
-        public void SaveLog(string moduleName, string actionName, string data)
-        {
-        }
     }
 
     public class DeleteOperation : DbOperation
@@ -90,9 +84,6 @@ namespace GlobalSolusindo.Base
             this.User = user;
         }
 
-        public void SaveLog(string moduleName, string actionName, string data)
-        {
-        }
     }
 
     public class DMLBase : DbOperation
@@ -104,9 +95,6 @@ namespace GlobalSolusindo.Base
             this.User = user;
         }
 
-        public void SaveLog(string moduleName, string actionName, string data)
-        {
-        }
     }
 
     public class QueryBase : DbOperation
