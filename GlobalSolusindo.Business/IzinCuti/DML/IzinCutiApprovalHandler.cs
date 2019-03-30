@@ -3,6 +3,7 @@ using GlobalSolusindo.Business.IzinCuti.EntryForm;
 using GlobalSolusindo.Business.IzinCuti.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
+using Kairos;
 using Kairos.Data;
 using Newtonsoft.Json;
 using System;
@@ -32,10 +33,6 @@ namespace GlobalSolusindo.Business.IzinCuti.DML
         private IzinCutiQuery izinCutiQuery;
         private IzinCutiEntryDataProvider izinCutiEntryDataProvider;
 
-        private int approvedStatus = 1;
-        private int rejectedStatus = 2;
-        private int waitingStatus = 3;
-
         public IzinCutiApprovalHandler(GlobalSolusindoDb db, tblM_User user, IzinCutiValidator izinCutiValidator, IzinCutiFactory izinCutiFactory, IzinCutiQuery izinCutiQuery, AccessControl accessControl) : base(db, user)
         {
             this.izinCutiValidator = izinCutiValidator;
@@ -50,60 +47,32 @@ namespace GlobalSolusindo.Business.IzinCuti.DML
             this.izinCutiFactory = izinCutiFactory;
         }
 
-        public void Approve(int izinCutiPK, DateTime dateStamp)
+        public void SetApproval(IzinCutiApprovalModel izinCutiApproval, DateTime dateStamp)
         {
-            tblT_IzinCuti izinCuti = Db.tblT_IzinCuti.Find(izinCutiPK);
-            if (izinCuti == null)
-                throw new ArgumentNullException("IzinCuti model is null.");
+            if (izinCutiApproval == null)
+                throw new ArgumentNullException("IzinCutiApprovalModel is null.");
+
+            tblT_IzinCuti izinCuti = Db.tblT_IzinCuti.Find(izinCutiApproval.IzinCuti_PK);
+            if (izinCutiApproval == null)
+                throw new KairosException($"Id izin cuti: '{izinCutiApproval.IzinCuti_PK}' is not found.");
+
             izinCuti.ApprovalUserDetail_FK = User.UserDetail_FK;
-            izinCuti.IzinCutiStatus_FK = approvedStatus;
+            izinCuti.IzinCutiStatus_FK = izinCutiApproval.IzinCutiStatus;
+            izinCuti.UpdatedBy = User.Username;
+            izinCuti.UpdatedDate = dateStamp;
         }
 
-        public void Reject(int izinCutiPK, DateTime dateStamp)
+        public SaveResult<IzinCutiEntryModel> Save(IzinCutiApprovalModel izinCutiApproval, DateTime dateStamp)
         {
-            tblT_IzinCuti izinCuti = Db.tblT_IzinCuti.Find(izinCutiPK);
-            if (izinCuti == null)
-                throw new ArgumentNullException("IzinCuti model is null.");
-            izinCuti.ApprovalUserDetail_FK = User.UserDetail_FK;
-            izinCuti.IzinCutiStatus_FK = rejectedStatus;
-        }
+            SetApproval(izinCutiApproval, dateStamp);
 
-        public void Wait(int izinCutiPK, DateTime dateStamp)
-        {
-            tblT_IzinCuti izinCuti = Db.tblT_IzinCuti.Find(izinCutiPK);
-            if (izinCuti == null)
-                throw new ArgumentNullException("IzinCuti model is null.");
-            izinCuti.ApprovalUserDetail_FK = User.UserDetail_FK;
-            izinCuti.IzinCutiStatus_FK = waitingStatus;
-        }
-
-        public SaveResult<IzinCutiEntryModel> Save(int izinCutiPK, IzinCutiStatus izinCutiStatus, DateTime dateStamp)
-        {
-            bool success = false;
-            IzinCutiEntryModel model = null;
-            success = true;
-
-            switch (izinCutiStatus)
-            {
-                case IzinCutiStatus.Approved:
-                    Approve(izinCutiPK, dateStamp);
-                    break;
-                case IzinCutiStatus.Rejected:
-                    Reject(izinCutiPK, dateStamp);
-                    break;
-                case IzinCutiStatus.Waiting:
-                    Wait(izinCutiPK, dateStamp);
-                    break;
-                default:
-                    throw new Kairos.KairosException("Invalid izin status code.");
-            }
             Db.SaveChanges();
-            model = izinCutiEntryDataProvider.Get(izinCutiPK);
+            IzinCutiEntryModel model = izinCutiEntryDataProvider.Get(izinCutiApproval.IzinCuti_PK);
 
             return new SaveResult<IzinCutiEntryModel>
             {
-                Success = success,
-                Message = $"Data successfully {izinCutiStatus.ToString()}.",
+                Success = true,
+                Message = $"Data successfully updated.",
                 Model = model,
                 ValidationResult = null
             };

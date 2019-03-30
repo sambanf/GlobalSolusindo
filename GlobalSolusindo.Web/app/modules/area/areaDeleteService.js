@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('areaDeleteService', area);
+        .factory('areaDeleteService', areaDeleteService);
 
-    area.$inject = ['HttpService', 'uiService'];
+    areaDeleteService.$inject = ['HttpService', 'uiService'];
 
-    function area(http, ui) {
+    function areaDeleteService(http, ui) {
         var self = this;
         var controller;
 

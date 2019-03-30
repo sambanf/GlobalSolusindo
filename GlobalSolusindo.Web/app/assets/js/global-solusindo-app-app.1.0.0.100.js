@@ -495,6 +495,46 @@ angular.module('global-solusindo')
     }]);
 'use strict';
 
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.izinCutiApprovalList', {
+                url: '/izinCutiApprovalList',
+                templateUrl: 'app/modules/izinCutiApproval/izinCutiApproval.html',
+                controller: 'izinCutiApprovalCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Approval Izin Cuti'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.izinCutiApprovalEntry', {
+                url: '/izinCutiApprovalEntry/:id',
+                templateUrl: 'app/modules/izinCutiApprovalEntry/izinCutiApprovalEntry.html',
+                controller: 'izinCutiApprovalEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Approval Izin Cuti'
+                }
+            });
+    }]);
+'use strict';
+
 /**
  * @ngdoc function
  * @name app.route:orderRoute
@@ -1550,6 +1590,52 @@ angular.module('global-solusindo')
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('izinCutiApprovalCtrl', izinCutiApprovalCtrl);
+
+    izinCutiApprovalCtrl.$inject = ['$scope', '$state', 'izinCutiApprovalDtService', 'izinCutiApprovalViewService'];
+
+    function izinCutiApprovalCtrl($scope, $state, dtService, viewService) {
+        var self = this;
+
+        dtService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('izinCutiApprovalEntryCtrl', izinCutiApprovalEntryCtrl);
+
+    izinCutiApprovalEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'IzinCutiSaveService', 'IzinCutiBindingService', 'FormControlService', 'select2Service'];
+
+    function izinCutiApprovalEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
 
         return self;
     }
@@ -2729,11 +2815,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('areaDeleteService', area);
+        .factory('areaDeleteService', areaDeleteService);
 
-    area.$inject = ['HttpService', 'uiService'];
+    areaDeleteService.$inject = ['HttpService', 'uiService'];
 
-    function area(http, ui) {
+    function areaDeleteService(http, ui) {
         var self = this;
         var controller;
 
@@ -2813,11 +2899,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('areaDtService', area);
+        .factory('areaDtService', areaDtService);
 
-    area.$inject = ['DatatableService'];
+    areaDtService.$inject = ['DatatableService'];
 
-    function area(ds) {
+    function areaDtService(ds) {
         var self = this;
         var controller = {};
 
@@ -2869,11 +2955,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('areaViewService', areaView);
+        .factory('areaViewService', areaViewService);
 
-    areaView.$inject = ['HttpService', '$state', 'uiService'];
+    areaViewService.$inject = ['HttpService', '$state', 'uiService'];
 
-    function areaView(http, $state, ui) {
+    function areaViewService(http, $state, ui) {
         var self = this;
         var controller;
 
@@ -2956,11 +3042,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('AreaSaveService', AreaEntry);
+        .factory('AreaSaveService', AreaSaveService);
 
-    AreaEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    AreaSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function AreaEntry($state, http, ui, validation) {
+    function AreaSaveService($state, http, ui, validation) {
         var self = this;
         var controller;
 
@@ -5522,6 +5608,9 @@ angular.module('global-solusindo')
                     "data": "izinCutiStatusTitle"
                 },
                 {
+                    "data": "approvalByUserName"
+                },
+                {
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
@@ -5577,6 +5666,250 @@ angular.module('global-solusindo')
                 var data = controller.datatable.row(this).data();
                 var id = data["izinCuti_pk"];
                 self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('izinCutiApprovalDtService', izinCutiApprovalDtService);
+
+    izinCutiApprovalDtService.$inject = ['DatatableService'];
+
+    function izinCutiApprovalDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var tanggalColumnIndex = 5;
+            var dt = ds.init("#izinCutiApproval", "izinCuti/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [tanggalColumnIndex, "desc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "izinCuti_pk"
+                },
+                {
+                    "render": function (data) {
+                        return '';
+                    }
+                },
+                {
+                    "data": "userIzinCutiName"
+                },
+                {
+                    "data": "userIzinCutiJabatan"
+                },
+                {
+                    "data": "alasan"
+                },
+                {
+                    "data": "tglMulai"
+                },
+                {
+                    "data": "izinCutiStatusTitle"
+                },
+                {
+                    "data": "approvalByUserName"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                    }
+                }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('izinCutiApprovalViewService', izinCutiApprovalViewService);
+
+    izinCutiApprovalViewService.$inject = ['HttpService', '$state', 'uiService'];
+
+    function izinCutiApprovalViewService(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.izinCutiApprovalEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#izinCutiApproval tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.izinCuti_pk);
+            });
+
+            $("#izinCutiApproval tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["izinCuti_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('izinCutiApprovalBindingService', izinCutiApprovalBindingService);
+
+    izinCutiApprovalBindingService.$inject = ['HttpService', '$state'];
+
+    function izinCutiApprovalBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('izinCuti/form/' + id);
+        };
+
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('izinCutiApprovalSaveService', izinCutiApprovalSaveService);
+
+    izinCutiApprovalSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function izinCutiApprovalSaveService($state, http, ui, validation) {
+        var self = this;
+        var controller; 
+
+        function goToIzinCutiApprovalList() {
+            $state.go('app.izinCutiApprovalList');
+        }
+
+        self.approve = function (model) {
+            http.put('izinCuti/approval', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    goToIzinCutiApprovalList();
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        }; 
+
+        self.reject = function (model) {
+            http.put('izinCuti/approval', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    goToIzinCutiApprovalList();
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        }; 
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            var approved = 1;
+            var rejected = 2;
+            var waiting = 3;
+
+            angular.element('#approveButton').on('click', function () {
+                self.approve({
+                    izinCuti_pk: ctrl.sParam.id,
+                    izinCutiStatus: approved
+                });
+            });
+
+            angular.element('#rejectButton').on('click', function () {
+                self.approve({
+                    izinCuti_pk: ctrl.sParam.id,
+                    izinCutiStatus: rejected
+                });
+            });
+
+            angular.element('#waitingButton').on('click', function () {
+                self.approve({
+                    izinCuti_pk: ctrl.sParam.id,
+                    izinCutiStatus: waiting
+                });
             });
         };
 
@@ -8979,7 +9312,7 @@ angular.module('global-solusindo')
                     }
 
                     http.get(apiUrl, requestData).then(function (res) {
-                        if (res.success) {
+                        if (res && res.success) {
                             callback({
                                 recordsTotal: res.data.count.totalRecords,
                                 recordsFiltered: res.data.count.totalFiltered,
@@ -9128,8 +9461,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
         //var base_url = "http://global-solusindo-ws.local/";
-        //var base_url = "http://gsapi.local/";
-        var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://gsapi.local/";
+        //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {

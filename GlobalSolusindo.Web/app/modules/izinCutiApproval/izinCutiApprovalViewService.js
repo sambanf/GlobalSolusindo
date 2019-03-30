@@ -11,30 +11,30 @@
 
     angular
         .module('global-solusindo')
-        .factory('areaViewService', areaViewService);
+        .factory('izinCutiApprovalViewService', izinCutiApprovalViewService);
 
-    areaViewService.$inject = ['HttpService', '$state', 'uiService'];
+    izinCutiApprovalViewService.$inject = ['HttpService', '$state', 'uiService'];
 
-    function areaViewService(http, $state, ui) {
+    function izinCutiApprovalViewService(http, $state, ui) {
         var self = this;
         var controller;
 
         self.view = function (data) {
-            $state.go('app.areaEntry', {
+            $state.go('app.izinCutiApprovalEntry', {
                 id: data
             });
         };
 
         self.init = function (ctrl) {
             controller = ctrl;
-            $('#area tbody').on('click', '#view', function () {
+            $('#izinCutiApproval tbody').on('click', '#view', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
-                self.view(data.area_pk);
+                self.view(data.izinCuti_pk);
             });
 
-            $("#area tbody").on("dblclick", "tr", function () {
+            $("#izinCutiApproval tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["area_pk"];
+                var id = data["izinCuti_pk"];
                 self.view(id);
             });
         };

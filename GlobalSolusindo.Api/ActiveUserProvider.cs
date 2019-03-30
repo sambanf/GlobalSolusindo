@@ -9,7 +9,8 @@ namespace GlobalSolusindo.Api
             var user = new tblM_User()
             {
                 User_PK = 11,
-                Username = "irpan"
+                Username = "irpan",
+                UserDetail_FK = 14
             };
             return user;
         }

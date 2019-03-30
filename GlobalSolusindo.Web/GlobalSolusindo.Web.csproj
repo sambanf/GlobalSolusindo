@@ -111,6 +111,16 @@
     <Content Include="app\assets\webfonts\fa-brands-400.svg" />
     <Content Include="app\assets\webfonts\fa-regular-400.svg" />
     <Content Include="app\assets\webfonts\fa-solid-900.svg" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApproval.html" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApprovalCtrl.js" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApprovalDtService.js" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApprovalRoute.js" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApprovalViewService.js" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalBindingService.js" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalEntry.html" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalEntryCtrl.js" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalEntryRoute.js" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalSaveService.js" />
     <Content Include="app\modules\izinCutiEntry\izinCutiBindingService.js" />
     <Content Include="app\modules\izinCutiEntry\izinCutiEntry.html" />
     <Content Include="app\modules\izinCutiEntry\izinCutiEntryCtrl.js" />

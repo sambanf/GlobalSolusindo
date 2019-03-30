@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('areaDtService', area);
+        .factory('areaDtService', areaDtService);
 
-    area.$inject = ['DatatableService'];
+    areaDtService.$inject = ['DatatableService'];
 
-    function area(ds) {
+    function areaDtService(ds) {
         var self = this;
         var controller = {};
 

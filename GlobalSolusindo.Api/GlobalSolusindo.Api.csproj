@@ -90,7 +90,7 @@
     <Compile Include="ApiResponse.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\IzinCutiStatusController.cs" />
-    <Compile Include="Controllers\IzinController.cs" />
+    <Compile Include="Controllers\IzinCutiController.cs" />
     <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\AsetController.cs" />
     <Compile Include="Controllers\AsetKategoriController.cs" />

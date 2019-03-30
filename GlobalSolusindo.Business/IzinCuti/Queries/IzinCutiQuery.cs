@@ -49,7 +49,7 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
                             TglSelesai = izinCuti.TglSelesai,
                             Alasan = izinCuti.Alasan,
                             ApprovalUserDetail_FK = izinCuti.ApprovalUserDetail_FK,
-                            ApprovedByUserName = userDetailApproval.Name,
+                            ApprovedByUserName = userDetailApproval.Name ?? "N/A",
                             IzinCutiStatus_FK = izinCuti.IzinCutiStatus_FK,
                             IzinCutiStatusTitle = izinCutiStatus.Title ?? "N/A",
                             CreatedBy = izinCuti.CreatedBy,

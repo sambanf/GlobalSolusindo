@@ -71,7 +71,7 @@
                     }
 
                     http.get(apiUrl, requestData).then(function (res) {
-                        if (res.success) {
+                        if (res && res.success) {
                             callback({
                                 recordsTotal: res.data.count.totalRecords,
                                 recordsFiltered: res.data.count.totalFiltered,

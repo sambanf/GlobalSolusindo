@@ -11,18 +11,18 @@
 
     angular
         .module('global-solusindo')
-        .factory('izinCutiDtService', izinCuti);
+        .factory('izinCutiApprovalDtService', izinCutiApprovalDtService);
 
-    izinCuti.$inject = ['DatatableService'];
+    izinCutiApprovalDtService.$inject = ['DatatableService'];
 
-    function izinCuti(ds) {
+    function izinCutiApprovalDtService(ds) {
         var self = this;
         var controller = {};
 
         self.init = function (ctrl) {
             controller = ctrl;
             var tanggalColumnIndex = 5;
-            var dt = ds.init("#izinCuti", "izinCuti/search", {
+            var dt = ds.init("#izinCutiApproval", "izinCuti/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
@@ -59,8 +59,7 @@
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                        return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
                     }
                 }
                 ]

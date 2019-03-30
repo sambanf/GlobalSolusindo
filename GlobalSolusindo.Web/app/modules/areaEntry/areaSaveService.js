@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('AreaSaveService', AreaEntry);
+        .factory('AreaSaveService', AreaSaveService);
 
-    AreaEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    AreaSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function AreaEntry($state, http, ui, validation) {
+    function AreaSaveService($state, http, ui, validation) {
         var self = this;
         var controller;
 

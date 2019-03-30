@@ -112,6 +112,31 @@ namespace GlobalSolusindo.Api.Controllers
             }
         }
 
+        [Route("izinCuti/approval")]
+        [HttpPut]
+        public IHttpActionResult Approval([FromBody]IzinCutiApprovalModel izinCutiApproval)
+        {
+            string accessType = "";
+            ThrowIfUserCannotAccess(accessType);
+            if (izinCutiApproval == null)
+                throw new KairosException("Missing model parameter");
+
+            if (izinCutiApproval.IzinCuti_PK == 0)
+                throw new KairosException("Approval is only allowed for a non zero ('0') Id of izin cuti.");
+
+            using (var izinCutiApprovalHandler = new IzinCutiApprovalHandler(Db, ActiveUser, new IzinCutiValidator(), new IzinCutiFactory(Db, ActiveUser), new IzinCutiQuery(Db), AccessControl))
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    var saveResult = izinCutiApprovalHandler.Save(izinCutiApproval, DateTime.UtcNow);
+                    transaction.Complete();
+                    if (saveResult.Success)
+                        return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
+                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                }
+            }
+        }
+
         [Route("izinCuti")]
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
