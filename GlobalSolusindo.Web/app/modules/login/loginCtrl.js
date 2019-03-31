@@ -40,7 +40,6 @@
         }
 
         angular.element('#loginButton').on('click', function () {
-            debugger;
             angular.element('.loading').fadeIn();
             http.post('token', self.model)
                 .then(function (res) {
