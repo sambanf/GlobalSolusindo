@@ -40,8 +40,11 @@
         }
 
         angular.element('#loginButton').on('click', function () {
+            debugger;
+            angular.element('.loading').fadeIn();
             http.post('token', self.model)
                 .then(function (res) {
+                    angular.element('.loading').fadeOut();
                     if (res.success) {
                         ui.alert.success(res.message);
                         setTokenInfo(res.token);

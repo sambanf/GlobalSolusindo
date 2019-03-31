@@ -1,0 +1,55 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-title">Activities on {{vm.monthName}}</div>
+                            <div class="row">
+                                <!--User Info-->
+                                <div class="col-md-10">
+                                    <div class="row">
+                                        <label class="control-label col-sm-2">User ID</label>
+                                        <label class="control-label col-sm-6" id="userId" name="userId">{{vm.user.userCode}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-2">Name</label>
+                                        <label class="control-label col-sm-6" id="name" name="name">{{vm.user.name}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-2">Position</label>
+                                        <label class="control-label col-sm-6" id="kategoriJabatanTitle" name="kategoriJabatanTitle">{{vm.user.kategoriJabatanTitle}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-title">Activities</div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table id="activities">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Tanggal</th>
+                                                <th>Jam</th>
+                                                <th>Aktifitas</th>
+                                                <th>Approved By</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

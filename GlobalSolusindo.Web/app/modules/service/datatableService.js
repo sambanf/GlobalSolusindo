@@ -77,6 +77,9 @@
                                 recordsFiltered: res.data.count.totalFiltered,
                                 data: res.data.records
                             });
+                            if (param.ajaxCallback) {
+                                param.ajaxCallback(res);
+                            }
                         }
                     });
                 },

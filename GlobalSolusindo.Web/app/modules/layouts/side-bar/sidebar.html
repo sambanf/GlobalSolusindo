@@ -149,6 +149,29 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
+                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
+                    <i class="fa fa-luggage-cart"></i> <span>Report</span>
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.timesheetEngineerList">
+                            <i class="fa fa-train"></i> <span>Timesheet Engineer</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.taskEngineerList">
+                            <i class="fa fa-train"></i> <span>Task Engineer</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.dailyTaskList">
+                            <i class="fa fa-train"></i> <span>Daily Task</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </nav>
 </div>

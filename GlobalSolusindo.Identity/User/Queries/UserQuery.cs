@@ -72,6 +72,12 @@ namespace GlobalSolusindo.Identity.User.Queries
             return record;
         }
 
+        public UserDTO GetByUserDetailFK(int userDetailFk)
+        {
+            UserDTO record = GetQuery().FirstOrDefault(user => user.UserDetail_FK == userDetailFk);
+            return record;
+        }
+
         public UserDTO GetUsernamePassword(string username)
         {
             UserDTO record = GetQuery().FirstOrDefault(user => user.Username == username);

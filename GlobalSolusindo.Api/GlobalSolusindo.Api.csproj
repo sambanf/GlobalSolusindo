@@ -89,6 +89,9 @@
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="ApiResponse.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\AsetHistoriController.cs" />
+    <Compile Include="Controllers\CheckInController.cs" />
     <Compile Include="Controllers\IzinCutiStatusController.cs" />
     <Compile Include="Controllers\IzinCutiController.cs" />
     <Compile Include="Controllers\AreaController.cs" />

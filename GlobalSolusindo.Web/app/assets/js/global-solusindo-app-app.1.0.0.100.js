@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-30. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-31. 
 * @author Kairos
 */
 (function() {
@@ -916,6 +916,86 @@ angular.module('global-solusindo')
     .config(['$stateProvider', function ($stateProvider) {
 
         $stateProvider
+            .state('app.engineerActivities', {
+                url: '/activities/:id/:bulan/:bulanName',
+                templateUrl: 'app/modules/report/activities/activities.html',
+                controller: 'ActivitiesCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Activities'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.asetHistoriList', {
+                url: '/asetHistoriList/:userDetail_pk',
+                templateUrl: 'app/modules/report/asetHistori/asetHistori.html',
+                controller: 'AsetHistoriCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Aset Histori'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.timesheetEngineerList', {
+                url: '/timesheetEngineerList',
+                templateUrl: 'app/modules/report/timesheetEngineer/timesheetEngineer.html',
+                controller: 'TimesheetEngineerCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Timesheet Engineer'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.timesheetEngineerDetail', {
+                url: '/timesheetEngineerDetail/:id',
+                templateUrl: 'app/modules/report/timesheetEngineerDetail/timesheetEngineerDetail.html',
+                controller: 'TimesheetEngineerDetailCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Timesheet Detail'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
             .state('app.role-entry', {
                 url: '/role-entry/:id',
                 templateUrl: 'app/modules/role-entry/role-entry.html',
@@ -1626,7 +1706,7 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('izinCutiApprovalEntryCtrl', izinCutiApprovalEntryCtrl);
 
-    izinCutiApprovalEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'IzinCutiSaveService', 'IzinCutiBindingService', 'FormControlService', 'select2Service'];
+    izinCutiApprovalEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'izinCutiApprovalSaveService', 'izinCutiApprovalBindingService', 'FormControlService', 'select2Service'];
 
     function izinCutiApprovalEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
         var self = this;
@@ -2025,8 +2105,11 @@ angular.module('global-solusindo')
         }
 
         angular.element('#loginButton').on('click', function () {
+            debugger;
+            angular.element('.loading').fadeIn();
             http.post('token', self.model)
                 .then(function (res) {
+                    angular.element('.loading').fadeOut();
                     if (res.success) {
                         ui.alert.success(res.message);
                         setTokenInfo(res.token);
@@ -2504,6 +2587,92 @@ angular.module('global-solusindo')
             saveService.init(self);
             ProjectSelect2Service.init(self);
         });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('ActivitiesCtrl', ActivitiesCtrl);
+
+    ActivitiesCtrl.$inject = ['$scope', '$stateParams', '$state', 'FormControlService', 'activitiesDtService'];
+
+    function ActivitiesCtrl($scope, sParam, $state, formControlService, dtService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        dtService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('AsetHistoriCtrl', AsetHistoriCtrl);
+
+    AsetHistoriCtrl.$inject = ['$scope', '$state', 'asetHistoriDtService', '$stateParams'];
+
+    function AsetHistoriCtrl($scope, $state, dtService, $stateParams) {
+        var self = this;
+        self.stateParam = $stateParams;
+        dtService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('TimesheetEngineerCtrl', TimesheetEngineerCtrl);
+
+    TimesheetEngineerCtrl.$inject = ['$scope', '$state', 'timesheetEngineerDtService', 'timesheetEngineerViewService'];
+
+    function TimesheetEngineerCtrl($scope, $state, dtService, viewService) {
+        var self = this;
+
+        dtService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('TimesheetEngineerDetailCtrl', TimesheetEngineerDetailCtrl);
+
+    TimesheetEngineerDetailCtrl.$inject = ['$scope', '$stateParams', '$state', 'FormControlService', 'timesheetEngineerDetailDtService', 'timesheetEngineerDetailViewService'];
+
+    function TimesheetEngineerDetailCtrl($scope, sParam, $state, formControlService, dtService, timesheetEngineerDetailViewService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        dtService.init(self);
+        timesheetEngineerDetailViewService.init(self);
 
         return self;
     }
@@ -5893,24 +6062,24 @@ angular.module('global-solusindo')
 
             angular.element('#approveButton').on('click', function () {
                 self.approve({
-                    izinCuti_pk: ctrl.sParam.id,
+                    izinCuti_pk: ctrl.stateParam.id,
                     izinCutiStatus: approved
                 });
             });
 
             angular.element('#rejectButton').on('click', function () {
-                self.approve({
-                    izinCuti_pk: ctrl.sParam.id,
+                self.reject({
+                    izinCuti_pk: ctrl.stateParam.id,
                     izinCutiStatus: rejected
                 });
             });
 
-            angular.element('#waitingButton').on('click', function () {
-                self.approve({
-                    izinCuti_pk: ctrl.sParam.id,
-                    izinCutiStatus: waiting
-                });
-            });
+            //angular.element('#waitingButton').on('click', function () {
+            //    self.approve({
+            //        izinCuti_pk: ctrl.sParam.id,
+            //        izinCutiStatus: waiting
+            //    });
+            //});
         };
 
         return self;
@@ -8676,6 +8845,346 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('activitiesDtService', activitiesDtService);
+
+    activitiesDtService.$inject = ['DatatableService'];
+
+    function activitiesDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#activities", "report/activities", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    user_fk: controller.stateParam.id,
+                    bulan: controller.stateParam.bulan
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "user_fk"
+                },
+                {
+                    "data": "tanggal"
+                },
+                {
+                    "data": "jam"
+                },
+                {
+                    "data": "aktifitas"
+                },
+                {
+                    "data": "approvedBy"
+                }
+                ],
+                ajaxCallback: function (response) {
+                    controller.user = response.data.user;
+                }
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetHistoriDtService', asetHistoriDtService);
+
+    asetHistoriDtService.$inject = ['DatatableService'];
+
+    function asetHistoriDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#asetHistori", "asetHistori/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    userDetail_fk: controller.stateParam.userDetail_pk
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "asetHistori_pk"
+                },
+                {
+                    "data": "tglMulai"
+                },
+                {
+                    "data": "tglSelesai"
+                },
+                {
+                    "data": "asetKategoriTitle"
+                },
+                {
+                    "data": "asetName"
+                }
+                ],
+                ajaxCallback: function (response) {
+                    controller.user = response.data.user;
+                }
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('timesheetEngineerDtService', timesheetEngineerDtService);
+
+    timesheetEngineerDtService.$inject = ['DatatableService'];
+
+    function timesheetEngineerDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#timesheetEngineer", "user/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "user_pk"
+                },
+                {
+                    "data": "userCode"
+                },
+                {
+                    "data": "name"
+                },
+                {
+                    "data": "kategoriJabatanTitle"
+                },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                        }
+                    }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('timesheetEngineerViewService', timesheetEngineerViewService);
+
+    timesheetEngineerViewService.$inject = ['HttpService', '$state', 'uiService'];
+
+    function timesheetEngineerViewService(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.timesheetEngineerDetail', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#timesheetEngineer tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.user_pk);
+            });
+
+            $("#timesheetEngineer tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["user_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('timesheetEngineerDetailDtService', timesheetEngineerDetailDtService);
+
+    timesheetEngineerDetailDtService.$inject = ['DatatableService'];
+
+    function timesheetEngineerDetailDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#timesheetEngineerDetail", "report/timesheetDetail", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    user_fk: controller.stateParam.id
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "user_fk"
+                },
+                {
+                    "data": "bulan"
+                },
+                {
+                    "data": "bulanName",
+                    "visible": false
+                },
+                {
+                    "data": "tahun"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                    }
+                }
+                ],
+                ajaxCallback: function (response) {
+                    controller.user = response.data.user;
+                }
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('timesheetEngineerDetailViewService', timesheetEngineerDetailViewService);
+
+    timesheetEngineerDetailViewService.$inject = ['HttpService', '$state', 'uiService'];
+
+    function timesheetEngineerDetailViewService(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (user_fk, bulan, bulanName) {
+            $state.go('app.engineerActivities', {
+                id: user_fk,
+                bulan: bulan,
+                bulanName:bulanName
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#timesheetEngineerDetail tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.user_fk, data.bulan, data.bulanName);
+            });
+
+            $("#timesheetEngineerDetail tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var user_fk = data["user_fk"];
+                var bulan = data["bulan"];
+                var bulanName = data["bulanName"];
+                self.view(user_fk, bulan, bulanName);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('RoleBindingService', RoleBindingService);
 
     RoleBindingService.$inject = ['HttpService', '$state'];
@@ -9318,6 +9827,9 @@ angular.module('global-solusindo')
                                 recordsFiltered: res.data.count.totalFiltered,
                                 data: res.data.records
                             });
+                            if (param.ajaxCallback) {
+                                param.ajaxCallback(res);
+                            }
                         }
                     });
                 },
@@ -9461,8 +9973,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
         //var base_url = "http://global-solusindo-ws.local/";
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {

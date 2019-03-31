@@ -229,6 +229,19 @@ div.animated {
     min-height: auto;
 }
 
+.loading {
+    position: fixed;
+    z-index: 9999;
+    width: inherit;
+    height: 100%;
+    text-align: center;
+    background-color: transparent;
+    vertical-align: middle;
+    line-height: 100vh;
+    top: 0;
+    display: none;
+}
+
 .company-title {
     float: left;
     color: #006997;

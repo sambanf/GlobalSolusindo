@@ -1691,6 +1691,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Approval Status</th>\r" +
     "\n" +
+    "                                        <th>Approval By</th> \r" +
+    "\n" +
     "                                        <th>Detail</th>\r" +
     "\n" +
     "                                    </tr>\r" +
@@ -1712,6 +1714,155 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "    </form>\r" +
     "\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('app/modules/izinCutiApproval/izinCutiApproval.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Approval Izin Cuti</div> \r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"izinCutiApproval\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Kode Izin/Cuti</th>\r" +
+    "\n" +
+    "                                        <th>User</th>\r" +
+    "\n" +
+    "                                        <th>Position</th>\r" +
+    "\n" +
+    "                                        <th>Keterangan</th>\r" +
+    "\n" +
+    "                                        <th>Tanggal Izin/Cuti</th>\r" +
+    "\n" +
+    "                                        <th>Approval Status</th>\r" +
+    "\n" +
+    "                                        <th>Approval By</th> \r" +
+    "\n" +
+    "                                        <th>Detail</th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/izinCutiApprovalEntry/izinCutiApprovalEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Detail Izin Cuti</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\" hidden>User fk:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-2\" hidden>\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"user_fk\" name=\"user_fk\" class=\"form-control\" ng-model=\"vm.model.user_fk\" placeholder=\"User ID\" disabled>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Nama Pengaju:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">{{vm.model.userIzinCutiName}}</label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Posisi:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">{{vm.model.userIzinCutiJabatan}}</label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Tanggal Izin/Cuti:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-3\">{{vm.model.tglMulai}}</label> \r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Alasan:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-8\">{{vm.model.alasan}}</label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-4\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success\" id=\"approveButton\">Approve</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-danger\" id=\"rejectButton\">Reject</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-info float-right\" ui-sref=\"app.izinCutiApprovalList\">Kembali</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
   );
 
 
@@ -2490,9 +2641,55 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <li class=\"nav-item\">\r" +
     "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.approvalIzinCuti\">\r" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.izinCutiApprovalList\">\r" +
     "\n" +
     "                            <i class=\"fa fa-train\"></i> <span>Approval Izin/Cuti</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                </ul>\r" +
+    "\n" +
+    "            </li>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
+    "\n" +
+    "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
+    "\n" +
+    "                    <i class=\"fa fa-luggage-cart\"></i> <span>Report</span>\r" +
+    "\n" +
+    "                </a>\r" +
+    "\n" +
+    "                <ul class=\"nav-dropdown-items\">\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.timesheetEngineerList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Timesheet Engineer</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.taskEngineerList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Task Engineer</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.dailyTaskList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Daily Task</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3494,6 +3691,488 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                <button class=\"btn btn-default\" ui-sref=\"app.projectList\">Kembali</button>\r" +
     "\n" +
     "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/report/activities/activities.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"row\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">Activities on {{vm.monthName}}</div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <!--User Info-->\r" +
+    "\n" +
+    "                                <div class=\"col-md-10\">\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">User ID</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"userId\" name=\"userId\">{{vm.user.userCode}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">Name</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"name\" name=\"name\">{{vm.user.name}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">Position</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\">{{vm.user.kategoriJabatanTitle}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"row\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">Activities</div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <table id=\"activities\">\r" +
+    "\n" +
+    "                                        <thead>\r" +
+    "\n" +
+    "                                            <tr>\r" +
+    "\n" +
+    "                                                <th>No</th>\r" +
+    "\n" +
+    "                                                <th>Tanggal</th>\r" +
+    "\n" +
+    "                                                <th>Jam</th>\r" +
+    "\n" +
+    "                                                <th>Aktifitas</th>\r" +
+    "\n" +
+    "                                                <th>Approved By</th>\r" +
+    "\n" +
+    "                                            </tr>\r" +
+    "\n" +
+    "                                        </thead>\r" +
+    "\n" +
+    "                                    </table>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/report/asetHistori/asetHistori.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Histori Penggunaan Aset</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <!--User Info-->\r" +
+    "\n" +
+    "                        <div class=\"col-md-10\">\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">User ID</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-6\" id=\"userId\" name=\"userId\">{{vm.user.userCode}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Name</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-6\" id=\"name\" name=\"name\">{{vm.user.name}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Position</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-6\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\">{{vm.user.kategoriJabatanTitle}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"asetHistori\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Tanggal Pinjam</th>\r" +
+    "\n" +
+    "                                        <th>Tanggal Kembali</th>\r" +
+    "\n" +
+    "                                        <th>Kategori Aset</th>\r" +
+    "\n" +
+    "                                        <th>Nama Aset</th> \r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/report/timesheetEngineer/timesheetEngineer.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Report Timesheet Engineer</div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">User ID:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-3\">\r" +
+    "\n" +
+    "                            <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\" required>\r" +
+    "\n" +
+    "                                <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                            </select>\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Name:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-3\">\r" +
+    "\n" +
+    "                            <input type=\"text\" id=\"username\" name=\"username\" class=\"form-control\" ng-model=\"vm.model.username\" disabled>\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-2\">\r" +
+    "\n" +
+    "                            <button id=\"searchButton\" class=\"btn btn-success\">Search</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"timesheetEngineer\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>User ID</th>\r" +
+    "\n" +
+    "                                        <th>Name</th>\r" +
+    "\n" +
+    "                                        <th>Position</th>\r" +
+    "\n" +
+    "                                        <th>Detail</th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/report/timesheetEngineerDetail/timesheetEngineerDetail.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"row\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">User Profile</div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <!--Photo-->\r" +
+    "\n" +
+    "                                <div class=\"col-md-2\">\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <!--User Info-->\r" +
+    "\n" +
+    "                                <div class=\"col-md-10\">\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">User ID</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"userId\" name=\"userId\">{{vm.user.userCode}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">Position</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\">{{vm.user.kategoriJabatanTitle}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">Username</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"username\" name=\"username\">{{vm.user.username}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">Phone</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"noHP\" name=\"noHP\">{{vm.user.noHP}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">Email</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"email\" name=\"email\">{{vm.user.email}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">Address</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"address\" name=\"address\">{{vm.user.address}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-2\">Asset</label>\r" +
+    "\n" +
+    "                                        <button class=\"btn btn-info col-sm-3\" ui-sref=\"app.asetHistoriList({ userDetail_pk: vm.user.userDetail_fk})\">Histori Penggunaan Aset</button>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"row\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">Time Sheet</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-1\">Bulan:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-3\">\r" +
+    "\n" +
+    "                                    <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-1\">Tahun:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-3\">\r" +
+    "\n" +
+    "                                    <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"form-group col-md-2\">\r" +
+    "\n" +
+    "                                    <button id=\"searchButton\" class=\"btn btn-success\">Search</button>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <table id=\"timesheetEngineerDetail\">\r" +
+    "\n" +
+    "                                        <thead>\r" +
+    "\n" +
+    "                                            <tr>\r" +
+    "\n" +
+    "                                                <th>No</th>\r" +
+    "\n" +
+    "                                                <th>Bulan</th>\r" +
+    "\n" +
+    "                                                <th hidden>Bulan Name</th>\r" +
+    "\n" +
+    "                                                <th>Tahun</th>\r" +
+    "\n" +
+    "                                                <th>Detail</th>\r" +
+    "\n" +
+    "                                            </tr>\r" +
+    "\n" +
+    "                                        </thead>\r" +
+    "\n" +
+    "                                    </table>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
