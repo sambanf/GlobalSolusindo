@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="row form-group">
                                         <label class="control-label col-sm-2">Asset</label>
-                                        <button class="btn btn-info col-sm-3" ui-sref="app.asetHistoriList({ userDetail_pk: vm.user.userDetail_fk})">Histori Penggunaan Aset</button>
+                                        <button class="btn btn-info col-sm-4" ui-sref="app.asetHistoriList({ userDetail_pk: vm.user.userDetail_fk})">Histori Penggunaan Aset</button>
                                     </div>
                                 </div>
                             </div>
@@ -54,17 +54,15 @@
                             <div class="row form-group">
                                 <label class="control-label col-sm-1">Bulan:</label>
                                 <div class="col-sm-3">
-                                    <select id="user_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="vm.model.user_fk" required>
-                                        <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.title}}</option>
-                                    </select>
-                                    <div class="invalid-feedback"></div>
+                                    <select id="bulan" name="bulan" class="form-control input-lg" size="0" ng-model="vm.model.bulan" required>
+                                        <option ng-repeat="x in vm.formData.months" ng-value="x.bulan">{{x.bulanName}}</option>
+                                    </select> 
                                 </div>
                                 <label class="control-label col-sm-1">Tahun:</label>
                                 <div class="col-sm-3">
-                                    <select id="user_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="vm.model.user_fk" required>
-                                        <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.title}}</option>
-                                    </select>
-                                    <div class="invalid-feedback"></div>
+                                    <select id="tahun" name="tahun" class="form-control input-lg" size="0" ng-model="vm.model.tahun" required>
+                                        <option ng-repeat="x in vm.formData.years" ng-value="x.tahun">{{x.tahun}}</option>
+                                    </select> 
                                 </div>
                                 <div class="form-group col-md-2">
                                     <button id="searchButton" class="btn btn-success">Search</button>
@@ -76,8 +74,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
+                                                <th>Bulan Number</th>
                                                 <th>Bulan</th>
-                                                <th hidden>Bulan Name</th>
                                                 <th>Tahun</th>
                                                 <th>Detail</th>
                                             </tr>

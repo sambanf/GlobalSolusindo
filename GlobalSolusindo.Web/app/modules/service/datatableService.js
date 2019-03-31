@@ -68,8 +68,7 @@
                     var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
-                    }
-
+                    } 
                     http.get(apiUrl, requestData).then(function (res) {
                         if (res && res.success) {
                             callback({

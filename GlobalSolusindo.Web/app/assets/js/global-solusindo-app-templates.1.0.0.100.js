@@ -3923,9 +3923,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <div class=\"card\">\r" +
     "\n" +
-    "                    <div class=\"card-title\">Report Timesheet Engineer</div>\r" +
+    "                    <div class=\"card-title\">Timesheet Engineer</div>\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\r" +
+    "                    <!--<div class=\"row form-group\">\r" +
     "\n" +
     "                        <label class=\"control-label col-sm-2\">User ID:</label>\r" +
     "\n" +
@@ -3957,7 +3957,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                    </div>\r" +
+    "                    </div>-->\r" +
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
@@ -4084,7 +4084,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <label class=\"control-label col-sm-2\">Asset</label>\r" +
     "\n" +
-    "                                        <button class=\"btn btn-info col-sm-3\" ui-sref=\"app.asetHistoriList({ userDetail_pk: vm.user.userDetail_fk})\">Histori Penggunaan Aset</button>\r" +
+    "                                        <button class=\"btn btn-info col-sm-4\" ui-sref=\"app.asetHistoriList({ userDetail_pk: vm.user.userDetail_fk})\">Histori Penggunaan Aset</button>\r" +
     "\n" +
     "                                    </div>\r" +
     "\n" +
@@ -4114,13 +4114,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-3\">\r" +
     "\n" +
-    "                                    <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\" required>\r" +
+    "                                    <select id=\"bulan\" name=\"bulan\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.bulan\" required>\r" +
     "\n" +
-    "                                        <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.title}}</option>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.months\" ng-value=\"x.bulan\">{{x.bulanName}}</option>\r" +
     "\n" +
-    "                                    </select>\r" +
-    "\n" +
-    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "                                    </select> \r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
@@ -4128,13 +4126,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-3\">\r" +
     "\n" +
-    "                                    <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\" required>\r" +
+    "                                    <select id=\"tahun\" name=\"tahun\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.tahun\" required>\r" +
     "\n" +
-    "                                        <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.title}}</option>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.years\" ng-value=\"x.tahun\">{{x.tahun}}</option>\r" +
     "\n" +
-    "                                    </select>\r" +
-    "\n" +
-    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "                                    </select> \r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
@@ -4158,9 +4154,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                                <th>No</th>\r" +
     "\n" +
-    "                                                <th>Bulan</th>\r" +
+    "                                                <th>Bulan Number</th>\r" +
     "\n" +
-    "                                                <th hidden>Bulan Name</th>\r" +
+    "                                                <th>Bulan</th>\r" +
     "\n" +
     "                                                <th>Tahun</th>\r" +
     "\n" +

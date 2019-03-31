@@ -2664,14 +2664,55 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('TimesheetEngineerDetailCtrl', TimesheetEngineerDetailCtrl);
 
-    TimesheetEngineerDetailCtrl.$inject = ['$scope', '$stateParams', '$state', 'FormControlService', 'timesheetEngineerDetailDtService', 'timesheetEngineerDetailViewService'];
+    TimesheetEngineerDetailCtrl.$inject = ['$scope', '$stateParams', '$state', 'FormControlService', 'timesheetEngineerDetailDtService', 'timesheetEngineerDetailViewService', 'select2Service'];
 
-    function TimesheetEngineerDetailCtrl($scope, sParam, $state, formControlService, dtService, timesheetEngineerDetailViewService) {
+    function TimesheetEngineerDetailCtrl($scope, sParam, $state, formControlService, dtService, timesheetEngineerDetailViewService, select2Service) {
         var self = this;
         self.stateParam = sParam;
+        self.model = {};
+        self.formData = {};
 
         dtService.init(self);
         timesheetEngineerDetailViewService.init(self);
+
+        function getMonths() {
+            select2Service.liveSearch("report/timesheetDetail", {
+                selector: '#bulan',
+                valueMember: 'bulan',
+                displayMember: 'bulanName',
+                extendRequestData: {
+                    user_fk: sParam.id
+                },
+                callback: function (data) {
+                    self.formData.months = data;
+                },
+                onSelected: function (data) { 
+                    self.model.bulan = data.bulan;
+                    self.datatable.draw(); 
+                }
+            });
+        }
+
+        function getYears() {
+            select2Service.liveSearch("report/timesheetDetail", {
+                selector: '#tahun',
+                valueMember: 'tahun',
+                displayMember: 'tahun',
+                extendRequestData: {
+                    user_fk: sParam.id
+                },
+                callback: function (data) {
+                    self.formData.years = data;
+                },
+                onSelected: function (data) {
+                    self.model.tahun = data.tahun;
+                    self.datatable.draw();
+                }
+            });
+        }
+
+        getMonths();
+        getYears();
 
         return self;
     }
@@ -9081,34 +9122,38 @@ angular.module('global-solusindo')
         self.init = function (ctrl) {
             controller = ctrl;
             var titleColumnIndex = 1;
+            var user_fk = controller.stateParam.id;
             var dt = ds.init("#timesheetEngineerDetail", "report/timesheetDetail", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10,
-                    user_fk: controller.stateParam.id
+                    user_fk: user_fk,
+                    bulan: controller.model.bulan,
+                    tahun: controller.model.tahun
                 },
                 order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "user_fk"
-                },
-                {
-                    "data": "bulan"
-                },
-                {
-                    "data": "bulanName",
-                    "visible": false
-                },
-                {
-                    "data": "tahun"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "user_fk"
+                    },
+                    {
+                        "data": "bulan",
+                        "visible": false,
+                    },
+                    {
+                        "data": "bulanName"
+                    },
+                    {
+                        "data": "tahun"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                        }
                     }
-                }
                 ],
                 ajaxCallback: function (response) {
                     controller.user = response.data.user;
@@ -9817,8 +9862,7 @@ angular.module('global-solusindo')
                     var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
-                    }
-
+                    } 
                     http.get(apiUrl, requestData).then(function (res) {
                         if (res && res.success) {
                             callback({

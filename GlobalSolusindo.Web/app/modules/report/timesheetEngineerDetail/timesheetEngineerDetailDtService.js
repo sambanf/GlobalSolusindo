@@ -22,34 +22,38 @@
         self.init = function (ctrl) {
             controller = ctrl;
             var titleColumnIndex = 1;
+            var user_fk = controller.stateParam.id;
             var dt = ds.init("#timesheetEngineerDetail", "report/timesheetDetail", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10,
-                    user_fk: controller.stateParam.id
+                    user_fk: user_fk,
+                    bulan: controller.model.bulan,
+                    tahun: controller.model.tahun
                 },
                 order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "user_fk"
-                },
-                {
-                    "data": "bulan"
-                },
-                {
-                    "data": "bulanName",
-                    "visible": false
-                },
-                {
-                    "data": "tahun"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "user_fk"
+                    },
+                    {
+                        "data": "bulan",
+                        "visible": false,
+                    },
+                    {
+                        "data": "bulanName"
+                    },
+                    {
+                        "data": "tahun"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                        }
                     }
-                }
                 ],
                 ajaxCallback: function (response) {
                     controller.user = response.data.user;
