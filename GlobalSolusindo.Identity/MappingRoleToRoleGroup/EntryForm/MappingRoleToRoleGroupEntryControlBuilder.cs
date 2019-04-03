@@ -40,10 +40,10 @@ namespace GlobalSolusindo.Identity.MappingRoleToRoleGroup.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("MappingRoleToRoleGroup_Input");
+                    enabled = accessControl.UserHasRole("MappingRoleToRoleGroup_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("MappingRoleToRoleGroup_Edit");
+                    enabled = accessControl.UserHasRole("MappingRoleToRoleGroup_Edit");
                     break;
                 default:
                     break;

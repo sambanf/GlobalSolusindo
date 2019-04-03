@@ -24,7 +24,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Get(int id)
         {
             string accessType = "RoleGroup_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             using (RoleGroupQuery roleGroupQuery = new RoleGroupQuery(Db))
             {
                 var data = roleGroupQuery.GetByPrimaryKey(id);
@@ -38,7 +38,8 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult GetForm(int id)
         {
             string accessType = "RoleGroup_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            if (id > 0)
+                ThrowIfUserHasNoRole(accessType);
             using (RoleGroupEntryDataProvider roleGroupEntryDataProvider = new RoleGroupEntryDataProvider(Db, ActiveUser, AccessControl, new RoleGroupQuery(Db)))
             {
                 var data = roleGroupEntryDataProvider.Get(id);
@@ -52,7 +53,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]RoleGroupSearchFilter filter)
         {
             string accessType = "RoleGroup_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,7 +69,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Create([FromBody]RoleGroupDTO roleGroup)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (roleGroup == null)
                 throw new KairosException("Missing model parameter");
 
@@ -92,7 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Update([FromBody]RoleGroupDTO roleGroup)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (roleGroup == null)
                 throw new KairosException("Missing model parameter");
 
@@ -120,7 +121,7 @@ namespace GlobalSolusindo.Api.Controllers
                 throw new KairosException("Missing parameter: 'ids'");
 
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
 
             using (var roleGroupDeleteHandler = new RoleGroupDeleteHandler(Db, ActiveUser))
             {

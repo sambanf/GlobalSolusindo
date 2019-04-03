@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.CheckIn.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("CheckIn_Input");
+                    enabled = accessControl.UserHasRole("CheckIn_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("CheckIn_Edit");
+                    enabled = accessControl.UserHasRole("CheckIn_Edit");
                     break;
                 default:
                     break;

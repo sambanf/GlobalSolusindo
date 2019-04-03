@@ -19,7 +19,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult SearchTimesheetDetail([FromUri]TimesheetDetailSearchFilter filter)
         {
             string accessType = "Report_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -35,7 +35,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult SearchActivities([FromUri]ActivitiesSearchFilter filter)
         {
             string accessType = "Report_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -51,7 +51,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult SearchTaskEngineer([FromUri]TaskEngineerSearchFilter filter)
         {
             string accessType = "Report_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -67,7 +67,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult TaskEngineerDetail(int sowAssign_fk)
         {
             string accessType = "Report_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
 
             using (var taskEngineerDetailDataProvider = new TaskEngineerDetailDataProvider(Db, ActiveUser, AccessControl))
             {
@@ -81,7 +81,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult SearchDailyTask([FromUri]DailyTaskSearchFilter filter)
         {
             string accessType = "Report_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 

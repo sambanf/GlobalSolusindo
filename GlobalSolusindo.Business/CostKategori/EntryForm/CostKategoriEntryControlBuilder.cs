@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.CostKategori.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("CostKategori_Input");
+                    enabled = accessControl.UserHasRole("CostKategori_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("CostKategori_Edit");
+                    enabled = accessControl.UserHasRole("CostKategori_Edit");
                     break;
                 default:
                     break;

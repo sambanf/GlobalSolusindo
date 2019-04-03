@@ -24,7 +24,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Get(int id)
         {
             string accessType = "KategoriJabatan_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             using (KategoriJabatanQuery kategoriJabatanQuery = new KategoriJabatanQuery(Db))
             {
                 var data = kategoriJabatanQuery.GetByPrimaryKey(id);
@@ -38,7 +38,8 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult GetForm(int id)
         {
             string accessType = "KategoriJabatan_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            if (id > 0)
+                ThrowIfUserHasNoRole(accessType);
             using (KategoriJabatanEntryDataProvider kategoriJabatanEntryDataProvider = new KategoriJabatanEntryDataProvider(Db, ActiveUser, AccessControl, new KategoriJabatanQuery(Db)))
             {
                 var data = kategoriJabatanEntryDataProvider.Get(id);
@@ -52,7 +53,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]KategoriJabatanSearchFilter filter)
         {
             string accessType = "KategoriJabatan_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,7 +69,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Create([FromBody]KategoriJabatanDTO kategoriJabatan)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (kategoriJabatan == null)
                 throw new KairosException("Missing model parameter");
 
@@ -92,7 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Update([FromBody]KategoriJabatanDTO kategoriJabatan)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (kategoriJabatan == null)
                 throw new KairosException("Missing model parameter");
 
@@ -120,7 +121,7 @@ namespace GlobalSolusindo.Api.Controllers
                 throw new KairosException("Missing parameter: 'ids'");
 
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
 
             using (var kategoriJabatanDeleteHandler = new KategoriJabatanDeleteHandler(Db, ActiveUser))
             {

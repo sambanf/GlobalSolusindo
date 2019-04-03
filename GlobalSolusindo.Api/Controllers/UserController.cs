@@ -23,7 +23,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Get(int id)
         {
             string accessType = "User_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             using (UserQuery userQuery = new UserQuery(Db))
             {
                 var data = userQuery.GetByPrimaryKey(id);
@@ -37,7 +37,8 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult GetForm(int id)
         {
             string accessType = "User_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            if (id > 0)
+                ThrowIfUserHasNoRole(accessType);
             using (UserEntryDataProvider userEntryDataProvider = new UserEntryDataProvider(Db, ActiveUser, AccessControl, new UserQuery(Db)))
             {
                 var data = userEntryDataProvider.Get(id);
@@ -51,7 +52,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]UserSearchFilter filter)
         {
             string accessType = "User_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -67,7 +68,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Create([FromBody]UserDTO user)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (user == null)
                 throw new KairosException("Missing model parameter");
 
@@ -91,7 +92,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Update([FromBody]UserDTO user)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (user == null)
                 throw new KairosException("Missing model parameter");
 
@@ -119,7 +120,7 @@ namespace GlobalSolusindo.Api.Controllers
                 throw new KairosException("Missing parameter: 'ids'");
 
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
 
             using (var userDeleteHandler = new UserDeleteHandler(Db, ActiveUser))
             {

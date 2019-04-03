@@ -24,7 +24,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Get(int id)
         {
             string accessType = "Project_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             using (ProjectQuery projectQuery = new ProjectQuery(Db))
             {
                 var data = projectQuery.GetByPrimaryKey(id);
@@ -38,7 +38,8 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult GetForm(int id)
         {
             string accessType = "Project_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            if (id > 0)
+                ThrowIfUserHasNoRole(accessType);
             using (ProjectEntryDataProvider projectEntryDataProvider = new ProjectEntryDataProvider(Db, ActiveUser, AccessControl, new ProjectQuery(Db)))
             {
                 var data = projectEntryDataProvider.Get(id);
@@ -52,7 +53,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]ProjectSearchFilter filter)
         {
             string accessType = "Project_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,7 +69,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Create([FromBody]ProjectDTO project)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (project == null)
                 throw new KairosException("Missing model parameter");
 
@@ -92,7 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Update([FromBody]ProjectDTO project)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (project == null)
                 throw new KairosException("Missing model parameter");
 
@@ -120,7 +121,7 @@ namespace GlobalSolusindo.Api.Controllers
                 throw new KairosException("Missing parameter: 'ids'");
 
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
 
             using (var projectDeleteHandler = new ProjectDeleteHandler(Db, ActiveUser))
             {

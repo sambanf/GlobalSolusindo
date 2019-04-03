@@ -40,10 +40,10 @@ namespace GlobalSolusindo.Identity.User.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("User_Input");
+                    enabled = accessControl.UserHasRole("User_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("User_Edit");
+                    enabled = accessControl.UserHasRole("User_Edit");
                     break;
                 default:
                     break;

@@ -40,10 +40,10 @@ namespace GlobalSolusindo.Identity.KategoriJabatan.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("KategoriJabatan_Input");
+                    enabled = accessControl.UserHasRole("KategoriJabatan_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("KategoriJabatan_Edit");
+                    enabled = accessControl.UserHasRole("KategoriJabatan_Edit");
                     break;
                 default:
                     break;

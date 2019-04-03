@@ -8,8 +8,7 @@ namespace GlobalSolusindo.Api
     {
         protected override bool IsAuthorized(HttpActionContext actionContext)
         {
-            var token = RequestHeaderQuery.GetToken(actionContext.Request);
-            var userDto = TokenSessionManager.GetUser(token);
+            var userDto = actionContext.GetCurrentUser();
             if (userDto == null)
             {
                 return false;

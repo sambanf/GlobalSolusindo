@@ -83,7 +83,7 @@
                             }
                         }
                         else {
-                            alert(res.message);
+                            ui.alert.error(res.message);
                         }
                     });
                 },

@@ -21,7 +21,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Get([FromBody]UserAuthParamMapPK userRoleMapPK)
         {
             string accessType = "MappingUserToAuthParam_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             using (MappingUserToAuthParamQuery mappingUserToAuthParamQuery = new MappingUserToAuthParamQuery(Db))
             {
                 var data = mappingUserToAuthParamQuery.GetByPrimaryKey(userRoleMapPK.AuthParamPK, userRoleMapPK.UserPK);
@@ -35,7 +35,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult GetForm([FromBody]UserAuthParamMapPK userRoleMapPK)
         {
             string accessType = "MappingUserToAuthParam_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            //ThrowIfUserHasNoRole(accessType);
             using (MappingUserToAuthParamEntryDataProvider mappingUserToAuthParamEntryDataProvider = new MappingUserToAuthParamEntryDataProvider(Db, ActiveUser, AccessControl, new MappingUserToAuthParamQuery(Db)))
             {
                 var data = mappingUserToAuthParamEntryDataProvider.Get(userRoleMapPK.AuthParamPK, userRoleMapPK.UserPK);
@@ -49,7 +49,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]MappingUserToAuthParamSearchFilter filter)
         {
             string accessType = "MappingUserToAuthParam_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -65,7 +65,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Create([FromBody]MappingUserToAuthParamDTO mappingUserToAuthParam)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (mappingUserToAuthParam == null)
                 throw new KairosException("Missing model parameter"); 
 
@@ -87,7 +87,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Update([FromBody]MappingUserToAuthParamDTO mappingUserToAuthParam)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (mappingUserToAuthParam == null)
                 throw new KairosException("Missing model parameter"); 
 
@@ -112,7 +112,7 @@ namespace GlobalSolusindo.Api.Controllers
                 throw new KairosException("Missing parameter: 'primary keys'");
 
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
 
             using (var mappingUserToAuthParamDeleteHandler = new MappingUserToAuthParamDeleteHandler(Db, ActiveUser))
             {

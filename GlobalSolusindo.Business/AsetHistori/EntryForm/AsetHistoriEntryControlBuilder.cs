@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.AsetHistori.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("AsetHistori_Input");
+                    enabled = accessControl.UserHasRole("AsetHistori_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("AsetHistori_Edit");
+                    enabled = accessControl.UserHasRole("AsetHistori_Edit");
                     break;
                 default:
                     break;

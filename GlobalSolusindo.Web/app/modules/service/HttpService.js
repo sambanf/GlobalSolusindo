@@ -29,7 +29,7 @@
         auth.getAccessToken = function () {
             return tokenService.getToken();
         };
-         
+
         function showLoader() {
             ui.loader.show();
         }
@@ -44,7 +44,7 @@
 
         function handleUnauthorized() {
             tokenService.clearToken();
-            ui.alert.error('Your session has been exceed.');
+            ui.alert.error('Authorization is required.');
             goToLoginPage();
         }
 
@@ -66,9 +66,12 @@
             }
         }
 
-        function handleHtppSuccess(response) {
+        function handleHttpSuccess(response) {
             hideLoader();
-            var status = response.status;
+            var status = response.data.status;
+            if (status != 200) {
+                ui.alert.error(response.message);
+            }
         }
 
         delete $http.defaults.headers.common['X-Requested-With'];
@@ -96,7 +99,7 @@
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
@@ -131,7 +134,7 @@
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
                 }, function (response) {
@@ -164,7 +167,7 @@
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
@@ -197,7 +200,7 @@
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
@@ -230,7 +233,7 @@
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 

@@ -24,7 +24,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Get(int id)
         {
             string accessType = "IzinCuti_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             using (IzinCutiQuery izinCutiQuery = new IzinCutiQuery(Db))
             {
                 var data = izinCutiQuery.GetByPrimaryKey(id);
@@ -38,7 +38,8 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult GetForm(int id)
         {
             string accessType = "IzinCuti_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            if (id > 0)
+                ThrowIfUserHasNoRole(accessType);
             using (IzinCutiEntryDataProvider izinCutiEntryDataProvider = new IzinCutiEntryDataProvider(Db, ActiveUser, AccessControl, new IzinCutiQuery(Db)))
             {
                 var data = izinCutiEntryDataProvider.Get(id);
@@ -52,7 +53,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]IzinCutiSearchFilter filter)
         {
             string accessType = "IzinCuti_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,7 +69,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Create([FromBody]IzinCutiDTO izinCuti)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (izinCuti == null)
                 throw new KairosException("Missing model parameter");
 
@@ -92,7 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Update([FromBody]IzinCutiDTO izinCuti)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (izinCuti == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,7 +118,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Approval([FromBody]IzinCutiApprovalModel izinCutiApproval)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (izinCutiApproval == null)
                 throw new KairosException("Missing model parameter");
 
@@ -145,7 +146,7 @@ namespace GlobalSolusindo.Api.Controllers
                 throw new KairosException("Missing parameter: 'ids'");
 
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
 
             using (var izinCutiDeleteHandler = new IzinCutiDeleteHandler(Db, ActiveUser))
             {

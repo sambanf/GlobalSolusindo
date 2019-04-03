@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.BTSStatus.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("BTSStatus_Input");
+                    enabled = accessControl.UserHasRole("BTSStatus_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("BTSStatus_Edit");
+                    enabled = accessControl.UserHasRole("BTSStatus_Edit");
                     break;
                 default:
                     break;

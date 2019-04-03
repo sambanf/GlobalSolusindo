@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.DeliveryArea.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("DeliveryArea_Input");
+                    enabled = accessControl.UserHasRole("DeliveryArea_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("DeliveryArea_Edit");
+                    enabled = accessControl.UserHasRole("DeliveryArea_Edit");
                     break;
                 default:
                     break;

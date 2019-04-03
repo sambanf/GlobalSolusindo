@@ -14,7 +14,7 @@ namespace GlobalSolusindo.Identity
     public class TokenSessionManager
     {
         private static readonly object padlock = new object();
-        private const double timeOutLimit = 30;
+        private const double timeOutLimit = 1;
 
         private static Dictionary<string, TokenSession> _sessions;
 

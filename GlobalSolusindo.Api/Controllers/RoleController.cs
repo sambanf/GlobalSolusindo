@@ -24,7 +24,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Get(int id)
         {
             string accessType = "Role_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             using (RoleQuery roleQuery = new RoleQuery(Db))
             {
                 var data = roleQuery.GetByPrimaryKey(id);
@@ -38,7 +38,8 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult GetForm(int id)
         {
             string accessType = "Role_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            if (id > 0)
+                ThrowIfUserHasNoRole(accessType);
             using (RoleEntryDataProvider roleEntryDataProvider = new RoleEntryDataProvider(Db, ActiveUser, AccessControl, new RoleQuery(Db)))
             {
                 var data = roleEntryDataProvider.Get(id);
@@ -52,7 +53,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]RoleSearchFilter filter)
         {
             string accessType = "Role_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -67,8 +68,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]RoleDTO role)
         {
-            string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            string accessType = "Role_Input";
+            ThrowIfUserHasNoRole(accessType);
             if (role == null)
                 throw new KairosException("Missing model parameter");
 
@@ -77,7 +78,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var roleCreateHandler = new RoleCreateHandler(Db, ActiveUser, new RoleValidator(), new RoleFactory(Db, ActiveUser), new RoleQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = roleCreateHandler.Save(roleDTO: role, dateStamp: DateTime.UtcNow);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -91,8 +92,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]RoleDTO role)
         {
-            string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            string accessType = "Role_Input";
+            ThrowIfUserHasNoRole(accessType);
             if (role == null)
                 throw new KairosException("Missing model parameter");
 
@@ -119,8 +120,8 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            string accessType = "Role_Delete";
+            ThrowIfUserHasNoRole(accessType);
 
             using (var roleDeleteHandler = new RoleDeleteHandler(Db, ActiveUser))
             {

@@ -24,7 +24,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Get(int id)
         {
             string accessType = "Area_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             using (AreaQuery areaQuery = new AreaQuery(Db))
             {
                 var data = areaQuery.GetByPrimaryKey(id);
@@ -38,7 +38,8 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult GetForm(int id)
         {
             string accessType = "Area_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            if (id > 0)
+                ThrowIfUserHasNoRole(accessType);
             using (AreaEntryDataProvider areaEntryDataProvider = new AreaEntryDataProvider(Db, ActiveUser, AccessControl, new AreaQuery(Db)))
             {
                 var data = areaEntryDataProvider.Get(id);
@@ -52,7 +53,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]AreaSearchFilter filter)
         {
             string accessType = "Area_ViewAll";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,7 +69,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Create([FromBody]AreaDTO area)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (area == null)
                 throw new KairosException("Missing model parameter");
 
@@ -77,7 +78,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var areaCreateHandler = new AreaCreateHandler(Db, ActiveUser, new AreaValidator(), new AreaFactory(Db, ActiveUser), new AreaQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = areaCreateHandler.Save(areaDTO: area, dateStamp: DateTime.UtcNow);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -92,7 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Update([FromBody]AreaDTO area)
         {
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
             if (area == null)
                 throw new KairosException("Missing model parameter");
 
@@ -120,7 +121,7 @@ namespace GlobalSolusindo.Api.Controllers
                 throw new KairosException("Missing parameter: 'ids'");
 
             string accessType = "";
-            ThrowIfUserCannotAccess(accessType);
+            ThrowIfUserHasNoRole(accessType);
 
             using (var areaDeleteHandler = new AreaDeleteHandler(Db, ActiveUser))
             {

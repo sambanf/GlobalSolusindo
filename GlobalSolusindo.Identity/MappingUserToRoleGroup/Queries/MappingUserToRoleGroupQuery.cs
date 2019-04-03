@@ -61,6 +61,12 @@ namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.Queries
             return records;
         }
 
+        public IQueryable<MappingUserToRoleGroupDTO> GetByUserPK(int userPk)
+        {
+            IQueryable<MappingUserToRoleGroupDTO> records = GetQuery().Where(mappingRoleToRoleGroup => mappingRoleToRoleGroup.User_PK == userPk);
+            return records;
+        }
+
         public MappingUserToRoleGroupDTO GetByPrimaryKey(int roleGroupPk, int userPk)
         {
             MappingUserToRoleGroupDTO record = GetQuery()

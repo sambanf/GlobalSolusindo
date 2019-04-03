@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.SOWAssign.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("SOWAssign_Input");
+                    enabled = accessControl.UserHasRole("SOWAssign_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("SOWAssign_Edit");
+                    enabled = accessControl.UserHasRole("SOWAssign_Edit");
                     break;
                 default:
                     break;

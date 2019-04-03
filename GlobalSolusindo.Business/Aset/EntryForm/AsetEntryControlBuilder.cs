@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.Aset.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("Aset_Input");
+                    enabled = accessControl.UserHasRole("Aset_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("Aset_Edit");
+                    enabled = accessControl.UserHasRole("Aset_Edit");
                     break;
                 default:
                     break;

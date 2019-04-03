@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.Cabang.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("Cabang_Input");
+                    enabled = accessControl.UserHasRole("Cabang_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("Cabang_Edit");
+                    enabled = accessControl.UserHasRole("Cabang_Edit");
                     break;
                 default:
                     break;

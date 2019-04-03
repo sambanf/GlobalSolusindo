@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.Project.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("Project_Input");
+                    enabled = accessControl.UserHasRole("Project_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("Project_Edit");
+                    enabled = accessControl.UserHasRole("Project_Edit");
                     break;
                 default:
                     break;

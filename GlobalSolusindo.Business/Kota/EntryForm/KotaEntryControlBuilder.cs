@@ -41,10 +41,10 @@ namespace GlobalSolusindo.Business.Kota.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("Kota_Input");
+                    enabled = accessControl.UserHasRole("Kota_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("Kota_Edit");
+                    enabled = accessControl.UserHasRole("Kota_Edit");
                     break;
                 default:
                     break;

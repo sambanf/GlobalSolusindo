@@ -40,10 +40,10 @@ namespace GlobalSolusindo.Identity.AuthParam.EntryForm
             switch (formState)
             {
                 case EntryFormState.Create:
-                    enabled = accessControl.CanAccess("AuthParam_Input");
+                    enabled = accessControl.UserHasRole("AuthParam_Input");
                     break;
                 case EntryFormState.Update:
-                    enabled = accessControl.CanAccess("AuthParam_Edit");
+                    enabled = accessControl.UserHasRole("AuthParam_Edit");
                     break;
                 default:
                     break;
