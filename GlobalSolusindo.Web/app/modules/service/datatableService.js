@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('DatatableService', DtService);
 
-    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state'];
+    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state', 'uiService' ];
 
-    function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state) {
+    function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui) {
         var self = this;
 
         self.init = function dt(tableIdOrClass, apiUrl, param) { 
@@ -68,8 +68,10 @@
                     var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
-                    } 
+                    }
+                    //ui.loader.show();
                     http.get(apiUrl, requestData).then(function (res) {
+                        //ui.loader.hide();
                         if (res && res.success) {
                             callback({
                                 recordsTotal: res.data.count.totalRecords,

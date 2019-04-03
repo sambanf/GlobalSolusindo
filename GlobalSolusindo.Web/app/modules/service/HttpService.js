@@ -14,18 +14,42 @@
         .factory('HttpService', Http)
         .factory('PendingRequest', Pending);
 
-    Http.$inject = ['$http', '$state', '$cookies', '$q', '$httpParamSerializerJQLike', 'PendingRequest', '$httpParamSerializer'];
+    Http.$inject = ['$http', '$state', '$cookies', '$q', '$httpParamSerializerJQLike', 'PendingRequest', '$httpParamSerializer', 'uiService'];
 
-    function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
-        // var base_url = cs.config.getApiUrl();
+    function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui) {
+        var debugMode = true;
+
         //var base_url = "http://global-solusindo-ws.local/";
         var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
+
         var auth = {};
+
         auth.getAccessToken = function () {
             return '';
         };
+
+        function handleHttpError(response) {
+            ui.loader.hide();
+            var status = response.status;
+            var message = response.statusText;
+            var debugMessage = debugMode ? "<br/>Status: " + status + "<br/> Message: " + message + "" : "";
+            if (debugMode) {
+                console.log(response);
+                ui.alert.error("Error. Debug mode is ON." + debugMessage);
+            }
+
+            if (status === 500)
+                ui.alert.error("Something error happen on the server." + debugMessage);
+            if (status === -1)
+                ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
+        }
+
+        function handleHtppSuccess(response) {
+            ui.loader.hide();
+            var status = response.status;
+        }
 
         delete $http.defaults.headers.common['X-Requested-With'];
         return {
@@ -51,10 +75,12 @@
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
                 }, function (response) {
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject(response.data);
                 });
@@ -72,6 +98,7 @@
                     canceller: deferred
                 });
                 delete $http.defaults.headers.common['X-Requested-With'];
+                ui.loader.show();
                 $http({
                     method: 'POST',
                     url: url,
@@ -83,17 +110,14 @@
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
                 }, function (response) {
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject();
                 });
-                //}, function (response) {
-                //    //console.log(response.xhrStatus);
-                //    PendingRequest.remove(url);
-                //    deferred.reject();
-                //});
 
                 return deferred.promise;
             },
@@ -107,7 +131,7 @@
                     url: url,
                     canceller: deferred
                 });
-
+                ui.loader.show();
                 $http({
                     method: 'PUT',
                     url: url,
@@ -119,10 +143,12 @@
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
                 }, function (response) {
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject();
                 });
@@ -138,7 +164,7 @@
                     url: url,
                     canceller: deferred
                 });
-
+                ui.loader.show();
                 $http({
                     method: 'GET',
                     url: url,
@@ -149,11 +175,12 @@
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
                 }, function (response) {
-                    //console.log(response.xhrStatus);
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject();
                 });
@@ -169,7 +196,7 @@
                     url: url,
                     canceller: deferred
                 });
-
+                ui.loader.show();
                 $http({
                     method: 'DELETE',
                     url: url,
@@ -181,10 +208,12 @@
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
                 }, function (response) {
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject();
                 });

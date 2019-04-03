@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('uiService', ui);
+        .factory('uiService', uiService);
 
-    ui.$inject = [];
+    uiService.$inject = [];
 
-    function ui() {
+    function uiService() {
         var self = this;
 
         self.alert = {
@@ -48,6 +48,16 @@
                 }).show(true, 'confirm');
             }
         };
+
+        self.loader = {
+            show: function () {
+                angular.element('.lds-ring').fadeIn();
+            },
+            hide: function () {
+                angular.element('.lds-ring').fadeOut();
+            }
+        }
+
 
         return self;
     }
