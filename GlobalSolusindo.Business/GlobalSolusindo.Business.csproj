@@ -127,6 +127,14 @@
     <Compile Include="Cost\ListForm\CostListModel.cs" />
     <Compile Include="Cost\Queries\CostQuery.cs" />
     <Compile Include="Cost\Queries\CostSearch.cs" />
+    <Compile Include="Report\DailyTask\DailyTaskDTO.cs" />
+    <Compile Include="Report\DailyTask\DailyTaskQuery.cs" />
+    <Compile Include="Report\DailyTask\DailyTaskSearch.cs" />
+    <Compile Include="Report\TaskEngineerDetail\TaskEngineerDetailDataProvider.cs" />
+    <Compile Include="Report\TaskEngineerDetail\TaskEngineerDetailDTO.cs" />
+    <Compile Include="Report\TaskEngineer\TaskEngineerDTO.cs" />
+    <Compile Include="Report\TaskEngineer\TaskEngineerQuery.cs" />
+    <Compile Include="Report\TaskEngineer\TaskEngineerSearch.cs" />
     <Compile Include="Report\TimesheetEngineer\Activities\ActivitiesDTO.cs" />
     <Compile Include="Report\TimesheetEngineer\Activities\ActivitiesQuery.cs" />
     <Compile Include="Report\TimesheetEngineer\Activities\ActivitiesSearch.cs" />

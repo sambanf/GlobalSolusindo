@@ -80,6 +80,9 @@
                                 param.ajaxCallback(res);
                             }
                         }
+                        else {
+                            alert(res.message);
+                        }
                     });
                 },
                 columns: param.columns,

@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-31. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-04-03. 
 * @author Kairos
 */
 /*! jQuery v3.3.1 | (c) JS Foundation and other contributors | jquery.org/license */

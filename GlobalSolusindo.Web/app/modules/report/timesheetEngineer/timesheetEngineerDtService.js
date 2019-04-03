@@ -28,19 +28,20 @@
                     pageSize: 10
                 },
                 order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "user_pk"
-                },
-                {
-                    "data": "userCode"
-                },
-                {
-                    "data": "name"
-                },
-                {
-                    "data": "kategoriJabatanTitle"
-                },
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "user_pk"
+                    },
+                    {
+                        "data": "userCode"
+                    },
+                    {
+                        "data": "name"
+                    },
+                    {
+                        "data": "kategoriJabatanTitle"
+                    },
                     {
                         "orderable": false,
                         "className": "text-center",

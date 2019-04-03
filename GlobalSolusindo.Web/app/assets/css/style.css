@@ -1463,6 +1463,38 @@ table.dataTable .btn {
     color: #fff;
 }
 
+.dot-online {
+    height: 20px;
+    width: 20px;
+    background-color: #00C74C;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-offline {
+    height: 20px;
+    width: 20px;
+    background-color: #FF4600;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-cuti {
+    height: 20px;
+    width: 20px;
+    background-color: #FFB300;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-unassigned {
+    height: 20px;
+    width: 20px;
+    background-color: #6F6F6F;
+    border-radius: 50%;
+    display: inline-block;
+}
+
 @media only screen and (max-width: 992px) {
     #top-alert .pl-0 {
         padding-left: 15px !important;

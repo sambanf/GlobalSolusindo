@@ -1,0 +1,82 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">List Task Engineer</div>
+                    <div class="row form-group">
+                        <label class="control-label col-sm-1">User ID:</label>
+                        <div class="col-sm-2">
+                            <select id="user_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="vm.model.user_fk" required>
+                                <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.title}}</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <label class="control-label col-xs-1">Name:</label>
+                        <div class="col-sm-2">
+                            <input type="text" id="username" name="username" class="form-control" ng-model="vm.model.username" disabled>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <label class="control-label col-xs-1">BTS:</label>
+                        <div class="col-sm-2">
+                            <select id="bts_fk" name="bts_fk" class="form-control input-lg" size="0" ng-model="vm.model.bts_fk" required>
+                                <option ng-repeat="x in vm.formData.btses" ng-value="x.bts_pk">{{x.title}}</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row form-group col-md-2 radio">
+                        <label><input type="radio" name="optradio" value="1">Jangka Waktu</label>
+                    </div>
+                    <div class="row form-group">
+                        <label class="control-label col-sm-1">Tgl Mulai :</label>
+                        <div class="col-sm-2">
+                            <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <label class="control-label col-xs-1">Tgl Akhir :</label>
+                        <div class="col-sm-2">
+                            <input type="text" id="tglAkhir" name="tglAkhir" ng-model="vm.model.tglAkhir" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+
+                    <div class="row form-group col-md-2 radio">
+                        <label><input type="radio" name="optradio" value="1">Periode Waktu</label>
+                    </div>
+                    <div class="row form-group">
+                        <label class="control-label col-sm-1">Periode:</label>
+                        <div class="col-sm-2">
+                            <select id="bulan_fk" name="bulan_fk" class="form-control input-lg" size="0" ng-model="vm.model.bulan_fk" required>
+                                <option ng-repeat="x in vm.formData.bulans" ng-value="x.bulan_pk">{{x.title}}</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row form-group col-md-2">
+                        <button id="searchButton" class="btn btn-success">Search</button>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="taskEngineer">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Assign Number</th>
+                                        <th>User ID</th>
+                                        <th>Name</th>
+                                        <th>Position</th>
+                                        <th>BTS</th>
+                                        <th>Task Status</th>
+                                        <th>Detail</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

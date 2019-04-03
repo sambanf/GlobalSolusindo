@@ -11,18 +11,18 @@
 
     angular
         .module('global-solusindo')
-        .factory('areaDtService', areaDtService);
+        .factory('taskEngineerDtService', taskEngineerDtService);
 
-    areaDtService.$inject = ['DatatableService'];
+    taskEngineerDtService.$inject = ['DatatableService'];
 
-    function areaDtService(ds) {
+    function taskEngineerDtService(ds) {
         var self = this;
         var controller = {};
 
         self.init = function (ctrl) {
             controller = ctrl;
             var titleColumnIndex = 1;
-            var dt = ds.init("#area", "area/search", {
+            var dt = ds.init("#taskEngineer", "taskEngineer/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
@@ -31,18 +31,31 @@
                 columns: [
                     {
                         "orderable": false,
-                        "data": "area_pk"
+                        "data": "sowAssign_fk"
                     },
                     {
-                        "data": "title"
+                        "data": "assignNumber"
+                    },
+                    {
+                        "data": "userId"
+                    },
+                    {
+                        "data": "userName"
+                    },
+                    {
+                        "data": "kategoriJabatanTitle"
+                    },
+                    {
+                        "data": "btsName"
+                    },
+                    {
+                        "data": "taskStatus"
                     },
                     {
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
                         }
                     }
                 ]

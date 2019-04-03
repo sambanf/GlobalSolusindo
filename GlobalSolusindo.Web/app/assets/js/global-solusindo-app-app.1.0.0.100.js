@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-03-31. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-04-03. 
 * @author Kairos
 */
 (function() {
@@ -939,6 +939,62 @@ angular.module('global-solusindo')
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Aset Histori'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.dailyTaskList', {
+                url: '/dailyTaskList',
+                templateUrl: 'app/modules/report/dailyTask/dailyTask.html',
+                controller: 'DailyTaskCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'DailyTask'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.taskEngineerList', {
+                url: '/taskEngineerList',
+                templateUrl: 'app/modules/report/taskEngineer/taskEngineer.html',
+                controller: 'TaskEngineerCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'TaskEngineer'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.taskEngineerDetail', {
+                url: '/taskEngineerDetail/:id',
+                templateUrl: 'app/modules/report/taskEngineerDetail/taskEngineerDetail.html',
+                controller: 'TaskEngineerDetailCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Task Engineer Detail'
                 }
             });
     }]);
@@ -2628,6 +2684,66 @@ angular.module('global-solusindo')
         var self = this;
         self.stateParam = $stateParams;
         dtService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('DailyTaskCtrl', DailyTaskCtrl);
+
+    DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService'];
+
+    function DailyTaskCtrl($scope, $state, dtService) {
+        var self = this;
+
+        dtService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('TaskEngineerCtrl', TaskEngineerCtrl);
+
+    TaskEngineerCtrl.$inject = ['$scope', '$state', 'taskEngineerDtService', 'taskEngineerDeleteService', 'taskEngineerViewService'];
+
+    function TaskEngineerCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('TaskEngineerDetailCtrl', TaskEngineerDetailCtrl);
+
+    TaskEngineerDetailCtrl.$inject = ['$scope', '$stateParams', '$state', 'TaskEngineerDetailBindingService'];
+
+    function TaskEngineerDetailCtrl($scope, sParam, $state, bindingService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self)
 
         return self;
     }
@@ -9006,6 +9122,295 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('dailyTaskDtService', dailyTaskDtService);
+
+    dailyTaskDtService.$inject = ['DatatableService'];
+
+    function dailyTaskDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#dailyTask", "dailyTask/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "dailyTask_pk"
+                    },
+                    {
+                        "data": "title"
+                    }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('taskEngineerDeleteService', taskEngineerDeleteService);
+
+    taskEngineerDeleteService.$inject = ['HttpService', 'uiService'];
+
+    function taskEngineerDeleteService(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('taskEngineer', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.taskEngineer_pk];
+            ui.alert.confirm("Are you sure want to delete taskEngineer '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].taskEngineer_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#taskEngineer tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('taskEngineerDtService', taskEngineerDtService);
+
+    taskEngineerDtService.$inject = ['DatatableService'];
+
+    function taskEngineerDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#taskEngineer", "taskEngineer/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "sowAssign_fk"
+                    },
+                    {
+                        "data": "assignNumber"
+                    },
+                    {
+                        "data": "userId"
+                    },
+                    {
+                        "data": "userName"
+                    },
+                    {
+                        "data": "kategoriJabatanTitle"
+                    },
+                    {
+                        "data": "btsName"
+                    },
+                    {
+                        "data": "taskStatus"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                        }
+                    }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('taskEngineerViewService', taskEngineerViewService);
+
+    taskEngineerViewService.$inject = ['HttpService', '$state', 'uiService'];
+
+    function taskEngineerViewService(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.taskEngineerDetail', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#taskEngineer tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.sowAssign_fk);
+            });
+
+            $("#taskEngineer tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["sowAssign_fk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('TaskEngineerDetailBindingService', TaskEngineerDetailBindingService);
+
+    TaskEngineerDetailBindingService.$inject = ['HttpService', '$state'];
+
+    function TaskEngineerDetailBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('taskEngineerDetail/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.sowAssign = res.data.sowAssign;
+                    controller.user = res.data.user;
+                    controller.bts = res.data.bts;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('timesheetEngineerDtService', timesheetEngineerDtService);
 
     timesheetEngineerDtService.$inject = ['DatatableService'];
@@ -9023,19 +9428,20 @@ angular.module('global-solusindo')
                     pageSize: 10
                 },
                 order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "user_pk"
-                },
-                {
-                    "data": "userCode"
-                },
-                {
-                    "data": "name"
-                },
-                {
-                    "data": "kategoriJabatanTitle"
-                },
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "user_pk"
+                    },
+                    {
+                        "data": "userCode"
+                    },
+                    {
+                        "data": "name"
+                    },
+                    {
+                        "data": "kategoriJabatanTitle"
+                    },
                     {
                         "orderable": false,
                         "className": "text-center",
@@ -10016,8 +10422,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
         // var base_url = cs.config.getApiUrl();
         //var base_url = "http://global-solusindo-ws.local/";
-        //var base_url = "http://gsapi.local/";
-        var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://gsapi.local/";
+        //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
         var auth = {};
         auth.getAccessToken = function () {

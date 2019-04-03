@@ -1,0 +1,47 @@
+﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.Area.Queries;
+using GlobalSolusindo.Business.BTS.Queries;
+using GlobalSolusindo.Business.BTSStatus.Queries;
+using GlobalSolusindo.Business.Cabang.Queries;
+using GlobalSolusindo.Business.Kota.Queries;
+using GlobalSolusindo.Business.Operator.Queries;
+using GlobalSolusindo.Business.SOW.Queries;
+using GlobalSolusindo.Business.SOWAssign.Queries;
+using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity;
+using GlobalSolusindo.Identity.User.Queries;
+using Kairos;
+using Kairos.UI;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace GlobalSolusindo.Business.TaskEngineerDetail
+{
+    public class TaskEngineerDetailDataProvider : FactoryBase
+    { 
+        private AccessControl accessControl;
+
+        public TaskEngineerDetailDataProvider(GlobalSolusindoDb db, tblM_User user, AccessControl accessControl) : base(db, user)
+        {
+            this.accessControl = accessControl; 
+        }
+
+        public TaskEngineerDetailDTO Get(int sowAssignPK)
+        {
+            TaskEngineerDetailDTO model = new TaskEngineerDetailDTO();
+
+            model.SOWAssign = new SOWAssignQuery(Db).GetByPrimaryKey(sowAssignPK);
+            if (model.SOWAssign != null)
+            {
+                model.User = new UserQuery(Db).GetByPrimaryKey(model.SOWAssign.User_FK);
+                var sow = new SOWQuery(Db).GetByPrimaryKey(model.SOWAssign.SOW_FK);
+                if (sow != null)
+                {
+                    model.BTS = new BTSQuery(Db).GetByPrimaryKey(sow.BTS_FK);
+                }
+            }
+
+            return model;
+        }
+    }
+}
