@@ -9682,6 +9682,11 @@ angular.module('global-solusindo')
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
+                    if (!res.success) {
+
+                        return;
+                    }
+                    controller.formData = res.data.formData;
                     controller.model = res.data.model;
                     controller.formControls = res.data.formControls;
                     resolve(res);
@@ -10313,7 +10318,7 @@ angular.module('global-solusindo')
                             }
                         }
                         else {
-                            alert(res.message);
+                            ui.alert.error(res.message);
                         }
                     });
                 },
@@ -10458,13 +10463,13 @@ angular.module('global-solusindo')
         var debugMode = false;
 
         //var base_url = "http://global-solusindo-ws.local/";
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
 
-        auth.getAccessToken = function () { 
+        auth.getAccessToken = function () {
             return tokenService.getToken();
         };
 
@@ -10480,6 +10485,12 @@ angular.module('global-solusindo')
             $state.go('login');
         }
 
+        function handleUnauthorized() {
+            tokenService.clearToken();
+            ui.alert.error('Authorization is required.');
+            goToLoginPage();
+        }
+
         function handleHttpError(response) {
             hideLoader();
             var status = response.status;
@@ -10489,18 +10500,21 @@ angular.module('global-solusindo')
                 console.log(response);
                 ui.alert.error("Error. Debug mode is ON." + debugMessage);
             }
-            debugger;
             if (status === 500)
                 ui.alert.error("Something error happen on the server." + debugMessage);
             if (status === -1)
                 ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
-            if (status === 401)
-                goToLoginPage();
+            if (status === 401) {
+                handleUnauthorized();
+            }
         }
 
-        function handleHtppSuccess(response) {
+        function handleHttpSuccess(response) {
             hideLoader();
-            var status = response.status;
+            var status = response.data.status;
+            if (status != 200) {
+                ui.alert.error(response.message);
+            }
         }
 
         delete $http.defaults.headers.common['X-Requested-With'];
@@ -10528,7 +10542,7 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
@@ -10563,7 +10577,7 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
                 }, function (response) {
@@ -10596,7 +10610,7 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
@@ -10629,7 +10643,7 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
@@ -10662,7 +10676,7 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
-                    handleHtppSuccess(response);
+                    handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
@@ -10892,9 +10906,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('tokenService', tokenService);
 
-    tokenService.$inject = ['$state', 'HttpService', 'uiService', 'validationService', '$window'];
+    tokenService.$inject = ['$state', '$cookies', 'uiService', '$window'];
 
-    function tokenService($state, http, ui, validation, $window) {
+    function tokenService($state, $cookies, ui, $window) {
         var self = this;
 
         self.getToken = function () {
