@@ -2160,11 +2160,9 @@ angular.module('global-solusindo')
             $state.go('app.dashboard');
         }
 
-        angular.element('#loginButton').on('click', function () {
-            angular.element('.loading').fadeIn();
+        angular.element('#loginButton').on('click', function () { 
             http.post('token', self.model)
                 .then(function (res) {
-                    angular.element('.loading').fadeOut();
                     if (res.success) {
                         ui.alert.success(res.message);
                         setTokenInfo(res.token);
@@ -3241,22 +3239,23 @@ angular.module('global-solusindo')
                     pageSize: 10
                 },
                 order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "area_pk"
-                },
-                {
-                    "data": "title"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "area_pk"
+                    },
+                    {
+                        "data": "title"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                        }
                     }
-                }
                 ]
             });
             controller.datatable = dt;
@@ -9142,11 +9141,42 @@ angular.module('global-solusindo')
                 columns: [
                     {
                         "orderable": false,
-                        "data": "dailyTask_pk"
+                        "data": "user_fk"
                     },
                     {
-                        "data": "title"
-                    }
+                        "data": "userId"
+                    },
+                    {
+                        "data": "userName"
+                    },
+                    {
+                        "data": "roleTitle"
+                    },
+                    {
+                        "data": "kategoriJabatanTitle"
+                    },
+                    {
+                        "data": "status",
+                        "render": function (data) {
+                            var className = 'dot-online';
+                            switch (data) {
+                                case "Online":
+                                    className = 'dot-online';
+                                    break;
+                                case "Offline":
+                                    className = 'dot-offline';
+                                    break;
+                                case "Cuti":
+                                    className = 'dot-cuti';
+                                    break;
+                                case "Unassigned":
+                                    className = 'dot-unassigned';
+                                    break;
+                                default:
+                            }
+                            return "<span class='" + className + "'></span>";
+                        }
+                    } 
                 ]
             });
             controller.datatable = dt;
@@ -10213,9 +10243,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('DatatableService', DtService);
 
-    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state'];
+    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state', 'uiService' ];
 
-    function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state) {
+    function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui) {
         var self = this;
 
         self.init = function dt(tableIdOrClass, apiUrl, param) { 
@@ -10268,8 +10298,10 @@ angular.module('global-solusindo')
                     var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
-                    } 
+                    }
+                    //ui.loader.show();
                     http.get(apiUrl, requestData).then(function (res) {
+                        //ui.loader.hide();
                         if (res && res.success) {
                             callback({
                                 recordsTotal: res.data.count.totalRecords,
@@ -10279,6 +10311,9 @@ angular.module('global-solusindo')
                             if (param.ajaxCallback) {
                                 param.ajaxCallback(res);
                             }
+                        }
+                        else {
+                            alert(res.message);
                         }
                     });
                 },
@@ -10417,18 +10452,56 @@ angular.module('global-solusindo')
         .factory('HttpService', Http)
         .factory('PendingRequest', Pending);
 
-    Http.$inject = ['$http', '$state', '$cookies', '$q', '$httpParamSerializerJQLike', 'PendingRequest', '$httpParamSerializer'];
+    Http.$inject = ['$http', '$state', '$cookies', '$q', '$httpParamSerializerJQLike', 'PendingRequest', '$httpParamSerializer', 'uiService', 'tokenService'];
 
-    function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer) {
-        // var base_url = cs.config.getApiUrl();
+    function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
+        var debugMode = false;
+
         //var base_url = "http://global-solusindo-ws.local/";
         var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
+
         var auth = {};
-        auth.getAccessToken = function () {
-            return '';
+
+        auth.getAccessToken = function () { 
+            return tokenService.getToken();
         };
+
+        function showLoader() {
+            ui.loader.show();
+        }
+
+        function hideLoader() {
+            ui.loader.hide();
+        }
+
+        function goToLoginPage() {
+            $state.go('login');
+        }
+
+        function handleHttpError(response) {
+            hideLoader();
+            var status = response.status;
+            var message = response.statusText;
+            var debugMessage = debugMode ? "<br/>Status: " + status + "<br/> Message: " + message + "" : "";
+            if (debugMode) {
+                console.log(response);
+                ui.alert.error("Error. Debug mode is ON." + debugMessage);
+            }
+            debugger;
+            if (status === 500)
+                ui.alert.error("Something error happen on the server." + debugMessage);
+            if (status === -1)
+                ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
+            if (status === 401)
+                goToLoginPage();
+        }
+
+        function handleHtppSuccess(response) {
+            hideLoader();
+            var status = response.status;
+        }
 
         delete $http.defaults.headers.common['X-Requested-With'];
         return {
@@ -10444,6 +10517,7 @@ angular.module('global-solusindo')
                     canceller: deferred
                 });
                 delete $http.defaults.headers.common['X-Requested-With'];
+                showLoader();
                 $http({
                     method: 'POST',
                     url: url,
@@ -10454,10 +10528,12 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
                 }, function (response) {
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject(response.data);
                 });
@@ -10475,6 +10551,7 @@ angular.module('global-solusindo')
                     canceller: deferred
                 });
                 delete $http.defaults.headers.common['X-Requested-With'];
+                showLoader();
                 $http({
                     method: 'POST',
                     url: url,
@@ -10486,17 +10563,14 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
                 }, function (response) {
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject();
                 });
-                //}, function (response) {
-                //    //console.log(response.xhrStatus);
-                //    PendingRequest.remove(url);
-                //    deferred.reject();
-                //});
 
                 return deferred.promise;
             },
@@ -10510,7 +10584,7 @@ angular.module('global-solusindo')
                     url: url,
                     canceller: deferred
                 });
-
+                showLoader();
                 $http({
                     method: 'PUT',
                     url: url,
@@ -10522,10 +10596,12 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
                 }, function (response) {
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject();
                 });
@@ -10541,7 +10617,7 @@ angular.module('global-solusindo')
                     url: url,
                     canceller: deferred
                 });
-
+                showLoader();
                 $http({
                     method: 'GET',
                     url: url,
@@ -10549,14 +10625,16 @@ angular.module('global-solusindo')
                     timeout: deferred.promise,
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
+                        'Authorization': 'Bearer ' + auth.getAccessToken()
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
                 }, function (response) {
-                    //console.log(response.xhrStatus);
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject();
                 });
@@ -10572,7 +10650,7 @@ angular.module('global-solusindo')
                     url: url,
                     canceller: deferred
                 });
-
+                showLoader();
                 $http({
                     method: 'DELETE',
                     url: url,
@@ -10584,10 +10662,12 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
+                    handleHtppSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
 
                 }, function (response) {
+                    handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject();
                 });
@@ -10802,6 +10882,38 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('tokenService', tokenService);
+
+    tokenService.$inject = ['$state', 'HttpService', 'uiService', 'validationService', '$window'];
+
+    function tokenService($state, http, ui, validation, $window) {
+        var self = this;
+
+        self.getToken = function () {
+            return $cookies.get('token');
+        }
+
+        self.clearToken = function (token) {
+            $cookies.remove('token');
+        }
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
      * @name app.service:kairosService
      * @description
      * # dashboardService
@@ -10810,11 +10922,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('uiService', ui);
+        .factory('uiService', uiService);
 
-    ui.$inject = [];
+    uiService.$inject = [];
 
-    function ui() {
+    function uiService() {
         var self = this;
 
         self.alert = {
@@ -10847,6 +10959,16 @@ angular.module('global-solusindo')
                 }).show(true, 'confirm');
             }
         };
+
+        self.loader = {
+            show: function () {
+                angular.element('.lds-ring').fadeIn();
+            },
+            hide: function () {
+                angular.element('.lds-ring').fadeOut();
+            }
+        }
+
 
         return self;
     }

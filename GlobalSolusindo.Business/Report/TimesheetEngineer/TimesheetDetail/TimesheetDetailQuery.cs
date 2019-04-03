@@ -1,7 +1,5 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
-using Kairos.Linq;
-using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;

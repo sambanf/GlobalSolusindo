@@ -13,6 +13,7 @@ namespace GlobalSolusindo.Api
         }
     }
 
+    [TokenAuthorize()]
     public class ApiControllerBase : ApiController
     {
         private const bool requireAccessControl = false;

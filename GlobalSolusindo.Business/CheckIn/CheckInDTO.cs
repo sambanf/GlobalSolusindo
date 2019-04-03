@@ -1,5 +1,4 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.CheckIn.Queries;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign.Queries;
 using Kairos.DataAnnotations;

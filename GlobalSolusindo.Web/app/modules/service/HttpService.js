@@ -14,10 +14,10 @@
         .factory('HttpService', Http)
         .factory('PendingRequest', Pending);
 
-    Http.$inject = ['$http', '$state', '$cookies', '$q', '$httpParamSerializerJQLike', 'PendingRequest', '$httpParamSerializer', 'uiService'];
+    Http.$inject = ['$http', '$state', '$cookies', '$q', '$httpParamSerializerJQLike', 'PendingRequest', '$httpParamSerializer', 'uiService', 'tokenService'];
 
-    function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui) {
-        var debugMode = true;
+    function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
+        var debugMode = false;
 
         //var base_url = "http://global-solusindo-ws.local/";
         var base_url = "http://gsapi.local/";
@@ -27,11 +27,29 @@
         var auth = {};
 
         auth.getAccessToken = function () {
-            return '';
+            return tokenService.getToken();
         };
+         
+        function showLoader() {
+            ui.loader.show();
+        }
+
+        function hideLoader() {
+            ui.loader.hide();
+        }
+
+        function goToLoginPage() {
+            $state.go('login');
+        }
+
+        function handleUnauthorized() {
+            tokenService.clearToken();
+            ui.alert.error('Your session has been exceed.');
+            goToLoginPage();
+        }
 
         function handleHttpError(response) {
-            ui.loader.hide();
+            hideLoader();
             var status = response.status;
             var message = response.statusText;
             var debugMessage = debugMode ? "<br/>Status: " + status + "<br/> Message: " + message + "" : "";
@@ -39,15 +57,17 @@
                 console.log(response);
                 ui.alert.error("Error. Debug mode is ON." + debugMessage);
             }
-
             if (status === 500)
                 ui.alert.error("Something error happen on the server." + debugMessage);
             if (status === -1)
                 ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
+            if (status === 401) {
+                handleUnauthorized();
+            }
         }
 
         function handleHtppSuccess(response) {
-            ui.loader.hide();
+            hideLoader();
             var status = response.status;
         }
 
@@ -65,6 +85,7 @@
                     canceller: deferred
                 });
                 delete $http.defaults.headers.common['X-Requested-With'];
+                showLoader();
                 $http({
                     method: 'POST',
                     url: url,
@@ -98,7 +119,7 @@
                     canceller: deferred
                 });
                 delete $http.defaults.headers.common['X-Requested-With'];
-                ui.loader.show();
+                showLoader();
                 $http({
                     method: 'POST',
                     url: url,
@@ -131,7 +152,7 @@
                     url: url,
                     canceller: deferred
                 });
-                ui.loader.show();
+                showLoader();
                 $http({
                     method: 'PUT',
                     url: url,
@@ -164,7 +185,7 @@
                     url: url,
                     canceller: deferred
                 });
-                ui.loader.show();
+                showLoader();
                 $http({
                     method: 'GET',
                     url: url,
@@ -172,6 +193,7 @@
                     timeout: deferred.promise,
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
+                        'Authorization': 'Bearer ' + auth.getAccessToken()
                     }
 
                 }).then(function (response) {
@@ -196,7 +218,7 @@
                     url: url,
                     canceller: deferred
                 });
-                ui.loader.show();
+                showLoader();
                 $http({
                     method: 'DELETE',
                     url: url,

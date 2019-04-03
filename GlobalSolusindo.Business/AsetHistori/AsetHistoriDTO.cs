@@ -1,6 +1,5 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.Aset.Queries;
-using GlobalSolusindo.Business.AsetHistori.Queries;
 using GlobalSolusindo.Identity.UserDetail.Queries;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;

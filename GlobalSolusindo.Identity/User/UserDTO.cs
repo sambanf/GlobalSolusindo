@@ -1,6 +1,8 @@
-﻿using GlobalSolusindo.Identity.KategoriJabatan.Queries;
+﻿using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.KategoriJabatan.Queries;
 using GlobalSolusindo.Identity.User.Queries;
 using GlobalSolusindo.Identity.UserDetail;
+using Kairos.Data;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -34,5 +36,13 @@ namespace GlobalSolusindo.Identity.User
         [Required]
         [JsonProperty("password")]
         public string Password { get; set; }
+
+        public tblM_User ToUserEntity()
+        {
+            if (this == null)
+                return null;
+            return this.ToObject<tblM_User>();
+        }
+         
     }
 }

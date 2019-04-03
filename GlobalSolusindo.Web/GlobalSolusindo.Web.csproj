@@ -164,6 +164,7 @@
     <Content Include="app\modules\report\timesheetEngineer\timesheetEngineerDtService.js" />
     <Content Include="app\modules\report\timesheetEngineer\timesheetEngineerRoute.js" />
     <Content Include="app\modules\report\timesheetEngineer\timesheetEngineerViewService.js" />
+    <Content Include="app\modules\service\tokenService.js" />
     <Content Include="app\modules\service\userInfoService.js" />
     <Content Include="app\modules\sowInfo\costDtService.js" />
     <Content Include="app\modules\sowInfo\costShowModalService.js" />

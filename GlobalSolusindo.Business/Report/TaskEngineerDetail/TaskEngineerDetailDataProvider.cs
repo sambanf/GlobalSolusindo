@@ -1,19 +1,10 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.Area.Queries;
 using GlobalSolusindo.Business.BTS.Queries;
-using GlobalSolusindo.Business.BTSStatus.Queries;
-using GlobalSolusindo.Business.Cabang.Queries;
-using GlobalSolusindo.Business.Kota.Queries;
-using GlobalSolusindo.Business.Operator.Queries;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using GlobalSolusindo.Identity.User.Queries;
-using Kairos;
-using Kairos.UI;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace GlobalSolusindo.Business.TaskEngineerDetail
 {

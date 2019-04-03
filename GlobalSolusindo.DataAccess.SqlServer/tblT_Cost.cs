@@ -10,8 +10,7 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-    using System.Collections.Generic;
-    
+
     public partial class tblT_Cost
     {
         public int Cost_PK { get; set; }

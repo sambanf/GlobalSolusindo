@@ -10,7 +10,6 @@ using Kairos;
 using Kairos.UI;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW.EntryForm
 {

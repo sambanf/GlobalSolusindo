@@ -67,6 +67,7 @@
     <Compile Include="KategoriJabatan\ListForm\KategoriJabatanListModel.cs" />
     <Compile Include="KategoriJabatan\Queries\KategoriJabatanQuery.cs" />
     <Compile Include="KategoriJabatan\Queries\KategoriJabatanSearch.cs" />
+    <Compile Include="TokenSessionManager.cs" />
     <Compile Include="Login\LoginManager.cs" />
     <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamCreateHandler.cs" />
     <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamDeleteHandler.cs" />

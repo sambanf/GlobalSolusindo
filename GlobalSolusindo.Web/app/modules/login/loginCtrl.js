@@ -39,12 +39,9 @@
             $state.go('app.dashboard');
         }
 
-        angular.element('#loginButton').on('click', function () {
-            //debugger;
-            ui.loader.show();
+        angular.element('#loginButton').on('click', function () { 
             http.post('token', self.model)
                 .then(function (res) {
-                    ui.loader.hide();      
                     if (res.success) {
                         ui.alert.success(res.message);
                         setTokenInfo(res.token);

@@ -2,7 +2,6 @@
 using GlobalSolusindo.DataAccess;
 using Kairos.Data;
 using Newtonsoft.Json;
-using System;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.DailyTask.Queries

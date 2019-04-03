@@ -1,5 +1,4 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.DataAccess;
 using Kairos.Linq;
 using System;

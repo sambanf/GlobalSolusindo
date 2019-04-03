@@ -1,7 +1,5 @@
 ﻿using GlobalSolusindo.Business.BTS;
-using Kairos.UI;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 
 namespace GlobalSolusindo.Business.SOW.InfoForm
 {
