@@ -1,0 +1,22 @@
+{
+  "generator-angm": {
+    "modules": [
+      {
+        "name": "dashboard"
+      },
+      {
+        "name": "equipment"
+      }
+    ],
+    "menu": [
+      {
+        "link": "dashboard",
+        "title": "Dashboard"
+      },
+      {
+        "link": "equipment",
+        "title": "Equipment"
+      }
+    ]
+  }
+}

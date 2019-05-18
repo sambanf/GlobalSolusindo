@@ -1,0 +1,41 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">Roles</h5>
+</div>
+
+<div class="modal-body">
+    <div class="row">
+        <!--<div class="col-md-12 p-0">
+            <table id="roleModal" class="table">
+                <thead>
+                    <tr>
+                        <th width="30" hidden>Role PK</th>
+                        <th width="30" hidden>Role Group PK</th>
+                        <th width="200">Role Name</th>
+                        <th class="text-center">Check</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="i in vm.model.mappingRoleToRoleGroups">
+                        <td width="30" hidden>{{ i.role_pk}}</td>
+                        <td width="30" hidden>{{ i.roleGroup_pk}}</td>
+                        <td width="200">{{i.roleName}}</td>
+                        <td class="text-center"> <input type="checkbox" ng-checked="i.isChecked" ng-model="i.isChecked"></td>
+                    </tr>
+                </tbody>
+            </table>-->
+
+            <div class="col-md-4" ng-repeat="i in vm.model.mappingRoleToRoleGroups">
+                <label class="control control--checkbox">
+                    {{i.roleName}}
+                    <input tabindex="26" type="checkbox" name="role"
+                           checked="checked"  ng-checked="i.isChecked" ng-model="i.isChecked" />
+                    <span class="control__indicator"></span>
+                </label>
+            </div>
+        </div>
+</div>
+
+<div class="modal-footer">
+    <button id="saveButton" class="btn btn-primary" type="button">Save</button>
+    <button id="cancelButton" class="btn btn-default" type="button">Cancel</button>
+</div>

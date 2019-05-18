@@ -1,0 +1,496 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F039649D-4116-4DE0-868A-0B2B8E6CE2E4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GlobalSolusindo.Business</RootNamespace>
+    <AssemblyName>GlobalSolusindo.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SOWResult\SOWResultCreateHandler.cs" />
+    <Compile Include="SOWResult\SOWResultDeleteHandler.cs" />
+    <Compile Include="SOWResult\SOWResultDTO.cs" />
+    <Compile Include="SOWResult\SOWResultFactory.cs" />
+    <Compile Include="SOWResult\SOWResultQuery.cs" />
+    <Compile Include="SOWResult\SOWResultUpdateHandler.cs" />
+    <Compile Include="SOWResult\SOWResultValidator.cs" />
+    <Compile Include="SOWResult\EntryForm\SOWResultEntryControlBuilder.cs" />
+    <Compile Include="SOWResult\EntryForm\SOWResultEntryDataProvider.cs" />
+    <Compile Include="SOWResult\EntryForm\SOWResultEntryFormData.cs" />
+    <Compile Include="SOWResult\EntryForm\SOWResultEntryModel.cs" />
+    <Compile Include="SOWResult\ListForm\SOWResultListDataProvider.cs" />
+    <Compile Include="SOWResult\ListForm\SOWResultListFormData.cs" />
+    <Compile Include="SOWResult\ListForm\SOWResultListModel.cs" />
+    <Compile Include="SOWTrackResult\SOWTrackResultCreateHandler.cs" />
+    <Compile Include="SOWTrackResult\SOWTrackResultDeleteHandler.cs" />
+    <Compile Include="SOWTrackResult\SOWTrackResultDTO.cs" />
+    <Compile Include="SOWTrackResult\SOWTrackResultFactory.cs" />
+    <Compile Include="SOWTrackResult\SOWTrackResultQuery.cs" />
+    <Compile Include="SOWTrackResult\SOWTrackResultUpdateHandler.cs" />
+    <Compile Include="SOWTrackResult\SOWTrackResultValidator.cs" />
+    <Compile Include="SOWTrackResult\EntryForm\SOWTrackResultEntryControlBuilder.cs" />
+    <Compile Include="SOWTrackResult\EntryForm\SOWTrackResultEntryDataProvider.cs" />
+    <Compile Include="SOWTrackResult\EntryForm\SOWTrackResultEntryFormData.cs" />
+    <Compile Include="SOWTrackResult\EntryForm\SOWTrackResultEntryModel.cs" />
+    <Compile Include="SOWTrackResult\ListForm\SOWTrackResultListDataProvider.cs" />
+    <Compile Include="SOWTrackResult\ListForm\SOWTrackResultListFormData.cs" />
+    <Compile Include="SOWTrackResult\ListForm\SOWTrackResultListModel.cs" />
+    <Compile Include="BTSTechnology\BTSTechnologyDTO.cs" />
+    <Compile Include="BTSTechnology\BTSTechnologyFactory.cs" />
+    <Compile Include="BTSTechnology\BTSTechnologyValidator.cs" />
+    <Compile Include="BTSTechnology\DML\BTSTechnologyCreateHandler.cs" />
+    <Compile Include="BTSTechnology\DML\BTSTechnologyDeleteHandler.cs" />
+    <Compile Include="BTSTechnology\DML\BTSTechnologyUpdateHandler.cs" />
+    <Compile Include="BTSTechnology\EntryForm\BTSTechnologyEntryControlBuilder.cs" />
+    <Compile Include="BTSTechnology\EntryForm\BTSTechnologyEntryDataProvider.cs" />
+    <Compile Include="BTSTechnology\EntryForm\BTSTechnologyEntryFormData.cs" />
+    <Compile Include="BTSTechnology\EntryForm\BTSTechnologyEntryModel.cs" />
+    <Compile Include="BTSTechnology\ListForm\BTSTechnologyListDataProvider.cs" />
+    <Compile Include="BTSTechnology\ListForm\BTSTechnologyListFormData.cs" />
+    <Compile Include="BTSTechnology\ListForm\BTSTechnologyListModel.cs" />
+    <Compile Include="BTSTechnology\Queries\BTSTechnologyQuery.cs" />
+    <Compile Include="BTSTechnology\Queries\BTSTechnologySearch.cs" />
+    <Compile Include="Technology\TechnologyDTO.cs" />
+    <Compile Include="Technology\TechnologyFactory.cs" />
+    <Compile Include="Technology\TechnologyValidator.cs" />
+    <Compile Include="Technology\DML\TechnologyCreateHandler.cs" />
+    <Compile Include="Technology\DML\TechnologyDeleteHandler.cs" />
+    <Compile Include="Technology\DML\TechnologyUpdateHandler.cs" />
+    <Compile Include="Technology\EntryForm\TechnologyEntryControlBuilder.cs" />
+    <Compile Include="Technology\EntryForm\TechnologyEntryDataProvider.cs" />
+    <Compile Include="Technology\EntryForm\TechnologyEntryFormData.cs" />
+    <Compile Include="Technology\EntryForm\TechnologyEntryModel.cs" />
+    <Compile Include="Technology\ListForm\TechnologyListDataProvider.cs" />
+    <Compile Include="Technology\ListForm\TechnologyListFormData.cs" />
+    <Compile Include="Technology\ListForm\TechnologyListModel.cs" />
+    <Compile Include="Technology\Queries\TechnologyQuery.cs" />
+    <Compile Include="Technology\Queries\TechnologySearch.cs" />
+    <Compile Include="SOWTrack\SOWTrackDTO.cs" />
+    <Compile Include="SOWTrack\SOWTrackFactory.cs" />
+    <Compile Include="SOWTrack\SOWTrackValidator.cs" />
+    <Compile Include="SOWTrack\DML\SOWTrackCreateHandler.cs" />
+    <Compile Include="SOWTrack\DML\SOWTrackDeleteHandler.cs" />
+    <Compile Include="SOWTrack\DML\SOWTrackUpdateHandler.cs" />
+    <Compile Include="SOWTrack\EntryForm\SOWTrackEntryControlBuilder.cs" />
+    <Compile Include="SOWTrack\EntryForm\SOWTrackEntryDataProvider.cs" />
+    <Compile Include="SOWTrack\EntryForm\SOWTrackEntryFormData.cs" />
+    <Compile Include="SOWTrack\EntryForm\SOWTrackEntryModel.cs" />
+    <Compile Include="SOWTrack\ListForm\SOWTrackListDataProvider.cs" />
+    <Compile Include="SOWTrack\ListForm\SOWTrackListFormData.cs" />
+    <Compile Include="SOWTrack\ListForm\SOWTrackListModel.cs" />
+    <Compile Include="SOWTrack\Queries\SOWTrackQuery.cs" />
+    <Compile Include="SOWTrack\Queries\SOWTrackSearch.cs" />
+    <Compile Include="SOWIssue\SOWIssueDTO.cs" />
+    <Compile Include="SOWIssue\SOWIssueFactory.cs" />
+    <Compile Include="SOWIssue\SOWIssueValidator.cs" />
+    <Compile Include="SOWIssue\DML\SOWIssueCreateHandler.cs" />
+    <Compile Include="SOWIssue\DML\SOWIssueDeleteHandler.cs" />
+    <Compile Include="SOWIssue\DML\SOWIssueUpdateHandler.cs" />
+    <Compile Include="SOWIssue\EntryForm\SOWIssueEntryControlBuilder.cs" />
+    <Compile Include="SOWIssue\EntryForm\SOWIssueEntryDataProvider.cs" />
+    <Compile Include="SOWIssue\EntryForm\SOWIssueEntryFormData.cs" />
+    <Compile Include="SOWIssue\EntryForm\SOWIssueEntryModel.cs" />
+    <Compile Include="SOWIssue\ListForm\SOWIssueListDataProvider.cs" />
+    <Compile Include="SOWIssue\ListForm\SOWIssueListFormData.cs" />
+    <Compile Include="SOWIssue\ListForm\SOWIssueListModel.cs" />
+    <Compile Include="SOWIssue\Queries\SOWIssueQuery.cs" />
+    <Compile Include="SOWIssue\Queries\SOWIssueSearch.cs" />
+    <Compile Include="IssueType\IssueTypeDTO.cs" />
+    <Compile Include="IssueType\IssueTypeFactory.cs" />
+    <Compile Include="IssueType\IssueTypeValidator.cs" />
+    <Compile Include="IssueType\DML\IssueTypeCreateHandler.cs" />
+    <Compile Include="IssueType\DML\IssueTypeDeleteHandler.cs" />
+    <Compile Include="IssueType\DML\IssueTypeUpdateHandler.cs" />
+    <Compile Include="IssueType\EntryForm\IssueTypeEntryControlBuilder.cs" />
+    <Compile Include="IssueType\EntryForm\IssueTypeEntryDataProvider.cs" />
+    <Compile Include="IssueType\EntryForm\IssueTypeEntryFormData.cs" />
+    <Compile Include="IssueType\EntryForm\IssueTypeEntryModel.cs" />
+    <Compile Include="IssueType\ListForm\IssueTypeListDataProvider.cs" />
+    <Compile Include="IssueType\ListForm\IssueTypeListFormData.cs" />
+    <Compile Include="IssueType\ListForm\IssueTypeListModel.cs" />
+    <Compile Include="IssueType\Queries\IssueTypeQuery.cs" />
+    <Compile Include="IssueType\Queries\IssueTypeSearch.cs" />
+    <Compile Include="AsetHistori\AsetHistoriDTO.cs" />
+    <Compile Include="AsetHistori\AsetHistoriFactory.cs" />
+    <Compile Include="AsetHistori\AsetHistoriValidator.cs" />
+    <Compile Include="AsetHistori\DML\AsetHistoriCreateHandler.cs" />
+    <Compile Include="AsetHistori\DML\AsetHistoriDeleteHandler.cs" />
+    <Compile Include="AsetHistori\DML\AsetHistoriUpdateHandler.cs" />
+    <Compile Include="AsetHistori\EntryForm\AsetHistoriEntryControlBuilder.cs" />
+    <Compile Include="AsetHistori\EntryForm\AsetHistoriEntryDataProvider.cs" />
+    <Compile Include="AsetHistori\EntryForm\AsetHistoriEntryFormData.cs" />
+    <Compile Include="AsetHistori\EntryForm\AsetHistoriEntryModel.cs" />
+    <Compile Include="AsetHistori\ListForm\AsetHistoriListDataProvider.cs" />
+    <Compile Include="AsetHistori\ListForm\AsetHistoriListFormData.cs" />
+    <Compile Include="AsetHistori\ListForm\AsetHistoriListModel.cs" />
+    <Compile Include="AsetHistori\Queries\AsetHistoriQuery.cs" />
+    <Compile Include="AsetHistori\Queries\AsetHistoriSearch.cs" />
+    <Compile Include="CheckIn\CheckInDTO.cs" />
+    <Compile Include="CheckIn\MobileCheckOut\MobileCheckOutDTO.cs" />
+    <Compile Include="CheckIn\MobileCheckOut\CheckOutFactory.cs" />
+    <Compile Include="CheckIn\MobileCheckOut\CheckOutValidator.cs" />
+    <Compile Include="CheckIn\MobileCheckOut\DoCheckOut.cs" />
+    <Compile Include="CheckIn\MobileCheckIn\CheckInFactory.cs" />
+    <Compile Include="CheckIn\MobileCheckIn\CheckInValidator.cs" />
+    <Compile Include="CheckIn\EntryForm\CheckInEntryControlBuilder.cs" />
+    <Compile Include="CheckIn\EntryForm\CheckInEntryDataProvider.cs" />
+    <Compile Include="CheckIn\EntryForm\CheckInEntryFormData.cs" />
+    <Compile Include="CheckIn\EntryForm\CheckInEntryModel.cs" />
+    <Compile Include="CheckIn\ListForm\CheckInListDataProvider.cs" />
+    <Compile Include="CheckIn\ListForm\CheckInListFormData.cs" />
+    <Compile Include="CheckIn\ListForm\CheckInListModel.cs" />
+    <Compile Include="CheckIn\MobileCheckIn\MobileCheckInDTO.cs" />
+    <Compile Include="CheckIn\MobileCheckIn\DoCheckIn.cs" />
+    <Compile Include="CheckIn\Queries\CheckInQuery.cs" />
+    <Compile Include="CheckIn\Queries\CheckInSearch.cs" />
+    <Compile Include="IzinCutiStatus\IzinCutiStatusDTO.cs" />
+    <Compile Include="IzinCutiStatus\IzinCutiStatusFactory.cs" />
+    <Compile Include="IzinCutiStatus\IzinCutiStatusValidator.cs" />
+    <Compile Include="IzinCutiStatus\DML\IzinCutiStatusCreateHandler.cs" />
+    <Compile Include="IzinCutiStatus\DML\IzinCutiStatusDeleteHandler.cs" />
+    <Compile Include="IzinCutiStatus\DML\IzinCutiStatusUpdateHandler.cs" />
+    <Compile Include="IzinCutiStatus\EntryForm\IzinCutiStatusEntryControlBuilder.cs" />
+    <Compile Include="IzinCutiStatus\EntryForm\IzinCutiStatusEntryDataProvider.cs" />
+    <Compile Include="IzinCutiStatus\EntryForm\IzinCutiStatusEntryFormData.cs" />
+    <Compile Include="IzinCutiStatus\EntryForm\IzinCutiStatusEntryModel.cs" />
+    <Compile Include="IzinCutiStatus\ListForm\IzinCutiStatusListDataProvider.cs" />
+    <Compile Include="IzinCutiStatus\ListForm\IzinCutiStatusListFormData.cs" />
+    <Compile Include="IzinCutiStatus\ListForm\IzinCutiStatusListModel.cs" />
+    <Compile Include="IzinCutiStatus\Queries\IzinCutiStatusQuery.cs" />
+    <Compile Include="IzinCutiStatus\Queries\IzinCutiStatusSearch.cs" />
+    <Compile Include="IzinCuti\DML\IzinCutiApprovalHandler.cs" />
+    <Compile Include="IzinCuti\IzinCutiDTO.cs" />
+    <Compile Include="IzinCuti\IzinCutiFactory.cs" />
+    <Compile Include="IzinCuti\IzinCutiValidator.cs" />
+    <Compile Include="IzinCuti\DML\IzinCutiCreateHandler.cs" />
+    <Compile Include="IzinCuti\DML\IzinCutiDeleteHandler.cs" />
+    <Compile Include="IzinCuti\DML\IzinCutiUpdateHandler.cs" />
+    <Compile Include="IzinCuti\EntryForm\IzinCutiEntryControlBuilder.cs" />
+    <Compile Include="IzinCuti\EntryForm\IzinCutiEntryDataProvider.cs" />
+    <Compile Include="IzinCuti\EntryForm\IzinCutiEntryFormData.cs" />
+    <Compile Include="IzinCuti\EntryForm\IzinCutiEntryModel.cs" />
+    <Compile Include="IzinCuti\ListForm\IzinCutiListDataProvider.cs" />
+    <Compile Include="IzinCuti\ListForm\IzinCutiListFormData.cs" />
+    <Compile Include="IzinCuti\ListForm\IzinCutiListModel.cs" />
+    <Compile Include="IzinCuti\Queries\IzinCutiQuery.cs" />
+    <Compile Include="IzinCuti\Queries\IzinCutiSearch.cs" />
+    <Compile Include="Cost\CostDTO.cs" />
+    <Compile Include="Cost\CostFactory.cs" />
+    <Compile Include="Cost\CostValidator.cs" />
+    <Compile Include="Cost\DML\CostCreateHandler.cs" />
+    <Compile Include="Cost\DML\CostDeleteHandler.cs" />
+    <Compile Include="Cost\DML\CostUpdateHandler.cs" />
+    <Compile Include="Cost\EntryForm\CostEntryControlBuilder.cs" />
+    <Compile Include="Cost\EntryForm\CostEntryDataProvider.cs" />
+    <Compile Include="Cost\EntryForm\CostEntryFormData.cs" />
+    <Compile Include="Cost\EntryForm\CostEntryModel.cs" />
+    <Compile Include="Cost\ListForm\CostListDataProvider.cs" />
+    <Compile Include="Cost\ListForm\CostListFormData.cs" />
+    <Compile Include="Cost\ListForm\CostListModel.cs" />
+    <Compile Include="Cost\Queries\CostQuery.cs" />
+    <Compile Include="Cost\Queries\CostSearch.cs" />
+    <Compile Include="Report\DailyTask\DailyTaskDTO.cs" />
+    <Compile Include="Report\DailyTask\DailyTaskQuery.cs" />
+    <Compile Include="Report\DailyTask\DailyTaskSearch.cs" />
+    <Compile Include="Report\TaskEngineerDetail\TaskEngineerDetailDataProvider.cs" />
+    <Compile Include="Report\TaskEngineerDetail\TaskEngineerDetailDTO.cs" />
+    <Compile Include="Report\TaskEngineer\TaskEngineerDTO.cs" />
+    <Compile Include="Report\TaskEngineer\TaskEngineerQuery.cs" />
+    <Compile Include="Report\TaskEngineer\TaskEngineerSearch.cs" />
+    <Compile Include="Report\TimesheetEngineer\Activities\ActivitiesDTO.cs" />
+    <Compile Include="Report\TimesheetEngineer\Activities\ActivitiesQuery.cs" />
+    <Compile Include="Report\TimesheetEngineer\Activities\ActivitiesSearch.cs" />
+    <Compile Include="Report\TimesheetEngineer\TimesheetDetail\TimesheetDetailDTO.cs" />
+    <Compile Include="Report\TimesheetEngineer\TimesheetDetail\TimesheetDetailQuery.cs" />
+    <Compile Include="Report\TimesheetEngineer\TimesheetDetail\TimesheetDetailSearch.cs" />
+    <Compile Include="SOWAssign\SOWAssignDTO.cs" />
+    <Compile Include="SOWAssign\SOWAssignFactory.cs" />
+    <Compile Include="SOWAssign\SOWAssignValidator.cs" />
+    <Compile Include="SOWAssign\DML\SOWAssignCreateHandler.cs" />
+    <Compile Include="SOWAssign\DML\SOWAssignDeleteHandler.cs" />
+    <Compile Include="SOWAssign\DML\SOWAssignUpdateHandler.cs" />
+    <Compile Include="SOWAssign\EntryForm\SOWAssignEntryControlBuilder.cs" />
+    <Compile Include="SOWAssign\EntryForm\SOWAssignEntryDataProvider.cs" />
+    <Compile Include="SOWAssign\EntryForm\SOWAssignEntryFormData.cs" />
+    <Compile Include="SOWAssign\EntryForm\SOWAssignEntryModel.cs" />
+    <Compile Include="SOWAssign\ListForm\SOWAssignListDataProvider.cs" />
+    <Compile Include="SOWAssign\ListForm\SOWAssignListFormData.cs" />
+    <Compile Include="SOWAssign\ListForm\SOWAssignListModel.cs" />
+    <Compile Include="SOWAssign\Queries\SOWAssignQuery.cs" />
+    <Compile Include="SOWAssign\Queries\SOWAssignSearch.cs" />
+    <Compile Include="SOWStatus\SOWStatusDTO.cs" />
+    <Compile Include="SOWStatus\SOWStatusFactory.cs" />
+    <Compile Include="SOWStatus\SOWStatusValidator.cs" />
+    <Compile Include="SOWStatus\DML\SOWStatusCreateHandler.cs" />
+    <Compile Include="SOWStatus\DML\SOWStatusDeleteHandler.cs" />
+    <Compile Include="SOWStatus\DML\SOWStatusUpdateHandler.cs" />
+    <Compile Include="SOWStatus\EntryForm\SOWStatusEntryControlBuilder.cs" />
+    <Compile Include="SOWStatus\EntryForm\SOWStatusEntryDataProvider.cs" />
+    <Compile Include="SOWStatus\EntryForm\SOWStatusEntryFormData.cs" />
+    <Compile Include="SOWStatus\EntryForm\SOWStatusEntryModel.cs" />
+    <Compile Include="SOWStatus\ListForm\SOWStatusListDataProvider.cs" />
+    <Compile Include="SOWStatus\ListForm\SOWStatusListFormData.cs" />
+    <Compile Include="SOWStatus\ListForm\SOWStatusListModel.cs" />
+    <Compile Include="SOWStatus\Queries\SOWStatusQuery.cs" />
+    <Compile Include="SOWStatus\Queries\SOWStatusSearch.cs" />
+    <Compile Include="SOW\InfoForm\SOWInfoDataProvider.cs" />
+    <Compile Include="SOW\InfoForm\SOWInfoModel.cs" />
+    <Compile Include="SOW\Queries\TimesheetDailySearch.cs" />
+    <Compile Include="SOW\Queries\TimesheetMonthlySearch.cs" />
+    <Compile Include="SOW\Queries\TaskListSearch.cs" />
+    <Compile Include="SOW\Queries\TaskListQuery.cs" />
+    <Compile Include="SOW\TaskListDTO.cs" />
+    <Compile Include="SOW\SOWDTO.cs" />
+    <Compile Include="SOW\SOWFactory.cs" />
+    <Compile Include="SOW\SOWValidator.cs" />
+    <Compile Include="SOW\DML\SOWCreateHandler.cs" />
+    <Compile Include="SOW\DML\SOWDeleteHandler.cs" />
+    <Compile Include="SOW\DML\SOWUpdateHandler.cs" />
+    <Compile Include="SOW\EntryForm\SOWEntryControlBuilder.cs" />
+    <Compile Include="SOW\EntryForm\SOWEntryDataProvider.cs" />
+    <Compile Include="SOW\EntryForm\SOWEntryFormData.cs" />
+    <Compile Include="SOW\EntryForm\SOWEntryModel.cs" />
+    <Compile Include="SOW\ListForm\SOWListDataProvider.cs" />
+    <Compile Include="SOW\ListForm\SOWListFormData.cs" />
+    <Compile Include="SOW\ListForm\SOWListModel.cs" />
+    <Compile Include="SOW\Queries\SOWQuery.cs" />
+    <Compile Include="SOW\Queries\SOWSearch.cs" />
+    <Compile Include="Project\ProjectDTO.cs" />
+    <Compile Include="Project\ProjectFactory.cs" />
+    <Compile Include="Project\ProjectValidator.cs" />
+    <Compile Include="Project\DML\ProjectCreateHandler.cs" />
+    <Compile Include="Project\DML\ProjectDeleteHandler.cs" />
+    <Compile Include="Project\DML\ProjectUpdateHandler.cs" />
+    <Compile Include="Project\EntryForm\ProjectEntryControlBuilder.cs" />
+    <Compile Include="Project\EntryForm\ProjectEntryDataProvider.cs" />
+    <Compile Include="Project\EntryForm\ProjectEntryFormData.cs" />
+    <Compile Include="Project\EntryForm\ProjectEntryModel.cs" />
+    <Compile Include="Project\ListForm\ProjectListDataProvider.cs" />
+    <Compile Include="Project\ListForm\ProjectListFormData.cs" />
+    <Compile Include="Project\ListForm\ProjectListModel.cs" />
+    <Compile Include="Project\Queries\ProjectQuery.cs" />
+    <Compile Include="Project\Queries\ProjectSearch.cs" />
+    <Compile Include="CostKategori\CostKategoriDTO.cs" />
+    <Compile Include="CostKategori\CostKategoriFactory.cs" />
+    <Compile Include="CostKategori\CostKategoriValidator.cs" />
+    <Compile Include="CostKategori\DML\CostKategoriCreateHandler.cs" />
+    <Compile Include="CostKategori\DML\CostKategoriDeleteHandler.cs" />
+    <Compile Include="CostKategori\DML\CostKategoriUpdateHandler.cs" />
+    <Compile Include="CostKategori\EntryForm\CostKategoriEntryControlBuilder.cs" />
+    <Compile Include="CostKategori\EntryForm\CostKategoriEntryDataProvider.cs" />
+    <Compile Include="CostKategori\EntryForm\CostKategoriEntryFormData.cs" />
+    <Compile Include="CostKategori\EntryForm\CostKategoriEntryModel.cs" />
+    <Compile Include="CostKategori\ListForm\CostKategoriListDataProvider.cs" />
+    <Compile Include="CostKategori\ListForm\CostKategoriListFormData.cs" />
+    <Compile Include="CostKategori\ListForm\CostKategoriListModel.cs" />
+    <Compile Include="CostKategori\Queries\CostKategoriQuery.cs" />
+    <Compile Include="CostKategori\Queries\CostKategoriSearch.cs" />
+    <Compile Include="DeliveryArea\DeliveryAreaDTO.cs" />
+    <Compile Include="DeliveryArea\DeliveryAreaFactory.cs" />
+    <Compile Include="DeliveryArea\DeliveryAreaValidator.cs" />
+    <Compile Include="DeliveryArea\DML\DeliveryAreaCreateHandler.cs" />
+    <Compile Include="DeliveryArea\DML\DeliveryAreaDeleteHandler.cs" />
+    <Compile Include="DeliveryArea\DML\DeliveryAreaUpdateHandler.cs" />
+    <Compile Include="DeliveryArea\EntryForm\DeliveryAreaEntryControlBuilder.cs" />
+    <Compile Include="DeliveryArea\EntryForm\DeliveryAreaEntryDataProvider.cs" />
+    <Compile Include="DeliveryArea\EntryForm\DeliveryAreaEntryFormData.cs" />
+    <Compile Include="DeliveryArea\EntryForm\DeliveryAreaEntryModel.cs" />
+    <Compile Include="DeliveryArea\ListForm\DeliveryAreaListDataProvider.cs" />
+    <Compile Include="DeliveryArea\ListForm\DeliveryAreaListFormData.cs" />
+    <Compile Include="DeliveryArea\ListForm\DeliveryAreaListModel.cs" />
+    <Compile Include="DeliveryArea\Queries\DeliveryAreaQuery.cs" />
+    <Compile Include="DeliveryArea\Queries\DeliveryAreaSearch.cs" />
+    <Compile Include="BTSStatus\BTSStatusDTO.cs" />
+    <Compile Include="BTSStatus\BTSStatusFactory.cs" />
+    <Compile Include="BTSStatus\BTSStatusValidator.cs" />
+    <Compile Include="BTSStatus\DML\BTSStatusCreateHandler.cs" />
+    <Compile Include="BTSStatus\DML\BTSStatusDeleteHandler.cs" />
+    <Compile Include="BTSStatus\DML\BTSStatusUpdateHandler.cs" />
+    <Compile Include="BTSStatus\EntryForm\BTSStatusEntryControlBuilder.cs" />
+    <Compile Include="BTSStatus\EntryForm\BTSStatusEntryDataProvider.cs" />
+    <Compile Include="BTSStatus\EntryForm\BTSStatusEntryFormData.cs" />
+    <Compile Include="BTSStatus\EntryForm\BTSStatusEntryModel.cs" />
+    <Compile Include="BTSStatus\ListForm\BTSStatusListDataProvider.cs" />
+    <Compile Include="BTSStatus\ListForm\BTSStatusListFormData.cs" />
+    <Compile Include="BTSStatus\ListForm\BTSStatusListModel.cs" />
+    <Compile Include="BTSStatus\Queries\BTSStatusQuery.cs" />
+    <Compile Include="BTSStatus\Queries\BTSStatusSearch.cs" />
+    <Compile Include="BTS\BTSDTO.cs" />
+    <Compile Include="BTS\BTSFactory.cs" />
+    <Compile Include="BTS\BTSValidator.cs" />
+    <Compile Include="BTS\DML\BTSCreateHandler.cs" />
+    <Compile Include="BTS\DML\BTSDeleteHandler.cs" />
+    <Compile Include="BTS\DML\BTSUpdateHandler.cs" />
+    <Compile Include="BTS\EntryForm\BTSEntryControlBuilder.cs" />
+    <Compile Include="BTS\EntryForm\BTSEntryDataProvider.cs" />
+    <Compile Include="BTS\EntryForm\BTSEntryFormData.cs" />
+    <Compile Include="BTS\EntryForm\BTSEntryModel.cs" />
+    <Compile Include="BTS\ListForm\BTSListDataProvider.cs" />
+    <Compile Include="BTS\ListForm\BTSListFormData.cs" />
+    <Compile Include="BTS\ListForm\BTSListModel.cs" />
+    <Compile Include="BTS\Queries\BTSQuery.cs" />
+    <Compile Include="BTS\Queries\BTSSearch.cs" />
+    <Compile Include="Cabang\CabangDTO.cs" />
+    <Compile Include="Cabang\CabangFactory.cs" />
+    <Compile Include="Cabang\CabangValidator.cs" />
+    <Compile Include="Cabang\DML\CabangCreateHandler.cs" />
+    <Compile Include="Cabang\DML\CabangDeleteHandler.cs" />
+    <Compile Include="Cabang\DML\CabangUpdateHandler.cs" />
+    <Compile Include="Cabang\EntryForm\CabangEntryControlBuilder.cs" />
+    <Compile Include="Cabang\EntryForm\CabangEntryDataProvider.cs" />
+    <Compile Include="Cabang\EntryForm\CabangEntryFormData.cs" />
+    <Compile Include="Cabang\EntryForm\CabangEntryModel.cs" />
+    <Compile Include="Cabang\ListForm\CabangListDataProvider.cs" />
+    <Compile Include="Cabang\ListForm\CabangListFormData.cs" />
+    <Compile Include="Cabang\ListForm\CabangListModel.cs" />
+    <Compile Include="Cabang\Queries\CabangQuery.cs" />
+    <Compile Include="Cabang\Queries\CabangSearch.cs" />
+    <Compile Include="Kota\KotaDTO.cs" />
+    <Compile Include="Kota\KotaFactory.cs" />
+    <Compile Include="Kota\KotaValidator.cs" />
+    <Compile Include="Kota\DML\KotaCreateHandler.cs" />
+    <Compile Include="Kota\DML\KotaDeleteHandler.cs" />
+    <Compile Include="Kota\DML\KotaUpdateHandler.cs" />
+    <Compile Include="Kota\EntryForm\KotaEntryControlBuilder.cs" />
+    <Compile Include="Kota\EntryForm\KotaEntryDataProvider.cs" />
+    <Compile Include="Kota\EntryForm\KotaEntryFormData.cs" />
+    <Compile Include="Kota\EntryForm\KotaEntryModel.cs" />
+    <Compile Include="Kota\ListForm\KotaListDataProvider.cs" />
+    <Compile Include="Kota\ListForm\KotaListFormData.cs" />
+    <Compile Include="Kota\ListForm\KotaListModel.cs" />
+    <Compile Include="Kota\Queries\KotaQuery.cs" />
+    <Compile Include="Kota\Queries\KotaSearch.cs" />
+    <Compile Include="Area\AreaDTO.cs" />
+    <Compile Include="Area\AreaFactory.cs" />
+    <Compile Include="Area\AreaValidator.cs" />
+    <Compile Include="Area\AreaCreateHandler.cs" />
+    <Compile Include="Area\AreaDeleteHandler.cs" />
+    <Compile Include="Area\AreaUpdateHandler.cs" />
+    <Compile Include="Area\EntryForm\AreaEntryControlBuilder.cs" />
+    <Compile Include="Area\EntryForm\AreaEntryDataProvider.cs" />
+    <Compile Include="Area\EntryForm\AreaEntryFormData.cs" />
+    <Compile Include="Area\EntryForm\AreaEntryModel.cs" />
+    <Compile Include="Area\ListForm\AreaListDataProvider.cs" />
+    <Compile Include="Area\ListForm\AreaListFormData.cs" />
+    <Compile Include="Area\ListForm\AreaListModel.cs" />
+    <Compile Include="Area\AreaQuery.cs" />
+    <Compile Include="Operator\OperatorDTO.cs" />
+    <Compile Include="Operator\OperatorFactory.cs" />
+    <Compile Include="Operator\OperatorValidator.cs" />
+    <Compile Include="Operator\DML\OperatorCreateHandler.cs" />
+    <Compile Include="Operator\DML\OperatorDeleteHandler.cs" />
+    <Compile Include="Operator\DML\OperatorUpdateHandler.cs" />
+    <Compile Include="Operator\EntryForm\OperatorEntryControlBuilder.cs" />
+    <Compile Include="Operator\EntryForm\OperatorEntryDataProvider.cs" />
+    <Compile Include="Operator\EntryForm\OperatorEntryFormData.cs" />
+    <Compile Include="Operator\EntryForm\OperatorEntryModel.cs" />
+    <Compile Include="Operator\ListForm\OperatorListDataProvider.cs" />
+    <Compile Include="Operator\ListForm\OperatorListFormData.cs" />
+    <Compile Include="Operator\ListForm\OperatorListModel.cs" />
+    <Compile Include="Operator\Queries\OperatorQuery.cs" />
+    <Compile Include="Operator\Queries\OperatorSearch.cs" />
+    <Compile Include="AsetKategori\AsetKategoriDTO.cs" />
+    <Compile Include="AsetKategori\AsetKategoriFactory.cs" />
+    <Compile Include="AsetKategori\AsetKategoriValidator.cs" />
+    <Compile Include="AsetKategori\DML\AsetKategoriCreateHandler.cs" />
+    <Compile Include="AsetKategori\DML\AsetKategoriDeleteHandler.cs" />
+    <Compile Include="AsetKategori\DML\AsetKategoriUpdateHandler.cs" />
+    <Compile Include="AsetKategori\EntryForm\AsetKategoriEntryControlBuilder.cs" />
+    <Compile Include="AsetKategori\EntryForm\AsetKategoriEntryDataProvider.cs" />
+    <Compile Include="AsetKategori\EntryForm\AsetKategoriEntryFormData.cs" />
+    <Compile Include="AsetKategori\EntryForm\AsetKategoriEntryModel.cs" />
+    <Compile Include="AsetKategori\ListForm\AsetKategoriListDataProvider.cs" />
+    <Compile Include="AsetKategori\ListForm\AsetKategoriListFormData.cs" />
+    <Compile Include="AsetKategori\ListForm\AsetKategoriListModel.cs" />
+    <Compile Include="AsetKategori\Queries\AsetKategoriQuery.cs" />
+    <Compile Include="AsetKategori\Queries\AsetKategoriSearch.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Aset\DML\AsetCreateHandler.cs" />
+    <Compile Include="Aset\DML\AsetDeleteHandler.cs" />
+    <Compile Include="Aset\DML\AsetUpdateHandler.cs" />
+    <Compile Include="Aset\EntryForm\AsetEntryControlBuilder.cs" />
+    <Compile Include="Aset\EntryForm\AsetEntryDataProvider.cs" />
+    <Compile Include="Aset\EntryForm\AsetEntryFormData.cs" />
+    <Compile Include="Aset\EntryForm\AsetEntryModel.cs" />
+    <Compile Include="Aset\ListForm\AsetListDataProvider.cs" />
+    <Compile Include="Aset\ListForm\AsetListFormData.cs" />
+    <Compile Include="Aset\ListForm\AsetListModel.cs" />
+    <Compile Include="Aset\Queries\AsetQuery.cs" />
+    <Compile Include="Aset\Queries\AsetSearch.cs" />
+    <Compile Include="Aset\AsetDTO.cs" />
+    <Compile Include="Aset\AsetFactory.cs" />
+    <Compile Include="Aset\AsetValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GlobalSolusindo.Base\GlobalSolusindo.Base.csproj">
+      <Project>{F3A62027-FA51-4F0A-B5BA-42385DE0D331}</Project>
+      <Name>GlobalSolusindo.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GlobalSolusindo.DataAccess.SqlServer\GlobalSolusindo.DataAccess.SqlServer.csproj">
+      <Project>{84E76E65-832E-4168-87CB-680FF40418BA}</Project>
+      <Name>GlobalSolusindo.DataAccess.SqlServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GlobalSolusindo.Identity\GlobalSolusindo.Identity.csproj">
+      <Project>{871E4555-9108-454E-95B0-A60CC4141F62}</Project>
+      <Name>GlobalSolusindo.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kairos.Google\Kairos.Google.csproj">
+      <Project>{42df2db1-551d-47e0-af30-77b5f4205190}</Project>
+      <Name>Kairos.Google</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kairos\Kairos.csproj">
+      <Project>{8C434AAF-6A6C-4727-AD32-0C875FF6D9A9}</Project>
+      <Name>Kairos</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

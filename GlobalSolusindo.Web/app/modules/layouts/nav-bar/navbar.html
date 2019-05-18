@@ -1,0 +1,29 @@
+<header class="app-header navbar">
+    <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <ul class="nav navbar-nav d-md-down-none">
+        <li class="nav-item">
+            <a class="nav-link navbar-toggler sidebar-toggler" href="#">
+                <span class="navbar-toggler-icon"></span>
+            </a>
+        </li>
+    </ul>
+    <div class="nav navbar-nav ml-auto d-md-down-none" uib-dropdown ng-controller="NavBarCtrl as nav">
+        <div class="btn-transparent" uib-dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
+            <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                <img id="photoProfile" src="app/assets/images/default.png" class="img-avatar" alt="">
+            </a>
+        </div>
+        <div class="dropdown-menu dropdown-menu-right" uib-dropdown-menu="" role="menu" aria-labelledby="single-button">
+            <div class="dropdown-header text-left">
+                <strong>User Info</strong>
+            </div>
+            <div class="dropdown-item">
+                <div><i class="fa fa-user"></i><strong> {{nav.model.name}}</strong></div>
+                <div><i></i> {{nav.model.email}}</div>
+            </div>
+            <a class="dropdown-item" href="#" ng-click="nav.logout()"><i class="fa fa-lock"></i> Logout</a>
+        </div>
+    </div>
+</header>

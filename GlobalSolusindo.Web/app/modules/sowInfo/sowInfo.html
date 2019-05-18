@@ -1,0 +1,157 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-title">SOW Detail</div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label col-sm-2">SOW:</label>
+                                    <label class="control-label col-sm-6" id="sowName" name="sowName">{{vm.model.sowName}}</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label col-sm-3">Tanggal:</label>
+                                    <label class="control-label col-sm-6" id="tglMulai" name="tglMulai">{{vm.model.tglMulai}}</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <!--BTS Info-->
+                                <div class="col-md-6">
+                                    <div class="card-title">BTS Info</div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Customer Site</label>
+                                        <label class="control-label col-sm-6" id="customerSite" name="customerSite">{{vm.model.btsInfo.customerSite}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Tower ID</label>
+                                        <label class="control-label col-sm-6" id="towerId" name="towerId">{{vm.model.btsInfo.towerId}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Cell ID</label>
+                                        <label class="control-label col-sm-6" id="cellId" name="cellId">{{vm.model.btsInfo.cellId}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">BTS Name</label>
+                                        <label class="control-label col-sm-6" id="name" name="name">{{vm.model.btsInfo.name}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Tower Provider</label>
+                                        <label class="control-label col-sm-6" id="operatorTitle" name="operatorTitle">{{vm.model.btsInfo.operatorTitle}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Longitude</label>
+                                        <label class="control-label col-sm-6" id="longitude" name="longitude">{{vm.model.btsInfo.longitude}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Latitude</label>
+                                        <label class="control-label col-sm-6" id="latitude" name="latitude">{{vm.model.btsInfo.latitude}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Area</label>
+                                        <label class="control-label col-sm-6" id="areaTitle" name="areaTitle">{{vm.model.btsInfo.areaTitle}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Kota</label>
+                                        <label class="control-label col-sm-6" id="kotaTitle" name="kotaTitle">{{vm.model.btsInfo.kotaTitle}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Cabang</label>
+                                        <label class="control-label col-sm-6" id="cabangTitle" name="cabangTitle">{{vm.model.btsInfo.cabangTitle}}</label>
+                                    </div>
+                                    <div class="row">
+                                        <label class="control-label col-sm-3">Alamat</label>
+                                        <label class="control-label col-sm-6" id="alamat" name="alamat">{{vm.model.btsInfo.alamat}}</label>
+                                    </div>
+                                </div>
+
+                                <!--Assigned User-->
+                                <div class="col-md-6">
+                                    <div class="card-title">Assigned User</div>
+                                    <div class="row form-group">
+                                        <table id="sowAssign">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>SOWAssign_PK</th>
+                                                    <th hidden>SOW FK</th>
+                                                    <th hidden>Jabatan FK</th>
+                                                    <th>Jabatan</th>
+                                                    <th>User</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="sowAssign in vm.model.sowAssigns">
+                                                    <td hidden>
+                                                        <input type="text" id="sowAssign_pk" name="sowAssign_pk" ng-model="sowAssign.sowAssign_pk" disabled />
+                                                    </td>
+                                                    <td class="text-center" hidden>
+                                                        <input type="text" id="sow_fk" name="sow_fk" ng-model="sowAssign.sow_fk" disabled />
+                                                    </td>
+                                                    <td class="text-left" hidden>
+                                                        <input type="text" id="kategoriJabatan_fk" name="kategoriJabatan_fk" class="form-control" ng-model="sowAssign.kategoriJabatan_fk" disabled />
+                                                    </td>
+                                                    <td class="text-left" style="width:200px">
+                                                        <label id="kategoriJabatanTitle" name="kategoriJabatanTitle">{{sowAssign.kategoriJabatanTitle}}</label>
+                                                    </td>
+                                                    <td>
+                                                        <label id="userName" name="userName"> {{sowAssign.userName}}</label>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button class="btn btn-default" ui-sref="app.sowList">Kembali</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-title">Track Location</div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-title">List Cost</div>
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <button id="addCost" class="btn btn-success">Add Cost</button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table id="cost">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Kategori</th>
+                                                <th>Nominal</th>
+                                                <th>Deskripsi</th>
+                                                <th>Tanggal Input</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

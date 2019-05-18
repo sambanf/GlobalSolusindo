@@ -1,0 +1,61 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Mapping User To Role Group</div>
+                    <div class="col-md-8">
+                        <div class="row form-group">
+                            <label class="control-label col-sm-3">Role Group Name:</label>
+                            <label class="control-label col-sm-2" type="text" id="title" name="title">
+                                {{vm.model.title}}
+                            </label>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col-sm-3">Description:</label>
+                            <label class="control-label col-sm-2" name="description" placeholder="Description">
+                                {{vm.model.description}}
+                            </label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" ui-sref="app.mappingUserToRoleGroupList">Kembali</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">List Mapping User To Role Group</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button user-modal on-callback="vm.userModalCallback" class="btn btn-success" id="modalRoleButton">
+                                Add New User
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="mappingUserToRoleGroup">
+                                <thead>
+                                    <tr>
+                                        <th>RoleGroup PK</th>
+                                        <th>User PK</th>
+                                        <th>User Id</th>
+                                        <th>Username</th>
+                                        <th>Name</th>
+                                        <th>Kategori Jabatan</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

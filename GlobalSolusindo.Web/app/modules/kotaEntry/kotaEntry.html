@@ -1,0 +1,27 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Tambah Kota</div>
+                    <div class="col-md-8">
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Kota:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="title" ng-model="vm.model.title" name="title"
+                                    placeholder="Kota Name">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" ui-sref="app.kotaList">Kembali</button>
+                                <button class="btn btn-success float-right" id="saveButton">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

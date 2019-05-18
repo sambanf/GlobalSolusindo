@@ -1,0 +1,120 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Tambah SOW</div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">SOW Name:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="sowName" name="sowName" class="form-control" ng-model="vm.model.sowName" placeholder="SOW Name">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Project:</label>
+                                <div class="col-sm-6">
+                                    <select id="project_fk" name="project_fk" class="form-control input-lg" size="0" ng-model="vm.model.project_fk" required>
+                                        <option ng-repeat="x in vm.formData.projects" ng-value="x.project_pk">{{x.title}}</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">BTS:</label>
+                                <div class="col-sm-6">
+                                    <select id="bts_fk" name="bts_fk" class="form-control input-lg" size="0" ng-model="vm.model.bts_fk" required>
+                                        <option ng-repeat="x in vm.formData.btses" ng-value="x.bts_pk">{{x.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Tanggal :</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <fieldset>
+                                    <div class="card-title">Assign</div>
+                                    <div class="col-md-12">
+                                        <table id="sowAssign">
+                                            <thead>
+                                                <tr>
+                                                    <th hidden>SOWAssign_PK</th>
+                                                    <th hidden>SOW FK</th>
+                                                    <th hidden>Jabatan FK</th>
+                                                    <th>Jabatan</th>
+                                                    <th>User</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="sowAssign in vm.model.sowAssigns">
+                                                    <td hidden>
+                                                        <input type="text" id="sowAssign_pk" name="sowAssign_pk" ng-model="sowAssign.sowAssign_pk" disabled />
+                                                        <div class="invalid-feedback"></div>
+                                                    </td>
+                                                    <td class="text-center" hidden>
+                                                        <input type="text" id="sow_fk" name="sow_fk" ng-model="sowAssign.sow_fk" disabled />
+                                                        <div class="invalid-feedback"></div>
+                                                    </td>
+                                                    <td class="text-left" hidden>
+                                                        <input type="text" id="kategoriJabatan_fk" name="kategoriJabatan_fk" class="form-control" ng-model="sowAssign.kategoriJabatan_fk" disabled />
+                                                        <div class="invalid-feedback"></div>
+                                                    </td>
+                                                    <td class="text-left">
+                                                        <input type="text" id="kategoriJabatanTitle" name="kategoriJabatanTitle" class="form-control" ng-model="sowAssign.kategoriJabatanTitle" disabled />
+                                                        <div class="invalid-feedback"></div>
+                                                    </td>
+                                                    <td>
+                                                        <ui-select id="user_fk" name="user_fk" ng-model="sowAssign.user_fk" size="0" theme="select2" ng-disabled="vm.disabled" title="Find user"
+                                                                   required style="width:200px">
+                                                            <ui-select-match placeholder="Find user">{{$select.selected.name}}</ui-select-match>
+                                                            <ui-select-choices refresh="vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)" refresh-delay="0" repeat="user.user_pk as user in vm.formData.users">
+                                                                <div ng-bind-html="user.name | highlight: $select.search"></div>
+                                                            </ui-select-choices>
+                                                        </ui-select>
+                                                        <div class="invalid-feedback"></div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-8">
+                                    <button class="btn btn-default" ui-sref="app.sowList">Kembali</button>
+                                    <button class="btn btn-success float-right" id="saveButton">Simpan</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--<div class="card-title">Track</div>-->
+                        <div class="col-md-6">
+                            <div class="row form-group">
+                                <div class="col-sm-12 input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                                    </div>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="kmlFile" aria-describedby="inputGroupFileAddon01">
+                                        <label id="fileName" class="custom-file-label" for="filePhoto">Choose file</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="map" style="border:1px solid gray">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

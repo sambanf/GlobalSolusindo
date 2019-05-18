@@ -1,0 +1,31 @@
+﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.DataAccess;
+using Kairos.Data;
+
+namespace GlobalSolusindo.Business.Area.ListForm
+{
+    public class AreaListDataProvider : FactoryBase
+    {
+        private AreaQuery areaQuery;
+
+        public AreaListDataProvider(GlobalSolusindoDb db, tblM_User user) : base(db, user)
+        {
+        }
+
+        public AreaListDataProvider(GlobalSolusindoDb db, tblM_User user, AreaQuery areaQuery) : base(db, user)
+        {
+            this.areaQuery = areaQuery;
+        }
+
+        public AreaListModel Get(AreaSearchFilter searchFilter)
+        {
+            AreaListFormData formData = new AreaListFormData();
+            SearchResult<AreaDTO> searchResult = areaQuery.GetDataByFilter(searchFilter);
+            return new AreaListModel()
+            {
+                FormData = formData,
+                SearchResult = searchResult
+            };
+        }
+    }
+}
