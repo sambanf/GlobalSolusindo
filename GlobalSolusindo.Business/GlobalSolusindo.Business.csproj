@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomDateTimeConverter.cs" />
     <Compile Include="SOWResult\SOWResultCreateHandler.cs" />
     <Compile Include="SOWResult\SOWResultDeleteHandler.cs" />
     <Compile Include="SOWResult\SOWResultDTO.cs" />

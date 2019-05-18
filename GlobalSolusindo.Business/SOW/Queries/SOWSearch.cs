@@ -1,6 +1,8 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
 using Kairos.Data;
+using System;
+using System.Globalization;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW.Queries
