@@ -19,13 +19,36 @@
         var self = this;
         var controller = {};
 
+        
+        self.dtCallback = function (dt) {
+            self.datatable = dt.DataTable;
+        };
+
+        //instantiate DatatableService
+        self.dtService = ds;
+
+        self.dtService.param = {
+            user_pk: 0
+        };
         self.init = function (ctrl) {
             controller = ctrl;
+
+            console.log(controller.model);
+            controller.search = function (){
+                if(controller.model)
+                    self.dtService.param.user_pk = controller.model.user_pk;
+                // console.log(self.dtService.param);
+                controller.datatable.draw();
+            }
+
+
             var titleColumnIndex = 1;
-            var dt = ds.init("#timesheetEngineer", "user/search", {
+            var dt = self.dtService.init("#timesheetEngineer", "user/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 10,
+                    userId: self.userId,
+                    name:self.name
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
@@ -54,7 +77,6 @@
             controller.datatable = dt;
             return dt;
         };
-
         return self;
     }
 
