@@ -29,29 +29,34 @@
                     pageSize: 10
                 },
                 order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "project_pk"
-                },
-                {
-                    "data": "title"
-                },
-                {
-                    "data": "operatorTitle"
-                },
-                {
-                    "data": "deliveryAreaTitle"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "project_pk"
+                    },
+                    {
+                        "data": "title"
+                    },
+                    {
+                        "data": "operatorTitle"
+                    },
+                    {
+                        "data": "deliveryAreaTitle"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                        }
                     }
+                ],
+                exportButtons: {
+                    columns: [1, 2, 3],
+                    title: "Project"
                 }
-                ]
             });
             controller.datatable = dt;
             return dt;

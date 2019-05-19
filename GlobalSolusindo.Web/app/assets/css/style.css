@@ -1068,6 +1068,10 @@ div.dataTables_filter {
     height: 300px;
 }
 
+.modal.small-modal .modal-dialog {
+    max-width: 500px;
+}
+
 .modal-dialog {
     max-width: 60%;
 }
@@ -1425,9 +1429,17 @@ md-dialog .md-dialog-content {
 }
 
 .btn {
-    border-radius: 20px;
+    border-radius: 5px;
     padding: 5px 15px;
-    box-shadow: 1px 2px 7px 1px #ccc;
+    box-shadow: 1px 2px 2px 1px #ccc;
+}
+
+.buttons-html5  {
+    margin: 5px
+}
+
+.buttons-print {
+    margin: 5px
 }
 
 .header-fixed .app-header {
@@ -1546,6 +1558,32 @@ table.dataTable .btn {
     display: inline-block;
 }
 
+.img-center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 50%;
+}
+
+
+#map {
+    height: calc(100vh - 300px);
+}
+
+.legend-item{
+    float: left;
+}
+
+.legend-item span{
+    float: left;
+}
+
+    .legend-item label {
+        float: left;
+        margin: 0 15px 0 5px;
+    }
+
 @media only screen and (max-width: 992px) {
     #top-alert .pl-0 {
         padding-left: 15px !important;
@@ -1608,3 +1646,4 @@ table.dataTable .btn {
         background-color: #fff;
         color: #000;
     }
+}

@@ -23,6 +23,10 @@
             return http.get('aset/form/' + id);
         };
 
+        function setImage(data) {
+            document.getElementById("photoAset").src = data;
+        }
+
         self.init = function (ctrl) {
             controller = ctrl;
             var id = ctrl.stateParam.id;
@@ -30,6 +34,9 @@
                 self.applyBinding(id).then(function (res) {
                     controller.formData = res.data.formData;
                     controller.model = res.data.model;
+                    if (controller.model && controller.model.filePhotoInBase64) {
+                        setImage(controller.model.filePhotoInBase64);
+                    }
                     controller.formControls = res.data.formControls;
                     resolve(res);
                 });

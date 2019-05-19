@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .controller('BTSEntryCtrl', BTSEntryCtrl);
 
-    BTSEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'BTSSaveService', 'BTSBindingService', 'FormControlService', 'BTSSelect2Service'];
+    BTSEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'BTSSaveService', 'BTSBindingService', 'FormControlService', 'BTSSelect2Service', 'BTSAddTechnologyService'];
 
-    function BTSEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, BTSSelect2Service) {
+    function BTSEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, BTSSelect2Service, addTechnology) {
         var self = this;
         self.stateParam = sParam;
 
@@ -23,6 +23,7 @@
             formControlService.setFormControl(self);
             saveService.init(self);
             BTSSelect2Service.init(self);
+            addTechnology.init(self);
         });
 
         return self;

@@ -19,14 +19,20 @@
         var self = this;
         var controller;
 
+        function goToListPage() {
+            $state.go('app.areaList');
+        }
+
         self.create = function (model) {
             http.post('area', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
-                    $state.go('app.areaEntry', { id: res.data.model.area_pk });
+                    //$state.go('app.areaEntry', { id: res.data.model.area_pk });
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -35,9 +41,11 @@
             http.put('area', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };

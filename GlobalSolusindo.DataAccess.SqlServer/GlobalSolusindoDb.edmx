@@ -4,17 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="GlobalSolusindoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
-        </EntityType>
+    <Schema Namespace="GlobalSolusindoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblM_Area">
           <Key>
             <PropertyRef Name="Area_PK" />
@@ -75,7 +65,7 @@
           <Property Name="BTS_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerSite" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="TowerID" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CellID" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CellID" Type="nvarchar" MaxLength="100" />
           <Property Name="Name" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="Operator_FK" Type="int" Nullable="false" />
           <Property Name="StatusBTS_FK" Type="int" />
@@ -97,6 +87,19 @@
           </Key>
           <Property Name="BTSStatus_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblM_BTSTechnology">
+          <Key>
+            <PropertyRef Name="BTSTechnology_PK" />
+          </Key>
+          <Property Name="BTSTechnology_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BTS_FK" Type="int" Nullable="false" />
+          <Property Name="Technology_FK" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -133,6 +136,18 @@
             <PropertyRef Name="DeliveryArea_PK" />
           </Key>
           <Property Name="DeliveryArea_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblM_IssueType">
+          <Key>
+            <PropertyRef Name="IssueType_PK" />
+          </Key>
+          <Property Name="IssueType_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -293,6 +308,18 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblM_Technology">
+          <Key>
+            <PropertyRef Name="Technology_PK" />
+          </Key>
+          <Property Name="Technology_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblM_User">
           <Key>
             <PropertyRef Name="User_PK" />
@@ -318,10 +345,22 @@
           <Property Name="TglLahir" Type="date" Nullable="false" />
           <Property Name="FilePhoto" Type="varbinary(max)" />
           <Property Name="NoKTP" Type="nvarchar" MaxLength="20" Nullable="false" />
-          <Property Name="NoHP" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="NoHP" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Address" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblM_Vendor">
+          <Key>
+            <PropertyRef Name="Vendor_PK" />
+          </Key>
+          <Property Name="Vendor_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -349,15 +388,21 @@
           </Key>
           <Property Name="CheckIn_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SOWAssign_FK" Type="int" Nullable="false" />
-          <Property Name="File" Type="varbinary" MaxLength="50" Nullable="false" />
+          <Property Name="File" Type="varbinary(max)" />
           <Property Name="WaktuCheckIn" Type="datetime" Nullable="false" />
           <Property Name="LongitudeCheckIn" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="LatitudeCheckIn" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MCCCheckIn" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="MNCCheckIn" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LACCheckIn" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="CellIDCheckIn" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="WaktuCheckOut" Type="datetime" />
-          <Property Name="LongitudeCheckOut" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="LatitudeCheckOut" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="CellIDCheckOut" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LongitudeCheckOut" Type="nvarchar" MaxLength="100" />
+          <Property Name="LatitudeCheckOut" Type="nvarchar" MaxLength="100" />
+          <Property Name="MCCCheckOut" Type="nvarchar" MaxLength="100" />
+          <Property Name="MNCCheckOut" Type="nvarchar" MaxLength="100" />
+          <Property Name="LACCheckOut" Type="nvarchar" MaxLength="100" />
+          <Property Name="CellIDCheckOut" Type="nvarchar" MaxLength="100" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -389,7 +434,7 @@
           <Property Name="TglMulai" Type="datetime" />
           <Property Name="TglSelesai" Type="datetime" />
           <Property Name="Alasan" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="FilePendukung" Type="varbinary" MaxLength="50" />
+          <Property Name="FilePendukung" Type="varbinary(max)" />
           <Property Name="ApprovalUserDetail_FK" Type="int" />
           <Property Name="IzinCutiStatus_FK" Type="int" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -431,6 +476,37 @@
           <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
           <Property Name="Status_FK" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblT_SOWIssue">
+          <Key>
+            <PropertyRef Name="SOWIssue_PK" />
+          </Key>
+          <Property Name="SOWIssue_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SOWAssign_FK" Type="int" />
+          <Property Name="IssueType_FK" Type="int" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Foto" Type="varbinary(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblT_SOWResult">
+          <Key>
+            <PropertyRef Name="SOWResult_PK" />
+          </Key>
+          <Property Name="SOWResult_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CheckIn_FK" Type="int" Nullable="false" />
+          <Property Name="FileUrl" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsApproved" Type="bit" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblT_SOWStatus">
           <Key>
             <PropertyRef Name="SOWStatus_PK" />
@@ -450,7 +526,23 @@
           <Property Name="SOWTrack_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SOW_FK" Type="int" />
           <Property Name="Technology_FK" Type="int" />
-          <Property Name="File" Type="varbinary" MaxLength="50" />
+          <Property Name="Route" Type="nvarchar(max)" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblT_SOWTrackResult">
+          <Key>
+            <PropertyRef Name="SOWTrackResult_PK" />
+          </Key>
+          <Property Name="SOWTrackResult_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SOWTrack_FK" Type="int" />
+          <Property Name="CheckIn_FK" Type="int" />
+          <Property Name="Route" Type="nvarchar(max)" />
+          <Property Name="ApprovedBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="ApprovedDate" Type="datetime" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -702,17 +794,44 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetTaskList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+          <Parameter Name="statusSOW" Type="int" Mode="In" />
+        </Function>
+        <Function Name="getTechnology" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar(max)">
+          <Parameter Name="SOW_PK" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetTimesheetDaily" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+          <Parameter Name="day" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetTimesheetMonthly" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userID" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetTimesheetMonthlyV2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_GetSowAssign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SOW_FK" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="GlobalSolusindoModelStoreContainer">
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Area" EntityType="Self.tblM_Area" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Aset" EntityType="Self.tblM_Aset" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_AsetKategori" EntityType="Self.tblM_AsetKategori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_AuthParam" EntityType="Self.tblM_AuthParam" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_BTS" EntityType="Self.tblM_BTS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_BTSStatus" EntityType="Self.tblM_BTSStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblM_BTSTechnology" EntityType="Self.tblM_BTSTechnology" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Cabang" EntityType="Self.tblM_Cabang" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_CostKategori" EntityType="Self.tblM_CostKategori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_DeliveryArea" EntityType="Self.tblM_DeliveryArea" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblM_IssueType" EntityType="Self.tblM_IssueType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_IzinCutiStatus" EntityType="Self.tblM_IzinCutiStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_KategoriJabatan" EntityType="Self.tblM_KategoriJabatan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Kota" EntityType="Self.tblM_Kota" Schema="dbo" store:Type="Tables" />
@@ -725,16 +844,21 @@
           <EntitySet Name="tblM_Role" EntityType="Self.tblM_Role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_RoleGroup" EntityType="Self.tblM_RoleGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Status" EntityType="Self.tblM_Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblM_Technology" EntityType="Self.tblM_Technology" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_User" EntityType="Self.tblM_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_UserDetail" EntityType="Self.tblM_UserDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblM_Vendor" EntityType="Self.tblM_Vendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_AsetHistori" EntityType="Self.tblT_AsetHistori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_CheckIn" EntityType="Self.tblT_CheckIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_Cost" EntityType="Self.tblT_Cost" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_IzinCuti" EntityType="Self.tblT_IzinCuti" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_SOW" EntityType="Self.tblT_SOW" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_SOWAssign" EntityType="Self.tblT_SOWAssign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblT_SOWIssue" EntityType="Self.tblT_SOWIssue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblT_SOWResult" EntityType="Self.tblT_SOWResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_SOWStatus" EntityType="Self.tblT_SOWStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_SOWTrack" EntityType="Self.tblT_SOWTrack" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblT_SOWTrackResult" EntityType="Self.tblT_SOWTrackResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_UserHistori" EntityType="Self.tblT_UserHistori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_UserPayroll" EntityType="Self.tblT_UserPayroll" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_tblM_Aset_KategoriAset_FK" Association="Self.FK_tblM_Aset_KategoriAset_FK">
@@ -815,16 +939,44 @@
     <edmx:ConceptualModels>
       <Schema Namespace="GlobalSolusindoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="GlobalSolusindoDb" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="sysdiagrams" EntityType="GlobalSolusindoModel.sysdiagram" />
+          <FunctionImport Name="GetRoute" ReturnType="Collection(String)">
+            <Parameter Name="taskID" Mode="In" Type="Int32" />
+            <Parameter Name="tech" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTimesheetMonthly" ReturnType="Collection(DateTime)">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTimesheetMonthlyV2" ReturnType="Collection(GlobalSolusindoModel.GetTimesheetMonthlyV2_Result)">
+            <Parameter Name="userId" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTimesheetDaily" ReturnType="Collection(GlobalSolusindoModel.GetTimesheetDaily_Result)">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="month" Mode="In" Type="Int32" />
+            <Parameter Name="year" Mode="In" Type="Int32" />
+            <Parameter Name="day" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTaskList" ReturnType="Collection(GlobalSolusindoModel.GetTaskList_Result)">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="statusSOW" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetSowAssign" ReturnType="Collection(GlobalSolusindoModel.usp_GetSowAssign_Result)">
+          <Parameter Name="SOW_FK" Mode="In" Type="Int32" />
+          </FunctionImport>
           <EntitySet Name="tblM_Area" EntityType="GlobalSolusindoModel.tblM_Area" />
           <EntitySet Name="tblM_Aset" EntityType="GlobalSolusindoModel.tblM_Aset" />
           <EntitySet Name="tblM_AsetKategori" EntityType="GlobalSolusindoModel.tblM_AsetKategori" />
           <EntitySet Name="tblM_AuthParam" EntityType="GlobalSolusindoModel.tblM_AuthParam" />
           <EntitySet Name="tblM_BTS" EntityType="GlobalSolusindoModel.tblM_BTS" />
           <EntitySet Name="tblM_BTSStatus" EntityType="GlobalSolusindoModel.tblM_BTSStatus" />
+          <EntitySet Name="tblM_BTSTechnology" EntityType="GlobalSolusindoModel.tblM_BTSTechnology" />
           <EntitySet Name="tblM_Cabang" EntityType="GlobalSolusindoModel.tblM_Cabang" />
           <EntitySet Name="tblM_CostKategori" EntityType="GlobalSolusindoModel.tblM_CostKategori" />
           <EntitySet Name="tblM_DeliveryArea" EntityType="GlobalSolusindoModel.tblM_DeliveryArea" />
+          <EntitySet Name="tblM_IssueType" EntityType="GlobalSolusindoModel.tblM_IssueType" />
           <EntitySet Name="tblM_IzinCutiStatus" EntityType="GlobalSolusindoModel.tblM_IzinCutiStatus" />
           <EntitySet Name="tblM_KategoriJabatan" EntityType="GlobalSolusindoModel.tblM_KategoriJabatan" />
           <EntitySet Name="tblM_Kota" EntityType="GlobalSolusindoModel.tblM_Kota" />
@@ -837,16 +989,21 @@
           <EntitySet Name="tblM_Role" EntityType="GlobalSolusindoModel.tblM_Role" />
           <EntitySet Name="tblM_RoleGroup" EntityType="GlobalSolusindoModel.tblM_RoleGroup" />
           <EntitySet Name="tblM_Status" EntityType="GlobalSolusindoModel.tblM_Status" />
+          <EntitySet Name="tblM_Technology" EntityType="GlobalSolusindoModel.tblM_Technology" />
           <EntitySet Name="tblM_User" EntityType="GlobalSolusindoModel.tblM_User" />
           <EntitySet Name="tblM_UserDetail" EntityType="GlobalSolusindoModel.tblM_UserDetail" />
+          <EntitySet Name="tblM_Vendor" EntityType="GlobalSolusindoModel.tblM_Vendor" />
           <EntitySet Name="tblT_AsetHistori" EntityType="GlobalSolusindoModel.tblT_AsetHistori" />
           <EntitySet Name="tblT_CheckIn" EntityType="GlobalSolusindoModel.tblT_CheckIn" />
           <EntitySet Name="tblT_Cost" EntityType="GlobalSolusindoModel.tblT_Cost" />
           <EntitySet Name="tblT_IzinCuti" EntityType="GlobalSolusindoModel.tblT_IzinCuti" />
           <EntitySet Name="tblT_SOW" EntityType="GlobalSolusindoModel.tblT_SOW" />
           <EntitySet Name="tblT_SOWAssign" EntityType="GlobalSolusindoModel.tblT_SOWAssign" />
+          <EntitySet Name="tblT_SOWIssue" EntityType="GlobalSolusindoModel.tblT_SOWIssue" />
+          <EntitySet Name="tblT_SOWResult" EntityType="GlobalSolusindoModel.tblT_SOWResult" />
           <EntitySet Name="tblT_SOWStatus" EntityType="GlobalSolusindoModel.tblT_SOWStatus" />
           <EntitySet Name="tblT_SOWTrack" EntityType="GlobalSolusindoModel.tblT_SOWTrack" />
+          <EntitySet Name="tblT_SOWTrackResult" EntityType="GlobalSolusindoModel.tblT_SOWTrackResult" />
           <EntitySet Name="tblT_UserHistori" EntityType="GlobalSolusindoModel.tblT_UserHistori" />
           <EntitySet Name="tblT_UserPayroll" EntityType="GlobalSolusindoModel.tblT_UserPayroll" />
           <AssociationSet Name="FK_tblM_Aset_KategoriAset_FK" Association="GlobalSolusindoModel.FK_tblM_Aset_KategoriAset_FK">
@@ -921,17 +1078,55 @@
             <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
+          </EntityContainer>
+        <ComplexType Name="GetTaskList_Result">
+          <Property Type="Int32" Name="User_FK" Nullable="true" />
+          <Property Type="Int32" Name="SOWAssign_PK" Nullable="true" />
+          <Property Type="Int32" Name="BTS_FK" Nullable="true" />
+          <Property Type="String" Name="BTS" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Alamat" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="StatusID" Nullable="true" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="Boolean" Name="Reported" Nullable="true" />
+          <Property Type="String" Name="ReportedValue" Nullable="true" MaxLength="4000" />
+          <Property Type="Boolean" Name="IsClose" Nullable="true" />
+          <Property Type="Boolean" Name="IsSubmitted" Nullable="true" />
+          <Property Type="Int32" Name="CheckIn_PK" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetTimesheetDaily_Result">
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Technology" Nullable="true" />
+          <Property Type="String" Name="Time" Nullable="true" MaxLength="4000" />
+          <Property Type="Int32" Name="Duration" Nullable="true" />
+          <Property Type="Boolean" Name="IsDiffDay" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetTimesheetMonthlyV2_Result">
+          <Property Type="Int64" Name="Row" Nullable="true" />
+          <Property Type="Int32" Name="SOWAssign_FK" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="true" />
+          <Property Type="DateTime" Name="FirstCheckIn" Nullable="true" Precision="23" />
+          <Property Type="String" Name="FirstLocation" Nullable="true" MaxLength="200" />
+          <Property Type="DateTime" Name="LastCheckOut" Nullable="true" Precision="23" />
+          <Property Type="String" Name="LastLocation" Nullable="true" MaxLength="200" />
+          <Property Type="Boolean" Name="IsDiffDay" Nullable="true" />
+          <Property Type="Int32" Name="TotalTask" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetSowAssign_Result">
+          <Property Type="Int32" Name="SOWAssign_PK" Nullable="false" />
+          <Property Type="Int32" Name="SOW_FK" Nullable="false" />
+          <Property Type="String" Name="SOWName" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="User_FK" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="KategoriJabatan_FK" Nullable="false" />
+          <Property Type="String" Name="KategoriJabatanTitle" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="TglMulai" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TglSelesai" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Status_FK" Nullable="true" />
+        </ComplexType>
         <EntityType Name="tblM_Area">
           <Key>
             <PropertyRef Name="Area_PK" />
@@ -998,7 +1193,7 @@
           <Property Name="BTS_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerSite" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="TowerID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CellID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CellID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Operator_FK" Type="Int32" Nullable="false" />
           <Property Name="StatusBTS_FK" Type="Int32" />
@@ -1020,6 +1215,19 @@
           </Key>
           <Property Name="BTSStatus_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblM_BTSTechnology">
+          <Key>
+            <PropertyRef Name="BTSTechnology_PK" />
+          </Key>
+          <Property Name="BTSTechnology_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="BTS_FK" Type="Int32" Nullable="false" />
+          <Property Name="Technology_FK" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1057,6 +1265,18 @@
             <PropertyRef Name="DeliveryArea_PK" />
           </Key>
           <Property Name="DeliveryArea_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblM_IssueType">
+          <Key>
+            <PropertyRef Name="IssueType_PK" />
+          </Key>
+          <Property Name="IssueType_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -1235,6 +1455,18 @@
           <NavigationProperty Name="tblM_UserDetail" Relationship="GlobalSolusindoModel.FK_tblM_UserDetail_Status_FK" FromRole="tblM_Status" ToRole="tblM_UserDetail" />
           <NavigationProperty Name="tblT_UserHistori" Relationship="GlobalSolusindoModel.FK_tblM_UserHistori_Status_FK" FromRole="tblM_Status" ToRole="tblT_UserHistori" />
         </EntityType>
+        <EntityType Name="tblM_Technology">
+          <Key>
+            <PropertyRef Name="Technology_PK" />
+          </Key>
+          <Property Name="Technology_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblM_User">
           <Key>
             <PropertyRef Name="User_PK" />
@@ -1262,7 +1494,7 @@
           <Property Name="TglLahir" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="FilePhoto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="NoKTP" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="NoHP" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="NoHP" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1275,6 +1507,18 @@
           <NavigationProperty Name="tblM_User" Relationship="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblM_User" />
           <NavigationProperty Name="tblT_AsetHistori" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblT_AsetHistori" />
           <NavigationProperty Name="tblT_UserHistori" Relationship="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblT_UserHistori" />
+        </EntityType>
+        <EntityType Name="tblM_Vendor">
+          <Key>
+            <PropertyRef Name="Vendor_PK" />
+          </Key>
+          <Property Name="Vendor_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="tblT_AsetHistori">
           <Key>
@@ -1300,15 +1544,21 @@
           </Key>
           <Property Name="CheckIn_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SOWAssign_FK" Type="Int32" Nullable="false" />
-          <Property Name="File" Type="Binary" Nullable="false" MaxLength="50" FixedLength="false" />
+          <Property Name="File" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="WaktuCheckIn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="LongitudeCheckIn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="LatitudeCheckIn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MCCCheckIn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MNCCheckIn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LACCheckIn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CellIDCheckIn" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="WaktuCheckOut" Type="DateTime" Precision="3" />
-          <Property Name="LongitudeCheckOut" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="LatitudeCheckOut" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CellIDCheckOut" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LongitudeCheckOut" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LatitudeCheckOut" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MCCCheckOut" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MNCCheckOut" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LACCheckOut" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CellIDCheckOut" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1340,7 +1590,7 @@
           <Property Name="TglMulai" Type="DateTime" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
           <Property Name="Alasan" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FilePendukung" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="FilePendukung" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="ApprovalUserDetail_FK" Type="Int32" />
           <Property Name="IzinCutiStatus_FK" Type="Int32" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1382,6 +1632,37 @@
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblT_SOWIssue">
+          <Key>
+            <PropertyRef Name="SOWIssue_PK" />
+          </Key>
+          <Property Name="SOWIssue_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SOWAssign_FK" Type="Int32" />
+          <Property Name="IssueType_FK" Type="Int32" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblT_SOWResult">
+          <Key>
+            <PropertyRef Name="SOWResult_PK" />
+          </Key>
+          <Property Name="SOWResult_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CheckIn_FK" Type="Int32" Nullable="false" />
+          <Property Name="FileUrl" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblT_SOWStatus">
           <Key>
             <PropertyRef Name="SOWStatus_PK" />
@@ -1401,7 +1682,23 @@
           <Property Name="SOWTrack_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SOW_FK" Type="Int32" />
           <Property Name="Technology_FK" Type="Int32" />
-          <Property Name="File" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="Route" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblT_SOWTrackResult">
+          <Key>
+            <PropertyRef Name="SOWTrackResult_PK" />
+          </Key>
+          <Property Name="SOWTrackResult_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SOWTrack_FK" Type="Int32" />
+          <Property Name="CheckIn_FK" Type="Int32" />
+          <Property Name="Route" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDate" Type="DateTime" Precision="3" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1661,17 +1958,71 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="GlobalSolusindoModelStoreContainer" CdmEntityContainer="GlobalSolusindoDb">
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="GlobalSolusindoModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetTimesheetMonthly" FunctionName="GlobalSolusindoModel.Store.GetTimesheetMonthly" />
+          <FunctionImportMapping FunctionImportName="GetTimesheetMonthlyV2" FunctionName="GlobalSolusindoModel.Store.GetTimesheetMonthlyV2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTimesheetMonthlyV2_Result">
+                <ScalarProperty Name="Row" ColumnName="Row" />
+                <ScalarProperty Name="SOWAssign_FK" ColumnName="SOWAssign_FK" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FirstCheckIn" ColumnName="FirstCheckIn" />
+                <ScalarProperty Name="FirstLocation" ColumnName="FirstLocation" />
+                <ScalarProperty Name="LastCheckOut" ColumnName="LastCheckOut" />
+                <ScalarProperty Name="LastLocation" ColumnName="LastLocation" />
+                <ScalarProperty Name="IsDiffDay" ColumnName="IsDiffDay" />
+                <ScalarProperty Name="TotalTask" ColumnName="TotalTask" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTimesheetDaily" FunctionName="GlobalSolusindoModel.Store.GetTimesheetDaily">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTimesheetDaily_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="IsDiffDay" ColumnName="IsDiffDay" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTaskList" FunctionName="GlobalSolusindoModel.Store.GetTaskList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTaskList_Result">
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
+                <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
+                <ScalarProperty Name="BTS" ColumnName="BTS" />
+                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Reported" ColumnName="Reported" />
+                <ScalarProperty Name="ReportedValue" ColumnName="ReportedValue" />
+                <ScalarProperty Name="IsClose" ColumnName="IsClose" />
+                <ScalarProperty Name="IsSubmitted" ColumnName="IsSubmitted" />
+                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetSowAssign" FunctionName="GlobalSolusindoModel.Store.usp_GetSowAssign">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.usp_GetSowAssign_Result">
+                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
+                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
+                <ScalarProperty Name="SOWName" ColumnName="SOWName" />
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="KategoriJabatan_FK" ColumnName="KategoriJabatan_FK" />
+                <ScalarProperty Name="KategoriJabatanTitle" ColumnName="KategoriJabatanTitle" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <EntitySetMapping Name="tblM_Area">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Area">
               <MappingFragment StoreEntitySet="tblM_Area">
@@ -1766,6 +2117,20 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblM_BTSTechnology">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_BTSTechnology">
+              <MappingFragment StoreEntitySet="tblM_BTSTechnology">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Technology_FK" ColumnName="Technology_FK" />
+                <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
+                <ScalarProperty Name="BTSTechnology_PK" ColumnName="BTSTechnology_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblM_Cabang">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Cabang">
               <MappingFragment StoreEntitySet="tblM_Cabang">
@@ -1803,6 +2168,19 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="DeliveryArea_PK" ColumnName="DeliveryArea_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblM_IssueType">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_IssueType">
+              <MappingFragment StoreEntitySet="tblM_IssueType">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="IssueType_PK" ColumnName="IssueType_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1968,6 +2346,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblM_Technology">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Technology">
+              <MappingFragment StoreEntitySet="tblM_Technology">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Technology_PK" ColumnName="Technology_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblM_User">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_User">
               <MappingFragment StoreEntitySet="tblM_User">
@@ -2005,6 +2396,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblM_Vendor">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Vendor">
+              <MappingFragment StoreEntitySet="tblM_Vendor">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Vendor_PK" ColumnName="Vendor_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblT_AsetHistori">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_AsetHistori">
               <MappingFragment StoreEntitySet="tblT_AsetHistori">
@@ -2030,10 +2434,16 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CellIDCheckOut" ColumnName="CellIDCheckOut" />
+                <ScalarProperty Name="LACCheckOut" ColumnName="LACCheckOut" />
+                <ScalarProperty Name="MNCCheckOut" ColumnName="MNCCheckOut" />
+                <ScalarProperty Name="MCCCheckOut" ColumnName="MCCCheckOut" />
                 <ScalarProperty Name="LatitudeCheckOut" ColumnName="LatitudeCheckOut" />
                 <ScalarProperty Name="LongitudeCheckOut" ColumnName="LongitudeCheckOut" />
                 <ScalarProperty Name="WaktuCheckOut" ColumnName="WaktuCheckOut" />
                 <ScalarProperty Name="CellIDCheckIn" ColumnName="CellIDCheckIn" />
+                <ScalarProperty Name="LACCheckIn" ColumnName="LACCheckIn" />
+                <ScalarProperty Name="MNCCheckIn" ColumnName="MNCCheckIn" />
+                <ScalarProperty Name="MCCCheckIn" ColumnName="MCCCheckIn" />
                 <ScalarProperty Name="LatitudeCheckIn" ColumnName="LatitudeCheckIn" />
                 <ScalarProperty Name="LongitudeCheckIn" ColumnName="LongitudeCheckIn" />
                 <ScalarProperty Name="WaktuCheckIn" ColumnName="WaktuCheckIn" />
@@ -2114,6 +2524,39 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblT_SOWIssue">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOWIssue">
+              <MappingFragment StoreEntitySet="tblT_SOWIssue">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IssueType_FK" ColumnName="IssueType_FK" />
+                <ScalarProperty Name="SOWAssign_FK" ColumnName="SOWAssign_FK" />
+                <ScalarProperty Name="SOWIssue_PK" ColumnName="SOWIssue_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblT_SOWResult">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOWResult">
+              <MappingFragment StoreEntitySet="tblT_SOWResult">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="FileUrl" ColumnName="FileUrl" />
+                <ScalarProperty Name="CheckIn_FK" ColumnName="CheckIn_FK" />
+                <ScalarProperty Name="SOWResult_PK" ColumnName="SOWResult_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblT_SOWStatus">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOWStatus">
               <MappingFragment StoreEntitySet="tblT_SOWStatus">
@@ -2135,10 +2578,27 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="File" ColumnName="File" />
+                <ScalarProperty Name="Route" ColumnName="Route" />
                 <ScalarProperty Name="Technology_FK" ColumnName="Technology_FK" />
                 <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
                 <ScalarProperty Name="SOWTrack_PK" ColumnName="SOWTrack_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblT_SOWTrackResult">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOWTrackResult">
+              <MappingFragment StoreEntitySet="tblT_SOWTrackResult">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ApprovedDate" ColumnName="ApprovedDate" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+                <ScalarProperty Name="Route" ColumnName="Route" />
+                <ScalarProperty Name="CheckIn_FK" ColumnName="CheckIn_FK" />
+                <ScalarProperty Name="SOWTrack_FK" ColumnName="SOWTrack_FK" />
+                <ScalarProperty Name="SOWTrackResult_PK" ColumnName="SOWTrackResult_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2173,7 +2633,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

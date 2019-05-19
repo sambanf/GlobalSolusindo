@@ -26,7 +26,8 @@
                     $state.go('app.mappingUserToRoleGroupEntry', { id: res.data.model.mappingUserToRoleGroup_pk });
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -37,7 +38,8 @@
                     ui.alert.success(res.message);
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };

@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('btsViewService', btsView);
 
-    btsView.$inject = ['HttpService', '$state', 'uiService'];
+    btsView.$inject = ['HttpService', '$state', 'uiService', '$uibModal'];
 
-    function btsView(http, $state, ui) {
+    function btsView(http, $state, ui, $uibModal) {
         var self = this;
         var controller;
 
@@ -36,6 +36,20 @@
                 var data = controller.datatable.row(this).data();
                 var id = data["bts_pk"];
                 self.view(id);
+            });
+
+            $("#bts tbody").on("click", "#show", function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/bts/btsDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
             });
         };
 

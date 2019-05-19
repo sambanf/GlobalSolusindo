@@ -10,6 +10,7 @@ namespace GlobalSolusindo.Business.BTS
             ModelValidator validator = new ModelValidator();
 
             validator.Validate(btsDTO);
+            validator.ValidateForEach(btsDTO.BTSTechnologies, "BTSTechnologies");
             return validator.ValidationResult;
         }
     }

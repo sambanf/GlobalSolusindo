@@ -94,7 +94,7 @@ namespace GlobalSolusindo.Api.Controllers
                     }
 
                     transaction.Complete();
-                    return Ok(new SuccessResponse(result));
+                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }
         }

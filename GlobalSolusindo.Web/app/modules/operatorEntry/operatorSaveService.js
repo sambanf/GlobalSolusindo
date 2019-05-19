@@ -19,14 +19,20 @@
         var self = this;
         var controller;
 
+        function goToListPage() {
+            $state.go('app.operatorList');
+        }
+
         self.create = function (model) {
             http.post('operator', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
-                    $state.go('app.operatorEntry', { id: res.data.model.operator_pk });
+                    //$state.go('app.operatorEntry', { id: res.data.model.operator_pk });
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -35,9 +41,11 @@
             http.put('operator', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };

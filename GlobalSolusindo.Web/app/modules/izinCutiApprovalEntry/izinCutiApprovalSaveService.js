@@ -17,7 +17,7 @@
 
     function izinCutiApprovalSaveService($state, http, ui, validation) {
         var self = this;
-        var controller; 
+        var controller;
 
         function goToIzinCutiApprovalList() {
             $state.go('app.izinCutiApprovalList');
@@ -30,10 +30,11 @@
                     goToIzinCutiApprovalList();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
-        }; 
+        };
 
         self.reject = function (model) {
             http.put('izinCuti/approval', model).then(function (res) {
@@ -42,10 +43,11 @@
                     goToIzinCutiApprovalList();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
-        }; 
+        };
 
         self.init = function (ctrl) {
             controller = ctrl;

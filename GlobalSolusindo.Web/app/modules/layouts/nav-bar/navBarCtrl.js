@@ -11,9 +11,9 @@
 
     angular
         .module('global-solusindo')
-        .controller('NavBarCtrl', NavBar);
+        .controller('NavBarCtrl', NavBarCtrl);
 
-    NavBar.$inject = ['MenuService', '$cookies', '$localStorage', '$state', '$window', 'HttpService'];
+    NavBarCtrl.$inject = ['MenuService', '$cookies', '$localStorage', '$state', '$window', 'HttpService', 'uiService'];
 
 	/*
 	 * recommend
@@ -21,32 +21,37 @@
 	 * and bindable members up top.
 	 */
 
-    function NavBar(MenuService, $cookies, localStorage, state, $window, HttpService) {
+    function NavBarCtrl(MenuService, $cookies, localStorage, state, $window, http, ui) {
 
         /*jshint validthis: true */
-
         var nav = this;
-        nav.user = JSON.parse($window.localStorage.getItem('user'));
-        //nav.user = $cookies.getAll();
-        //console.log(nav.user);
+        var user = JSON.parse($window.localStorage.getItem('user'));
+        nav.model = user;
+
+        function setImage(data) { 
+            document.getElementById("photoProfile").src = data;
+        }
+
+        if (nav.model && nav.model.filePhotoInBase64) {
+            setImage(nav.model.filePhotoInBase64);
+        }
+
+        function resetApplicationData() {
+            $cookies.remove('token');
+            $window.localStorage.removeItem('user');
+            $window.localStorage.clear();
+        }
 
         nav.logout = function () {
-            HttpService.login('/logout', {}).then(function (response) {
-
+            http.post('/logout', {}).then(function (response) {
+                state.go('login');
             });
-
-            $cookies.remove('Token');
-            $cookies.remove('User');
-            localStorage.$reset();
-            state.go('login');
-            $window.localStorage.removeItem('userMenu');
-            $window.localStorage.removeItem('user');
+            resetApplicationData();
         }
         // vm.toggle = function () {
         //     $('#toggle').click();
         // };
 
         return nav;
-    }
-
+    } 
 })();

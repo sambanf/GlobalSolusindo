@@ -26,7 +26,8 @@
                     controller.modalInstance.close();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };

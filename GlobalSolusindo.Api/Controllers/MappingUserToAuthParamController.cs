@@ -120,7 +120,7 @@ namespace GlobalSolusindo.Api.Controllers
                 {
                     var result =   mappingUserToAuthParamDeleteHandler.Execute(keys.AuthParamPK, keys.UserPK, Base.DeleteMethod.Hard);
                     transaction.Complete();
-                    return Ok(new SuccessResponse(result));
+                    return Ok(new SuccessResponse(result, "Data deleted."));
                 }
             }
         }

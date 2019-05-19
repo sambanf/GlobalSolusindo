@@ -12,7 +12,7 @@ namespace GlobalSolusindo.Identity.Login
 {
     public class LoginDTO
     {
-        [Required]
+        [Required(ErrorMessage = "Username or email is required.")]
         [JsonProperty("username")]
         public string Username { get; set; }
 
@@ -32,9 +32,26 @@ namespace GlobalSolusindo.Identity.Login
             ModelValidator validator = new ModelValidator();
             validator.Validate(loginDTO);
             return validator.ValidationResult;
-
         }
 
+        public tblM_User GetUserByUsername(string username)
+        {
+            var user = Db.tblM_User.FirstOrDefault(x => x.Username == username);
+            return user;
+        }
+
+        public tblM_User GetUserByEmail(string email)
+        {
+            var userDetail = Db.tblM_UserDetail.FirstOrDefault(x => x.Email == email);
+            if (userDetail != null)
+            {
+                var user = Db.tblM_User.FirstOrDefault(x => x.UserDetail_FK == userDetail.UserDetail_PK);
+                return user;
+            }
+            return null;
+        }
+
+    
         public LoginResult<UserDTO> GrantAccess(LoginDTO loginDTO)
         {
             var validationResult = Validate(loginDTO);
@@ -54,11 +71,36 @@ namespace GlobalSolusindo.Identity.Login
 
             var username = loginDTO.Username;
 
-            var user = Db.tblM_User.FirstOrDefault(x => x.Username == username && x.Password == hashedPassword); 
+            //Try by username first;
+            var loginBy = "username";
+
+            var user = GetUserByUsername(username); //Db.tblM_User.FirstOrDefault(x => x.Username == username && x.Password == hashedPassword);
+
+            //If not found, try by email
+            if (user == null)
+            {
+                user = GetUserByEmail(username);
+                loginBy = "email";
+            }
+
             if (user == null)
                 throw new Kairos.AccessException("Username or password do not match.");
 
-            var userDTO = new UserQuery(this.Db).GetUsernamePassword(username);
+            if (user.Password != hashedPassword)
+            {
+                throw new Kairos.AccessException("Username or password do not match.");
+            }
+            UserDTO userDTO;
+            if (loginBy == "username")
+            {
+                userDTO = new UserQuery(this.Db).GetByUsername(username);
+            }
+            else
+            {
+                userDTO = new UserQuery(this.Db).GetByEmail(username);
+            }
+
+            
             return new LoginResult<UserDTO>()
             {
                 Token = Guid.NewGuid().ToString(),
@@ -67,6 +109,6 @@ namespace GlobalSolusindo.Identity.Login
                 Model = userDTO,
                 ValidationResult = validationResult
             };
-        }
+        } 
     }
 }

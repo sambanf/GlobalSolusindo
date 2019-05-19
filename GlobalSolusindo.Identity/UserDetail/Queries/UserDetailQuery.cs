@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using Kairos.Imaging;
 using Kairos.Linq;
 using System;
 using System.Data.SqlClient;
@@ -52,7 +53,10 @@ namespace GlobalSolusindo.Identity.UserDetail.Queries
 
         public UserDetailDTO GetByPrimaryKey(int primaryKey)
         {
-            UserDetailDTO record = GetQuery().FirstOrDefault(userDetail => userDetail.UserDetail_PK == primaryKey);
+            UserDetailDTO record = GetQuery().FirstOrDefault(u => u.UserDetail_PK == primaryKey);
+            var userDetail = Db.tblM_UserDetail.Find(primaryKey);
+            if (userDetail != null)
+                record.FilePhotoInBase64 = new WebImageConverter().GetBase64FromBytes(userDetail.FilePhoto);
             return record;
         }
 

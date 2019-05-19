@@ -19,14 +19,20 @@
         var self = this;
         var controller;
 
+        function goToListPage() {
+            $state.go('app.izinCutiList');
+        }
+
         self.create = function (model) {
             http.post('izinCuti', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
-                    $state.go('app.izinCutiEntry', { id: res.data.model.izinCuti_pk });
+                    //$state.go('app.izinCutiEntry', { id: res.data.model.izinCuti_pk });
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -35,9 +41,11 @@
             http.put('izinCuti', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };

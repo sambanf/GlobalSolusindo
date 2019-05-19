@@ -42,8 +42,8 @@ namespace GlobalSolusindo.Identity.User.Queries
                     || user.NoKTP.Contains(filter.Keyword)
                     || user.NoHP.Contains(filter.Keyword)
                     || user.Email.Contains(filter.Keyword)
-                    || user.Address.Contains(filter.Keyword)
-                    || user.Description.Contains(filter.Keyword)
+                    //|| user.Address.Contains(filter.Keyword)
+                    //|| user.Description.Contains(filter.Keyword)
                     );
 
             if ((UserKategoriJabatanFilter)filter.KategoriJabatan_FK != UserKategoriJabatanFilter.All)

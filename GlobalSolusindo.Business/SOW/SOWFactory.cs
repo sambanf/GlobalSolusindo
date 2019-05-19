@@ -38,6 +38,7 @@ namespace GlobalSolusindo.Business.SOW
             sow.UpdateValueFrom(sowDTO, "SOW_PK", "Status_FK");
             sowDTO.CreatedBy = sow.CreatedBy;
             sowDTO.CreatedDate = sow.CreatedDate;
+            sow.TglMulai = sowDTO.TglMulai;
             sow.UpdatedBy = sowDTO.UpdatedBy = User.Username;
             sow.UpdatedDate = sowDTO.UpdatedDate = dateStamp;
 

@@ -9,9 +9,12 @@
 
 namespace GlobalSolusindo.DataAccess
 {
+    using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
+    
     public partial class GlobalSolusindoDb : DbContext
     {
         public GlobalSolusindoDb()
@@ -24,16 +27,17 @@ namespace GlobalSolusindo.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<tblM_Area> tblM_Area { get; set; }
         public virtual DbSet<tblM_Aset> tblM_Aset { get; set; }
         public virtual DbSet<tblM_AsetKategori> tblM_AsetKategori { get; set; }
         public virtual DbSet<tblM_AuthParam> tblM_AuthParam { get; set; }
         public virtual DbSet<tblM_BTS> tblM_BTS { get; set; }
         public virtual DbSet<tblM_BTSStatus> tblM_BTSStatus { get; set; }
+        public virtual DbSet<tblM_BTSTechnology> tblM_BTSTechnology { get; set; }
         public virtual DbSet<tblM_Cabang> tblM_Cabang { get; set; }
         public virtual DbSet<tblM_CostKategori> tblM_CostKategori { get; set; }
         public virtual DbSet<tblM_DeliveryArea> tblM_DeliveryArea { get; set; }
+        public virtual DbSet<tblM_IssueType> tblM_IssueType { get; set; }
         public virtual DbSet<tblM_IzinCutiStatus> tblM_IzinCutiStatus { get; set; }
         public virtual DbSet<tblM_KategoriJabatan> tblM_KategoriJabatan { get; set; }
         public virtual DbSet<tblM_Kota> tblM_Kota { get; set; }
@@ -46,17 +50,112 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblM_Role> tblM_Role { get; set; }
         public virtual DbSet<tblM_RoleGroup> tblM_RoleGroup { get; set; }
         public virtual DbSet<tblM_Status> tblM_Status { get; set; }
+        public virtual DbSet<tblM_Technology> tblM_Technology { get; set; }
         public virtual DbSet<tblM_User> tblM_User { get; set; }
         public virtual DbSet<tblM_UserDetail> tblM_UserDetail { get; set; }
+        public virtual DbSet<tblM_Vendor> tblM_Vendor { get; set; }
         public virtual DbSet<tblT_AsetHistori> tblT_AsetHistori { get; set; }
         public virtual DbSet<tblT_CheckIn> tblT_CheckIn { get; set; }
         public virtual DbSet<tblT_Cost> tblT_Cost { get; set; }
         public virtual DbSet<tblT_IzinCuti> tblT_IzinCuti { get; set; }
         public virtual DbSet<tblT_SOW> tblT_SOW { get; set; }
         public virtual DbSet<tblT_SOWAssign> tblT_SOWAssign { get; set; }
+        public virtual DbSet<tblT_SOWIssue> tblT_SOWIssue { get; set; }
+        public virtual DbSet<tblT_SOWResult> tblT_SOWResult { get; set; }
         public virtual DbSet<tblT_SOWStatus> tblT_SOWStatus { get; set; }
         public virtual DbSet<tblT_SOWTrack> tblT_SOWTrack { get; set; }
+        public virtual DbSet<tblT_SOWTrackResult> tblT_SOWTrackResult { get; set; }
         public virtual DbSet<tblT_UserHistori> tblT_UserHistori { get; set; }
         public virtual DbSet<tblT_UserPayroll> tblT_UserPayroll { get; set; }
+    
+        public virtual ObjectResult<string> GetRoute(Nullable<int> taskID, Nullable<int> tech)
+        {
+            var taskIDParameter = taskID.HasValue ?
+                new ObjectParameter("taskID", taskID) :
+                new ObjectParameter("taskID", typeof(int));
+    
+            var techParameter = tech.HasValue ?
+                new ObjectParameter("tech", tech) :
+                new ObjectParameter("tech", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetRoute", taskIDParameter, techParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<System.DateTime>> GetTimesheetMonthly(Nullable<int> userID, Nullable<int> month, Nullable<int> year)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<System.DateTime>>("GetTimesheetMonthly", userIDParameter, monthParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<GetTimesheetMonthlyV2_Result> GetTimesheetMonthlyV2(Nullable<int> userId, Nullable<int> month, Nullable<int> year)
+        {
+            var userIdParameter = userId.HasValue ?
+                new ObjectParameter("userId", userId) :
+                new ObjectParameter("userId", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTimesheetMonthlyV2_Result>("GetTimesheetMonthlyV2", userIdParameter, monthParameter, yearParameter);
+        }
+    
+        public virtual ObjectResult<GetTimesheetDaily_Result> GetTimesheetDaily(Nullable<int> userID, Nullable<int> month, Nullable<int> year, Nullable<int> day)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var dayParameter = day.HasValue ?
+                new ObjectParameter("day", day) :
+                new ObjectParameter("day", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTimesheetDaily_Result>("GetTimesheetDaily", userIDParameter, monthParameter, yearParameter, dayParameter);
+        }
+    
+        public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
+    
+            var statusSOWParameter = statusSOW.HasValue ?
+                new ObjectParameter("statusSOW", statusSOW) :
+                new ObjectParameter("statusSOW", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskList_Result>("GetTaskList", userIDParameter, statusSOWParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetSowAssign_Result> usp_GetSowAssign(Nullable<int> sOW_FK)
+        {
+            var sOW_FKParameter = sOW_FK.HasValue ?
+                new ObjectParameter("SOW_FK", sOW_FK) :
+                new ObjectParameter("SOW_FK", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSowAssign_Result>("usp_GetSowAssign", sOW_FKParameter);
+        }
     }
 }

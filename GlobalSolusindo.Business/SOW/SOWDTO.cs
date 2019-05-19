@@ -4,6 +4,7 @@ using GlobalSolusindo.Business.Project.Queries;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign;
 using GlobalSolusindo.Business.SOWStatus.Queries;
+using GlobalSolusindo.Business.SOWTrack;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
 using System;
@@ -15,7 +16,7 @@ namespace GlobalSolusindo.Business.SOW
     public class SOWDTO : DTO
     {
         [JsonProperty("sow_pk")]
-        public int SOW_PK { get; set; } 
+        public int SOW_PK { get; set; }
 
         [Required]
         [JsonProperty("sowName")]
@@ -39,7 +40,8 @@ namespace GlobalSolusindo.Business.SOW
         public string ProjectTitle { get; set; }
 
         [Required]
-        [JsonProperty("tglMulai")] 
+        [JsonProperty("tglMulai")]
+        //[JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? TglMulai { get; set; }
 
         //[Required]
@@ -55,5 +57,8 @@ namespace GlobalSolusindo.Business.SOW
 
         [JsonProperty("sowAssigns")]
         public List<SOWAssignDTO> SOWAssigns { get; set; } = new List<SOWAssignDTO>();
+
+        [JsonProperty("sowTracks")]
+        public List<SOWTrackDTO> SOWTracks { get; set; } = new List<SOWTrackDTO>();
     }
 }

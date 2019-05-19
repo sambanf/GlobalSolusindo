@@ -31,6 +31,10 @@
                     }
                 }
             });
+            modalInstance.result.then(function (data) {
+                controller.datatable.draw();
+            }, function () { });
+
             return modalInstance;
         }
 

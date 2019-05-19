@@ -2,6 +2,7 @@
 using GlobalSolusindo.DataAccess;
 using Kairos.Linq;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -48,6 +49,14 @@ namespace GlobalSolusindo.Identity.RoleGroup.Queries
         {
             RoleGroupDTO record = GetQuery().FirstOrDefault(roleGroup => roleGroup.RoleGroup_PK == primaryKey);
             return record;
+        }
+
+        public List<RoleGroupDTO> GetByUserFk(int userFk)
+        {
+            var mappingRoleUser = new MappingUserToRoleGroup.Queries.MappingUserToRoleGroupQuery(Db).GetByUserPK(userFk).ToList();
+            var roleGroupIds = mappingRoleUser.Select(x => x.RoleGroup_PK);
+            var roleGroups = GetQuery().Where(x => roleGroupIds.Contains(x.RoleGroup_PK)).ToList();
+            return roleGroups;
         }
 
         #region IUniqueQuery Member

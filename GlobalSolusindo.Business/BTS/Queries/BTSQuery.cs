@@ -1,4 +1,5 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.BTSTechnology.Queries;
 using GlobalSolusindo.DataAccess;
 using Kairos.Linq;
 using System;
@@ -72,6 +73,10 @@ namespace GlobalSolusindo.Business.BTS.Queries
         public BTSDTO GetByPrimaryKey(int primaryKey)
         {
             BTSDTO record = GetQuery().FirstOrDefault(bts => bts.BTS_PK == primaryKey);
+            if (record != null)
+            {
+                record.BTSTechnologies = new BTSTechnologyQuery(Db).GetByBTSFK(primaryKey);
+            }
             return record;
         }
 

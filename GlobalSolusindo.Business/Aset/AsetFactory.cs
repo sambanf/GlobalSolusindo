@@ -2,6 +2,7 @@
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
+using Kairos.Imaging;
 using System;
 
 namespace GlobalSolusindo.Business.Aset
@@ -22,6 +23,9 @@ namespace GlobalSolusindo.Business.Aset
             asetDTO.UpdatedBy = User.Username;
             asetDTO.UpdatedDate = dateStamp;
             tblM_Aset aset = asetDTO.ToObject<tblM_Aset>();
+
+            if (!string.IsNullOrEmpty(asetDTO.FilePhotoInBase64))
+                aset.FilePhoto = new WebImageConverter().GetBytesFromBase64(asetDTO.FilePhotoInBase64);
             return aset;
         }
 
@@ -36,6 +40,9 @@ namespace GlobalSolusindo.Business.Aset
                 throw new KairosException($"Record with key '{asetDTO.Aset_PK}' is not found.");
 
             aset.UpdateValueFrom(asetDTO, "Aset_PK", "Status_FK", "filePhoto");
+            if (!string.IsNullOrEmpty(asetDTO.FilePhotoInBase64))
+                aset.FilePhoto = new WebImageConverter().GetBytesFromBase64(asetDTO.FilePhotoInBase64);
+
             asetDTO.CreatedBy = aset.CreatedBy;
             asetDTO.CreatedDate = aset.CreatedDate;
             aset.UpdatedBy = asetDTO.UpdatedBy = User.Username;

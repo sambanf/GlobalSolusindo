@@ -14,7 +14,7 @@ namespace GlobalSolusindo.Identity
     public class TokenSessionManager
     {
         private static readonly object padlock = new object();
-        private const double timeOutLimit = 1;
+        private const double timeOutLimit = 30;
 
         private static Dictionary<string, TokenSession> _sessions;
 
@@ -25,9 +25,14 @@ namespace GlobalSolusindo.Identity
                 lock (padlock)
                 {
                     if (_sessions == null)
+                    {
                         _sessions = new Dictionary<string, TokenSession>();
+                    }
+                    else
+                    { 
+                        ClearExpiredToken();
+                    }
 
-                    ClearExpiredToken();
 
                     return _sessions;
                 }
@@ -98,7 +103,10 @@ namespace GlobalSolusindo.Identity
         }
 
         public static UserDTO GetUser(string token)
-        { 
+        {
+            if (token == null)
+                return null;
+
             TokenSession session;
             var sessionIsExist = Sessions.TryGetValue(token, out session);
             if (sessionIsExist)

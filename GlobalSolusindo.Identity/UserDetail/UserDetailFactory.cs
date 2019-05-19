@@ -3,6 +3,7 @@ using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity.User;
 using Kairos;
 using Kairos.Data;
+using Kairos.Imaging;
 using System;
 
 namespace GlobalSolusindo.Identity.UserDetail
@@ -22,7 +23,12 @@ namespace GlobalSolusindo.Identity.UserDetail
             userDetailDTO.CreatedDate = dateStamp;
             userDetailDTO.UpdatedBy = User.Username;
             userDetailDTO.UpdatedDate = dateStamp;
+
             tblM_UserDetail userDetail = userDetailDTO.ToObject<tblM_UserDetail>();
+
+            if (!string.IsNullOrEmpty(userDetailDTO.FilePhotoInBase64))
+                userDetail.FilePhoto = new WebImageConverter().GetBytesFromBase64(userDetailDTO.FilePhotoInBase64);
+
             return userDetail;
         }
 
@@ -36,6 +42,8 @@ namespace GlobalSolusindo.Identity.UserDetail
             userDTO.UpdatedBy = User.Username;
             userDTO.UpdatedDate = dateStamp;
             tblM_UserDetail userDetail = userDTO.ToObject<tblM_UserDetail>();
+            if (!string.IsNullOrEmpty(userDTO.FilePhotoInBase64))
+                userDetail.FilePhoto = new WebImageConverter().GetBytesFromBase64(userDTO.FilePhotoInBase64);
             return userDetail;
         }
 
@@ -50,6 +58,10 @@ namespace GlobalSolusindo.Identity.UserDetail
                 throw new KairosException($"Record with key '{userDetailDTO.UserDetail_PK}' is not found.");
 
             userDetail.UpdateValueFrom(userDetailDTO, "UserDetail_PK", "Status_FK");
+
+            if (!string.IsNullOrEmpty(userDetailDTO.FilePhotoInBase64))
+                userDetail.FilePhoto = new WebImageConverter().GetBytesFromBase64(userDetailDTO.FilePhotoInBase64);
+
             userDetailDTO.CreatedBy = userDetail.CreatedBy;
             userDetailDTO.CreatedDate = userDetail.CreatedDate;
             userDetail.UpdatedBy = userDetailDTO.UpdatedBy = User.Username;

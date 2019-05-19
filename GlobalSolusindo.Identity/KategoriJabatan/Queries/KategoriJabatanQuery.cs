@@ -43,6 +43,11 @@ namespace GlobalSolusindo.Identity.KategoriJabatan.Queries
             return query;
         }
 
+        public KategoriJabatanDTO GetByTitle(string title)
+        {
+            return GetQuery().FirstOrDefault(x => x.Title == title);
+        }
+
         public KategoriJabatanDTO GetByPrimaryKey(int primaryKey)
         {
             KategoriJabatanDTO record = GetQuery().FirstOrDefault(kategoriJabatan => kategoriJabatan.KategoriJabatan_PK == primaryKey);

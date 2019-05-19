@@ -38,21 +38,21 @@
             $uibModalStack.dismissAll();
             var state = trans._targetState._definition.name;
             $rootScope.stateName = state;
-            if (state == 'login') {
-                if ($cookies.get('token')) {
-                    $timeout(function () {
-                        $state.go('app.dashboard');
-                        return false;
-                    });
-                }
-            }
+            //if (state == 'login') {
+            //    if ($cookies.get('token')) {
+            //        $timeout(function () {
+            //            $state.go('app.dashboard');
+            //            return false;
+            //        });
+            //    }
+            //}
 
-             if ($cookies.get('token') == undefined) {
-                 $timeout(function () {
-                     $state.go('login');
-                     return false;
-                 });
-             }
+            // if ($cookies.get('token') == undefined) {
+            //     $timeout(function () {
+            //         $state.go('login');
+            //         return false;
+            //     });
+            // }
             console.log();
         });
     }

@@ -28,42 +28,47 @@
                     pageSize: 10
                 },
                 order: [tanggalColumnIndex, "desc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "izinCuti_pk"
-                },
-                {
-                    "render": function (data) {
-                        return '';
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "izinCuti_pk"
+                    },
+                    {
+                        "render": function (data) {
+                            return '';
+                        }
+                    },
+                    {
+                        "data": "userIzinCutiName"
+                    },
+                    {
+                        "data": "userIzinCutiJabatan"
+                    },
+                    {
+                        "data": "alasan"
+                    },
+                    {
+                        "data": "tglMulai"
+                    },
+                    {
+                        "data": "izinCutiStatusTitle"
+                    },
+                    {
+                        "data": "approvalByUserName"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                        }
                     }
-                },
-                {
-                    "data": "userIzinCutiName"
-                },
-                {
-                    "data": "userIzinCutiJabatan"
-                },
-                {
-                    "data": "alasan"
-                },
-                {
-                    "data": "tglMulai"
-                },
-                {
-                    "data": "izinCutiStatusTitle"
-                },
-                {
-                    "data": "approvalByUserName"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
-                    }
+                ],
+                exportButtons: {
+                    columns: [1, 2, 3, 4, 5, 6, 7],
+                    title: "Izin Cuti"
                 }
-                ]
             });
             controller.datatable = dt;
             return dt;

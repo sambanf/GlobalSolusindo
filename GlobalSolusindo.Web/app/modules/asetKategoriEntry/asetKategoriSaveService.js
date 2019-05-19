@@ -19,14 +19,20 @@
         var self = this;
         var controller;
 
+        function goToListPage() {
+            $state.go('app.asetKategoriList');
+        }
+
         self.create = function (model) {
             http.post('asetKategori', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
-                    $state.go('app.asetKategoriEntry', { id: res.data.model.asetKategori_pk });
+                    //$state.go('app.asetKategoriEntry', { id: res.data.model.asetKategori_pk });
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -35,9 +41,11 @@
             http.put('asetKategori', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };

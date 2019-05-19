@@ -51,7 +51,7 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
                             ApprovalUserDetail_FK = izinCuti.ApprovalUserDetail_FK,
                             ApprovedByUserName = userDetailApproval.Name ?? "N/A",
                             IzinCutiStatus_FK = izinCuti.IzinCutiStatus_FK,
-                            IzinCutiStatusTitle = izinCutiStatus.Title ?? "N/A",
+                            IzinCutiStatusTitle = izinCutiStatus.Title ?? "Waiting",
                             CreatedBy = izinCuti.CreatedBy,
                             CreatedDate = izinCuti.CreatedDate,
                             UpdatedBy = izinCuti.UpdatedBy,

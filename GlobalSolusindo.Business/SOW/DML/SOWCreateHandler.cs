@@ -1,7 +1,9 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.SOW.EntryForm;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign;
+using GlobalSolusindo.Business.SOWTrack;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos.Data;
@@ -16,13 +18,15 @@ namespace GlobalSolusindo.Business.SOW.DML
         private SOWQuery sowQuery;
         private SOWEntryDataProvider sowEntryDataProvider;
         private SOWAssignFactory sowAssignFactory;
+        private SOWTrackFactory sowTrackFactory;
 
-        public SOWCreateHandler(GlobalSolusindoDb db, tblM_User user, SOWValidator sowValidator, SOWFactory sowFactory, SOWAssignFactory sowAssignFactory, SOWQuery sowQuery, AccessControl accessControl) : base(db, user)
+        public SOWCreateHandler(GlobalSolusindoDb db, tblM_User user, SOWValidator sowValidator, SOWFactory sowFactory, SOWAssignFactory sowAssignFactory, SOWTrackFactory sowTrackFactory, SOWQuery sowQuery, AccessControl accessControl) : base(db, user)
         {
             this.sowValidator = sowValidator;
             this.sowFactory = sowFactory;
             this.sowQuery = sowQuery;
             this.sowAssignFactory = sowAssignFactory;
+            this.sowTrackFactory = sowTrackFactory;
             this.sowEntryDataProvider = new SOWEntryDataProvider(db, user, accessControl, sowQuery);
         }
 
@@ -35,7 +39,7 @@ namespace GlobalSolusindo.Business.SOW.DML
             return Db.tblT_SOW.Add(sow);
         }
 
-        private void InsertSowAssign(SOWDTO sowDTO, DateTime dateStamp)
+        private void AddSowAssign(SOWDTO sowDTO, DateTime dateStamp)
         {
             if (sowDTO == null)
                 throw new ArgumentNullException("SOW model is null.");
@@ -45,6 +49,24 @@ namespace GlobalSolusindo.Business.SOW.DML
                 sowAssignDTO.SOW_FK = sowDTO.SOW_PK;
                 tblT_SOWAssign sowAssign = sowAssignFactory.CreateFromDTO(sowAssignDTO, dateStamp);
                 Db.tblT_SOWAssign.Add(sowAssign);
+            }
+        }
+
+        private void AddSowTrack(SOWDTO sowDTO, DateTime dateStamp)
+        {
+            if (sowDTO == null)
+                throw new ArgumentNullException("SOW model is null.");
+
+            foreach (var sowTrackDTO in sowDTO.SOWTracks)
+            {
+                sowTrackDTO.SOW_FK = sowDTO.SOW_PK; 
+                var bts = new BTSQuery(Db).GetByPrimaryKey(sowDTO.BTS_FK);
+                foreach (var btsTechnology in bts.BTSTechnologies)
+                {
+                    tblT_SOWTrack sowTrack = sowTrackFactory.CreateFromDTO(sowTrackDTO, dateStamp);
+                    sowTrack.Technology_FK = btsTechnology.Technology_FK;
+                    Db.tblT_SOWTrack.Add(sowTrack);
+                }
             }
         }
 
@@ -58,7 +80,8 @@ namespace GlobalSolusindo.Business.SOW.DML
                 tblT_SOW sow = Insert(sowDTO, dateStamp);
                 SaveChanges();
                 sowDTO.SOW_PK = sow.SOW_PK;
-                InsertSowAssign(sowDTO, dateStamp);
+                AddSowAssign(sowDTO, dateStamp);
+                AddSowTrack(sowDTO, dateStamp);
                 SaveChanges();
 
                 success = true;

@@ -28,39 +28,44 @@
                     pageSize: 10
                 },
                 order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "sow_pk"
-                },
-                {
-                    "data": "sowName"
-                },
-                {
-                    "data": "btsName"
-                },
-                {
-                    "data": "tglMulai"
-                },
-                {
-                    "data": "sowStatusTitle"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "sow_pk"
+                    },
+                    {
+                        "data": "sowName"
+                    },
+                    {
+                        "data": "btsName"
+                    },
+                    {
+                        "data": "tglMulai"
+                    },
+                    {
+                        "data": "sowStatusTitle"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                        }
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='approve' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info'>Approval</button>";
+                        }
                     }
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='approve' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info'>Approval</button>";
-                    }
+                ],
+                exportButtons: {
+                    columns: [1, 2, 3, 4],
+                    title: "Scope of Work (SOW)"
                 }
-                ]
             });
             controller.datatable = dt;
             return dt;

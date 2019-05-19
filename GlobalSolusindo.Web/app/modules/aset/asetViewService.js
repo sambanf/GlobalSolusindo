@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('asetViewService', asetView);
 
-    asetView.$inject = ['HttpService', '$state', 'uiService'];
+    asetView.$inject = ['HttpService', '$state', 'uiService', '$uibModal'];
 
-    function asetView(http, $state, ui) {
+    function asetView(http, $state, ui, $uibModal) {
         var self = this;
         var controller;
 
@@ -36,6 +36,20 @@
                 var data = controller.datatable.row(this).data();
                 var id = data["aset_pk"];
                 self.view(id);
+            });
+
+            $("#aset tbody").on("click", "#show", function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/aset/asetDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
             });
         };
 

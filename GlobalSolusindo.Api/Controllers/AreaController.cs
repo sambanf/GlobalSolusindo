@@ -1,7 +1,5 @@
 ﻿using GlobalSolusindo.Business.Area;
-using GlobalSolusindo.Business.Area.DML;
 using GlobalSolusindo.Business.Area.EntryForm;
-using GlobalSolusindo.Business.Area.Queries;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -57,9 +55,9 @@ namespace GlobalSolusindo.Api.Controllers
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
-            using (var areaSearch = new AreaSearch(Db))
+            using (var areaQuery = new AreaQuery(Db))
             {
-                var data = areaSearch.GetDataByFilter(filter);
+                var data = areaQuery.GetDataByFilter(filter);
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -134,7 +132,8 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(areaDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    return Ok(new SuccessResponse(result));
+                    
+                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }
         }

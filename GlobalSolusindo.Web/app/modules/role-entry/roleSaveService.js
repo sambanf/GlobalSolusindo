@@ -19,14 +19,20 @@
         var self = this;
         var controller;
 
+        function goToListPage() {
+            $state.go('app.role-list');
+        }
+
         self.create = function (model) {
             http.post('role', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
-                    $state.go('app.role-entry', { id: res.data.model.role_pk });
+                    //$state.go('app.role-entry', { id: res.data.model.role_pk });
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -36,9 +42,11 @@
                 if (res.success) {
                     ui.alert.success(res.message);
                     //$state.go('app.role-entry', { id: res.data.model.role_pk });
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };

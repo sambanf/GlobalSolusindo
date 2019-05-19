@@ -47,6 +47,7 @@
                     },
                     {
                         "data": "status",
+                        "className": "text-center",
                         "render": function (data) {
                             var className = 'dot-online';
                             switch (data) {
@@ -66,8 +67,12 @@
                             }
                             return "<span class='" + className + "'></span>";
                         }
-                    } 
-                ]
+                    }
+                ],
+                exportButtons: {
+                    columns: [1, 2, 3, 4, 5],
+                    title: "Daily Task"
+                }
             });
             controller.datatable = dt;
             return dt;

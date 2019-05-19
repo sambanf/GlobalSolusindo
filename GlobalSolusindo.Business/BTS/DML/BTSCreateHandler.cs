@@ -1,6 +1,7 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.BTS.EntryForm;
 using GlobalSolusindo.Business.BTS.Queries;
+using GlobalSolusindo.Business.BTSTechnology;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos.Data;
@@ -23,12 +24,28 @@ namespace GlobalSolusindo.Business.BTS.DML
             this.btsEntryDataProvider = new BTSEntryDataProvider(db, user, accessControl, btsQuery);
         }
 
-        public tblM_BTS Insert(BTSDTO btsDTO, DateTime dateStamp)
+        public tblM_BTS AddBTS(BTSDTO btsDTO, DateTime dateStamp)
         {
             if (btsDTO == null)
                 throw new ArgumentNullException("BTS model is null.");
             tblM_BTS bts = btsFactory.CreateFromDTO(btsDTO, dateStamp);
-            return Db.tblM_BTS.Add(bts);
+            bts = Db.tblM_BTS.Add(bts);
+            btsDTO.BTS_PK = bts.BTS_PK;
+            return bts;
+        }
+
+        public void AddBTSTechnologies(BTSDTO btsDTO, DateTime dateStamp)
+        {
+            if (btsDTO == null)
+                throw new ArgumentNullException("BTS model is null.");
+            foreach (var btsTechnologyDTO in btsDTO.BTSTechnologies)
+            {
+                var factory = new BTSTechnologyFactory(Db, User);
+
+                tblM_BTSTechnology btsTechnology = factory.CreateFromDTO(btsTechnologyDTO, dateStamp);
+                btsTechnology.BTS_FK = btsDTO.BTS_PK;
+                btsTechnology = Db.tblM_BTSTechnology.Add(btsTechnology);
+            }
         }
 
         public SaveResult<BTSEntryModel> Save(BTSDTO btsDTO, DateTime dateStamp)
@@ -38,9 +55,11 @@ namespace GlobalSolusindo.Business.BTS.DML
             BTSEntryModel model = null;
             if (validationResult.IsValid)
             {
-                tblM_BTS bts = Insert(btsDTO, dateStamp);
+                tblM_BTS bts = AddBTS(btsDTO, dateStamp);
                 Db.SaveChanges();
-
+                btsDTO.BTS_PK = bts.BTS_PK;
+                AddBTSTechnologies(btsDTO, dateStamp);
+                Db.SaveChanges();
                 success = true;
                 model = btsEntryDataProvider.Get(bts.BTS_PK);
             }

@@ -30,23 +30,28 @@
                     bulan: controller.stateParam.bulan
                 },
                 order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "user_fk"
-                },
-                {
-                    "data": "tanggal"
-                },
-                {
-                    "data": "jam"
-                },
-                {
-                    "data": "aktifitas"
-                },
-                {
-                    "data": "approvedBy"
-                }
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "user_fk"
+                    },
+                    {
+                        "data": "tanggal"
+                    },
+                    {
+                        "data": "jam"
+                    },
+                    {
+                        "data": "aktifitas"
+                    },
+                    {
+                        "data": "approvedBy"
+                    }
                 ],
+                exportButtons: {
+                    columns: [1, 2, 3, 4],
+                    title: "Activities"
+                },
                 ajaxCallback: function (response) {
                     controller.user = response.data.user;
                 }

@@ -28,40 +28,41 @@
                     pageSize: 10
                 },
                 order: [tanggalColumnIndex, "desc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "izinCuti_pk"
-                },
-                {
-                    "render": function (data) {
-                        return '';
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "izinCuti_pk"
+                    },
+                    {
+                        "render": function (data) {
+                            return '';
+                        }
+                    },
+                    {
+                        "data": "userIzinCutiName"
+                    },
+                    {
+                        "data": "userIzinCutiJabatan"
+                    },
+                    {
+                        "data": "alasan"
+                    },
+                    {
+                        "data": "tglMulai"
+                    },
+                    {
+                        "data": "izinCutiStatusTitle"
+                    },
+                    {
+                        "data": "approvalByUserName"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                        }
                     }
-                },
-                {
-                    "data": "userIzinCutiName"
-                },
-                {
-                    "data": "userIzinCutiJabatan"
-                },
-                {
-                    "data": "alasan"
-                },
-                {
-                    "data": "tglMulai"
-                },
-                {
-                    "data": "izinCutiStatusTitle"
-                },
-                {
-                    "data": "approvalByUserName"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
-                    }
-                }
                 ]
             });
             controller.datatable = dt;

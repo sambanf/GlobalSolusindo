@@ -1,5 +1,4 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.Area.Queries;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;

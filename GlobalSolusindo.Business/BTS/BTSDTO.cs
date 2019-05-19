@@ -1,12 +1,14 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.Area.Queries;
+using GlobalSolusindo.Business.Area;
 using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.BTSStatus.Queries;
+using GlobalSolusindo.Business.BTSTechnology;
 using GlobalSolusindo.Business.Cabang.Queries;
 using GlobalSolusindo.Business.Kota.Queries;
 using GlobalSolusindo.Business.Operator.Queries;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace GlobalSolusindo.Business.BTS
@@ -80,5 +82,8 @@ namespace GlobalSolusindo.Business.BTS
 
         [JsonProperty("alamat")]
         public string Alamat { get; set; }
+
+        [JsonProperty("btsTechnologies")]
+        public List<BTSTechnologyDTO> BTSTechnologies { get; set; } = new List<BTSTechnologyDTO>();
     }
 }

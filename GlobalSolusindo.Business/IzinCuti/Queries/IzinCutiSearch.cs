@@ -1,12 +1,49 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
 using Kairos.Data;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.IzinCuti.Queries
 {
     public class IzinCutiSearchFilter : SearchFilter
     {
+        private int length;
+        private int page;
+
+        [JsonProperty("userID")]
+        public int UserId { get; set; }
+
+        [JsonProperty("length")]
+        public int Length
+        {
+            get
+            {
+                return length;
+            }
+            set
+            {
+                length = value;
+                PageSize = value;
+            }
+        }
+
+        [JsonProperty("page")]
+        public int Page
+        {
+            get
+            {
+                return page;
+            }
+            set
+            {
+                page = value;
+                PageIndex = value;
+            }
+        }
+
+        [JsonProperty("status")]
+        public int? Status { get; set; }
     }
 
     public class IzinCutiSearch : QueryBase
@@ -29,6 +66,29 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
                     || izinCuti.Alasan.Contains(filter.Keyword)
                     || izinCuti.UserIzinCutiJabatanTitle.Contains(filter.Keyword)
                     );
+
+            if (filter.UserId != 0)
+            {
+                filteredRecords = filteredRecords
+                    .Where(x =>
+                    x.User_FK == filter.UserId);
+            }
+
+            if (filter.Status != 0)
+            {
+                if (filter.Status == 1)
+                {
+                    filteredRecords = filteredRecords
+                                 .Where(x =>
+                                 x.IzinCutiStatus_FK == filter.Status || x.IzinCutiStatus_FK == null);
+                }
+                else
+                {
+                    filteredRecords = filteredRecords
+                                     .Where(x =>
+                                     x.IzinCutiStatus_FK == filter.Status);
+                }
+            }
 
             var displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)

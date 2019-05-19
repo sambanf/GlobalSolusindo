@@ -1,6 +1,7 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
 using Kairos.Data;
+using System.Linq;
 
 namespace GlobalSolusindo.Business.BTS.DML
 {
@@ -10,16 +11,25 @@ namespace GlobalSolusindo.Business.BTS.DML
         {
         }
 
-        private void HardDelete(tblM_BTS bts)
+        private void BTSHardDelete(tblM_BTS bts)
         {
             if (bts != null)
                 Db.tblM_BTS.Remove(bts);
-        }
+        } 
 
-        private void SoftDelete(tblM_BTS bts)
+        private void BTSSoftDelete(tblM_BTS bts)
         {
             if (bts != null)
                 bts.Status_FK = (int)RecordStatus.Deleted;
+        }
+
+        private void DeleteBTSTechnologies(int btsPK)
+        {
+            var btsTechnologies = Db.tblM_BTSTechnology.Where(x => x.BTS_FK == btsPK);
+            foreach (var btsTechnology in btsTechnologies)
+            {
+                Db.tblM_BTSTechnology.Remove(btsTechnology);
+            }
         }
 
         public DeleteResult<tblM_BTS> Execute(int btsPK, DeleteMethod deleteMethod)
@@ -35,13 +45,15 @@ namespace GlobalSolusindo.Business.BTS.DML
                 };
             }
 
+            DeleteBTSTechnologies(btsPK);
+
             switch (deleteMethod)
             {
                 case DeleteMethod.Soft:
-                    SoftDelete(bts);
+                    BTSSoftDelete(bts);
                     break;
                 case DeleteMethod.Hard:
-                    HardDelete(bts);
+                    BTSHardDelete(bts);
                     break;
                 default:
                     break;

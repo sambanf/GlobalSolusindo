@@ -20,7 +20,7 @@
 
         self.alert = {
             error: function (message) {
-                alertify.alert().setContent(message).setHeader('Alert').set({
+                alertify.alert().setContent(message).setHeader('Error').set({
                     transition: 'zoom'
                 }).show(true, 'error');
             },
@@ -36,9 +36,17 @@
                 alertify.set('notifier', 'position', 'bottom-right');
                 alertify.notify(message, 'warning', 5, null);
             },
-            success: function (message) {
-                alertify.set('notifier', 'position', 'bottom-right');
-                alertify.notify(message, 'success', 5, null);
+            success: function (message, style = 'toast') {
+                switch (style) {
+                    case 'popup':
+                        alertify.alert().setContent(message).setHeader('Info').set({
+                            transition: 'zoom'
+                        }).show(true, 'error');
+                        break;
+                    default:
+                        alertify.set('notifier', 'position', 'bottom-right');
+                        alertify.notify(message, 'success', 5, null);
+                }
             },
             confirm: function (message, accept, cancel) {
                 return alertify.confirm().setContent(message).setHeader('Confirm').set({
@@ -57,8 +65,6 @@
                 angular.element('.lds-ring').fadeOut();
             }
         }
-
-
         return self;
     }
 })();

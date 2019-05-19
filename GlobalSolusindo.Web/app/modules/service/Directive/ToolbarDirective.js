@@ -19,6 +19,7 @@
         .directive('button', triggerTooltip)
         .directive('form', formEl)
         .directive('a', preventClickDirective)
+        .directive('loading', loadingSpinner)
         .directive('uiSelect', uiSelectFocus);
 
     function kairosAppbar($stateParams) {
@@ -189,6 +190,20 @@
                 });
             }
         }
+    }
+
+    function loadingSpinner() {
+        return {
+            restrict: 'E',
+            template: '<div class="loading flex-row align-items-center">'+
+                '<div class="loader" >'+
+                    '<svg class="circular" viewBox="25 25 50 50">'+
+                        '<circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />'+
+                    '</svg>'+
+                '</div>'+
+                '</div>',
+            transclude: false
+        };
     }
 
 })();

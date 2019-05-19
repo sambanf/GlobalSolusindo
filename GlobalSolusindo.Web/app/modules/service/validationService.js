@@ -40,7 +40,6 @@
             element.className = element.className.replace(invalidClass, "");
             element.className += " " + validClass;
 
-
             element.className = element.className.replace(validClass, invalidClass);
 
             var childNodes = element.parentElement.childNodes;
@@ -69,7 +68,7 @@
                                 var rowIndex = cell.parentElement.parentElement.sectionRowIndex;
                                 var elementName = cell.getAttribute('name');
                                 if (subError.index == rowIndex) {
-                                    subError.errors.forEach(function (subErrorItem) { 
+                                    subError.errors.forEach(function (subErrorItem) {
                                         if (subErrorItem.propertyName.toLowerCase() == elementName.toLowerCase()) {
                                             cell.className = cell.className.replace(validClass, invalidClass);
                                             var childNodes = cell.parentElement.childNodes;
@@ -94,7 +93,6 @@
 
             var errors = obj;
 
-
             errors = (typeof (errors) == 'undefined' ? obj : errors);
             var validClass = "form-control is-valid";
             var invalidClass = "form-control is-invalid";
@@ -110,7 +108,7 @@
                     controls.forEach(function (item) {
                         if (item.nodeName == 'META')
                             return true;
-                        var fieldName = item.name; 
+                        var fieldName = item.name;
                         if (fieldName == undefined)
                             return true;
                         if (error.propertyName.toLowerCase() == fieldName.toLowerCase()) {
@@ -122,7 +120,7 @@
                                     item.innerHTML = error.message;
                                 }
                             });
-                        } 
+                        }
                     });
                     handleSubErrors(error.subErrors);
                 }

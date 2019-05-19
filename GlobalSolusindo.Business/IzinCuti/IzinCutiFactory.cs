@@ -2,6 +2,7 @@
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
+using Kairos.Imaging;
 using System;
 
 namespace GlobalSolusindo.Business.IzinCuti
@@ -22,6 +23,10 @@ namespace GlobalSolusindo.Business.IzinCuti
             izinCutiDTO.UpdatedBy = User.Username;
             izinCutiDTO.UpdatedDate = dateStamp;
             tblT_IzinCuti izinCuti = izinCutiDTO.ToObject<tblT_IzinCuti>();
+
+            if (!string.IsNullOrEmpty(izinCutiDTO.FilePhotoInBase64))
+                izinCuti.FilePendukung = new WebImageConverter().GetBytesFromBase64(izinCutiDTO.FilePhotoInBase64, false);
+
             return izinCuti;
         }
 
@@ -36,12 +41,15 @@ namespace GlobalSolusindo.Business.IzinCuti
                 throw new KairosException($"Record with key '{izinCutiDTO.IzinCuti_PK}' is not found.");
 
             izinCuti.UpdateValueFrom(izinCutiDTO, "IzinCuti_PK", "Status_FK");
+            if (!string.IsNullOrEmpty(izinCutiDTO.FilePhotoInBase64))
+                izinCuti.FilePendukung = new WebImageConverter().GetBytesFromBase64(izinCutiDTO.FilePhotoInBase64, false);
+
             izinCutiDTO.CreatedBy = izinCuti.CreatedBy;
             izinCutiDTO.CreatedDate = izinCuti.CreatedDate;
             izinCuti.UpdatedBy = izinCutiDTO.UpdatedBy = User.Username;
             izinCuti.UpdatedDate = izinCutiDTO.UpdatedDate = dateStamp;
 
             return izinCuti;
-        } 
+        }
     }
 }

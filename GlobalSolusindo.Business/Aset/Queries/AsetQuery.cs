@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using Kairos.Imaging;
 using Kairos.Linq;
 using System;
 using System.Data.SqlClient;
@@ -49,11 +50,20 @@ namespace GlobalSolusindo.Business.Aset.Queries
             return query;
         }
 
+        private void GetPhoto(AsetDTO record)
+        {
+            if (record != null)
+            {
+                var aset = Db.tblM_Aset.Find(record.Aset_PK);
+                if (aset != null)
+                    record.FilePhotoInBase64 = new WebImageConverter().GetBase64FromBytes(aset.FilePhoto);
+            }
+        }
+
         public AsetDTO GetByPrimaryKey(int primaryKey)
         {
             AsetDTO record = GetQuery().FirstOrDefault(aset => aset.Aset_PK == primaryKey);
-            if (record != null)
-                record.FilePhoto = Db.tblM_Aset.Find(primaryKey).FilePhoto;
+            GetPhoto(record);
 
             return record;
         }

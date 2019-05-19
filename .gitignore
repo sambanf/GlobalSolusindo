@@ -259,3 +259,13 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+CreateDB-BackupSebelumYangDikasihMasIndra-Update+samacreateSP.sql
+CreateDB-BackupSebelumYangDikasihMasIndra-PenambahanTable.sql
+New folder (2)/Web.config
+New folder (2)/Web - web app.config
+Kairos.Google.Tests/Kairos.Google.Tests.csproj
+Kairos.Google.Tests/KMLs/KMLReaderTests.cs
+Kairos.Google.Tests/packages.config
+Kairos.Google.Tests/Properties/AssemblyInfo.cs
+AfterSyncLocalToServer.sql
+BackupBeforeStructureSync.sql

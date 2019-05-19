@@ -10,7 +10,8 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class tblT_CheckIn
     {
         public int CheckIn_PK { get; set; }
@@ -19,10 +20,16 @@ namespace GlobalSolusindo.DataAccess
         public System.DateTime WaktuCheckIn { get; set; }
         public string LongitudeCheckIn { get; set; }
         public string LatitudeCheckIn { get; set; }
+        public string MCCCheckIn { get; set; }
+        public string MNCCheckIn { get; set; }
+        public string LACCheckIn { get; set; }
         public string CellIDCheckIn { get; set; }
         public Nullable<System.DateTime> WaktuCheckOut { get; set; }
         public string LongitudeCheckOut { get; set; }
         public string LatitudeCheckOut { get; set; }
+        public string MCCCheckOut { get; set; }
+        public string MNCCheckOut { get; set; }
+        public string LACCheckOut { get; set; }
         public string CellIDCheckOut { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }

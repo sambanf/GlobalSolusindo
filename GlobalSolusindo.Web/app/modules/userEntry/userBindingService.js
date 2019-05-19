@@ -23,13 +23,20 @@
             return http.get('user/form/' + id);
         };
 
+        function setImage(data) {
+            document.getElementById("photo").src = data;
+        }
+
         self.init = function (ctrl) {
             controller = ctrl;
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
                     controller.formData = res.data.formData;
-                    controller.model = res.data.model;
+                    controller.model = res.data.model; 
+                    if (controller.model && controller.model.filePhotoInBase64) {
+                        setImage(controller.model.filePhotoInBase64);
+                    }
                     controller.formControls = res.data.formControls;
                     resolve(res);
                 });

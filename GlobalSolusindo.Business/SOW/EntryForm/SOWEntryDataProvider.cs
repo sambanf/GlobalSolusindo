@@ -6,6 +6,7 @@ using GlobalSolusindo.Business.SOWAssign;
 using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
+using GlobalSolusindo.Identity.User.Queries;
 using Kairos;
 using Kairos.UI;
 using System;
@@ -39,20 +40,27 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
         }
 
 
-        private SOWEntryFormData CreateFormData(SOWDTO btsDTO)
+        private SOWEntryFormData CreateFormData(SOWDTO sowDTO)
         {
-            if (btsDTO == null)
+            if (sowDTO == null)
                 return new SOWEntryFormData();
 
             SOWEntryFormData formData = new SOWEntryFormData();
 
-            var project = new ProjectQuery(this.Db).GetByPrimaryKey(btsDTO.Project_FK);
+            var project = new ProjectQuery(this.Db).GetByPrimaryKey(sowDTO.Project_FK);
             if (project != null)
                 formData.Projects.Add(project);
 
-            var bts = new BTSQuery(this.Db).GetByPrimaryKey(btsDTO.BTS_FK);
+            var bts = new BTSQuery(this.Db).GetByPrimaryKey(sowDTO.BTS_FK);
             if (bts != null)
                 formData.BTSes.Add(bts);
+
+            foreach (var assign in sowDTO.SOWAssigns)
+            {
+                var user = new UserQuery(Db).GetByPrimaryKey(assign.User_FK);
+                if (user != null)
+                    formData.Users.Add(user);
+            }
 
             return formData;
         }
@@ -63,7 +71,7 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
             if (pk > 0)
             {
                 SOWDTO sow = sowQuery.GetByPrimaryKey(pk);
-                sow.SOWAssigns = new SOWAssignQuery(Db).GetBySOW_FK(pk);
+                sow.SOWAssigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk);
                 return sow;
             }
             SOWDTO sowDTO = new SOWDTO()

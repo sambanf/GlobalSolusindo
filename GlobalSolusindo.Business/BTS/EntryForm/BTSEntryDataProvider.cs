@@ -1,10 +1,11 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.Area.Queries;
+using GlobalSolusindo.Business.Area;
 using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.BTSStatus.Queries;
 using GlobalSolusindo.Business.Cabang.Queries;
 using GlobalSolusindo.Business.Kota.Queries;
 using GlobalSolusindo.Business.Operator.Queries;
+using GlobalSolusindo.Business.Technology.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos;
@@ -45,7 +46,7 @@ namespace GlobalSolusindo.Business.BTS.EntryForm
                 return new BTSEntryFormData();
 
             BTSEntryFormData formData = new BTSEntryFormData();
-
+            formData.Technologies = new TechnologyQuery(Db).GetQuery().ToList();
             var _operator = new OperatorQuery(this.Db).GetByPrimaryKey(btsDTO.Operator_FK);
             if (_operator != null)
                 formData.Operators.Add(_operator);
@@ -76,6 +77,7 @@ namespace GlobalSolusindo.Business.BTS.EntryForm
             List<Control> formControls = CreateFormControls(0);
             BTSDTO btsDTO = new BTSDTO();
             BTSEntryFormData formData = new BTSEntryFormData();
+            formData.Technologies = new TechnologyQuery(Db).GetQuery().ToList();
             formData.BTSStatuses = new BTSStatusQuery(this.Db).GetQuery().ToList();
             return new BTSEntryModel()
             {

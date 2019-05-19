@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('roleGroupViewService', roleGroupView);
 
-    roleGroupView.$inject = ['HttpService', '$state', 'uiService'];
+    roleGroupView.$inject = ['HttpService', '$state', 'uiService', '$uibModal'];
 
-    function roleGroupView(http, $state, ui) {
+    function roleGroupView(http, $state, ui, $uibModal) {
         var self = this;
         var controller;
 
@@ -36,6 +36,21 @@
                 var data = controller.datatable.row(this).data();
                 var id = data["roleGroup_pk"];
                 self.view(id);
+            });
+
+            $("#roleGroup tbody").on("click", "#show", function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/roleGroup/roleGroupDetail.html',
+                    windowClass: 'small-modal',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
             });
         };
 

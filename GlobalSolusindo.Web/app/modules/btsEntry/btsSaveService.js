@@ -18,15 +18,19 @@
     function BTSEntry($state, http, ui, validation) {
         var self = this;
         var controller;
-
+        function goToListPage() {
+            $state.go('app.btsList');
+        }
         self.create = function (model) {
             http.post('bts', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
-                    $state.go('app.btsEntry', { id: res.data.model.bts_pk });
+                    //$state.go('app.btsEntry', { id: res.data.model.bts_pk });
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -35,9 +39,11 @@
             http.put('bts', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };

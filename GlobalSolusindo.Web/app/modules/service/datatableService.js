@@ -13,15 +13,58 @@
         .module('global-solusindo')
         .factory('DatatableService', DtService);
 
-    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state', 'uiService' ];
+    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state', 'uiService'];
 
     function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui) {
         var self = this;
 
-        self.init = function dt(tableIdOrClass, apiUrl, param) { 
+        function getExportColumns(params) {
+            if (params && params.exportButtons && params.exportButtons.columns) {
+                return params.exportButtons.columns;
+            }
+            return [0];
+        }
+
+        function getExportTitle(params) {
+            if (params && params.exportButtons && params.exportButtons.title) {
+                return params.exportButtons.title;
+            }
+            return [0];
+        }
+
+        function createExportButtons(params, dtInstance) {
+            var exportColumns = getExportColumns(params);
+            var title = getExportTitle(params); 
+
+            var buttons = new $.fn.dataTable.Buttons(dtInstance, {
+                buttons: [
+                    {
+                        extend: 'excel',
+                        "exportOptions": {
+                            columns: exportColumns
+                        },
+                        title: title,
+                        className: "btn-success"
+                    },
+                    {
+                        extend: 'pdf',
+                        "exportOptions": {
+                            columns: exportColumns
+                        },
+                        title: title
+                    }
+                ]
+            }).container().appendTo($('#exportButtons'));
+
+            $('#exportButtons')[0].childNodes[1].classList.remove("dt-buttons");
+
+            return buttons;
+        }
+
+        self.init = function dt(selector, apiUrl, param) {
             var defaultDom = "lftip";
 
-            var dt = $(tableIdOrClass).DataTable({
+            var dt = $(selector).DataTable({
                 destroy: true,
                 processing: true,
                 serverSide: true,
@@ -43,8 +86,8 @@
                 rowGroup: {
                     enable: param.rowGroup === undefined ? false : true,
                     dataSrc: param.rowGroup === undefined ? null : param.rowGroup
-                }, 
-                ajax: function (data, callback, setting) { 
+                },
+                ajax: function (data, callback, setting) {
                     var pageIndex = Math.floor((data.start / data.length)) + 1;
 
                     var defaultRequestData = {
@@ -69,9 +112,7 @@
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
                     }
-                    //ui.loader.show();
                     http.get(apiUrl, requestData).then(function (res) {
-                        //ui.loader.hide();
                         if (res && res.success) {
                             callback({
                                 recordsTotal: res.data.count.totalRecords,
@@ -95,15 +136,31 @@
                     elem.tooltip({
                         trigger: 'hover',
                         container: 'main'
-                    }); 
+                    });
                 },
                 order: typeof param.order === 'undefined' ? [
                     [0, "desc"]
-                ] : param.order
+                ] : param.order,
+                fnRowCallback: function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+
+                    if (param && param.rowCallback) {
+                        param.rowCallback(nRow, aData, iDisplayIndex, iDisplayIndexFull);
+                    }
+
+                    var index = iDisplayIndex + 1;
+                    $('td:eq(0)', nRow).html(index);
+
+                    return nRow;
+                },
+                initComplete: function () {
+                    if (param.exportButtons) {
+                        createExportButtons(param, dt);
+                    }
+                }
             });
             if (param.rowSequence) {
                 dt.on('draw.dt', function () {
-                    var PageInfo = $(tableIdOrClass).DataTable().page.info();
+                    var PageInfo = $(selector).DataTable().page.info();
                     dt.column(0, {
                         page: 'current'
                     }).nodes().each(function (cell, i) {
@@ -112,7 +169,7 @@
                 });
             }
 
-            $(tableIdOrClass + ' tbody').on("dblclick", "tr", function () {
+            $(selector + ' tbody').on("dblclick", "tr", function () {
                 var data = dt.row(this).data();
                 var id = data["Id"];
                 if (param.route) {

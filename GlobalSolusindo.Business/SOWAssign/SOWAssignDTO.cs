@@ -42,5 +42,8 @@ namespace GlobalSolusindo.Business.SOWAssign
 
         [JsonProperty("tglSelesai")]
         public DateTime? TglSelesai { get; set; }
+
+        [JsonProperty("btsName")]
+        public string BTSName { get; set; } 
     }
 }

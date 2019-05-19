@@ -24,7 +24,7 @@
                 var res = response;
                 if (res.success) {
                     controller.datatable.draw();
-                    ui.alert.success(res.message);
+                    ui.alert.success(res.message, 'popup');
                 } else {
                     ui.alert.error(res.message);
                 }

@@ -11,22 +11,28 @@
 
     angular
         .module('global-solusindo')
-        .factory('UserSaveService', UserEntry);
+        .factory('UserSaveService', UserSaveService);
 
-    UserEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    UserSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function UserEntry($state, http, ui, validation) {
+    function UserSaveService($state, http, ui, validation) {
         var self = this;
-        var controller;
+        var userCtrl;
+
+        function goToListPage() {
+            $state.go('app.userList');
+        }
 
         self.create = function (model) {
             http.post('user', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
-                    $state.go('app.userEntry', { id: res.data.model.user_pk });
+                    //$state.go('app.userEntry', { id: res.data.model.user_pk });
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -35,16 +41,39 @@
             http.put('user', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    goToListPage();
                 } else {
                     ui.alert.error(res.message);
-                    validation.serverValidation(res.data.errors);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
                 }
             });
         };
 
+
+        function validatePassword(password) {
+            return (password != undefined && password != null && password.length > 0);
+        }
+
+        function validateRetypePassword(password, retypePassword) {
+            return (password === retypePassword);
+        }
+
         function validate() {
-            
-            return true;
+            if (userCtrl && userCtrl.model) {
+                var isValid = true;
+                if (!validatePassword(userCtrl.model.password)) {
+                    validation.setError('password', "Password is required.");
+                    isValid = false;
+                }
+
+                if (!validateRetypePassword(userCtrl.model.password, userCtrl.model.reTypePassword)) {
+                    validation.setError('reTypePassword', "Password doesn't match.");
+                    isValid = false;
+                }
+                return isValid;
+            }
+            return false;
         }
 
         self.save = function (model) {
@@ -61,9 +90,9 @@
         };
 
         self.init = function (ctrl) {
-            controller = ctrl;
+            userCtrl = ctrl;
             angular.element('#saveButton').on('click', function () {
-                self.save(controller.model);
+                self.save(userCtrl.model);
             });
         };
 

@@ -26,37 +26,42 @@
                     pageSize: 10
                 },
                 order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "user_pk"
-                },
-                {
-                    "data": "userCode"
-                },
-                {
-                    "data": "name"
-                },
-                {
-                    "data": "kategoriJabatanTitle"
-                },
-                {
-                    "data": "roleGroupTitle"
-                },
-                {
-                    "data": "noHP"
-                },
-                {
-                    "orderable": false,
-                    "className": "text-center",
-                    "render": function (data) {
-                        return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "user_pk"
+                    },
+                    {
+                        "data": "userCode"
+                    },
+                    {
+                        "data": "name"
+                    },
+                    {
+                        "data": "kategoriJabatanTitle"
+                    },
+                    //{
+                    //    "data": "roleGroupTitle"
+                    //},
+                    {
+                        "data": "noHP"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                        }
                     }
+                ],
+                exportButtons: {
+                    columns: [1, 2, 3, 4],
+                    title: "Users"
                 }
-                ]
             });
-        }
+        };
         return self;
     }
 

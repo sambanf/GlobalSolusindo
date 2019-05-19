@@ -62,7 +62,10 @@ namespace GlobalSolusindo.Api
             if (context.Exception is DbEntityValidationException)
             {
                 var ex = context.Exception as DbEntityValidationException;
-                response = new ErrorResponse(ServiceStatusCode.UnhandledException, ex.EntityValidationErrors, ExMessageHelper.GetInnerestErrorMessage(ex));
+                var modelValidationResult = ex.ConvertToModelValidationResult();
+                var errorMessage = modelValidationResult.Errors.Count > 0 ? modelValidationResult.Errors[0].Message : "Validation error occured.";
+
+                response = new ErrorResponse(ServiceStatusCode.ValidationError, modelValidationResult, errorMessage);
 
                 httpResponseMessage.Content = new ObjectContent(type, response, jsonFormatter);
                 context.Response = httpResponseMessage;
@@ -79,7 +82,9 @@ namespace GlobalSolusindo.Api
                 return;
             }
 
-            var unhandledException = context.Exception;
+            var innerException = ExInnerExceptionHelper.GetInnerException(context.Exception);
+
+            var unhandledException = innerException;
             //var otherResponse = new ErrorResponse(ServiceStatusCode.UnhandledException, null, "Something error occurs.");
             var otherResponse = new ErrorResponse(ServiceStatusCode.UnhandledException, null, unhandledException.Message);
             var otherContent = new ObjectContent(type, otherResponse, jsonFormatter);
@@ -100,6 +105,18 @@ namespace GlobalSolusindo.Api
                 message = GetInnerestErrorMessage(exception.InnerException);
 
             return message;
+        }
+    }
+
+    public class ExInnerExceptionHelper
+    {
+        public static Exception GetInnerException(Exception exception)
+        {
+            var ex = exception;
+            if (exception.InnerException != null)
+                ex = GetInnerException(exception.InnerException);
+
+            return ex;
         }
     }
 }

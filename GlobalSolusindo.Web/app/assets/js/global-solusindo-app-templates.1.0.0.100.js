@@ -16,11 +16,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.areaEntry({ id: '0'})\">Tambah Area</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -134,11 +140,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.asetEntry({ id: '0'})\">Tambah Aset</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -186,6 +198,82 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/aset/asetDetail.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h5 class=\"modal-title\" id=\"modal-title\">Detail</h5>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-sm-3 form-group\">\r" +
+    "\n" +
+    "            <img id=\"photo\" src=\"/app/assets/images/tower-bts.jpg\"  class=\"img-fluid\" />\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"col-md-9\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Kode Asset :</label><label class=\"col-sm-8\">{{ model.asetId }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Tanggal Pembuatan :</label><label class=\"col-sm-8\">{{ model.createdDate | date: 'dd/MM/yyyy' }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Kategori Aset :</label><label class=\"col-sm-8\">{{ model.kategoriAsetName }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Nama Aset :</label><label class=\"col-sm-8\">{{ model.name }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Deskripsi Aset :</label><label class=\"col-sm-8\">{{ model.description }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n"
+  );
+
+
   $templateCache.put('app/modules/asetEntry/asetEntry.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -199,99 +287,117 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"card-title\">Tambah Aset</div>\r" +
     "\n" +
-    "                    <div class=\"col-md-8\">\r" +
+    "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                        <div class=\"col-sm-4\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-4\">Kategory Asset :</label>\r" +
+    "                            <div class=\"row col-sm-12 form-group\">\r" +
     "\n" +
-    "                            <div class=\"col-sm-8\">\r" +
+    "                                <img id=\"photoAset\" src=\"/app/assets/images/tower-bts.jpg\" class=\"img-center img-fluid\" />\r" +
     "\n" +
-    "                                <select id=\"kategoriAset_fk\" name=\"kategoriAset_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"asetVm.model.kategoriAset_fk\" required>\r" +
+    "                            </div>\r" +
     "\n" +
-    "                                    <option ng-repeat=\"x in asetVm.formData.asetKategoris\" ng-value=\"x.asetKategori_pk\">{{x.title}}</option>\r" +
+    "                            <div class=\"col-sm-12 input-group\">\r" +
     "\n" +
-    "                                </select>\r" +
+    "                                <div class=\"input-group-prepend\">\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                    <span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload</span>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"custom-file\">\r" +
+    "\n" +
+    "                                    <input type=\"file\" class=\"custom-file-input\" id=\"filePhoto\" aria-describedby=\"inputGroupFileAddon01\">\r" +
+    "\n" +
+    "                                    <label id=\"fileName\" class=\"custom-file-label\" for=\"filePhoto\">Choose file</label>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Kategory Asset :</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <select id=\"kategoriAset_fk\" name=\"kategoriAset_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"asetVm.model.kategoriAset_fk\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in asetVm.formData.asetKategoris\" ng-value=\"x.asetKategori_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-4\">Asset ID:</label>\r" +
+    "                                <label class=\"control-label col-sm-2\">Asset ID:</label>\r" +
     "\n" +
-    "                            <div class=\"col-sm-8\">\r" +
+    "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                <input type=\"text\" id=\"asetId\" name=\"asetId\" class=\"form-control\" ng-model=\"asetVm.model.asetId\" required />\r" +
+    "                                    <input type=\"text\" id=\"asetId\" name=\"asetId\" class=\"form-control\" ng-model=\"asetVm.model.asetId\" required />\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-4\">Nama Asset :</label>\r" +
+    "                                <label class=\"control-label col-sm-2\">Nama Asset :</label>\r" +
     "\n" +
-    "                            <div class=\"col-sm-8\">\r" +
+    "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                <input type=\"text\" id=\"name\" name=\"name\" class=\"form-control\" ng-model=\"asetVm.model.name\" required />\r" +
+    "                                    <input type=\"text\" id=\"name\" name=\"name\" class=\"form-control\" ng-model=\"asetVm.model.name\" required />\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
+    "\n" +
+    " \r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Deskripsi :</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                                    <textarea id=\"description\" name=\"description\" class=\"form-control\" ng-model=\"asetVm.model.description\"></textarea>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div> \r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "\r" +
+    "                    </div>\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                    <hr />\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-4\">Gambar Asset :</label>\r" +
+    "                    <div class=\"row\">\r" +
     "\n" +
-    "                            <div class=\"col-sm-8\">\r" +
+    "                        <div class=\"col-md-8\">\r" +
     "\n" +
-    "                                <input type=\"text\" id=\"filePhoto\" name=\"filePhoto\" class=\"form-control\" ng-model=\"asetVm.model.filePhoto\" />\r" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.asetList\">Kembali</button>\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-4\">Deskripsi :</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                                <textarea id=\"description\" name=\"description\" class=\"form-control\" ng-model=\"asetVm.model.description\"></textarea>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"row\">\r" +
-    "\n" +
-    "                            <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.asetList\">Kembali</button>\r" +
-    "\n" +
-    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
-    "\n" +
-    "                            </div>\r" +
+    "                            <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -324,11 +430,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.asetKategoriEntry({ id: '0'})\">Tambah Aset Kategori</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -444,13 +556,19 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" modal-asset>Tambah Asset</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
-    "                        </div> \r" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -616,13 +734,19 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.authParamEntry({ id: '0'})\">Tambah Auth Param</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
-    "                        </div> \r" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -661,6 +785,53 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "        </div>\r" +
     "\n" +
     "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/authParam/authParamDetail.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h5 class=\"modal-title\" id=\"modal-title\">Detail</h5>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Title :</label><label class=\"col-sm-8\">{{ model.title }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Description :</label><label class=\"col-sm-8\">{{ model.description }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Created Date :</label><label class=\"col-sm-8\">{{ model.createdDate | date: 'dd/MM/yyyy' }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
     "\n" +
     "</div>"
   );
@@ -750,15 +921,39 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <div class=\"card\">\r" +
     "\n" +
+    "                    <div class=\"card-title\">Persebaran bts</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div id=\"map\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
     "                    <div class=\"card-title\">List BTS</div>\r" +
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.btsEntry({ id: '0'})\">Tambah BTS</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -808,6 +1003,120 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/bts/btsDetail.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h5 class=\"modal-title\" id=\"modal-title\">Detail</h5>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Customer Site ID :</label><label class=\"col-sm-9\">{{ model.customerSite }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Tower ID :</label><label class=\"col-sm-9\">{{ model.towerId }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Cell ID :</label><label class=\"col-sm-9\">{{ model.cellId }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">BTS Name :</label><label class=\"col-sm-9\">{{ model.name }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Tower Provider :</label><label class=\"col-sm-9\">{{ model.operatorTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Latitude :</label><label class=\"col-sm-9\">{{ model.latitude }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Longitude :</label><label class=\"col-sm-9\">{{ model.longitude }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">BTS Status :</label><label class=\"col-sm-9\">{{ model.statusBtsTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Area :</label><label class=\"col-sm-9\">{{ model.areaTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Kota :</label><label class=\"col-sm-9\">{{ model.kotaTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Cabang :</label><label class=\"col-sm-9\">{{ model.cabangTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Alamat :</label><label class=\"col-sm-9\">{{ model.alamat }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n"
+  );
+
+
   $templateCache.put('app/modules/btsEntry/btsEntry.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -821,219 +1130,327 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"card-title\">Tambah Data BTS</div>\r" +
     "\n" +
-    "                    <div class=\"col-md-8\">\r" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                                <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-md-3\">Customer Site ID:</label>\r" +
+    "\n" +
+    "                                    <div class=\"col-md-9\">\r" +
+    "\n" +
+    "                                        <input type=\"text\" id=\"customerSite\" name=\"customerSite\" class=\"form-control\" ng-model=\"vm.model.customerSite\" placeholder=\"Customer Site ID\">\r" +
+    "\n" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                                <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Customer Site ID:</label>\r" +
+    "                                    <label class=\"control-label col-md-3\">Tower ID:</label>\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                                    <div class=\"col-md-9\">\r" +
     "\n" +
-    "                                <input type=\"text\" id=\"customerSite\" name=\"customerSite\" class=\"form-control\" ng-model=\"vm.model.customerSite\" placeholder=\"Customer Site ID\">\r" +
+    "                                        <input type=\"text\" id=\"towerId\" name=\"towerId\" class=\"form-control\" ng-model=\"vm.model.towerId\" placeholder=\"Tower ID\">\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-md-3\">Cell ID:</label>\r" +
+    "\n" +
+    "                                    <div class=\"col-md-9\">\r" +
+    "\n" +
+    "                                        <input type=\"text\" id=\"cellId\" name=\"cellId\" class=\"form-control\" ng-model=\"vm.model.cellId\" placeholder=\"Cell ID\">\r" +
+    "\n" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-md-3\">BTS Name:</label>\r" +
+    "\n" +
+    "                                    <div class=\"col-md-9\">\r" +
+    "\n" +
+    "                                        <input type=\"text\" id=\"name\" name=\"name\" class=\"form-control\" ng-model=\"vm.model.name\" placeholder=\"Name\">\r" +
+    "\n" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-md-3\">Tower Provider:</label>\r" +
+    "\n" +
+    "                                    <div class=\"col-md-9\">\r" +
+    "\n" +
+    "                                        <select id=\"operator_fk\" name=\"operator_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.operator_fk\" required>\r" +
+    "\n" +
+    "                                            <option ng-repeat=\"x in vm.formData.operators\" ng-value=\"x.operator_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                        </select>\r" +
+    "\n" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-md-3\">Lat:</label>\r" +
+    "\n" +
+    "                                    <div class=\"col-sm-3\">\r" +
+    "\n" +
+    "                                        <input type=\"text\" class=\"form-control\" id=\"latitude\" name=\"latitude\" ng-model=\"vm.model.latitude\" placeholder=\"Latitude\">\r" +
+    "\n" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-md-2\">Lon:</label>\r" +
+    "\n" +
+    "                                    <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                                        <input type=\"text\" id=\"longitude\" name=\"longitude\" class=\"form-control\" ng-model=\"vm.model.longitude\" placeholder=\"Longitude\">\r" +
+    "\n" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                                <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-sm-2\">BTS Status:</label>\r" +
+    "\n" +
+    "                                    <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                        <select id=\"statusBts_fk\" name=\"statusBts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.statusBts_fk\" required>\r" +
+    "\n" +
+    "                                            <option ng-repeat=\"x in vm.formData.btsStatuses\" ng-value=\"x.btsStatus_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                        </select>\r" +
+    "\n" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                                <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Tower ID:</label>\r" +
+    "                                    <label class=\"control-label col-sm-2\">Area:</label>\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                                    <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                <input type=\"text\" id=\"towerId\" name=\"towerId\" class=\"form-control\" ng-model=\"vm.model.towerId\" placeholder=\"Tower ID\">\r" +
+    "                                        <select id=\"area_fk\" name=\"area_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.area_fk\" required>\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                            <option ng-repeat=\"x in vm.formData.areas\" ng-value=\"x.area_pk\">{{x.title}}</option>\r" +
     "\n" +
-    "                            </div>\r" +
+    "                                        </select>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "\r" +
+    "                                    </div>\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Cell ID:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <input type=\"text\" id=\"cellId\" name=\"cellId\" class=\"form-control\" ng-model=\"vm.model.cellId\" placeholder=\"Cell ID\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
+    "                                </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                                <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">BTS Name:</label>\r" +
+    "                                    <label class=\"control-label col-sm-2\">Kota:</label>\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                                    <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                <input type=\"text\" id=\"name\" name=\"name\" class=\"form-control\" ng-model=\"vm.model.name\" placeholder=\"Name\">\r" +
+    "                                        <select id=\"kota_fk\" name=\"kota_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.kota_fk\" required>\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                            <option ng-repeat=\"x in vm.formData.kotas\" ng-value=\"x.kota_pk\">{{x.title}}</option>\r" +
     "\n" +
-    "                            </div>\r" +
+    "                                        </select>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "\r" +
+    "                                    </div>\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Tower Provider:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <select id=\"operator_fk\" name=\"operator_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.operator_fk\" required>\r" +
-    "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.operators\" ng-value=\"x.operator_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                </select>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
+    "                                </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                                <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Longitude:</label>\r" +
+    "                                    <label class=\"control-label col-sm-2\">Cabang:</label>\r" +
     "\n" +
-    "                            <div class=\"col-sm-2\">\r" +
+    "                                    <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                <input type=\"text\" id=\"longitude\" name=\"longitude\" class=\"form-control\" ng-model=\"vm.model.longitude\" placeholder=\"Longitude\">\r" +
+    "                                        <select id=\"cabang_fk\" name=\"cabang_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.cabang_fk\" required>\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                            <option ng-repeat=\"x in vm.formData.cabangs\" ng-value=\"x.cabang_pk\">{{x.title}}</option>\r" +
     "\n" +
-    "                            </div>\r" +
+    "                                        </select>\r" +
     "\n" +
-    "\r" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                            <label class=\"control-label col-md-1.5\">Latitude:</label>\r" +
+    "                                    </div>\r" +
     "\n" +
-    "                            <div class=\"col-sm-3\">\r" +
-    "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"latitude\" name=\"latitude\" ng-model=\"vm.model.latitude\" placeholder=\"Latitude\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
+    "                                </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                                <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">BTS Status:</label>\r" +
+    "                                    <label class=\"control-label col-sm-2\">Alamat:</label>\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                                    <div class=\"col-sm-10\">\r" +
     "\n" +
-    "                                <select id=\"statusBts_fk\" name=\"statusBts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.statusBts_fk\" required>\r" +
-    "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.btsStatuses\" ng-value=\"x.btsStatus_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                </select>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Area:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <select id=\"area_fk\" name=\"area_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.area_fk\" required>\r" +
-    "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.areas\" ng-value=\"x.area_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                </select>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Kota:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <select id=\"kota_fk\" name=\"kota_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.kota_fk\" required>\r" +
-    "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.kotas\" ng-value=\"x.kota_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                </select>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Cabang:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <select id=\"cabang_fk\" name=\"cabang_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.cabang_fk\" required>\r" +
-    "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.cabangs\" ng-value=\"x.cabang_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                </select>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Alamat:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-10\">\r" +
-    "\n" +
-    "                                <textarea class=\"form-control\" ng-model=\"vm.model.alamat\" name=\"alamat\" placeholder=\"Alamat\">\r" +
+    "                                        <textarea class=\"form-control\" ng-model=\"vm.model.alamat\" name=\"alamat\" placeholder=\"Alamat\">\r" +
     "\n" +
     "                                        </textarea>\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
     "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"\">\r" +
+    "\n" +
+    "                            <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\r" +
+    "\n" +
+    "                                <li class=\"nav-item\">\r" +
+    "\n" +
+    "                                    <a class=\"nav-link active\" id=\"home-tab\" data-toggle=\"tab\" href=\"#\" role=\"tab\" aria-controls=\"home\" aria-selected=\"true\">Technology</a>\r" +
+    "\n" +
+    "                                </li>\r" +
+    "\n" +
+    "                            </ul>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"tab-content\" id=\"myTabContent\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <div class=\"tab-pane fade show active\" id=\"home\" role=\"tabpanel\" aria-labelledby=\"home-tab\">\r" +
+    "\n" +
+    "                                    <button class=\"btn btn-default\" id=\"btnAddTechnology\">Add New</button>\r" +
+    "\n" +
+    "                                    <table id=\"sowAssign\" class=\"table table-striped\">\r" +
+    "\n" +
+    "                                        <thead>\r" +
+    "\n" +
+    "                                            <tr>\r" +
+    "\n" +
+    "                                                <th hidden>BTSTechnology_PK</th>\r" +
+    "\n" +
+    "                                                <th hidden>BTS FK</th>\r" +
+    "\n" +
+    "                                                <th>Technology</th>\r" +
+    "\n" +
+    "                                            </tr>\r" +
+    "\n" +
+    "                                        </thead>\r" +
+    "\n" +
+    "                                        <tbody>\r" +
+    "\n" +
+    "                                            <tr ng-repeat=\"btsTechnology in vm.model.btsTechnologies\">\r" +
+    "\n" +
+    "                                                <td hidden>\r" +
+    "\n" +
+    "                                                    <input type=\"text\" id=\"btsTechnology_pk\" name=\"btsTechnology_pk\" ng-model=\"btsTechnology.btsTechnology_pk\" disabled />\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                                <td class=\"text-center\" hidden>\r" +
+    "\n" +
+    "                                                    <input type=\"text\" id=\"bts_fk\" name=\"bts_fk\" ng-model=\"btsTechnology.bts_fk\" disabled />\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                                <td>\r" +
+    "\n" +
+    "                                                    <ui-select id=\"technology_fk\" name=\"technology_fk\" ng-model=\"btsTechnology.technology_fk\" size=\"0\" theme=\"select2\" ng-disabled=\"vm.disabled\" title=\"Find technology\"\r" +
+    "\n" +
+    "                                                               required style=\"width:200px\">\r" +
+    "\n" +
+    "                                                        <ui-select-match placeholder=\"Find technology\">{{$select.selected.title}}</ui-select-match>\r" +
+    "\n" +
+    "                                                        <ui-select-choices refresh-delay=\"0\" repeat=\"technology.technology_pk as technology in vm.formData.technologies\">\r" +
+    "\n" +
+    "                                                            <div ng-bind-html=\"technology.title | highlight: $select.search\"></div>\r" +
+    "\n" +
+    "                                                        </ui-select-choices>\r" +
+    "\n" +
+    "                                                    </ui-select>\r" +
+    "\n" +
+    "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                            </tr>\r" +
+    "\n" +
+    "                                        </tbody>\r" +
+    "\n" +
+    "                                    </table>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <hr />\r" +
     "\n" +
     "                        <div class=\"row\">\r" +
     "\n" +
@@ -1048,6 +1465,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -1076,11 +1495,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.cabangEntry({ id: '0'})\">Tambah Cabang</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1181,6 +1606,310 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/checkIn/checkIn.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Task Approval</div>\r" +
+    "\n" +
+    "                    <div class=\"row\"> \r" +
+    "\n" +
+    "                        <div class=\"col-md-6\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"checkIn\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>User</th>\r" +
+    "\n" +
+    "                                        <th>Position</th>\r" +
+    "\n" +
+    "                                        <th>SOW</th>\r" +
+    "\n" +
+    "                                        <th>BTS</th>\r" +
+    "\n" +
+    "                                        <th>BTS Address</th>\r" +
+    "\n" +
+    "                                        <th>Check In Time</th>\r" +
+    "\n" +
+    "                                        <th>Check Out Time</th> \r" +
+    "\n" +
+    "                                        <th>File Submitted</th>\r" +
+    "\n" +
+    "                                        <th>Status</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/checkInEntry/checkInEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Task Detail</div>\r" +
+    "\n" +
+    "                    <div class=\"row col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">SOW Info</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">SOW Name:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.sowName}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">User:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.userName}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Position:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.kategoriJabatanTitle}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">CheckIn Info</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">CheckIn Time</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.checkInTime}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Longitude:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.longitudeCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Latitude:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.latitudeCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">MCC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.mccCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">MNC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.mncCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">LAC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.lacCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Cell ID:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.cellIDCheckIn}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">CheckOut Info</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">CheckOut Time</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.waktuCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Longitude:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.longitudeCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Latitude:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.latitudeCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">MCC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.mccCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">MNC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.mncCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">LAC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.lacCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Cell ID:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.cellIDCheckOut}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"row col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">SOW Result</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Description</label>\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <textarea class=\"form-control\" ng-model=\"vm.model.SOWResult.description\" style=\"width:100%\"></textarea>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">Track Result</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <button class=\"btn btn-default\" ui-sref=\"app.checkInList\">Kembali</button>\r" +
+    "\n" +
+    "                        <button class=\"btn btn-success float-right\" id=\"approveButton\">Approve</button>\r" +
+    "\n" +
+    "                        <button class=\"btn btn-danger float-right\" id=\"rejectButton\">Reject</button>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/costKategori/costKategori.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -1196,11 +1925,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.costKategoriEntry({ id: '0'})\">Tambah Cost Kategori</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1537,11 +2272,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.deliveryAreaEntry({ id: '0'})\">Tambah Delivery Area</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1642,6 +2383,130 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/issueType/issueType.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Issue Type</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-6\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.issueTypeEntry({ id: '0'})\">Tambah Issue Type</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"issueType\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Title</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/issueTypeEntry/issueTypeEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Issue Type</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Type Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"title\" name=\"title\" class=\"form-control\" ng-model=\"vm.model.title\" placeholder=\"Type Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.issueTypeList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/izinCuti/izinCuti.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -1657,11 +2522,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.izinCutiEntry({ id: '0'})\">Tambah Izin Cuti</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -1754,7 +2625,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Approval Status</th>\r" +
     "\n" +
-    "                                        <th>Approval By</th> \r" +
+    "                                        <th>Approval By</th>\r" +
     "\n" +
     "                                        <th>Detail</th>\r" +
     "\n" +
@@ -1927,11 +2798,27 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Tanggal Izin/Cuti:</label>\r" +
+    "                            <label class=\"control-label col-sm-2\">Tanggal Mulai:</label>\r" +
     "\n" +
     "                            <div class=\"col-sm-2\">\r" +
     "\n" +
     "                                <input type=\"text\" id=\"tglMulai\" name=\"tglMulai\" ng-model=\"vm.model.tglMulai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" required />\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Tanggal Selesai:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"tglSelesai\" name=\"tglSelesai\" ng-model=\"vm.model.tglSelesai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" required />\r" +
     "\n" +
     "                                <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -1998,11 +2885,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.kategoriJabatanEntry({ id: '0'})\">Tambah Kategori Jabatan</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -2118,11 +3011,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.kotaEntry({ id: '0'})\">Tambah Kota</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -2331,31 +3230,62 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/layouts/nav-bar/navbar.html',
-    "<header class=\"app-header navbar\">\n" +
-    "  <button class=\"navbar-toggler mobile-sidebar-toggler d-lg-none\" type=\"button\">\n" +
-    "    <span class=\"navbar-toggler-icon\"></span>\n" +
-    "  </button>\n" +
-    "  <ul class=\"nav navbar-nav d-md-down-none\">\n" +
-    "    <li class=\"nav-item\">\n" +
-    "      <a class=\"nav-link navbar-toggler sidebar-toggler\" href=\"#\">\n" +
-    "        <span class=\"navbar-toggler-icon\"></span>\n" +
-    "      </a>\n" +
-    "    </li>\n" +
-    "  </ul>\n" +
-    "  <ul class=\"nav navbar-nav ml-auto d-md-down-none\">\n" +
-    "    <li class=\"nav-item dropdown\">\n" +
-    "      <a class=\"nav-link dropdown-toggle\" data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\n" +
-    "        <img src=\"app/assets/images/default.png\" class=\"img-avatar\" alt=\"\">\n" +
-    "      </a>\n" +
-    "      <div class=\"dropdown-menu dropdown-menu-right\">\n" +
-    "        <div class=\"dropdown-header text-center\">\n" +
-    "          <strong>Settings</strong>\n" +
-    "        </div>\n" +
-    "        <a class=\"dropdown-item\" href=\"#\"  ng-click=\"logout()\"><i class=\"fa fa-lock\"></i> Logout</a>\n" +
-    "      </div>\n" +
-    "    </li>\n" +
+    "<header class=\"app-header navbar\">\r" +
     "\n" +
-    "  </ul>\n" +
+    "    <button class=\"navbar-toggler mobile-sidebar-toggler d-lg-none\" type=\"button\">\r" +
+    "\n" +
+    "        <span class=\"navbar-toggler-icon\"></span>\r" +
+    "\n" +
+    "    </button>\r" +
+    "\n" +
+    "    <ul class=\"nav navbar-nav d-md-down-none\">\r" +
+    "\n" +
+    "        <li class=\"nav-item\">\r" +
+    "\n" +
+    "            <a class=\"nav-link navbar-toggler sidebar-toggler\" href=\"#\">\r" +
+    "\n" +
+    "                <span class=\"navbar-toggler-icon\"></span>\r" +
+    "\n" +
+    "            </a>\r" +
+    "\n" +
+    "        </li>\r" +
+    "\n" +
+    "    </ul>\r" +
+    "\n" +
+    "    <div class=\"nav navbar-nav ml-auto d-md-down-none\" uib-dropdown ng-controller=\"NavBarCtrl as nav\">\r" +
+    "\n" +
+    "        <div class=\"btn-transparent\" uib-dropdown-toggle=\"\" ng-disabled=\"disabled\" aria-haspopup=\"true\" aria-expanded=\"false\">\r" +
+    "\n" +
+    "            <a data-toggle=\"dropdown\" href=\"#\" role=\"button\" aria-haspopup=\"true\" aria-expanded=\"false\">\r" +
+    "\n" +
+    "                <img id=\"photoProfile\" src=\"app/assets/images/default.png\" class=\"img-avatar\" alt=\"\">\r" +
+    "\n" +
+    "            </a>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"dropdown-menu dropdown-menu-right\" uib-dropdown-menu=\"\" role=\"menu\" aria-labelledby=\"single-button\">\r" +
+    "\n" +
+    "            <div class=\"dropdown-header text-left\">\r" +
+    "\n" +
+    "                <strong>User Info</strong>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"dropdown-item\">\r" +
+    "\n" +
+    "                <div><i class=\"fa fa-user\"></i><strong> {{nav.model.name}}</strong></div>\r" +
+    "\n" +
+    "                <div><i></i> {{nav.model.email}}</div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <a class=\"dropdown-item\" href=\"#\" ng-click=\"nav.logout()\"><i class=\"fa fa-lock\"></i> Logout</a>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
     "</header>"
   );
 
@@ -2539,6 +3469,26 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    </li>\r" +
     "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.checkInList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-user\"></i> <span>Task Approval</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.myTaskListList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-user\"></i> <span>My Task List</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
     "                </ul>\r" +
     "\n" +
     "            </li>\r" +
@@ -2618,6 +3568,26 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.asetKategoriList\">\r" +
     "\n" +
     "                            <i class=\"fa fa-train\"></i> <span>Aset Kategori</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.issueTypeList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Issue Type</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.technologyList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Technology</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -2754,7 +3724,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        </div>\r" +
     "\n" +
-    "                                        <span class=\"title-login\">Global Solusindo</span>\r" +
+    "                                        <span class=\"title-login\">Global One Solusindo</span>\r" +
     "\n" +
     "                                        <div class=\"form-group\">\r" +
     "\n" +
@@ -3450,6 +4420,308 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/myTaskList/myTaskList.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">My Task List</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"myTaskList\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>User</th>\r" +
+    "\n" +
+    "                                        <th>Position</th>\r" +
+    "\n" +
+    "                                        <th>SOW</th>\r" +
+    "\n" +
+    "                                        <th>BTS</th>\r" +
+    "\n" +
+    "                                        <th>BTS Address</th>\r" +
+    "\n" +
+    "                                        <th>Check In Time</th>\r" +
+    "\n" +
+    "                                        <th>Check Out Time</th>\r" +
+    "\n" +
+    "                                        <th>File Submitted</th>\r" +
+    "\n" +
+    "                                        <th>Status</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/myTaskListEntry/myTaskListEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Task Detail</div>\r" +
+    "\n" +
+    "                    <div class=\"row col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">SOW Info</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">SOW Name:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.sowName}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">User:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.userName}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Position:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.kategoriJabatanTitle}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">CheckIn Info</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">CheckIn Time</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.checkInTime}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Longitude:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.longitudeCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Latitude:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.latitudeCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">MCC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.mccCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">MNC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.mncCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">LAC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.lacCheckIn}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Cell ID:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.cellIDCheckIn}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">CheckOut Info</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">CheckOut Time</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.waktuCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Longitude:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.longitudeCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Latitude:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.latitudeCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">MCC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.mccCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">MNC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.mncCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">LAC:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.lacCheckOut}}</label>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Cell ID:</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.cellIDCheckOut}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"row col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">SOW Result</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Description</label>\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <textarea class=\"form-control\" ng-model=\"vm.model.SOWResult.description\" style=\"width:100%\"></textarea>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">Track Result</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <button class=\"btn btn-default\" ui-sref=\"app.myTaskListList\">Kembali</button>\r" +
+    "\n" +
+    "                        <button class=\"btn btn-success float-right\" id=\"submitButton\">Submit</button> \r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/operator/operator.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -3465,11 +4737,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.operatorEntry({ id: '0'})\">Tambah Operator</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -3585,11 +4863,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.projectEntry({ id: '0'})\">Tambah Project</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -3634,6 +4918,64 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "    </form>\r" +
     "\n" +
     "</div>"
+  );
+
+
+  $templateCache.put('app/modules/project/projectDetail.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h5 class=\"modal-title\" id=\"modal-title\">Detail</h5>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Project Name :</label><label class=\"col-sm-9\">{{ model.title }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Operator :</label><label class=\"col-sm-9\">{{ model.operatorTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Delivery Area :</label><label class=\"col-sm-9\">{{ model.deliveryAreaTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n"
   );
 
 
@@ -3799,6 +5141,16 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"row\">\r" +
     "\n" +
+    "                                <div class=\"col-md-6\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
     "                                <div class=\"col-md-12\">\r" +
     "\n" +
     "                                    <table id=\"activities\">\r" +
@@ -3951,33 +5303,39 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <h5>Keterangan</h5>\r" +
     "\n" +
-    "                            <div class=\"row\">\r" +
-    "\n" +
-    "                                <div class=\"col-sm-1\">\r" +
+    "                                <div class=\"legend-item\">\r" +
     "\n" +
     "                                    <span class=\"dot-online\"></span><label>Online</label>\r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
-    "                                <div class=\"col-sm-1\">\r" +
+    "                                <div class=\"legend-item\">\r" +
     "\n" +
     "                                    <span class=\"dot-offline\"></span><label>Offline</label>\r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
-    "                                <div class=\"col-sm-1\">\r" +
+    "                                <div class=\"legend-item\">\r" +
     "\n" +
     "                                    <span class=\"dot-cuti\"></span><label>Cuti Izin</label>\r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
-    "                                <div class=\"col-sm-2\">\r" +
+    "                                <div class=\"legend-item\">\r" +
     "\n" +
     "                                    <span class=\"dot-unassigned\"></span><label>No Assignment</label>\r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
-    "                            </div>\r" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -4779,13 +6137,19 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.role-entry({ id: '0'})\">Tambah Role</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
-    "                        </div> \r" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -4829,6 +6193,53 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/role/roleDetail.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h5 class=\"modal-title\" id=\"modal-title\">User Detail</h5>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Role Name :</label><label class=\"col-sm-8\">{{ model.title }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Description :</label><label class=\"col-sm-8\">{{ model.description }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Created Date :</label><label class=\"col-sm-8\">{{ model.createdDate | date: 'dd/MM/yyyy' }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/roleGroup/roleGroup.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -4844,13 +6255,19 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.roleGroupEntry({ id: '0'})\">Tambah Role Group</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
-    "                        </div> \r" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -4889,6 +6306,53 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "        </div>\r" +
     "\n" +
     "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/roleGroup/roleGroupDetail.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h5 class=\"modal-title\" id=\"modal-title\">User Detail</h5>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Role Group :</label><label class=\"col-sm-8\">{{ model.title }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Description :</label><label class=\"col-sm-8\">{{ model.description }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Created Date :</label><label class=\"col-sm-8\">{{ model.createdDate | date: 'dd/MM/yyyy' }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
     "\n" +
     "</div>"
   );
@@ -4982,11 +6446,17 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.sowEntry({ id: '0'})\">Add Task</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -5038,6 +6508,29 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/sow/sowDetail.html',
+    "<!DOCTYPE html>\r" +
+    "\n" +
+    "<html>\r" +
+    "\n" +
+    "<head>\r" +
+    "\n" +
+    "    <meta charset=\"utf-8\" />\r" +
+    "\n" +
+    "    <title></title>\r" +
+    "\n" +
+    "</head>\r" +
+    "\n" +
+    "<body>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "</body>\r" +
+    "\n" +
+    "</html>"
+  );
+
+
   $templateCache.put('app/modules/sowEntry/sowEntry.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -5051,181 +6544,243 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"card-title\">Tambah SOW</div>\r" +
     "\n" +
-    "                    <div class=\"col-md-8\">\r" +
+    "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                    <div class=\"row\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">SOW Name:</label>\r" +
+    "                        <div class=\"col-md-6\">\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                                <input type=\"text\" id=\"sowName\" name=\"sowName\" class=\"form-control\" ng-model=\"vm.model.sowName\" placeholder=\"SOW Name\">\r" +
+    "                                <label class=\"control-label col-sm-3\">SOW Name:</label>\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                            </div>\r" +
+    "                                    <input type=\"text\" id=\"sowName\" name=\"sowName\" class=\"form-control\" ng-model=\"vm.model.sowName\" placeholder=\"SOW Name\">\r" +
     "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Project:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <select id=\"project_fk\" name=\"project_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.project_fk\" required>\r" +
-    "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.projects\" ng-value=\"x.project_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                </select>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">BTS:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <select id=\"bts_fk\" name=\"bts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.bts_fk\" required>\r" +
-    "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.btses\" ng-value=\"x.bts_pk\">{{x.name}}</option>\r" +
-    "\n" +
-    "                                </select>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Tanggal :</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <input type=\"text\" id=\"tglMulai\" name=\"tglMulai\" ng-model=\"vm.model.tglMulai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" required />\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"row\">\r" +
-    "\n" +
-    "                            <fieldset>\r" +
-    "\n" +
-    "                                <div class=\"card-title\">Assign</div>\r" +
-    "\n" +
-    "                                <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                                    <table id=\"sowAssign\">\r" +
-    "\n" +
-    "                                        <thead>\r" +
-    "\n" +
-    "                                            <tr>\r" +
-    "\n" +
-    "                                                <th hidden>SOWAssign_PK</th>\r" +
-    "\n" +
-    "                                                <th hidden>SOW FK</th>\r" +
-    "\n" +
-    "                                                <th hidden>Jabatan FK</th>\r" +
-    "\n" +
-    "                                                <th>Jabatan</th>\r" +
-    "\n" +
-    "                                                <th>User</th>\r" +
-    "\n" +
-    "                                            </tr>\r" +
-    "\n" +
-    "                                        </thead>\r" +
-    "\n" +
-    "                                        <tbody>\r" +
-    "\n" +
-    "                                            <tr ng-repeat=\"sowAssign in vm.model.sowAssigns\">\r" +
-    "\n" +
-    "                                                <td hidden>\r" +
-    "\n" +
-    "                                                    <input type=\"text\" id=\"sowAssign_pk\" name=\"sowAssign_pk\" ng-model=\"sowAssign.sowAssign_pk\" disabled />\r" +
-    "\n" +
-    "                                                    <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                                                </td>\r" +
-    "\n" +
-    "                                                <td class=\"text-center\" hidden>\r" +
-    "\n" +
-    "                                                    <input type=\"text\" id=\"sow_fk\" name=\"sow_fk\" ng-model=\"sowAssign.sow_fk\" disabled />\r" +
-    "\n" +
-    "                                                    <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                                                </td>\r" +
-    "\n" +
-    "                                                <td class=\"text-left\" hidden>\r" +
-    "\n" +
-    "                                                    <input type=\"text\" id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatan_fk\" disabled />\r" +
-    "\n" +
-    "                                                    <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                                                </td>\r" +
-    "\n" +
-    "                                                <td class=\"text-left\">\r" +
-    "\n" +
-    "                                                    <input type=\"text\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatanTitle\" disabled />\r" +
-    "\n" +
-    "                                                    <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                                                </td>\r" +
-    "\n" +
-    "                                                <td>\r" +
-    "\n" +
-    "                                                    <ui-select id=\"user_fk\" name=\"user_fk\" ng-model=\"sowAssign.user_fk\" size=\"0\" theme=\"select2\" ng-disabled=\"vm.disabled\" title=\"Find user\"\r" +
-    "\n" +
-    "                                                               required style=\"width:200px\">\r" +
-    "\n" +
-    "                                                        <ui-select-match placeholder=\"Find user\">{{$select.selected.name}}</ui-select-match>\r" +
-    "\n" +
-    "                                                        <ui-select-choices refresh=\"vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)\" refresh-delay=\"0\" repeat=\"user.user_pk as user in vm.formData.users\">\r" +
-    "\n" +
-    "                                                            <div ng-bind-html=\"user.name | highlight: $select.search\"></div>\r" +
-    "\n" +
-    "                                                        </ui-select-choices>\r" +
-    "\n" +
-    "                                                    </ui-select>\r" +
-    "\n" +
-    "                                                    <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                                                </td>\r" +
-    "\n" +
-    "                                            </tr>\r" +
-    "\n" +
-    "                                        </tbody>\r" +
-    "\n" +
-    "                                    </table>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
-    "                            </fieldset>\r" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Project:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <select id=\"project_fk\" name=\"project_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.project_fk\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.projects\" ng-value=\"x.project_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">BTS:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <select id=\"bts_fk\" name=\"bts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.bts_fk\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.btses\" ng-value=\"x.bts_pk\">{{x.name}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Tanggal :</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" id=\"tglMulai\" name=\"tglMulai\" ng-model=\"vm.model.tglMulai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD-MM-YYYY' }\" required />\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <fieldset>\r" +
+    "\n" +
+    "                                    <div class=\"card-title\">Assign</div>\r" +
+    "\n" +
+    "                                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                        <table id=\"sowAssign\">\r" +
+    "\n" +
+    "                                            <thead>\r" +
+    "\n" +
+    "                                                <tr>\r" +
+    "\n" +
+    "                                                    <th hidden>SOWAssign_PK</th>\r" +
+    "\n" +
+    "                                                    <th hidden>SOW FK</th>\r" +
+    "\n" +
+    "                                                    <th hidden>Jabatan FK</th>\r" +
+    "\n" +
+    "                                                    <th>Jabatan</th>\r" +
+    "\n" +
+    "                                                    <th>User</th>\r" +
+    "\n" +
+    "                                                </tr>\r" +
+    "\n" +
+    "                                            </thead>\r" +
+    "\n" +
+    "                                            <tbody>\r" +
+    "\n" +
+    "                                                <tr ng-repeat=\"sowAssign in vm.model.sowAssigns\">\r" +
+    "\n" +
+    "                                                    <td hidden>\r" +
+    "\n" +
+    "                                                        <input type=\"text\" id=\"sowAssign_pk\" name=\"sowAssign_pk\" ng-model=\"sowAssign.sowAssign_pk\" disabled />\r" +
+    "\n" +
+    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                    <td class=\"text-center\" hidden>\r" +
+    "\n" +
+    "                                                        <input type=\"text\" id=\"sow_fk\" name=\"sow_fk\" ng-model=\"sowAssign.sow_fk\" disabled />\r" +
+    "\n" +
+    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                    <td class=\"text-left\" hidden>\r" +
+    "\n" +
+    "                                                        <input type=\"text\" id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatan_fk\" disabled />\r" +
+    "\n" +
+    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                    <td class=\"text-left\">\r" +
+    "\n" +
+    "                                                        <input type=\"text\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatanTitle\" disabled />\r" +
+    "\n" +
+    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                    <td>\r" +
+    "\n" +
+    "                                                        <ui-select id=\"user_fk\" name=\"user_fk\" ng-model=\"sowAssign.user_fk\" size=\"0\" theme=\"select2\" ng-disabled=\"vm.disabled\" title=\"Find user\"\r" +
+    "\n" +
+    "                                                                   required style=\"width:200px\">\r" +
+    "\n" +
+    "                                                            <ui-select-match placeholder=\"Find user\">{{$select.selected.name}}</ui-select-match>\r" +
+    "\n" +
+    "                                                            <ui-select-choices refresh=\"vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)\" refresh-delay=\"0\" repeat=\"user.user_pk as user in vm.formData.users\">\r" +
+    "\n" +
+    "                                                                <div>\r" +
+    "\n" +
+    "                                                                    <strong>\r" +
+    "\n" +
+    "                                                                        {{user.name }}\r" +
+    "\n" +
+    "                                                                    </strong>\r" +
+    "\n" +
+    "                                                                </div>\r" +
+    "\n" +
+    "                                                                <div>\r" +
+    "\n" +
+    "                                                                    {{\"Username: \" + user.username}}\r" +
+    "\n" +
+    "                                                                </div>\r" +
+    "\n" +
+    "                                                                <div style=\"margin:2px; border-bottom:1px solid #ccc\">\r" +
+    "\n" +
+    "                                                                    {{\"Email: \" + user.email}}\r" +
+    "\n" +
+    "                                                                </div>\r" +
+    "\n" +
+    "                                                            </ui-select-choices>\r" +
+    "\n" +
+    "                                                        </ui-select>\r" +
+    "\n" +
+    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                </tr>\r" +
+    "\n" +
+    "                                            </tbody>\r" +
+    "\n" +
+    "                                        </table>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </fieldset>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                                    <button class=\"btn btn-default\" ui-sref=\"app.sowList\">Kembali</button>\r" +
+    "\n" +
+    "                                    <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"row\">\r" +
+    "\r" +
     "\n" +
-    "                            <div class=\"col-md-12\">\r" +
+    "                        <!--<div class=\"card-title\">Track</div>-->\r" +
     "\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.sowList\">Kembali</button>\r" +
+    "                        <div class=\"col-md-6\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <div class=\"col-sm-12 input-group\">\r" +
+    "\n" +
+    "                                    <div class=\"input-group-prepend\">\r" +
+    "\n" +
+    "                                        <span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload</span>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"custom-file\">\r" +
+    "\n" +
+    "                                        <input type=\"file\" class=\"custom-file-input\" id=\"kmlFile\" aria-describedby=\"inputGroupFileAddon01\">\r" +
+    "\n" +
+    "                                        <label id=\"fileName\" class=\"custom-file-label\" for=\"filePhoto\">Choose file</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div id=\"map\" style=\"border:1px solid gray\">\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -5641,7 +7196,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
-  $templateCache.put('app/modules/user/user.html',
+  $templateCache.put('app/modules/technology/technology.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
     "    <form class=\"form-horizontal\">\r" +
@@ -5652,15 +7207,21 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <div class=\"card\">\r" +
     "\n" +
-    "                    <div class=\"card-title\">List User</div>\r" +
+    "                    <div class=\"card-title\">List Technology</div>\r" +
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"form-group col-md-12\">\r" +
+    "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.userEntry({ id: '0'})\">Tambah User</button>\r" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.technologyEntry({ id: '0'})\">Tambah Technology</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -5670,7 +7231,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-md-12\">\r" +
     "\n" +
-    "                            <table id=\"user\">\r" +
+    "                            <table id=\"technology\">\r" +
     "\n" +
     "                                <thead>\r" +
     "\n" +
@@ -5678,15 +7239,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>No</th>\r" +
     "\n" +
-    "                                        <th>ID User</th>\r" +
-    "\n" +
-    "                                        <th>Name</th>\r" +
-    "\n" +
-    "                                        <th>Position</th>\r" +
-    "\n" +
-    "                                        <th>Role</th>\r" +
-    "\n" +
-    "                                        <th>Phone Number</th>\r" +
+    "                                        <th>Title</th>\r" +
     "\n" +
     "                                        <th></th>\r" +
     "\n" +
@@ -5712,6 +7265,210 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/technologyEntry/technologyEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Technology</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Technology Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"title\" name=\"title\" class=\"form-control\" ng-model=\"vm.model.title\" placeholder=\"Technology Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.technologyList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/user/user.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List User</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-6\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.userEntry({ id: '0'})\">Tambah User</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.userImportCsv({})\">Import from CSV</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"user\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>ID User</th>\r" +
+    "\n" +
+    "                                        <th>Name</th>\r" +
+    "\n" +
+    "                                        <th>Position</th>\r" +
+    "\n" +
+    "                                        <!--<th>Role</th>-->\r" +
+    "\n" +
+    "                                        <th>Phone Number</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
+  );
+
+
+  $templateCache.put('app/modules/user/userDetail.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h3 class=\"modal-title\" id=\"modal-title\">User Detail</h3>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-sm-3 form-group text-center\">\r" +
+    "\n" +
+    "            <img id=\"photo\" src=\"/app/assets/images/default-large.png\" style=\"width:150px;margin:0 auto\" class=\"img-fluid\" />\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"col-md-9\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Name :</label><label class=\"col-sm-8\">{{ model.name }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Position :</label><label class=\"col-sm-8\">{{ model.kategoriJabatanTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Phone :</label><label class=\"col-sm-8\">{{ model.noHP }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Email :</label><label class=\"col-sm-8\">{{ model.email }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Address :</label><label class=\"col-sm-8\">{{ model.address }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Description :</label><label class=\"col-sm-8\">{{ model.description }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/userEntry/userEntry.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -5725,195 +7482,268 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"card-title\">Tambah User</div>\r" +
     "\n" +
-    "                    <div class=\"col-md-8\">\r" +
+    "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                    <div class=\"row col-sm-6 form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Upload Image:</label>\r" +
+    "                        <img id=\"photo\" src=\"/app/assets/images/default.png\" class=\"img-center img-fluid\" />\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                    </div>\r" +
     "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"filePhoto\" ng-model=\"vm.model.filePhoto\" name=\"filePhoto\" placeholder=\"image file\" disabled>\r" +
+    "                    <div class=\"row form-group\">\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                        <div class=\"col-sm-6 input-group\">\r" +
+    "\n" +
+    "                            <div class=\"input-group-prepend\">\r" +
+    "\n" +
+    "                                <span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"custom-file\">\r" +
+    "\n" +
+    "                                <input type=\"file\" class=\"custom-file-input\" id=\"filePhoto\" aria-describedby=\"inputGroupFileAddon01\">\r" +
+    "\n" +
+    "                                <label id=\"fileName\" class=\"custom-file-label\" for=\"filePhoto\">Choose file</label>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
+    "                    </div>\r" +
+    "\n" +
     "\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                    <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Name:</label>\r" +
+    "                        <label class=\"control-label col-sm-2\">Name:</label>\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                        <div class=\"col-sm-4\">\r" +
     "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" ng-model=\"vm.model.name\" placeholder=\"Name\">\r" +
+    "                            <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" ng-model=\"vm.model.name\" placeholder=\"Name\">\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Position:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <select id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.kategoriJabatan_fk\" required>\r" +
+    "\n" +
+    "                                <option ng-repeat=\"x in vm.formData.kategoriJabatans\" ng-value=\"x.kategoriJabatan_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                            </select>\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Phone Number:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"text\" class=\"form-control\" id=\"noHP\" name=\"noHP\" ng-model=\"vm.model.noHP\" placeholder=\"Phone Number\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-md-2\">Email:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"text\" class=\"form-control\" id=\"email\" name=\"email\" ng-model=\"vm.model.email\" placeholder=\"Email\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Nomor KTP:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"text\" class=\"form-control\" id=\"noKTP\" name=\"noKTP\" ng-model=\"vm.model.noKTP\" placeholder=\"Nomor KTP\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Username:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" autocomplete=\"off\" ng-model=\"vm.model.username\" placeholder=\"Username\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Password:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" autocomplete=\"off\" ng-model=\"vm.model.password\" placeholder=\"Password\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Retype Password:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"password\" class=\"form-control\" id=\"reTypePassword\" name=\"reTypePassword\" autocomplete=\"off\" ng-model=\"vm.model.reTypePassword\" placeholder=\"Retype Password\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Address:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"text\" class=\"form-control\" id=\"address\" name=\"address\" ng-model=\"vm.model.address\" placeholder=\"Address\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Description:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"text\" class=\"form-control\" id=\"description\" name=\"description\" ng-model=\"vm.model.description\" placeholder=\"Description\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <hr />\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.userList\">Kembali</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success float-right\" id=\"saveButton\">Tambah User</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/userImportCsv/userImportCsv.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Import User</div> \r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-sm-6 input-group\">\r" +
+    "\n" +
+    "                            <div class=\"input-group-prepend\">\r" +
+    "\n" +
+    "                                <span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"custom-file\">\r" +
+    "\n" +
+    "                                <input type=\"file\" class=\"custom-file-input\" id=\"file\" aria-describedby=\"inputGroupFileAddon01\">\r" +
+    "\n" +
+    "                                <label id=\"fileName\" class=\"custom-file-label\" for=\"file\">Choose file</label>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "\r" +
+    "                    </div> \r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                    <div class=\"row form-group\">\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Position:</label>\r" +
+    "                        <div class=\"col-md-6\">\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.userImportCsvList\">Kembali</button>\r" +
     "\n" +
-    "                                <select id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.kategoriJabatan_fk\" required>\r" +
-    "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.kategoriJabatans\" ng-value=\"x.kategoriJabatan_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                </select>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Phone Number:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-2\">\r" +
-    "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"noHP\" name=\"noHP\" ng-model=\"vm.model.noHP\" placeholder=\"Phone Number\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                            <label class=\"control-label col-md-1.5\">Email:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-3\">\r" +
-    "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"email\" name=\"email\" ng-model=\"vm.model.email\" placeholder=\"Email\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Nomor KTP:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"noKTP\" name=\"noKTP\" ng-model=\"vm.model.noKTP\" placeholder=\"Nomor KTP\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Username:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" ng-model=\"vm.model.username\" placeholder=\"Username\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Password:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" ng-model=\"vm.model.password\" placeholder=\"Password\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Retype Password:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <input type=\"password\" class=\"form-control\" id=\"reTypePassword\" name=\"reTypePassword\" ng-model=\"vm.model.reTypePassword\" placeholder=\"Retype Password\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Address:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"address\" name=\"address\" ng-model=\"vm.model.address\" placeholder=\"Address\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Description:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"description\" name=\"description\" ng-model=\"vm.model.description\" placeholder=\"Description\">\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                        <div class=\"row\">\r" +
-    "\n" +
-    "                            <div class=\"col-md-8\">\r" +
-    "\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.userList\">Kembali</button> <button class=\"btn btn-success float-right\" id=\"saveButton\">\r" +
-    "\n" +
-    "                                    Tambah User\r" +
-    "\n" +
-    "                                </button>\r" +
-    "\n" +
-    "                            </div>\r" +
+    "                            <button class=\"btn btn-success float-right\" id=\"uploadButton\">Submit</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

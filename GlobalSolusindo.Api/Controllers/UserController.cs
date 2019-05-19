@@ -62,7 +62,7 @@ namespace GlobalSolusindo.Api.Controllers
                 return Ok(new SuccessResponse(data));
             }
         }
-
+      
         [Route("user")]
         [HttpPost]
         public IHttpActionResult Create([FromBody]UserDTO user)
@@ -77,7 +77,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var userCreateHandler = new UserCreateHandler(Db, ActiveUser, new UserValidator(), new UserFactory(Db, ActiveUser), new UserQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = userCreateHandler.Save(userDTO: user, dateStamp: DateTime.UtcNow);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -85,6 +85,18 @@ namespace GlobalSolusindo.Api.Controllers
                     return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
                 }
             }
+        }
+
+        [Route("user/import")]
+        [HttpPost]
+        public IHttpActionResult Import([FromBody]UserImportDTO userImportDTO)
+        {
+            string accessType = "";
+            ThrowIfUserHasNoRole(accessType);
+            if (userImportDTO == null)
+                throw new KairosException("Missing model parameter");
+            var importResult = new UserImportCsv(Db, ActiveUser).Import(userImportDTO);
+            return Ok(new SuccessResponse(importResult));
         }
 
         [Route("user")]
@@ -133,7 +145,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(userDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    return Ok(new SuccessResponse(result));
+                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }
         }

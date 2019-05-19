@@ -5,9 +5,12 @@
                 <div class="card">
                     <div class="card-title">List User</div>
                     <div class="row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                             <button class="btn btn-success" ui-sref="app.userEntry({ id: '0'})">Tambah User</button>
+                            <button class="btn btn-success" ui-sref="app.userImportCsv({})">Import from CSV</button>
                             <button id="deleteButton" class="btn btn-danger">Delete Selected</button>
+                        </div>
+                        <div class="col-md-6 text-right" id="exportButtons">
                         </div>
                     </div>
                     <div class="row">
@@ -19,7 +22,7 @@
                                         <th>ID User</th>
                                         <th>Name</th>
                                         <th>Position</th>
-                                        <th>Role</th>
+                                        <!--<th>Role</th>-->
                                         <th>Phone Number</th>
                                         <th></th>
                                     </tr>

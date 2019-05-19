@@ -39,7 +39,7 @@
             $state.go('app.dashboard');
         }
 
-        angular.element('#loginButton').on('click', function () { 
+        function login() {
             http.post('token', self.model)
                 .then(function (res) {
                     if (res.success) {
@@ -51,6 +51,22 @@
                         serverError.show(res);
                     }
                 });
+        }
+
+        angular.element('#loginButton').on('click', function () {
+            login();
+        });
+
+        angular.element('#username').on('keyup', function (e) {
+            if (e.keyCode === 13) {
+                angular.element('#password').focus();
+            }
+        });
+
+        angular.element('#password').on('keyup', function (e) {
+            if (e.keyCode === 13) {
+                login();
+            }
         });
 
         return self;

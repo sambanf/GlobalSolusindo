@@ -1,10 +1,12 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.BTS.EntryForm;
 using GlobalSolusindo.Business.BTS.Queries;
+using GlobalSolusindo.Business.BTSTechnology;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos.Data;
 using System;
+using System.Linq;
 
 namespace GlobalSolusindo.Business.BTS.DML
 {
@@ -29,23 +31,51 @@ namespace GlobalSolusindo.Business.BTS.DML
             this.btsFactory = btsFactory;
         }
 
-        public void Update(BTSDTO btsDTO, DateTime dateStamp)
+        public void UpdateBTS(BTSDTO btsDTO, DateTime dateStamp)
         {
             if (btsDTO == null)
                 throw new ArgumentNullException("BTS model is null.");
-            tblM_BTS bts = btsFactory.CreateFromDbAndUpdateFromDTO(btsDTO, dateStamp);  
+            tblM_BTS bts = btsFactory.CreateFromDbAndUpdateFromDTO(btsDTO, dateStamp);
+        }
+
+        public void UpdateBTSTechnologies(BTSDTO btsDTO, DateTime dateStamp)
+        {
+            if (btsDTO == null)
+                throw new ArgumentNullException("BTS model is null.");
+
+            var btsTechnologies = Db.tblM_BTSTechnology.Where(x => x.BTS_FK == btsDTO.BTS_PK);
+            foreach (var btsTechnology in btsTechnologies)
+            {
+                Db.tblM_BTSTechnology.Remove(btsTechnology);
+            }
+
+            foreach (var btsTechnologyDTO in btsDTO.BTSTechnologies)
+            {
+                var factory = new BTSTechnologyFactory(Db, User);
+
+                tblM_BTSTechnology btsTechnology = factory.CreateFromDTO(btsTechnologyDTO, dateStamp);
+                btsTechnology.BTS_FK = btsDTO.BTS_PK;
+                btsTechnology = Db.tblM_BTSTechnology.Add(btsTechnology);
+            }
         }
 
         public SaveResult<BTSEntryModel> Save(BTSDTO btsDTO, DateTime dateStamp)
         {
+            foreach (var item in btsDTO.BTSTechnologies)
+            {
+                item.BTS_FK = btsDTO.BTS_PK;
+            }
+
             ModelValidationResult validationResult = btsValidator.Validate(btsDTO);
+           
             bool success = false;
             BTSEntryModel model = null;
 
             if (validationResult.IsValid)
             {
                 success = true;
-                  Update(btsDTO, dateStamp); 
+                UpdateBTS(btsDTO, dateStamp);
+                UpdateBTSTechnologies(btsDTO, dateStamp);
                 Db.SaveChanges();
                 model = btsEntryDataProvider.Get(btsDTO.BTS_PK);
             }

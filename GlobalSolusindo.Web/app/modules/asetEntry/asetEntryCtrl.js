@@ -18,6 +18,39 @@
     function AsetEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
         var self = this;
         self.stateParam = sParam;
+
+        function setImage(data) {
+            document.getElementById("photoAset").src = data;
+        }
+
+        function setModelWithImageData(data) {
+            self.model.filePhotoInBase64 = data;
+        }
+
+        function setImageFileName(fileName) {
+            document.getElementById("fileName").innerHTML = fileName;
+        }
+
+        function addEventListenerOnImageChanged() {
+            document.getElementById("filePhoto").addEventListener("change", readFile);
+        }
+
+        function readFile() {
+
+            if (this.files && this.files[0]) {
+                var FR = new FileReader();
+                var fileName = this.files[0].name;
+                FR.addEventListener("load", function (e) {
+                    setImage(e.target.result);
+                    setModelWithImageData(e.target.result);
+                    setImageFileName(fileName);
+                });
+
+                FR.readAsDataURL(this.files[0]);
+            }
+        }
+
+        addEventListenerOnImageChanged();
        
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);

@@ -1,0 +1,111 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Task Detail</div>
+                    <div class="row col-md-12">
+                        <div class="col-md-6">
+                            <div class="card-title">SOW Info</div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">SOW Name:</label>
+                                <label class="control-label col-sm-9">{{vm.model.sowName}}</label>
+
+                                <label class="control-label col-sm-3">User:</label>
+                                <label class="control-label col-sm-9">{{vm.model.userName}}</label>
+
+                                <label class="control-label col-sm-3">Position:</label>
+                                <label class="control-label col-sm-9">{{vm.model.kategoriJabatanTitle}}</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-6">
+                            <div class="card-title">CheckIn Info</div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">CheckIn Time</label>
+                                <label class="control-label col-sm-9">{{vm.model.checkInTime}}</label>
+
+                                <label class="control-label col-sm-3">Longitude:</label>
+                                <label class="control-label col-sm-9">{{vm.model.longitudeCheckIn}}</label>
+
+                                <label class="control-label col-sm-3">Latitude:</label>
+                                <label class="control-label col-sm-9">{{vm.model.latitudeCheckIn}}</label>
+
+                                <label class="control-label col-sm-3">MCC:</label>
+                                <label class="control-label col-sm-9">{{vm.model.mccCheckIn}}</label>
+
+                                <label class="control-label col-sm-3">MNC:</label>
+                                <label class="control-label col-sm-9">{{vm.model.mncCheckIn}}</label>
+
+                                <label class="control-label col-sm-3">LAC:</label>
+                                <label class="control-label col-sm-9">{{vm.model.lacCheckIn}}</label>
+
+                                <label class="control-label col-sm-3">Cell ID:</label>
+                                <label class="control-label col-sm-9">{{vm.model.cellIDCheckIn}}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-title">CheckOut Info</div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">CheckOut Time</label>
+                                <label class="control-label col-sm-9">{{vm.model.waktuCheckOut}}</label>
+
+                                <label class="control-label col-sm-3">Longitude:</label>
+                                <label class="control-label col-sm-9">{{vm.model.longitudeCheckOut}}</label>
+
+                                <label class="control-label col-sm-3">Latitude:</label>
+                                <label class="control-label col-sm-9">{{vm.model.latitudeCheckOut}}</label>
+
+                                <label class="control-label col-sm-3">MCC:</label>
+                                <label class="control-label col-sm-9">{{vm.model.mccCheckOut}}</label>
+
+                                <label class="control-label col-sm-3">MNC:</label>
+                                <label class="control-label col-sm-9">{{vm.model.mncCheckOut}}</label>
+
+                                <label class="control-label col-sm-3">LAC:</label>
+                                <label class="control-label col-sm-9">{{vm.model.lacCheckOut}}</label>
+
+                                <label class="control-label col-sm-3">Cell ID:</label>
+                                <label class="control-label col-sm-9">{{vm.model.cellIDCheckOut}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="row col-md-12">
+                        <div class="col-md-6">
+                            <div class="card-title">SOW Result</div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Description</label>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" ng-model="vm.model.SOWResult.description" style="width:100%"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-title">Track Result</div>
+                            <div class="row form-group">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="col-md-12">
+                        <button class="btn btn-default" ui-sref="app.myTaskListList">Kembali</button>
+                        <button class="btn btn-success float-right" id="submitButton">Submit</button> 
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

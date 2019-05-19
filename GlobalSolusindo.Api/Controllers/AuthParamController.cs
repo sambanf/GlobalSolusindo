@@ -134,7 +134,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(authParamDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete(); 
-                    return Ok(new SuccessResponse(result));
+                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
 
             }

@@ -28,9 +28,17 @@
                         </div>
 
                         <div class="row form-group">
-                            <label class="control-label col-sm-2">Tanggal Izin/Cuti:</label>
+                            <label class="control-label col-sm-2">Tanggal Mulai:</label>
                             <div class="col-sm-2">
                                 <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Tanggal Selesai:</label>
+                            <div class="col-sm-2">
+                                <input type="text" id="tglSelesai" name="tglSelesai" ng-model="vm.model.tglSelesai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>

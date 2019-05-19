@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('userViewService', userView);
 
-    userView.$inject = ['HttpService', '$state', 'uiService'];
+    userView.$inject = ['HttpService', '$state', 'uiService', '$uibModal'];
 
-    function userView(http, $state, ui) {
+    function userView(http, $state, ui, $uibModal) {
         var self = this;
         var controller;
 
@@ -36,6 +36,20 @@
                 var data = controller.datatable.row(this).data();
                 var id = data["user_pk"];
                 self.view(id);
+            });
+
+            $("#user tbody").on("click", "#show", function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'app/modules/user/userDetail.html',
+                        controller: function ($scope, $uibModalInstance) {
+                            $scope.model = data;
+                            $scope.close = function () {
+                                $uibModalInstance.close();
+                            };
+                        }
+                    });
+                    modalInstance.result.then(function (selectedItem) {}, function () {});
             });
         };
 

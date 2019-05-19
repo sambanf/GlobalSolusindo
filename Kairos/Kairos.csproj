@@ -37,6 +37,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
@@ -49,8 +50,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cryptography\MD5Encryptor.cs" />
+    <Compile Include="DataAnnotations\CustomDateTimeConverter.cs" />
+    <Compile Include="DataAnnotations\EmailAttribute.cs" />
     <Compile Include="DataAnnotations\ForeignKeyAttribute.cs" />
     <Compile Include="DataAnnotations\IValidator.cs" />
+    <Compile Include="DataAnnotations\PhoneNumberAttribute.cs" />
     <Compile Include="DataAnnotations\UniqueAttribute.cs" />
     <Compile Include="Data\ModelValidationResult.cs" />
     <Compile Include="Data\ModelValidator.cs" />
@@ -62,6 +66,8 @@
     <Compile Include="Data\Result.cs" />
     <Compile Include="Data\Sorter.cs" />
     <Compile Include="Exceptions.cs" />
+    <Compile Include="Imaging\CSVConverter.cs" />
+    <Compile Include="Imaging\WebImageConverter.cs" />
     <Compile Include="Linq\IUniqueQuery.cs" />
     <Compile Include="Linq\Sorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

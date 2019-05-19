@@ -39,10 +39,13 @@ namespace GlobalSolusindo.Business.IzinCuti.EntryForm
         {
             IzinCutiEntryFormData formData = new IzinCutiEntryFormData();
             List<Control> formControls = CreateFormControls(0);
+            var now = DateTime.Now;
+
             IzinCutiDTO izinCutiDTO = new IzinCutiDTO
             {
                 User_FK = User.User_PK,
-                TglMulai = DateTime.Now, 
+                TglMulai = now,
+                TglSelesai = now.AddDays(7)
             };
 
             var user = new UserQuery(this.Db).GetByPrimaryKey(User.User_PK);
@@ -51,7 +54,7 @@ namespace GlobalSolusindo.Business.IzinCuti.EntryForm
                 izinCutiDTO.UserIzinCutiJabatanTitle = user.KategoriJabatanTitle;
                 izinCutiDTO.UserIzinCutiName = user.Name;
             }
-          
+
             return new IzinCutiEntryModel()
             {
                 FormData = formData,

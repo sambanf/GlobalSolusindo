@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('projectViewService', projectView);
 
-    projectView.$inject = ['HttpService', '$state', 'uiService'];
+    projectView.$inject = ['HttpService', '$state', 'uiService', '$uibModal'];
 
-    function projectView(http, $state, ui) {
+    function projectView(http, $state, ui, $uibModal) {
         var self = this;
         var controller;
 
@@ -36,6 +36,20 @@
                 var data = controller.datatable.row(this).data();
                 var id = data["project_pk"];
                 self.view(id);
+            });
+
+            $("#project tbody").on("click", "#show", function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/project/projectDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
             });
         };
 

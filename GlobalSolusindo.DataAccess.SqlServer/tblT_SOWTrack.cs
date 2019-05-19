@@ -10,13 +10,14 @@
 namespace GlobalSolusindo.DataAccess
 {
     using System;
-
+    using System.Collections.Generic;
+    
     public partial class tblT_SOWTrack
     {
         public int SOWTrack_PK { get; set; }
         public Nullable<int> SOW_FK { get; set; }
         public Nullable<int> Technology_FK { get; set; }
-        public byte[] File { get; set; }
+        public string Route { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }

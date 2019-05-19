@@ -29,6 +29,23 @@
                 },
                 onSelected: function (data) {
                     controller.model.project_fk = data.project_pk;
+                },
+                templateResult: function (item) {
+                    if (item.loading) {
+                        var markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div>" + item.text + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    } else {
+                        var markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div><b>" + item.title + "</b></div>" +
+                            "<div>" + item.operatorTitle + "</div>" +
+                            "<div>" + item.deliveryAreaTitle + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    }
                 }
             });
         }
@@ -43,6 +60,25 @@
                 },
                 onSelected: function (data) {
                     controller.model.bts_fk = data.bts_pk;
+                },
+                templateResult: function (item) {
+                    if (item.loading) {
+                        var markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div>" + item.text + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    } else {
+                        var markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div><b>" + item.name + "</b></div>" +
+                            "<div>Operator: " + item.operatorTitle + "</div>" +
+                            "<div>Tower ID: " + item.towerId + "</div>" +
+                            "<div>Cell ID: " + item.cellId + "</div>" +
+                            "<div>Cabang: " + item.cabangTitle + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    }
                 }
             });
         }

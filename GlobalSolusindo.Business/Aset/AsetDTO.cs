@@ -29,8 +29,8 @@ namespace GlobalSolusindo.Business.Aset
         [Unique(typeof(AsetQuery), nameof(Aset_PK))]
         public string Name { get; set; }
 
-        [JsonProperty("filePhoto")]
-        public byte[] FilePhoto { get; set; }
+        [JsonProperty("filePhotoInBase64")]
+        public string FilePhotoInBase64 { get; set; }
 
         [JsonProperty("description")]
         public string Description { get; set; }

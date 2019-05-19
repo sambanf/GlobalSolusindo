@@ -4,6 +4,7 @@ using GlobalSolusindo.Business.SOW.EntryForm;
 using GlobalSolusindo.Business.SOW.InfoForm;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign;
+using GlobalSolusindo.Business.SOWTrack;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -91,7 +92,7 @@ namespace GlobalSolusindo.Api.Controllers
 
             if (sow.SOW_PK != 0)
                 throw new KairosException("Post method is not allowed because the requested primary key is must be '0' (zero) .");
-            using (var sowCreateHandler = new SOWCreateHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl))
+            using (var sowCreateHandler = new SOWCreateHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWTrackFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
                 {
@@ -116,7 +117,7 @@ namespace GlobalSolusindo.Api.Controllers
             if (sow.SOW_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
-            using (var sowUpdateHandler = new SOWUpdateHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl))
+            using (var sowUpdateHandler = new SOWUpdateHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWTrackFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
                 {
@@ -150,7 +151,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(sowDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    return Ok(new SuccessResponse(result));
+                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }
         }

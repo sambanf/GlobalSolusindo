@@ -1,5 +1,4 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.Area.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos;

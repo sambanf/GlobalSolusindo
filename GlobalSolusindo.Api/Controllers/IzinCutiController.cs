@@ -86,7 +86,7 @@ namespace GlobalSolusindo.Api.Controllers
                     return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
                 }
             }
-        }
+        } 
 
         [Route("izinCuti")]
         [HttpPut]
@@ -159,7 +159,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(izinCutiDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    return Ok(new SuccessResponse(result));
+                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }
         }

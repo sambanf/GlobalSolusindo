@@ -3,6 +3,7 @@ using GlobalSolusindo.Business.BTSStatus;
 using GlobalSolusindo.Business.Cabang;
 using GlobalSolusindo.Business.Kota;
 using GlobalSolusindo.Business.Operator;
+using GlobalSolusindo.Business.Technology;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
@@ -24,5 +25,8 @@ namespace GlobalSolusindo.Business.BTS.EntryForm
 
         [JsonProperty("cabangs")]
         public List<CabangDTO> Cabangs { get; set; } = new List<CabangDTO>();
+
+        [JsonProperty("technologies")]
+        public List<TechnologyDTO> Technologies { get; set; }
     }
 }
