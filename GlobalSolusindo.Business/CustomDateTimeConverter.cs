@@ -35,7 +35,13 @@ namespace GlobalSolusindo.Business
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteValue(TimeZoneInfo.ConvertTimeFromUtc(Convert.ToDateTime(value), _timeZoneInfo).ToString(_dateFormat));
+            var datetime = Convert.ToDateTime(value);
+            if (datetime.Kind == DateTimeKind.Local)
+                writer.WriteValue(datetime);
+            //writer.WriteValue(datetime.ToLocalTime());
+            else
+                writer.WriteValue(TimeZoneInfo.ConvertTimeFromUtc(datetime, _timeZoneInfo).ToString(_dateFormat));
+
             writer.Flush();
         }
     }
