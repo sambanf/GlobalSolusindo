@@ -160,7 +160,7 @@
       <Name>GlobalSolusindo.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\GlobalSolusindo.Business\GlobalSolusindo.Business.csproj">
-      <Project>{F039649D-4116-4DE0-868A-0B2B8E6CE2E4}</Project>
+      <Project>{f039649d-4116-4de0-868a-0b2b8e6ce2e4}</Project>
       <Name>GlobalSolusindo.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\GlobalSolusindo.DataAccess.SqlServer\GlobalSolusindo.DataAccess.SqlServer.csproj">
