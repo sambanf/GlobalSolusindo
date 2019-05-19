@@ -54,7 +54,6 @@
             controller.datatable = dt;
             return dt;
         };
-
         return self;
     }
 

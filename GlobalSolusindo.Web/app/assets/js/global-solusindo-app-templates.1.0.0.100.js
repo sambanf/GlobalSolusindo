@@ -617,104 +617,55 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/asset/assetModal/assetModal.html',
-    "<div class=\"modal-header\">\r" +
+    "<div class=\"modal-header\">\n" +
+    "    <h6 class=\"modal-title\">Tambah Asset</h6>\n" +
+    "</div>\n" +
+    "<div class=\"modal-body\">\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-sm-12\">\n" +
+    "            <div class=\"row\">\n" +
+    "                <div class=\"col-md-12\">\n" +
+    "                    <div class=\"row form-group\">\n" +
+    "                        <label class=\"control-label col-sm-4\">Kategory Asset :</label>\n" +
+    "                        <div class=\"col-sm-8\">\n" +
+    "                            <select id=\"position_fk\" name=\"position_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.position_fk\" required>\n" +
+    "                                <option ng-repeat=\"x in vm.formData.positions\" ng-value=\"x.position_pk\">{{x.name}}</option>\n" +
+    "                            </select>\n" +
+    "                            <div class=\"invalid-feedback\"></div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
     "\n" +
-    "    <h6 class=\"modal-title\">Tambah Asset</h6>\r" +
+    "                    <div class=\"row form-group\">\n" +
+    "                        <label class=\"control-label col-sm-4\">Nama Asset :</label>\n" +
+    "                        <div class=\"col-sm-8\">\n" +
+    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.name\" required />\n" +
+    "                            <div class=\"invalid-feedback\"></div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
     "\n" +
-    "</div>\r" +
+    "                    <div class=\"row form-group\">\n" +
+    "                        <label class=\"control-label col-sm-4\">Gambar Asset :</label>\n" +
+    "                        <div class=\"col-sm-8\">\n" +
+    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.image\" required />\n" +
+    "                            <div class=\"invalid-feedback\"></div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
     "\n" +
-    "<div class=\"modal-body\">\r" +
-    "\n" +
-    "    <div class=\"row\">\r" +
-    "\n" +
-    "        <div class=\"col-sm-12\">\r" +
-    "\n" +
-    "            <div class=\"row\">\r" +
-    "\n" +
-    "                <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-4\">Kategory Asset :</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <select id=\"position_fk\" name=\"position_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.position_fk\" required>\r" +
-    "\n" +
-    "                                <option ng-repeat=\"x in vm.formData.positions\" ng-value=\"x.position_pk\">{{x.name}}</option>\r" +
-    "\n" +
-    "                            </select>\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-4\">Nama Asset :</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.name\" required />\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-4\">Gambar Asset :</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.image\" required />\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-4\">Deskripsi :</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <textarea class=\"form-control\" ng-model=\"vm.model.desc\"></textarea>\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n" +
-    "<div class=\"modal-footer\">\r" +
-    "\n" +
-    "    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">Simpan</button>\r" +
-    "\n" +
-    "    <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">Cancel</button>\r" +
-    "\n" +
+    "                    <div class=\"row form-group\">\n" +
+    "                        <label class=\"control-label col-sm-4\">Deskripsi :</label>\n" +
+    "                        <div class=\"col-sm-8\">\n" +
+    "                            <textarea class=\"form-control\" ng-model=\"vm.model.desc\"></textarea>\n" +
+    "                            <div class=\"invalid-feedback\"></div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "<div class=\"modal-footer\">\n" +
+    "    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">Simpan</button>\n" +
+    "    <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">Cancel</button>\n" +
     "</div>"
   );
 
@@ -2038,219 +1989,112 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
   $templateCache.put('app/modules/dashboard/dashboard.html',
     "<div class=\"container-fluid animated fadeIn\">\n" +
-    "    <div class=\"row card-header\">\r" +
-    "\n" +
-    "        <div class=\"col-md-12\">\r" +
-    "\n" +
-    "            <div class=\"header-dashboard\">\r" +
-    "\n" +
-    "                <div class=\"month-pick\">\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\r" +
-    "\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\r" +
-    "\n" +
-    "                <div class=\"top-dashboard\">\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"col-5 col-lg-3\">\r" +
-    "\n" +
-    "                            <div class=\"the-icons\">\r" +
-    "\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\r" +
-    "\n" +
-    "                            <h5 class=\"mt-2\">Total Install PO</h5>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"value-dashboard\">\r" +
-    "\n" +
-    "                    <h4>Rp. 100.000.000</h4>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\r" +
-    "\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\r" +
-    "\n" +
-    "                <div class=\"top-dashboard\" style=\"background-color: #0996e6;\" >\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"col-5 col-lg-3\">\r" +
-    "\n" +
-    "                            <div class=\"the-icons\">\r" +
-    "\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\r" +
-    "\n" +
-    "                            <h5>Total Jumlah PO</h5>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"value-dashboard\">\r" +
-    "\n" +
-    "                    <h4  style=\"color: #0996e6\">100</h4>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\r" +
-    "\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\r" +
-    "\n" +
-    "                <div class=\"top-dashboard\" style=\"background-color:#e25913;\">\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"col-5 col-lg-3\">\r" +
-    "\n" +
-    "                            <div class=\"the-icons\">\r" +
-    "\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\r" +
-    "\n" +
-    "                            <h5>Total Jumlah Invoice</h5>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"value-dashboard\">\r" +
-    "\n" +
-    "                    <h4 style=\"color: #e25913\">150</h4>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\r" +
-    "\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\r" +
-    "\n" +
-    "                <div class=\"top-dashboard\" style=\"background-color: #f6b314;\">\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"col-5 col-lg-3\">\r" +
-    "\n" +
-    "                            <div class=\"the-icons\">\r" +
-    "\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\r" +
-    "\n" +
-    "                            <h5>Total Jumlah Member</h5>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"value-dashboard\">\r" +
-    "\n" +
-    "                    <h4 style=\" color: #f6b314\">200</h4>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\r" +
-    "\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\r" +
-    "\n" +
-    "                <div class=\"top-dashboard\"  style=\"background-color:#9f3ce8;\">\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"col-5 col-lg-3\">\r" +
-    "\n" +
-    "                            <div class=\"the-icons\">\r" +
-    "\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\r" +
-    "\n" +
-    "                            <h5 class=\"mt-2\">Jumlah Asset</h5>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "                <div class=\"value-dashboard\">\r" +
-    "\n" +
-    "                    <h4 style=\" color: #9f3ce8\">200</h4>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "\r" +
+    "    <div class=\"row card-header\">\n" +
+    "        <div class=\"col-md-12\">\n" +
+    "            <div class=\"header-dashboard\">\n" +
+    "                <div class=\"month-pick\">\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
+    "            <div class=\"card p-0 bg-white hoverable\">\n" +
+    "                <div class=\"top-dashboard\">\n" +
+    "                    <div class=\"row\">\n" +
+    "                        <div class=\"col-5 col-lg-3\">\n" +
+    "                            <div class=\"the-icons\">\n" +
+    "                                <i class=\"fa fa-file-alt\"></i>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
+    "                            <h5 class=\"mt-2\">Total Install PO</h5>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div class=\"value-dashboard\">\n" +
+    "                    <h4>Rp. 100.000.000</h4>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
+    "            <div class=\"card p-0 bg-white hoverable\">\n" +
+    "                <div class=\"top-dashboard\" style=\"background-color: #0996e6;\" >\n" +
+    "                    <div class=\"row\">\n" +
+    "                        <div class=\"col-5 col-lg-3\">\n" +
+    "                            <div class=\"the-icons\">\n" +
+    "                                <i class=\"fa fa-file-alt\"></i>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
+    "                            <h5>Total Jumlah PO</h5>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div class=\"value-dashboard\">\n" +
+    "                    <h4  style=\"color: #0996e6\">100</h4>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
+    "            <div class=\"card p-0 bg-white hoverable\">\n" +
+    "                <div class=\"top-dashboard\" style=\"background-color:#e25913;\">\n" +
+    "                    <div class=\"row\">\n" +
+    "                        <div class=\"col-5 col-lg-3\">\n" +
+    "                            <div class=\"the-icons\">\n" +
+    "                                <i class=\"fa fa-file-alt\"></i>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
+    "                            <h5>Total Jumlah Invoice</h5>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div class=\"value-dashboard\">\n" +
+    "                    <h4 style=\"color: #e25913\">150</h4>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
+    "            <div class=\"card p-0 bg-white hoverable\">\n" +
+    "                <div class=\"top-dashboard\" style=\"background-color: #f6b314;\">\n" +
+    "                    <div class=\"row\">\n" +
+    "                        <div class=\"col-5 col-lg-3\">\n" +
+    "                            <div class=\"the-icons\">\n" +
+    "                                <i class=\"fa fa-file-alt\"></i>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
+    "                            <h5>Total Jumlah Member</h5>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div class=\"value-dashboard\">\n" +
+    "                    <h4 style=\" color: #f6b314\">200</h4>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "\n" +
+    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
+    "            <div class=\"card p-0 bg-white hoverable\">\n" +
+    "                <div class=\"top-dashboard\"  style=\"background-color:#9f3ce8;\">\n" +
+    "                    <div class=\"row\">\n" +
+    "                        <div class=\"col-5 col-lg-3\">\n" +
+    "                            <div class=\"the-icons\">\n" +
+    "                                <i class=\"fa fa-file-alt\"></i>\n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
+    "                            <h5 class=\"mt-2\">Jumlah Asset</h5>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "                <div class=\"value-dashboard\">\n" +
+    "                    <h4 style=\" color: #9f3ce8\">200</h4>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
     "\n" +
     "    </div>\n" +
     "</div>"
@@ -3965,60 +3809,33 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-body\">\n" +
     "    <div class=\"row\">\n" +
-    "        <!--<div class=\"col-md-12 p-0\">\r" +
+    "        <!--<div class=\"col-md-12 p-0\">\n" +
+    "            <table id=\"roleModal\" class=\"table\">\n" +
+    "                <thead>\n" +
+    "                    <tr>\n" +
+    "                        <th width=\"30\" hidden>Role PK</th>\n" +
+    "                        <th width=\"30\" hidden>Role Group PK</th>\n" +
+    "                        <th width=\"200\">Role Name</th>\n" +
+    "                        <th class=\"text-center\">Check</th>\n" +
+    "                    </tr>\n" +
+    "                </thead>\n" +
+    "                <tbody>\n" +
+    "                    <tr ng-repeat=\"i in vm.model.mappingRoleToRoleGroups\">\n" +
+    "                        <td width=\"30\" hidden>{{ i.role_pk}}</td>\n" +
+    "                        <td width=\"30\" hidden>{{ i.roleGroup_pk}}</td>\n" +
+    "                        <td width=\"200\">{{i.roleName}}</td>\n" +
+    "                        <td class=\"text-center\"> <input type=\"checkbox\" ng-checked=\"i.isChecked\" ng-model=\"i.isChecked\"></td>\n" +
+    "                    </tr>\n" +
+    "                </tbody>\n" +
+    "            </table>-->\n" +
     "\n" +
-    "            <table id=\"roleModal\" class=\"table\">\r" +
-    "\n" +
-    "                <thead>\r" +
-    "\n" +
-    "                    <tr>\r" +
-    "\n" +
-    "                        <th width=\"30\" hidden>Role PK</th>\r" +
-    "\n" +
-    "                        <th width=\"30\" hidden>Role Group PK</th>\r" +
-    "\n" +
-    "                        <th width=\"200\">Role Name</th>\r" +
-    "\n" +
-    "                        <th class=\"text-center\">Check</th>\r" +
-    "\n" +
-    "                    </tr>\r" +
-    "\n" +
-    "                </thead>\r" +
-    "\n" +
-    "                <tbody>\r" +
-    "\n" +
-    "                    <tr ng-repeat=\"i in vm.model.mappingRoleToRoleGroups\">\r" +
-    "\n" +
-    "                        <td width=\"30\" hidden>{{ i.role_pk}}</td>\r" +
-    "\n" +
-    "                        <td width=\"30\" hidden>{{ i.roleGroup_pk}}</td>\r" +
-    "\n" +
-    "                        <td width=\"200\">{{i.roleName}}</td>\r" +
-    "\n" +
-    "                        <td class=\"text-center\"> <input type=\"checkbox\" ng-checked=\"i.isChecked\" ng-model=\"i.isChecked\"></td>\r" +
-    "\n" +
-    "                    </tr>\r" +
-    "\n" +
-    "                </tbody>\r" +
-    "\n" +
-    "            </table>-->\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <div class=\"col-md-4\" ng-repeat=\"i in vm.model.mappingRoleToRoleGroups\">\r" +
-    "\n" +
-    "                <label class=\"control control--checkbox\">\r" +
-    "\n" +
-    "                    {{i.roleName}}\r" +
-    "\n" +
-    "                    <input tabindex=\"26\" type=\"checkbox\" name=\"role\"\r" +
-    "\n" +
-    "                           checked=\"checked\"  ng-checked=\"i.isChecked\" ng-model=\"i.isChecked\" />\r" +
-    "\n" +
-    "                    <span class=\"control__indicator\"></span>\r" +
-    "\n" +
-    "                </label>\r" +
-    "\n" +
+    "            <div class=\"col-md-4\" ng-repeat=\"i in vm.model.mappingRoleToRoleGroups\">\n" +
+    "                <label class=\"control control--checkbox\">\n" +
+    "                    {{i.roleName}}\n" +
+    "                    <input tabindex=\"26\" type=\"checkbox\" name=\"role\"\n" +
+    "                           checked=\"checked\"  ng-checked=\"i.isChecked\" ng-model=\"i.isChecked\" />\n" +
+    "                    <span class=\"control__indicator\"></span>\n" +
+    "                </label>\n" +
     "            </div>\n" +
     "        </div>\n" +
     "</div>\n" +
@@ -5398,15 +5215,15 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"card-title\">List Task Engineer</div>\r" +
     "\n" +
-    "                    <!--<div class=\"row form-group\">\r" +
+    "                    <div class=\"row form-group\" >\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-1\">User ID:</label>\r" +
+    "                        <label class=\"control-label col-sm-1\">User ID</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
     "                            <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\" required>\r" +
     "\n" +
-    "                                <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.title}}</option>\r" +
+    "                                <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.username}}</option>\r" +
     "\n" +
     "                            </select>\r" +
     "\n" +
@@ -5414,7 +5231,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <label class=\"control-label col-xs-1\">Name:</label>\r" +
+    "                        <label class=\"control-label col-xs-1\">Name</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
@@ -5424,13 +5241,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <label class=\"control-label col-xs-1\">BTS:</label>\r" +
+    "                        <label class=\"control-label col-xs-1\">BTS</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
     "                            <select id=\"bts_fk\" name=\"bts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.bts_fk\" required>\r" +
     "\n" +
-    "                                <option ng-repeat=\"x in vm.formData.btses\" ng-value=\"x.bts_pk\">{{x.title}}</option>\r" +
+    "                                <option ng-repeat=\"x in vm.formData.btses\" ng-value=\"x.bts_pk\">{{x.name}}</option>\r" +
     "\n" +
     "                            </select>\r" +
     "\n" +
@@ -5442,13 +5259,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row form-group col-md-2 radio\">\r" +
     "\n" +
-    "                        <label><input type=\"radio\" name=\"optradio\" value=\"1\">Jangka Waktu</label>\r" +
+    "                        <label><input type=\"radio\" name=\"optradio\" value=\"1\"> Jangka Waktu</label>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
     "                    <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-1\">Tgl Mulai :</label>\r" +
+    "                        <label class=\"control-label col-sm-1\">Tgl Mulai</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
@@ -5458,7 +5275,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <label class=\"control-label col-xs-1\">Tgl Akhir :</label>\r" +
+    "                        <label class=\"control-label col-xs-1\">Tgl Akhir</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
@@ -5474,13 +5291,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row form-group col-md-2 radio\">\r" +
     "\n" +
-    "                        <label><input type=\"radio\" name=\"optradio\" value=\"1\">Periode Waktu</label>\r" +
+    "                        <label><input type=\"radio\" name=\"optradio\" value=\"1\"> Periode Waktu</label>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
     "                    <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-1\">Periode:</label>\r" +
+    "                        <label class=\"control-label col-sm-1\">Periode</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
@@ -5496,11 +5313,15 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"row form-group col-md-2\">\r" +
+    "                    <div class=\"row form-group col-md-2\" >\r" +
     "\n" +
-    "                        <button id=\"searchButton\" class=\"btn btn-success\">Search</button>\r" +
+    "                        <button id=\"searchButton\" style=\"border-radius: 20px\" ng-click=\"vm.search()\" class=\"btn btn-success\">Cari</button>\r" +
     "\n" +
-    "                    </div>-->\r" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group col-md-12\" style=\"margin-left: -1px; margin-right: -1px; border-bottom: 1px solid #ccc;\">\r" +
+    "\n" +
+    "                    </div>\r" +
     "\n" +
     "\r" +
     "\n" +

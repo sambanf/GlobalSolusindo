@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-19. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-20. 
 * @author Kairos
 */
 (function() {
@@ -3096,7 +3096,6 @@ angular.module('global-solusindo')
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
-
         return self;
     }
 })();
@@ -11312,7 +11311,6 @@ angular.module('global-solusindo')
             controller.datatable = dt;
             return dt;
         };
-
         return self;
     }
 
@@ -12136,6 +12134,7 @@ angular.module('global-solusindo')
 
     function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui) {
         var self = this;
+        self.param = {};
 
         function getExportColumns(params) {
             if (params && params.exportButtons && params.exportButtons.columns) {
@@ -12226,8 +12225,15 @@ angular.module('global-solusindo')
                         extendRequestData.sortName = defaultRequestData.sortName;
                         extendRequestData.sortDir = defaultRequestData.sortDir;
                     }
-
-                    var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+                    self.param.pageIndex = defaultRequestData.pageIndex;
+                    self.param.pageSize = defaultRequestData.pageSize;
+                    self.param.keyword = defaultRequestData.keyword;
+                    self.param.sortName = defaultRequestData.sortName;
+                    self.param.sortDir = defaultRequestData.sortDir;
+                    console.log(self.param);
+                    
+                    // var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+                    var requestData = self.param;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
                     }

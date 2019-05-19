@@ -12,7 +12,6 @@
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
-
         return self;
     }
 })();
