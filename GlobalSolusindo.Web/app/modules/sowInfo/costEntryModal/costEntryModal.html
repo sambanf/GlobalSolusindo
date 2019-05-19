@@ -1,0 +1,41 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title">Add Cost</h5>
+</div>
+
+<div class="modal-body">
+    <div class="row form-group">
+        <label class="control-label col-sm-2">Tanggal :</label>
+        <div class="col-sm-6">
+            <input type="text" id="tanggal" name="tanggal" ng-model="vm.model.tanggal" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="control-label col-sm-2">Kategori:</label>
+        <div class="col-sm-6">
+            <select id="kategoriCost_fk" name="kategoriCost_fk" class="form-control input-lg" size="0" ng-model="vm.model.kategoriCost_fk" required>
+                <option ng-repeat="x in vm.formData.costKategoris" ng-value="x.costKategori_pk">{{x.title}}</option>
+            </select>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="control-label col-sm-2">Nominal:</label>
+        <div class="col-sm-6">
+            <input type="Number" id="nominal" name="nominal" class="form-control" ng-model="vm.model.nominal" placeholder="SOW Name">
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="row form-group">
+        <label class="control-label col-sm-2">Description:</label>
+        <div class="col-sm-6">
+            <textarea type="text" class="form-control" id="deskripsi" name="deskripsi" ng-model="vm.model.deskripsi" placeholder="Description"></textarea>
+            <div class="invalid-feedback"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button id="saveButton" class="btn btn-primary" type="button">Save</button>
+    <button id="cancelButton" class="btn btn-default" type="button">Cancel</button>
+</div>

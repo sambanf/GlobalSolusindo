@@ -1,0 +1,33 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">List Issue Type</div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <button class="btn btn-success" ui-sref="app.issueTypeEntry({ id: '0'})">Tambah Issue Type</button>
+                            <button id="deleteButton" class="btn btn-danger">Delete Selected</button>
+                        </div>
+                        <div class="col-md-6 text-right" id="exportButtons">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table id="issueType">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Title</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

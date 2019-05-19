@@ -1,0 +1,41 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Detail Izin Cuti</div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <label class="control-label col-sm-2" hidden>User fk:</label>
+                            <div class="col-sm-2" hidden>
+                                <input type="text" id="user_fk" name="user_fk" class="form-control" ng-model="vm.model.user_fk" placeholder="User ID" disabled>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                            <label class="control-label col-sm-2">Nama Pengaju:</label>
+                            <label class="control-label col-sm-2">{{vm.model.userIzinCutiName}}</label>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col-sm-2">Posisi:</label>
+                            <label class="control-label col-sm-2">{{vm.model.userIzinCutiJabatan}}</label>
+                        </div>
+                        <div class="row">
+                            <label class="control-label col-sm-2">Tanggal Izin/Cuti:</label>
+                            <label class="control-label col-sm-3">{{vm.model.tglMulai}}</label> 
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Alasan:</label>
+                            <label class="control-label col-sm-8">{{vm.model.alasan}}</label>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <button class="btn btn-success" id="approveButton">Approve</button>
+                                <button class="btn btn-danger" id="rejectButton">Reject</button>
+                                <button class="btn btn-info float-right" ui-sref="app.izinCutiApprovalList">Kembali</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

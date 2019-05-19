@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{871E4555-9108-454E-95B0-A60CC4141F62}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GlobalSolusindo.Identity</RootNamespace>
+    <AssemblyName>GlobalSolusindo.Identity</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessControl.cs" />
+    <Compile Include="KategoriJabatan\KategoriJabatanDTO.cs" />
+    <Compile Include="KategoriJabatan\KategoriJabatanFactory.cs" />
+    <Compile Include="KategoriJabatan\KategoriJabatanValidator.cs" />
+    <Compile Include="KategoriJabatan\DML\KategoriJabatanCreateHandler.cs" />
+    <Compile Include="KategoriJabatan\DML\KategoriJabatanDeleteHandler.cs" />
+    <Compile Include="KategoriJabatan\DML\KategoriJabatanUpdateHandler.cs" />
+    <Compile Include="KategoriJabatan\EntryForm\KategoriJabatanEntryControlBuilder.cs" />
+    <Compile Include="KategoriJabatan\EntryForm\KategoriJabatanEntryDataProvider.cs" />
+    <Compile Include="KategoriJabatan\EntryForm\KategoriJabatanEntryFormData.cs" />
+    <Compile Include="KategoriJabatan\EntryForm\KategoriJabatanEntryModel.cs" />
+    <Compile Include="KategoriJabatan\ListForm\KategoriJabatanListDataProvider.cs" />
+    <Compile Include="KategoriJabatan\ListForm\KategoriJabatanListFormData.cs" />
+    <Compile Include="KategoriJabatan\ListForm\KategoriJabatanListModel.cs" />
+    <Compile Include="KategoriJabatan\Queries\KategoriJabatanQuery.cs" />
+    <Compile Include="KategoriJabatan\Queries\KategoriJabatanSearch.cs" />
+    <Compile Include="TokenSessionManager.cs" />
+    <Compile Include="Login\LoginManager.cs" />
+    <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamCreateHandler.cs" />
+    <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamDeleteHandler.cs" />
+    <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamUpdateHandler.cs" />
+    <Compile Include="MappingUserToAuthParam\EntryForm\MappingUserToAuthParamEntryControlBuilder.cs" />
+    <Compile Include="MappingUserToAuthParam\EntryForm\MappingUserToAuthParamEntryDataProvider.cs" />
+    <Compile Include="MappingUserToAuthParam\EntryForm\MappingUserToAuthParamEntryFormData.cs" />
+    <Compile Include="MappingUserToAuthParam\EntryForm\MappingUserToAuthParamEntryModel.cs" />
+    <Compile Include="MappingUserToAuthParam\ListForm\MappingUserToAuthParamListDataProvider.cs" />
+    <Compile Include="MappingUserToAuthParam\ListForm\MappingUserToAuthParamListFormData.cs" />
+    <Compile Include="MappingUserToAuthParam\ListForm\MappingUserToAuthParamListModel.cs" />
+    <Compile Include="MappingUserToAuthParam\MappingUserToAuthParamDTO.cs" />
+    <Compile Include="MappingUserToAuthParam\MappingUserToAuthParamFactory.cs" />
+    <Compile Include="MappingUserToAuthParam\MappingUserToAuthParamValidator.cs" />
+    <Compile Include="MappingUserToAuthParam\Queries\MappingUserToAuthParamQuery.cs" />
+    <Compile Include="MappingUserToAuthParam\Queries\MappingUserToAuthParamSearch.cs" />
+    <Compile Include="MappingUserToRoleGroup\DML\MappingUserToRoleGroupCreateHandler.cs" />
+    <Compile Include="MappingUserToRoleGroup\DML\MappingUserToRoleGroupDeleteHandler.cs" />
+    <Compile Include="MappingUserToRoleGroup\DML\MappingUserToRoleGroupUpdateHandler.cs" />
+    <Compile Include="MappingUserToRoleGroup\EntryForm\MappingUserToRoleGroupEntryControlBuilder.cs" />
+    <Compile Include="MappingUserToRoleGroup\EntryForm\MappingUserToRoleGroupEntryDataProvider.cs" />
+    <Compile Include="MappingUserToRoleGroup\EntryForm\MappingUserToRoleGroupEntryFormData.cs" />
+    <Compile Include="MappingUserToRoleGroup\EntryForm\MappingUserToRoleGroupEntryModel.cs" />
+    <Compile Include="MappingUserToRoleGroup\ListForm\MappingUserToRoleGroupListDataProvider.cs" />
+    <Compile Include="MappingUserToRoleGroup\ListForm\MappingUserToRoleGroupListFormData.cs" />
+    <Compile Include="MappingUserToRoleGroup\ListForm\MappingUserToRoleGroupListModel.cs" />
+    <Compile Include="MappingUserToRoleGroup\MappingUserToRoleGroupDTO.cs" />
+    <Compile Include="MappingUserToRoleGroup\MappingUserToRoleGroupFactory.cs" />
+    <Compile Include="MappingUserToRoleGroup\MappingUserToRoleGroupValidator.cs" />
+    <Compile Include="MappingUserToRoleGroup\Queries\MappingUserToRoleGroupQuery.cs" />
+    <Compile Include="MappingUserToRoleGroup\Queries\MappingUserToRoleGroupSearch.cs" />
+    <Compile Include="MappingRoleToRoleGroup\DML\RoleMappingCreateHandler.cs" />
+    <Compile Include="MappingRoleToRoleGroup\DML\MappingRoleToRoleGroupCreateHandler.cs" />
+    <Compile Include="MappingRoleToRoleGroup\DML\MappingRoleToRoleGroupDeleteHandler.cs" />
+    <Compile Include="MappingRoleToRoleGroup\DML\MappingRoleToRoleGroupUpdateHandler.cs" />
+    <Compile Include="MappingRoleToRoleGroup\EntryForm\MappingRoleToRoleGroupEntryControlBuilder.cs" />
+    <Compile Include="MappingRoleToRoleGroup\EntryForm\MappingRoleToRoleGroupEntryDataProvider.cs" />
+    <Compile Include="MappingRoleToRoleGroup\EntryForm\MappingRoleToRoleGroupEntryFormData.cs" />
+    <Compile Include="MappingRoleToRoleGroup\EntryForm\MappingRoleToRoleGroupEntryModel.cs" />
+    <Compile Include="MappingRoleToRoleGroup\MappingRoleToRoleGroupFactory.cs" />
+    <Compile Include="MappingRoleToRoleGroup\ListForm\MappingRoleToRoleGroupListDataProvider.cs" />
+    <Compile Include="MappingRoleToRoleGroup\ListForm\MappingRoleToRoleGroupListFormData.cs" />
+    <Compile Include="MappingRoleToRoleGroup\ListForm\MappingRoleToRoleGroupListModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AuthParam\DML\AuthParamCreateHandler.cs" />
+    <Compile Include="AuthParam\DML\AuthParamDeleteHandler.cs" />
+    <Compile Include="AuthParam\DML\AuthParamUpdateHandler.cs" />
+    <Compile Include="AuthParam\EntryForm\AuthParamEntryControlBuilder.cs" />
+    <Compile Include="AuthParam\EntryForm\AuthParamEntryDataProvider.cs" />
+    <Compile Include="AuthParam\EntryForm\AuthParamEntryFormData.cs" />
+    <Compile Include="AuthParam\EntryForm\AuthParamEntryModel.cs" />
+    <Compile Include="AuthParam\ListForm\AuthParamListDataProvider.cs" />
+    <Compile Include="AuthParam\ListForm\AuthParamListFormData.cs" />
+    <Compile Include="AuthParam\ListForm\AuthParamListModel.cs" />
+    <Compile Include="AuthParam\Queries\AuthParamQuery.cs" />
+    <Compile Include="AuthParam\Queries\AuthParamSearch.cs" />
+    <Compile Include="AuthParam\AuthParamDTO.cs" />
+    <Compile Include="AuthParam\AuthParamFactory.cs" />
+    <Compile Include="AuthParam\AuthParamValidator.cs" />
+    <Compile Include="MappingRoleToRoleGroup\Queries\MappingRoleToRoleGroupQuery.cs" />
+    <Compile Include="MappingRoleToRoleGroup\Queries\MappingRoleToRoleGroupSearch.cs" />
+    <Compile Include="MappingRoleToRoleGroup\MappingRoleToRoleGroupDTO.cs" />
+    <Compile Include="MappingRoleToRoleGroup\MappingRoleToRoleGroupValidator.cs" />
+    <Compile Include="UserDetail\DML\UserDetailCreateHandler.cs" />
+    <Compile Include="UserDetail\DML\UserDetailDeleteHandler.cs" />
+    <Compile Include="UserDetail\DML\UserDetailUpdateHandler.cs" />
+    <Compile Include="UserDetail\EntryForm\UserDetailEntryControlBuilder.cs" />
+    <Compile Include="UserDetail\EntryForm\UserDetailEntryDataProvider.cs" />
+    <Compile Include="UserDetail\EntryForm\UserDetailEntryFormData.cs" />
+    <Compile Include="UserDetail\EntryForm\UserDetailEntryModel.cs" />
+    <Compile Include="UserDetail\ListForm\UserDetailListDataProvider.cs" />
+    <Compile Include="UserDetail\ListForm\UserDetailListFormData.cs" />
+    <Compile Include="UserDetail\ListForm\UserDetailListModel.cs" />
+    <Compile Include="UserDetail\Queries\UserDetailQuery.cs" />
+    <Compile Include="UserDetail\Queries\UserDetailSearch.cs" />
+    <Compile Include="UserDetail\UserDetailDTO.cs" />
+    <Compile Include="UserDetail\UserDetailFactory.cs" />
+    <Compile Include="UserDetail\UserDetailValidator.cs" />
+    <Compile Include="User\DML\UserCreateHandler.cs" />
+    <Compile Include="User\DML\UserDeleteHandler.cs" />
+    <Compile Include="User\DML\UserImportCsv.cs" />
+    <Compile Include="User\DML\UserUpdateHandler.cs" />
+    <Compile Include="User\EntryForm\UserEntryControlBuilder.cs" />
+    <Compile Include="User\EntryForm\UserEntryDataProvider.cs" />
+    <Compile Include="User\EntryForm\UserEntryFormData.cs" />
+    <Compile Include="User\EntryForm\UserEntryModel.cs" />
+    <Compile Include="User\ListForm\UserListDataProvider.cs" />
+    <Compile Include="User\ListForm\UserListFormData.cs" />
+    <Compile Include="User\ListForm\UserListModel.cs" />
+    <Compile Include="User\Queries\UserQuery.cs" />
+    <Compile Include="User\Queries\UserSearch.cs" />
+    <Compile Include="User\UserDTO.cs" />
+    <Compile Include="User\UserFactory.cs" />
+    <Compile Include="User\UserValidator.cs" />
+    <Compile Include="RoleGroup\DML\RoleGroupCreateHandler.cs" />
+    <Compile Include="RoleGroup\DML\RoleGroupDeleteHandler.cs" />
+    <Compile Include="RoleGroup\DML\RoleGroupUpdateHandler.cs" />
+    <Compile Include="RoleGroup\EntryForm\RoleGroupEntryControlBuilder.cs" />
+    <Compile Include="RoleGroup\EntryForm\RoleGroupEntryDataProvider.cs" />
+    <Compile Include="RoleGroup\EntryForm\RoleGroupEntryFormData.cs" />
+    <Compile Include="RoleGroup\EntryForm\RoleGroupEntryModel.cs" />
+    <Compile Include="RoleGroup\ListForm\RoleGroupListDataProvider.cs" />
+    <Compile Include="RoleGroup\ListForm\RoleGroupListFormData.cs" />
+    <Compile Include="RoleGroup\ListForm\RoleGroupListModel.cs" />
+    <Compile Include="RoleGroup\Queries\RoleGroupQuery.cs" />
+    <Compile Include="RoleGroup\Queries\RoleGroupSearch.cs" />
+    <Compile Include="RoleGroup\RoleGroupDTO.cs" />
+    <Compile Include="RoleGroup\RoleGroupFactory.cs" />
+    <Compile Include="RoleGroup\RoleGroupValidator.cs" />
+    <Compile Include="Role\DML\RoleCreateHandler.cs" />
+    <Compile Include="Role\DML\RoleDeleteHandler.cs" />
+    <Compile Include="Role\DML\RoleUpdateHandler.cs" />
+    <Compile Include="Role\EntryForm\RoleEntryControlBuilder.cs" />
+    <Compile Include="Role\EntryForm\RoleEntryDataProvider.cs" />
+    <Compile Include="Role\EntryForm\RoleEntryFormData.cs" />
+    <Compile Include="Role\EntryForm\RoleEntryModel.cs" />
+    <Compile Include="Role\ListForm\RoleListDataProvider.cs" />
+    <Compile Include="Role\ListForm\RoleListFormData.cs" />
+    <Compile Include="Role\ListForm\RoleListModel.cs" />
+    <Compile Include="Role\Queries\RoleQuery.cs" />
+    <Compile Include="Role\Queries\RoleSearch.cs" />
+    <Compile Include="Role\RoleDTO.cs" />
+    <Compile Include="Role\RoleFactory.cs" />
+    <Compile Include="Role\RoleValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GlobalSolusindo.Base\GlobalSolusindo.Base.csproj">
+      <Project>{F3A62027-FA51-4F0A-B5BA-42385DE0D331}</Project>
+      <Name>GlobalSolusindo.Base</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GlobalSolusindo.DataAccess.SqlServer\GlobalSolusindo.DataAccess.SqlServer.csproj">
+      <Project>{84E76E65-832E-4168-87CB-680FF40418BA}</Project>
+      <Name>GlobalSolusindo.DataAccess.SqlServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kairos\Kairos.csproj">
+      <Project>{8C434AAF-6A6C-4727-AD32-0C875FF6D9A9}</Project>
+      <Name>Kairos</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

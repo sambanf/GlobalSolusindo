@@ -1,0 +1,22 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title" id="modal-title">User Detail</h5>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Role Name :</label><label class="col-sm-8">{{ model.title }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Description :</label><label class="col-sm-8">{{ model.description }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Created Date :</label><label class="col-sm-8">{{ model.createdDate | date: 'dd/MM/yyyy' }}</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="close()">Cancel</button>
+</div>

@@ -1,0 +1,562 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9FCD2590-8E1D-484A-BFDB-C2AE5EE7DC1B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GlobalSolusindo.Web</RootNamespace>
+    <AssemblyName>GlobalSolusindo.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app\app.config.js" />
+    <Content Include="app\app.js" />
+    <Content Include="app\assets\css\angular-wizard.css" />
+    <Content Include="app\assets\css\bootstrap-datetimepicker.css" />
+    <Content Include="app\assets\css\global-solusindo-app-style.1.0.0.100.css" />
+    <Content Include="app\assets\css\main.min.css" />
+    <Content Include="app\assets\css\select2.css" />
+    <Content Include="app\assets\css\style.css" />
+    <Content Include="app\assets\fonts\fontawesome-free\css\all.css" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-brands-400.svg" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-regular-400.svg" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-solid-900.svg" />
+    <Content Include="app\assets\images\avatars\1.jpg" />
+    <Content Include="app\assets\images\avatars\2.jpg" />
+    <Content Include="app\assets\images\avatars\3.jpg" />
+    <Content Include="app\assets\images\avatars\4.jpg" />
+    <Content Include="app\assets\images\avatars\5.jpg" />
+    <Content Include="app\assets\images\avatars\6.jpg" />
+    <Content Include="app\assets\images\avatars\7.jpg" />
+    <Content Include="app\assets\images\avatars\8.jpg" />
+    <Content Include="app\assets\images\avatars\9.jpg" />
+    <Content Include="app\assets\images\avatars\default.png" />
+    <Content Include="app\assets\images\caret-right.png" />
+    <Content Include="app\assets\images\cd-icons.svg" />
+    <Content Include="app\assets\images\chart-1.png" />
+    <Content Include="app\assets\images\chart-2.png" />
+    <Content Include="app\assets\images\chart-3.png" />
+    <Content Include="app\assets\images\chart-4.png" />
+    <Content Include="app\assets\images\default.png" />
+    <Content Include="app\assets\images\favicon.ico" />
+    <Content Include="app\assets\images\favicon.png" />
+    <Content Include="app\assets\images\logo.png" />
+    <Content Include="app\assets\images\payment-1.png" />
+    <Content Include="app\assets\images\payment-2.png" />
+    <Content Include="app\assets\images\payment-3.png" />
+    <Content Include="app\assets\images\payment-4.png" />
+    <Content Include="app\assets\images\sort_asc.png" />
+    <Content Include="app\assets\images\sort_asc_disabled.png" />
+    <Content Include="app\assets\images\sort_both.png" />
+    <Content Include="app\assets\images\sort_desc.png" />
+    <Content Include="app\assets\images\sort_desc_disabled.png" />
+    <Content Include="app\assets\images\tower-bts.jpg" />
+    <Content Include="app\assets\images\trucks.png" />
+    <Content Include="app\assets\js\global-solusindo-app-app.1.0.0.100.js" />
+    <Content Include="app\assets\js\global-solusindo-app-dist.1.0.0.100.js" />
+    <Content Include="app\assets\js\global-solusindo-app-dist.min.1.0.0.100.js" />
+    <Content Include="app\assets\js\global-solusindo-app-templates.1.0.0.100.js" />
+    <Content Include="app\assets\webfonts\fa-brands-400.svg" />
+    <Content Include="app\assets\webfonts\fa-regular-400.svg" />
+    <Content Include="app\assets\webfonts\fa-solid-900.svg" />
+    <Content Include="app\modules\btsEntry\btsAddTechnologyService.js" />
+    <Content Include="app\modules\technologyEntry\technologyBindingService.js" />
+    <Content Include="app\modules\technologyEntry\technologyEntry.html" />
+    <Content Include="app\modules\technologyEntry\technologyEntryCtrl.js" />
+    <Content Include="app\modules\technologyEntry\technologyEntryRoute.js" />
+    <Content Include="app\modules\technologyEntry\technologySaveService.js" />
+    <Content Include="app\modules\technology\technology.html" />
+    <Content Include="app\modules\technology\technologyCtrl.js" />
+    <Content Include="app\modules\technology\technologyDeleteService.js" />
+    <Content Include="app\modules\technology\technologyDtService.js" />
+    <Content Include="app\modules\technology\technologyRoute.js" />
+    <Content Include="app\modules\technology\technologyViewService.js" />
+    <Content Include="app\modules\bts\btsMapService.js" />
+    <Content Include="app\modules\issueTypeEntry\issueTypeBindingService.js" />
+    <Content Include="app\modules\issueTypeEntry\issueTypeEntry.html" />
+    <Content Include="app\modules\issueTypeEntry\issueTypeEntryCtrl.js" />
+    <Content Include="app\modules\issueTypeEntry\issueTypeEntryRoute.js" />
+    <Content Include="app\modules\issueTypeEntry\issueTypeSaveService.js" />
+    <Content Include="app\modules\issueType\issueType.html" />
+    <Content Include="app\modules\issueType\issueTypeCtrl.js" />
+    <Content Include="app\modules\issueType\issueTypeDeleteService.js" />
+    <Content Include="app\modules\issueType\issueTypeDtService.js" />
+    <Content Include="app\modules\issueType\issueTypeRoute.js" />
+    <Content Include="app\modules\issueType\issueTypeViewService.js" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApproval.html" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApprovalCtrl.js" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApprovalDtService.js" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApprovalRoute.js" />
+    <Content Include="app\modules\izinCutiApproval\izinCutiApprovalViewService.js" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalBindingService.js" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalEntry.html" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalEntryCtrl.js" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalEntryRoute.js" />
+    <Content Include="app\modules\izinCutiApprovalEntry\izinCutiApprovalSaveService.js" />
+    <Content Include="app\modules\izinCutiEntry\izinCutiBindingService.js" />
+    <Content Include="app\modules\izinCutiEntry\izinCutiEntry.html" />
+    <Content Include="app\modules\izinCutiEntry\izinCutiEntryCtrl.js" />
+    <Content Include="app\modules\izinCutiEntry\izinCutiEntryRoute.js" />
+    <Content Include="app\modules\izinCutiEntry\izinCutiSaveService.js" />
+    <Content Include="app\modules\izinCuti\izinCuti.html" />
+    <Content Include="app\modules\izinCuti\izinCutiCtrl.js" />
+    <Content Include="app\modules\izinCuti\izinCutiDeleteService.js" />
+    <Content Include="app\modules\izinCuti\izinCutiDtService.js" />
+    <Content Include="app\modules\izinCuti\izinCutiRoute.js" />
+    <Content Include="app\modules\izinCuti\izinCutiViewService.js" />
+    <Content Include="app\modules\project\projectDetail.html" />
+    <Content Include="app\modules\report\activities\activities.html" />
+    <Content Include="app\modules\report\activities\activitiesCtrl.js" />
+    <Content Include="app\modules\report\activities\activitiesDtService.js" />
+    <Content Include="app\modules\report\activities\activitiesRoute.js" />
+    <Content Include="app\modules\report\dailyTask\dailyTask.html" />
+    <Content Include="app\modules\report\dailyTask\dailyTaskCtrl.js" />
+    <Content Include="app\modules\report\dailyTask\dailyTaskDtService.js" />
+    <Content Include="app\modules\report\dailyTask\dailyTaskRoute.js" />
+    <Content Include="app\modules\report\taskEngineerDetail\TaskEngineerDetailBindingService.js" />
+    <Content Include="app\modules\report\taskEngineerDetail\taskEngineerDetailCtrl.js" />
+    <Content Include="app\modules\report\taskEngineer\taskEngineer.html" />
+    <Content Include="app\modules\report\taskEngineer\taskEngineerCtrl.js" />
+    <Content Include="app\modules\report\taskEngineer\taskEngineerDeleteService.js" />
+    <Content Include="app\modules\report\taskEngineer\taskEngineerDtService.js" />
+    <Content Include="app\modules\report\taskEngineer\taskEngineerRoute.js" />
+    <Content Include="app\modules\report\taskEngineer\taskEngineerViewService.js" />
+    <Content Include="app\modules\report\asetHistori\asetHistori.html" />
+    <Content Include="app\modules\report\asetHistori\asetHistoriCtrl.js" />
+    <Content Include="app\modules\report\asetHistori\asetHistoriDtService.js" />
+    <Content Include="app\modules\report\asetHistori\asetHistoriRoute.js" />
+    <Content Include="app\modules\report\taskEngineerDetail\taskEngineerDetail.html" />
+    <Content Include="app\modules\report\taskEngineerDetail\taskEngineerDetailRoute.js" />
+    <Content Include="app\modules\report\timesheetEngineerDetail\timesheetEngineerDetail.html" />
+    <Content Include="app\modules\report\timesheetEngineerDetail\timesheetEngineerDetailCtrl.js" />
+    <Content Include="app\modules\report\timesheetEngineerDetail\timesheetEngineerDetailRoute.js" />
+    <Content Include="app\modules\report\timesheetEngineerDetail\timesheetEngineerDetailDtService.js" />
+    <Content Include="app\modules\report\timesheetEngineerDetail\timesheetEngineerViewService.js" />
+    <Content Include="app\modules\report\timesheetEngineer\timesheetEngineer.html" />
+    <Content Include="app\modules\report\timesheetEngineer\timesheetEngineerCtrl.js" />
+    <Content Include="app\modules\report\timesheetEngineer\timesheetEngineerDtService.js" />
+    <Content Include="app\modules\report\timesheetEngineer\timesheetEngineerRoute.js" />
+    <Content Include="app\modules\report\timesheetEngineer\timesheetEngineerViewService.js" />
+    <Content Include="app\modules\roleGroup\roleGroupDetail.html" />
+    <Content Include="app\modules\role\roleDetail.html" />
+    <Content Include="app\modules\service\kmlService.js" />
+    <Content Include="app\modules\service\serverErrorService.js" />
+    <Content Include="app\modules\service\tokenService.js" />
+    <Content Include="app\modules\service\userInfoService.js" />
+    <Content Include="app\modules\sowEntry\sowMapService.js" />
+    <Content Include="app\modules\sowInfo\costDtService.js" />
+    <Content Include="app\modules\sowInfo\costShowModalService.js" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModal.html" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModalBindingService.js" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModalCancelService.js" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModalCtrl.js" />
+    <Content Include="app\modules\sowInfo\costEntryModal\costEntryModalSaveService.js" />
+    <Content Include="app\modules\sowInfo\costDeleteService.js" />
+    <Content Include="app\modules\sowInfo\sowInfoBindingService.js" />
+    <Content Include="app\modules\sowInfo\sowInfo.html" />
+    <Content Include="app\modules\sowInfo\sowInfoCtrl.js" />
+    <Content Include="app\modules\sowInfo\sowInfoRoute.js" />
+    <Content Include="app\modules\sowEntry\sowBindingService.js" />
+    <Content Include="app\modules\sowEntry\sowEntry.html" />
+    <Content Include="app\modules\sowEntry\sowEntryCtrl.js" />
+    <Content Include="app\modules\sowEntry\sowEntryRoute.js" />
+    <Content Include="app\modules\sowEntry\sowSaveService.js" />
+    <Content Include="app\modules\sowEntry\sowSelect2Service.js" />
+    <Content Include="app\modules\sow\sow.html" />
+    <Content Include="app\modules\sow\sowCtrl.js" />
+    <Content Include="app\modules\sow\sowDeleteService.js" />
+    <Content Include="app\modules\sow\sowDetail.html" />
+    <Content Include="app\modules\kategoriJabatanEntry\kategoriJabatanBindingService.js" />
+    <Content Include="app\modules\kategoriJabatanEntry\kategoriJabatanEntry.html" />
+    <Content Include="app\modules\kategoriJabatanEntry\kategoriJabatanEntryCtrl.js" />
+    <Content Include="app\modules\kategoriJabatanEntry\kategoriJabatanEntryRoute.js" />
+    <Content Include="app\modules\kategoriJabatanEntry\kategoriJabatanSaveService.js" />
+    <Content Include="app\modules\kategoriJabatan\kategoriJabatan.html" />
+    <Content Include="app\modules\kategoriJabatan\kategoriJabatanCtrl.js" />
+    <Content Include="app\modules\kategoriJabatan\kategoriJabatanDeleteService.js" />
+    <Content Include="app\modules\kategoriJabatan\kategoriJabatanDtService.js" />
+    <Content Include="app\modules\kategoriJabatan\kategoriJabatanRoute.js" />
+    <Content Include="app\modules\kategoriJabatan\kategoriJabatanViewService.js" />
+    <Content Include="app\modules\projectEntry\projectSelect2Service.js" />
+    <Content Include="app\modules\projectEntry\projectBindingService.js" />
+    <Content Include="app\modules\projectEntry\projectEntry.html" />
+    <Content Include="app\modules\projectEntry\projectEntryCtrl.js" />
+    <Content Include="app\modules\projectEntry\projectEntryRoute.js" />
+    <Content Include="app\modules\projectEntry\projectSaveService.js" />
+    <Content Include="app\modules\project\project.html" />
+    <Content Include="app\modules\project\projectCtrl.js" />
+    <Content Include="app\modules\project\projectDeleteService.js" />
+    <Content Include="app\modules\project\projectDtService.js" />
+    <Content Include="app\modules\project\projectRoute.js" />
+    <Content Include="app\modules\project\projectViewService.js" />
+    <Content Include="app\modules\costKategoriEntry\costKategoriBindingService.js" />
+    <Content Include="app\modules\costKategoriEntry\costKategoriEntry.html" />
+    <Content Include="app\modules\costKategoriEntry\costKategoriEntryCtrl.js" />
+    <Content Include="app\modules\costKategoriEntry\costKategoriEntryRoute.js" />
+    <Content Include="app\modules\costKategoriEntry\costKategoriSaveService.js" />
+    <Content Include="app\modules\costKategori\costKategori.html" />
+    <Content Include="app\modules\costKategori\costKategoriCtrl.js" />
+    <Content Include="app\modules\costKategori\costKategoriDeleteService.js" />
+    <Content Include="app\modules\costKategori\costKategoriDtService.js" />
+    <Content Include="app\modules\costKategori\costKategoriRoute.js" />
+    <Content Include="app\modules\costKategori\costKategoriViewService.js" />
+    <Content Include="app\modules\deliveryAreaEntry\deliveryAreaBindingService.js" />
+    <Content Include="app\modules\deliveryAreaEntry\deliveryAreaEntry.html" />
+    <Content Include="app\modules\deliveryAreaEntry\deliveryAreaEntryCtrl.js" />
+    <Content Include="app\modules\deliveryAreaEntry\deliveryAreaEntryRoute.js" />
+    <Content Include="app\modules\deliveryAreaEntry\deliveryAreaSaveService.js" />
+    <Content Include="app\modules\deliveryArea\deliveryArea.html" />
+    <Content Include="app\modules\deliveryArea\deliveryAreaCtrl.js" />
+    <Content Include="app\modules\deliveryArea\deliveryAreaDeleteService.js" />
+    <Content Include="app\modules\deliveryArea\deliveryAreaDtService.js" />
+    <Content Include="app\modules\deliveryArea\deliveryAreaRoute.js" />
+    <Content Include="app\modules\deliveryArea\deliveryAreaViewService.js" />
+    <Content Include="app\modules\btsEntry\btsBindingService.js" />
+    <Content Include="app\modules\btsEntry\btsEntry.html" />
+    <Content Include="app\modules\btsEntry\btsEntryCtrl.js" />
+    <Content Include="app\modules\btsEntry\btsEntryRoute.js" />
+    <Content Include="app\modules\btsEntry\btsSelect2Service.js" />
+    <Content Include="app\modules\btsEntry\btsSaveService.js" />
+    <Content Include="app\modules\bts\bts.html" />
+    <Content Include="app\modules\bts\btsCtrl.js" />
+    <Content Include="app\modules\bts\btsDeleteService.js" />
+    <Content Include="app\modules\bts\btsDtService.js" />
+    <Content Include="app\modules\bts\btsRoute.js" />
+    <Content Include="app\modules\bts\btsViewService.js" />
+    <Content Include="app\modules\cabangEntry\cabangBindingService.js" />
+    <Content Include="app\modules\cabangEntry\cabangEntry.html" />
+    <Content Include="app\modules\cabangEntry\cabangEntryCtrl.js" />
+    <Content Include="app\modules\cabangEntry\cabangEntryRoute.js" />
+    <Content Include="app\modules\cabangEntry\cabangSaveService.js" />
+    <Content Include="app\modules\cabang\cabang.html" />
+    <Content Include="app\modules\cabang\cabangCtrl.js" />
+    <Content Include="app\modules\cabang\cabangDeleteService.js" />
+    <Content Include="app\modules\cabang\cabangDtService.js" />
+    <Content Include="app\modules\cabang\cabangRoute.js" />
+    <Content Include="app\modules\cabang\cabangViewService.js" />
+    <Content Include="app\modules\kotaEntry\kotaBindingService.js" />
+    <Content Include="app\modules\kotaEntry\kotaEntry.html" />
+    <Content Include="app\modules\kotaEntry\kotaEntryCtrl.js" />
+    <Content Include="app\modules\kotaEntry\kotaEntryRoute.js" />
+    <Content Include="app\modules\kotaEntry\kotaSaveService.js" />
+    <Content Include="app\modules\kota\kota.html" />
+    <Content Include="app\modules\kota\kotaCtrl.js" />
+    <Content Include="app\modules\kota\kotaDeleteService.js" />
+    <Content Include="app\modules\kota\kotaDtService.js" />
+    <Content Include="app\modules\kota\kotaRoute.js" />
+    <Content Include="app\modules\kota\kotaViewService.js" />
+    <Content Include="app\modules\area\area.html" />
+    <Content Include="app\modules\area\areaCtrl.js" />
+    <Content Include="app\modules\area\areaDeleteService.js" />
+    <Content Include="app\modules\area\areaDtService.js" />
+    <Content Include="app\modules\area\areaRoute.js" />
+    <Content Include="app\modules\area\areaViewService.js" />
+    <Content Include="app\modules\areaEntry\areaBindingService.js" />
+    <Content Include="app\modules\areaEntry\areaEntry.html" />
+    <Content Include="app\modules\areaEntry\areaEntryCtrl.js" />
+    <Content Include="app\modules\areaEntry\areaEntryRoute.js" />
+    <Content Include="app\modules\areaEntry\areaSaveService.js" />
+    <Content Include="app\modules\operatorEntry\operatorBindingService.js" />
+    <Content Include="app\modules\operatorEntry\operatorEntry.html" />
+    <Content Include="app\modules\operatorEntry\operatorEntryCtrl.js" />
+    <Content Include="app\modules\operatorEntry\operatorEntryRoute.js" />
+    <Content Include="app\modules\operatorEntry\operatorSaveService.js" />
+    <Content Include="app\modules\operator\operator.html" />
+    <Content Include="app\modules\operator\operatorCtrl.js" />
+    <Content Include="app\modules\operator\operatorDeleteService.js" />
+    <Content Include="app\modules\operator\operatorDtService.js" />
+    <Content Include="app\modules\operator\operatorRoute.js" />
+    <Content Include="app\modules\operator\operatorViewService.js" />
+    <Content Include="app\modules\asset\asset.html" />
+    <Content Include="app\modules\asset\assetCtrl.js" />
+    <Content Include="app\modules\asset\assetDeleteService.js" />
+    <Content Include="app\modules\asset\assetDtService.js" />
+    <Content Include="app\modules\asset\assetModal\assetModal.html" />
+    <Content Include="app\modules\asset\assetModal\assetModalBindingService.js" />
+    <Content Include="app\modules\asset\assetModal\assetModalCtrl.js" />
+    <Content Include="app\modules\asset\assetModal\assetModalDirective.js" />
+    <Content Include="app\modules\asset\assetRoute.js" />
+    <Content Include="app\modules\asset\assetViewService.js" />
+    <Content Include="app\modules\dashboard\dashboard.html" />
+    <Content Include="app\modules\dashboard\dashboardCtrl.js" />
+    <Content Include="app\modules\dashboard\dashboardModule.js" />
+    <Content Include="app\modules\dashboard\dashboardRoute.js" />
+    <Content Include="app\modules\dashboard\dashboardService.js" />
+    <Content Include="app\modules\layouts\app.html" />
+    <Content Include="app\modules\layouts\appCtrl.js" />
+    <Content Include="app\modules\layouts\appRoute.js" />
+    <Content Include="app\modules\layouts\directive\Directive.js" />
+    <Content Include="app\modules\layouts\footer.html" />
+    <Content Include="app\modules\layouts\nav-bar\navbar.html" />
+    <Content Include="app\modules\layouts\nav-bar\navBarCtrl.js" />
+    <Content Include="app\modules\layouts\nav-bar\navbarService.js" />
+    <Content Include="app\modules\layouts\side-bar\sidebar.html" />
+    <Content Include="app\modules\layouts\side-bar\sidebarCtrl.js" />
+    <Content Include="app\modules\layouts\side-bar\sidebarService.js" />
+    <Content Include="app\modules\login\login.html" />
+    <Content Include="app\modules\login\loginCtrl.js" />
+    <Content Include="app\modules\login\loginRoute.js" />
+    <Content Include="app\modules\authParam\authParam.html" />
+    <Content Include="app\modules\authParam\authParamCtrl.js" />
+    <Content Include="app\modules\authParam\authParamDeleteService.js" />
+    <Content Include="app\modules\authParam\authParamDtService.js" />
+    <Content Include="app\modules\authParam\authParamRoute.js" />
+    <Content Include="app\modules\authParam\authParamViewService.js" />
+    <Content Include="app\modules\authParamEntry\authParamBindingService.js" />
+    <Content Include="app\modules\authParamEntry\authParamEntry.html" />
+    <Content Include="app\modules\authParamEntry\authParamEntryCtrl.js" />
+    <Content Include="app\modules\authParamEntry\authParamEntryRoute.js" />
+    <Content Include="app\modules\authParamEntry\authParamSaveService.js" />
+    <Content Include="app\modules\mappingUserToAuthParam\mappingUserToAuthParam.html" />
+    <Content Include="app\modules\mappingUserToAuthParam\mappingUserToAuthParamCtrl.js" />
+    <Content Include="app\modules\mappingUserToAuthParam\mappingUserToAuthParamDtService.js" />
+    <Content Include="app\modules\mappingUserToAuthParam\mappingUserToAuthParamRoute.js" />
+    <Content Include="app\modules\mappingUserToAuthParam\mappingUserToAuthParamViewService.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\mappingUserToAuthParamBindingService.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\mappingUserToAuthParamDeleteService.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\mappingUserToAuthParamDtService.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\mappingUserToAuthParamEntry.html" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\mappingUserToAuthParamEntryCtrl.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\mappingUserToAuthParamEntryRoute.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\mappingUserToRoleGroupSaveService.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\modal\userAuthParamModal.html" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\modal\userAuthParamModalBindingService.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\modal\userAuthParamModalCancelService.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\modal\userAuthParamModalCtrl.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\modal\userAuthParamModalDirective.js" />
+    <Content Include="app\modules\mappingUserToAuthParamEntry\modal\userAuthParamModalSaveService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupBindingService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupDtService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupEntry.html" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupEntryCtrl.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupEntryRoute.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupSaveService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModal.html" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalBindingService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalCancelService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalCtrl.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalDirective.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\modal\userModalSaveService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroupEntry\mappingUserToRoleGroupDeleteService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroup\mappingUserToRoleGroup.html" />
+    <Content Include="app\modules\mappingUserToRoleGroup\mappingUserToRoleGroupCtrl.js" />
+    <Content Include="app\modules\mappingUserToRoleGroup\mappingUserToRoleGroupDtService.js" />
+    <Content Include="app\modules\mappingUserToRoleGroup\mappingUserToRoleGroupRoute.js" />
+    <Content Include="app\modules\mappingUserToRoleGroup\mappingUserToRoleGroupViewService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupDtService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalCancelService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalSaveService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalBindingService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModal.html" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalCtrl.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\modal\roleModalDirective.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroup\mappingRoleToRoleGroup.html" />
+    <Content Include="app\modules\mappingRoleToRoleGroup\mappingRoleToRoleGroupCtrl.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroup\mappingRoleToRoleGroupDtService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroup\mappingRoleToRoleGroupRoute.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroup\mappingRoleToRoleGroupViewService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupBindingService.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupEntry.html" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupEntryCtrl.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupEntryRoute.js" />
+    <Content Include="app\modules\mappingRoleToRoleGroupEntry\mappingRoleToRoleGroupSaveService.js" />
+    <Content Include="app\modules\asset\asset.html" />
+    <Content Include="app\modules\asset\assetCtrl.js" />
+    <Content Include="app\modules\asset\assetDeleteService.js" />
+    <Content Include="app\modules\asset\assetDtService.js" />
+    <Content Include="app\modules\asset\assetRoute.js" />
+    <Content Include="app\modules\asset\assetViewService.js" />
+    <Content Include="app\modules\service\Directive\checkboxDirective.js" />
+    <Content Include="app\modules\service\select2Service.js" />
+    <Content Include="app\modules\sow\sowDtService.js" />
+    <Content Include="app\modules\sow\sowRoute.js" />
+    <Content Include="app\modules\sow\sowViewService.js" />
+    <Content Include="app\modules\userImportCsv\userImportCsv.html" />
+    <Content Include="app\modules\userImportCsv\userImportCsvBindingService.js" />
+    <Content Include="app\modules\userImportCsv\userImportCsvCtrl.js" />
+    <Content Include="app\modules\userImportCsv\userImportCsvRoute.js" />
+    <Content Include="app\modules\userImportCsv\userImportCsvUploadService.js" />
+    <Content Include="app\modules\userEntry\userSelect2Service.js" />
+    <Content Include="app\modules\userEntry\userBindingService.js" />
+    <Content Include="app\modules\userEntry\userEntry.html" />
+    <Content Include="app\modules\userEntry\userEntryCtrl.js" />
+    <Content Include="app\modules\userEntry\userEntryRoute.js" />
+    <Content Include="app\modules\userEntry\userSaveService.js" />
+    <Content Include="app\modules\user\userDetail.html" />
+    <Content Include="app\modules\user\user.html" />
+    <Content Include="app\modules\user\userCtrl.js" />
+    <Content Include="app\modules\user\userDeleteService.js" />
+    <Content Include="app\modules\user\userDtService.js" />
+    <Content Include="app\modules\user\userRoute.js" />
+    <Content Include="app\modules\user\userViewService.js" />
+    <Content Include="app\modules\roleGroupEntry\roleGroupEntry.html" />
+    <Content Include="app\modules\roleGroupEntry\roleGroupBindingService.js" />
+    <Content Include="app\modules\roleGroupEntry\roleGroupEntryCtrl.js" />
+    <Content Include="app\modules\roleGroupEntry\roleGroupEntryRoute.js" />
+    <Content Include="app\modules\roleGroupEntry\roleGroupSaveService.js" />
+    <Content Include="app\modules\roleGroup\roleGroup.html" />
+    <Content Include="app\modules\roleGroup\roleGroupCtrl.js" />
+    <Content Include="app\modules\roleGroup\roleGroupDeleteService.js" />
+    <Content Include="app\modules\roleGroup\roleGroupDtService.js" />
+    <Content Include="app\modules\roleGroup\roleGroupRoute.js" />
+    <Content Include="app\modules\roleGroup\roleGroupViewService.js" />
+    <Content Include="app\modules\role-entry\role-entry.html" />
+    <Content Include="app\modules\role-entry\roleBindingService.js" />
+    <Content Include="app\modules\role-entry\roleEntryCtrl.js" />
+    <Content Include="app\modules\role-entry\roleEntryRoute.js" />
+    <Content Include="app\modules\role-entry\roleSaveService.js" />
+    <Content Include="app\modules\role\role.html" />
+    <Content Include="app\modules\role\roleCtrl.js" />
+    <Content Include="app\modules\role\roleDeleteService.js" />
+    <Content Include="app\modules\role\roleDtService.js" />
+    <Content Include="app\modules\role\roleRoute.js" />
+    <Content Include="app\modules\role\roleViewService.js" />
+    <Content Include="app\modules\service\validationService.js" />
+    <Content Include="app\modules\service\datatableService.js" />
+    <Content Include="app\modules\service\Directive\autoNumericDirective.js" />
+    <Content Include="app\modules\service\Directive\datetimePickerDirective.js" />
+    <Content Include="app\modules\service\Directive\onScrollDirective.js" />
+    <Content Include="app\modules\service\Directive\ToolbarDirective.js" />
+    <Content Include="app\modules\service\filterService.js" />
+    <Content Include="app\modules\service\formControlService.js" />
+    <Content Include="app\modules\service\HttpService.js" />
+    <Content Include="app\modules\service\uiService.js" />
+    <Content Include="Gruntfile.js" />
+    <Content Include="index.html" />
+    <Content Include="karma.conf.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".jshintrc" />
+    <Content Include=".yo-rc.json" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-brands-400.eot" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-brands-400.ttf" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-brands-400.woff" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-brands-400.woff2" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-regular-400.eot" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-regular-400.ttf" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-regular-400.woff" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-regular-400.woff2" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-solid-900.eot" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-solid-900.ttf" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-solid-900.woff" />
+    <Content Include="app\assets\fonts\fontawesome-free\webfonts\fa-solid-900.woff2" />
+    <Content Include="app\assets\images\Sorting icons.psd" />
+    <Content Include="app\assets\webfonts\fa-brands-400.eot" />
+    <Content Include="app\assets\webfonts\fa-brands-400.ttf" />
+    <Content Include="app\assets\webfonts\fa-brands-400.woff" />
+    <Content Include="app\assets\webfonts\fa-brands-400.woff2" />
+    <Content Include="app\assets\webfonts\fa-regular-400.eot" />
+    <Content Include="app\assets\webfonts\fa-regular-400.ttf" />
+    <Content Include="app\assets\webfonts\fa-regular-400.woff" />
+    <Content Include="app\assets\webfonts\fa-regular-400.woff2" />
+    <Content Include="app\assets\webfonts\fa-solid-900.eot" />
+    <Content Include="app\assets\webfonts\fa-solid-900.ttf" />
+    <Content Include="app\assets\webfonts\fa-solid-900.woff" />
+    <Content Include="app\assets\webfonts\fa-solid-900.woff2" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49577</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:49577/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
