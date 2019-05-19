@@ -21,7 +21,7 @@ namespace GlobalSolusindo.Business
             string shortUsDateFormatString = cultureInfo.DateTimeFormat.ShortDatePattern;
 
             _dateFormat = shortUsDateFormatString.Replace('/', '-');
-            _timeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+            _timeZoneInfo = TimeZoneInfo.Local;
         }
         public override bool CanConvert(Type objectType)
         {
