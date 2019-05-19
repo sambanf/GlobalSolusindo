@@ -15,8 +15,8 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
 
     public class TaskEngineerSearchFilter : SearchFilter
     {
-        [JsonProperty("userId")]
-        public string UserId { get; set; }
+        [JsonProperty("user_fk")]
+        public int User_FK { get; set; }
 
         [JsonProperty("userName")]
         public string UserName { get; set; }
@@ -59,12 +59,10 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
                     || taskEngineer.BTSName.Contains(filter.Keyword)
                     );
 
-            if (!string.IsNullOrEmpty(filter.UserId))
+            if (filter.User_FK > 0)
             {
                 filteredRecords = filteredRecords
-                    .Where(x =>
-                        x.UserId == filter.UserId
-                        );
+                    .Where(x => x.User_FK == filter.User_FK);
             }
 
             if (!string.IsNullOrEmpty(filter.UserName))
