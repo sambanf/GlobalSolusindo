@@ -23,6 +23,45 @@
     -moz-osx-font-smoothing: grayscale;
 }
 
+
+::-webkit-input-placeholder {
+    color: #ced4da !important;
+}
+
+:focus::-webkit-input-placeholder {
+    color: #ced4da !important;
+}
+
+/* Firefox < 19 */
+
+:-moz-placeholder {
+    color: #ced4da !important;
+}
+
+:focus:-moz-placeholder {
+    color: #ced4da !important;
+}
+
+/* Firefox > 19 */
+
+::-moz-placeholder {
+    color: #ced4da !important;
+}
+
+:focus::-moz-placeholder {
+    color: #ced4da !important;
+}
+
+/* Internet Explorer 10 */
+
+:-ms-input-placeholder {
+    color: #ced4da !important;
+}
+
+:focus:-ms-input-placeholder {
+    color: #ced4da !important;
+}
+
 body {
     background-color: #ececec;
     font-family: 'Montserrat', sans-serif;
@@ -115,7 +154,7 @@ input {
     border-bottom: 1px solid #ccc;
     padding-bottom: 10px;
     padding-left: 12px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     font-weight: 500;
     font-size: 12pt;
 }
@@ -1458,9 +1497,11 @@ md-dialog .md-dialog-content {
 .sidebar-hidden .app-header.navbar .navbar-nav {
     margin-left: 20px;
 }
-
+.form-group {
+    margin-bottom: 0.5rem;
+}
 .form-horizontal .form-group .control-label {
-    margin-top: 8px
+    margin-top: 0px
 }
 
 .sidebar .sidebar-nav {
@@ -1480,7 +1521,7 @@ table.dataTable thead th {
 
 table.dataTable tbody td,
 table.dataTable tbody th {
-    padding: 10px 10px;
+    padding: 5px 10px;
     border: 1px solid #d9ddfe;
     font-size: 10pt;
 }
@@ -1502,11 +1543,16 @@ table.dataTable.no-footer {
 
 table.dataTable .btn {
     font-size: 8pt;
+    color: #fff;
     min-width: 30px;
     height: 30px;
     border-radius: 20px;
     padding: 5px 8px;
     box-shadow: 1px 2px 7px 1px #ccc;
+}
+
+.buttons-html5 {
+    margin: 0 5px;
 }
 
 .alertify {
