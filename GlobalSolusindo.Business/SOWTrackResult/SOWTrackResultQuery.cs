@@ -39,7 +39,7 @@ namespace GlobalSolusindo.Business.SOWTrackResult
                         {
                             SOWTrackResult_PK = sowTrackResult.SOWTrackResult_PK,
                             CheckIn_FK = sowTrackResult.CheckIn_FK,
-                            //Route = sowTrackResult.Route,
+                            RouteResult = sowTrackResult.Route,
                             SOWTrack_FK = sowTrackResult.SOWTrack_FK,
                             CreatedBy = sowTrackResult.CreatedBy,
                             CreatedDate = sowTrackResult.CreatedDate,

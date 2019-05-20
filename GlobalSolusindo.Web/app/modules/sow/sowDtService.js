@@ -21,13 +21,13 @@
 
         self.init = function (ctrl) {
             controller = ctrl;
-            var titleColumnIndex = 1;
+            var sortColumnIndex = 3;
             var dt = ds.init("#sow", "sow/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
                 },
-                order: [titleColumnIndex, "asc"],
+                order: [sortColumnIndex, "desc"],
                 columns: [
                     {
                         "orderable": false,

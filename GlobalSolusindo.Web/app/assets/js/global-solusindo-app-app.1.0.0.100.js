@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-20. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-21. 
 * @author Kairos
 */
 (function() {
@@ -12229,8 +12229,7 @@ angular.module('global-solusindo')
                     self.param.pageSize = defaultRequestData.pageSize;
                     self.param.keyword = defaultRequestData.keyword;
                     self.param.sortName = defaultRequestData.sortName;
-                    self.param.sortDir = defaultRequestData.sortDir;
-                    console.log(self.param);
+                    self.param.sortDir = defaultRequestData.sortDir; 
                     
                     // var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
                     var requestData = self.param;

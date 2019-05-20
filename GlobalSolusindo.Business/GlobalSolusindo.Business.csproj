@@ -467,15 +467,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GlobalSolusindo.Base\GlobalSolusindo.Base.csproj">
-      <Project>{F3A62027-FA51-4F0A-B5BA-42385DE0D331}</Project>
+      <Project>{f3a62027-fa51-4f0a-b5ba-42385de0d331}</Project>
       <Name>GlobalSolusindo.Base</Name>
     </ProjectReference>
     <ProjectReference Include="..\GlobalSolusindo.DataAccess.SqlServer\GlobalSolusindo.DataAccess.SqlServer.csproj">
-      <Project>{84E76E65-832E-4168-87CB-680FF40418BA}</Project>
+      <Project>{84e76e65-832e-4168-87cb-680ff40418ba}</Project>
       <Name>GlobalSolusindo.DataAccess.SqlServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\GlobalSolusindo.Identity\GlobalSolusindo.Identity.csproj">
-      <Project>{871E4555-9108-454E-95B0-A60CC4141F62}</Project>
+      <Project>{871e4555-9108-454e-95b0-a60cc4141f62}</Project>
       <Name>GlobalSolusindo.Identity</Name>
     </ProjectReference>
     <ProjectReference Include="..\Kairos.Google\Kairos.Google.csproj">

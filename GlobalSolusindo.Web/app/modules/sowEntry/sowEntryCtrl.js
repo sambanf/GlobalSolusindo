@@ -3,7 +3,7 @@
 
     /**
      * @ngdoc function
-     * @name app.controller:userEntryCtrl
+     * @name app.controller:sowEntryCtrl
      * @description
      * # dashboardCtrl
      * Controller of the app
