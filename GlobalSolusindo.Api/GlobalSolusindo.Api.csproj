@@ -129,6 +129,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="GlobalSolusindoDbProvider.cs" />
+    <Compile Include="MobileControllers\MobileCheckInController.cs" />
+    <Compile Include="MobileControllers\MobileIssueTypeController.cs" />
+    <Compile Include="MobileControllers\MobileIzinCutiController.cs" />
+    <Compile Include="MobileControllers\MobileLoginController.cs" />
+    <Compile Include="MobileControllers\MobileSOWIssueController.cs" />
     <Compile Include="MobileControllers\MobileSOWResultController.cs" />
     <Compile Include="MobileControllers\TaskListController.cs" />
     <Compile Include="MobileControllers\TaskRouteController.cs" />
