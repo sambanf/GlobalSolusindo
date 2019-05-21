@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-21. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-22. 
 * @author Kairos
 */
 (function() {
@@ -1839,15 +1839,21 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('CheckInEntryCtrl', CheckInEntryCtrl);
 
-    CheckInEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'CheckInSaveService', 'CheckInBindingService', 'FormControlService', 'select2Service'];
+    CheckInEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'CheckInSaveService', 'CheckInBindingService', 'FormControlService', 'select2Service', 'sowMapService'];
 
-    function CheckInEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+    function CheckInEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service, map) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
+            try { 
+                map.init(self);
+
+            } catch (e) {
+
+            }
         });
 
         return self;
@@ -2915,15 +2921,21 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('MyTaskListEntryCtrl', MyTaskListEntryCtrl);
 
-    MyTaskListEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MyTaskListSaveService', 'MyTaskListBindingService', 'FormControlService', 'select2Service'];
+    MyTaskListEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MyTaskListSaveService', 'MyTaskListBindingService', 'FormControlService', 'select2Service', 'sowMapService'];
 
-    function MyTaskListEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+    function MyTaskListEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service, map) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
+            try {
+                map.init(self);
+
+            } catch (e) {
+
+            }
         });
 
         return self;
@@ -3327,7 +3339,7 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
-     * @name app.controller:userEntryCtrl
+     * @name app.controller:sowEntryCtrl
      * @description
      * # dashboardCtrl
      * Controller of the app
@@ -3488,9 +3500,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('SOWInfoCtrl', SOWInfoCtrl);
 
-    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService', 'costDtService', 'costShowModalService', 'costDeleteService'];
+    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService', 'costDtService', 'costShowModalService', 'costDeleteService', 'sowMapService'];
 
-    function SOWInfoCtrl($scope, sParam, $state, bindingService, http, costDtService, costShowModalService, costDeleteService) {
+    function SOWInfoCtrl($scope, sParam, $state, bindingService, http, costDtService, costShowModalService, costDeleteService, map) {
         var self = this;
         self.stateParam = sParam;
 
@@ -3498,6 +3510,12 @@ angular.module('global-solusindo')
             costDtService.init(self);
             costShowModalService.init(self);
             costDeleteService.init(self);
+            try {
+                map.init(self);
+
+            } catch (e) {
+
+            }
         });
 
         return self;
@@ -10845,7 +10863,10 @@ angular.module('global-solusindo')
                         "data": "tanggal"
                     },
                     {
-                        "data": "jam"
+                        "data": "checkInTime"
+                    },
+                    {
+                        "data": "checkOutTime"
                     },
                     {
                         "data": "aktifitas"
@@ -12152,7 +12173,7 @@ angular.module('global-solusindo')
 
         function createExportButtons(params, dtInstance) {
             var exportColumns = getExportColumns(params);
-            var title = getExportTitle(params); 
+            var title = getExportTitle(params);
 
             var buttons = new $.fn.dataTable.Buttons(dtInstance, {
                 buttons: [
@@ -12225,14 +12246,14 @@ angular.module('global-solusindo')
                         extendRequestData.sortName = defaultRequestData.sortName;
                         extendRequestData.sortDir = defaultRequestData.sortDir;
                     }
-                    self.param.pageIndex = defaultRequestData.pageIndex;
-                    self.param.pageSize = defaultRequestData.pageSize;
-                    self.param.keyword = defaultRequestData.keyword;
-                    self.param.sortName = defaultRequestData.sortName;
-                    self.param.sortDir = defaultRequestData.sortDir; 
-                    
-                    // var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
-                    var requestData = self.param;
+                    //self.param.pageIndex = defaultRequestData.pageIndex;
+                    //self.param.pageSize = defaultRequestData.pageSize;
+                    //self.param.keyword = defaultRequestData.keyword;
+                    //self.param.sortName = defaultRequestData.sortName;
+                    //self.param.sortDir = defaultRequestData.sortDir; 
+
+                    var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+                    //var requestData = self.param;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
                     }
@@ -12408,8 +12429,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -13295,13 +13316,13 @@ angular.module('global-solusindo')
 
         self.init = function (ctrl) {
             controller = ctrl;
-            var titleColumnIndex = 1;
+            var sortColumnIndex = 3;
             var dt = ds.init("#sow", "sow/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
                 },
-                order: [titleColumnIndex, "asc"],
+                order: [sortColumnIndex, "desc"],
                 columns: [
                     {
                         "orderable": false,
@@ -13508,6 +13529,17 @@ angular.module('global-solusindo')
                 self.setRoute(routes);
             }
 
+            if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[0]) {
+                var routeResult = [];
+                var coordinates = JSON.parse(sowCtrl.model.SOWTrackResults[0].routeResult);
+                coordinates.forEach(function (coordinate) {
+                    routeResult.push({
+                        lat: coordinate.latitude,
+                        lng: coordinate.longitude
+                    });
+                })
+                self.setRoute(routeResult);
+            }
         };
 
         return self;

@@ -1817,6 +1817,10 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"row form-group\">\r" +
     "\n" +
+    "                                <div id=\"map\" style=\"border:1px solid gray\">\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
     "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
@@ -3147,7 +3151,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "        <div class=\"company-title\">\r" +
     "\n" +
-    "            Global Solusindo\r" +
+    "            Global One Solusindo\r" +
     "\n" +
     "        </div>\r" +
     "\n" +
@@ -3166,6 +3170,62 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                </a>\r" +
     "\n" +
     "            </li>\r" +
+    "\n" +
+    "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
+    "\n" +
+    "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
+    "\n" +
+    "                    <i class=\"fa fa-luggage-cart\"></i> <span>Transaksi</span>\r" +
+    "\n" +
+    "                </a>\r" +
+    "\n" +
+    "                <ul class=\"nav-dropdown-items\">\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.projectList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-train\"></i> <span>Project</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.sowList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-user\"></i> <span>SOW</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.checkInList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-user\"></i> <span>Task Approval</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.myTaskListList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-user\"></i> <span>My Task List</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                </ul>\r" +
+    "\n" +
+    "            </li>\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
     "\n" +
@@ -3263,6 +3323,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            </li>\r" +
     "\n" +
+    "\r" +
+    "\n" +
     "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
     "\n" +
     "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
@@ -3285,57 +3347,19 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <li class=\"nav-item\">\r" +
     "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.projectList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Project</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.asetList\">\r" +
     "\n" +
     "                            <i class=\"fa fa-train\"></i> <span>Asset</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.sowList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-user\"></i> <span>SOW</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.checkInList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-user\"></i> <span>Task Approval</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.myTaskListList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-user\"></i> <span>My Task List</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
+    "                    </li> \r" +
     "\n" +
     "                </ul>\r" +
     "\n" +
     "            </li>\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
     "\n" +
@@ -4497,6 +4521,10 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"row form-group\">\r" +
     "\n" +
+    "                                <div id=\"map\" style=\"border:1px solid gray\">\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
     "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
@@ -4980,7 +5008,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                                <th>Tanggal</th>\r" +
     "\n" +
-    "                                                <th>Jam</th>\r" +
+    "                                                <th>Checkin Time</th>\r" +
+    "\n" +
+    "                                                <th>Checkout Time</th>\r" +
     "\n" +
     "                                                <th>Aktifitas</th>\r" +
     "\n" +
@@ -6941,7 +6971,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"card-title\">Track Location</div>\r" +
     "\n" +
-    "\r" +
+    "                            <div id=\"map\" style=\"border:1px solid gray\">\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

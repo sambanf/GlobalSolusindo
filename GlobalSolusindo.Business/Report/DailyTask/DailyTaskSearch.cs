@@ -28,12 +28,7 @@ namespace GlobalSolusindo.Business.DailyTask.Queries
             DailyTaskQuery dailyTaskQuery = new DailyTaskQuery(this.Db);
 
             var filteredRecords =
-                dailyTaskQuery.GetQuery()
-                .Where(dailyTask =>
-                    dailyTask.UserId.Contains(filter.Keyword)
-                    || dailyTask.UserName.Contains(filter.Keyword) 
-                    )
-                    .AsQueryable();
+                dailyTaskQuery.GetQuery(filter.Keyword).AsQueryable();
 
             //if (!string.IsNullOrEmpty(filter.UserId))
             //{

@@ -41,13 +41,13 @@ namespace GlobalSolusindo.Business.Activities.Queries
 
             var filteredRecords =
                 activitiesQuery.GetQuery(filter.User_FK)
-                .Where(activities =>
-                    activities.Aktifitas.Contains(filter.Keyword)
-                    )
+                //.Where(activities =>
+                //    activities.Aktifitas.Contains(filter.Keyword)
+                //    )
                     .AsQueryable();
 
             if (filter.Bulan != 0)
-                filteredRecords = filteredRecords.Where(x => x.Tanggal.Month == filter.Bulan);
+                filteredRecords = filteredRecords.Where(x => x.Tanggal.Value.Month == filter.Bulan);
 
 
             var displayedRecords = filteredRecords.
