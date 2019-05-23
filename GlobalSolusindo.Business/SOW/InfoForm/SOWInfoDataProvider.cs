@@ -26,7 +26,7 @@ namespace GlobalSolusindo.Business.SOW.InfoForm
         {
             var now = DateTime.Now;
             SOWInfoModel sow = sowQuery.GetByPrimaryKey(pk).ToObject<SOWInfoModel>();
-            sow.SOWAssigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk).ToList();
+            sow.SOWAssigns = new SOWAssignQuery(Db).GetBySOW_FK(pk).ToList();
             sow.BTSInfo = new BTSQuery(Db).GetByPrimaryKey(sow.BTS_FK);
             return sow;
         }

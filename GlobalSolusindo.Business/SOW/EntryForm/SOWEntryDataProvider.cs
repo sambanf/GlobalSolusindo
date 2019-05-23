@@ -11,6 +11,7 @@ using Kairos;
 using Kairos.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW.EntryForm
 {
@@ -71,7 +72,7 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
             if (pk > 0)
             {
                 SOWDTO sow = sowQuery.GetByPrimaryKey(pk);
-                sow.SOWAssigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk);
+                sow.SOWAssigns = new SOWAssignQuery(Db).GetBySOW_FK(pk).ToList();
                 return sow;
             }
             SOWDTO sowDTO = new SOWDTO()

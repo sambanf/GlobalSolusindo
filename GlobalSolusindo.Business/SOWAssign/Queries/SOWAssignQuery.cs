@@ -66,11 +66,11 @@ namespace GlobalSolusindo.Business.SOWAssign.Queries
         }
 
 
-        //public IQueryable<SOWAssignDTO> GetBySOW_FK(int sowFK)
-        //{
-        //    var records = GetQuery().Where(sowAssign => sowAssign.SOW_FK == sowFK);
-        //    return records;
-        //}
+        public IQueryable<SOWAssignDTO> GetBySOW_FK(int sowFK)
+        {
+            var records = GetQuery().Where(sowAssign => sowAssign.SOW_FK == sowFK);
+            return records;
+        }
 
 
         //        public List<SOWAssignDTO> GetBySOW_FK(int sowFK)
