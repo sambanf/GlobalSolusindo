@@ -267,3 +267,5 @@ Kairos.Google.Tests/Kairos.Google.Tests.csproj
 Kairos.Google.Tests/KMLs/KMLReaderTests.cs
 Kairos.Google.Tests/packages.config
 Kairos.Google.Tests/Properties/AssemblyInfo.cs
+AfterSyncLocalToServer.sql
+BackupBeforeStructureSync.sql

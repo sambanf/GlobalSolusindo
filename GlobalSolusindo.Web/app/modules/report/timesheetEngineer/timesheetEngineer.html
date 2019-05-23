@@ -4,25 +4,23 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-title">Timesheet Engineer</div>
-                    <div class="row form-group" style="margin-left: -1px; margin-right: -1px; border-bottom: 1px solid #ccc;">
-                        <label class="control-label col-sm-1">User ID</label>
-                        <div class="col-sm-2" style="margin-left: -50px;">
-                            <select id="bts_fk" name="bts_fk" class="form-control input-lg" size="0" ng-model="brc.model.user_pk" required>
-                                <option ng-repeat="x in brc.formData.users" ng-value="x.user_pk">{{x.username}}</option>
+                    <!--<div class="row form-group">
+                        <label class="control-label col-sm-2">User ID:</label>
+                        <div class="col-sm-3">
+                            <select id="user_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="vm.model.user_fk" required>
+                                <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.title}}</option>
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <label class="control-label col-sm-1">Name</label>
-                        <div class="col-sm-2" style="margin-left: -50px;">
-                            <select id="select_name" name="user_fk" class="form-control input-lg" size="0" ng-model="brc.model.user_fk" required>
-                                <option ng-repeat="x in brc.formData.users" ng-value="x.user_pk">{{x.name}}</option>
-                            </select>
+                        <label class="control-label col-sm-2">Name:</label>
+                        <div class="col-sm-3">
+                            <input type="text" id="username" name="username" class="form-control" ng-model="vm.model.username" disabled>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-md-2">
-                            <button id="searchButton" type="button" class="btn btn-success" style="border-radius: 20px" ng-click="brc.search()">Search</button>
+                            <button id="searchButton" class="btn btn-success">Search</button>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="row">
                         <div class="col-md-12">
                             <table id="timesheetEngineer">

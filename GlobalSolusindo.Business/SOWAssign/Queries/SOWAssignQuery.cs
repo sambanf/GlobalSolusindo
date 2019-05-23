@@ -73,134 +73,134 @@ namespace GlobalSolusindo.Business.SOWAssign.Queries
         //}
 
 
-        public List<SOWAssignDTO> GetBySOW_FK(int sowFK)
-        {
-            string sql = @"
-select 
-	Assign.SOWAssign_PK,
-	Assign.SOW_FK,
-	SOW.SOWName,
-	Assign.User_FK,
-	UserDetail.Name AS UserName,
-	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
-	Jabatan.Title AS KategoriJabatanTitle,
-	Assign.TglMulai,
-	Assign.TglSelesai,
-	Assign.CreatedBy,
-	Assign.CreatedDate,
-	Assign.UpdatedBy,
-	Assign.UpdatedDate,
-	Assign.Status_FK 
-from 
-	tblM_KategoriJabatan Jabatan
-	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 1 AND SOW_FK = @SOW_KF order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
-	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
-	left join tblM_User Users ON Assign.User_FK = Users.User_PK
-	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
-where 	
-	Jabatan.KategoriJabatan_PK = 1 and Assign.SOWAssign_PK is not null
-union all
-select 
-	Assign.SOWAssign_PK,
-	Assign.SOW_FK,
-	SOW.SOWName,
-	Assign.User_FK,
-	UserDetail.Name AS UserName,
-	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
-	Jabatan.Title AS KategoriJabatanTitle,
-	Assign.TglMulai,
-	Assign.TglSelesai,
-	Assign.CreatedBy,
-	Assign.CreatedDate,
-	Assign.UpdatedBy,
-	Assign.UpdatedDate,
-	Assign.Status_FK 
-from 
-	tblM_KategoriJabatan Jabatan
-	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 2 AND SOW_FK = @SOW_KF order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
-	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
-	left join tblM_User Users ON Assign.User_FK = Users.User_PK
-	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
-where 	
-	Jabatan.KategoriJabatan_PK = 2	 and Assign.SOWAssign_PK is not null
+        //        public List<SOWAssignDTO> GetBySOW_FK(int sowFK)
+        //        {
+        //            string sql = @"
+        //select 
+        //	ISNULL(Assign.SOWAssign_PK, 0) SOWAssign_PK,
+        //	ISNULL(Assign.SOW_FK, 0) SOW_FK,
+        //	ISNULL(SOW.SOWName, '') SOWName,
+        //	ISNULL(Assign.User_FK, 0) User_FK,
+        //	ISNULL(UserDetail.Name, '')AS UserName,
+        //	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
+        //	Jabatan.Title AS KategoriJabatanTitle,
+        //	Assign.TglMulai,
+        //	Assign.TglSelesai,
+        //	Assign.CreatedBy,
+        //	ISNULL(Assign.CreatedDate, GETDATE()) CreatedDate,
+        //	Assign.UpdatedBy,
+        //	ISNULL(Assign.UpdatedDate, GETDATE()) UpdatedDate,
+        //	ISNULL(Assign.Status_FK , 1) Status_FK
+        //from 
+        //	tblM_KategoriJabatan Jabatan
+        //	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 1 AND SOW_FK = @SOW_FK order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
+        //	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
+        //	left join tblM_User Users ON Assign.User_FK = Users.User_PK
+        //	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
+        //where 	
+        //	Jabatan.KategoriJabatan_PK = 1
+        //union all
+        //select 
+        //	ISNULL(Assign.SOWAssign_PK, 0) SOWAssign_PK,
+        //	ISNULL(Assign.SOW_FK, 0) SOW_FK,
+        //	ISNULL(SOW.SOWName, '') SOWName,
+        //	ISNULL(Assign.User_FK, 0) User_FK,
+        //	ISNULL(UserDetail.Name, '')AS UserName,
+        //	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
+        //	Jabatan.Title AS KategoriJabatanTitle,
+        //	Assign.TglMulai,
+        //	Assign.TglSelesai,
+        //	Assign.CreatedBy,
+        //	Assign.CreatedDate,
+        //	Assign.UpdatedBy,
+        //	Assign.UpdatedDate,
+        //	Assign.Status_FK 
+        //from 
+        //	tblM_KategoriJabatan Jabatan
+        //	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 2 AND SOW_FK = @SOW_FK order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
+        //	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
+        //	left join tblM_User Users ON Assign.User_FK = Users.User_PK
+        //	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
+        //where 	
+        //	Jabatan.KategoriJabatan_PK = 2	
 
-union all
-select 
-	Assign.SOWAssign_PK,
-	Assign.SOW_FK,
-	SOW.SOWName,
-	Assign.User_FK,
-	UserDetail.Name AS UserName,
-	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
-	Jabatan.Title AS KategoriJabatanTitle,
-	Assign.TglMulai,
-	Assign.TglSelesai,
-	Assign.CreatedBy,
-	Assign.CreatedDate,
-	Assign.UpdatedBy,
-	Assign.UpdatedDate,
-	Assign.Status_FK 
-from 
-	tblM_KategoriJabatan Jabatan
-	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 3 AND SOW_FK = @SOW_KF order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
-	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
-	left join tblM_User Users ON Assign.User_FK = Users.User_PK
-	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
-where 	
-	Jabatan.KategoriJabatan_PK = 3 and Assign.SOWAssign_PK is not null
-union all
-select 
-	Assign.SOWAssign_PK,
-	Assign.SOW_FK,
-	SOW.SOWName,
-	Assign.User_FK,
-	UserDetail.Name AS UserName,
-	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
-	Jabatan.Title AS KategoriJabatanTitle,
-	Assign.TglMulai,
-	Assign.TglSelesai,
-	Assign.CreatedBy,
-	Assign.CreatedDate,
-	Assign.UpdatedBy,
-	Assign.UpdatedDate,
-	Assign.Status_FK 
-from 
-	tblM_KategoriJabatan Jabatan
-	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 5 AND SOW_FK = @SOW_KF order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
-	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
-	left join tblM_User Users ON Assign.User_FK = Users.User_PK
-	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
-where 	
-	Jabatan.KategoriJabatan_PK = 5	 and Assign.SOWAssign_PK is not null	
-union all
-select 
-	Assign.SOWAssign_PK,
-	Assign.SOW_FK,
-	SOW.SOWName,
-	Assign.User_FK,
-	UserDetail.Name AS UserName,
-	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
-	Jabatan.Title AS KategoriJabatanTitle,
-	Assign.TglMulai,
-	Assign.TglSelesai,
-	Assign.CreatedBy,
-	Assign.CreatedDate,
-	Assign.UpdatedBy,
-	Assign.UpdatedDate,
-	Assign.Status_FK 
-from 
-	tblM_KategoriJabatan Jabatan
-	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 6 AND SOW_FK = @SOW_KF order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
-	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
-	left join tblM_User Users ON Assign.User_FK = Users.User_PK
-	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
-where 	
-	Jabatan.KategoriJabatan_PK = 6	and Assign.SOWAssign_PK is not null	
-";
+        //union all
+        //select 
+        //	ISNULL(Assign.SOWAssign_PK, 0) SOWAssign_PK,
+        //	ISNULL(Assign.SOW_FK, 0) SOW_FK,
+        //	ISNULL(SOW.SOWName, '') SOWName,
+        //	ISNULL(Assign.User_FK, 0) User_FK,
+        //	ISNULL(UserDetail.Name, '')AS UserName,
+        //	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
+        //	Jabatan.Title AS KategoriJabatanTitle,
+        //	Assign.TglMulai,
+        //	Assign.TglSelesai,
+        //	Assign.CreatedBy,
+        //	Assign.CreatedDate,
+        //	Assign.UpdatedBy,
+        //	Assign.UpdatedDate,
+        //	Assign.Status_FK 
+        //from 
+        //	tblM_KategoriJabatan Jabatan
+        //	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 3 AND SOW_FK = @SOW_FK order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
+        //	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
+        //	left join tblM_User Users ON Assign.User_FK = Users.User_PK
+        //	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
+        //where 	
+        //	Jabatan.KategoriJabatan_PK = 3
+        //union all
+        //select 
+        //	ISNULL(Assign.SOWAssign_PK, 0) SOWAssign_PK,
+        //	ISNULL(Assign.SOW_FK, 0) SOW_FK,
+        //	ISNULL(SOW.SOWName, '') SOWName,
+        //	ISNULL(Assign.User_FK, 0) User_FK,
+        //	ISNULL(UserDetail.Name, '')AS UserName,
+        //	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
+        //	Jabatan.Title AS KategoriJabatanTitle,
+        //	Assign.TglMulai,
+        //	Assign.TglSelesai,
+        //	Assign.CreatedBy,
+        //	Assign.CreatedDate,
+        //	Assign.UpdatedBy,
+        //	Assign.UpdatedDate,
+        //	Assign.Status_FK 
+        //from 
+        //	tblM_KategoriJabatan Jabatan
+        //	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 5 AND SOW_FK = @SOW_FK order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
+        //	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
+        //	left join tblM_User Users ON Assign.User_FK = Users.User_PK
+        //	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
+        //where 	
+        //	Jabatan.KategoriJabatan_PK = 5		
+        //union all
+        //select 
+        //	ISNULL(Assign.SOWAssign_PK, 0) SOWAssign_PK,
+        //	ISNULL(Assign.SOW_FK, 0) SOW_FK,
+        //	ISNULL(SOW.SOWName, '') SOWName,
+        //	ISNULL(Assign.User_FK, 0) User_FK,
+        //	ISNULL(UserDetail.Name, '')AS UserName,
+        //	Jabatan.KategoriJabatan_PK AS KategoriJabatan_FK,
+        //	Jabatan.Title AS KategoriJabatanTitle,
+        //	Assign.TglMulai,
+        //	Assign.TglSelesai,
+        //	Assign.CreatedBy,
+        //	Assign.CreatedDate,
+        //	Assign.UpdatedBy,
+        //	Assign.UpdatedDate,
+        //	Assign.Status_FK 
+        //from 
+        //	tblM_KategoriJabatan Jabatan
+        //	left join (select top 1 * from tblT_SOWAssign where KategoriJabatan_FK = 6 AND SOW_FK = @SOW_FK order by SOWAssign_PK asc ) Assign ON Jabatan.KategoriJabatan_PK = Assign.KategoriJabatan_FK
+        //	left join tblT_SOW SOW ON Assign.SOW_FK = SOW.SOW_PK
+        //	left join tblM_User Users ON Assign.User_FK = Users.User_PK
+        //	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
+        //where 	
+        //	Jabatan.KategoriJabatan_PK = 6
+        //";
 
-            var records = Db.Database.SqlQuery<SOWAssignDTO>(sql, new SqlParameter("@SOW_KF", sowFK));
-            return records.ToList();
-        }
+        //            var records = Db.get.SqlQuery<SOWAssignDTO>(sql, new SqlParameter("@SOW_FK", sowFK));
+        //            return records.ToList();
+        //        }
 
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)

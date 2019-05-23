@@ -83,6 +83,12 @@ namespace GlobalSolusindo.Business.SOWResult
             return record;
         }
 
+        public SOWResultDTO GetByCheckinFK(int checkinFK)
+        {
+            SOWResultDTO record = GetQuery().FirstOrDefault(sowResult => sowResult.CheckIn_FK == checkinFK);
+            return record;
+        }
+
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {

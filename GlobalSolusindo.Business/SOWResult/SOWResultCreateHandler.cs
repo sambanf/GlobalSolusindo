@@ -4,6 +4,7 @@ using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos.Data;
 using System;
+using System.Linq;
 
 namespace GlobalSolusindo.Business.SOWResult
 {
@@ -30,6 +31,14 @@ namespace GlobalSolusindo.Business.SOWResult
             return Db.tblT_SOWResult.Add(sowResult);
         }
 
+        public tblT_SOWResult Update(SOWResultDTO sowResultDTO, DateTime dateStamp)
+        {
+            if (sowResultDTO == null)
+                throw new ArgumentNullException("SOWResult model is null.");
+            tblT_SOWResult sowResult = sowResultFactory.CreateFromDbAndUpdateFromDTO(sowResultDTO, dateStamp);
+            return sowResult;
+        }
+
         public SaveResult<SOWResultEntryModel> Save(SOWResultDTO sowResultDTO, DateTime dateStamp)
         {
             ModelValidationResult validationResult = sowResultValidator.Validate(sowResultDTO);
@@ -37,7 +46,23 @@ namespace GlobalSolusindo.Business.SOWResult
             SOWResultEntryModel model = null;
             if (validationResult.IsValid)
             {
-                tblT_SOWResult sowResult = AddSOWResult(sowResultDTO, dateStamp);
+                var result = Db.tblT_SOWResult.FirstOrDefault(x => x.CheckIn_FK == sowResultDTO.CheckIn_FK);
+
+                if (result != null && result.IsApproved != null)
+                {
+                    var approval = result.IsApproved.Value == true ? "approved" : "rejected";
+                    throw new Kairos.KairosException($"This task is already {approval}");
+                }
+
+                tblT_SOWResult sowResult = null;
+                if (result == null)
+                {
+                    sowResult = AddSOWResult(sowResultDTO, dateStamp);
+                }
+                else
+                {
+                    sowResult = Update(sowResultDTO, dateStamp);
+                }
                 Db.SaveChanges();
 
                 success = true;

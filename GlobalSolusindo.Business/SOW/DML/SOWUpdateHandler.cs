@@ -51,14 +51,13 @@ namespace GlobalSolusindo.Business.SOW.DML
             foreach (var sowTrackDTO in sowDTO.SOWTracks)
             {
                 sowTrackDTO.SOW_FK = sowDTO.SOW_PK;
-               
                 var bts = new BTSQuery(Db).GetByPrimaryKey(sowDTO.BTS_FK);
                 foreach (var btsTechnology in bts.BTSTechnologies)
                 {
                     tblT_SOWTrack sowTrack = sowTrackFactory.CreateFromDTO(sowTrackDTO, dateStamp);
                     sowTrack.Technology_FK = btsTechnology.Technology_FK;
                     Db.tblT_SOWTrack.Add(sowTrack);
-                } 
+                }
             }
         }
 
@@ -70,21 +69,50 @@ namespace GlobalSolusindo.Business.SOW.DML
             foreach (var sowAssignDTO in sowDTO.SOWAssigns)
             {
                 sowAssignDTO.SOW_FK = sowDTO.SOW_PK;
-                tblT_SOWAssign existingSowAssign = this.Db.tblT_SOWAssign.Find(sowAssignDTO.SOWAssign_PK);
+                tblT_SOWAssign existingSowAssign = null;
+                if (sowAssignDTO.SOWAssign_PK != 0)
+                {
+                    existingSowAssign =  this.Db.tblT_SOWAssign.Find(sowAssignDTO.SOWAssign_PK);
+                }
 
-                bool isAssigned = existingSowAssign.User_FK != 0;
-                bool assignedUserIsChanged = existingSowAssign.User_FK != sowAssignDTO.User_FK;
+                bool isAssigned = false;
+
+                if (existingSowAssign != null)
+                {
+                    isAssigned = existingSowAssign.User_FK != 0;
+                }
+
+                int assignedUserFk = 0;
+                if (existingSowAssign != null && existingSowAssign.User_FK != null)
+                {
+                    assignedUserFk = existingSowAssign.User_FK.Value;
+                }
+
+                bool assignedUserIsChanged = assignedUserFk != sowAssignDTO.User_FK;
                 if (isAssigned && assignedUserIsChanged)
                 {
                     //create new row (history) based on changed user assign, and set its finish date
                     tblT_SOWAssign sowAssign = sowAssignFactory.CreateFromDTO(sowAssignDTO, dateStamp);
-                    sowAssign.User_FK = existingSowAssign.User_FK;
+                    sowAssign.User_FK = assignedUserFk;
                     sowAssign.TglSelesai = dateStamp;
                     Db.tblT_SOWAssign.Add(sowAssign);
                 }
                 //note that, CreateFromDbAndUpdateFromDTO method is also create a Modified state in db context object
                 //so any update process is in the factory class
-                tblT_SOWAssign sowAssignToUpdate = sowAssignFactory.CreateFromDbAndUpdateFromDTO(sowAssignDTO, dateStamp);
+                if (sowAssignDTO.SOWAssign_PK != 0)
+                {
+                    tblT_SOWAssign sowAssignToUpdate = sowAssignFactory.CreateFromDbAndUpdateFromDTO(sowAssignDTO, dateStamp);
+                }
+                else
+                {
+                    if (assignedUserIsChanged)
+                    {
+                        sowAssignDTO.SOW_FK = sowDTO.SOW_PK;
+                        sowAssignDTO.TglMulai = dateStamp;
+                        tblT_SOWAssign sowAssignToBeAdded = sowAssignFactory.CreateFromDTO(sowAssignDTO, dateStamp);
+                        Db.tblT_SOWAssign.Add(sowAssignToBeAdded);
+                    }
+                }
             }
         }
 

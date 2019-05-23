@@ -484,7 +484,7 @@
           <Property Name="SOWAssign_FK" Type="int" />
           <Property Name="IssueType_FK" Type="int" />
           <Property Name="Description" Type="nvarchar" MaxLength="500" />
-          <Property Name="Foto" Type="varbinary" MaxLength="50" />
+          <Property Name="Foto" Type="varbinary(max)" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -812,6 +812,20 @@
           <Parameter Name="month" Type="int" Mode="In" />
           <Parameter Name="year" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetTimesheetMonthlyV2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userId" Type="int" Mode="In" />
+          <Parameter Name="month" Type="int" Mode="In" />
+          <Parameter Name="year" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_GetActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="User_FK" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_GetDailyTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="keyword" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_GetSowAssign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SOW_FK" Type="int" Mode="In" />
+        </Function>
         <EntityContainer Name="GlobalSolusindoModelStoreContainer">
           <EntitySet Name="tblM_Area" EntityType="Self.tblM_Area" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Aset" EntityType="Self.tblM_Aset" Schema="dbo" store:Type="Tables" />
@@ -935,10 +949,6 @@
             <Parameter Name="taskID" Mode="In" Type="Int32" />
             <Parameter Name="tech" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetTaskList" ReturnType="Collection(GlobalSolusindoModel.GetTaskList_Result)">
-            <Parameter Name="userID" Mode="In" Type="Int32" />
-            <Parameter Name="statusSOW" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="GetTimesheetMonthly" ReturnType="Collection(DateTime)">
             <Parameter Name="userID" Mode="In" Type="Int32" />
             <Parameter Name="month" Mode="In" Type="Int32" />
@@ -954,6 +964,13 @@
             <Parameter Name="month" Mode="In" Type="Int32" />
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="day" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTaskList" ReturnType="Collection(GlobalSolusindoModel.GetTaskList_Result)">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="statusSOW" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetSowAssign" ReturnType="Collection(GlobalSolusindoModel.usp_GetSowAssign_Result)">
+          <Parameter Name="SOW_FK" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="tblM_Area" EntityType="GlobalSolusindoModel.tblM_Area" />
           <EntitySet Name="tblM_Aset" EntityType="GlobalSolusindoModel.tblM_Aset" />
@@ -1067,6 +1084,12 @@
             <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
+          <FunctionImport Name="usp_GetDailyTask" ReturnType="Collection(GlobalSolusindoModel.usp_GetDailyTask_Result)">
+          <Parameter Name="keyword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetActivities" ReturnType="Collection(GlobalSolusindoModel.usp_GetActivities_Result)">
+            <Parameter Name="User_FK" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -1080,6 +1103,7 @@
           <Property Type="String" Name="ReportedValue" Nullable="true" MaxLength="4000" />
           <Property Type="Boolean" Name="IsClose" Nullable="true" />
           <Property Type="Boolean" Name="IsSubmitted" Nullable="true" />
+          <Property Type="Int32" Name="CheckIn_PK" Nullable="true" />
         </ComplexType>
         <ComplexType Name="GetTimesheetDaily_Result">
           <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
@@ -1098,6 +1122,22 @@
           <Property Type="String" Name="LastLocation" Nullable="true" MaxLength="200" />
           <Property Type="Boolean" Name="IsDiffDay" Nullable="true" />
           <Property Type="Int32" Name="TotalTask" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetSowAssign_Result">
+          <Property Type="Int32" Name="SOWAssign_PK" Nullable="false" />
+          <Property Type="Int32" Name="SOW_FK" Nullable="false" />
+          <Property Type="String" Name="SOWName" Nullable="false" MaxLength="500" />
+          <Property Type="Int32" Name="User_FK" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="KategoriJabatan_FK" Nullable="false" />
+          <Property Type="String" Name="KategoriJabatanTitle" Nullable="false" MaxLength="200" />
+          <Property Type="DateTime" Name="TglMulai" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="TglSelesai" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Status_FK" Nullable="true" />
         </ComplexType>
         <EntityType Name="tblM_Area">
           <Key>
@@ -1612,7 +1652,7 @@
           <Property Name="SOWAssign_FK" Type="Int32" />
           <Property Name="IssueType_FK" Type="Int32" />
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Foto" Type="Binary" MaxLength="50" FixedLength="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1924,12 +1964,65 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="usp_GetDailyTask_Result">
+          <Property Type="Int32" Name="User_FK" Nullable="false" />
+          <Property Type="String" Name="UserId" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="SOWAssign_PK" Nullable="true" />
+          <Property Type="DateTime" Name="AssignTglMulai" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="AssignTglSelesai" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="IzinCuti_PK" Nullable="true" />
+          <Property Type="DateTime" Name="CutiTglMulai" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="CutiTglSelesai" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CheckIn_PK" Nullable="true" />
+          <Property Type="DateTime" Name="WaktuCheckIn" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="WaktuCheckOut" Nullable="true" Precision="23" />
+          <Property Type="String" Name="KategoriJabatanTitle" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="RoleTitle" Nullable="true" MaxLength="200" />
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="Status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="usp_GetActivities_Result">
+          <Property Type="Int32" Name="User_FK" Nullable="true" />
+          <Property Type="DateTime" Name="Tanggal" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CheckInTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="CheckOutTime" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Aktifitas" Nullable="true" />
+          <Property Type="String" Name="ApprovedBy" Nullable="false" MaxLength="200" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="GlobalSolusindoModelStoreContainer" CdmEntityContainer="GlobalSolusindoDb">
+          <FunctionImportMapping FunctionImportName="GetTimesheetMonthly" FunctionName="GlobalSolusindoModel.Store.GetTimesheetMonthly" />
+          <FunctionImportMapping FunctionImportName="GetTimesheetMonthlyV2" FunctionName="GlobalSolusindoModel.Store.GetTimesheetMonthlyV2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTimesheetMonthlyV2_Result">
+                <ScalarProperty Name="Row" ColumnName="Row" />
+                <ScalarProperty Name="SOWAssign_FK" ColumnName="SOWAssign_FK" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="FirstCheckIn" ColumnName="FirstCheckIn" />
+                <ScalarProperty Name="FirstLocation" ColumnName="FirstLocation" />
+                <ScalarProperty Name="LastCheckOut" ColumnName="LastCheckOut" />
+                <ScalarProperty Name="LastLocation" ColumnName="LastLocation" />
+                <ScalarProperty Name="IsDiffDay" ColumnName="IsDiffDay" />
+                <ScalarProperty Name="TotalTask" ColumnName="TotalTask" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTimesheetDaily" FunctionName="GlobalSolusindoModel.Store.GetTimesheetDaily">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTimesheetDaily_Result">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+                <ScalarProperty Name="IsDiffDay" ColumnName="IsDiffDay" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="GetTaskList" FunctionName="GlobalSolusindoModel.Store.GetTaskList">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTaskList_Result">
@@ -1944,18 +2037,27 @@
                 <ScalarProperty Name="ReportedValue" ColumnName="ReportedValue" />
                 <ScalarProperty Name="IsClose" ColumnName="IsClose" />
                 <ScalarProperty Name="IsSubmitted" ColumnName="IsSubmitted" />
+                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetTimesheetMonthly" FunctionName="GlobalSolusindoModel.Store.GetTimesheetMonthly" />
-          <FunctionImportMapping FunctionImportName="GetTimesheetDaily" FunctionName="GlobalSolusindoModel.Store.GetTimesheetDaily">
+          <FunctionImportMapping FunctionImportName="usp_GetSowAssign" FunctionName="GlobalSolusindoModel.Store.usp_GetSowAssign">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTimesheetDaily_Result">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Technology" ColumnName="Technology" />
-                <ScalarProperty Name="Time" ColumnName="Time" />
-                <ScalarProperty Name="Duration" ColumnName="Duration" />
-                <ScalarProperty Name="IsDiffDay" ColumnName="IsDiffDay" />
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.usp_GetSowAssign_Result">
+                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
+                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
+                <ScalarProperty Name="SOWName" ColumnName="SOWName" />
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="KategoriJabatan_FK" ColumnName="KategoriJabatan_FK" />
+                <ScalarProperty Name="KategoriJabatanTitle" ColumnName="KategoriJabatanTitle" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -2569,6 +2671,40 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetDailyTask" FunctionName="GlobalSolusindoModel.Store.usp_GetDailyTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.usp_GetDailyTask_Result">
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
+                <ScalarProperty Name="AssignTglMulai" ColumnName="AssignTglMulai" />
+                <ScalarProperty Name="AssignTglSelesai" ColumnName="AssignTglSelesai" />
+                <ScalarProperty Name="IzinCuti_PK" ColumnName="IzinCuti_PK" />
+                <ScalarProperty Name="CutiTglMulai" ColumnName="CutiTglMulai" />
+                <ScalarProperty Name="CutiTglSelesai" ColumnName="CutiTglSelesai" />
+                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
+                <ScalarProperty Name="WaktuCheckIn" ColumnName="WaktuCheckIn" />
+                <ScalarProperty Name="WaktuCheckOut" ColumnName="WaktuCheckOut" />
+                <ScalarProperty Name="KategoriJabatanTitle" ColumnName="KategoriJabatanTitle" />
+                <ScalarProperty Name="RoleTitle" ColumnName="RoleTitle" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetActivities" FunctionName="GlobalSolusindoModel.Store.usp_GetActivities">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.usp_GetActivities_Result">
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="Tanggal" ColumnName="Tanggal" />
+                <ScalarProperty Name="CheckInTime" ColumnName="CheckInTime" />
+                <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
+                <ScalarProperty Name="Aktifitas" ColumnName="Aktifitas" />
+                <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

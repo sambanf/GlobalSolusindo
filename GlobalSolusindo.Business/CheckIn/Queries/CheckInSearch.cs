@@ -1,12 +1,15 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
 using Kairos.Data;
+using Newtonsoft.Json;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.CheckIn.Queries
 {
     public class CheckInSearchFilter : SearchFilter
     {
+        [JsonProperty("userId")]
+        public int UserId { get; set; }
     }
 
     public class CheckInSearch : QueryBase
@@ -21,11 +24,23 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
                 filter.SortName = "CheckIn_PK";
             CheckInQuery checkInQuery = new CheckInQuery(this.Db);
 
-            var filteredRecords =
-                checkInQuery.GetQuery()
-                .Where(checkIn =>
-                    checkIn.SOWName.Contains(filter.Keyword)
-                    );
+            var unfilteredRecords = checkInQuery.GetQuery();
+            var filteredRecords = unfilteredRecords;
+
+            if (filter.UserId != 0)
+            {
+                filteredRecords = filteredRecords.Where(x => x.UserId == filter.UserId);
+            }
+
+            filteredRecords =
+              filteredRecords
+              .Where(checkIn =>
+                  checkIn.SOWName.Contains(filter.Keyword)
+                  || checkIn.UserName.Contains(filter.Keyword)
+                  || checkIn.BTSName.Contains(filter.Keyword)
+                  || checkIn.BTSAddress.Contains(filter.Keyword)
+                  || checkIn.KategoriJabatanTitle.Contains(filter.Keyword)
+                  );
 
             var displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)

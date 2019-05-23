@@ -58,6 +58,17 @@
                 self.setRoute(routes);
             }
 
+            if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[0]) {
+                var routeResult = [];
+                var coordinates = JSON.parse(sowCtrl.model.SOWTrackResults[0].routeResult);
+                coordinates.forEach(function (coordinate) {
+                    routeResult.push({
+                        lat: coordinate.latitude,
+                        lng: coordinate.longitude
+                    });
+                })
+                self.setRoute(routeResult);
+            }
         };
 
         return self;

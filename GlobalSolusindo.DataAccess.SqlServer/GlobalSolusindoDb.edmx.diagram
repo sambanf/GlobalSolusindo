@@ -8,24 +8,24 @@
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Area" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Aset" Width="1.5" PointX="5.25" PointY="17.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_AsetKategori" Width="1.5" PointX="3" PointY="13.875" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_AuthParam" Width="1.5" PointX="3" PointY="10.375" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_AuthParam" Width="1.5" PointX="3" PointY="21.875" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_BTS" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_BTSStatus" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_BTSTechnology" Width="1.5" PointX="5.75" PointY="4.75" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Cabang" Width="1.5" PointX="3" PointY="44.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Cabang" Width="1.5" PointX="3" PointY="41.5" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_CostKategori" Width="1.5" PointX="6.75" PointY="0.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_DeliveryArea" Width="1.5" PointX="7.75" PointY="4.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_IssueType" Width="1.5" PointX="8.75" PointY="0.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_IzinCutiStatus" Width="1.5" PointX="5.75" PointY="8.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_KategoriJabatan" Width="1.5" PointX="7.75" PointY="8.75" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Kota" Width="1.5" PointX="3" PointY="41.5" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_MappingRoleToRoleGroup" Width="1.5" PointX="3" PointY="21.875" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_MappingUserToAuthParam" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Kota" Width="1.5" PointX="3" PointY="10.625" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_MappingRoleToRoleGroup" Width="1.5" PointX="3" PointY="44.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_MappingUserToAuthParam" Width="1.5" PointX="3" PointY="29.5" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_MappingUserToRoleGroup" Width="1.5" PointX="3" PointY="38.125" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Operator" Width="1.5" PointX="9.75" PointY="4.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_PMHistori" Width="1.5" PointX="9.75" PointY="8.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Project" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Role" Width="1.5" PointX="3" PointY="25.125" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Role" Width="1.5" PointX="3" PointY="7.125" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_RoleGroup" Width="1.5" PointX="11.75" PointY="4.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Status" Width="1.5" PointX="0.75" PointY="20.625" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Technology" Width="1.5" PointX="11.75" PointY="8.75" />

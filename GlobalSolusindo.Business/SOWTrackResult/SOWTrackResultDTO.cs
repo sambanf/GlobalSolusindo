@@ -29,6 +29,8 @@ namespace GlobalSolusindo.Business.SOWTrackResult
         [JsonProperty("userRoute")]
         public List<Coordinate> UserRoute { get; set; }
 
+        [Required]
+        [JsonProperty("route")]
         public string Route
         {
             get
@@ -38,5 +40,8 @@ namespace GlobalSolusindo.Business.SOWTrackResult
                 return JsonConvert.SerializeObject(UserRoute);
             }
         }
+
+        [JsonProperty("routeResult")]
+        public string RouteResult { get; set; } 
     }
 }

@@ -25,7 +25,7 @@ namespace GlobalSolusindo.Business.IzinCuti
             tblT_IzinCuti izinCuti = izinCutiDTO.ToObject<tblT_IzinCuti>();
 
             if (!string.IsNullOrEmpty(izinCutiDTO.FilePhotoInBase64))
-                izinCuti.FilePendukung = new WebImageConverter().GetBytesFromBase64(izinCutiDTO.FilePhotoInBase64);
+                izinCuti.FilePendukung = new WebImageConverter().GetBytesFromBase64(izinCutiDTO.FilePhotoInBase64, false);
 
             return izinCuti;
         }
@@ -42,7 +42,7 @@ namespace GlobalSolusindo.Business.IzinCuti
 
             izinCuti.UpdateValueFrom(izinCutiDTO, "IzinCuti_PK", "Status_FK");
             if (!string.IsNullOrEmpty(izinCutiDTO.FilePhotoInBase64))
-                izinCuti.FilePendukung = new WebImageConverter().GetBytesFromBase64(izinCutiDTO.FilePhotoInBase64);
+                izinCuti.FilePendukung = new WebImageConverter().GetBytesFromBase64(izinCutiDTO.FilePhotoInBase64, false);
 
             izinCutiDTO.CreatedBy = izinCuti.CreatedBy;
             izinCutiDTO.CreatedDate = izinCuti.CreatedDate;
@@ -50,6 +50,6 @@ namespace GlobalSolusindo.Business.IzinCuti
             izinCuti.UpdatedDate = izinCutiDTO.UpdatedDate = dateStamp;
 
             return izinCuti;
-        } 
+        }
     }
 }

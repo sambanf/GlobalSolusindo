@@ -8,11 +8,8 @@ namespace GlobalSolusindo.Business.DailyTask.Queries
 {
     public class DailyTaskSearchFilter : SearchFilter
     {
-        [JsonProperty("user_fk")]
-        public int User_FK { get; set; }
-
-        [JsonProperty("status")]
-        public string Status { get; set; }
+        [JsonProperty("userId")]
+        public string UserId { get; set; }
 
         [JsonProperty("userName")]
         public string UserName { get; set; }
@@ -31,24 +28,15 @@ namespace GlobalSolusindo.Business.DailyTask.Queries
             DailyTaskQuery dailyTaskQuery = new DailyTaskQuery(this.Db);
 
             var filteredRecords =
-                dailyTaskQuery.GetQuery()
-                .Where(dailyTask =>
-                    dailyTask.UserId.Contains(filter.Keyword)
-                    || dailyTask.UserName.Contains(filter.Keyword) 
-                    )
-                    .AsQueryable();
+                dailyTaskQuery.GetQuery(filter.Keyword).AsQueryable();
 
-            if (filter.User_FK > 0)
-            {
-                filteredRecords = filteredRecords
-                    .Where(x => x.User_FK == filter.User_FK);
-            }
-
-            if (!string.IsNullOrEmpty(filter.Status) && filter.Status != "ALL")
-            {
-                filteredRecords = filteredRecords
-                    .Where(x => x.Status == filter.Status  );
-            }
+            //if (!string.IsNullOrEmpty(filter.UserId))
+            //{
+            //    filteredRecords = filteredRecords
+            //        .Where(x =>
+            //            x.UserId == filter.UserId
+            //            );
+            //}
 
             //if (!string.IsNullOrEmpty(filter.UserName))
             //{

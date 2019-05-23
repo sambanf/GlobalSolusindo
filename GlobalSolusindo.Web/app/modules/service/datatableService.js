@@ -35,7 +35,7 @@
 
         function createExportButtons(params, dtInstance) {
             var exportColumns = getExportColumns(params);
-            var title = getExportTitle(params); 
+            var title = getExportTitle(params);
 
             var buttons = new $.fn.dataTable.Buttons(dtInstance, {
                 buttons: [
@@ -108,15 +108,14 @@
                         extendRequestData.sortName = defaultRequestData.sortName;
                         extendRequestData.sortDir = defaultRequestData.sortDir;
                     }
-                    self.param.pageIndex = defaultRequestData.pageIndex;
-                    self.param.pageSize = defaultRequestData.pageSize;
-                    self.param.keyword = defaultRequestData.keyword;
-                    self.param.sortName = defaultRequestData.sortName;
-                    self.param.sortDir = defaultRequestData.sortDir;
-                    console.log(self.param);
-                    
-                    // var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
-                    var requestData = self.param;
+                    //self.param.pageIndex = defaultRequestData.pageIndex;
+                    //self.param.pageSize = defaultRequestData.pageSize;
+                    //self.param.keyword = defaultRequestData.keyword;
+                    //self.param.sortName = defaultRequestData.sortName;
+                    //self.param.sortDir = defaultRequestData.sortDir; 
+
+                    var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+                    //var requestData = self.param;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
                     }

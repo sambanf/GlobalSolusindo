@@ -3,7 +3,7 @@
 
     /**
      * @ngdoc function
-     * @name app.controller:userEntryCtrl
+     * @name app.controller:sowEntryCtrl
      * @description
      * # dashboardCtrl
      * Controller of the app
@@ -46,7 +46,7 @@
                 var fileName = this.files[0].name;
                 FR.readAsText(this.files[0]);
                 FR.addEventListener("load", function (e) {
-                    try { 
+                    try {
                         showRouteInMaps(e);
                     } catch (e) {
 
@@ -67,7 +67,7 @@
             self.getUsers = function (jabatanFk, keyword) {
                 http.get('user/search', {
                     pageIndex: 1,
-                    pageSize: 5,
+                    pageSize: 10000,
                     keyword: keyword,
                     kategoriJabatan_fk: jabatanFk
                 }).then(function (response) {

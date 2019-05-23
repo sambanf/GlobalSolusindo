@@ -19,24 +19,8 @@
         var self = this;
         var controller = {};
 
-        //instantiate DatatableService
-        self.dtService = ds;
-
-        self.dtService.param = {
-            user_fk: 0
-        };
-
         self.init = function (ctrl) {
             controller = ctrl;
-            console.log(controller.model);
-            controller.search = function (){
-                if(controller.model){
-                    self.dtService.param.user_fk = controller.model.user_fk;
-                }
-                // console.log(self.dtService.param);
-                controller.datatable.draw();
-            }
-
             var titleColumnIndex = 1;
             var dt = ds.init("#taskEngineer", "taskEngineer/search", {
                 extendRequestData: {

@@ -8,9 +8,9 @@ using System.Web.Http;
 
 namespace GlobalSolusindo.Api.MobileControllers
 {
-    public class CheckInController : ApiControllerBase
+    public class MobileCheckInController : ApiControllerBase
     {
-        public CheckInController()
+        public MobileCheckInController()
         {
         }
 

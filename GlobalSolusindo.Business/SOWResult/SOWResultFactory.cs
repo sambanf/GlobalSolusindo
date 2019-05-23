@@ -36,18 +36,28 @@ namespace GlobalSolusindo.Business.SOWResult
                 throw new ArgumentNullException("SOWResult model is null.");
             sowResult = Db.tblT_SOWResult.FirstOrDefault(x => x.CheckIn_FK == sowResultDTO.CheckIn_FK);
             if (sowResult == null)
-                throw new KairosException($"Record with key '{sowResultDTO.SOWResult_PK}' is not found.");
+                throw new KairosException($"Cannot make approval for this task, because user not yet submit the file/url.");
 
-            if (sowResultDTO.IsApproved == null)
-                throw new KairosException($"'isApproved' parameter is required, please fill it with 'true' or 'false'.");
+            //if (sowResultDTO.IsApproved == null)
+            //    throw new KairosException($"'isApproved' parameter is required, please fill it with 'true' or 'false'.");
 
             sowResult.UpdateValueFrom(sowResultDTO, "SOWResult_PK", "Status_FK", "FileUrl");
             sowResultDTO.CreatedBy = sowResult.CreatedBy;
             sowResultDTO.CreatedDate = sowResult.CreatedDate;
             sowResult.UpdatedBy = sowResultDTO.UpdatedBy = User.Username;
             sowResult.UpdatedDate = sowResultDTO.UpdatedDate = dateStamp;
-            sowResult.ApprovedDate = dateStamp;
-            sowResult.ApprovedBy = User.Username;
+            sowResult.IsApproved = sowResultDTO.IsApproved;
+
+            if (sowResult.IsApproved != null)
+            {
+                sowResult.ApprovedDate = dateStamp;
+                sowResult.ApprovedBy = User.Username;
+            }
+            else
+            {
+                sowResult.FileUrl = sowResultDTO.FileUrl;
+
+            }
             sowResult.CheckIn_FK = sowResultDTO.CheckIn_FK;
             return sowResult;
         }

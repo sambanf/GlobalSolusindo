@@ -24,7 +24,7 @@ namespace GlobalSolusindo.Business.SOWIssue
             sowIssueDTO.UpdatedDate = dateStamp;
             tblT_SOWIssue sowIssue = sowIssueDTO.ToObject<tblT_SOWIssue>();
             if (!string.IsNullOrEmpty(sowIssueDTO.FilePhotoInBase64))
-                sowIssue.Foto = new WebImageConverter().GetBytesFromBase64(sowIssueDTO.FilePhotoInBase64);
+                sowIssue.Foto = new WebImageConverter().GetBytesFromBase64(sowIssueDTO.FilePhotoInBase64, false);
             sowIssue.IssueType_FK = sowIssueDTO.IssueType_FK;
             sowIssue.SOWAssign_FK = sowIssueDTO.SOWAssign_FK;
                 return sowIssue;
@@ -42,7 +42,7 @@ namespace GlobalSolusindo.Business.SOWIssue
 
             sowIssue.UpdateValueFrom(sowIssueDTO, "SOWIssue_PK", "Status_FK");
             if (!string.IsNullOrEmpty(sowIssueDTO.FilePhotoInBase64))
-                sowIssue.Foto = new WebImageConverter().GetBytesFromBase64(sowIssueDTO.FilePhotoInBase64);
+                sowIssue.Foto = new WebImageConverter().GetBytesFromBase64(sowIssueDTO.FilePhotoInBase64, false);
 
             sowIssue.IssueType_FK = sowIssueDTO.IssueType_FK;
             sowIssue.SOWAssign_FK = sowIssueDTO.SOWAssign_FK;

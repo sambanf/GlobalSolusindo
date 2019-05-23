@@ -1,9 +1,5 @@
-﻿using GlobalSolusindo.Business;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Globalization;
+﻿using Newtonsoft.Json;
 using System.Net;
-using System.Threading;
 
 namespace GlobalSolusindo.Api
 {
@@ -48,10 +44,6 @@ namespace GlobalSolusindo.Api
 
     public class SuccessResponse : ResponseBody
     {
-        CultureInfo CurrentCulture { get; set; }
-        JsonSerializer JSerializer { get; set; }
-
-
         public SuccessResponse(object data, string message = "Success")
         {
             Success = true;

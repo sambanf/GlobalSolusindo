@@ -23,8 +23,38 @@ namespace Kairos.Imaging
 
         public static byte[] GetByteFromBase64(string base64string)
         {
-            byte[] bytes = Convert.FromBase64String(base64string);
-            return bytes;
+            //byte[] bytes = Convert.FromBase64String(base64string);
+            //return bytes; 
+           
+            try
+            {
+                byte[] bytes = Convert.FromBase64String(base64string);
+
+                Image image;
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
+                    image = Image.FromStream(ms);
+                }
+
+                return bytes;
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    byte[] bytes2 = Convert.FromBase64String(base64string + "==");
+                    using (MemoryStream ms2 = new MemoryStream(bytes2))
+                    { 
+                        Image image2;
+                        image2 = Image.FromStream(ms2);
+                        return bytes2;
+                    } 
+                }
+                catch (Exception)
+                {
+                    throw new ArgumentException("Invalid image base64 string.");
+                }  
+            } 
         }
 
         public static string GetBase64FromByte(byte[] bytes)
@@ -173,7 +203,7 @@ namespace Kairos.Imaging
                 if (validateImageFormat)
                     if (formatIsValid(format))
                     {
-                        return ImageConvert.GetByteFromBase64(GetBase64Only(base64StringWebFormat)); 
+                        return ImageConvert.GetByteFromBase64(GetBase64Only(base64StringWebFormat));
                     }
 
                 var base64Only = GetBase64Only(base64StringWebFormat);

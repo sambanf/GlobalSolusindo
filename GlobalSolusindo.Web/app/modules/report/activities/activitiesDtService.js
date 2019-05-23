@@ -39,7 +39,10 @@
                         "data": "tanggal"
                     },
                     {
-                        "data": "jam"
+                        "data": "checkInTime"
+                    },
+                    {
+                        "data": "checkOutTime"
                     },
                     {
                         "data": "aktifitas"

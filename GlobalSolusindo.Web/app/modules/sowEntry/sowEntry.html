@@ -35,7 +35,7 @@
                             <div class="row form-group">
                                 <label class="control-label col-sm-3">Tanggal :</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
+                                    <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD-MM-YYYY' }" required />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -76,7 +76,17 @@
                                                                    required style="width:200px">
                                                             <ui-select-match placeholder="Find user">{{$select.selected.name}}</ui-select-match>
                                                             <ui-select-choices refresh="vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)" refresh-delay="0" repeat="user.user_pk as user in vm.formData.users">
-                                                                <div ng-bind-html="user.name | highlight: $select.search"></div>
+                                                                <div>
+                                                                    <strong>
+                                                                        {{user.name }}
+                                                                    </strong>
+                                                                </div>
+                                                                <div>
+                                                                    {{"Username: " + user.username}}
+                                                                </div>
+                                                                <div style="margin:2px; border-bottom:1px solid #ccc">
+                                                                    {{"Email: " + user.email}}
+                                                                </div>
                                                             </ui-select-choices>
                                                         </ui-select>
                                                         <div class="invalid-feedback"></div>

@@ -1,8 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
 using Kairos.Data;
-using System;
-using System.Globalization;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW.Queries
@@ -20,13 +18,18 @@ namespace GlobalSolusindo.Business.SOW.Queries
         public SearchResult<SOWDTO> GetDataByFilter(SOWSearchFilter filter)
         {
             if (string.IsNullOrEmpty(filter.SortName))
-                filter.SortName = "SOW_PK";
+            {
+                filter.SortName = "TglMulai";
+                filter.SortDir = "desc";
+            }
             SOWQuery sowQuery = new SOWQuery(this.Db);
 
             var filteredRecords =
                 sowQuery.GetQuery()
                 .Where(sow =>
-                    sow.SOWName.Contains(filter.Keyword));
+                    sow.SOWName.Contains(filter.Keyword)
+                    || sow.BTSName.Contains(filter.Keyword)
+                    );
 
             var displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)

@@ -92,38 +92,37 @@ namespace GlobalSolusindo.Business.TaskList.Queries
         {
             var sql = @"
 select
-	SOWTrackResult.CheckIn_FK,
+	--distinct SOWTrackResult.CheckIn_FK,
 	SOWAssign.SOWAssign_PK, 
-	SOWTrackResult.SOWTrackResult_PK,
+	--SOWTrackResult.SOWTrackResult_PK,
 	SOWAssign.User_FK,
 	SOWTrack.SOWTrack_PK,
 	SOW.SOW_PK,
 	BTSTechnology.BTS_FK,
 	SOWTrack.Technology_FK,
 	Technology.Title AS Type,
-	CASE ISNULL(SOWTrackResult.CheckIn_FK, 0) 
-	WHEN 0
-		THEN 1
-	ELSE
-		CASE ISNULL(SOWTrackResult.Route, '') 
+    (ISNULL((select  max(checkin_pk) from tblT_CheckIn where SOWAssign_FK = SOWAssign.SOWAssign_PK),0)) AS CheckIn_PK, 
+	CASE when EXISTS(select CheckIn_FK from tblT_SOWTrackResult SOWTrackResult where SOWTrackResult.SOWTrack_FK = SOWTrack.SOWTrack_PK) 
+	THEN 
+		CASE ISNULL((select top 1 Route from tblT_SOWTrackResult SOWTrackResult where SOWTrackResult.SOWTrack_FK = SOWTrack.SOWTrack_PK order by SOWTrackResult.SOWTrackResult_PK desc), '') 
 		WHEN ''
 			THEN 2
 		ELSE
 			 3
 		END
+	ELSE
+		1
 	END AS Status
 from 
 	tblM_BTSTechnology BTSTechnology 
 	LEFT JOIN tblM_BTS BTS ON BTSTechnology.BTS_FK = BTS.BTS_PK
 	LEFT JOIN tblT_SOW SOW ON BTS.BTS_PK = SOW.BTS_FK 
 	LEFT JOIN tblT_SOWTrack SOWTrack ON BTSTechnology.Technology_FK = SOWTrack.Technology_FK
-	LEFT JOIN tblT_SOWAssign SOWAssign ON SOW.SOW_PK = SOWAssign.SOW_FK  
-	LEFT JOIN tblT_CheckIn CheckIn on SOWAssign.SOWAssign_PK = CheckIn.SOWAssign_FK
-	LEFT JOIN tblM_Technology Technology ON SOWTrack.Technology_FK = Technology.Technology_PK
-	LEFT JOIN tblT_SOWTrackResult SOWTrackResult ON SOWTrack.SOWTrack_PK = SOWTrackResult.SOWTrack_FK
+	LEFT JOIN tblT_SOWAssign SOWAssign ON SOW.SOW_PK = SOWAssign.SOW_FK   
+	LEFT JOIN tblM_Technology Technology ON SOWTrack.Technology_FK = Technology.Technology_PK 
 WHERE 
 	SOWAssign.User_FK = @userFk   
-	AND SOWTrack.SOW_FK = SOW.SOW_PK
+	AND SOWTrack.SOW_FK = SOW.SOW_PK  
     AND SOW.BTS_FK = @btsFk
 ";
 
@@ -142,6 +141,7 @@ WHERE
                                   {
                                       UserId = filter.UserID,
                                       TaskId = taskList_Result.SOWAssign_PK,
+                                      CheckIn_PK = taskList_Result.CheckIn_PK,
                                       BTS = taskList_Result.BTS,
                                       Address = taskList_Result.Alamat,
                                       Status = taskList_Result.Status,

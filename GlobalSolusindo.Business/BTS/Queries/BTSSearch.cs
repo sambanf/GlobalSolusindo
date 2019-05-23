@@ -24,7 +24,14 @@ namespace GlobalSolusindo.Business.BTS.Queries
             var filteredRecords =
                 btsQuery.GetQuery()
                 .Where(bts =>
-                    bts.CustomerSite.Contains(filter.Keyword));
+                    bts.Name.Contains(filter.Keyword)
+                     || bts.CabangTitle.Contains(filter.Keyword)
+                     || bts.OperatorTitle.Contains(filter.Keyword)
+                    || bts.TowerID.Contains(filter.Keyword)
+                    || bts.CellID.Contains(filter.Keyword)
+                    || bts.CustomerSite.Contains(filter.Keyword)
+                    || bts.Alamat.Contains(filter.Keyword)
+                    );
 
             var displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)

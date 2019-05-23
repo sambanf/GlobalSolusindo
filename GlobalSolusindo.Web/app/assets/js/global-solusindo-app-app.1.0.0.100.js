@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-18. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-22. 
 * @author Kairos
 */
 (function() {
@@ -368,6 +368,46 @@ angular.module('global-solusindo')
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Cabang Entry'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.checkInList', {
+                url: '/checkInList',
+                templateUrl: 'app/modules/checkIn/checkIn.html',
+                controller: 'CheckInCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'CheckIn'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.checkInEntry', {
+                url: '/checkInEntry/:id',
+                templateUrl: 'app/modules/checkInEntry/checkInEntry.html',
+                controller: 'CheckInEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Task Approval'
                 }
             });
     }]);
@@ -859,6 +899,46 @@ angular.module('global-solusindo')
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Mapping User To Role Group Entry'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.myTaskListList', {
+                url: '/myTaskListList',
+                templateUrl: 'app/modules/myTaskList/myTaskList.html',
+                controller: 'MyTaskListCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'MyTaskList'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.myTaskListEntry', {
+                url: '/myTaskListEntry/:id',
+                templateUrl: 'app/modules/myTaskListEntry/myTaskListEntry.html',
+                controller: 'MyTaskListEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Task Approval'
                 }
             });
     }]);
@@ -1721,6 +1801,59 @@ angular.module('global-solusindo')
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('CheckInCtrl', CheckInCtrl);
+
+    CheckInCtrl.$inject = ['$scope', '$state', 'checkInDtService', 'checkInDeleteService', 'checkInViewService'];
+
+    function CheckInCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('CheckInEntryCtrl', CheckInEntryCtrl);
+
+    CheckInEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'CheckInSaveService', 'CheckInBindingService', 'FormControlService', 'select2Service', 'sowMapService'];
+
+    function CheckInEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service, map) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+            try { 
+                map.init(self);
+
+            } catch (e) {
+
+            }
         });
 
         return self;
@@ -2759,6 +2892,59 @@ angular.module('global-solusindo')
     'use strict';
 
     angular.module('global-solusindo')
+        .controller('MyTaskListCtrl', MyTaskListCtrl);
+
+    MyTaskListCtrl.$inject = ['$scope', '$state', 'myTaskListDtService', 'myTaskListDeleteService', 'myTaskListViewService'];
+
+    function MyTaskListCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('MyTaskListEntryCtrl', MyTaskListEntryCtrl);
+
+    MyTaskListEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MyTaskListSaveService', 'MyTaskListBindingService', 'FormControlService', 'select2Service', 'sowMapService'];
+
+    function MyTaskListEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service, map) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+            try {
+                map.init(self);
+
+            } catch (e) {
+
+            }
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
         .controller('OperatorCtrl', OperatorCtrl);
 
     OperatorCtrl.$inject = ['$scope', '$state', 'operatorDtService', 'operatorDeleteService', 'operatorViewService'];
@@ -2922,7 +3108,6 @@ angular.module('global-solusindo')
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
-
         return self;
     }
 })();
@@ -3154,7 +3339,7 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
-     * @name app.controller:userEntryCtrl
+     * @name app.controller:sowEntryCtrl
      * @description
      * # dashboardCtrl
      * Controller of the app
@@ -3197,7 +3382,7 @@ angular.module('global-solusindo')
                 var fileName = this.files[0].name;
                 FR.readAsText(this.files[0]);
                 FR.addEventListener("load", function (e) {
-                    try { 
+                    try {
                         showRouteInMaps(e);
                     } catch (e) {
 
@@ -3218,7 +3403,7 @@ angular.module('global-solusindo')
             self.getUsers = function (jabatanFk, keyword) {
                 http.get('user/search', {
                     pageIndex: 1,
-                    pageSize: 5,
+                    pageSize: 10000,
                     keyword: keyword,
                     kategoriJabatan_fk: jabatanFk
                 }).then(function (response) {
@@ -3315,9 +3500,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('SOWInfoCtrl', SOWInfoCtrl);
 
-    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService', 'costDtService', 'costShowModalService', 'costDeleteService'];
+    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService', 'costDtService', 'costShowModalService', 'costDeleteService', 'sowMapService'];
 
-    function SOWInfoCtrl($scope, sParam, $state, bindingService, http, costDtService, costShowModalService, costDeleteService) {
+    function SOWInfoCtrl($scope, sParam, $state, bindingService, http, costDtService, costShowModalService, costDeleteService, map) {
         var self = this;
         self.stateParam = sParam;
 
@@ -3325,6 +3510,12 @@ angular.module('global-solusindo')
             costDtService.init(self);
             costShowModalService.init(self);
             costDeleteService.init(self);
+            try {
+                map.init(self);
+
+            } catch (e) {
+
+            }
         });
 
         return self;
@@ -5803,6 +5994,317 @@ angular.module('global-solusindo')
             controller = ctrl;
             angular.element('#saveButton').on('click', function () {
                 self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('checkInDeleteService', checkInDeleteService);
+
+    checkInDeleteService.$inject = ['HttpService', 'uiService'];
+
+    function checkInDeleteService(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('checkIn', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message, 'popup');
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.checkIn_pk];
+            ui.alert.confirm("Are you sure want to delete checkIn '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].checkIn_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#checkIn tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('checkInDtService', checkInDtService);
+
+    checkInDtService.$inject = ['DatatableService'];
+
+    function checkInDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#checkIn", "checkIn/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "checkIn_pk"
+                    },
+                    {
+                        "data": "userName"
+                    },
+                    {
+                        "data": "kategoriJabatanTitle"
+                    },
+                    {
+                        "data": "sowName"
+                    },
+                    {
+                        "data": "btsName"
+                    },
+                    {
+                        "data": "btsAddress"
+                    },
+                    {
+                        "data": "checkInTime"
+                    },
+                    {
+                        "data": "waktuCheckOut"
+                    },
+                    {
+                        "data": "fileSubmitted"
+                    },
+                    {
+                        "data": "status"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> ";
+                        }
+                    }
+                ],
+                exportButtons: {
+                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    title: "CheckIn"
+                }
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('checkInViewService', checkInViewService);
+
+    checkInViewService.$inject = ['HttpService', '$state', 'uiService'];
+
+    function checkInViewService(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.checkInEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#checkIn tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.checkIn_pk);
+            });
+
+            $("#checkIn tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["checkIn_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('CheckInBindingService', CheckInBindingService);
+
+    CheckInBindingService.$inject = ['HttpService', '$state'];
+
+    function CheckInBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('checkIn/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('CheckInSaveService', CheckInSaveService);
+
+    CheckInSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function CheckInSaveService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        function goToListPage() {
+            $state.go('app.checkInList');
+        }
+
+        self.approve = function (model, isApproved) {
+            var request = {
+                "checkInID": model.checkIn_pk,
+                "isApproved": isApproved
+            };
+            http.post('mobile/doCloseTask', request).then(function (res) {
+                if (res.status == true) {
+                    ui.alert.success("Data successfuly updated.");
+                    //$state.go('app.checkInEntry', { id: res.data.model.checkIn_pk });
+                    goToListPage();
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#approveButton').on('click', function () {
+                self.approve(controller.model, true);
+            });
+            angular.element('#rejectButton').on('click', function () {
+                self.approve(controller.model, false);
             });
         };
 
@@ -9343,6 +9845,314 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('myTaskListDeleteService', myTaskListDeleteService);
+
+    myTaskListDeleteService.$inject = ['HttpService', 'uiService'];
+
+    function myTaskListDeleteService(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('myTaskList', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message, 'popup');
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.myTaskList_pk];
+            ui.alert.confirm("Are you sure want to delete myTaskList '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].myTaskList_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#myTaskList tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('myTaskListDtService', myTaskListDtService);
+
+    myTaskListDtService.$inject = ['DatatableService'];
+
+    function myTaskListDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#myTaskList", "myTaskList/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "checkIn_pk"
+                    },
+                    {
+                        "data": "userName"
+                    },
+                    {
+                        "data": "kategoriJabatanTitle"
+                    },
+                    {
+                        "data": "sowName"
+                    },
+                    {
+                        "data": "btsName"
+                    },
+                    {
+                        "data": "btsAddress"
+                    },
+                    {
+                        "data": "checkInTime"
+                    },
+                    {
+                        "data": "waktuCheckOut"
+                    },
+                    {
+                        "data": "fileSubmitted"
+                    },
+                    {
+                        "data": "status"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> ";
+                        }
+                    }
+                ],
+                exportButtons: {
+                    columns: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                    title: "MyTaskList"
+                }
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('myTaskListViewService', myTaskListViewService);
+
+    myTaskListViewService.$inject = ['HttpService', '$state', 'uiService'];
+
+    function myTaskListViewService(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.myTaskListEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#myTaskList tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.checkIn_pk);
+            });
+
+            $("#myTaskList tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["checkIn_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MyTaskListBindingService', MyTaskListBindingService);
+
+    MyTaskListBindingService.$inject = ['HttpService', '$state'];
+
+    function MyTaskListBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('checkIn/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('MyTaskListSaveService', MyTaskListSaveService);
+
+    MyTaskListSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function MyTaskListSaveService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        function goToListPage() {
+            $state.go('app.myTaskListList');
+        }
+
+        self.submit = function (model) {
+            var request = {
+                "checkInID": model.checkIn_pk,
+                "description": model.SOWResult.description
+            };
+            http.post('mobile/doSubmitUrl', request).then(function (res) {
+                if (res.status == true) {
+                    ui.alert.success("Data successfuly updated.");
+                    //$state.go('app.myTaskListEntry', { id: res.data.model.myTaskList_pk });
+                    goToListPage();
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#submitButton').on('click', function () {
+                self.submit(controller.model, true);
+            }); 
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('operatorDeleteService', operator);
 
     operator.$inject = ['HttpService', 'uiService'];
@@ -10053,7 +10863,10 @@ angular.module('global-solusindo')
                         "data": "tanggal"
                     },
                     {
-                        "data": "jam"
+                        "data": "checkInTime"
+                    },
+                    {
+                        "data": "checkOutTime"
                     },
                     {
                         "data": "aktifitas"
@@ -10519,7 +11332,6 @@ angular.module('global-solusindo')
             controller.datatable = dt;
             return dt;
         };
-
         return self;
     }
 
@@ -11343,6 +12155,7 @@ angular.module('global-solusindo')
 
     function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui) {
         var self = this;
+        self.param = {};
 
         function getExportColumns(params) {
             if (params && params.exportButtons && params.exportButtons.columns) {
@@ -11360,7 +12173,7 @@ angular.module('global-solusindo')
 
         function createExportButtons(params, dtInstance) {
             var exportColumns = getExportColumns(params);
-            var title = getExportTitle(params); 
+            var title = getExportTitle(params);
 
             var buttons = new $.fn.dataTable.Buttons(dtInstance, {
                 buttons: [
@@ -11433,8 +12246,14 @@ angular.module('global-solusindo')
                         extendRequestData.sortName = defaultRequestData.sortName;
                         extendRequestData.sortDir = defaultRequestData.sortDir;
                     }
+                    //self.param.pageIndex = defaultRequestData.pageIndex;
+                    //self.param.pageSize = defaultRequestData.pageSize;
+                    //self.param.keyword = defaultRequestData.keyword;
+                    //self.param.sortName = defaultRequestData.sortName;
+                    //self.param.sortDir = defaultRequestData.sortDir; 
 
                     var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+                    //var requestData = self.param;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
                     }
@@ -11610,8 +12429,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -12497,13 +13316,13 @@ angular.module('global-solusindo')
 
         self.init = function (ctrl) {
             controller = ctrl;
-            var titleColumnIndex = 1;
+            var sortColumnIndex = 3;
             var dt = ds.init("#sow", "sow/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
                 },
-                order: [titleColumnIndex, "asc"],
+                order: [sortColumnIndex, "desc"],
                 columns: [
                     {
                         "orderable": false,
@@ -12710,6 +13529,17 @@ angular.module('global-solusindo')
                 self.setRoute(routes);
             }
 
+            if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[0]) {
+                var routeResult = [];
+                var coordinates = JSON.parse(sowCtrl.model.SOWTrackResults[0].routeResult);
+                coordinates.forEach(function (coordinate) {
+                    routeResult.push({
+                        lat: coordinate.latitude,
+                        lng: coordinate.longitude
+                    });
+                })
+                self.setRoute(routeResult);
+            }
         };
 
         return self;
@@ -12819,6 +13649,23 @@ angular.module('global-solusindo')
                 },
                 onSelected: function (data) {
                     controller.model.project_fk = data.project_pk;
+                },
+                templateResult: function (item) {
+                    if (item.loading) {
+                        var markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div>" + item.text + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    } else {
+                        var markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div><b>" + item.title + "</b></div>" +
+                            "<div>" + item.operatorTitle + "</div>" +
+                            "<div>" + item.deliveryAreaTitle + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    }
                 }
             });
         }
@@ -12833,6 +13680,25 @@ angular.module('global-solusindo')
                 },
                 onSelected: function (data) {
                     controller.model.bts_fk = data.bts_pk;
+                },
+                templateResult: function (item) {
+                    if (item.loading) {
+                        var markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div>" + item.text + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    } else {
+                        var markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div><b>" + item.name + "</b></div>" +
+                            "<div>Operator: " + item.operatorTitle + "</div>" +
+                            "<div>Tower ID: " + item.towerId + "</div>" +
+                            "<div>Cell ID: " + item.cellId + "</div>" +
+                            "<div>Cabang: " + item.cabangTitle + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    }
                 }
             });
         }

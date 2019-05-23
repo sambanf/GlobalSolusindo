@@ -8,6 +8,9 @@ namespace GlobalSolusindo.Business.SOW
         [JsonProperty("type")]
         public string Type { get; set; }
 
+        [JsonProperty("checkInID")]
+        public int? CheckIn_PK { get; set; }
+
         [JsonProperty("status")]
         public int Status { get; set; }
 
@@ -44,6 +47,9 @@ namespace GlobalSolusindo.Business.SOW
 
         [JsonProperty("taskId")]
         public int? TaskId { get; set; }
+
+        [JsonProperty("checkInID")]
+        public int? CheckIn_PK { get; set; }
 
         [JsonProperty("bts")]
         public string BTS { get; set; }

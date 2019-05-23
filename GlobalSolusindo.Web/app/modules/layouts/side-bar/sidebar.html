@@ -4,7 +4,7 @@
             <i class="fas fa-broadcast-tower"></i>
         </div>
         <div class="company-title">
-            Global Solusindo
+            Global One Solusindo
         </div>
     </div>
     <nav class="sidebar-nav">
@@ -14,6 +14,34 @@
                     <i class="fas fa-home"></i> <span>Homepage</span>
                 </a>
             </li>
+            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
+                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
+                    <i class="fa fa-luggage-cart"></i> <span>Transaksi</span>
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.projectList">
+                            <i class="fa fa-train"></i> <span>Project</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.sowList">
+                            <i class="fa fa-user"></i> <span>SOW</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.checkInList">
+                            <i class="fa fa-user"></i> <span>Task Approval</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.myTaskListList">
+                            <i class="fa fa-user"></i> <span>My Task List</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
             <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
                 <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
                     <i class="fa fa-user"></i> <span>User Management</span>
@@ -62,6 +90,7 @@
 
                 </ul>
             </li>
+
             <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
                 <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
                     <i class="fa fa-luggage-cart"></i> <span>Master Data</span>
@@ -73,22 +102,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.projectList">
-                            <i class="fa fa-train"></i> <span>Project</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" ui-sref-active="active" ui-sref="app.asetList">
                             <i class="fa fa-train"></i> <span>Asset</span>
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.sowList">
-                            <i class="fa fa-user"></i> <span>SOW</span>
-                        </a>
-                    </li>
+                    </li> 
                 </ul>
             </li>
+
             <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
                 <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
                     <i class="fa fa-luggage-cart"></i> <span>Complementary</span>

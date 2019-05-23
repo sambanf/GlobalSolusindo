@@ -3,6 +3,7 @@ using GlobalSolusindo.DataAccess;
 using Kairos.Data;
 using Kairos.Linq;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -38,7 +39,7 @@ namespace GlobalSolusindo.Business.SOWTrackResult
                         {
                             SOWTrackResult_PK = sowTrackResult.SOWTrackResult_PK,
                             CheckIn_FK = sowTrackResult.CheckIn_FK,
-                            //Route = sowTrackResult.Route,
+                            RouteResult = sowTrackResult.Route,
                             SOWTrack_FK = sowTrackResult.SOWTrack_FK,
                             CreatedBy = sowTrackResult.CreatedBy,
                             CreatedDate = sowTrackResult.CreatedDate,
@@ -78,6 +79,12 @@ namespace GlobalSolusindo.Business.SOWTrackResult
         {
             SOWTrackResultDTO record = GetQuery().FirstOrDefault(sowTrackResult => sowTrackResult.SOWTrackResult_PK == primaryKey);
             return record;
+        }
+
+        public List<SOWTrackResultDTO> GetByCheckinFK(int checkinFk)
+        {
+            var records = GetQuery().Where(sowTrackResult => sowTrackResult.CheckIn_FK == checkinFk).ToList();
+            return records;
         }
 
         #region IUniqueQuery Member

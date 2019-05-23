@@ -25,7 +25,21 @@ namespace GlobalSolusindo.Business.TimesheetDaily.Queries
 
     public class TimesheetDailyDTO
     {
-        [JsonProperty("bts")]        public string BTS { get; set; }        [JsonProperty("task")]        public string Task { get; set; }        [JsonProperty("time")]        public string Time { get; set; }        [JsonProperty("duration")]        public int? Duration { get; set; }        [JsonProperty("isDiffDay")]        public bool? IsDiffDay { get; set; }
+        [JsonProperty("bts")]
+        public string BTS { get; set; }
+
+        [JsonProperty("task")]
+        public string Task { get; set; }
+
+        [JsonProperty("time")]
+        public string Time { get; set; }
+
+        [JsonProperty("duration")]
+        public int? Duration { get; set; }
+
+        [JsonProperty("isDiffDay")]
+        public bool? IsDiffDay { get; set; }
+
     }
 
     public class TimesheetDailySearch : QueryBase

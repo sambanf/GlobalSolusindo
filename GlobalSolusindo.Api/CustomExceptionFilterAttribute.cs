@@ -82,7 +82,9 @@ namespace GlobalSolusindo.Api
                 return;
             }
 
-            var unhandledException = context.Exception;
+            var innerException = ExInnerExceptionHelper.GetInnerException(context.Exception);
+
+            var unhandledException = innerException;
             //var otherResponse = new ErrorResponse(ServiceStatusCode.UnhandledException, null, "Something error occurs.");
             var otherResponse = new ErrorResponse(ServiceStatusCode.UnhandledException, null, unhandledException.Message);
             var otherContent = new ObjectContent(type, otherResponse, jsonFormatter);
@@ -103,6 +105,18 @@ namespace GlobalSolusindo.Api
                 message = GetInnerestErrorMessage(exception.InnerException);
 
             return message;
+        }
+    }
+
+    public class ExInnerExceptionHelper
+    {
+        public static Exception GetInnerException(Exception exception)
+        {
+            var ex = exception;
+            if (exception.InnerException != null)
+                ex = GetInnerException(exception.InnerException);
+
+            return ex;
         }
     }
 }
