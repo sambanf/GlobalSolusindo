@@ -98,7 +98,7 @@ from
 	left join tblM_User Users ON Assign.User_FK = Users.User_PK
 	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
 where 	
-	Jabatan.KategoriJabatan_PK = 1
+	Jabatan.KategoriJabatan_PK = 1 and Assign.SOWAssign_PK is not null
 union all
 select 
 	Assign.SOWAssign_PK,
@@ -122,7 +122,7 @@ from
 	left join tblM_User Users ON Assign.User_FK = Users.User_PK
 	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
 where 	
-	Jabatan.KategoriJabatan_PK = 2	
+	Jabatan.KategoriJabatan_PK = 2	 and Assign.SOWAssign_PK is not null
 
 union all
 select 
@@ -147,7 +147,7 @@ from
 	left join tblM_User Users ON Assign.User_FK = Users.User_PK
 	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
 where 	
-	Jabatan.KategoriJabatan_PK = 3
+	Jabatan.KategoriJabatan_PK = 3 and Assign.SOWAssign_PK is not null
 union all
 select 
 	Assign.SOWAssign_PK,
@@ -171,7 +171,7 @@ from
 	left join tblM_User Users ON Assign.User_FK = Users.User_PK
 	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
 where 	
-	Jabatan.KategoriJabatan_PK = 5		
+	Jabatan.KategoriJabatan_PK = 5	 and Assign.SOWAssign_PK is not null	
 union all
 select 
 	Assign.SOWAssign_PK,
@@ -195,7 +195,7 @@ from
 	left join tblM_User Users ON Assign.User_FK = Users.User_PK
 	left join tblM_UserDetail UserDetail ON Users.UserDetail_FK = UserDetail.UserDetail_PK
 where 	
-	Jabatan.KategoriJabatan_PK = 6		
+	Jabatan.KategoriJabatan_PK = 6	and Assign.SOWAssign_PK is not null	
 ";
 
             var records = Db.Database.SqlQuery<SOWAssignDTO>(sql, new SqlParameter("@SOW_KF", sowFK));
