@@ -38,9 +38,11 @@ namespace GlobalSolusindo.Business.SOWAssign
         public string KategoriJabatanTitle { get; set; }
 
         [JsonProperty("tglMulai")]
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? TglMulai { get; set; }
 
         [JsonProperty("tglSelesai")]
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? TglSelesai { get; set; }
 
         [JsonProperty("btsName")]

@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-22. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-23. 
 * @author Kairos
 */
 (function() {
@@ -12429,8 +12429,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        //var base_url = "http://gsapi.local/";
-        var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://gsapi.local/";
+        // var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};

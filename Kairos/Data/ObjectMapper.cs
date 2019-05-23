@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 using System;
 using System.ComponentModel;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace Kairos.Data
 
         public static T ToObject<T>(this object source)
         {
+
             var jsonString = JsonConvert.SerializeObject(source);
             return JsonConvert.DeserializeObject<T>(jsonString);
 

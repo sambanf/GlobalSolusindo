@@ -24,6 +24,7 @@ namespace GlobalSolusindo.Business.SOWResult
         public string ApprovedBy { get; set; }
 
         [JsonProperty("approvedDate")]
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? ApprovedDate { get; set; }
 
         [JsonProperty("description")]

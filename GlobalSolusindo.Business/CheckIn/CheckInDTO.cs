@@ -34,6 +34,7 @@ namespace GlobalSolusindo.Business.CheckIn
         public int? SOW_FK { get; set; }
 
         [JsonProperty("sowDate")]
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? SOWDate { get; set; }
 
         [JsonProperty("sowName")]
@@ -47,6 +48,7 @@ namespace GlobalSolusindo.Business.CheckIn
 
         [Required]
         [JsonProperty("checkInTime")]
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? WaktuCheckIn { get; set; }
 
         [Required]
@@ -75,6 +77,7 @@ namespace GlobalSolusindo.Business.CheckIn
 
         [Required]
         [JsonProperty("waktuCheckOut")]
+        [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? WaktuCheckOut { get; set; }
 
         [Required]

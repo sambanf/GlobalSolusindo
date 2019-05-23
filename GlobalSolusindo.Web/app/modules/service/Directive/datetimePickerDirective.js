@@ -37,8 +37,13 @@
                         if (!ngModel.$viewValue && currentDate) {
                             dpElement.data('DateTimePicker').clear();
                         } else if (ngModel.$viewValue) {
+                            console.log(ngModel.$viewValue);
                             // otherwise make sure it is moment object
                             if (!moment.isMoment(ngModel.$viewValue)) {
+                                console.log('masuk');
+                                if(!ngModel.$viewValue.includes("T")){
+                                    ngModel.$viewValue = moment(ngModel.$viewValue, "DD-MM-YYYY");
+                                }
                                 ngModel.$setViewValue(moment(ngModel.$viewValue));
                             }
                             dpElement.data('DateTimePicker').date(ngModel.$viewValue);
