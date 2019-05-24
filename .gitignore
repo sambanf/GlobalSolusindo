@@ -269,3 +269,4 @@ Kairos.Google.Tests/packages.config
 Kairos.Google.Tests/Properties/AssemblyInfo.cs
 AfterSyncLocalToServer.sql
 BackupBeforeStructureSync.sql
+GlobalSolusindo.Api/Web.config

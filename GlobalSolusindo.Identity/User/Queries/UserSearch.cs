@@ -18,6 +18,9 @@ namespace GlobalSolusindo.Identity.User.Queries
 
     public class UserSearchFilter : SearchFilter
     {
+        [JsonProperty("user_pk")]
+        public int User_PK { get; set; }
+
         [JsonProperty("kategoriJabatan_fk")]
         public int KategoriJabatan_FK{ get; set; }
     }
@@ -51,6 +54,13 @@ namespace GlobalSolusindo.Identity.User.Queries
                 filteredRecords = filteredRecords
                     .Where(user =>
                     user.KategoriJabatan_FK == (int)filter.KategoriJabatan_FK);
+            }
+
+            if (filter.User_PK > 0)
+            {
+                filteredRecords = filteredRecords
+                    .Where(user =>
+                    user.User_PK == (int)filter.User_PK);
             }
 
             var displayedRecords = filteredRecords.

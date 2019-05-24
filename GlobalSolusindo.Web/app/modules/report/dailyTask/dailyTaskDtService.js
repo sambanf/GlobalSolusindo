@@ -19,8 +19,28 @@
         var self = this;
         var controller = {};
 
+        //instantiate DatatableService
+        self.dtService = ds;
+
+        self.dtService.param = {
+            user_fk: 0,
+            status:""
+        };
+
         self.init = function (ctrl) {
             controller = ctrl;
+            console.log(controller.model);
+            controller.search = function (){
+                if(controller.model){
+                    self.dtService.param.user_fk = controller.model.user_fk;
+                    if(controller.model.status_name){
+                        self.dtService.param.status = controller.model.status_name;
+                    }
+                }
+                // console.log(self.dtService.param);
+                controller.datatable.draw();
+            }
+            
             var titleColumnIndex = 1;
             var dt = ds.init("#dailyTask", "dailyTask/search", {
                 extendRequestData: {

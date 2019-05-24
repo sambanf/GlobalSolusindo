@@ -8,11 +8,14 @@ namespace GlobalSolusindo.Business.DailyTask.Queries
 {
     public class DailyTaskSearchFilter : SearchFilter
     {
-        [JsonProperty("userId")]
-        public string UserId { get; set; }
+        [JsonProperty("user_fk")]
+        public int User_FK { get; set; }
 
         [JsonProperty("userName")]
         public string UserName { get; set; }
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
     }
 
     public class DailyTaskSearch : QueryBase
@@ -30,21 +33,17 @@ namespace GlobalSolusindo.Business.DailyTask.Queries
             var filteredRecords =
                 dailyTaskQuery.GetQuery(filter.Keyword).AsQueryable();
 
-            //if (!string.IsNullOrEmpty(filter.UserId))
-            //{
-            //    filteredRecords = filteredRecords
-            //        .Where(x =>
-            //            x.UserId == filter.UserId
-            //            );
-            //}
+            if (filter.User_FK > 0)
+            {
+                filteredRecords = filteredRecords
+                    .Where(x => x.User_FK == filter.User_FK);
+            }
 
-            //if (!string.IsNullOrEmpty(filter.UserName))
-            //{
-            //    filteredRecords = filteredRecords
-            //        .Where(x =>
-            //            x.UserName == filter.UserName
-            //            );
-            //}
+            if (!string.IsNullOrEmpty(filter.Status) && filter.Status != "ALL")
+            {
+                filteredRecords = filteredRecords
+                    .Where(x => x.Status == filter.Status);
+            }
 
             var displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)
