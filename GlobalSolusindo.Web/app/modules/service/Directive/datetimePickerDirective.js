@@ -21,8 +21,13 @@
                     onClick: '&?'
                 },
                 link: function ($scope, $element, $attrs, ngModel) {
-                    // var dpElement = $element.parent().hasClass('input-group') ? $element.parent() : $element;
+                    if ($scope.options == undefined) {
+                        $scope.options = {
+                            format: "DD/MM/YYYY HH:mm"
+                        };
+                    }
                     var dpElement = $element;
+                    var defaultValueFormat = "DD/MM/YYYY HH:mm";
 
                     $scope.$watch('options', function (newValue) {
                         var dtp = dpElement.data('DateTimePicker');
@@ -37,15 +42,10 @@
                         if (!ngModel.$viewValue && currentDate) {
                             dpElement.data('DateTimePicker').clear();
                         } else if (ngModel.$viewValue) {
-                            console.log(ngModel.$viewValue);
                             // otherwise make sure it is moment object
-                            if (!moment.isMoment(ngModel.$viewValue)) {
-                                console.log('masuk');
-                                if(!ngModel.$viewValue.includes("T")){
-                                    ngModel.$viewValue = moment(ngModel.$viewValue, "DD-MM-YYYY");
-                                }
-                                ngModel.$setViewValue(moment(ngModel.$viewValue));
-                            }
+                            //if (!moment.isMoment(ngModel.$viewValue)) {
+                            ngModel.$setViewValue(moment(ngModel.$viewValue).format(defaultValueFormat));
+                            //}
                             dpElement.data('DateTimePicker').date(ngModel.$viewValue);
                         }
                     };
@@ -57,7 +57,7 @@
                     dpElement.on('dp.change', function (e) {
                         if (!isDateEqual(e.date, ngModel.$viewValue)) {
                             var newValue = e.date === false ? null : e.date;
-                            ngModel.$setViewValue(newValue);
+                            ngModel.$setViewValue(newValue.format(defaultValueFormat));
 
                             $timeout(function () {
                                 if (typeof $scope.onChange === 'function') {
