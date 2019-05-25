@@ -27,7 +27,6 @@
                         };
                     }
                     var dpElement = $element;
-                    var defaultValueFormat = "DD/MM/YYYY HH:mm";
 
                     $scope.$watch('options', function (newValue) {
                         var dtp = dpElement.data('DateTimePicker');
@@ -44,7 +43,7 @@
                         } else if (ngModel.$viewValue) {
                             // otherwise make sure it is moment object
                             //if (!moment.isMoment(ngModel.$viewValue)) {
-                            ngModel.$setViewValue(moment(ngModel.$viewValue).format(defaultValueFormat));
+                            ngModel.$setViewValue(moment(ngModel.$viewValue).format());
                             //}
                             dpElement.data('DateTimePicker').date(ngModel.$viewValue);
                         }
@@ -57,8 +56,8 @@
                     dpElement.on('dp.change', function (e) {
                         if (!isDateEqual(e.date, ngModel.$viewValue)) {
                             var newValue = e.date === false ? null : e.date;
-                            ngModel.$setViewValue(newValue.format(defaultValueFormat));
-
+                            ngModel.$setViewValue(newValue.format());
+                            console.log(ngModel);
                             $timeout(function () {
                                 if (typeof $scope.onChange === 'function') {
                                     $scope.onChange();
