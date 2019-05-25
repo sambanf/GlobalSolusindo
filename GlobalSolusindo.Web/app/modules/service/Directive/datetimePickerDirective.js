@@ -42,9 +42,14 @@
                             dpElement.data('DateTimePicker').clear();
                         } else if (ngModel.$viewValue) {
                             // otherwise make sure it is moment object
-                            //if (!moment.isMoment(ngModel.$viewValue)) {
-                            ngModel.$setViewValue(moment(ngModel.$viewValue).format());
-                            //}
+                            if (!moment.isMoment(ngModel.$viewValue)) {
+                                ngModel.$setViewValue(moment(ngModel.$viewValue));
+                                $timeout(function () {
+                                    ngModel.$setViewValue(moment(ngModel.$viewValue).format());
+                                });
+                            } else {
+                                ngModel.$setViewValue(ngModel.format());
+                            }
                             dpElement.data('DateTimePicker').date(ngModel.$viewValue);
                         }
                     };
@@ -57,7 +62,6 @@
                         if (!isDateEqual(e.date, ngModel.$viewValue)) {
                             var newValue = e.date === false ? null : e.date;
                             ngModel.$setViewValue(newValue.format());
-                            console.log(ngModel);
                             $timeout(function () {
                                 if (typeof $scope.onChange === 'function') {
                                     $scope.onChange();
