@@ -2,9 +2,11 @@
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity.MappingUserToRoleGroup.EntryForm;
 using GlobalSolusindo.Identity.MappingUserToRoleGroup.Queries;
+using GlobalSolusindo.Identity.User.Queries;
 using Kairos;
 using Kairos.Data;
 using System;
+using System.Linq;
 
 namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.DML
 {
@@ -14,6 +16,16 @@ namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.DML
         private MappingUserToRoleGroupFactory mappingUserToRoleGroupFactory;
         private MappingUserToRoleGroupQuery mappingUserToRoleGroupQuery;
         private MappingUserToRoleGroupEntryDataProvider mappingUserToRoleGroupEntryDataProvider;
+
+        private int[] assignableJabatan = new int[]
+        {
+            1, //TeamLead
+            2, //Drive Tester
+            3, //Rigger
+            4, //Surveyor
+            5, //Radio Frequency (RF)
+            6 //Radio Network Optimization (RNO)
+        };
 
         public MappingUserToRoleGroupCreateHandler(GlobalSolusindoDb db, tblM_User user, MappingUserToRoleGroupValidator mappingUserToRoleGroupValidator, MappingUserToRoleGroupFactory mappingUserToRoleGroupFactory, MappingUserToRoleGroupQuery mappingUserToRoleGroupQuery, AccessControl accessControl) : base(db, user)
         {
@@ -31,6 +43,20 @@ namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.DML
             var recordIsExist = Db.tblM_MappingUserToRoleGroup.Find(mappingUserToRoleGroupDTO.User_PK, mappingUserToRoleGroupDTO.RoleGroup_PK) != null;
             if (recordIsExist)
                 throw new KairosException("User already exist in the group.");
+
+            var user = new UserQuery(Db).GetByPrimaryKey((int)mappingUserToRoleGroupDTO.User_PK);
+
+            if (user != null)
+            {
+                if (assignableJabatan.Contains(user.KategoriJabatan_FK))
+                {
+                    var mappingUserRoleGroupCount = Db.tblM_MappingUserToRoleGroup.Where(x => x.User_PK == user.User_PK).Count();
+                    if (mappingUserRoleGroupCount > 0)
+                    {
+                        throw new KairosException($"This user cannot have more than one role group because its position is '{user.KategoriJabatanTitle}'.");
+                    }
+                }
+            }
 
             tblM_MappingUserToRoleGroup mappingUserToRoleGroup = mappingUserToRoleGroupFactory.CreateFromDTO(mappingUserToRoleGroupDTO, dateStamp);
             return Db.tblM_MappingUserToRoleGroup.Add(mappingUserToRoleGroup);

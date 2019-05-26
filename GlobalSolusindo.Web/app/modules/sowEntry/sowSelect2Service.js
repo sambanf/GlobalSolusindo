@@ -83,19 +83,23 @@
             });
         }
 
-        //function getUsers() {
-        //    select2Service.liveSearch("user/search", {
-        //        selector: '#user_fk',
-        //        valueMember: 'user_pk',
-        //        displayMember: 'name',
-        //        callback: function (data) {
-        //            controller.formData.users = data;
-        //        },
-        //        onSelected: function (data) {
-        //            controller.model.user_fk = data.user_pk;
-        //        }
-        //    });
-        //}
+        function getTechnologies() {
+            select2Service.liveSearch("technology/search", {
+                selector: '#technology_fk',
+                valueMember: 'technology_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.technologies = data;
+                },
+                onSelected: function (data) {
+                    controller.model.technology_fk = data.technology_pk;
+                    if (controller.model.sowTracks && controller.model.sowTracks[0]) {
+                        controller.model.sowTracks[0].technology_fk = data.technology_pk;
+                    }
+
+                }
+            });
+        }
 
         function getUsers(jabatanFk, keyword) {
             http.get('user/search', {
@@ -113,6 +117,7 @@
             angular.element(document).ready(function () {
                 getProjects();
                 getBTSs();
+                getTechnologies();
                 //controller.getUsers = getUsers;
             });
         };

@@ -74,9 +74,9 @@ namespace GlobalSolusindo.Api.Controllers
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
-            using (var sowSearch = new SOWSearch(Db))
+            using (var sowQuery = new SOWQuery(Db))
             {
-                var data = sowSearch.GetDataByFilter(filter);
+                var data = sowQuery.Search(filter);
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -122,6 +122,31 @@ namespace GlobalSolusindo.Api.Controllers
                 using (var transaction = new TransactionScope())
                 {
                     var saveResult = sowUpdateHandler.Save(sow, DateTime.Now);
+                    transaction.Complete();
+                    if (saveResult.Success)
+                        return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
+                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                }
+            }
+        }
+
+        [Route("sow/approval")]
+        [HttpPut]
+        public IHttpActionResult Approve([FromBody]SOWApprovalDTO sOWApproval)
+        {
+            string accessType = "";
+            ThrowIfUserHasNoRole(accessType);
+            if (sOWApproval == null)
+                throw new KairosException("Missing model parameter");
+
+            if (sOWApproval.SOW_PK == 0)
+                throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
+
+            using (var sOWApprovalHandler = new SOWApprovalHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWTrackFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl))
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    var saveResult = sOWApprovalHandler.Save(sOWApproval, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

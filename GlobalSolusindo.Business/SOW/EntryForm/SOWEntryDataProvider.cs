@@ -1,20 +1,50 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.BTS;
 using GlobalSolusindo.Business.BTS.Queries;
-using GlobalSolusindo.Business.Project.Queries;
-using GlobalSolusindo.Business.SOW.Queries;
+using GlobalSolusindo.Business.Project;
 using GlobalSolusindo.Business.SOWAssign;
 using GlobalSolusindo.Business.SOWAssign.Queries;
+using GlobalSolusindo.Business.Technology;
+using GlobalSolusindo.Business.Technology.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
+using GlobalSolusindo.Identity.User;
 using GlobalSolusindo.Identity.User.Queries;
 using Kairos;
 using Kairos.UI;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW.EntryForm
 {
+    public class SOWEntryFormData
+    {
+        [JsonProperty("btses")]
+        public List<BTSDTO> BTSes { get; set; } = new List<BTSDTO>();
+
+        [JsonProperty("projects")]
+        public List<ProjectDTO> Projects { get; set; } = new List<ProjectDTO>();
+
+        [JsonProperty("users")]
+        public List<UserDTO> Users { get; set; } = new List<UserDTO>();
+
+        [JsonProperty("technologies")]
+        public List<TechnologyDTO> Technologies { get; set; } = new List<TechnologyDTO>();
+    }
+
+    public class SOWEntryModel
+    {
+        [JsonProperty("formData")]
+        public SOWEntryFormData FormData { get; set; } = new SOWEntryFormData();
+
+        [JsonProperty("formControls")]
+        public List<Control> FormControls { get; set; }
+
+        [JsonProperty("model")]
+        public SOWDTO Model { get; set; }
+    }
+
     public class SOWEntryDataProvider : FactoryBase
     {
         private SOWQuery sowQuery;
@@ -63,6 +93,14 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                     formData.Users.Add(user);
             }
 
+            foreach (var track in sowDTO.SOWTracks)
+            {
+                sowDTO.Technology_FK = track.Technology_FK;
+                var technology = new TechnologyQuery(this.Db).GetByPrimaryKey((int)track.Technology_FK);
+                if (technology != null)
+                    formData.Technologies.Add(technology);
+            }
+
             return formData;
         }
 
@@ -72,7 +110,10 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
             if (pk > 0)
             {
                 SOWDTO sow = sowQuery.GetByPrimaryKey(pk);
-                sow.SOWAssigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk);
+                if (sow != null)
+                {
+                    sow.SOWAssigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk);
+                }
                 return sow;
             }
             SOWDTO sowDTO = new SOWDTO()

@@ -57,7 +57,7 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (var areaQuery = new AreaQuery(Db))
             {
-                var data = areaQuery.GetDataByFilter(filter);
+                var data = areaQuery.Search(filter);
                 return Ok(new SuccessResponse(data));
             }
         }

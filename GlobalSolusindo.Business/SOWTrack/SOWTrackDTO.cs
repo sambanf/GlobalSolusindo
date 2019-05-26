@@ -1,5 +1,5 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.SOW.Queries;
+using GlobalSolusindo.Business.SOW;
 using GlobalSolusindo.Business.Technology.Queries;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
@@ -17,7 +17,7 @@ namespace GlobalSolusindo.Business.SOWTrack
         [ForeignKey(typeof(SOWQuery), "SOW_PK")]
         public int? SOW_FK { get; set; }
 
-        [Required]
+        //[Required]
         [JsonProperty("technology_fk")]
         [ForeignKey(typeof(TechnologyQuery), "Technology_PK", true)]
         public int? Technology_FK { get; set; }

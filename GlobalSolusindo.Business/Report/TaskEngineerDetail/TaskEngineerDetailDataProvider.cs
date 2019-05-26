@@ -1,6 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.BTS.Queries;
-using GlobalSolusindo.Business.SOW.Queries;
+using GlobalSolusindo.Business.SOW;
 using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;

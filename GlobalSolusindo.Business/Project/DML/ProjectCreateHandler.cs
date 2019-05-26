@@ -1,6 +1,5 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.Project.EntryForm;
-using GlobalSolusindo.Business.Project.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos.Data;

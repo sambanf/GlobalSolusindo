@@ -1,6 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.CostKategori.Queries;
-using GlobalSolusindo.Business.SOW.Queries;
+using GlobalSolusindo.Business.SOW;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
 using System;

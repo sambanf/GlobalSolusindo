@@ -1,15 +1,42 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.DeliveryArea;
 using GlobalSolusindo.Business.DeliveryArea.Queries;
+using GlobalSolusindo.Business.Operator;
 using GlobalSolusindo.Business.Operator.Queries;
-using GlobalSolusindo.Business.Project.Queries;
+using GlobalSolusindo.Business.Vendor;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos;
 using Kairos.UI;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 
 namespace GlobalSolusindo.Business.Project.EntryForm
 {
+    public class ProjectEntryFormData
+    {
+        [JsonProperty("operators")]
+        public List<OperatorDTO> Operators { get; set; } = new List<OperatorDTO>();
+
+        [JsonProperty("deliveryAreas")]
+        public List<DeliveryAreaDTO> DeliveryAreas { get; set; } = new List<DeliveryAreaDTO>();
+
+        [JsonProperty("vendors")]
+        public List<VendorDTO> Vendors { get; set; } = new List<VendorDTO>();
+    }
+
+    public class ProjectEntryModel
+    {
+        [JsonProperty("formData")]
+        public ProjectEntryFormData FormData { get; set; } = new ProjectEntryFormData();
+
+        [JsonProperty("formControls")]
+        public List<Control> FormControls { get; set; }
+
+        [JsonProperty("model")]
+        public ProjectDTO Model { get; set; }
+    }
+
     public class ProjectEntryDataProvider : FactoryBase
     {
         private ProjectQuery projectQuery;
@@ -49,6 +76,10 @@ namespace GlobalSolusindo.Business.Project.EntryForm
             var deliveryArea = new DeliveryAreaQuery(this.Db).GetByPrimaryKey(projectDTO.DeliveryArea_FK);
             if (deliveryArea != null)
                 formData.DeliveryAreas.Add(deliveryArea);
+
+            var vendor = new VendorQuery(this.Db).GetByPrimaryKey(projectDTO.Vendor_FK);
+            if (vendor != null)
+                formData.Vendors.Add(vendor);
 
             return formData;
         }

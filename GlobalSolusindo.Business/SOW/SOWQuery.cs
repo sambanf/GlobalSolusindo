@@ -2,13 +2,19 @@
 using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.Business.SOWTrack.Queries;
 using GlobalSolusindo.DataAccess;
+using Kairos.Data;
 using Kairos.Linq;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace GlobalSolusindo.Business.SOW.Queries
+namespace GlobalSolusindo.Business.SOW
 {
+
+    public class SOWSearchFilter : SearchFilter
+    {
+    }
+
     public class SOWQuery : QueryBase, IUniqueQuery
     {
         private const int deleted = (int)RecordStatus.Deleted;
@@ -57,7 +63,7 @@ namespace GlobalSolusindo.Business.SOW.Queries
                         };
 
             return query;
-        }
+        } 
 
         public SOWDTO GetByPrimaryKey(int primaryKey)
         {
@@ -70,6 +76,38 @@ namespace GlobalSolusindo.Business.SOW.Queries
                 record.SOWTracks = new SOWTrackQuery(Db).GetBySOWFK(primaryKey);
             }
             return record;
+        }
+
+        public SearchResult<SOWDTO> Search(SOWSearchFilter filter)
+        {
+            if (string.IsNullOrEmpty(filter.SortName))
+            {
+                filter.SortName = "TglMulai";
+                filter.SortDir = "desc";
+            }
+            SOWQuery sowQuery = new SOWQuery(this.Db);
+
+            var filteredRecords =
+                sowQuery.GetQuery()
+                .Where(sow =>
+                    sow.SOWName.Contains(filter.Keyword)
+                    || sow.BTSName.Contains(filter.Keyword)
+                    );
+
+            var displayedRecords = filteredRecords.
+                SortBy(filter.SortName, filter.SortDir)
+                .Skip(filter.Skip)
+                .Take(filter.PageSize)
+                .ToList();
+
+            var searchResult = new SearchResult<SOWDTO>(filter);
+            searchResult.Filter = filter;
+            searchResult.Count.TotalRecords = sowQuery.GetTotalRecords();
+            searchResult.Count.TotalFiltered = filteredRecords.Count();
+            searchResult.Count.TotalDisplayed = displayedRecords.Count();
+            searchResult.Records = displayedRecords;
+
+            return searchResult;
         }
 
         #region IUniqueQuery Member

@@ -1,5 +1,5 @@
 ﻿using GlobalSolusindo.Base;
-using GlobalSolusindo.Business.SOW.Queries;
+using GlobalSolusindo.Business.SOW;
 using GlobalSolusindo.Identity.KategoriJabatan.Queries;
 using GlobalSolusindo.Identity.User.Queries;
 using Kairos.DataAnnotations;

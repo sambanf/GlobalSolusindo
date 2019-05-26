@@ -22,6 +22,7 @@
         function setSowTracksModel(data) {
             self.model.sowTracks = [];
             self.model.sowTracks.push({
+                technology_fk: self.model.technology_fk,
                 route: data
             });
         }

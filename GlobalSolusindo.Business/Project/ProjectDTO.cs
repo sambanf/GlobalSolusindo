@@ -1,7 +1,7 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.DeliveryArea.Queries;
 using GlobalSolusindo.Business.Operator.Queries;
-using GlobalSolusindo.Business.Project.Queries;
+using GlobalSolusindo.Business.Vendor;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -33,5 +33,13 @@ namespace GlobalSolusindo.Business.Project
 
         [JsonProperty("deliveryAreaTitle")]
         public string DeliveryAreaTitle { get; set; }
+
+        [Required]
+        [JsonProperty("vendor_fk")]
+        [ForeignKey(typeof(VendorQuery), "Vendor_PK")]
+        public int? Vendor_FK { get; set; }
+
+        [JsonProperty("vendorTitle")]
+        public string VendorTitle { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.BTS;
 using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign.Queries;
@@ -6,11 +7,18 @@ using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos;
 using Kairos.Data;
+using Newtonsoft.Json;
 using System;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW.InfoForm
 {
+    public class SOWInfoModel : SOWDTO
+    {
+        [JsonProperty("btsInfo")]
+        public BTSDTO BTSInfo { get; set; }
+    }
+
     public class SOWInfoDataProvider : FactoryBase
     {
         private SOWQuery sowQuery;
@@ -26,8 +34,11 @@ namespace GlobalSolusindo.Business.SOW.InfoForm
         {
             var now = DateTime.Now;
             SOWInfoModel sow = sowQuery.GetByPrimaryKey(pk).ToObject<SOWInfoModel>();
-            sow.SOWAssigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk).ToList();
-            sow.BTSInfo = new BTSQuery(Db).GetByPrimaryKey(sow.BTS_FK);
+            if (sow != null)
+            {
+                sow.SOWAssigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk);
+                sow.BTSInfo = new BTSQuery(Db).GetByPrimaryKey(sow.BTS_FK);
+            }
             return sow;
         }
 
@@ -36,7 +47,7 @@ namespace GlobalSolusindo.Business.SOW.InfoForm
             SOWInfoModel sowInfo = CreateModel(sowPK);
 
             if (sowInfo == null)
-                throw new KairosException($"SOW with primary key '{sowInfo.SOW_PK}' is not found.");
+                throw new KairosException($"SOW with primary key '{sowPK}' is not found.");
             return sowInfo;
         }
 

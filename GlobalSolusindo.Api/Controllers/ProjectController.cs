@@ -1,7 +1,6 @@
 ﻿using GlobalSolusindo.Business.Project;
 using GlobalSolusindo.Business.Project.DML;
 using GlobalSolusindo.Business.Project.EntryForm;
-using GlobalSolusindo.Business.Project.Queries;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -57,9 +56,9 @@ namespace GlobalSolusindo.Api.Controllers
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
-            using (var projectSearch = new ProjectSearch(Db))
+            using (var projectQuery = new ProjectQuery(Db))
             {
-                var data = projectSearch.GetDataByFilter(filter);
+                var data = projectQuery.Search(filter);
                 return Ok(new SuccessResponse(data));
             }
         }

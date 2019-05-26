@@ -59,7 +59,7 @@ namespace GlobalSolusindo.Api.MobileControllers
                             fullname = user.Name,
                             email = user.Email,
                             photo = user.FilePhotoInBase64,
-                            role = user.RoleGroupTitle,
+                            role = user.KategoriJabatanTitle,
                             description = user.Description,
                             token = loginResult.Token,
                             tokenType = "Bearer"

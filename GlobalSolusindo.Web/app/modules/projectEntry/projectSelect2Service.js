@@ -47,11 +47,26 @@
             });
         }
 
+        function getVendors() {
+            select2Service.liveSearch("vendor/search", {
+                selector: '#vendor_fk',
+                valueMember: 'vendor_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.vendors = data;
+                },
+                onSelected: function (data) {
+                    controller.model.vendor_fk = data.vendor_pk;
+                }
+            });
+        }
+
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element(document).ready(function () {
                 getOperators(); 
                 getDeliveryArea();
+                getVendors();
             });
         };
 

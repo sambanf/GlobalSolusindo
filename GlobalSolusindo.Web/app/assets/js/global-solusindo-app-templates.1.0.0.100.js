@@ -3185,7 +3185,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.projectList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Project</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Project</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3337,9 +3337,19 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <li class=\"nav-item\">\r" +
     "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.vendorList\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Vendor</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.btsList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>BTS</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>BTS</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3349,11 +3359,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.asetList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Asset</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Asset</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
-    "                    </li> \r" +
+    "                    </li>\r" +
     "\n" +
     "                </ul>\r" +
     "\n" +
@@ -3375,7 +3385,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.operatorList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Operator/Tower Provider</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Operator/Tower Provider</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3385,7 +3395,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.costKategoriList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Cost Kategori</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Cost Kategori</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3395,7 +3405,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.areaList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Area</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Area</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3405,7 +3415,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.deliveryAreaList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Delivery Area</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Delivery Area</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3435,7 +3445,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.asetKategoriList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Aset Kategori</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Aset Kategori</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3445,7 +3455,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.issueTypeList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Issue Type</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Issue Type</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3455,7 +3465,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.technologyList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Technology</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Technology</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3481,7 +3491,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.izinCutiList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Pengajuan Izin/Cuti</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Pengajuan Izin/Cuti</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3491,7 +3501,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.izinCutiApprovalList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Approval Izin/Cuti</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Approval Izin/Cuti</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3517,7 +3527,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.timesheetEngineerList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Timesheet Engineer</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Timesheet Engineer</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3527,7 +3537,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.taskEngineerList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Task Engineer</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Task Engineer</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3537,7 +3547,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.dailyTaskList\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-train\"></i> <span>Daily Task</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Daily Task</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -3598,7 +3608,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                            <label>Username</label>\r" +
     "\n" +
-    "                                            <input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" placeholder=\"Username\" ng-model=\"login.model.username\" required autofocus>\r" +
+    "                                            <input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" placeholder=\"Username\" ng-model=\"login.model.username\" required focus-me=\"true\">\r" +
     "\n" +
     "                                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -4736,9 +4746,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>No</th>\r" +
     "\n" +
-    "                                        <th>Project Name</th>\r" +
-    "\n" +
     "                                        <th>Operator</th>\r" +
+    "\n" +
+    "                                        <th>Vendor</th>\r" +
     "\n" +
     "                                        <th>Delivery Area</th>\r" +
     "\n" +
@@ -4882,6 +4892,24 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                <select id=\"deliveryArea_fk\" name=\"deliveryArea_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.deliveryArea_fk\" required>\r" +
     "\n" +
     "                                    <option ng-repeat=\"x in vm.formData.deliveryAreas\" ng-value=\"x.deliveryArea_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                </select>\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Vendor:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                <select id=\"vendor_fk\" name=\"vendor_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.vendor_fk\" required>\r" +
+    "\n" +
+    "                                    <option ng-repeat=\"x in vm.formData.vendors\" ng-value=\"x.vendor_pk\">{{x.title}}</option>\r" +
     "\n" +
     "                                </select>\r" +
     "\n" +
@@ -6424,6 +6452,339 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/sowApproval/sowApproval.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"row\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">SOW Detail</div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-sm-2\">SOW:</label>\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-sm-6\" id=\"sowName\" name=\"sowName\">{{vm.model.sowName}}</label>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-sm-3\">Tanggal:</label>\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-sm-6\" id=\"tglMulai\" name=\"tglMulai\">{{vm.model.tglMulai}}</label>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <!--BTS Info-->\r" +
+    "\n" +
+    "                                <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                                    <div class=\"card-title\">BTS Info</div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Customer Site</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"customerSite\" name=\"customerSite\">{{vm.model.btsInfo.customerSite}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Tower ID</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"towerId\" name=\"towerId\">{{vm.model.btsInfo.towerId}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Cell ID</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"cellId\" name=\"cellId\">{{vm.model.btsInfo.cellId}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">BTS Name</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"name\" name=\"name\">{{vm.model.btsInfo.name}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Tower Provider</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"operatorTitle\" name=\"operatorTitle\">{{vm.model.btsInfo.operatorTitle}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Longitude</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"longitude\" name=\"longitude\">{{vm.model.btsInfo.longitude}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Latitude</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"latitude\" name=\"latitude\">{{vm.model.btsInfo.latitude}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Area</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"areaTitle\" name=\"areaTitle\">{{vm.model.btsInfo.areaTitle}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Kota</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"kotaTitle\" name=\"kotaTitle\">{{vm.model.btsInfo.kotaTitle}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Cabang</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"cabangTitle\" name=\"cabangTitle\">{{vm.model.btsInfo.cabangTitle}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Alamat</label>\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-6\" id=\"alamat\" name=\"alamat\">{{vm.model.btsInfo.alamat}}</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <!--Assigned User-->\r" +
+    "\n" +
+    "                                <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                                    <div class=\"card-title\">Assigned User</div>\r" +
+    "\n" +
+    "                                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                        <table id=\"sowAssign\">\r" +
+    "\n" +
+    "                                            <thead>\r" +
+    "\n" +
+    "                                                <tr>\r" +
+    "\n" +
+    "                                                    <th hidden>SOWAssign_PK</th>\r" +
+    "\n" +
+    "                                                    <th hidden>SOW FK</th>\r" +
+    "\n" +
+    "                                                    <th hidden>Jabatan FK</th>\r" +
+    "\n" +
+    "                                                    <th>Jabatan</th>\r" +
+    "\n" +
+    "                                                    <th>User</th>\r" +
+    "\n" +
+    "                                                </tr>\r" +
+    "\n" +
+    "                                            </thead>\r" +
+    "\n" +
+    "                                            <tbody>\r" +
+    "\n" +
+    "                                                <tr ng-repeat=\"sowAssign in vm.model.sowAssigns\">\r" +
+    "\n" +
+    "                                                    <td hidden>\r" +
+    "\n" +
+    "                                                        <input type=\"text\" id=\"sowAssign_pk\" name=\"sowAssign_pk\" ng-model=\"sowAssign.sowAssign_pk\" disabled />\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                    <td class=\"text-center\" hidden>\r" +
+    "\n" +
+    "                                                        <input type=\"text\" id=\"sow_fk\" name=\"sow_fk\" ng-model=\"sowAssign.sow_fk\" disabled />\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                    <td class=\"text-left\" hidden>\r" +
+    "\n" +
+    "                                                        <input type=\"text\" id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatan_fk\" disabled />\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                    <td class=\"text-left\" style=\"width:200px\">\r" +
+    "\n" +
+    "                                                        <label id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\">{{sowAssign.kategoriJabatanTitle}}</label>\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                    <td>\r" +
+    "\n" +
+    "                                                        <label id=\"userName\" name=\"userName\"> {{sowAssign.userName}}</label>\r" +
+    "\n" +
+    "                                                    </td>\r" +
+    "\n" +
+    "                                                </tr>\r" +
+    "\n" +
+    "                                            </tbody>\r" +
+    "\n" +
+    "                                        </table>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <button class=\"btn btn-default\" ui-sref=\"app.sowList\">Kembali</button>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"row\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">Track Location</div>\r" +
+    "\n" +
+    "                            <div id=\"map\" style=\"border:1px solid gray\">\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"row\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">List Cost</div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <table id=\"cost\">\r" +
+    "\n" +
+    "                                        <thead>\r" +
+    "\n" +
+    "                                            <tr>\r" +
+    "\n" +
+    "                                                <th>No</th>\r" +
+    "\n" +
+    "                                                <th>Kategori</th>\r" +
+    "\n" +
+    "                                                <th>Nominal</th>\r" +
+    "\n" +
+    "                                                <th>Deskripsi</th>\r" +
+    "\n" +
+    "                                                <th>Tanggal Input</th>\r" +
+    "\n" +
+    "                                                <th>Action</th>\r" +
+    "\n" +
+    "                                            </tr>\r" +
+    "\n" +
+    "                                        </thead>\r" +
+    "\n" +
+    "                                    </table>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"row form-group\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.sowList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"approveButton\">Approve</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-danger float-right\" id=\"rejectButton\">Reject</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/sowEntry/sowEntry.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -6642,6 +7003,28 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                        <!--<div class=\"card-title\">Track</div>-->\r" +
     "\n" +
     "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <div class=\"col-sm-12 input-group\">\r" +
+    "\n" +
+    "                                    <label class=\"control-label col-sm-3\">Technology:</label>\r" +
+    "\n" +
+    "                                    <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                        <select id=\"technology_fk\" name=\"technology_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.technology_fk\" required>\r" +
+    "\n" +
+    "                                            <option ng-repeat=\"x in vm.formData.technologies\" ng-value=\"x.technology_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                        </select>\r" +
+    "\n" +
+    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                            <div class=\"row form-group\">\r" +
     "\n" +
@@ -7639,6 +8022,130 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                            <button class=\"btn btn-default\" ui-sref=\"app.userImportCsvList\">Kembali</button>\r" +
     "\n" +
     "                            <button class=\"btn btn-success float-right\" id=\"uploadButton\">Submit</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/vendor/vendor.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Vendor</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-6\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.vendorEntry({ id: '0'})\">Tambah Vendor</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"vendor\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Title</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/vendorEntry/vendorEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Vendor</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Vendor Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"title\" name=\"title\" class=\"form-control\" ng-model=\"vm.model.title\" placeholder=\"Vendor Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.vendorList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

@@ -109,6 +109,17 @@
                         <div class="col-md-6">
                             <div class="row form-group">
                                 <div class="col-sm-12 input-group">
+                                    <label class="control-label col-sm-3">Technology:</label>
+                                    <div class="col-sm-6">
+                                        <select id="technology_fk" name="technology_fk" class="form-control input-lg" size="0" ng-model="vm.model.technology_fk" required>
+                                            <option ng-repeat="x in vm.formData.technologies" ng-value="x.technology_pk">{{x.title}}</option>
+                                        </select>
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-sm-12 input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
                                     </div>

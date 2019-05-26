@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-25. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-26. 
 * @author Kairos
 */
 (function() {
@@ -1268,6 +1268,30 @@ angular.module('global-solusindo')
     .config(['$stateProvider', function ($stateProvider) {
 
         $stateProvider
+            .state('app.sowApproval', {
+                url: '/sowApproval/:id',
+                templateUrl: 'app/modules/sowApproval/sowApproval.html',
+                controller: 'SOWApprovalCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'SOW Approval'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
             .state('app.sowEntry', {
                 url: '/sowEntry/:id',
                 templateUrl: 'app/modules/sowEntry/sowEntry.html',
@@ -1403,6 +1427,46 @@ angular.module('global-solusindo')
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Import User'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.vendorList', {
+                url: '/vendorList',
+                templateUrl: 'app/modules/vendor/vendor.html',
+                controller: 'VendorCtrl',
+                controllerAs: 'brc',
+                ncyBreadcrumb: {
+                    label: 'Vendor'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.vendorEntry', {
+                url: '/vendorEntry/:id',
+                templateUrl: 'app/modules/vendorEntry/vendorEntry.html',
+                controller: 'VendorEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Vendor Entry'
                 }
             });
     }]);
@@ -3413,6 +3477,39 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('SOWApprovalCtrl', SOWApprovalCtrl);
+
+    SOWApprovalCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWApprovalBindingService', 'HttpService', 'costDtService', 'sowMapService'];
+
+    function SOWApprovalCtrl($scope, sParam, $state, bindingService, http, costDtService, map) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            costDtService.init(self);
+            try {
+                map.init(self); 
+            } catch (e) {
+
+            }
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
      * @name app.controller:sowEntryCtrl
      * @description
      * # dashboardCtrl
@@ -3432,6 +3529,7 @@ angular.module('global-solusindo')
         function setSowTracksModel(data) {
             self.model.sowTracks = [];
             self.model.sowTracks.push({
+                technology_fk: self.model.technology_fk,
                 route: data
             });
         }
@@ -3774,6 +3872,53 @@ angular.module('global-solusindo')
 
         bindingService.init(self);
         uploadService.init(self);
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('VendorCtrl', VendorCtrl);
+
+    VendorCtrl.$inject = ['$scope', '$state', 'vendorDtService', 'vendorDeleteService', 'vendorViewService'];
+
+    function VendorCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+
+        dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('VendorEntryCtrl', VendorEntryCtrl);
+
+    VendorEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'VendorSaveService', 'VendorBindingService', 'FormControlService', 'select2Service'];
+
+    function VendorEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
         return self;
     }
 })();
@@ -10632,10 +10777,10 @@ angular.module('global-solusindo')
                         "data": "project_pk"
                     },
                     {
-                        "data": "title"
+                        "data": "operatorTitle"
                     },
                     {
-                        "data": "operatorTitle"
+                        "data": "vendorTitle"
                     },
                     {
                         "data": "deliveryAreaTitle"
@@ -10884,11 +11029,26 @@ angular.module('global-solusindo')
             });
         }
 
+        function getVendors() {
+            select2Service.liveSearch("vendor/search", {
+                selector: '#vendor_fk',
+                valueMember: 'vendor_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.vendors = data;
+                },
+                onSelected: function (data) {
+                    controller.model.vendor_fk = data.vendor_pk;
+                }
+            });
+        }
+
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element(document).ready(function () {
                 getOperators(); 
                 getDeliveryArea();
+                getVendors();
             });
         };
 
@@ -13485,7 +13645,7 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='approve' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info'>Approval</button>";
+                            return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info'>Approval</button>";
                         }
                     }
                 ],
@@ -13535,6 +13695,12 @@ angular.module('global-solusindo')
             });
         };
 
+        self.approval = function (data) {
+            $state.go('app.sowApproval', {
+                id: data
+            });
+        };
+
         self.init = function (ctrl) {
             controller = ctrl;
             $('#sow tbody').on('click', '#view', function () {
@@ -13547,10 +13713,114 @@ angular.module('global-solusindo')
                 self.info(data.sow_pk);
             });
 
+            $('#sow tbody').on('click', '#approval', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.approval(data.sow_pk);
+            });
+
             $("#sow tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
                 var id = data["sow_pk"];
                 self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('SOWApprovalBindingService', SOWApprovalBindingService);
+
+    SOWApprovalBindingService.$inject = ['HttpService', '$state'];
+
+    function SOWApprovalBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('sow/info/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('SOWSaveService', SOWSaveService);
+
+    SOWSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function SOWSaveService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        function goToListPage() {
+            $state.go('app.sowList');
+        }
+
+        self.approve = function (model, sowStatus_fk) {
+            var request = {
+                "sow_pk": model.sow_pk,
+                "sowStatus_fk": sowStatus_fk
+            };
+            http.post('sow/approval', request).then(function (res) {
+                if (res.status == true) {
+                    ui.alert.success("Data successfuly updated.");
+                    //$state.go('app.sowEntry', { id: res.data.model.sow_pk });
+                    goToListPage();
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#approveButton').on('click', function () {
+                self.approve(controller.model, 3);
+            });
+            angular.element('#rejectButton').on('click', function () {
+                self.approve(controller.model, 4);
             });
         };
 
@@ -13835,19 +14105,23 @@ angular.module('global-solusindo')
             });
         }
 
-        //function getUsers() {
-        //    select2Service.liveSearch("user/search", {
-        //        selector: '#user_fk',
-        //        valueMember: 'user_pk',
-        //        displayMember: 'name',
-        //        callback: function (data) {
-        //            controller.formData.users = data;
-        //        },
-        //        onSelected: function (data) {
-        //            controller.model.user_fk = data.user_pk;
-        //        }
-        //    });
-        //}
+        function getTechnologies() {
+            select2Service.liveSearch("technology/search", {
+                selector: '#technology_fk',
+                valueMember: 'technology_pk',
+                displayMember: 'title',
+                callback: function (data) {
+                    controller.formData.technologies = data;
+                },
+                onSelected: function (data) {
+                    controller.model.technology_fk = data.technology_pk;
+                    if (controller.model.sowTracks && controller.model.sowTracks[0]) {
+                        controller.model.sowTracks[0].technology_fk = data.technology_pk;
+                    }
+
+                }
+            });
+        }
 
         function getUsers(jabatanFk, keyword) {
             http.get('user/search', {
@@ -13865,6 +14139,7 @@ angular.module('global-solusindo')
             angular.element(document).ready(function () {
                 getProjects();
                 getBTSs();
+                getTechnologies();
                 //controller.getUsers = getUsers;
             });
         };
@@ -15042,6 +15317,309 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('vendorDeleteService', vendorDeleteService);
+
+    vendorDeleteService.$inject = ['HttpService', 'uiService'];
+
+    function vendorDeleteService(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('vendor', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message, 'popup');
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.vendor_pk];
+            ui.alert.confirm("Are you sure want to delete vendor '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].vendor_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#vendor tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('vendorDtService', vendorDtService);
+
+    vendorDtService.$inject = ['DatatableService'];
+
+    function vendorDtService(ds) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#vendor", "vendor/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "vendor_pk"
+                    },
+                    {
+                        "data": "title"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                        }
+                    }
+                ],
+                exportButtons: {
+                    columns: [1],
+                    title: "Vendor"
+                }
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('vendorViewService', vendorViewService);
+
+    vendorViewService.$inject = ['HttpService', '$state', 'uiService'];
+
+    function vendorViewService(http, $state, ui) {
+        var self = this;
+        var controller;
+
+        self.view = function (data) {
+            $state.go('app.vendorEntry', {
+                id: data
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#vendor tbody').on('click', '#view', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.vendor_pk);
+            });
+
+            $("#vendor tbody").on("dblclick", "tr", function () {
+                var data = controller.datatable.row(this).data();
+                var id = data["vendor_pk"];
+                self.view(id);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('VendorBindingService', VendorBindingService);
+
+    VendorBindingService.$inject = ['HttpService', '$state'];
+
+    function VendorBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('vendor/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('VendorSaveService', VendorSaveService);
+
+    VendorSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function VendorSaveService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        function goToListPage() {
+            $state.go('app.vendorList');
+        }
+
+        self.create = function (model) {
+            http.post('vendor', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    //$state.go('app.vendorEntry', { id: res.data.model.vendor_pk });
+                    goToListPage();
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('vendor', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    goToListPage();
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.vendor_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
      * @name app.directive:Directive
      * @description
      * # navbarDirective
@@ -15532,7 +16110,11 @@ angular.module('checklist-model', [])
                     onClick: '&?'
                 },
                 link: function ($scope, $element, $attrs, ngModel) {
-                    // var dpElement = $element.parent().hasClass('input-group') ? $element.parent() : $element;
+                    if ($scope.options == undefined) {
+                        $scope.options = {
+                            format: "DD/MM/YYYY HH:mm"
+                        };
+                    }
                     var dpElement = $element;
 
                     $scope.$watch('options', function (newValue) {
@@ -15548,14 +16130,14 @@ angular.module('checklist-model', [])
                         if (!ngModel.$viewValue && currentDate) {
                             dpElement.data('DateTimePicker').clear();
                         } else if (ngModel.$viewValue) {
-                            console.log(ngModel.$viewValue);
                             // otherwise make sure it is moment object
                             if (!moment.isMoment(ngModel.$viewValue)) {
-                                console.log('masuk');
-                                if(!ngModel.$viewValue.includes("T")){
-                                    ngModel.$viewValue = moment(ngModel.$viewValue, "DD-MM-YYYY");
-                                }
                                 ngModel.$setViewValue(moment(ngModel.$viewValue));
+                                $timeout(function () {
+                                    ngModel.$setViewValue(moment(ngModel.$viewValue).format());
+                                });
+                            } else {
+                                ngModel.$setViewValue(ngModel.format());
                             }
                             dpElement.data('DateTimePicker').date(ngModel.$viewValue);
                         }
@@ -15568,8 +16150,7 @@ angular.module('checklist-model', [])
                     dpElement.on('dp.change', function (e) {
                         if (!isDateEqual(e.date, ngModel.$viewValue)) {
                             var newValue = e.date === false ? null : e.date;
-                            ngModel.$setViewValue(newValue);
-
+                            ngModel.$setViewValue(newValue.format());
                             $timeout(function () {
                                 if (typeof $scope.onChange === 'function') {
                                     $scope.onChange();

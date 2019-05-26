@@ -51,6 +51,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SOW\DML\SOWApprovalHandler.cs" />
+    <Compile Include="Vendor\VendorCreateHandler.cs" />
+    <Compile Include="Vendor\VendorDeleteHandler.cs" />
+    <Compile Include="Vendor\VendorDTO.cs" />
+    <Compile Include="Vendor\VendorFactory.cs" />
+    <Compile Include="Vendor\VendorQuery.cs" />
+    <Compile Include="Vendor\VendorUpdateHandler.cs" />
+    <Compile Include="Vendor\VendorValidator.cs" />
+    <Compile Include="Vendor\EntryForm\VendorEntryControlBuilder.cs" />
+    <Compile Include="Vendor\EntryForm\VendorEntryDataProvider.cs" />
+    <Compile Include="Vendor\EntryForm\VendorEntryFormData.cs" />
+    <Compile Include="Vendor\EntryForm\VendorEntryModel.cs" />
+    <Compile Include="Vendor\ListForm\VendorListDataProvider.cs" />
+    <Compile Include="Vendor\ListForm\VendorListFormData.cs" />
+    <Compile Include="Vendor\ListForm\VendorListModel.cs" />
     <Compile Include="IzinCuti\IzinCutiDatatables.cs" />
     <Compile Include="SOWResult\SOWResultCreateHandler.cs" />
     <Compile Include="SOWResult\SOWResultDeleteHandler.cs" />
@@ -279,7 +294,6 @@
     <Compile Include="SOWStatus\Queries\SOWStatusQuery.cs" />
     <Compile Include="SOWStatus\Queries\SOWStatusSearch.cs" />
     <Compile Include="SOW\InfoForm\SOWInfoDataProvider.cs" />
-    <Compile Include="SOW\InfoForm\SOWInfoModel.cs" />
     <Compile Include="SOW\Queries\TimesheetDailySearch.cs" />
     <Compile Include="SOW\Queries\TimesheetMonthlySearch.cs" />
     <Compile Include="SOW\Queries\TaskListSearch.cs" />
@@ -293,13 +307,8 @@
     <Compile Include="SOW\DML\SOWUpdateHandler.cs" />
     <Compile Include="SOW\EntryForm\SOWEntryControlBuilder.cs" />
     <Compile Include="SOW\EntryForm\SOWEntryDataProvider.cs" />
-    <Compile Include="SOW\EntryForm\SOWEntryFormData.cs" />
-    <Compile Include="SOW\EntryForm\SOWEntryModel.cs" />
     <Compile Include="SOW\ListForm\SOWListDataProvider.cs" />
-    <Compile Include="SOW\ListForm\SOWListFormData.cs" />
-    <Compile Include="SOW\ListForm\SOWListModel.cs" />
-    <Compile Include="SOW\Queries\SOWQuery.cs" />
-    <Compile Include="SOW\Queries\SOWSearch.cs" />
+    <Compile Include="SOW\SOWQuery.cs" />
     <Compile Include="Project\ProjectDTO.cs" />
     <Compile Include="Project\ProjectFactory.cs" />
     <Compile Include="Project\ProjectValidator.cs" />
@@ -308,13 +317,8 @@
     <Compile Include="Project\DML\ProjectUpdateHandler.cs" />
     <Compile Include="Project\EntryForm\ProjectEntryControlBuilder.cs" />
     <Compile Include="Project\EntryForm\ProjectEntryDataProvider.cs" />
-    <Compile Include="Project\EntryForm\ProjectEntryFormData.cs" />
-    <Compile Include="Project\EntryForm\ProjectEntryModel.cs" />
     <Compile Include="Project\ListForm\ProjectListDataProvider.cs" />
-    <Compile Include="Project\ListForm\ProjectListFormData.cs" />
-    <Compile Include="Project\ListForm\ProjectListModel.cs" />
-    <Compile Include="Project\Queries\ProjectQuery.cs" />
-    <Compile Include="Project\Queries\ProjectSearch.cs" />
+    <Compile Include="Project\ProjectQuery.cs" />
     <Compile Include="CostKategori\CostKategoriDTO.cs" />
     <Compile Include="CostKategori\CostKategoriFactory.cs" />
     <Compile Include="CostKategori\CostKategoriValidator.cs" />
@@ -413,11 +417,7 @@
     <Compile Include="Area\AreaUpdateHandler.cs" />
     <Compile Include="Area\EntryForm\AreaEntryControlBuilder.cs" />
     <Compile Include="Area\EntryForm\AreaEntryDataProvider.cs" />
-    <Compile Include="Area\EntryForm\AreaEntryFormData.cs" />
-    <Compile Include="Area\EntryForm\AreaEntryModel.cs" />
     <Compile Include="Area\ListForm\AreaListDataProvider.cs" />
-    <Compile Include="Area\ListForm\AreaListFormData.cs" />
-    <Compile Include="Area\ListForm\AreaListModel.cs" />
     <Compile Include="Area\AreaQuery.cs" />
     <Compile Include="Operator\OperatorDTO.cs" />
     <Compile Include="Operator\OperatorFactory.cs" />

@@ -2,17 +2,17 @@
 using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace GlobalSolusindo.Business.Area.EntryForm
+namespace GlobalSolusindo.Business.Vendor.EntryForm
 {
-    public class AreaEntryModel
+    public class VendorEntryModel
     {
         [JsonProperty("formData")]
-        public AreaEntryFormData FormData { get; set; } = new AreaEntryFormData();
+        public VendorEntryFormData FormData { get; set; } = new VendorEntryFormData();
 
         [JsonProperty("formControls")]
         public List<Control> FormControls { get; set; }
 
         [JsonProperty("model")]
-        public AreaDTO Model { get; set; }
+        public VendorDTO Model { get; set; }
     }
 }

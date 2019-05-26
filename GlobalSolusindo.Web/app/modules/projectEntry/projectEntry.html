@@ -31,6 +31,15 @@
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Vendor:</label>
+                            <div class="col-sm-6">
+                                <select id="vendor_fk" name="vendor_fk" class="form-control input-lg" size="0" ng-model="vm.model.vendor_fk" required>
+                                    <option ng-repeat="x in vm.formData.vendors" ng-value="x.vendor_pk">{{x.title}}</option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col-md-12">
                                 <button class="btn btn-default" ui-sref="app.projectList">Kembali</button>

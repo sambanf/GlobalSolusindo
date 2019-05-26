@@ -71,6 +71,11 @@
             if (status != 200) {
                 ui.alert.error(response.message);
             }
+            if (response.data && !response.data.success) {
+                if (response.data.status != 200) {
+                    ui.alert.error(response.data.message);
+                }
+            }
         }
 
         delete $http.defaults.headers.common['X-Requested-With'];

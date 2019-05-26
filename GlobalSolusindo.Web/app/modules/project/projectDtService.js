@@ -35,10 +35,10 @@
                         "data": "project_pk"
                     },
                     {
-                        "data": "title"
+                        "data": "operatorTitle"
                     },
                     {
-                        "data": "operatorTitle"
+                        "data": "vendorTitle"
                     },
                     {
                         "data": "deliveryAreaTitle"

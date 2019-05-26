@@ -31,6 +31,12 @@
             });
         };
 
+        self.approval = function (data) {
+            $state.go('app.sowApproval', {
+                id: data
+            });
+        };
+
         self.init = function (ctrl) {
             controller = ctrl;
             $('#sow tbody').on('click', '#view', function () {
@@ -41,6 +47,11 @@
             $('#sow tbody').on('click', '#info', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
                 self.info(data.sow_pk);
+            });
+
+            $('#sow tbody').on('click', '#approval', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.approval(data.sow_pk);
             });
 
             $("#sow tbody").on("dblclick", "tr", function () {

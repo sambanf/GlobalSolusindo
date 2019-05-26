@@ -1,12 +1,18 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using Kairos.Data;
 using Kairos.Linq;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace GlobalSolusindo.Business.Project.Queries
+namespace GlobalSolusindo.Business.Project
 {
+    public class ProjectSearchFilter : SearchFilter
+    {
+    }
+
+
     public class ProjectQuery : QueryBase, IUniqueQuery
     {
         private const int deleted = (int)RecordStatus.Deleted;
@@ -31,7 +37,8 @@ namespace GlobalSolusindo.Business.Project.Queries
                         from _operator in operatorTemp.DefaultIfEmpty()
                         join deliveryArea in Db.tblM_DeliveryArea on project.DeliveryArea_FK equals deliveryArea.DeliveryArea_PK into deliveryAreaTemp
                         from deliveryArea in deliveryAreaTemp.DefaultIfEmpty()
-
+                        join vendor in Db.tblM_Vendor on project.Vendor_FK equals vendor.Vendor_PK into vendorTemp
+                        from vendor in vendorTemp.DefaultIfEmpty()
                         where
                         project.Status_FK != deleted
                         select new ProjectDTO
@@ -42,6 +49,8 @@ namespace GlobalSolusindo.Business.Project.Queries
                             OperatorTitle = _operator.Title,
                             DeliveryArea_FK = project.DeliveryArea_FK.Value,
                             DeliveryAreaTitle = deliveryArea.Title,
+                            VendorTitle = vendor.Title,
+                            Vendor_FK = project.Vendor_FK,
                             CreatedBy = project.CreatedBy,
                             CreatedDate = project.CreatedDate,
                             UpdatedBy = project.UpdatedBy,
@@ -50,6 +59,36 @@ namespace GlobalSolusindo.Business.Project.Queries
                         };
 
             return query;
+        }
+
+        public SearchResult<ProjectDTO> Search(ProjectSearchFilter filter)
+        {
+            if (string.IsNullOrEmpty(filter.SortName))
+                filter.SortName = "Project_PK";
+            ProjectQuery projectQuery = new ProjectQuery(this.Db);
+
+            var filteredRecords =
+                projectQuery.GetQuery()
+                .Where(project =>
+                    project.Title.Contains(filter.Keyword)
+                    || project.OperatorTitle.Contains(filter.Keyword)
+                    || project.DeliveryAreaTitle.Contains(filter.Keyword)
+                    );
+
+            var displayedRecords = filteredRecords.
+                SortBy(filter.SortName, filter.SortDir)
+                .Skip(filter.Skip)
+                .Take(filter.PageSize)
+                .ToList();
+
+            var searchResult = new SearchResult<ProjectDTO>(filter);
+            searchResult.Filter = filter;
+            searchResult.Count.TotalRecords = projectQuery.GetTotalRecords();
+            searchResult.Count.TotalFiltered = filteredRecords.Count();
+            searchResult.Count.TotalDisplayed = displayedRecords.Count();
+            searchResult.Records = displayedRecords;
+
+            return searchResult;
         }
 
         public ProjectDTO GetByPrimaryKey(int primaryKey)

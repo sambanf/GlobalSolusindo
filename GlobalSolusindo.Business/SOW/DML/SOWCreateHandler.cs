@@ -61,12 +61,8 @@ namespace GlobalSolusindo.Business.SOW.DML
             {
                 sowTrackDTO.SOW_FK = sowDTO.SOW_PK; 
                 var bts = new BTSQuery(Db).GetByPrimaryKey(sowDTO.BTS_FK);
-                foreach (var btsTechnology in bts.BTSTechnologies)
-                {
-                    tblT_SOWTrack sowTrack = sowTrackFactory.CreateFromDTO(sowTrackDTO, dateStamp);
-                    sowTrack.Technology_FK = btsTechnology.Technology_FK;
-                    Db.tblT_SOWTrack.Add(sowTrack);
-                }
+                tblT_SOWTrack sowTrack = sowTrackFactory.CreateFromDTO(sowTrackDTO, dateStamp);
+                Db.tblT_SOWTrack.Add(sowTrack);
             }
         }
 

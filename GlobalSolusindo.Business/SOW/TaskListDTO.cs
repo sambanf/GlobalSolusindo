@@ -85,6 +85,9 @@ namespace GlobalSolusindo.Business.SOW
                     case 3:
                         name = "Done";
                         break;
+                    case 4:
+                        name = "Need URL";
+                        break;
                     default:
                         break;
                 }

@@ -48,7 +48,7 @@ namespace GlobalSolusindo.Business.Area
             return query;
         }
 
-        public SearchResult<AreaDTO> GetDataByFilter(AreaSearchFilter filter)
+        public SearchResult<AreaDTO> Search(AreaSearchFilter filter)
         {
             if (string.IsNullOrEmpty(filter.SortName))
                 filter.SortName = "Area_PK"; 

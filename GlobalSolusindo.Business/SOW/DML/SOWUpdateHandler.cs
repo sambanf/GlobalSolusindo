@@ -52,12 +52,8 @@ namespace GlobalSolusindo.Business.SOW.DML
             {
                 sowTrackDTO.SOW_FK = sowDTO.SOW_PK;
                 var bts = new BTSQuery(Db).GetByPrimaryKey(sowDTO.BTS_FK);
-                foreach (var btsTechnology in bts.BTSTechnologies)
-                {
-                    tblT_SOWTrack sowTrack = sowTrackFactory.CreateFromDTO(sowTrackDTO, dateStamp);
-                    sowTrack.Technology_FK = btsTechnology.Technology_FK;
-                    Db.tblT_SOWTrack.Add(sowTrack);
-                }
+                tblT_SOWTrack sowTrack = sowTrackFactory.CreateFromDTO(sowTrackDTO, dateStamp);
+                Db.tblT_SOWTrack.Add(sowTrack);
             }
         }
 
@@ -72,7 +68,7 @@ namespace GlobalSolusindo.Business.SOW.DML
                 tblT_SOWAssign existingSowAssign = null;
                 if (sowAssignDTO.SOWAssign_PK != 0)
                 {
-                    existingSowAssign =  this.Db.tblT_SOWAssign.Find(sowAssignDTO.SOWAssign_PK);
+                    existingSowAssign = this.Db.tblT_SOWAssign.Find(sowAssignDTO.SOWAssign_PK);
                 }
 
                 bool isAssigned = false;
@@ -116,11 +112,16 @@ namespace GlobalSolusindo.Business.SOW.DML
             }
         }
 
-        public void Update(SOWDTO sowDTO, DateTime dateStamp)
+        public void UpdateSOW(SOWDTO sowDTO, DateTime dateStamp)
         {
             if (sowDTO == null)
                 throw new ArgumentNullException("SOW model is null.");
             tblT_SOW sow = sowFactory.CreateFromDbAndUpdateFromDTO(sowDTO, dateStamp);
+
+            if (sow.TglSelesai != null)
+            {
+                throw new Kairos.KairosException("Cannot update this SOW because already been approved/rejected.");
+            }
         }
 
         public SaveResult<SOWEntryModel> Save(SOWDTO sowDTO, DateTime dateStamp)
@@ -132,7 +133,7 @@ namespace GlobalSolusindo.Business.SOW.DML
             if (validationResult.IsValid)
             {
                 success = true;
-                Update(sowDTO, dateStamp);
+                UpdateSOW(sowDTO, dateStamp);
                 SaveChanges();
                 UpdateSowAssign(sowDTO, dateStamp);
                 UpdateSowTrack(sowDTO, dateStamp);

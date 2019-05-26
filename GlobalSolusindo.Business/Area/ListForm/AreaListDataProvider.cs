@@ -1,9 +1,23 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
 using Kairos.Data;
+using Newtonsoft.Json;
 
 namespace GlobalSolusindo.Business.Area.ListForm
 {
+    public class AreaListFormData
+    {
+    }
+
+    public class AreaListModel
+    {
+        [JsonProperty("formData")]
+        public AreaListFormData FormData { get; set; } = new AreaListFormData();
+
+        [JsonProperty("searchResult")]
+        public SearchResult<AreaDTO> SearchResult { get; set; }
+    }
+
     public class AreaListDataProvider : FactoryBase
     {
         private AreaQuery areaQuery;
@@ -20,7 +34,7 @@ namespace GlobalSolusindo.Business.Area.ListForm
         public AreaListModel Get(AreaSearchFilter searchFilter)
         {
             AreaListFormData formData = new AreaListFormData();
-            SearchResult<AreaDTO> searchResult = areaQuery.GetDataByFilter(searchFilter);
+            SearchResult<AreaDTO> searchResult = areaQuery.Search(searchFilter);
             return new AreaListModel()
             {
                 FormData = formData,
