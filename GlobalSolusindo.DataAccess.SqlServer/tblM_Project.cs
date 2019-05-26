@@ -23,5 +23,6 @@ namespace GlobalSolusindo.DataAccess
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedDate { get; set; }
         public int Status_FK { get; set; }
+        public Nullable<int> Vendor_FK { get; set; }
     }
 }

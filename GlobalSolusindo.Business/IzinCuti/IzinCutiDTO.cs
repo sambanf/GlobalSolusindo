@@ -27,12 +27,12 @@ namespace GlobalSolusindo.Business.IzinCuti
 
         [Required(ErrorMessage = "Start date is required.")]
         [JsonProperty("tglMulai")]
-        [JsonConverter(typeof(CustomDateTimeConverter))]
+       // [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? TglMulai { get; set; }
 
         [Required(ErrorMessage = "End date is required.")]
         [JsonProperty("tglSelesai")]
-        [JsonConverter(typeof(CustomDateTimeConverter))]
+       // [JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? TglSelesai { get; set; }
 
         [Required]

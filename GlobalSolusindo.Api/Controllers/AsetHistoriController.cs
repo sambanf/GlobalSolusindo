@@ -80,7 +80,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 { 
-                    var saveResult = asetHistoriCreateHandler.Save(asetHistoriDTO: asetHistori, dateStamp: DateTime.UtcNow);
+                    var saveResult = asetHistoriCreateHandler.Save(asetHistoriDTO: asetHistori, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -105,7 +105,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = asetHistoriUpdateHandler.Save(asetHistori, DateTime.UtcNow);
+                    var saveResult = asetHistoriUpdateHandler.Save(asetHistori, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

@@ -79,7 +79,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 { 
-                    var saveResult = izinCutiCreateHandler.Save(izinCutiDTO: izinCuti, dateStamp: DateTime.UtcNow);
+                    var saveResult = izinCutiCreateHandler.Save(izinCutiDTO: izinCuti, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -104,7 +104,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = izinCutiUpdateHandler.Save(izinCuti, DateTime.UtcNow);
+                    var saveResult = izinCutiUpdateHandler.Save(izinCuti, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -129,7 +129,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = izinCutiApprovalHandler.Save(izinCutiApproval, DateTime.UtcNow);
+                    var saveResult = izinCutiApprovalHandler.Save(izinCutiApproval, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

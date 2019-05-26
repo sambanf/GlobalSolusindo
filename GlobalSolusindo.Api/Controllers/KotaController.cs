@@ -79,7 +79,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 { 
-                    var saveResult = kotaCreateHandler.Save(kotaDTO: kota, dateStamp: DateTime.UtcNow);
+                    var saveResult = kotaCreateHandler.Save(kotaDTO: kota, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -104,7 +104,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = kotaUpdateHandler.Save(kota, DateTime.UtcNow);
+                    var saveResult = kotaUpdateHandler.Save(kota, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

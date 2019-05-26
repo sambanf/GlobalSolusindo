@@ -265,6 +265,7 @@
           <Property Name="Title" Type="nvarchar" MaxLength="500" />
           <Property Name="Operator_FK" Type="int" />
           <Property Name="DeliveryArea_FK" Type="int" />
+          <Property Name="Vendor_FK" Type="int" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -965,10 +966,6 @@
             <Parameter Name="year" Mode="In" Type="Int32" />
             <Parameter Name="day" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetTaskList" ReturnType="Collection(GlobalSolusindoModel.GetTaskList_Result)">
-            <Parameter Name="userID" Mode="In" Type="Int32" />
-            <Parameter Name="statusSOW" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="usp_GetSowAssign" ReturnType="Collection(GlobalSolusindoModel.usp_GetSowAssign_Result)">
           <Parameter Name="SOW_FK" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1088,7 +1085,11 @@
           <Parameter Name="keyword" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_GetActivities" ReturnType="Collection(GlobalSolusindoModel.usp_GetActivities_Result)">
-            <Parameter Name="User_FK" Mode="In" Type="Int32" />
+          <Parameter Name="User_FK" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetTaskList" ReturnType="Collection(GlobalSolusindoModel.GetTaskList_Result)">
+            <Parameter Name="userID" Mode="In" Type="Int32" />
+            <Parameter Name="statusSOW" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
@@ -1104,6 +1105,8 @@
           <Property Type="Boolean" Name="IsClose" Nullable="true" />
           <Property Type="Boolean" Name="IsSubmitted" Nullable="true" />
           <Property Type="Int32" Name="CheckIn_PK" Nullable="true" />
+          <Property Type="String" Name="SOWName" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="TowerID" Nullable="true" MaxLength="1000" />
         </ComplexType>
         <ComplexType Name="GetTimesheetDaily_Result">
           <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />
@@ -1415,6 +1418,7 @@
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
+          <Property Name="Vendor_FK" Type="Int32" />
         </EntityType>
         <EntityType Name="tblM_Role">
           <Key>
@@ -2023,24 +2027,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetTaskList" FunctionName="GlobalSolusindoModel.Store.GetTaskList">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTaskList_Result">
-                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
-                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
-                <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
-                <ScalarProperty Name="BTS" ColumnName="BTS" />
-                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
-                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="Reported" ColumnName="Reported" />
-                <ScalarProperty Name="ReportedValue" ColumnName="ReportedValue" />
-                <ScalarProperty Name="IsClose" ColumnName="IsClose" />
-                <ScalarProperty Name="IsSubmitted" ColumnName="IsSubmitted" />
-                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_GetSowAssign" FunctionName="GlobalSolusindoModel.Store.usp_GetSowAssign">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GlobalSolusindoModel.usp_GetSowAssign_Result">
@@ -2332,6 +2318,7 @@
           <EntitySetMapping Name="tblM_Project">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_Project">
               <MappingFragment StoreEntitySet="tblM_Project">
+                <ScalarProperty Name="Vendor_FK" ColumnName="Vendor_FK" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -2702,6 +2689,26 @@
                 <ScalarProperty Name="CheckOutTime" ColumnName="CheckOutTime" />
                 <ScalarProperty Name="Aktifitas" ColumnName="Aktifitas" />
                 <ScalarProperty Name="ApprovedBy" ColumnName="ApprovedBy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTaskList" FunctionName="GlobalSolusindoModel.Store.GetTaskList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTaskList_Result">
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
+                <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
+                <ScalarProperty Name="BTS" ColumnName="BTS" />
+                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Reported" ColumnName="Reported" />
+                <ScalarProperty Name="ReportedValue" ColumnName="ReportedValue" />
+                <ScalarProperty Name="IsClose" ColumnName="IsClose" />
+                <ScalarProperty Name="IsSubmitted" ColumnName="IsSubmitted" />
+                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
+                <ScalarProperty Name="SOWName" ColumnName="SOWName" />
+                <ScalarProperty Name="TowerID" ColumnName="TowerID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

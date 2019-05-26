@@ -1,9 +1,5 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
-using Kairos.Linq;
-using System;
-using System.Data.Entity.SqlServer;
-using System.Data.SqlClient;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW.Queries

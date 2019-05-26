@@ -78,7 +78,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = userCreateHandler.Save(userDTO: user, dateStamp: DateTime.UtcNow);
+                    var saveResult = userCreateHandler.Save(userDTO: user, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -115,7 +115,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = userUpdateHandler.Save(user, DateTime.UtcNow);
+                    var saveResult = userUpdateHandler.Save(user, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

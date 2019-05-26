@@ -68,7 +68,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = sowTrackResultUpdateHandler.Save(sowTrackResultDTO: sowTrackResult, dateStamp: DateTime.UtcNow);
+                    var saveResult = sowTrackResultUpdateHandler.Save(sowTrackResultDTO: sowTrackResult, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new

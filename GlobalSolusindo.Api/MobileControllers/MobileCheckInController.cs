@@ -29,7 +29,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = doCheckIn.Save(checkInDTO: checkIn, dateStamp: DateTime.UtcNow);
+                    var saveResult = doCheckIn.Save(checkInDTO: checkIn, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new
@@ -61,7 +61,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = doCheckOut.Save(checkOutDTO: checkOut, dateStamp: DateTime.UtcNow);
+                    var saveResult = doCheckOut.Save(checkOutDTO: checkOut, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new

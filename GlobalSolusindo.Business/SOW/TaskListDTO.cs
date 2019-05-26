@@ -54,6 +54,12 @@ namespace GlobalSolusindo.Business.SOW
         [JsonProperty("bts")]
         public string BTS { get; set; }
 
+        [JsonProperty("sowName")]
+        public string SOWName { get; set; }
+
+        [JsonProperty("towerID")]
+        public string TowerID { get; set; }
+
         [JsonProperty("address")]
         public string Address { get; set; }
 

@@ -30,15 +30,13 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
             this.checkInEntryDataProvider = new CheckInEntryDataProvider(db, user, accessControl, checkInQuery);
         }
 
-
-
         public tblT_CheckIn AddCheckIn(MobileCheckInDTO checkInDTO, DateTime dateStamp)
         {
             if (checkInDTO == null)
                 throw new ArgumentNullException("CheckIn model is null.");
             tblT_CheckIn checkIn = checkInFactory.CreateFromDTO(checkInDTO, dateStamp);
 
-            checkIn = Db.tblT_CheckIn.Add(checkIn); 
+            checkIn = Db.tblT_CheckIn.Add(checkIn);
 
             return checkIn;
         }
@@ -52,7 +50,7 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
             };
 
             var sowAssign = new SOWAssignQuery(Db).GetByPrimaryKey(checkInDTO.SOWAssign_FK);
-            var roleGroups = new RoleGroupQuery(Db).GetByUserFk(sowAssign.User_FK); 
+            var roleGroups = new RoleGroupQuery(Db).GetByUserFk(sowAssign.User_FK);
 
             if (roleGroups.Where(x => possibleDriverRoleNames.Contains(x.Title)).Count() > 0)
             {
@@ -82,6 +80,17 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
         public SaveResult<CheckInEntryModel> Save(MobileCheckInDTO checkInDTO, DateTime dateStamp)
         {
             checkInDTO.WaktuCheckIn = dateStamp;
+
+            var checkins = checkInQuery.GetQuery().Where(x => x.SOWAssign_FK == checkInDTO.SOWAssign_FK).ToList();
+
+            var uncheckedOuts = checkins.Where(x => x.WaktuCheckOut == null);
+            if (uncheckedOuts != null)
+            {
+                if (uncheckedOuts.Count() > 0)
+                {
+                    throw new Kairos.KairosException($"Task ID '{uncheckedOuts.FirstOrDefault().SOWAssign_FK}' is not checked out. Cannot checkin, until previous task checked out.");
+                }
+            }
 
             ModelValidationResult validationResult = checkInValidator.Validate(checkInDTO);
             bool success = false;

@@ -41,12 +41,12 @@ namespace GlobalSolusindo.Business.SOW
 
         [Required]
         [JsonProperty("tglMulai")]
-        [JsonConverter(typeof(CustomDateTimeConverter))]
+        //[JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? TglMulai { get; set; }
 
         //[Required]
         [JsonProperty("tglSelesai")]
-        [JsonConverter(typeof(CustomDateTimeConverter))]
+        //[JsonConverter(typeof(CustomDateTimeConverter))]
         public DateTime? TglSelesai { get; set; }
 
         [JsonProperty("statusSow_fk")]

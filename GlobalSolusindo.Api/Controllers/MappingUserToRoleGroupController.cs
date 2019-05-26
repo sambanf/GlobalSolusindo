@@ -73,7 +73,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = mappingUserToRoleGroupCreateHandler.Save(mappingUserToRoleGroupDTO: mappingUserToRoleGroup, dateStamp: DateTime.UtcNow);
+                    var saveResult = mappingUserToRoleGroupCreateHandler.Save(mappingUserToRoleGroupDTO: mappingUserToRoleGroup, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -95,7 +95,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = mappingUserToRoleGroupUpdateHandler.Save(mappingUserToRoleGroup, DateTime.UtcNow);
+                    var saveResult = mappingUserToRoleGroupUpdateHandler.Save(mappingUserToRoleGroup, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

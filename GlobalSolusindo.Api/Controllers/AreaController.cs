@@ -77,7 +77,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = areaCreateHandler.Save(areaDTO: area, dateStamp: DateTime.UtcNow);
+                    var saveResult = areaCreateHandler.Save(areaDTO: area, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -102,7 +102,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = areaUpdateHandler.Save(area, DateTime.UtcNow);
+                    var saveResult = areaUpdateHandler.Save(area, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

@@ -65,12 +65,36 @@ namespace GlobalSolusindo.Business.SOWAssign.Queries
             return record;
         }
 
-
-        public IQueryable<SOWAssignDTO> GetBySOW_FK(int sowFK)
+        public List<SOWAssignDTO> GetWithSP_BySOW_FK(int sowFK)
         {
-            var records = GetQuery().Where(sowAssign => sowAssign.SOW_FK == sowFK);
-            return records;
+            var data = Db.usp_GetSowAssign(sowFK);
+
+            var records = data.Select(x => new SOWAssignDTO
+            {
+                SOWAssign_PK = x.SOWAssign_PK,
+                SOW_FK = x.SOW_FK,
+                SOWName = x.SOWName,
+                User_FK = x.User_FK,
+                UserName = x.UserName,
+                KategoriJabatan_FK = x.KategoriJabatan_FK,
+                KategoriJabatanTitle = x.KategoriJabatanTitle,
+                TglMulai = x.TglMulai,
+                TglSelesai = x.TglSelesai,
+                CreatedBy = x.CreatedBy,
+                CreatedDate = x.CreatedDate.Value,
+                UpdatedBy = x.UpdatedBy,
+                UpdatedDate = x.UpdatedDate.Value,
+                Status_FK = x.Status_FK.Value,
+            });
+
+            return records.ToList();
         }
+
+        //public IQueryable<SOWAssignDTO> GetBySOW_FK(int sowFK)
+        //{
+        //    var records = GetQuery().Where(sowAssign => sowAssign.SOW_FK == sowFK);
+        //    return records;
+        //}
 
 
         //        public List<SOWAssignDTO> GetBySOW_FK(int sowFK)

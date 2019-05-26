@@ -79,7 +79,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 { 
-                    var saveResult = asetKategoriCreateHandler.Save(asetKategoriDTO: asetKategori, dateStamp: DateTime.UtcNow);
+                    var saveResult = asetKategoriCreateHandler.Save(asetKategoriDTO: asetKategori, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -104,7 +104,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = asetKategoriUpdateHandler.Save(asetKategori, DateTime.UtcNow);
+                    var saveResult = asetKategoriUpdateHandler.Save(asetKategori, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

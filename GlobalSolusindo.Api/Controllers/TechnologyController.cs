@@ -79,7 +79,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = technologyCreateHandler.Save(technologyDTO: technology, dateStamp: DateTime.UtcNow);
+                    var saveResult = technologyCreateHandler.Save(technologyDTO: technology, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -104,7 +104,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = technologyUpdateHandler.Save(technology, DateTime.UtcNow);
+                    var saveResult = technologyUpdateHandler.Save(technology, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

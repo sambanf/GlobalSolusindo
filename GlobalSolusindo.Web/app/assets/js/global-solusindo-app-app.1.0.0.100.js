@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-23. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-25. 
 * @author Kairos
 */
 (function() {
@@ -3084,13 +3084,39 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('DailyTaskCtrl', DailyTaskCtrl);
 
-    DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService'];
+        DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService', 'HttpService'];
 
-    function DailyTaskCtrl($scope, $state, dtService) {
+        function DailyTaskCtrl($scope, $state, dtService, http) {
         var self = this;
 
+        self.formData ={};
+        self.formData.users = [
+            { user_fk:0, name: "ALL" }
+        ];
+        
         dtService.init(self);
 
+        function getUsers(jabatanFk, keyword) {
+            http.get('user/search', {
+                pageIndex: 1,
+                pageSize: 10,
+                keyword: keyword
+            }).then(function (response) {
+                response.data.records.forEach(function(item){
+                    self.formData.users.push(item);
+                });
+                console.log(self.formData.users);
+                self.formData.status = [
+                    {statusId: 0, name: "ALL"},
+                    {statusId: 1, name: "Online"},
+                    {statusId: 2, name: "Cuti"},
+                    {statusId: 3, name: "Unassigned"},
+                    {statusId: 4, name: "Offline"},
+                ]
+                // console.log(response);
+            });
+        };
+        getUsers();
         return self;
     }
 })();
@@ -3100,14 +3126,50 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('TaskEngineerCtrl', TaskEngineerCtrl);
 
-    TaskEngineerCtrl.$inject = ['$scope', '$state', 'taskEngineerDtService', 'taskEngineerDeleteService', 'taskEngineerViewService'];
+    TaskEngineerCtrl.$inject = ['$scope', '$state', 'taskEngineerDtService', 'taskEngineerDeleteService', 'taskEngineerViewService', 'HttpService', 'select2Service'];
 
-    function TaskEngineerCtrl($scope, $state, dtService, deleteService, viewService) {
+    function TaskEngineerCtrl($scope, $state, dtService, deleteService, viewService, http, select2Service) {
         var self = this;
+        self.formData = {};
+        self.formData.users = [
+            { user_fk:0, username: "ALL" }
+        ];
 
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+        function getUsers(jabatanFk, keyword) {
+            http.get('user/search', {
+                pageIndex: 1,
+                pageSize: 10,
+                keyword: keyword
+            }).then(function (response) {
+                response.data.records.forEach(function(item){
+                    self.formData.users.push(item);
+                });
+                console.log(self.formData.users);
+                // console.log(response);
+            });
+        };
+        
+        function getBTSs() {
+            select2Service.liveSearch("bts/search", {
+                selector: '#bts_fk',
+                valueMember: 'bts_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    self.formData.btses = data;
+                    console.log(data);
+                },
+                onSelected: function (data) {
+                    self.model.bts_fk = data.bts_pk;
+                }
+            });
+        }
+
+        getUsers();
+        getBTSs();
+
         return self;
     }
 })();
@@ -3143,14 +3205,26 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('TimesheetEngineerCtrl', TimesheetEngineerCtrl);
 
-    TimesheetEngineerCtrl.$inject = ['$scope', '$state', 'timesheetEngineerDtService', 'timesheetEngineerViewService'];
+    TimesheetEngineerCtrl.$inject = ['$scope', '$state', 'timesheetEngineerDtService', 'timesheetEngineerViewService', 'HttpService'];
 
-    function TimesheetEngineerCtrl($scope, $state, dtService, viewService) {
+    function TimesheetEngineerCtrl($scope, $state, dtService, viewService, http) {
         var self = this;
+        self.formData = {};
 
         dtService.init(self);
         viewService.init(self);
 
+        function getUsers(jabatanFk, keyword) {
+            http.get('user/search', {
+                pageIndex: 1,
+                pageSize: 10,
+                keyword: keyword
+            }).then(function (response) {
+                self.formData.users = response.data.records;
+                // console.log(response);
+            });
+        };
+        getUsers();
         return self;
     }
 })();
@@ -10972,8 +11046,28 @@ angular.module('global-solusindo')
         var self = this;
         var controller = {};
 
+        //instantiate DatatableService
+        self.dtService = ds;
+
+        self.dtService.param = {
+            user_fk: 0,
+            status:""
+        };
+
         self.init = function (ctrl) {
             controller = ctrl;
+            console.log(controller.model);
+            controller.search = function (){
+                if(controller.model){
+                    self.dtService.param.user_fk = controller.model.user_fk;
+                    if(controller.model.status_name){
+                        self.dtService.param.status = controller.model.status_name;
+                    }
+                }
+                // console.log(self.dtService.param);
+                controller.datatable.draw();
+            }
+            
             var titleColumnIndex = 1;
             var dt = ds.init("#dailyTask", "dailyTask/search", {
                 extendRequestData: {
@@ -11140,13 +11234,31 @@ angular.module('global-solusindo')
         var self = this;
         var controller = {};
 
+        //instantiate DatatableService
+        self.dtService = ds;
+
+        self.dtService.param = {
+            user_fk: 0
+        };
+
         self.init = function (ctrl) {
             controller = ctrl;
+
+            console.log(controller.model);
+            controller.search = function (){
+                if(controller.model){
+                    self.dtService.param.user_fk = controller.model.user_fk;
+                }
+                // console.log(self.dtService.param);
+                controller.datatable.draw();
+            }
             var titleColumnIndex = 1;
             var dt = ds.init("#taskEngineer", "taskEngineer/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 10,
+                    userId: self.userId,
+                    name:self.name
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
@@ -11297,13 +11409,33 @@ angular.module('global-solusindo')
         var self = this;
         var controller = {};
 
+        self.dtCallback = function (dt) {
+            self.datatable = dt.DataTable;
+        };
+
+        //instantiate DatatableService
+        self.dtService = ds;
+
+        self.dtService.param = {
+            user_pk: 0
+        };
         self.init = function (ctrl) {
             controller = ctrl;
+            console.log(controller.model);
+            controller.search = function (){
+                if(controller.model)
+                    self.dtService.param.user_pk = controller.model.user_pk;
+                // console.log(self.dtService.param);
+                controller.datatable.draw();
+            }
+
             var titleColumnIndex = 1;
-            var dt = ds.init("#timesheetEngineer", "user/search", {
+           var dt = self.dtService.init("#timesheetEngineer", "user/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 10,
+                    userId: self.userId,
+                    name:self.name
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
@@ -12246,14 +12378,14 @@ angular.module('global-solusindo')
                         extendRequestData.sortName = defaultRequestData.sortName;
                         extendRequestData.sortDir = defaultRequestData.sortDir;
                     }
-                    //self.param.pageIndex = defaultRequestData.pageIndex;
-                    //self.param.pageSize = defaultRequestData.pageSize;
-                    //self.param.keyword = defaultRequestData.keyword;
-                    //self.param.sortName = defaultRequestData.sortName;
-                    //self.param.sortDir = defaultRequestData.sortDir; 
+                    self.param.pageIndex = defaultRequestData.pageIndex;
+                    self.param.pageSize = defaultRequestData.pageSize;
+                    self.param.keyword = defaultRequestData.keyword;
+                    self.param.sortName = defaultRequestData.sortName;
+                    self.param.sortDir = defaultRequestData.sortDir; 
 
-                    var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
-                    //var requestData = self.param;
+                    // var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+                    var requestData = self.param;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
                     }
@@ -15416,8 +15548,13 @@ angular.module('checklist-model', [])
                         if (!ngModel.$viewValue && currentDate) {
                             dpElement.data('DateTimePicker').clear();
                         } else if (ngModel.$viewValue) {
+                            console.log(ngModel.$viewValue);
                             // otherwise make sure it is moment object
                             if (!moment.isMoment(ngModel.$viewValue)) {
+                                console.log('masuk');
+                                if(!ngModel.$viewValue.includes("T")){
+                                    ngModel.$viewValue = moment(ngModel.$viewValue, "DD-MM-YYYY");
+                                }
                                 ngModel.$setViewValue(moment(ngModel.$viewValue));
                             }
                             dpElement.data('DateTimePicker').date(ngModel.$viewValue);

@@ -72,7 +72,7 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
             if (pk > 0)
             {
                 SOWDTO sow = sowQuery.GetByPrimaryKey(pk);
-                sow.SOWAssigns = new SOWAssignQuery(Db).GetBySOW_FK(pk).ToList();
+                sow.SOWAssigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk);
                 return sow;
             }
             SOWDTO sowDTO = new SOWDTO()

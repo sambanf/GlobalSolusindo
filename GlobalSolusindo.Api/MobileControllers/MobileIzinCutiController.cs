@@ -64,7 +64,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = izinCutiCreateHandler.Save(izinCutiDTO: izinCuti, dateStamp: DateTime.UtcNow);
+                    var saveResult = izinCutiCreateHandler.Save(izinCutiDTO: izinCuti, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new

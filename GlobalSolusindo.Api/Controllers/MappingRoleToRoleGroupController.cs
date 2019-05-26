@@ -65,7 +65,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = roleMappingCreateHandler.Save(roleMapping: roleMapping, dateStamp: DateTime.UtcNow);
+                    var saveResult = roleMappingCreateHandler.Save(roleMapping: roleMapping, dateStamp: DateTime.Now);
                     transaction.Complete();
                     return Ok(new SuccessResponse(saveResult, "SUCCESS"));
                 }

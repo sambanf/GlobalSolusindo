@@ -136,19 +136,6 @@ namespace GlobalSolusindo.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTimesheetDaily_Result>("GetTimesheetDaily", userIDParameter, monthParameter, yearParameter, dayParameter);
         }
     
-        public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
-        {
-            var userIDParameter = userID.HasValue ?
-                new ObjectParameter("userID", userID) :
-                new ObjectParameter("userID", typeof(int));
-    
-            var statusSOWParameter = statusSOW.HasValue ?
-                new ObjectParameter("statusSOW", statusSOW) :
-                new ObjectParameter("statusSOW", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskList_Result>("GetTaskList", userIDParameter, statusSOWParameter);
-        }
-    
         public virtual ObjectResult<usp_GetSowAssign_Result> usp_GetSowAssign(Nullable<int> sOW_FK)
         {
             var sOW_FKParameter = sOW_FK.HasValue ?
@@ -174,6 +161,19 @@ namespace GlobalSolusindo.DataAccess
                 new ObjectParameter("User_FK", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetActivities_Result>("usp_GetActivities", user_FKParameter);
+        }
+    
+        public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
+    
+            var statusSOWParameter = statusSOW.HasValue ?
+                new ObjectParameter("statusSOW", statusSOW) :
+                new ObjectParameter("statusSOW", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskList_Result>("GetTaskList", userIDParameter, statusSOWParameter);
         }
     }
 }

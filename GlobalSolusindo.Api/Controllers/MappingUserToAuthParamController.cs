@@ -73,7 +73,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = mappingUserToAuthParamCreateHandler.Save(mappingUserToAuthParamDTO: mappingUserToAuthParam, dateStamp: DateTime.UtcNow);
+                    var saveResult = mappingUserToAuthParamCreateHandler.Save(mappingUserToAuthParamDTO: mappingUserToAuthParam, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -95,7 +95,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = mappingUserToAuthParamUpdateHandler.Save(mappingUserToAuthParam, DateTime.UtcNow);
+                    var saveResult = mappingUserToAuthParamUpdateHandler.Save(mappingUserToAuthParam, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

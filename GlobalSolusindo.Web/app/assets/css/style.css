@@ -226,17 +226,17 @@ div.animated {
 
     .sidebar .sidebar-nav::-webkit-scrollbar-thumb {
         height: 50px;
-        background-color: #0b1f50;
+        background-color: #ccc;
         background-clip: content-box;
-        border-color: #3e5fad;
+        border-color: #fff;
         border-style: solid;
         border-width: 1px 2px;
     }
 
     .sidebar .sidebar-nav::-webkit-scrollbar-track {
-        background-color: #3e5fad;
-        border-right: 1px solid #3e5fad;
-        border-left: 1px solid #3e5fad;
+        background-color: #fff;
+        border-right: 1px solid #fff;
+        border-left: 1px solid #fff;
     }
 
     .sidebar .nav-dropdown-toggle::before {
@@ -900,10 +900,6 @@ main.full #map {
     display: none;
 }
 
-.app-header.navbar .navbar-nav {
-    margin-right: 20px;
-}
-
 .back-loader {
     position: fixed;
     z-index: 9999;
@@ -1473,7 +1469,7 @@ md-dialog .md-dialog-content {
     box-shadow: 1px 2px 2px 1px #ccc;
 }
 
-.buttons-html5  {
+.buttons-html5 {
     margin: 5px
 }
 
@@ -1497,9 +1493,11 @@ md-dialog .md-dialog-content {
 .sidebar-hidden .app-header.navbar .navbar-nav {
     margin-left: 20px;
 }
+
 .form-group {
     margin-bottom: 0.5rem;
 }
+
 .form-horizontal .form-group .control-label {
     margin-top: 0px
 }
@@ -1604,6 +1602,31 @@ table.dataTable .btn {
     display: inline-block;
 }
 
+.app-header.navbar .navbar-nav {
+    margin-left: 270px;
+}
+
+.sidebar-fixed .sidebar {
+    width: 250px;
+}
+
+.sidebar .sidebar-nav {
+    width: 250px;
+}
+
+.sidebar .nav {
+    width: 250px;
+}
+
+.sidebar-fixed .main {
+    margin-left: 250px;
+}
+
+ 
+.sidebar-hidden .sidebar {
+    margin-left: -250px;
+}
+
 .img-center {
     display: block;
     margin-left: auto;
@@ -1617,13 +1640,13 @@ table.dataTable .btn {
     height: calc(100vh - 300px);
 }
 
-.legend-item{
+.legend-item {
     float: left;
 }
 
-.legend-item span{
-    float: left;
-}
+    .legend-item span {
+        float: left;
+    }
 
     .legend-item label {
         float: left;

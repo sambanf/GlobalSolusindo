@@ -1,4 +1,5 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.Business.SOWTrack.Queries;
 using GlobalSolusindo.DataAccess;
 using Kairos.Linq;
@@ -63,8 +64,8 @@ namespace GlobalSolusindo.Business.SOW.Queries
             SOWDTO record = GetQuery().FirstOrDefault(sow => sow.SOW_PK == primaryKey);
             if (record != null)
             {
-                //var sowAssigns = new SOWAssignQuery(this.Db).GetBySOW_FK(record.SOW_PK);
-                //record.SOWAssigns = sowAssigns.OrderByDescending(sowAssign => sowAssign.SOWAssign_PK).ToList();
+                var sowAssigns = new SOWAssignQuery(this.Db).GetWithSP_BySOW_FK(record.SOW_PK);
+                record.SOWAssigns = sowAssigns.OrderByDescending(sowAssign => sowAssign.SOWAssign_PK).ToList();
 
                 record.SOWTracks = new SOWTrackQuery(Db).GetBySOWFK(primaryKey);
             }

@@ -79,7 +79,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 { 
-                    var saveResult = cabangCreateHandler.Save(cabangDTO: cabang, dateStamp: DateTime.UtcNow);
+                    var saveResult = cabangCreateHandler.Save(cabangDTO: cabang, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
@@ -104,7 +104,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = cabangUpdateHandler.Save(cabang, DateTime.UtcNow);
+                    var saveResult = cabangUpdateHandler.Save(cabang, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));

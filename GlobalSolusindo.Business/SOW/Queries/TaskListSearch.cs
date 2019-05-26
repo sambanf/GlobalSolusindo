@@ -149,6 +149,8 @@ WHERE
                                       IsClose = taskList_Result.IsClose,
                                       IsSubmitted = taskList_Result.IsSubmitted,
                                       ReportedValue = taskList_Result.ReportedValue,
+                                      SOWName = taskList_Result.SOWName,
+                                      TowerID = taskList_Result.TowerID,
                                       Network = GetNetworkType(taskList_Result.User_FK, taskList_Result.BTS_FK)
                                   };
 
