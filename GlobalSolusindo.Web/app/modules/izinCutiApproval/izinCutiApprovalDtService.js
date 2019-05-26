@@ -48,7 +48,8 @@
                         "data": "alasan"
                     },
                     {
-                        "data": "tglMulai"
+                        "data": "tglMulai",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
                     },
                     {
                         "data": "izinCutiStatusTitle"
