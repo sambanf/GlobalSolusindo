@@ -23,9 +23,9 @@ namespace GlobalSolusindo.DataAccess
         public Nullable<System.DateTime> TglMulai { get; set; }
         public Nullable<System.DateTime> TglSelesai { get; set; }
         public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedDate { get; set; }
-        public Nullable<int> Status_FK { get; set; }
+        public System.DateTime UpdatedDate { get; set; }
+        public int Status_FK { get; set; }
     }
 }

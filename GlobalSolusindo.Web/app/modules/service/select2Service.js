@@ -100,7 +100,7 @@
                 },
                 dropdownAutoWidth: true,
                 placeholder: (param.placeholder) ? param.placeholder : 'Search..',
-                allowClear: param.allowClear,
+                allowClear: true,
                 escapeMarkup: function (m) {
                     return m;
                 },

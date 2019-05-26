@@ -15,7 +15,10 @@ namespace GlobalSolusindo.DataAccess
     {
         public Nullable<int> User_FK { get; set; }
         public Nullable<int> SOWAssign_PK { get; set; }
+        public Nullable<int> CheckIn_PK { get; set; }
         public Nullable<int> BTS_FK { get; set; }
+        public string SOWName { get; set; }
+        public string TowerID { get; set; }
         public string BTS { get; set; }
         public string Alamat { get; set; }
         public Nullable<int> StatusID { get; set; }
@@ -24,8 +27,5 @@ namespace GlobalSolusindo.DataAccess
         public string ReportedValue { get; set; }
         public Nullable<bool> IsClose { get; set; }
         public Nullable<bool> IsSubmitted { get; set; }
-        public Nullable<int> CheckIn_PK { get; set; }
-        public string SOWName { get; set; }
-        public string TowerID { get; set; }
     }
 }

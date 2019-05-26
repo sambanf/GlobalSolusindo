@@ -16,18 +16,7 @@ namespace GlobalSolusindo.DataAccess
         public int User_FK { get; set; }
         public string UserId { get; set; }
         public string UserName { get; set; }
-        public Nullable<int> SOWAssign_PK { get; set; }
-        public Nullable<System.DateTime> AssignTglMulai { get; set; }
-        public Nullable<System.DateTime> AssignTglSelesai { get; set; }
-        public Nullable<int> IzinCuti_PK { get; set; }
-        public Nullable<System.DateTime> CutiTglMulai { get; set; }
-        public Nullable<System.DateTime> CutiTglSelesai { get; set; }
-        public Nullable<int> CheckIn_PK { get; set; }
-        public Nullable<System.DateTime> WaktuCheckIn { get; set; }
-        public Nullable<System.DateTime> WaktuCheckOut { get; set; }
         public string KategoriJabatanTitle { get; set; }
-        public string RoleTitle { get; set; }
-        public Nullable<long> RowNumber { get; set; }
         public string Status { get; set; }
     }
 }

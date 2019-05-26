@@ -16,7 +16,7 @@ namespace GlobalSolusindo.DataAccess
         public string Name { get; set; }
         public string Technology { get; set; }
         public string Time { get; set; }
-        public Nullable<int> Duration { get; set; }
         public Nullable<bool> IsDiffDay { get; set; }
+        public Nullable<int> Duration { get; set; }
     }
 }

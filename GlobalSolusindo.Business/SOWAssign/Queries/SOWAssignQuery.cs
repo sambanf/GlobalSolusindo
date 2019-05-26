@@ -81,10 +81,10 @@ namespace GlobalSolusindo.Business.SOWAssign.Queries
                 TglMulai = x.TglMulai,
                 TglSelesai = x.TglSelesai,
                 CreatedBy = x.CreatedBy,
-                CreatedDate = x.CreatedDate.Value,
+                CreatedDate = x.CreatedDate,
                 UpdatedBy = x.UpdatedBy,
-                UpdatedDate = x.UpdatedDate.Value,
-                Status_FK = x.Status_FK.Value,
+                UpdatedDate = x.UpdatedDate,
+                Status_FK = x.Status_FK,
             });
 
             return records.ToList();

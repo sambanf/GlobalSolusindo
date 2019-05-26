@@ -36,7 +36,8 @@
                         "data": "user_fk"
                     },
                     {
-                        "data": "tanggal"
+                        "data": "tanggal",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
                     },
                     {
                         "data": "checkInTime"

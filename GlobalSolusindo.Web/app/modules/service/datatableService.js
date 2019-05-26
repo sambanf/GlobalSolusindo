@@ -18,6 +18,7 @@
     function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui) {
         var self = this;
         self.param = {};
+        var dtRequestData = {};
 
         function getExportColumns(params) {
             if (params && params.exportButtons && params.exportButtons.columns) {
@@ -115,6 +116,7 @@
                     //self.param.sortDir = defaultRequestData.sortDir; 
 
                     var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+                    dtRequestData = requestData;
                     //var requestData = self.param;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
@@ -185,7 +187,7 @@
             });
 
             $('.dataTables_filter input[type=search]').val('').change();
-
+            dt.requestData = dtRequestData;
             return dt;
         };
 

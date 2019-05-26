@@ -23,24 +23,14 @@ namespace GlobalSolusindo.Business.DailyTask.Queries
         }
 
         public List<DailyTaskDTO> GetQuery(string keyword)
-        { 
+        {
             var records = Db.usp_GetDailyTask(keyword).Select(x => new DailyTaskDTO()
             {
-                AssignTglMulai = x.AssignTglMulai,
-                AssignTglSelesai = x.AssignTglSelesai,
-                CheckIn_PK = x.CheckIn_PK,
-                CutiTglMulai = x.CutiTglMulai,
-                CutiTglSelesai = x.CutiTglSelesai,
-                IzinCuti_PK = x.IzinCuti_PK,
-                KategoriJabatanTitle = x.KategoriJabatanTitle,
-                RoleTitle = x.RoleTitle,
-                SOWAssign_PK = x.SOWAssign_PK,
+                KategoriJabatanTitle = x.KategoriJabatanTitle, 
                 Status = x.Status,
                 UserId = x.UserId,
                 UserName = x.UserName,
-                User_FK = x.User_FK,
-                WaktuCheckIn = x.WaktuCheckIn,
-                WaktuCheckOut = x.WaktuCheckOut 
+                User_FK = x.User_FK
             });
             return records.ToList();
         }

@@ -3148,17 +3148,20 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('DailyTaskCtrl', DailyTaskCtrl);
 
-        DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService', 'HttpService'];
+    DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService', 'HttpService', 'dailyTaskSearchService'];
 
-        function DailyTaskCtrl($scope, $state, dtService, http) {
+    function DailyTaskCtrl($scope, $state, dtService, http, search) {
         var self = this;
-
-        self.formData ={};
+        self.model = {};
+        self.model.user_fk = 0;
+        self.model.statusName = "ALL";
+        self.formData = {};
         self.formData.users = [
-            { user_fk:0, name: "ALL" }
+            { user_fk: 0, name: "ALL" }
         ];
-        
+
         dtService.init(self);
+        search.init(self);
 
         function getUsers(jabatanFk, keyword) {
             http.get('user/search', {
@@ -3166,16 +3169,15 @@ angular.module('global-solusindo')
                 pageSize: 10,
                 keyword: keyword
             }).then(function (response) {
-                response.data.records.forEach(function(item){
+                response.data.records.forEach(function (item) {
                     self.formData.users.push(item);
                 });
-                console.log(self.formData.users);
                 self.formData.status = [
-                    {statusId: 0, name: "ALL"},
-                    {statusId: 1, name: "Online"},
-                    {statusId: 2, name: "Cuti"},
-                    {statusId: 3, name: "Unassigned"},
-                    {statusId: 4, name: "Offline"},
+                    { statusId: 0, name: "ALL" },
+                    { statusId: 1, name: "Online" },
+                    { statusId: 2, name: "Cuti" },
+                    { statusId: 3, name: "Unassigned" },
+                    { statusId: 4, name: "Offline" },
                 ]
                 // console.log(response);
             });
@@ -3487,16 +3489,17 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('SOWApprovalCtrl', SOWApprovalCtrl);
 
-    SOWApprovalCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWApprovalBindingService', 'HttpService', 'costDtService', 'sowMapService'];
+    SOWApprovalCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWApprovalBindingService', 'HttpService', 'costDtService', 'sowMapService', 'SOWApprovalService'];
 
-    function SOWApprovalCtrl($scope, sParam, $state, bindingService, http, costDtService, map) {
+    function SOWApprovalCtrl($scope, sParam, $state, bindingService, http, costDtService, map, approval) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
             costDtService.init(self);
+            approval.init(self);
             try {
-                map.init(self); 
+                map.init(self);
             } catch (e) {
 
             }
@@ -6355,10 +6358,12 @@ angular.module('global-solusindo')
                         "data": "btsAddress"
                     },
                     {
-                        "data": "checkInTime"
+                        "data": "checkInTime",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM")  : "-"; }
                     },
                     {
-                        "data": "waktuCheckOut"
+                        "data": "waktuCheckOut",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM") : "-"; }
                     },
                     {
                         "data": "fileSubmitted"
@@ -7587,7 +7592,8 @@ angular.module('global-solusindo')
                         "data": "alasan"
                     },
                     {
-                        "data": "tglMulai"
+                        "data": "tglMulai",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
                     },
                     {
                         "data": "izinCutiStatusTitle"
@@ -7712,7 +7718,8 @@ angular.module('global-solusindo')
                         "data": "alasan"
                     },
                     {
-                        "data": "tglMulai"
+                        "data": "tglMulai",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
                     },
                     {
                         "data": "izinCutiStatusTitle"
@@ -10186,10 +10193,12 @@ angular.module('global-solusindo')
                         "data": "btsAddress"
                     },
                     {
-                        "data": "checkInTime"
+                        "data": "checkInTime",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM") : "-"; }
                     },
                     {
-                        "data": "waktuCheckOut"
+                        "data": "waktuCheckOut",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM") : "-"; }
                     },
                     {
                         "data": "fileSubmitted"
@@ -11094,7 +11103,8 @@ angular.module('global-solusindo')
                         "data": "user_fk"
                     },
                     {
-                        "data": "tanggal"
+                        "data": "tanggal",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
                     },
                     {
                         "data": "checkInTime"
@@ -11211,28 +11221,19 @@ angular.module('global-solusindo')
 
         self.dtService.param = {
             user_fk: 0,
-            status:""
+            status: ""
         };
 
         self.init = function (ctrl) {
             controller = ctrl;
-            console.log(controller.model);
-            controller.search = function (){
-                if(controller.model){
-                    self.dtService.param.user_fk = controller.model.user_fk;
-                    if(controller.model.status_name){
-                        self.dtService.param.status = controller.model.status_name;
-                    }
-                }
-                // console.log(self.dtService.param);
-                controller.datatable.draw();
-            }
-            
+
             var titleColumnIndex = 1;
             var dt = ds.init("#dailyTask", "dailyTask/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 10,
+                    status: controller.model.statusName,
+                    user_fk: controller.model.user_fk
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
@@ -11245,9 +11246,6 @@ angular.module('global-solusindo')
                     },
                     {
                         "data": "userName"
-                    },
-                    {
-                        "data": "roleTitle"
                     },
                     {
                         "data": "kategoriJabatanTitle"
@@ -11283,6 +11281,48 @@ angular.module('global-solusindo')
             });
             controller.datatable = dt;
             return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('dailyTaskSearchService', RoleEntry);
+
+    dailyTaskSearchService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function dailyTaskSearchService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        function goToListPage() {
+            $state.go('app.role-list');
+        }
+
+        function search() {
+            controller.datatable.extendRequestData.user_fk = controller.model.user_fk;
+            controller.datatable.extendRequestData.status = controller.model.statusName;
+            controller.datatable.draw();
+        }
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#searchButton').on('click', function () {
+                search();
+            });
         };
 
         return self;
@@ -12538,14 +12578,14 @@ angular.module('global-solusindo')
                         extendRequestData.sortName = defaultRequestData.sortName;
                         extendRequestData.sortDir = defaultRequestData.sortDir;
                     }
-                    self.param.pageIndex = defaultRequestData.pageIndex;
-                    self.param.pageSize = defaultRequestData.pageSize;
-                    self.param.keyword = defaultRequestData.keyword;
-                    self.param.sortName = defaultRequestData.sortName;
-                    self.param.sortDir = defaultRequestData.sortDir; 
+                    //self.param.pageIndex = defaultRequestData.pageIndex;
+                    //self.param.pageSize = defaultRequestData.pageSize;
+                    //self.param.keyword = defaultRequestData.keyword;
+                    //self.param.sortName = defaultRequestData.sortName;
+                    //self.param.sortDir = defaultRequestData.sortDir; 
 
-                    // var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
-                    var requestData = self.param;
+                    var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+                    //var requestData = self.param;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
                     }
@@ -12722,7 +12762,7 @@ angular.module('global-solusindo')
         var debugMode = false;
 
         var base_url = "http://gsapi.local/";
-        // var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -12772,6 +12812,11 @@ angular.module('global-solusindo')
             var status = response.status;
             if (status != 200) {
                 ui.alert.error(response.message);
+            }
+            if (response.data && !response.data.success) {
+                if (response.data.status != 200) {
+                    ui.alert.error(response.data.message);
+                }
             }
         }
 
@@ -13627,7 +13672,8 @@ angular.module('global-solusindo')
                         "data": "btsName"
                     },
                     {
-                        "data": "tglMulai"
+                        "data": "tglMulai",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
                     },
                     {
                         "data": "sowStatusTitle"
@@ -13784,11 +13830,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('SOWSaveService', SOWSaveService);
+        .factory('SOWApprovalService', SOWApprovalService);
 
-    SOWSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    SOWApprovalService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function SOWSaveService($state, http, ui, validation) {
+    function SOWApprovalService($state, http, ui, validation) {
         var self = this;
         var controller;
 
@@ -13796,13 +13842,13 @@ angular.module('global-solusindo')
             $state.go('app.sowList');
         }
 
-        self.approve = function (model, sowStatus_fk) {
+        self.approve = function (model, statusSow_fk) {
             var request = {
                 "sow_pk": model.sow_pk,
-                "sowStatus_fk": sowStatus_fk
+                "statusSow_fk": statusSow_fk
             };
-            http.post('sow/approval', request).then(function (res) {
-                if (res.status == true) {
+            http.put('sow/approval', request).then(function (res) {
+                if (res.success) {
                     ui.alert.success("Data successfuly updated.");
                     //$state.go('app.sowEntry', { id: res.data.model.sow_pk });
                     goToListPage();

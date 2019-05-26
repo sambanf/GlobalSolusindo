@@ -20,7 +20,7 @@
         var debugMode = false;
 
         var base_url = "http://gsapi.local/";
-        // var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};

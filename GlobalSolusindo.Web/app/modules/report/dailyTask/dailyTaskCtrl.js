@@ -4,38 +4,45 @@
     angular.module('global-solusindo')
         .controller('DailyTaskCtrl', DailyTaskCtrl);
 
-        DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService', 'HttpService'];
+    DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService', 'HttpService', 'select2Service'];
 
-        function DailyTaskCtrl($scope, $state, dtService, http) {
+    function DailyTaskCtrl($scope, $state, dtService, http, select2Service) {
         var self = this;
 
-        self.formData ={};
-        self.formData.users = [
-            { user_fk:0, name: "ALL" }
+        self.model = {
+            user_fk: 0,
+            statusName: "ALL"
+        };
+
+        self.formData = {};
+
+        self.formData.status = [
+            { statusId: 0, name: "ALL" },
+            { statusId: 1, name: "Online" },
+            { statusId: 2, name: "Cuti" },
+            { statusId: 3, name: "Unassigned" },
+            { statusId: 4, name: "Offline" },
         ];
-        
+
         dtService.init(self);
 
-        function getUsers(jabatanFk, keyword) {
-            http.get('user/search', {
-                pageIndex: 1,
-                pageSize: 10,
-                keyword: keyword
-            }).then(function (response) {
-                response.data.records.forEach(function(item){
-                    self.formData.users.push(item);
-                });
-                console.log(self.formData.users);
-                self.formData.status = [
-                    {statusId: 0, name: "ALL"},
-                    {statusId: 1, name: "Online"},
-                    {statusId: 2, name: "Cuti"},
-                    {statusId: 3, name: "Unassigned"},
-                    {statusId: 4, name: "Offline"},
-                ]
-                // console.log(response);
+        function getUsers() {
+            select2Service.liveSearch("user/search", {
+                selector: '#user_fk',
+                valueMember: 'user_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    self.formData.users = [];
+                    data.forEach(function (user) {
+                        self.formData.users.push(user);
+                    });
+                },
+                onSelected: function (data) {
+                    self.model.user_fk = data.user_pk;
+                }
             });
-        };
+        }
+
         getUsers();
         return self;
     }

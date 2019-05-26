@@ -68,17 +68,38 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblT_UserHistori> tblT_UserHistori { get; set; }
         public virtual DbSet<tblT_UserPayroll> tblT_UserPayroll { get; set; }
     
-        public virtual ObjectResult<string> GetRoute(Nullable<int> taskID, Nullable<int> tech)
+        public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
         {
-            var taskIDParameter = taskID.HasValue ?
-                new ObjectParameter("taskID", taskID) :
-                new ObjectParameter("taskID", typeof(int));
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
     
-            var techParameter = tech.HasValue ?
-                new ObjectParameter("tech", tech) :
-                new ObjectParameter("tech", typeof(int));
+            var statusSOWParameter = statusSOW.HasValue ?
+                new ObjectParameter("statusSOW", statusSOW) :
+                new ObjectParameter("statusSOW", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetRoute", taskIDParameter, techParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskList_Result>("GetTaskList", userIDParameter, statusSOWParameter);
+        }
+    
+        public virtual ObjectResult<GetTimesheetDaily_Result> GetTimesheetDaily(Nullable<int> userID, Nullable<int> month, Nullable<int> year, Nullable<int> day)
+        {
+            var userIDParameter = userID.HasValue ?
+                new ObjectParameter("userID", userID) :
+                new ObjectParameter("userID", typeof(int));
+    
+            var monthParameter = month.HasValue ?
+                new ObjectParameter("month", month) :
+                new ObjectParameter("month", typeof(int));
+    
+            var yearParameter = year.HasValue ?
+                new ObjectParameter("year", year) :
+                new ObjectParameter("year", typeof(int));
+    
+            var dayParameter = day.HasValue ?
+                new ObjectParameter("day", day) :
+                new ObjectParameter("day", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTimesheetDaily_Result>("GetTimesheetDaily", userIDParameter, monthParameter, yearParameter, dayParameter);
         }
     
         public virtual ObjectResult<Nullable<System.DateTime>> GetTimesheetMonthly(Nullable<int> userID, Nullable<int> month, Nullable<int> year)
@@ -115,34 +136,13 @@ namespace GlobalSolusindo.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTimesheetMonthlyV2_Result>("GetTimesheetMonthlyV2", userIdParameter, monthParameter, yearParameter);
         }
     
-        public virtual ObjectResult<GetTimesheetDaily_Result> GetTimesheetDaily(Nullable<int> userID, Nullable<int> month, Nullable<int> year, Nullable<int> day)
+        public virtual ObjectResult<usp_GetActivities_Result> usp_GetActivities(Nullable<int> user_FK)
         {
-            var userIDParameter = userID.HasValue ?
-                new ObjectParameter("userID", userID) :
-                new ObjectParameter("userID", typeof(int));
+            var user_FKParameter = user_FK.HasValue ?
+                new ObjectParameter("User_FK", user_FK) :
+                new ObjectParameter("User_FK", typeof(int));
     
-            var monthParameter = month.HasValue ?
-                new ObjectParameter("month", month) :
-                new ObjectParameter("month", typeof(int));
-    
-            var yearParameter = year.HasValue ?
-                new ObjectParameter("year", year) :
-                new ObjectParameter("year", typeof(int));
-    
-            var dayParameter = day.HasValue ?
-                new ObjectParameter("day", day) :
-                new ObjectParameter("day", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTimesheetDaily_Result>("GetTimesheetDaily", userIDParameter, monthParameter, yearParameter, dayParameter);
-        }
-    
-        public virtual ObjectResult<usp_GetSowAssign_Result> usp_GetSowAssign(Nullable<int> sOW_FK)
-        {
-            var sOW_FKParameter = sOW_FK.HasValue ?
-                new ObjectParameter("SOW_FK", sOW_FK) :
-                new ObjectParameter("SOW_FK", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSowAssign_Result>("usp_GetSowAssign", sOW_FKParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetActivities_Result>("usp_GetActivities", user_FKParameter);
         }
     
         public virtual ObjectResult<usp_GetDailyTask_Result> usp_GetDailyTask(string keyword)
@@ -154,26 +154,13 @@ namespace GlobalSolusindo.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetDailyTask_Result>("usp_GetDailyTask", keywordParameter);
         }
     
-        public virtual ObjectResult<usp_GetActivities_Result> usp_GetActivities(Nullable<int> user_FK)
+        public virtual ObjectResult<usp_GetSowAssign_Result> usp_GetSowAssign(Nullable<int> sOW_FK)
         {
-            var user_FKParameter = user_FK.HasValue ?
-                new ObjectParameter("User_FK", user_FK) :
-                new ObjectParameter("User_FK", typeof(int));
+            var sOW_FKParameter = sOW_FK.HasValue ?
+                new ObjectParameter("SOW_FK", sOW_FK) :
+                new ObjectParameter("SOW_FK", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetActivities_Result>("usp_GetActivities", user_FKParameter);
-        }
-    
-        public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
-        {
-            var userIDParameter = userID.HasValue ?
-                new ObjectParameter("userID", userID) :
-                new ObjectParameter("userID", typeof(int));
-    
-            var statusSOWParameter = statusSOW.HasValue ?
-                new ObjectParameter("statusSOW", statusSOW) :
-                new ObjectParameter("statusSOW", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskList_Result>("GetTaskList", userIDParameter, statusSOWParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSowAssign_Result>("usp_GetSowAssign", sOW_FKParameter);
         }
     }
 }

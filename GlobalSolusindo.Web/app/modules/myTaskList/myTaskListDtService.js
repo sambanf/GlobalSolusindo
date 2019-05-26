@@ -50,11 +50,11 @@
                     },
                     {
                         "data": "checkInTime",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM") : "-"; }
                     },
                     {
                         "data": "waktuCheckOut",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM") : "-"; }
                     },
                     {
                         "data": "fileSubmitted"

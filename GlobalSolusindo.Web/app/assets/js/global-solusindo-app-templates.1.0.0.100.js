@@ -2544,7 +2544,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <label class=\"control-label col-sm-2\">Tanggal Izin/Cuti:</label>\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-3\">{{vm.model.tglMulai}}</label> \r" +
+    "                            <label class=\"control-label col-sm-3\">{{vm.model.tglMulai  | date: 'dd-MM-yyyy'}}</label> \r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -5178,29 +5178,29 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <h5>Keterangan</h5>\r" +
     "\n" +
-    "                                <div class=\"legend-item\">\r" +
+    "                            <div class=\"legend-item\">\r" +
     "\n" +
-    "                                    <span class=\"dot-online\"></span><label>Online</label>\r" +
+    "                                <span class=\"dot-online\"></span><label>Online</label>\r" +
     "\n" +
-    "                                </div>\r" +
+    "                            </div>\r" +
     "\n" +
-    "                                <div class=\"legend-item\">\r" +
+    "                            <div class=\"legend-item\">\r" +
     "\n" +
-    "                                    <span class=\"dot-offline\"></span><label>Offline</label>\r" +
+    "                                <span class=\"dot-offline\"></span><label>Offline</label>\r" +
     "\n" +
-    "                                </div>\r" +
+    "                            </div>\r" +
     "\n" +
-    "                                <div class=\"legend-item\">\r" +
+    "                            <div class=\"legend-item\">\r" +
     "\n" +
-    "                                    <span class=\"dot-cuti\"></span><label>Cuti Izin</label>\r" +
+    "                                <span class=\"dot-cuti\"></span><label>Cuti Izin</label>\r" +
     "\n" +
-    "                                </div>\r" +
+    "                            </div>\r" +
     "\n" +
-    "                                <div class=\"legend-item\">\r" +
+    "                            <div class=\"legend-item\">\r" +
     "\n" +
-    "                                    <span class=\"dot-unassigned\"></span><label>No Assignment</label>\r" +
+    "                                <span class=\"dot-unassigned\"></span><label>No Assignment</label>\r" +
     "\n" +
-    "                                </div>\r" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -5212,7 +5212,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-2\" style=\"margin-left: -50px;\">\r" +
     "\n" +
-    "                            <select id=\"bts_fk\" name=\"bts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\" required>\r" +
+    "                            <select id=\"bts_fk\" name=\"bts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\">\r" +
     "\n" +
     "                                <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.name}}</option>\r" +
     "\n" +
@@ -5226,7 +5226,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-2\" style=\"margin-left: -50px;\">\r" +
     "\n" +
-    "                            <select id=\"select_name\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.status_name\" required>\r" +
+    "                            <select id=\"select_name\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.statusName\">\r" +
     "\n" +
     "                                <option ng-repeat=\"x in vm.formData.status\" ng-value=\"x.name\">{{x.name}}</option>\r" +
     "\n" +
@@ -5269,8 +5269,6 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                        <th>User ID</th>\r" +
     "\n" +
     "                                        <th>Nama</th>\r" +
-    "\n" +
-    "                                        <th>Role</th>\r" +
     "\n" +
     "                                        <th>Position</th>\r" +
     "\n" +
@@ -5506,7 +5504,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                            <label class=\"control-label col-sm-2\">Tanggal</label>\r" +
     "\n" +
-    "                                            <label class=\"control-label col-sm-6\" id=\"tglMulai\" name=\"tglMulai\">{{vm.sowAssign.tglMulai}}</label>\r" +
+    "                                            <label class=\"control-label col-sm-6\" id=\"tglMulai\" name=\"tglMulai\">{{vm.sowAssign.tglMulai  | date: 'dd-MM-yyyy'}}</label>\r" +
     "\n" +
     "                                        </div>\r" +
     "\n" +
@@ -6483,7 +6481,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <label class=\"control-label col-sm-3\">Tanggal:</label>\r" +
     "\n" +
-    "                                    <label class=\"control-label col-sm-6\" id=\"tglMulai\" name=\"tglMulai\">{{vm.model.tglMulai}}</label>\r" +
+    "                                    <label class=\"control-label col-sm-6\" id=\"tglMulai\" name=\"tglMulai\">{{vm.model.tglMulai | date: 'dd-MM-yyyy'}}</label>\r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
@@ -7186,7 +7184,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <label class=\"control-label col-sm-3\">Tanggal:</label>\r" +
     "\n" +
-    "                                    <label class=\"control-label col-sm-6\" id=\"tglMulai\" name=\"tglMulai\">{{vm.model.tglMulai}}</label>\r" +
+    "                                    <label class=\"control-label col-sm-6\" id=\"tglMulai\" name=\"tglMulai\">{{vm.model.tglMulai | date: 'dd-MM-yyyy'}}</label>\r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
