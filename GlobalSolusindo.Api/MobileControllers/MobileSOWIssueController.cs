@@ -8,6 +8,7 @@ using Kairos.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Transactions;
 using System.Web.Http;
 
@@ -48,7 +49,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             }
         }
 
-        [Route("mobile/sowIssue")]
+        [Route("mobile/issueHistory")]
         [HttpGet]
         public IHttpActionResult Search([FromUri]SOWIssueSearchFilter filter)
         {
@@ -57,10 +58,17 @@ namespace GlobalSolusindo.Api.MobileControllers
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
-            using (var sowIssueSearch = new SOWIssueSearch(Db))
+            using (var sowIssueQuery = new SOWIssueQuery(Db))
             {
-                var data = sowIssueSearch.GetDataByFilter(filter);
-                return Ok(data.Records);
+                var data = sowIssueQuery.Search(filter);
+                var mobileResponse = data.Records.Select(x => new
+                {
+                    issueId = x.SOWIssue_PK,
+                    date = x.CreatedDate.ToString("dd-MM-yyyy"),
+                    content = x.Description,
+                    photo = x.FilePhotoInBase64,
+                });
+                return Ok(mobileResponse);
             }
         }
 
@@ -84,11 +92,13 @@ namespace GlobalSolusindo.Api.MobileControllers
                     if (saveResult.Success)
                         return Ok(new
                         {
+                            issueId = saveResult.Model.Model.SOWIssue_PK,
                             success = true,
                             msg = "Laporan kendala berhasil."
                         });
                     return Ok(new
                     {
+                       
                         status = false,
                         msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
                         validationResult = saveResult.ValidationResult
@@ -97,7 +107,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             }
         }
 
-        [Route("mobile/sowIssue")]
+        [Route("mobile/doTaskReport")]
         [HttpPut]
         public IHttpActionResult Update([FromBody]SOWIssueDTO sowIssue)
         {
@@ -118,6 +128,7 @@ namespace GlobalSolusindo.Api.MobileControllers
                     if (saveResult.Success)
                         return Ok(new
                         {
+                            issueId = saveResult.Model.Model.SOWIssue_PK,
                             success = true,
                             msg = "Update laporan kendala berhasil."
                         });

@@ -61,9 +61,10 @@
                         if (param.onPreAjaxPost) {
                             param.onPreAjaxPost(requestData);
                         }
-                        return http.get(apiUrl, requestData).then(function (response) {
-                            success(response);
-                        });
+                        return http.get(apiUrl, requestData, false)
+                            .then(function (response) {
+                                success(response);
+                            });
                     },
                     processResults: function (response, params) {
                         params.page = params.page || 1;

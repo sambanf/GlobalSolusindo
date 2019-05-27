@@ -824,6 +824,10 @@
         <Function Name="usp_GetDailyTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="keyword" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="usp_GetNetworkTask" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="userFk" Type="int" Mode="In" />
+          <Parameter Name="sowFk" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_GetSowAssign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="SOW_FK" Type="int" Mode="In" />
         </Function>
@@ -1911,12 +1915,17 @@
           <FunctionImport Name="usp_GetDailyTask" ReturnType="Collection(GlobalSolusindoModel.usp_GetDailyTask_Result)">
             <Parameter Name="keyword" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="usp_GetNetworkTask" ReturnType="Collection(GlobalSolusindoModel.usp_GetNetworkTask_Result)">
+            <Parameter Name="userFk" Mode="In" Type="Int32" />
+            <Parameter Name="sowFk" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="usp_GetSowAssign" ReturnType="Collection(GlobalSolusindoModel.usp_GetSowAssign_Result)">
             <Parameter Name="SOW_FK" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
+          <Property Type="Int32" Name="SOW_FK" Nullable="true" />
           <Property Type="Int32" Name="SOWAssign_PK" Nullable="true" />
           <Property Type="Int32" Name="CheckIn_PK" Nullable="true" />
           <Property Type="Int32" Name="BTS_FK" Nullable="true" />
@@ -1963,6 +1972,11 @@
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="KategoriJabatanTitle" Nullable="true" MaxLength="200" />
           <Property Type="String" Name="Status" Nullable="false" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="usp_GetNetworkTask_Result">
+          <Property Type="Int32" Name="CheckIn_PK" Nullable="false" />
+          <Property Type="String" Name="Type" Nullable="false" MaxLength="200" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_GetSowAssign_Result">
           <Property Type="Int32" Name="SOWAssign_PK" Nullable="false" />
@@ -2601,6 +2615,7 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTaskList_Result">
                 <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
                 <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
                 <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
                 <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
@@ -2663,6 +2678,15 @@
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="KategoriJabatanTitle" ColumnName="KategoriJabatanTitle" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetNetworkTask" FunctionName="GlobalSolusindoModel.Store.usp_GetNetworkTask">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.usp_GetNetworkTask_Result">
+                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
               </ComplexTypeMapping>
             </ResultMapping>

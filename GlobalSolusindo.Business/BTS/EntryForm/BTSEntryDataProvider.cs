@@ -70,12 +70,15 @@ namespace GlobalSolusindo.Business.BTS.EntryForm
                 formData.Cabangs.Add(cabang);
 
             return formData;
-        } 
+        }
 
         private BTSEntryModel GetCreateStateModel()
-        { 
+        {
             List<Control> formControls = CreateFormControls(0);
             BTSDTO btsDTO = new BTSDTO();
+
+            btsDTO.StatusBTS_FK = 1;//default aktif
+
             BTSEntryFormData formData = new BTSEntryFormData();
             formData.Technologies = new TechnologyQuery(Db).GetQuery().ToList();
             formData.BTSStatuses = new BTSStatusQuery(this.Db).GetQuery().ToList();
@@ -88,7 +91,7 @@ namespace GlobalSolusindo.Business.BTS.EntryForm
         }
 
         private BTSEntryModel GetUpdateStateModel(int btsPK)
-        { 
+        {
             List<Control> formControls = CreateFormControls(btsPK);
             BTSDTO btsDTO = btsQuery.GetByPrimaryKey(btsPK);
 

@@ -134,7 +134,6 @@ WHERE
             if (string.IsNullOrEmpty(filter.SortName))
                 filter.SortName = "UserID";
 
-
             var taskList_Results = Db.GetTaskList(filter.UserID, filter.Status).ToList();
             var filteredRecords = from taskList_Result in taskList_Results
                                   select new TaskListDTO
@@ -151,7 +150,13 @@ WHERE
                                       ReportedValue = taskList_Result.ReportedValue,
                                       SOWName = taskList_Result.SOWName,
                                       TowerID = taskList_Result.TowerID,
-                                      Network = GetNetworkType(taskList_Result.User_FK, taskList_Result.BTS_FK)
+                                      Network = Db.usp_GetNetworkTask(taskList_Result.User_FK, taskList_Result.SOW_FK)
+                                      .Select(x => new NetworkType
+                                      {
+                                          CheckIn_PK = x.CheckIn_PK,
+                                          Status = x.Status,
+                                          Type = x.Type
+                                      }).ToList()
                                   };
 
             var displayedRecords = filteredRecords;

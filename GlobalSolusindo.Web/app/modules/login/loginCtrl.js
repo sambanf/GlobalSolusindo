@@ -32,7 +32,7 @@
         }
 
         function setUserInfo(userInfo) {
-            userInfoService.setUserInfo(userInfo)
+            userInfoService.setUserInfo(userInfo);
         }
 
         function goToDashboard() {

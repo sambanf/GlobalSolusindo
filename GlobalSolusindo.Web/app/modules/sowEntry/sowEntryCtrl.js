@@ -50,7 +50,7 @@
                     try {
                         showRouteInMaps(e);
                     } catch (e) {
-
+                        console.log(e);
                     }
                     showFileNameInTextbox(fileName);
                     setSowTracksModel(e.target.result);
@@ -66,21 +66,23 @@
             SOWSelect2Service.init(self);
 
             self.getUsers = function (jabatanFk, keyword) {
-                http.get('user/search', {
+                var requestData = {
                     pageIndex: 1,
                     pageSize: 10000,
                     keyword: keyword,
                     kategoriJabatan_fk: jabatanFk
-                }).then(function (response) {
+                };
+
+                http.get('user/search', requestData)
+                    .then(function (response) {
                     self.formData.users = response.data.records;
                 });
             };
 
             try {
-                map.init(self);
-
+                map.init(self); 
             } catch (e) {
-
+                console.log(e);
             }
         });
 

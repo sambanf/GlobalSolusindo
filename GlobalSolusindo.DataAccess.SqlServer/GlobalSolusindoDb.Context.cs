@@ -154,6 +154,19 @@ namespace GlobalSolusindo.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetDailyTask_Result>("usp_GetDailyTask", keywordParameter);
         }
     
+        public virtual ObjectResult<usp_GetNetworkTask_Result> usp_GetNetworkTask(Nullable<int> userFk, Nullable<int> sowFk)
+        {
+            var userFkParameter = userFk.HasValue ?
+                new ObjectParameter("userFk", userFk) :
+                new ObjectParameter("userFk", typeof(int));
+    
+            var sowFkParameter = sowFk.HasValue ?
+                new ObjectParameter("sowFk", sowFk) :
+                new ObjectParameter("sowFk", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetNetworkTask_Result>("usp_GetNetworkTask", userFkParameter, sowFkParameter);
+        }
+    
         public virtual ObjectResult<usp_GetSowAssign_Result> usp_GetSowAssign(Nullable<int> sOW_FK)
         {
             var sOW_FKParameter = sOW_FK.HasValue ?

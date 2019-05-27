@@ -9,7 +9,7 @@ namespace GlobalSolusindo.Business.SOWIssue
 {
     public class SOWIssueDTO : DTO
     {
-        [JsonProperty("sowIssue_pk")]
+        [JsonProperty("issueId")]
         public int SOWIssue_PK { get; set; } 
 
         [Required(ErrorMessage ="Task ID is required")]

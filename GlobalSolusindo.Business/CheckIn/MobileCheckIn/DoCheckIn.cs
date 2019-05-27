@@ -43,19 +43,36 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
 
         private void AddSOWTrackResultIfUserRoleIsDriver(MobileCheckInDTO checkInDTO, DateTime dateStamp)
         {
+            if(string.IsNullOrEmpty(checkInDTO.TaskNetwork))
+                throw new Kairos.KairosException($"Task network is required.");
+
             var possibleDriverRoleNames = new List<string>()
             {
                  "Driver",
-                 "DT"
+                 "DT",
+                 "Drive Tester (DT)"
             };
 
+            var jabatans = Db.tblM_KategoriJabatan.Where(x => x.Title.Contains("DT") || x.Title.Contains("Drive") || x.KategoriJabatan_PK == 2);
+
             var sowAssign = new SOWAssignQuery(Db).GetByPrimaryKey(checkInDTO.SOWAssign_FK);
+            if (sowAssign == null)
+                throw new NullReferenceException($"Failed to create sow track result while checkin, taskid or assignId '{checkInDTO.SOWAssign_FK}' doesn't exist.");
+
+            var user = Db.tblM_User.Find(sowAssign.User_FK);
+            if (user == null)
+                throw new NullReferenceException($"Failed to create sow track result while checkin, user id '{sowAssign.User_FK}' doesn't exist.");
+
             var roleGroups = new RoleGroupQuery(Db).GetByUserFk(sowAssign.User_FK);
 
-            if (roleGroups.Where(x => possibleDriverRoleNames.Contains(x.Title)).Count() > 0)
+            var userIsDriver =
+                roleGroups.Where(x => possibleDriverRoleNames.Contains(x.Title)).Count() > 0
+                || jabatans.Where(x => x.KategoriJabatan_PK == user.KategoriJabatan_FK).Count() > 0;
+
+            if (userIsDriver)
             {
                 if (sowAssign != null)
-                {
+                { 
                     var sowTrack = new SOWTrackQuery(Db).GetBySOWFKAndTechnologyTitle(sowAssign.SOW_FK, checkInDTO.TaskNetwork);
 
                     if (sowTrack != null)
@@ -66,12 +83,14 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
                             SOWTrack_FK = sowTrack.SOWTrack_PK,
                             Status_FK = 1,
                         };
-
-                        if (sowTrackResultDTO == null)
-                            throw new ArgumentNullException("SOWTrackResult model is null.");
+                         
                         SOWTrackResultFactory sowTrackResultFactory = new SOWTrackResultFactory(Db, User);
                         tblT_SOWTrackResult sowTrackResult = sowTrackResultFactory.CreateFromDTO(sowTrackResultDTO, dateStamp);
                         Db.tblT_SOWTrackResult.Add(sowTrackResult);
+                    }
+                    else
+                    {
+                        throw new Kairos.KairosException($"Invalid task network '{checkInDTO.TaskNetwork}', it's not registered in sow register.");
                     }
                 }
             }

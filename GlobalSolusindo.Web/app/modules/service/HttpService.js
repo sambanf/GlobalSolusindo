@@ -19,8 +19,8 @@
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -183,7 +183,7 @@
 
                 return deferred.promise;
             },
-            get: function (_url, requestData) {
+            get: function (_url, requestData, loadAnimation = true) {
                 var deferred = $q.defer();
                 var url = base_url + _url;
 
@@ -192,7 +192,9 @@
                     url: url,
                     canceller: deferred
                 });
-                showLoader();
+                if (loadAnimation) {
+                    showLoader();
+                }
                 $http({
                     method: 'GET',
                     url: url,

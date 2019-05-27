@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-26. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-27. 
 * @author Kairos
 */
 (function() {
@@ -2296,9 +2296,9 @@ angular.module('global-solusindo')
         .module('global-solusindo-app')
         .controller('appCtrl', App);
 
-    App.$inject = ['$rootScope', '$scope'];
+    App.$inject = ['$rootScope', '$scope', '$state', 'tokenService'];
 
-    function App($rootScope, $scope) {
+    function App($rootScope, $scope, $state, tokenService) {
         var vm = this;
 
         vm.layout = {
@@ -2309,6 +2309,25 @@ angular.module('global-solusindo')
         vm.toggle = function (which) {
             vm.layout[which] = !vm.layout[which];
         };
+
+        function goToLoginPage() {
+            $state.go('login');
+        }
+
+        function validateToken() {
+            var token = tokenService.getToken();
+            if (token && (token != '' || token != null)) {
+                return true;
+            }
+            return false;
+        }
+
+        function goToLoginPageIfNotLoggedIn() {
+            if (!validateToken())
+                goToLoginPage();
+        }
+
+        goToLoginPageIfNotLoggedIn();
 
         return vm;
     }
@@ -2540,7 +2559,7 @@ angular.module('global-solusindo')
         }
 
         function setUserInfo(userInfo) {
-            userInfoService.setUserInfo(userInfo)
+            userInfoService.setUserInfo(userInfo);
         }
 
         function goToDashboard() {
@@ -3148,40 +3167,45 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('DailyTaskCtrl', DailyTaskCtrl);
 
-    DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService', 'HttpService', 'dailyTaskSearchService'];
+    DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService', 'HttpService', 'select2Service'];
 
-    function DailyTaskCtrl($scope, $state, dtService, http, search) {
+    function DailyTaskCtrl($scope, $state, dtService, http, select2Service) {
         var self = this;
-        self.model = {};
-        self.model.user_fk = 0;
-        self.model.statusName = "ALL";
+
+        self.model = {
+            user_fk: 0,
+            statusName: "ALL"
+        };
+
         self.formData = {};
-        self.formData.users = [
-            { user_fk: 0, name: "ALL" }
+
+        self.formData.status = [
+            { statusId: 0, name: "ALL" },
+            { statusId: 1, name: "Online" },
+            { statusId: 2, name: "Cuti" },
+            { statusId: 3, name: "Unassigned" },
+            { statusId: 4, name: "Offline" },
         ];
 
         dtService.init(self);
-        search.init(self);
 
-        function getUsers(jabatanFk, keyword) {
-            http.get('user/search', {
-                pageIndex: 1,
-                pageSize: 10,
-                keyword: keyword
-            }).then(function (response) {
-                response.data.records.forEach(function (item) {
-                    self.formData.users.push(item);
-                });
-                self.formData.status = [
-                    { statusId: 0, name: "ALL" },
-                    { statusId: 1, name: "Online" },
-                    { statusId: 2, name: "Cuti" },
-                    { statusId: 3, name: "Unassigned" },
-                    { statusId: 4, name: "Offline" },
-                ]
-                // console.log(response);
+        function getUsers() {
+            select2Service.liveSearch("user/search", {
+                selector: '#user_fk',
+                valueMember: 'user_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    self.formData.users = [];
+                    data.forEach(function (user) {
+                        self.formData.users.push(user);
+                    });
+                },
+                onSelected: function (data) {
+                    self.model.user_fk = data.user_pk;
+                }
             });
-        };
+        }
+
         getUsers();
         return self;
     }
@@ -3560,7 +3584,7 @@ angular.module('global-solusindo')
                     try {
                         showRouteInMaps(e);
                     } catch (e) {
-
+                        console.log(e);
                     }
                     showFileNameInTextbox(fileName);
                     setSowTracksModel(e.target.result);
@@ -3576,21 +3600,23 @@ angular.module('global-solusindo')
             SOWSelect2Service.init(self);
 
             self.getUsers = function (jabatanFk, keyword) {
-                http.get('user/search', {
+                var requestData = {
                     pageIndex: 1,
                     pageSize: 10000,
                     keyword: keyword,
                     kategoriJabatan_fk: jabatanFk
-                }).then(function (response) {
+                };
+
+                http.get('user/search', requestData)
+                    .then(function (response) {
                     self.formData.users = response.data.records;
                 });
             };
 
             try {
-                map.init(self);
-
+                map.init(self); 
             } catch (e) {
-
+                console.log(e);
             }
         });
 
@@ -11210,19 +11236,11 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('dailyTaskDtService', dailyTaskDtService);
 
-    dailyTaskDtService.$inject = ['DatatableService'];
+    dailyTaskDtService.$inject = ['DatatableService', 'dailyTaskSearchService'];
 
-    function dailyTaskDtService(ds) {
+    function dailyTaskDtService(ds, search) {
         var self = this;
         var controller = {};
-
-        //instantiate DatatableService
-        self.dtService = ds;
-
-        self.dtService.param = {
-            user_fk: 0,
-            status: ""
-        };
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -11279,7 +11297,8 @@ angular.module('global-solusindo')
                     title: "Daily Task"
                 }
             });
-            controller.datatable = dt;
+            ctrl.datatable = dt;
+            search.init(ctrl);
             return dt;
         };
 
@@ -11300,11 +11319,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('dailyTaskSearchService', RoleEntry);
+        .factory('dailyTaskSearchService', searchService);
 
-    dailyTaskSearchService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    searchService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function dailyTaskSearchService($state, http, ui, validation) {
+    function searchService($state, http, ui, validation) {
         var self = this;
         var controller;
 
@@ -11313,8 +11332,8 @@ angular.module('global-solusindo')
         }
 
         function search() {
-            controller.datatable.extendRequestData.user_fk = controller.model.user_fk;
-            controller.datatable.extendRequestData.status = controller.model.statusName;
+            controller.datatable.requestData.user_fk = controller.model.user_fk;
+            controller.datatable.requestData.status = controller.model.statusName;
             controller.datatable.draw();
         }
 
@@ -12488,6 +12507,7 @@ angular.module('global-solusindo')
     function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui) {
         var self = this;
         self.param = {};
+        var dtRequestData = {};
 
         function getExportColumns(params) {
             if (params && params.exportButtons && params.exportButtons.columns) {
@@ -12585,6 +12605,7 @@ angular.module('global-solusindo')
                     //self.param.sortDir = defaultRequestData.sortDir; 
 
                     var requestData = (typeof (extendRequestData) != 'undefined') ? extendRequestData : defaultRequestData;
+                    dtRequestData = requestData;
                     //var requestData = self.param;
                     if (!requestData.keyword) {
                         $('.backdrop-login').fadeIn();
@@ -12655,7 +12676,7 @@ angular.module('global-solusindo')
             });
 
             $('.dataTables_filter input[type=search]').val('').change();
-
+            dt.requestData = dtRequestData;
             return dt;
         };
 
@@ -12761,8 +12782,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -12925,7 +12946,7 @@ angular.module('global-solusindo')
 
                 return deferred.promise;
             },
-            get: function (_url, requestData) {
+            get: function (_url, requestData, loadAnimation = true) {
                 var deferred = $q.defer();
                 var url = base_url + _url;
 
@@ -12934,7 +12955,9 @@ angular.module('global-solusindo')
                     url: url,
                     canceller: deferred
                 });
-                showLoader();
+                if (loadAnimation) {
+                    showLoader();
+                }
                 $http({
                     method: 'GET',
                     url: url,
@@ -13166,9 +13189,10 @@ angular.module('global-solusindo')
                         if (param.onPreAjaxPost) {
                             param.onPreAjaxPost(requestData);
                         }
-                        return http.get(apiUrl, requestData).then(function (response) {
-                            success(response);
-                        });
+                        return http.get(apiUrl, requestData, false)
+                            .then(function (response) {
+                                success(response);
+                            });
                     },
                     processResults: function (response, params) {
                         params.page = params.page || 1;
@@ -13205,7 +13229,7 @@ angular.module('global-solusindo')
                 },
                 dropdownAutoWidth: true,
                 placeholder: (param.placeholder) ? param.placeholder : 'Search..',
-                allowClear: param.allowClear,
+                allowClear: true,
                 escapeMarkup: function (m) {
                     return m;
                 },
@@ -14169,16 +14193,16 @@ angular.module('global-solusindo')
             });
         }
 
-        function getUsers(jabatanFk, keyword) {
-            http.get('user/search', {
-                pageIndex: 1,
-                pageSize: 5,
-                keyword: keyword,
-                kategoriJabatan_fk: jabatanFk
-            }).then(function (response) {
-                controller.formData.users = response.data.records;
-            });
-        };
+        //function getUsers(jabatanFk, keyword) {
+        //    http.get('user/search', {
+        //        pageIndex: 1,
+        //        pageSize: 5,
+        //        keyword: keyword,
+        //        kategoriJabatan_fk: jabatanFk
+        //    }).then(function (response) {
+        //        controller.formData.users = response.data.records;
+        //    });
+        //};
 
         self.init = function (ctrl) {
             controller = ctrl;

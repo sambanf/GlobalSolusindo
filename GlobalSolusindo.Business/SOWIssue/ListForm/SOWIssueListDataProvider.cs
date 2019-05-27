@@ -7,21 +7,21 @@ namespace GlobalSolusindo.Business.SOWIssue.ListForm
 {
     public class SOWIssueListDataProvider : FactoryBase
     {
-        private SOWIssueSearch sowIssueSearch;
+        private SOWIssueQuery sowIssueQuery;
 
         public SOWIssueListDataProvider(GlobalSolusindoDb db, tblM_User user) : base(db, user)
         {
         }
 
-        public SOWIssueListDataProvider(GlobalSolusindoDb db, tblM_User user, SOWIssueSearch sowIssueSearch) : base(db, user)
+        public SOWIssueListDataProvider(GlobalSolusindoDb db, tblM_User user, SOWIssueQuery sowIssueQuery) : base(db, user)
         {
-            this.sowIssueSearch = sowIssueSearch;
+            this.sowIssueQuery = sowIssueQuery;
         }
 
         public SOWIssueListModel Get(SOWIssueSearchFilter searchFilter)
         {
             SOWIssueListFormData formData = new SOWIssueListFormData();
-            SearchResult<SOWIssueDTO> searchResult = sowIssueSearch.GetDataByFilter(searchFilter);
+            SearchResult<SOWIssueDTO> searchResult = sowIssueQuery.Search(searchFilter);
             return new SOWIssueListModel()
             {
                 FormData = formData,

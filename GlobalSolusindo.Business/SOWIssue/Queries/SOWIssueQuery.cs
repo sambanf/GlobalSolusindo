@@ -1,12 +1,51 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using Kairos.Data;
 using Kairos.Linq;
+using Newtonsoft.Json;
 using System;
 using System.Data.SqlClient;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.SOWIssue.Queries
 {
+    public class SOWIssueSearchFilter : SearchFilter
+    {
+        private int length;
+        private int page;
+
+        [JsonProperty("length")]
+        public int Length
+        {
+            get
+            {
+                return length;
+            }
+            set
+            {
+                length = value;
+                PageSize = value;
+            }
+        }
+
+        [JsonProperty("page")]
+        public int Page
+        {
+            get
+            {
+                return page;
+            }
+            set
+            {
+                page = value;
+                PageIndex = value;
+            }
+        }
+
+        [JsonProperty("taskID")]
+        public int? TaskID { get; set; }
+    }
+
     public class SOWIssueQuery : QueryBase, IUniqueQuery
     {
         private const int deleted = (int)RecordStatus.Deleted;
@@ -53,6 +92,40 @@ namespace GlobalSolusindo.Business.SOWIssue.Queries
         {
             SOWIssueDTO record = GetQuery().FirstOrDefault(sowIssue => sowIssue.SOWIssue_PK == primaryKey);
             return record;
+        }
+
+        public SearchResult<SOWIssueDTO> Search(SOWIssueSearchFilter filter)
+        {
+            if (string.IsNullOrEmpty(filter.SortName))
+                filter.SortName = "SOWIssue_PK";
+            SOWIssueQuery sowIssueQuery = new SOWIssueQuery(this.Db);
+
+            var filteredRecords =
+                sowIssueQuery.GetQuery()
+                .Where(sowIssue =>
+                    sowIssue.Description.Contains(filter.Keyword));
+
+            if (filter.TaskID == null || filter.TaskID <= 0)
+            {
+                throw new Kairos.KairosException("Task ID is required.");
+            }
+
+            filteredRecords = filteredRecords.Where(x => x.SOWAssign_FK == filter.TaskID);
+
+            var displayedRecords = filteredRecords.
+                SortBy(filter.SortName, filter.SortDir)
+                .Skip(filter.Skip)
+                .Take(filter.PageSize)
+                .ToList();
+
+            var searchResult = new SearchResult<SOWIssueDTO>(filter);
+            searchResult.Filter = filter;
+            searchResult.Count.TotalRecords = sowIssueQuery.GetTotalRecords();
+            searchResult.Count.TotalFiltered = filteredRecords.Count();
+            searchResult.Count.TotalDisplayed = displayedRecords.Count();
+            searchResult.Records = displayedRecords;
+
+            return searchResult;
         }
 
         #region IUniqueQuery Member

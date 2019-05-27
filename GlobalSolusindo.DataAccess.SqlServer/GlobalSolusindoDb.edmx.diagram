@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fa092987985d4bbf99e77159ed8e7ac2" Name="Diagram1">
+      <Diagram DiagramId="639cd8c6fcb84f48a927a001963e52cf" Name="Diagram1">
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Area" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Aset" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_AsetKategori" Width="1.5" PointX="3" PointY="11.625" IsExpanded="true" />

@@ -26,17 +26,40 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" ui-sref-active="active" ui-sref="app.sowList">
-                            <i class="fa fa-user"></i> <span>SOW</span>
+                            <i class="fa fa-circle"></i> <span>SOW</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" ui-sref-active="active" ui-sref="app.checkInList">
-                            <i class="fa fa-user"></i> <span>Task Approval</span>
+                            <i class="fa fa-circle"></i> <span>Task Approval</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" ui-sref-active="active" ui-sref="app.myTaskListList">
-                            <i class="fa fa-user"></i> <span>My Task List</span>
+                            <i class="fa fa-circle"></i> <span>My Task List</span>
+                        </a>
+                    </li>
+                </ul>
+            </li> 
+
+            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
+                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
+                    <i class="fa fa-luggage-cart"></i> <span>Master Data</span>
+                </a>
+                <ul class="nav-dropdown-items">
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.vendorList">
+                            <i class="fa fa-circle"></i> <span>Vendor</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.btsList">
+                            <i class="fa fa-circle"></i> <span>BTS</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref-active="active" ui-sref="app.asetList">
+                            <i class="fa fa-circle"></i> <span>Asset</span>
                         </a>
                     </li>
                 </ul>
@@ -93,29 +116,6 @@
 
             <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
                 <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-                    <i class="fa fa-luggage-cart"></i> <span>Master Data</span>
-                </a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.vendorList">
-                            <i class="fa fa-circle"></i> <span>Vendor</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.btsList">
-                            <i class="fa fa-circle"></i> <span>BTS</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.asetList">
-                            <i class="fa fa-circle"></i> <span>Asset</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
-                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
                     <i class="fa fa-luggage-cart"></i> <span>Complementary</span>
                 </a>
                 <ul class="nav-dropdown-items">
@@ -141,12 +141,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" ui-sref-active="active" ui-sref="app.kotaList">
-                            <i class="fa fa-user"></i> <span>Kota</span>
+                            <i class="fa fa-circle"></i> <span>Kota</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" ui-sref-active="active" ui-sref="app.cabangList">
-                            <i class="fa fa-user"></i> <span>Cabang</span>
+                            <i class="fa fa-circle"></i> <span>Cabang</span>
                         </a>
                     </li>
                     <li class="nav-item">

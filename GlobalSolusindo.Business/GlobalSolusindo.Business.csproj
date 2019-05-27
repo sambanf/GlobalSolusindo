@@ -154,7 +154,6 @@
     <Compile Include="SOWIssue\ListForm\SOWIssueListFormData.cs" />
     <Compile Include="SOWIssue\ListForm\SOWIssueListModel.cs" />
     <Compile Include="SOWIssue\Queries\SOWIssueQuery.cs" />
-    <Compile Include="SOWIssue\Queries\SOWIssueSearch.cs" />
     <Compile Include="IssueType\IssueTypeDTO.cs" />
     <Compile Include="IssueType\IssueTypeFactory.cs" />
     <Compile Include="IssueType\IssueTypeValidator.cs" />

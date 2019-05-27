@@ -14,6 +14,7 @@ namespace GlobalSolusindo.DataAccess
     public partial class GetTaskList_Result
     {
         public Nullable<int> User_FK { get; set; }
+        public Nullable<int> SOW_FK { get; set; }
         public Nullable<int> SOWAssign_PK { get; set; }
         public Nullable<int> CheckIn_PK { get; set; }
         public Nullable<int> BTS_FK { get; set; }

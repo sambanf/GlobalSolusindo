@@ -57,7 +57,7 @@ namespace GlobalSolusindo.Business.SOWTrack.Queries
         public SOWTrackDTO GetBySOWFKAndTechnologyTitle(int sowFK, string technologyTitle)
         {
             return GetQuery().FirstOrDefault(x => x.SOW_FK == sowFK && x.TechnologyTitle == technologyTitle);
-        }
+        } 
 
         public List<SOWTrackDTO> GetBySOWFK(int sowFK)
         {
