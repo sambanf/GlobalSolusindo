@@ -1,7 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.CheckIn.EntryForm;
 using GlobalSolusindo.Business.CheckIn.Queries;
-using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.Business.SOWTrack.Queries;
 using GlobalSolusindo.Business.SOWTrackResult;
@@ -42,10 +41,7 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
         }
 
         private void AddSOWTrackResultIfUserRoleIsDriver(MobileCheckInDTO checkInDTO, DateTime dateStamp)
-        {
-            if(string.IsNullOrEmpty(checkInDTO.TaskNetwork))
-                throw new Kairos.KairosException($"Task network is required.");
-
+        { 
             var possibleDriverRoleNames = new List<string>()
             {
                  "Driver",
@@ -71,6 +67,9 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
 
             if (userIsDriver)
             {
+                if (string.IsNullOrEmpty(checkInDTO.TaskNetwork))
+                    throw new Kairos.KairosException($"Task network is required for driver checkin.");
+
                 if (sowAssign != null)
                 { 
                     var sowTrack = new SOWTrackQuery(Db).GetBySOWFKAndTechnologyTitle(sowAssign.SOW_FK, checkInDTO.TaskNetwork);
