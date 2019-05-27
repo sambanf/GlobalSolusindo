@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="GlobalSolusindoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="GlobalSolusindoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblM_Area">
           <Key>
             <PropertyRef Name="Area_PK" />
@@ -72,8 +72,6 @@
           <Property Name="Longitude" Type="nvarchar" MaxLength="100" />
           <Property Name="Latitude" Type="nvarchar" MaxLength="100" />
           <Property Name="Area_FK" Type="int" Nullable="false" />
-          <Property Name="Kota_FK" Type="int" Nullable="false" />
-          <Property Name="Cabang_FK" Type="int" Nullable="false" />
           <Property Name="Alamat" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -945,8 +943,7 @@
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="GlobalSolusindoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1008,29 +1005,6 @@
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblM_Status" Relationship="Self.FK_tblM_AuthParam_Status_FK" FromRole="tblM_AuthParam" ToRole="tblM_Status" />
-        </EntityType>
-        <EntityType Name="tblM_BTS">
-          <Key>
-            <PropertyRef Name="BTS_PK" />
-          </Key>
-          <Property Name="BTS_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerSite" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="TowerID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CellID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Operator_FK" Type="Int32" Nullable="false" />
-          <Property Name="StatusBTS_FK" Type="Int32" />
-          <Property Name="Longitude" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Latitude" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Area_FK" Type="Int32" Nullable="false" />
-          <Property Name="Kota_FK" Type="Int32" Nullable="false" />
-          <Property Name="Cabang_FK" Type="Int32" Nullable="false" />
-          <Property Name="Alamat" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="tblM_BTSStatus">
           <Key>
@@ -1781,7 +1755,6 @@
           <EntitySet Name="tblM_Aset" EntityType="Self.tblM_Aset" />
           <EntitySet Name="tblM_AsetKategori" EntityType="Self.tblM_AsetKategori" />
           <EntitySet Name="tblM_AuthParam" EntityType="Self.tblM_AuthParam" />
-          <EntitySet Name="tblM_BTS" EntityType="Self.tblM_BTS" />
           <EntitySet Name="tblM_BTSStatus" EntityType="Self.tblM_BTSStatus" />
           <EntitySet Name="tblM_BTSTechnology" EntityType="Self.tblM_BTSTechnology" />
           <EntitySet Name="tblM_Cabang" EntityType="Self.tblM_Cabang" />
@@ -1910,18 +1883,19 @@
             <Parameter Name="year" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_GetActivities" ReturnType="Collection(GlobalSolusindoModel.usp_GetActivities_Result)">
-            <Parameter Name="User_FK" Mode="In" Type="Int32" />
+          <Parameter Name="User_FK" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_GetDailyTask" ReturnType="Collection(GlobalSolusindoModel.usp_GetDailyTask_Result)">
-            <Parameter Name="keyword" Mode="In" Type="String" />
+          <Parameter Name="keyword" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="usp_GetNetworkTask" ReturnType="Collection(GlobalSolusindoModel.usp_GetNetworkTask_Result)">
             <Parameter Name="userFk" Mode="In" Type="Int32" />
             <Parameter Name="sowFk" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="usp_GetSowAssign" ReturnType="Collection(GlobalSolusindoModel.usp_GetSowAssign_Result)">
-            <Parameter Name="SOW_FK" Mode="In" Type="Int32" />
+          <Parameter Name="SOW_FK" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="tblM_BTS" EntityType="GlobalSolusindoModel.tblM_BTS" />
         </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -1994,6 +1968,27 @@
           <Property Type="DateTime" Name="UpdatedDate" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="Status_FK" Nullable="false" />
         </ComplexType>
+        <EntityType Name="tblM_BTS">
+          <Key>
+            <PropertyRef Name="BTS_PK" />
+          </Key>
+          <Property Name="BTS_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerSite" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TowerID" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CellID" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Operator_FK" Type="Int32" Nullable="false" />
+          <Property Name="StatusBTS_FK" Type="Int32" />
+          <Property Name="Longitude" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Area_FK" Type="Int32" Nullable="false" />
+          <Property Name="Alamat" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2049,30 +2044,6 @@
                 <ScalarProperty Name="AuthParam_PK" ColumnName="AuthParam_PK" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tblM_BTS">
-            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_BTS">
-              <MappingFragment StoreEntitySet="tblM_BTS">
-                <ScalarProperty Name="BTS_PK" ColumnName="BTS_PK" />
-                <ScalarProperty Name="CustomerSite" ColumnName="CustomerSite" />
-                <ScalarProperty Name="TowerID" ColumnName="TowerID" />
-                <ScalarProperty Name="CellID" ColumnName="CellID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Operator_FK" ColumnName="Operator_FK" />
-                <ScalarProperty Name="StatusBTS_FK" ColumnName="StatusBTS_FK" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="Area_FK" ColumnName="Area_FK" />
-                <ScalarProperty Name="Kota_FK" ColumnName="Kota_FK" />
-                <ScalarProperty Name="Cabang_FK" ColumnName="Cabang_FK" />
-                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -2711,6 +2682,28 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tblM_BTS">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_BTS">
+              <MappingFragment StoreEntitySet="tblM_BTS">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
+                <ScalarProperty Name="Area_FK" ColumnName="Area_FK" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="StatusBTS_FK" ColumnName="StatusBTS_FK" />
+                <ScalarProperty Name="Operator_FK" ColumnName="Operator_FK" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CellID" ColumnName="CellID" />
+                <ScalarProperty Name="TowerID" ColumnName="TowerID" />
+                <ScalarProperty Name="CustomerSite" ColumnName="CustomerSite" />
+                <ScalarProperty Name="BTS_PK" ColumnName="BTS_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

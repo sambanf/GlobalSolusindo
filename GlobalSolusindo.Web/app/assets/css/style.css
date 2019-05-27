@@ -1623,7 +1623,7 @@ table.dataTable .btn {
     margin-left: 250px;
 }
 
- 
+
 .sidebar-hidden .sidebar {
     margin-left: -250px;
 }
@@ -1653,6 +1653,19 @@ table.dataTable .btn {
         float: left;
         margin: 0 15px 0 5px;
     }
+
+.navbar .navbar-nav .dropdown-toggle, .navbar-nav .nav-link, .navbar-nav .navbar .dropdown-toggle {
+    padding-right: 10px;
+    padding-left: 0;
+}
+
+.table-assign {
+    width: auto
+}
+
+.navbar .sidebar .dropdown-toggle i, .sidebar .nav-link i, .sidebar .navbar .dropdown-toggle i {
+    font-size: 12px;
+}
 
 @media only screen and (max-width: 992px) {
     #top-alert .pl-0 {

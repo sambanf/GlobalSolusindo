@@ -95,8 +95,8 @@
                 getOperators();
                 getBtsStatuses();
                 getAreas();
-                getKotas();
-                getCabang();
+                //getKotas();
+                //getCabang();
             });
         };
 

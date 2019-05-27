@@ -1205,7 +1205,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"row form-group\">\r" +
     "\n" +
-    "                                    <label class=\"control-label col-sm-2\">BTS Status:</label>\r" +
+    "                                    <label class=\"control-label col-sm-2\">Status:</label>\r" +
     "\n" +
     "                                    <div class=\"col-sm-6\">\r" +
     "\n" +
@@ -1232,46 +1232,6 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                        <select id=\"area_fk\" name=\"area_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.area_fk\" required>\r" +
     "\n" +
     "                                            <option ng-repeat=\"x in vm.formData.areas\" ng-value=\"x.area_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                        </select>\r" +
-    "\n" +
-    "                                        <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                                    </div>\r" +
-    "\n" +
-    "                                </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                                <div class=\"row form-group\">\r" +
-    "\n" +
-    "                                    <label class=\"control-label col-sm-2\">Kota:</label>\r" +
-    "\n" +
-    "                                    <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                        <select id=\"kota_fk\" name=\"kota_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.kota_fk\" required>\r" +
-    "\n" +
-    "                                            <option ng-repeat=\"x in vm.formData.kotas\" ng-value=\"x.kota_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                        </select>\r" +
-    "\n" +
-    "                                        <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                                    </div>\r" +
-    "\n" +
-    "                                </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                                <div class=\"row form-group\">\r" +
-    "\n" +
-    "                                    <label class=\"control-label col-sm-2\">Cabang:</label>\r" +
-    "\n" +
-    "                                    <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                        <select id=\"cabang_fk\" name=\"cabang_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.cabang_fk\" required>\r" +
-    "\n" +
-    "                                            <option ng-repeat=\"x in vm.formData.cabangs\" ng-value=\"x.cabang_pk\">{{x.title}}</option>\r" +
     "\n" +
     "                                        </select>\r" +
     "\n" +
@@ -1327,9 +1287,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"tab-pane fade show active\" id=\"home\" role=\"tabpanel\" aria-labelledby=\"home-tab\">\r" +
     "\n" +
-    "                                    <button class=\"btn btn-default\" id=\"btnAddTechnology\">Add New</button>\r" +
+    "                                    <button class=\"btn btn-primary\" id=\"btnAddTechnology\">Add New</button>\r" +
     "\n" +
-    "                                    <table id=\"sowAssign\" class=\"table table-striped\">\r" +
+    "                                    <table id=\"sowAssign\" class=\"table table-striped table-assign\">\r" +
     "\n" +
     "                                        <thead>\r" +
     "\n" +
@@ -1340,6 +1300,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                                <th hidden>BTS FK</th>\r" +
     "\n" +
     "                                                <th>Technology</th>\r" +
+    "\n" +
+    "                                                <th></th>\r" +
     "\n" +
     "                                            </tr>\r" +
     "\n" +
@@ -1382,6 +1344,12 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                                    </ui-select>\r" +
     "\n" +
     "                                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                                </td>\r" +
+    "\n" +
+    "                                                <td>\r" +
+    "\n" +
+    "                                                    <a class=\"btn btn-sm btn-danger\" ng-click=\"vm.removeTechnology($index)\"><i class=\"fa fa-times\"></i></a>\r" +
     "\n" +
     "                                                </td>\r" +
     "\n" +
@@ -3175,7 +3143,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
     "\n" +
-    "                    <i class=\"fa fa-luggage-cart\"></i> <span>Transaksi</span>\r" +
+    "                    <i class=\"fa fa-list-alt\"></i> <span>Transaksi</span>\r" +
     "\n" +
     "                </a>\r" +
     "\n" +
@@ -3231,7 +3199,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
     "\n" +
-    "                    <i class=\"fa fa-luggage-cart\"></i> <span>Master Data</span>\r" +
+    "                    <i class=\"fa fa-table\"></i> <span>Master Data</span>\r" +
     "\n" +
     "                </a>\r" +
     "\n" +
@@ -3375,7 +3343,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
     "\n" +
-    "                    <i class=\"fa fa-luggage-cart\"></i> <span>Complementary</span>\r" +
+    "                    <i class=\"fa fa-paperclip\"></i> <span>Complementary</span>\r" +
     "\n" +
     "                </a>\r" +
     "\n" +
@@ -3481,7 +3449,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
     "\n" +
-    "                    <i class=\"fa fa-luggage-cart\"></i> <span>Izin / Cuti</span>\r" +
+    "                    <i class=\"fa fa-bus\"></i> <span>Izin / Cuti</span>\r" +
     "\n" +
     "                </a>\r" +
     "\n" +
@@ -3517,7 +3485,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
     "\n" +
-    "                    <i class=\"fa fa-luggage-cart\"></i> <span>Report</span>\r" +
+    "                    <i class=\"fa fa-chart-bar\"></i> <span>Report</span>\r" +
     "\n" +
     "                </a>\r" +
     "\n" +

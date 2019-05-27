@@ -1807,9 +1807,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('BTSEntryCtrl', BTSEntryCtrl);
 
-    BTSEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'BTSSaveService', 'BTSBindingService', 'FormControlService', 'BTSSelect2Service', 'BTSAddTechnologyService'];
+    BTSEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'BTSSaveService', 'BTSBindingService', 'FormControlService', 'BTSSelect2Service', 'BTSAddTechnologyService', 'BTSRemoveTechnologyService'];
 
-    function BTSEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, BTSSelect2Service, addTechnology) {
+    function BTSEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, BTSSelect2Service, addTechnology, removeTechnology) {
         var self = this;
         self.stateParam = sParam;
 
@@ -1818,6 +1818,7 @@ angular.module('global-solusindo')
             saveService.init(self);
             BTSSelect2Service.init(self);
             addTechnology.init(self);
+            removeTechnology.init(self);
         });
 
         return self;
@@ -5795,6 +5796,40 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('BTSRemoveTechnologyService', BTSRemoveTechnologyService);
+
+    BTSRemoveTechnologyService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function BTSRemoveTechnologyService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        function removeTechnology(index) {
+            controller.model.btsTechnologies.splice(index, 1);
+        }
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            controller.removeTechnology = removeTechnology;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('BTSSaveService', BTSEntry);
 
     BTSEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
@@ -5949,8 +5984,8 @@ angular.module('global-solusindo')
                 getOperators();
                 getBtsStatuses();
                 getAreas();
-                getKotas();
-                getCabang();
+                //getKotas();
+                //getCabang();
             });
         };
 
@@ -12782,8 +12817,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};

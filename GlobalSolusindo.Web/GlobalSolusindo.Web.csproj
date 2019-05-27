@@ -111,6 +111,7 @@
     <Content Include="app\assets\webfonts\fa-brands-400.svg" />
     <Content Include="app\assets\webfonts\fa-regular-400.svg" />
     <Content Include="app\assets\webfonts\fa-solid-900.svg" />
+    <Content Include="app\modules\btsEntry\btsRemoveTechnologyService.js" />
     <Content Include="app\modules\report\dailyTask\dailyTaskSearchService.js" />
     <Content Include="app\modules\sowApproval\sowApprovalService.js" />
     <Content Include="app\modules\sowApproval\sowApproval.html" />

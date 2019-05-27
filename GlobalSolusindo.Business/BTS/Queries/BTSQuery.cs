@@ -34,10 +34,6 @@ namespace GlobalSolusindo.Business.BTS.Queries
                         from statusBts in statusBtsTemp.DefaultIfEmpty()
                         join area in Db.tblM_Area on bts.Area_FK equals area.Area_PK into areaTemp
                         from area in areaTemp.DefaultIfEmpty()
-                        join kota in Db.tblM_Kota on bts.Kota_FK equals kota.Kota_PK into kotaTemp
-                        from kota in kotaTemp.DefaultIfEmpty()
-                        join cabang in Db.tblM_Cabang on bts.Cabang_FK equals cabang.Cabang_PK into cabangTemp
-                        from cabang in cabangTemp.DefaultIfEmpty()
                         where
                         bts.Status_FK != deleted
                         select new BTSDTO
@@ -55,10 +51,6 @@ namespace GlobalSolusindo.Business.BTS.Queries
                             Latitude = bts.Latitude,
                             Area_FK = bts.Area_FK,
                             AreaTitle = area.Title,
-                            Kota_FK = bts.Kota_FK,
-                            KotaTitle = kota.Title,
-                            Cabang_FK = bts.Cabang_FK,
-                            CabangTitle = cabang.Title,
                             Alamat = bts.Alamat,
                             CreatedBy = bts.CreatedBy,
                             CreatedDate = bts.CreatedDate,

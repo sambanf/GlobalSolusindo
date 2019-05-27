@@ -24,8 +24,6 @@ namespace GlobalSolusindo.DataAccess
         public string Longitude { get; set; }
         public string Latitude { get; set; }
         public int Area_FK { get; set; }
-        public int Kota_FK { get; set; }
-        public int Cabang_FK { get; set; }
         public string Alamat { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }

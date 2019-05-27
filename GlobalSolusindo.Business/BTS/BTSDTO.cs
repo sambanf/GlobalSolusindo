@@ -62,23 +62,7 @@ namespace GlobalSolusindo.Business.BTS
         public int Area_FK { get; set; }
 
         [JsonProperty("areaTitle")]
-        public string AreaTitle { get; set; }
-
-        [Required]
-        [JsonProperty("kota_fk")]
-        [ForeignKey(typeof(KotaQuery), "Kota_PK")]
-        public int Kota_FK { get; set; }
-
-        [JsonProperty("kotaTitle")]
-        public string KotaTitle { get; set; }
-
-        [Required]
-        [JsonProperty("cabang_fk")]
-        [ForeignKey(typeof(CabangQuery), "Cabang_PK")]
-        public int Cabang_FK { get; set; }
-
-        [JsonProperty("cabangTitle")]
-        public string CabangTitle { get; set; }
+        public string AreaTitle { get; set; } 
 
         [JsonProperty("alamat")]
         public string Alamat { get; set; }

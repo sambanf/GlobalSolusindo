@@ -31,7 +31,6 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblM_Aset> tblM_Aset { get; set; }
         public virtual DbSet<tblM_AsetKategori> tblM_AsetKategori { get; set; }
         public virtual DbSet<tblM_AuthParam> tblM_AuthParam { get; set; }
-        public virtual DbSet<tblM_BTS> tblM_BTS { get; set; }
         public virtual DbSet<tblM_BTSStatus> tblM_BTSStatus { get; set; }
         public virtual DbSet<tblM_BTSTechnology> tblM_BTSTechnology { get; set; }
         public virtual DbSet<tblM_Cabang> tblM_Cabang { get; set; }
@@ -67,6 +66,7 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblT_SOWTrackResult> tblT_SOWTrackResult { get; set; }
         public virtual DbSet<tblT_UserHistori> tblT_UserHistori { get; set; }
         public virtual DbSet<tblT_UserPayroll> tblT_UserPayroll { get; set; }
+        public virtual DbSet<tblM_BTS> tblM_BTS { get; set; }
     
         public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
         {

@@ -61,14 +61,6 @@ namespace GlobalSolusindo.Business.BTS.EntryForm
             if (area != null)
                 formData.Areas.Add(area);
 
-            var kota = new KotaQuery(this.Db).GetByPrimaryKey(btsDTO.Kota_FK);
-            if (kota != null)
-                formData.Kotas.Add(kota);
-
-            var cabang = new CabangQuery(this.Db).GetByPrimaryKey(btsDTO.Cabang_FK);
-            if (cabang != null)
-                formData.Cabangs.Add(cabang);
-
             return formData;
         }
 
