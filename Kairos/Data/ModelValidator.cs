@@ -89,6 +89,7 @@ namespace Kairos.Data
             {
                 ValidationResult.Errors = fieldErrors;
             }
+            ValidationResult.SetModel(model);
         }
 
         /// <summary>
@@ -99,7 +100,7 @@ namespace Kairos.Data
         /// <param name="propertyName"></param>
         public void ValidateForEach<T>(List<T> listOfObject, string propertyName, params string[] ignores)
         {
-           
+
             if (listOfObject == null) return;
 
             var index = 0;

@@ -66,6 +66,18 @@ namespace Kairos.Data
             }
         }
 
+        private object _model { get; set; }
+
+        public object GetModel()
+        {
+            return _model;
+        }
+
+        public void SetModel(object model)
+        {
+            _model = model;
+        }
+
         public ModelValidationResult()
         {
             Errors = new List<ValidationError>();

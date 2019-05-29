@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-27. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-29. 
 * @author Kairos
 */
 (function() {
@@ -328,6 +328,30 @@ angular.module('global-solusindo')
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'BTS Entry'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.btsImportExcel', {
+                url: '/btsImportExcel',
+                templateUrl: 'app/modules/btsImportExcel/btsImportExcel.html',
+                controller: 'BTSImportExcelCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Import BTS'
                 }
             });
     }]);
@@ -1821,6 +1845,60 @@ angular.module('global-solusindo')
             removeTechnology.init(self);
         });
 
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:btsImportExcelCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('BTSImportExcelCtrl', BTSImportExcelCtrl);
+
+    BTSImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'BTSImportExcelUploadService', 'BTSImportExcelBindingService', 'FormControlService'];
+
+    function BTSImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        function setModelWithFileData(data) { 
+            self.model.file = data;
+        }
+
+        function setFileName(fileName) {
+            document.getElementById("fileName").innerHTML = fileName;
+        }
+
+        function addEventListenerOnImageChanged() { 
+            document.getElementById("file").addEventListener("change", readFile);
+        }
+
+        function readFile() {
+
+            if (this.files && this.files[0]) {
+                var FR = new FileReader();
+                var fileName = this.files[0].name;
+                FR.addEventListener("load", function (e) { 
+                    setModelWithFileData(e.target.result);
+                    setFileName(fileName);
+                });
+
+                FR.readAsDataURL(this.files[0]);
+            }
+        }
+
+        addEventListenerOnImageChanged();
+
+        bindingService.init(self);
+        uploadService.init(self);
         return self;
     }
 })();
@@ -5986,6 +6064,99 @@ angular.module('global-solusindo')
                 getAreas();
                 //getKotas();
                 //getCabang();
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('BTSImportExcelBindingService', BTSImportExcelBindingService);
+
+    BTSImportExcelBindingService.$inject = ['HttpService', '$state'];
+
+    function BTSImportExcelBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+       
+        self.init = function (ctrl) {
+            controller = ctrl; 
+            controller.model = {};
+            controller.model.file = {};
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('BTSImportExcelUploadService', BTSImportExcelUploadService);
+
+    BTSImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function BTSImportExcelUploadService($state, http, ui, validation) {
+        var self = this;
+        var btsImportExcelCtrl;
+
+        function goToListPage() {
+            $state.go('app.userList');
+        }
+
+        self.save = function (model) {
+            http.post('user/import', model).then(function (res) {
+                if (res.success) {
+
+                    var successCount = 0;
+                    res.data.forEach(function (result) {
+                        if (result.success)
+                            successCount += 1;
+                    });
+                    if (successCount > 0) {
+                        ui.alert.success(successCount + ' record(s) successfully imported.');
+                    }
+                    else {
+                        ui.alert.error(res.message);
+                    }
+
+                    //$state.go('app.btsImportExcel', { id: res.data.model.btsImportExcel_pk });
+                    goToListPage();
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.init = function (ctrl) {
+            btsImportExcelCtrl = ctrl;
+            angular.element('#uploadButton').on('click', function () {
+                self.save(btsImportExcelCtrl.model);
             });
         };
 
@@ -12817,8 +12988,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        //var base_url = "http://gsapi.local/";
-        var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://gsapi.local/";
+        //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};

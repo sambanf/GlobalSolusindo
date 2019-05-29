@@ -898,6 +898,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.btsEntry({ id: '0'})\">Tambah BTS</button>\r" +
     "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.btsImportExcel({})\">Import from excel</button>\r" +
+    "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
     "                        </div>\r" +
@@ -1386,6 +1388,65 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                    </div>\r" +
     "\n" +
     "\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/btsImportExcel/btsImportExcel.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Import BTS</div> \r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-sm-6 input-group\">\r" +
+    "\n" +
+    "                            <div class=\"input-group-prepend\">\r" +
+    "\n" +
+    "                                <span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"custom-file\">\r" +
+    "\n" +
+    "                                <input type=\"file\" class=\"custom-file-input\" id=\"file\" aria-describedby=\"inputGroupFileAddon01\">\r" +
+    "\n" +
+    "                                <label id=\"fileName\" class=\"custom-file-label\" for=\"file\">Choose file</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div> \r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.btsList\">Kembali</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success float-right\" id=\"uploadButton\">Submit</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -7987,7 +8048,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-default\" ui-sref=\"app.userImportCsvList\">Kembali</button>\r" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.userList\">Kembali</button>\r" +
     "\n" +
     "                            <button class=\"btn btn-success float-right\" id=\"uploadButton\">Submit</button>\r" +
     "\n" +

@@ -49,6 +49,12 @@ namespace GlobalSolusindo.Business.Operator.Queries
             return record;
         }
 
+        public OperatorDTO GetByTitle(string title)
+        {
+            OperatorDTO record = GetQuery().FirstOrDefault(_operator => _operator.Title == title);
+            return record;
+        }
+
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {

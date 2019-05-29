@@ -72,6 +72,18 @@ namespace GlobalSolusindo.Business.BTS.Queries
             return record;
         }
 
+        public BTSDTO GetByName(string name)
+        {
+            BTSDTO record = GetQuery().FirstOrDefault(bts => bts.Name == name); 
+            return record;
+        }
+
+        public BTSDTO GetByTowerID(string towerId)
+        {
+            BTSDTO record = GetQuery().FirstOrDefault(bts => bts.TowerID == towerId);
+            return record;
+        }
+
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {

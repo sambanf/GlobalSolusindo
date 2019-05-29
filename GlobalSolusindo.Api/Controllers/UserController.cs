@@ -85,19 +85,7 @@ namespace GlobalSolusindo.Api.Controllers
                     return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
                 }
             }
-        }
-
-        [Route("user/import")]
-        [HttpPost]
-        public IHttpActionResult Import([FromBody]UserImportDTO userImportDTO)
-        {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
-            if (userImportDTO == null)
-                throw new KairosException("Missing model parameter");
-            var importResult = new UserImportCsv(Db, ActiveUser).Import(userImportDTO);
-            return Ok(new SuccessResponse(importResult));
-        }
+        } 
 
         [Route("user")]
         [HttpPut]
@@ -148,6 +136,18 @@ namespace GlobalSolusindo.Api.Controllers
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }
+        }
+
+        [Route("user/import")]
+        [HttpPost]
+        public IHttpActionResult Import([FromBody]UserImportDTO userImportDTO)
+        {
+            string accessType = "";
+            ThrowIfUserHasNoRole(accessType);
+            if (userImportDTO == null)
+                throw new KairosException("Missing model parameter");
+            var importResult = new UserImportCsv(Db, ActiveUser).Import(userImportDTO);
+            return Ok(new SuccessResponse(importResult));
         }
     }
 }

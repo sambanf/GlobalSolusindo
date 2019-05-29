@@ -129,6 +129,9 @@
     <Compile Include="tblM_MappingUserToRoleGroup.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblM_Menu.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblM_Operator.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>

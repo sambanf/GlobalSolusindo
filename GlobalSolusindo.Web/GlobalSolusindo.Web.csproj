@@ -118,6 +118,11 @@
     <Content Include="app\modules\sowApproval\sowApprovalBindingService.js" />
     <Content Include="app\modules\sowApproval\sowApprovalCtrl.js" />
     <Content Include="app\modules\sowApproval\sowApprovalRoute.js" />
+    <Content Include="app\modules\btsImportExcel\btsImportExcel.html" />
+    <Content Include="app\modules\btsImportExcel\btsImportExcelBindingService.js" />
+    <Content Include="app\modules\btsImportExcel\btsImportExcelCtrl.js" />
+    <Content Include="app\modules\btsImportExcel\btsImportExcelRoute.js" />
+    <Content Include="app\modules\btsImportExcel\btsImportExcelUploadService.js" />
     <Content Include="app\modules\vendorEntry\vendorBindingService.js" />
     <Content Include="app\modules\vendorEntry\vendorEntry.html" />
     <Content Include="app\modules\vendorEntry\vendorEntryCtrl.js" />

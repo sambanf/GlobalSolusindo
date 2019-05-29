@@ -78,7 +78,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var btsCreateHandler = new BTSCreateHandler(Db, ActiveUser, new BTSValidator(), new BTSFactory(Db, ActiveUser), new BTSQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = btsCreateHandler.Save(btsDTO: bts, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -137,6 +137,18 @@ namespace GlobalSolusindo.Api.Controllers
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }
+        }
+
+        [Route("bts/import")]
+        [HttpPost]
+        public IHttpActionResult Import([FromBody]BTSImportDTO btsImportDTO)
+        {
+            string accessType = "";
+            ThrowIfUserHasNoRole(accessType);
+            if (btsImportDTO == null)
+                throw new KairosException("Missing model parameter");
+            var importResult = new BTSImportExcelHandler(Db, ActiveUser, new BTSValidator(), new BTSFactory(Db, ActiveUser), new BTSQuery(Db), AccessControl).ExecuteImport(btsImportDTO, DateTime.Now);
+            return Ok(new SuccessResponse(importResult));
         }
     }
 }

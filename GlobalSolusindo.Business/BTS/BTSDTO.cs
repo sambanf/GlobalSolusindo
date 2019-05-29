@@ -18,7 +18,6 @@ namespace GlobalSolusindo.Business.BTS
         [JsonProperty("bts_pk")]
         public int BTS_PK { get; set; }
 
-        [Required]
         [JsonProperty("customerSite")]
         public string CustomerSite { get; set; }
 
@@ -26,7 +25,6 @@ namespace GlobalSolusindo.Business.BTS
         [JsonProperty("towerId")]
         public string TowerID { get; set; }
 
-        [Required]
         [JsonProperty("cellId")]
         public string CellID { get; set; }
 

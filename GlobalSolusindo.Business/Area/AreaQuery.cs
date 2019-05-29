@@ -80,6 +80,12 @@ namespace GlobalSolusindo.Business.Area
             return record;
         }
 
+        public AreaDTO GetByTitle(string title)
+        {
+            AreaDTO record = GetQuery().FirstOrDefault(area => area.Title == title);
+            return record;
+        }
+
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {
