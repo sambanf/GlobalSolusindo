@@ -25,11 +25,12 @@ namespace GlobalSolusindo.DataAccess
         public int UserDetail_PK { get; set; }
         public string UserCode { get; set; }
         public string Name { get; set; }
-        public System.DateTime TglLahir { get; set; }
+        public Nullable<System.DateTime> TglLahir { get; set; }
         public byte[] FilePhoto { get; set; }
         public string NoKTP { get; set; }
         public string NoHP { get; set; }
         public string Email { get; set; }
+        public string PersonalEmail { get; set; }
         public string Address { get; set; }
         public string Description { get; set; }
         public string CreatedBy { get; set; }

@@ -57,7 +57,8 @@ namespace GlobalSolusindo.Identity.UserDetail
             if (userDetail == null)
                 throw new KairosException($"Record with key '{userDetailDTO.UserDetail_PK}' is not found.");
 
-            userDetail.UpdateValueFrom(userDetailDTO, "UserDetail_PK", "Status_FK");
+            //userDetail.UpdateValueFrom(userDetailDTO, "UserDetail_PK", "Status_FK");
+            userDetail.UpdateValueFrom(userDetailDTO, "UserDetail_PK");
 
             if (!string.IsNullOrEmpty(userDetailDTO.FilePhotoInBase64))
                 userDetail.FilePhoto = new WebImageConverter().GetBytesFromBase64(userDetailDTO.FilePhotoInBase64);

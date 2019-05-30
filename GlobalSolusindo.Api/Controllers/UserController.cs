@@ -138,6 +138,18 @@ namespace GlobalSolusindo.Api.Controllers
             }
         }
 
+        //[Route("user/import")]
+        //[HttpPost]
+        //public IHttpActionResult Import([FromBody]UserImportDTO userImportDTO)
+        //{
+        //    string accessType = "";
+        //    ThrowIfUserHasNoRole(accessType);
+        //    if (userImportDTO == null)
+        //        throw new KairosException("Missing model parameter");
+        //    var importResult = new UserImportCsv(Db, ActiveUser).Import(userImportDTO);
+        //    return Ok(new SuccessResponse(importResult));
+        //}
+
         [Route("user/import")]
         [HttpPost]
         public IHttpActionResult Import([FromBody]UserImportDTO userImportDTO)
@@ -146,7 +158,7 @@ namespace GlobalSolusindo.Api.Controllers
             ThrowIfUserHasNoRole(accessType);
             if (userImportDTO == null)
                 throw new KairosException("Missing model parameter");
-            var importResult = new UserImportCsv(Db, ActiveUser).Import(userImportDTO);
+            var importResult = new UserImportExcelHandler(Db, ActiveUser, new UserValidator(), new UserFactory(Db, ActiveUser), new UserQuery(Db), AccessControl).ExecuteImport(userImportDTO, DateTime.Now);
             return Ok(new SuccessResponse(importResult));
         }
     }

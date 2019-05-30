@@ -21,31 +21,37 @@ namespace GlobalSolusindo.Identity.UserDetail
         [JsonProperty("name")]
         public string Name { get; set; }
 
-        [Required]
+        //[Required]
         [JsonProperty("tglLahir")]
-        public DateTime TglLahir { get; set; }
+        public DateTime? TglLahir { get; set; }
 
         [JsonProperty("filePhotoInBase64")]
         public string FilePhotoInBase64 { get; set; }
 
-        [Required(ErrorMessage = "KTP Number is required.")]
+        //[Required(ErrorMessage = "KTP Number is required.")]
         [JsonProperty("noKTP")]
         [Unique(typeof(UserDetailQuery), nameof(UserDetail_PK), true)]
         public string NoKTP { get; set; }
 
-        [PhoneNumber()]
-        [Required(ErrorMessage = "Phone number is required.")]
+        //[Required(ErrorMessage = "Phone number is required.")]
+        [PhoneNumber(true)]
         [JsonProperty("noHP")]
         [Unique(typeof(UserDetailQuery), nameof(UserDetail_PK), true)]
         public string NoHP { get; set; }
 
-        [Email]
-        [Required]
+        //[Required]
+        [Email(true)]
         [JsonProperty("email")]
         [Unique(typeof(UserDetailQuery), nameof(UserDetail_PK), true)]
         public string Email { get; set; }
 
-        [Required]
+        //[Required]
+        [Email(true)]
+        [JsonProperty("personalEmail")]
+        [Unique(typeof(UserDetailQuery), nameof(UserDetail_PK), true)]
+        public string PersonalEmail { get; set; }
+
+        //[Required]
         [JsonProperty("address")]
         public string Address { get; set; }
 

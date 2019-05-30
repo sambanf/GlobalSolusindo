@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-29. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-30. 
 * @author Kairos
 */
 (function() {
@@ -1448,6 +1448,30 @@ angular.module('global-solusindo')
                 url: '/userImportCsv',
                 templateUrl: 'app/modules/userImportCsv/userImportCsv.html',
                 controller: 'UserImportCsvCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Import User'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.userImportExcel', {
+                url: '/userImportExcel',
+                templateUrl: 'app/modules/userImportExcel/userImportExcel.html',
+                controller: 'UserImportExcelCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Import User'
@@ -3986,6 +4010,61 @@ angular.module('global-solusindo')
 (function () {
     'use strict';
 
+    /**
+     * @ngdoc function
+     * @name app.controller:userImportExcelCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('UserImportExcelCtrl', UserImportExcelCtrl);
+
+    UserImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserImportExcelUploadService', 'UserImportExcelBindingService', 'FormControlService'];
+
+    function UserImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        function setModelWithFileData(data) {
+            self.model.file = data;
+        }
+
+        function setFileName(fileName) {
+            document.getElementById("fileName").innerHTML = fileName;
+        }
+
+        function addEventListenerOnImageChanged() {
+            document.getElementById("file").addEventListener("change", readFile);
+        }
+
+        function readFile() {
+
+            if (this.files && this.files[0]) {
+                var FR = new FileReader();
+                var fileName = this.files[0].name;
+                FR.addEventListener("load", function (e) { 
+                    setModelWithFileData(e.target.result);
+                   
+                    setFileName(fileName);
+                });
+
+                FR.readAsDataURL(this.files[0]);
+            }
+        }
+
+        addEventListenerOnImageChanged();
+
+        bindingService.init(self);
+        uploadService.init(self);
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
     angular.module('global-solusindo')
         .controller('VendorCtrl', VendorCtrl);
 
@@ -6096,6 +6175,7 @@ angular.module('global-solusindo')
             controller = ctrl; 
             controller.model = {};
             controller.model.file = {};
+            controller.uploadResuls = [];
         };
 
         return self;
@@ -6124,27 +6204,14 @@ angular.module('global-solusindo')
         var btsImportExcelCtrl;
 
         function goToListPage() {
-            $state.go('app.userList');
+            $state.go('app.btsList');
         }
 
         self.save = function (model) {
-            http.post('user/import', model).then(function (res) {
+            http.post('bts/import', model).then(function (res) {
+                btsImportExcelCtrl.uploadResults = res.data;
                 if (res.success) {
-
-                    var successCount = 0;
-                    res.data.forEach(function (result) {
-                        if (result.success)
-                            successCount += 1;
-                    });
-                    if (successCount > 0) {
-                        ui.alert.success(successCount + ' record(s) successfully imported.');
-                    }
-                    else {
-                        ui.alert.error(res.message);
-                    }
-
-                    //$state.go('app.btsImportExcel', { id: res.data.model.btsImportExcel_pk });
-                    goToListPage();
+                    ui.alert.success('Upload process complete.');
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
@@ -12988,8 +13055,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -15581,6 +15648,87 @@ angular.module('global-solusindo')
             userImportCsvCtrl = ctrl;
             angular.element('#uploadButton').on('click', function () {
                 self.save(userImportCsvCtrl.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('UserImportExcelBindingService', UserImportExcelBindingService);
+
+    UserImportExcelBindingService.$inject = ['HttpService', '$state'];
+
+    function UserImportExcelBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+       
+        self.init = function (ctrl) {
+            controller = ctrl; 
+            controller.model = {};
+            controller.model.file = {};
+            controller.uploadResuls = [];
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('UserImportExcelUploadService', UserImportExcelUploadService);
+
+    UserImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function UserImportExcelUploadService($state, http, ui, validation) {
+        var self = this;
+        var userImportExcelCtrl;
+
+        function goToListPage() {
+            $state.go('app.userList');
+        }
+
+        self.save = function (model) {
+            http.post('user/import', model).then(function (res) {
+                userImportExcelCtrl.uploadResults = res.data;
+                if (res.success) {
+                    ui.alert.success('Upload process complete.');
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.init = function (ctrl) {
+            userImportExcelCtrl = ctrl;
+            angular.element('#uploadButton').on('click', function () {
+                self.save(userImportExcelCtrl.model);
             });
         };
 

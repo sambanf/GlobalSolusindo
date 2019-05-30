@@ -118,6 +118,7 @@ namespace GlobalSolusindo.Business.BTS.DML
                 var list = CreateListFromExcelBase64(importDTO);
                 var result = GetSaveResults(list, dateStamp);
                 Db.SaveChanges();
+                transaction.Complete();
                 return result;
             }
         }
@@ -127,7 +128,7 @@ namespace GlobalSolusindo.Business.BTS.DML
             var base64 = importDTO.File;
             base64 = base64.Replace("data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,", "");
             var wb = ExcelConverter.FromBase64(base64);
-            var sheet = wb.Worksheet(1);
+            var sheet = wb.Worksheet("BTSUpload");
 
             var nonEmptyRowCount = sheet.RowsUsed().Count() + 1;
             var areaQuery = new AreaQuery(Db);

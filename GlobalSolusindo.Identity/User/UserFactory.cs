@@ -53,7 +53,7 @@ namespace GlobalSolusindo.Identity.User
             if (user == null)
                 throw new KairosException($"Record with key '{userDTO.User_PK}' is not found.");
 
-            user.UpdateValueFrom(userDTO, "User_PK", "Status_FK", "Password");
+            user.UpdateValueFrom(userDTO, "User_PK", "Password");
 
             if (!string.IsNullOrEmpty(userDTO.Password))
             {

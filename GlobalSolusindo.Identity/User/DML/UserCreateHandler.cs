@@ -79,6 +79,9 @@ namespace GlobalSolusindo.Identity.User.DML
 
         public SaveResult<UserEntryModel> Save(UserDTO userDTO, DateTime dateStamp)
         {
+            if (userDTO.Status_FK == 0)
+                userDTO.Status_FK = 1;
+
             ModelValidationResult validationResult = userValidator.Validate(userDTO);
             bool success = false;
             UserEntryModel model = null;

@@ -1412,7 +1412,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                <div class=\"card\">\r" +
     "\n" +
-    "                    <div class=\"card-title\">Import BTS</div> \r" +
+    "                    <div class=\"card-title\">Import BTS</div>\r" +
     "\n" +
     "                    <div class=\"row form-group\">\r" +
     "\n" +
@@ -1434,7 +1434,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                    </div> \r" +
+    "                    </div>\r" +
     "\n" +
     "                    <div class=\"row form-group\">\r" +
     "\n" +
@@ -1443,6 +1443,72 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                            <button class=\"btn btn-default\" ui-sref=\"app.btsList\">Kembali</button>\r" +
     "\n" +
     "                            <button class=\"btn btn-success float-right\" id=\"uploadButton\">Submit</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Upload result</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table class=\"table table-striped\" id=\"bts\" style=\"line-height: 0;\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Tower ID</th>\r" +
+    "\n" +
+    "                                        <th>BTS Name</th>\r" +
+    "\n" +
+    "                                        <th>Provider</th>\r" +
+    "\n" +
+    "                                        <th>Cell ID</th>\r" +
+    "\n" +
+    "                                        <th class=\"text-center\">Result</th>\r" +
+    "\n" +
+    "                                        <th>Reason</th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                    <tr ng-repeat=\"bts in vm.uploadResults\">\r" +
+    "\n" +
+    "                                        <td><label>{{$index + 1}}</label></td>\r" +
+    "\n" +
+    "                                        <td><label>{{bts.model.towerId}}</label></td>\r" +
+    "\n" +
+    "                                        <td><label>{{bts.model.name}}</label></td>\r" +
+    "\n" +
+    "                                        <td><label>{{bts.model.operatorTitle}}</label></td>\r" +
+    "\n" +
+    "                                        <td><label>{{bts.model.cellId}}</label></td>\r" +
+    "\n" +
+    "                                        <td class=\"text-center\">\r" +
+    "\n" +
+    "                                            <div><span><i ng-show=\"!bts.success\" class=\"fa fa-times\"></i></span></div>\r" +
+    "\n" +
+    "                                            <div><span><i ng-show=\"bts.success\" class=\"fa fa-check\"></i></span></div>\r" +
+    "\n" +
+    "                                        </td>\r" +
+    "\n" +
+    "                                        <td><label>{{bts.validationResult.errors[0] == undefined ? '' : bts.validationResult.errors[0].propertyName + ': ' +  bts.validationResult.errors[0].message}}</label></td>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -7646,7 +7712,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <button class=\"btn btn-success\" ui-sref=\"app.userEntry({ id: '0'})\">Tambah User</button>\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.userImportCsv({})\">Import from CSV</button>\r" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.userImportExcel({})\">Import from excel</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -8051,6 +8117,131 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                            <button class=\"btn btn-default\" ui-sref=\"app.userList\">Kembali</button>\r" +
     "\n" +
     "                            <button class=\"btn btn-success float-right\" id=\"uploadButton\">Submit</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/userImportExcel/userImportExcel.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Import User</div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-sm-6 input-group\">\r" +
+    "\n" +
+    "                            <div class=\"input-group-prepend\">\r" +
+    "\n" +
+    "                                <span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"custom-file\">\r" +
+    "\n" +
+    "                                <input type=\"file\" class=\"custom-file-input\" id=\"file\" aria-describedby=\"inputGroupFileAddon01\">\r" +
+    "\n" +
+    "                                <label id=\"fileName\" class=\"custom-file-label\" for=\"file\">Choose file</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.userList\">Kembali</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success float-right\" id=\"uploadButton\">Submit</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Upload result</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table class=\"table table-striped\" id=\"user\" style=\"line-height: 0;\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Username</th>\r" +
+    "\n" +
+    "                                        <th>Full Name</th>\r" +
+    "\n" +
+    "                                        <!--<th>Email</th>-->\r" +
+    "\n" +
+    "                                        <th>Phone Number</th>\r" +
+    "\n" +
+    "                                        <th class=\"text-center\">Result</th>\r" +
+    "\n" +
+    "                                        <th>Reason</th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                    <tr ng-repeat=\"user in vm.uploadResults\">\r" +
+    "\n" +
+    "                                        <td><label>{{$index + 1}}</label></td>\r" +
+    "\n" +
+    "                                        <td width=\"120px\"><label>{{user.model.username}}</label></td>\r" +
+    "\n" +
+    "                                        <td width=\"250px\"><label>{{user.model.name}}</label></td>\r" +
+    "\n" +
+    "                                        <!--<td><label>{{user.model.email}}</label></td>-->\r" +
+    "\n" +
+    "                                        <td width=\"220px\"><label>{{user.model.noHP}}</label></td>\r" +
+    "\n" +
+    "                                        <td class=\"text-center\">\r" +
+    "\n" +
+    "                                            <div><span><i ng-show=\"!user.success\" class=\"fa fa-times\"></i></span></div>\r" +
+    "\n" +
+    "                                            <div><span><i ng-show=\"user.success\" class=\"fa fa-check\"></i></span></div>\r" +
+    "\n" +
+    "                                        </td>\r" +
+    "\n" +
+    "                                        <td><label>{{user.validationResult.errors[0] == undefined ? '' : user.validationResult.errors[0].propertyName + ': ' +  user.validationResult.errors[0].message}}</label></td>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

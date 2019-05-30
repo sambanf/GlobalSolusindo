@@ -28,8 +28,8 @@ namespace GlobalSolusindo.Identity.UserDetail.Queries
         public IQueryable<UserDetailDTO> GetQuery()
         {
             var query = from userDetail in Db.tblM_UserDetail
-                        where
-                        userDetail.Status_FK != deleted
+                        //where
+                        //userDetail.Status_FK != deleted
                         select new UserDetailDTO
                         {
                             UserDetail_PK = userDetail.UserDetail_PK,
@@ -39,6 +39,7 @@ namespace GlobalSolusindo.Identity.UserDetail.Queries
                             NoKTP = userDetail.NoKTP,
                             NoHP = userDetail.NoHP,
                             Email = userDetail.Email,
+                            PersonalEmail = userDetail.PersonalEmail,
                             Address = userDetail.Address,
                             Description = userDetail.Description,
                             CreatedBy = userDetail.CreatedBy,
@@ -55,7 +56,7 @@ namespace GlobalSolusindo.Identity.UserDetail.Queries
         {
             UserDetailDTO record = GetQuery().FirstOrDefault(u => u.UserDetail_PK == primaryKey);
             var userDetail = Db.tblM_UserDetail.Find(primaryKey);
-            if (userDetail != null)
+            if (userDetail != null && userDetail.FilePhoto != null)
                 record.FilePhotoInBase64 = new WebImageConverter().GetBase64FromBytes(userDetail.FilePhoto);
             return record;
         }

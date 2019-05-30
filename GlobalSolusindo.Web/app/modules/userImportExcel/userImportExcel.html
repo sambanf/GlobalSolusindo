@@ -1,0 +1,61 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Import User</div>
+                    <div class="row form-group">
+                        <div class="col-sm-6 input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="file" aria-describedby="inputGroupFileAddon01">
+                                <label id="fileName" class="custom-file-label" for="file">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-6">
+                            <button class="btn btn-default" ui-sref="app.userList">Kembali</button>
+                            <button class="btn btn-success float-right" id="uploadButton">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Upload result</div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped" id="user" style="line-height: 0;">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Username</th>
+                                        <th>Full Name</th>
+                                        <!--<th>Email</th>-->
+                                        <th>Phone Number</th>
+                                        <th class="text-center">Result</th>
+                                        <th>Reason</th>
+                                    </tr>
+                                    <tr ng-repeat="user in vm.uploadResults">
+                                        <td><label>{{$index + 1}}</label></td>
+                                        <td width="120px"><label>{{user.model.username}}</label></td>
+                                        <td width="250px"><label>{{user.model.name}}</label></td>
+                                        <!--<td><label>{{user.model.email}}</label></td>-->
+                                        <td width="220px"><label>{{user.model.noHP}}</label></td>
+                                        <td class="text-center">
+                                            <div><span><i ng-show="!user.success" class="fa fa-times"></i></span></div>
+                                            <div><span><i ng-show="user.success" class="fa fa-check"></i></span></div>
+                                        </td>
+                                        <td><label>{{user.validationResult.errors[0] == undefined ? '' : user.validationResult.errors[0].propertyName + ': ' +  user.validationResult.errors[0].message}}</label></td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -52,7 +52,7 @@ namespace GlobalSolusindo.Identity.UserDetail.EntryForm
             UserDetailDTO userDetailDTO = userDetailQuery.GetByPrimaryKey(userDetailPK);
 
             if (userDetailDTO == null)
-                throw new KairosException($"Record with primary key '{userDetailDTO.UserDetail_PK}' is not found.");
+                throw new KairosException($"Record with primary key '{userDetailPK}' is not found.");
 
             return new UserDetailEntryModel()
             {

@@ -1603,6 +1603,14 @@ table.dataTable .btn {
     display: inline-block;
 }
 
+.table thead td, .table thead th {
+    /*text-transform: uppercase;*/
+    /*color: #004a8d;*/
+    font-size: 9pt;
+    font-family: 'Arial';
+    /*text-align: left;*/
+}
+
 .app-header.navbar .navbar-nav {
     margin-left: 270px;
 }
