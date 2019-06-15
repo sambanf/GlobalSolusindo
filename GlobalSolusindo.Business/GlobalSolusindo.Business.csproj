@@ -53,6 +53,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Product\ProductCreateHandler.cs" />
+    <Compile Include="Product\ProductDeleteHandler.cs" />
+    <Compile Include="Product\ProductDTO.cs" />
+    <Compile Include="Product\ProductFactory.cs" />
+    <Compile Include="Product\ProductQuery.cs" />
+    <Compile Include="Product\ProductUpdateHandler.cs" />
+    <Compile Include="Product\ProductValidator.cs" />
+    <Compile Include="Product\EntryForm\ProductEntryControlBuilder.cs" />
+    <Compile Include="Product\EntryForm\ProductEntryDataProvider.cs" />
+    <Compile Include="Product\ListForm\ProductListDataProvider.cs" />
     <Compile Include="BTS\DML\BTSImportExcelHandler.cs" />
     <Compile Include="SOW\DML\SOWApprovalHandler.cs" />
     <Compile Include="Vendor\VendorCreateHandler.cs" />

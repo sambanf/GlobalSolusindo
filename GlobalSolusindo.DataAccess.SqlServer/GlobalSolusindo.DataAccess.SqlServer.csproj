@@ -138,6 +138,9 @@
     <Compile Include="tblM_PMHistori.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblM_Product.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblM_Project.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
@@ -174,6 +177,9 @@
     <Compile Include="tblT_IzinCuti.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblT_PO.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblT_SOW.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
@@ -201,13 +207,25 @@
     <Compile Include="tblT_UserPayroll.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_GetActivities1_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_GetActivities_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetDailyTask1_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_GetDailyTask_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="usp_GetNetworkTask1_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="usp_GetNetworkTask_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetSowAssign1_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_GetSowAssign_Result.cs">

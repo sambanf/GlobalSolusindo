@@ -91,6 +91,7 @@
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="ApiResponse.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\CheckInController.cs" />
     <Compile Include="Controllers\SOWTrackResultController.cs" />

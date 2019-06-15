@@ -35,14 +35,22 @@ namespace GlobalSolusindo.Business.Area
             ModelValidationResult validationResult = areaValidator.Validate(areaDTO);
             bool success = false;
             AreaEntryModel model = null;
-            if (validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
-                tblM_Area area = AddArea(areaDTO, dateStamp);
+                return new SaveResult<AreaEntryModel>
+                {
+                    Success = success,
+                    Message = validationResult.IsValid ? "Data successfully created." : "Validation error occured.",
+                    Model = model,
+                    ValidationResult = validationResult
+                };
+
+            }
+            tblM_Area area = AddArea(areaDTO, dateStamp);
                 Db.SaveChanges();
 
                 success = true;
                 model = areaEntryDataProvider.Get(area.Area_PK);
-            }
 
             return new SaveResult<AreaEntryModel>
             {
