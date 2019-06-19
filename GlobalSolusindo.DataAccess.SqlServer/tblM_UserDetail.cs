@@ -32,6 +32,7 @@ namespace GlobalSolusindo.DataAccess
         public string Email { get; set; }
         public string PersonalEmail { get; set; }
         public string Address { get; set; }
+        public Nullable<double> Salary { get; set; }
         public string Description { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }

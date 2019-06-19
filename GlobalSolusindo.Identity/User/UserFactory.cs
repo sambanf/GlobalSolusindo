@@ -4,9 +4,10 @@ using Kairos;
 using Kairos.Cryptography;
 using Kairos.Data;
 using System;
+using System.Linq;
 
 namespace GlobalSolusindo.Identity.User
-{
+{ 
     //if someday hashing implementation will be changed.
     public interface IPasswordHasher
     {
@@ -36,6 +37,7 @@ namespace GlobalSolusindo.Identity.User
             userDTO.CreatedDate = dateStamp;
             userDTO.UpdatedBy = User.Username;
             userDTO.UpdatedDate = dateStamp;
+
             tblM_User user = userDTO.ToObject<tblM_User>();
 
             user.Password = new MD5PasswordHasher().Hash(user.Password);

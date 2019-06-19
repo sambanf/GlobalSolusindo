@@ -32,7 +32,7 @@ namespace GlobalSolusindo.Identity.UserDetail.DML
         {
             if (userDetailDTO == null)
                 throw new ArgumentNullException("UserDetail model is null.");
-            tblM_UserDetail userDetail = userDetailFactory.CreateFromDbAndUpdateFromDTO(userDetailDTO, dateStamp);  
+            tblM_UserDetail userDetail = userDetailFactory.CreateFromDbAndUpdateFromDTO(userDetailDTO, dateStamp);
         }
 
         public SaveResult<UserDetailEntryModel> Save(UserDetailDTO userDetailDTO, DateTime dateStamp)
@@ -44,7 +44,7 @@ namespace GlobalSolusindo.Identity.UserDetail.DML
             if (validationResult.IsValid)
             {
                 success = true;
-                  Update(userDetailDTO, dateStamp); 
+                Update(userDetailDTO, dateStamp);
                 Db.SaveChanges();
                 model = userDetailEntryDataProvider.Get(userDetailDTO.UserDetail_PK);
             }

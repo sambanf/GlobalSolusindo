@@ -105,6 +105,7 @@ namespace GlobalSolusindo.Identity.User.DML
 
         public SaveResult<UserEntryModel> Save(UserDTO userDTO, DateTime dateStamp)
         {
+            userDTO.Username = userDTO.UserCode;
             ModelValidationResult validationResult = userValidator.Validate(userDTO);
             bool success = false;
             UserEntryModel model = null;

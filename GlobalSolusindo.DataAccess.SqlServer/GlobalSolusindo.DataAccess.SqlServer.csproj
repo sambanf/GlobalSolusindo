@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentNumber.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetTaskList_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>

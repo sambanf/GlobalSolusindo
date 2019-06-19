@@ -5161,7 +5161,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "</div>\r" +
     "\n" +
@@ -5189,89 +5189,95 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                <div class=\"card\">\r" +
+    "\r" +
     "\n" +
-    "                    <div class=\"card-title\">Tambah Project</div>\r" +
+    "                <div style=\"height:500px;\">\r" +
     "\n" +
-    "                    <div class=\"col-md-8\">\r" +
+    "                    <div class=\"card h-100\">\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                        <div class=\"card-title\">Tambah Project</div>\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Project Name:</label>\r" +
+    "                        <div class=\"col-md-8\">\r" +
     "\n" +
-    "                            <div class=\"col-sm-10\">\r" +
+    "                            <!--<div class=\"row form-group\">\r" +
     "\n" +
-    "                                <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
+    "                                <label class=\"control-label col-sm-2\">Project Name:</label>\r" +
     "\n" +
-    "                                       placeholder=\"Project Name\">\r" +
+    "                                <div class=\"col-sm-10\">\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
     "\n" +
-    "                            </div>\r" +
+    "                                           placeholder=\"Project Name\">\r" +
     "\n" +
-    "                        </div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                                </div>\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Operator:</label>\r" +
+    "                            </div>-->\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                                <select id=\"operator_fk\" name=\"operator_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.operator_fk\" required>\r" +
+    "                                <label class=\"control-label col-sm-2\">Operator:</label>\r" +
     "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.operators\" ng-value=\"x.operator_pk\">{{x.title}}</option>\r" +
+    "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                </select>\r" +
+    "                                    <select id=\"operator_fk\" name=\"operator_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.operator_fk\" required>\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.operators\" ng-value=\"x.operator_pk\">{{x.title}}</option>\r" +
     "\n" +
-    "                            </div>\r" +
+    "                                    </select>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\">Delivery Area:</label>\r" +
-    "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                <select id=\"deliveryArea_fk\" name=\"deliveryArea_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.deliveryArea_fk\" required>\r" +
-    "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.deliveryAreas\" ng-value=\"x.deliveryArea_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                </select>\r" +
-    "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <div class=\"row form-group\">\r" +
+    "                                <label class=\"control-label col-sm-2\">Delivery Area:</label>\r" +
     "\n" +
-    "                            <label class=\"control-label col-sm-2\">Vendor:</label>\r" +
+    "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                            <div class=\"col-sm-6\">\r" +
+    "                                    <select id=\"deliveryArea_fk\" name=\"deliveryArea_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.deliveryArea_fk\" required>\r" +
     "\n" +
-    "                                <select id=\"vendor_fk\" name=\"vendor_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.vendor_fk\" required>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.deliveryAreas\" ng-value=\"x.deliveryArea_pk\">{{x.title}}</option>\r" +
     "\n" +
-    "                                    <option ng-repeat=\"x in vm.formData.vendors\" ng-value=\"x.vendor_pk\">{{x.title}}</option>\r" +
+    "                                    </select>\r" +
     "\n" +
-    "                                </select>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <div class=\"row\">\r" +
+    "                                <label class=\"control-label col-sm-2\">Vendor:</label>\r" +
     "\n" +
-    "                            <div class=\"col-md-12\">\r" +
+    "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.projectList\">Kembali</button>\r" +
+    "                                    <select id=\"vendor_fk\" name=\"vendor_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.vendor_fk\" required>\r" +
     "\n" +
-    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.vendors\" ng-value=\"x.vendor_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <button class=\"btn btn-default\" ui-sref=\"app.projectList\">Kembali</button>\r" +
+    "\n" +
+    "                                    <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -5280,6 +5286,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                    </div>\r" +
     "\n" +
     "                </div>\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -8136,6 +8144,20 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    </div>\r" +
     "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">User ID:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"text\" class=\"form-control\" id=\"userCode\" name=\"userCode\" autocomplete=\"off\" ng-model=\"vm.model.userCode\" placeholder=\"User ID\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
     "\r" +
     "\n" +
     "                    <div class=\"row form-group\">\r" +
@@ -8213,20 +8235,6 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                        <div class=\"col-sm-4\">\r" +
     "\n" +
     "                            <input type=\"text\" class=\"form-control\" id=\"noKTP\" name=\"noKTP\" ng-model=\"vm.model.noKTP\" placeholder=\"Nomor KTP\">\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-2\">Username:</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
-    "\n" +
-    "                            <input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" autocomplete=\"off\" ng-model=\"vm.model.username\" placeholder=\"Username\">\r" +
     "\n" +
     "                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +

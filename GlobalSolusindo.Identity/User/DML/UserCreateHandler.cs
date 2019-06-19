@@ -14,6 +14,24 @@ using System.Linq;
 
 namespace GlobalSolusindo.Identity.User.DML
 {
+    public interface IUserCodeGenerator
+    {
+        string GetNextUserCode();
+    }
+
+    public class UserCodeGenerator : IUserCodeGenerator
+    {
+        private GlobalSolusindoDb db;
+        public UserCodeGenerator(GlobalSolusindoDb db)
+        {
+            this.db = db;
+        }
+        public string GetNextUserCode()
+        {
+            return db.usp_GetDocNumber("USER", true).FirstOrDefault();
+        }
+    }
+
     public class UserCreateHandler : CreateOperation
     {
         private UserValidator userValidator;
@@ -32,7 +50,7 @@ namespace GlobalSolusindo.Identity.User.DML
                 5, //Radio Frequency (RF)
                 6 //Radio Network Optimization (RNO)
          };
-         
+
         public UserCreateHandler(GlobalSolusindoDb db, tblM_User user, UserValidator userValidator, UserFactory userFactory, UserQuery userQuery, AccessControl accessControl) : base(db, user)
         {
             this.userValidator = userValidator;
@@ -82,16 +100,18 @@ namespace GlobalSolusindo.Identity.User.DML
             if (userDTO.Status_FK == 0)
                 userDTO.Status_FK = 1;
 
+
             ModelValidationResult validationResult = userValidator.Validate(userDTO);
             bool success = false;
             UserEntryModel model = null;
             if (validationResult.IsValid)
             {
+                userDTO.Username = userDTO.UserCode = new UserCodeGenerator(this.Db).GetNextUserCode();
+
                 UserDetailCreateHandler userDetailCreateHandler =
                     new UserDetailCreateHandler(Db, User, new UserDetailValidator(), new UserDetailFactory(Db, User), new UserDetailQuery(), accessControl);
 
                 var userDetailSaveResult = userDetailCreateHandler.Save(userDTO, dateStamp);
-
 
                 if (userDetailSaveResult.Success)
                 {
@@ -99,7 +119,7 @@ namespace GlobalSolusindo.Identity.User.DML
                     tblM_User user = Insert(userDTO, dateStamp);
                     Db.SaveChanges();
                     userDTO.User_PK = user.User_PK;
-                    CreateRoleGroupIfJabatanIsAssignable(userDTO, dateStamp); 
+                    CreateRoleGroupIfJabatanIsAssignable(userDTO, dateStamp);
                     success = true;
                     model = userEntryDataProvider.Get(user.User_PK);
                 }

@@ -12,7 +12,7 @@ namespace GlobalSolusindo.Identity.UserDetail
         [JsonProperty("userDetail_pk")]
         public int UserDetail_PK { get; set; }
 
-        [Required]
+        //[Required]
         [JsonProperty("userCode")]
         //[Unique(typeof(UserDetailQuery), nameof(UserDetail_PK))]
         public string UserCode { get; set; }
@@ -57,5 +57,9 @@ namespace GlobalSolusindo.Identity.UserDetail
 
         [JsonProperty("description")]
         public string Description { get; set; }
+
+        //Penambahan => mas indra : 20190619
+        [JsonProperty("salary")]
+        public double? Salary { get; set; }
     }
 }

@@ -43,8 +43,7 @@ namespace GlobalSolusindo.Business.Project
                         project.Status_FK != deleted
                         select new ProjectDTO
                         {
-                            Project_PK = project.Project_PK,
-                            Title = project.Title,
+                            Project_PK = project.Project_PK, 
                             Operator_FK = project.Operator_FK.Value,
                             OperatorTitle = _operator.Title,
                             DeliveryArea_FK = project.DeliveryArea_FK.Value,
@@ -70,8 +69,8 @@ namespace GlobalSolusindo.Business.Project
             var filteredRecords =
                 projectQuery.GetQuery()
                 .Where(project =>
-                    project.Title.Contains(filter.Keyword)
-                    || project.OperatorTitle.Contains(filter.Keyword)
+                    project.OperatorTitle.Contains(filter.Keyword)
+                    || project.VendorTitle.Contains(filter.Keyword)
                     || project.DeliveryAreaTitle.Contains(filter.Keyword)
                     );
 

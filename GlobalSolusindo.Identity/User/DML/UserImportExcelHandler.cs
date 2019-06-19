@@ -271,7 +271,7 @@ namespace GlobalSolusindo.Identity.User.DML
                     PersonalEmail = personalEmail,
                     Address = address,
                     Description = description,
-                    Username = userName,
+                    //Username = userName,
                     KategoriJabatan_FK = jabatanFk,
                     KategoriJabatanTitle = jabatanName,
                     //Password = user.Password, 

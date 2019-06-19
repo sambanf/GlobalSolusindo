@@ -12,16 +12,12 @@ namespace GlobalSolusindo.DataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class tblM_Project
+    public partial class DocumentNumber
     {
-        public int Project_PK { get; set; }
-        public Nullable<int> Operator_FK { get; set; }
-        public Nullable<int> DeliveryArea_FK { get; set; }
-        public Nullable<int> Vendor_FK { get; set; }
-        public string CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public string UpdatedBy { get; set; }
-        public System.DateTime UpdatedDate { get; set; }
-        public int Status_FK { get; set; }
+        public int Id { get; set; }
+        public string DocumentCode { get; set; }
+        public int CurrentSequence { get; set; }
+        public string CurrentNumber { get; set; }
+        public string Description { get; set; }
     }
 }

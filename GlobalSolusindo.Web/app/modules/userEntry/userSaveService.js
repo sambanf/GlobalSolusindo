@@ -81,7 +81,6 @@
             if (!validate())
                 return;
 
-            model.userCode = model.username;
             if (model.user_pk === 0) {
                 return self.create(model);
             } else {

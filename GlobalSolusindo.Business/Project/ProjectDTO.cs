@@ -13,10 +13,11 @@ namespace GlobalSolusindo.Business.Project
         [JsonProperty("project_pk")]
         public int Project_PK { get; set; } 
 
-        [Required]
-        [JsonProperty("title")]
-        [Unique(typeof(ProjectQuery), nameof(Project_PK))]
-        public string Title { get; set; }
+        //Request mas indra di hapus 20190619
+        //[Required]
+        //[JsonProperty("title")]
+        //[Unique(typeof(ProjectQuery), nameof(Project_PK))]
+        //public string Title { get; set; }
 
         [Required]
         [JsonProperty("operator_fk")]

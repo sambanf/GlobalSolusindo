@@ -27,6 +27,7 @@ namespace GlobalSolusindo.DataAccess
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<DocumentNumber> DocumentNumbers { get; set; }
         public virtual DbSet<tblM_Area> tblM_Area { get; set; }
         public virtual DbSet<tblM_Aset> tblM_Aset { get; set; }
         public virtual DbSet<tblM_AsetKategori> tblM_AsetKategori { get; set; }
@@ -176,6 +177,19 @@ namespace GlobalSolusindo.DataAccess
                 new ObjectParameter("SOW_FK", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSowAssign_Result>("usp_GetSowAssign", sOW_FKParameter);
+        }
+    
+        public virtual ObjectResult<string> usp_GetDocNumber(string documentCode, Nullable<bool> updateCurrentNumber)
+        {
+            var documentCodeParameter = documentCode != null ?
+                new ObjectParameter("documentCode", documentCode) :
+                new ObjectParameter("documentCode", typeof(string));
+    
+            var updateCurrentNumberParameter = updateCurrentNumber.HasValue ?
+                new ObjectParameter("updateCurrentNumber", updateCurrentNumber) :
+                new ObjectParameter("updateCurrentNumber", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_GetDocNumber", documentCodeParameter, updateCurrentNumberParameter);
         }
     }
 }
