@@ -47,7 +47,6 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblM_Menu> tblM_Menu { get; set; }
         public virtual DbSet<tblM_Operator> tblM_Operator { get; set; }
         public virtual DbSet<tblM_PMHistori> tblM_PMHistori { get; set; }
-        public virtual DbSet<tblM_Product> tblM_Product { get; set; }
         public virtual DbSet<tblM_Project> tblM_Project { get; set; }
         public virtual DbSet<tblM_Role> tblM_Role { get; set; }
         public virtual DbSet<tblM_RoleGroup> tblM_RoleGroup { get; set; }
@@ -177,59 +176,6 @@ namespace GlobalSolusindo.DataAccess
                 new ObjectParameter("SOW_FK", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSowAssign_Result>("usp_GetSowAssign", sOW_FKParameter);
-        }
-    
-        public virtual ObjectResult<string> GetRoute(Nullable<int> taskID, Nullable<int> tech)
-        {
-            var taskIDParameter = taskID.HasValue ?
-                new ObjectParameter("taskID", taskID) :
-                new ObjectParameter("taskID", typeof(int));
-    
-            var techParameter = tech.HasValue ?
-                new ObjectParameter("tech", tech) :
-                new ObjectParameter("tech", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("GetRoute", taskIDParameter, techParameter);
-        }
-    
-        public virtual ObjectResult<usp_GetActivities1_Result> usp_GetActivities1(Nullable<int> user_FK)
-        {
-            var user_FKParameter = user_FK.HasValue ?
-                new ObjectParameter("User_FK", user_FK) :
-                new ObjectParameter("User_FK", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetActivities1_Result>("usp_GetActivities1", user_FKParameter);
-        }
-    
-        public virtual ObjectResult<usp_GetDailyTask1_Result> usp_GetDailyTask1(string keyword)
-        {
-            var keywordParameter = keyword != null ?
-                new ObjectParameter("keyword", keyword) :
-                new ObjectParameter("keyword", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetDailyTask1_Result>("usp_GetDailyTask1", keywordParameter);
-        }
-    
-        public virtual ObjectResult<usp_GetNetworkTask1_Result> usp_GetNetworkTask1(Nullable<int> userFk, Nullable<int> sowFk)
-        {
-            var userFkParameter = userFk.HasValue ?
-                new ObjectParameter("userFk", userFk) :
-                new ObjectParameter("userFk", typeof(int));
-    
-            var sowFkParameter = sowFk.HasValue ?
-                new ObjectParameter("sowFk", sowFk) :
-                new ObjectParameter("sowFk", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetNetworkTask1_Result>("usp_GetNetworkTask1", userFkParameter, sowFkParameter);
-        }
-    
-        public virtual ObjectResult<usp_GetSowAssign1_Result> usp_GetSowAssign1(Nullable<int> sOW_FK)
-        {
-            var sOW_FKParameter = sOW_FK.HasValue ?
-                new ObjectParameter("SOW_FK", sOW_FK) :
-                new ObjectParameter("SOW_FK", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSowAssign1_Result>("usp_GetSowAssign1", sOW_FKParameter);
         }
     }
 }

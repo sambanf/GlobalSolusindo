@@ -53,17 +53,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Product\ProductCreateHandler.cs" />
-    <Compile Include="Product\ProductDeleteHandler.cs" />
-    <Compile Include="Product\ProductDTO.cs" />
-    <Compile Include="Product\ProductFactory.cs" />
-    <Compile Include="Product\ProductQuery.cs" />
-    <Compile Include="Product\ProductUpdateHandler.cs" />
-    <Compile Include="Product\ProductValidator.cs" />
-    <Compile Include="Product\EntryForm\ProductEntryControlBuilder.cs" />
-    <Compile Include="Product\EntryForm\ProductEntryDataProvider.cs" />
-    <Compile Include="Product\ListForm\ProductListDataProvider.cs" />
     <Compile Include="BTS\DML\BTSImportExcelHandler.cs" />
+    <Compile Include="PO\DML\POCreateHandler.cs" />
+    <Compile Include="PO\DML\PODeleteHandler.cs" />
+    <Compile Include="PO\DML\POImportCsv.cs" />
+    <Compile Include="PO\DML\POImportExcelHandler.cs" />
+    <Compile Include="PO\DML\POUpdateHandler.cs" />
+    <Compile Include="PO\EntryForm\POEntryDataProvider.cs" />
+    <Compile Include="PO\EntryForm\POEntryFormData.cs" />
+    <Compile Include="PO\EntryForm\POEntryModel.cs" />
+    <Compile Include="PO\ListForm\POListDataProvider.cs" />
+    <Compile Include="PO\ListForm\POListFormData.cs" />
+    <Compile Include="PO\ListForm\POListModel.cs" />
+    <Compile Include="PO\PODTO.cs" />
+    <Compile Include="PO\POFactory.cs" />
+    <Compile Include="PO\POValidator.cs" />
+    <Compile Include="PO\Queries\POQuery.cs" />
+    <Compile Include="PO\Queries\POSearch.cs" />
     <Compile Include="SOW\DML\SOWApprovalHandler.cs" />
     <Compile Include="Vendor\VendorCreateHandler.cs" />
     <Compile Include="Vendor\VendorDeleteHandler.cs" />

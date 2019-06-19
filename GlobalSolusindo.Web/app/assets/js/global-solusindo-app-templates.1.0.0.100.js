@@ -3316,6 +3316,16 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    </li>\r" +
     "\n" +
+    "                    <li class=\"nav-item\">\r" +
+    "\n" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.poImportExcel\">\r" +
+    "\n" +
+    "                            <i class=\"fa fa-circle\"></i> <span>Import PO</span>\r" +
+    "\n" +
+    "                        </a>\r" +
+    "\n" +
+    "                    </li>\r" +
+    "\n" +
     "                </ul>\r" +
     "\n" +
     "            </li> \r" +
@@ -4779,6 +4789,247 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                <button class=\"btn btn-default\" ui-sref=\"app.operatorList\">Kembali</button>\r" +
     "\n" +
     "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/po/poImportExcel.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Import User</div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-sm-6 input-group\">\r" +
+    "\n" +
+    "                            <div class=\"input-group-prepend\">\r" +
+    "\n" +
+    "                                <span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload</span>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"custom-file\">\r" +
+    "\n" +
+    "                                <input type=\"file\" class=\"custom-file-input\" id=\"file\" aria-describedby=\"inputGroupFileAddon01\">\r" +
+    "\n" +
+    "                                <label id=\"fileName\" class=\"custom-file-label\" for=\"file\">Choose file</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" id=\"downloadButton\">Template</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success float-right\" id=\"uploadButton\">Submit</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Upload result</div>\r" +
+    "\n" +
+    "                    <div style=\"overflow:auto\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <table class=\"table table-striped\" id=\"user\" >\r" +
+    "\n" +
+    "                                    <thead>\r" +
+    "\n" +
+    "                                        <tr>\r" +
+    "\n" +
+    "                                            <th>Id</th>\r" +
+    "\n" +
+    "                                            <th>Account</th>\r" +
+    "\n" +
+    "                                            <th>Project code</th>\r" +
+    "\n" +
+    "                                            <th>Site ID Imp</th>\r" +
+    "\n" +
+    "                                            <th>Site ID</th>\r" +
+    "\n" +
+    "                                            <th>Site Name</th>\r" +
+    "\n" +
+    "                                            <th>DUID</th>\r" +
+    "\n" +
+    "                                            <th>PMO Uniq</th>\r" +
+    "\n" +
+    "                                            <th>SOW Act DU Model</th>\r" +
+    "\n" +
+    "                                            <th>System</th>\r" +
+    "\n" +
+    "                                            <th>SOW PO</th>\r" +
+    "\n" +
+    "                                            <th>Item Description</th>\r" +
+    "\n" +
+    "                                            <th>PO No</th>\r" +
+    "\n" +
+    "                                            <th>Shipment No</th>\r" +
+    "\n" +
+    "                                            <th>Qty</th>\r" +
+    "\n" +
+    "                                            <th>PO Status</th>\r" +
+    "\n" +
+    "                                            <!--<th>Payment Term</th>\r" +
+    "\n" +
+    "                                            <th>Work Status</th>\r" +
+    "\n" +
+    "                                            <th>OA Date</th>\r" +
+    "\n" +
+    "                                            <th>SSV Date</th>\r" +
+    "\n" +
+    "                                            <th>SSV App Date</th>\r" +
+    "\n" +
+    "                                            <th>SOM SSV Date</th>\r" +
+    "\n" +
+    "                                            <th>QC Acc Date</th>\r" +
+    "\n" +
+    "                                            <th>PAC Cluster ID</th>\r" +
+    "\n" +
+    "                                            <th>PAC Cluster Status</th>\r" +
+    "\n" +
+    "                                            <th>SOM PAC Cluster</th>\r" +
+    "\n" +
+    "                                            <th>Doc Status</th>\r" +
+    "\n" +
+    "                                            <th>ESAR 1ST Status</th>\r" +
+    "\n" +
+    "                                            <th>ESAR 2ND Status</th>\r" +
+    "\n" +
+    "                                            <th>Remarks</th>\r" +
+    "\n" +
+    "                                            <th>Created By</th>\r" +
+    "\n" +
+    "                                            <th>Created Date</th>\r" +
+    "\n" +
+    "                                            <th>Updated By</th>\r" +
+    "\n" +
+    "                                            <th>Updated Date</th>-->\r" +
+    "\n" +
+    "                                            <th>Status</th>\r" +
+    "\n" +
+    "                                        </tr>\r" +
+    "\n" +
+    "                                    </thead>\r" +
+    "\n" +
+    "                                    <tbody>\r" +
+    "\n" +
+    "                                        <tr ng-repeat=\"po in vm.uploadResults\">\r" +
+    "\n" +
+    "                                            <td><label>{{po.PO_PK}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.Account}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.ProjectCode}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.SiteIDImp}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.SiteID}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.SiteName}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.DUID}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.PMOUniq}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.SOWAct}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.System}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.SOWPO}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.ItemDesc}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.PONo}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.ShipmentNo}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.Qty}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.POStatus}}</label></td>\r" +
+    "\n" +
+    "                                            <!--<td><label>{{po.PaymentTerm}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.WorkStatus}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.OADate}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.SSVDate}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.SSVAppDate}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.SOMSSVDate}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.QCAccDate}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.PACClusterID}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.PACClusterStatus}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.SOMPACCluster}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.DocStatus}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.ESAR1stStatus}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.ESAR2ndStatus}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.Remarks}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.CreatedBy}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.CreatedDate}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.UpdatedBy}}</label></td>\r" +
+    "\n" +
+    "                                            <td><label>{{po.UpdatedDate}}</label></td>-->\r" +
+    "\n" +
+    "                                            <td><label>{{po.Status_FK}}</label></td>\r" +
+    "\n" +
+    "                                        </tr>\r" +
+    "\n" +
+    "                                    </tbody>\r" +
+    "\n" +
+    "                                </table>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +

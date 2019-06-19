@@ -18,11 +18,11 @@ namespace GlobalSolusindo.DataAccess
         public string Title { get; set; }
         public Nullable<int> Operator_FK { get; set; }
         public Nullable<int> DeliveryArea_FK { get; set; }
+        public Nullable<int> Vendor_FK { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedDate { get; set; }
         public int Status_FK { get; set; }
-        public Nullable<int> Vendor_FK { get; set; }
     }
 }

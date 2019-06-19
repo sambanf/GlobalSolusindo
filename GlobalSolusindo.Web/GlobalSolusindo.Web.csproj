@@ -112,6 +112,11 @@
     <Content Include="app\assets\webfonts\fa-regular-400.svg" />
     <Content Include="app\assets\webfonts\fa-solid-900.svg" />
     <Content Include="app\modules\btsEntry\btsRemoveTechnologyService.js" />
+    <Content Include="app\modules\po\poImportExcel.html" />
+    <Content Include="app\modules\po\poImportExcelBindingService.js" />
+    <Content Include="app\modules\po\poImportExcelCtrl.js" />
+    <Content Include="app\modules\po\poImportExcelRoute.js" />
+    <Content Include="app\modules\po\userImportExcelUploadService.js" />
     <Content Include="app\modules\userImportExcel\userImportExcel.html" />
     <Content Include="app\modules\userImportExcel\userImportExcelBindingService.js" />
     <Content Include="app\modules\userImportExcel\userImportExcelCtrl.js" />

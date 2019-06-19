@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-05-31. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-19. 
 * @author Kairos
 */
 (function() {
@@ -1003,6 +1003,30 @@ angular.module('global-solusindo')
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'Operator Entry'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.poImportExcel', {
+                url: '/poImportExcel',
+                templateUrl: 'app/modules/po/poImportExcel.html',
+                controller: 'POImportExcelCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Import PO'
                 }
             });
     }]);
@@ -3171,6 +3195,61 @@ angular.module('global-solusindo')
             saveService.init(self);
         });
 
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userImportExcelCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('POImportExcelCtrl', poImportExcelCtrl);
+
+    poImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'POImportExcelUploadService', 'POImportExcelBindingService', 'FormControlService'];
+
+    function poImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        function setModelWithFileData(data) {
+            self.model.file = data;
+        }
+
+        function setFileName(fileName) {
+            document.getElementById("fileName").innerHTML = fileName;
+        }
+
+        function addEventListenerOnImageChanged() {
+            document.getElementById("file").addEventListener("change", readFile);
+        }
+
+        function readFile() {
+
+            if (this.files && this.files[0]) {
+                var FR = new FileReader();
+                var fileName = this.files[0].name;
+                FR.addEventListener("load", function (e) { 
+                    setModelWithFileData(e.target.result);
+                   
+                    setFileName(fileName);
+                });
+
+                FR.readAsDataURL(this.files[0]);
+            }
+        }
+
+        addEventListenerOnImageChanged();
+
+        bindingService.init(self);
+        uploadService.init(self);
         return self;
     }
 })();
@@ -10977,6 +11056,120 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('POImportExcelBindingService', poImportExcelBindingService);
+
+    poImportExcelBindingService.$inject = ['HttpService', '$state'];
+
+    function poImportExcelBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+       
+        self.init = function (ctrl) {
+            controller = ctrl; 
+            controller.model = {};
+            controller.model.file = {};
+            controller.uploadResults = [];
+
+            http.get('po/search', {keyword:''}).then(function (res) {
+                controller.uploadResults = res.data.records;
+                //console.log('controller.uploadResults', controller.uploadResults);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('POImportExcelUploadService', poImportExcelUploadService);
+
+    poImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService', '$http'];
+
+    function poImportExcelUploadService($state, http, ui, validation, $http) {
+        var self = this;
+        var userImportExcelCtrl;
+
+
+
+        self.save = function (model) {
+            http.post('po/import', model).then(function (res) {
+                userImportExcelCtrl.uploadResults = res.data.map(function (item) { return item.model });
+
+                if (res.success) {
+                    ui.alert.success('Upload process complete.');
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.downloadTpl = function () {
+            http.downloadFile('po/export', { keyword: '' }).then(function (data) {
+                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                var linkElement = document.createElement('a');
+                try {
+                    var blob = new Blob([data], { type: contentType });
+                    var url = window.URL.createObjectURL(blob);
+
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute("download", "POUpload.xlsx");
+
+                    var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+
+
+        };
+
+        self.init = function (ctrl) {
+            userImportExcelCtrl = ctrl;
+            angular.element('#uploadButton').on('click', function () {
+                self.save(userImportExcelCtrl.model);
+            });
+
+            angular.element('#downloadButton').on('click', function () {
+                self.downloadTpl();
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('projectDeleteService', project);
 
     project.$inject = ['HttpService', 'uiService'];
@@ -13104,12 +13297,12 @@ angular.module('global-solusindo')
         function handleHttpSuccess(response) {
             hideLoader();
             var status = response.status;
-            if (status != 200) {
+            if (status != 200 && response.data.message) {
                 ui.alert.error(response.message);
             }
             if (response.data && !response.data.success) {
-                if (response.data.status != 200) {
-                    ui.alert.error(response.data.message);
+                if (response.data.status != 200 && response.data.message) {
+                    ui.alert.error();
                 }
             }
         }
@@ -13147,6 +13340,41 @@ angular.module('global-solusindo')
                     handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject(response.data);
+                });
+
+                return deferred.promise;
+            },
+            downloadFile: function (_url, requestData) {
+                var deferred = $q.defer();
+                var url = base_url + _url;
+
+                var data = JSON.stringify(requestData);
+
+                PendingRequest.add({
+                    url: url,
+                    canceller: deferred
+                });
+                delete $http.defaults.headers.common['X-Requested-With'];
+                showLoader();
+                $http({
+                    method: 'POST',
+                    responseType: 'arraybuffer',
+                    url: url,
+                    data: data,
+                    timeout: deferred.promise,
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Authorization': 'Bearer ' + auth.getAccessToken()
+                    }
+
+                }).then(function (response) {
+                    handleHttpSuccess(response);
+                    deferred.resolve(response.data);
+                    PendingRequest.remove(url);
+                }, function (response) {
+                    handleHttpError(response);
+                    PendingRequest.remove(url);
+                    deferred.reject();
                 });
 
                 return deferred.promise;

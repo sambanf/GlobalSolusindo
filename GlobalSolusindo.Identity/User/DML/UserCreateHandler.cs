@@ -45,7 +45,7 @@ namespace GlobalSolusindo.Identity.User.DML
 
         private void MapJabatanToRoleGroup()
         {
-            jabatanRoleGroupMapping.Add(1, 11);
+            jabatanRoleGroupMapping.Add(1, 7);
             jabatanRoleGroupMapping.Add(2, 13);
             jabatanRoleGroupMapping.Add(3, 14);
             jabatanRoleGroupMapping.Add(4, 8);

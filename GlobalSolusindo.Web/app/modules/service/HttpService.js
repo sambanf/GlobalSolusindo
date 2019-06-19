@@ -68,12 +68,12 @@
         function handleHttpSuccess(response) {
             hideLoader();
             var status = response.status;
-            if (status != 200) {
+            if (status != 200 && response.data.message) {
                 ui.alert.error(response.message);
             }
             if (response.data && !response.data.success) {
-                if (response.data.status != 200) {
-                    ui.alert.error(response.data.message);
+                if (response.data.status != 200 && response.data.message) {
+                    ui.alert.error();
                 }
             }
         }
@@ -111,6 +111,41 @@
                     handleHttpError(response);
                     PendingRequest.remove(url);
                     deferred.reject(response.data);
+                });
+
+                return deferred.promise;
+            },
+            downloadFile: function (_url, requestData) {
+                var deferred = $q.defer();
+                var url = base_url + _url;
+
+                var data = JSON.stringify(requestData);
+
+                PendingRequest.add({
+                    url: url,
+                    canceller: deferred
+                });
+                delete $http.defaults.headers.common['X-Requested-With'];
+                showLoader();
+                $http({
+                    method: 'POST',
+                    responseType: 'arraybuffer',
+                    url: url,
+                    data: data,
+                    timeout: deferred.promise,
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Authorization': 'Bearer ' + auth.getAccessToken()
+                    }
+
+                }).then(function (response) {
+                    handleHttpSuccess(response);
+                    deferred.resolve(response.data);
+                    PendingRequest.remove(url);
+                }, function (response) {
+                    handleHttpError(response);
+                    PendingRequest.remove(url);
+                    deferred.reject();
                 });
 
                 return deferred.promise;
