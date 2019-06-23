@@ -41,19 +41,19 @@ namespace GlobalSolusindo.Business.SOW.Queries
                             Address = bts.Alamat,
                             Status = sow.StatusSOW_FK == null ? 0 : 1,
                             Reported = false,
-                            //Network = (from sowTrack in Db.tblT_SOWTrack
-                            //           join sowTrackResult in Db.tblT_SOWTrackResult on sowTrack.SOWTrack_PK equals sowTrackResult.SOWTrack_FK
-                            //           join teknologi in Db.tblM_Technology on sowTrack.Technology_FK equals teknologi.Technology_PK
-                            //           where
-                            //           sowTrack.SOW_FK == sow.SOW_PK
-                            //           select new NetworkType
-                            //           {
-                            //               Type = teknologi.Title,
-                            //               //Status = sowTrackResult.SOWTrack_FK == null ? 0 : 1
-                            //           }).ToList(),
+                            Network = (from sowTrack in Db.tblT_SOWTrack
+                                       join sowTrackResult in Db.tblT_SOWTrackResult on sowTrack.SOWTrack_PK equals sowTrackResult.SOWTrack_FK
+                                       join tipePekerjaan in Db.tblM_TipePekerjaan on sowTrack.TipePekerjaan_FK equals tipePekerjaan.TipePekerjaan_PK
+                                       where
+                                       sowTrack.SOW_FK == sow.SOW_PK
+                                       select new NetworkType
+                                       {
+                                           Type = tipePekerjaan.Title,
+                                           //Status = sowTrackResult.SOWTrack_FK == null ? 0 : 1
+                                       }).ToList(),
                         };
 
             return query;
-        } 
+        }
     }
 }

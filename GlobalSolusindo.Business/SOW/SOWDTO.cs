@@ -5,6 +5,7 @@ using GlobalSolusindo.Business.SOWAssign;
 using GlobalSolusindo.Business.SOWStatus.Queries;
 using GlobalSolusindo.Business.SOWTrack;
 using GlobalSolusindo.Business.Technology.Queries;
+using GlobalSolusindo.Business.TipePekerjaan;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
 using System;
@@ -63,8 +64,8 @@ namespace GlobalSolusindo.Business.SOW
         public List<SOWTrackDTO> SOWTracks { get; set; } = new List<SOWTrackDTO>();
 
         //[Required(ErrorMessage = "This field is required")]
-        [JsonProperty("technology_fk")]
-        [ForeignKey(typeof(TechnologyQuery), "Technology_PK", true)]
-        public int? Technology_FK { get; set; }
+        [JsonProperty("tipePekerjaan_FK")]
+        [ForeignKey(typeof(TipePekerjaanQuery), "TipePekerjaan_PK", true)]
+        public int? TipePekerjaan_FK { get; set; }
     }
 }
