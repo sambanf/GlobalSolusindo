@@ -59,8 +59,11 @@
             return (password === retypePassword);
         }
 
-        function validate() {
+        function validate() { 
             if (userCtrl && userCtrl.model) {
+                if (userCtrl.model.user_pk > 0)
+                    return true;
+
                 var isValid = true;
                 if (!validatePassword(userCtrl.model.password)) {
                     validation.setError('password', "Password is required.");

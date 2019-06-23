@@ -57,14 +57,17 @@ namespace GlobalSolusindo.Identity.User
 
             user.UpdateValueFrom(userDTO, "User_PK", "Password");
 
-            if (!string.IsNullOrEmpty(userDTO.Password))
-            {
-                user.Password = new MD5PasswordHasher().Hash(userDTO.Password);
-            }
-            else
-            {
-                userDTO.Password = "Not changed"; //Skip validator
-            }
+            //if (!string.IsNullOrEmpty(userDTO.Password))
+            //{
+            //    if (userDTO.Password != user.Password)
+            //    {
+            //        user.Password = new MD5PasswordHasher().Hash(userDTO.Password);
+            //    }
+            //}
+            //else
+            //{
+            //    userDTO.Password = "Not changed"; //Skip validator
+            //}
 
             userDTO.CreatedBy = user.CreatedBy;
             userDTO.CreatedDate = user.CreatedDate;

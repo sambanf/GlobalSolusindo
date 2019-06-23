@@ -64,7 +64,7 @@ namespace GlobalSolusindo.Api.Controllers
                 return Ok(new SuccessResponse(data));
             }
         }
-      
+
         [Route("user")]
         [HttpPost]
         public IHttpActionResult Create([FromBody]UserDTO user)
@@ -87,7 +87,7 @@ namespace GlobalSolusindo.Api.Controllers
                     return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
                 }
             }
-        } 
+        }
 
         [Route("user")]
         [HttpPut]
@@ -165,6 +165,23 @@ namespace GlobalSolusindo.Api.Controllers
             //    throw new KairosException("Missing search filter parameter");
             UserExport userExport = new UserExport();
             return userExport.Export(Db, "UserUpload", filter);
+        }
+
+        [Route("user/changePassword")]
+        [HttpPost]
+        public IHttpActionResult ChangePassword([FromBody]UpdatePasswordDTO updatePasswordDTO)
+        {
+            using (var updatePasswordHandler = new UpdatePasswordHandler(Db, ActiveUser, new ChangePasswordValidator()))
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    var saveResult = updatePasswordHandler.Save(updatePasswordDTO, dateStamp: DateTime.Now);
+                    transaction.Complete();
+                    if (saveResult.Success)
+                        return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
+                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                }
+            }
         }
     }
 }

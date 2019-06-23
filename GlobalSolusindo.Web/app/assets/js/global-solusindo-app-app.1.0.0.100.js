@@ -397,6 +397,30 @@ angular.module('global-solusindo')
     }]);
 'use strict';
 
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.changePasswordEntry', {
+                url: '/changePasswordEntry/',
+                templateUrl: 'app/modules/changePasswordEntry/changePasswordEntry.html',
+                controller: 'ChangePasswordEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'ChangePassword Entry'
+                }
+            });
+    }]);
+'use strict';
+
 angular.module('global-solusindo')
     .config(['$stateProvider', function ($stateProvider) {
 
@@ -1993,6 +2017,39 @@ angular.module('global-solusindo')
             formControlService.setFormControl(self);
             saveService.init(self);
         });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:changePasswordEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('ChangePasswordEntryCtrl', ChangePasswordEntryCtrl);
+
+    ChangePasswordEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'ChangePasswordSaveService', 'FormControlService'];
+
+    function ChangePasswordEntryCtrl($scope, sParam, $state, saveService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        self.model = {
+            currentPassword: "",
+            newPassword: "",
+            reTypeNewPassword: ""
+        };
+
+        formControlService.setFormControl(self);
+        saveService.init(self);
 
         return self;
     }
@@ -6594,6 +6651,85 @@ angular.module('global-solusindo')
             controller = ctrl;
             angular.element('#saveButton').on('click', function () {
                 self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('ChangePasswordSaveService', ChangePasswordSaveService);
+
+    ChangePasswordSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function ChangePasswordSaveService($state, http, ui, validation) {
+        var self = this;
+        var changePasswordCtrl;
+
+        self.create = function (model) {
+         
+        };
+ 
+        function validatePassword(password) {
+            return (password != undefined && password != null && password.length > 0);
+        }
+
+        function validateRetypePassword(password, retypePassword) {
+            return (password === retypePassword);
+        }
+
+        function validate() { 
+            if (changePasswordCtrl && changePasswordCtrl.model) { 
+
+                var isValid = true;
+                if (!validatePassword(changePasswordCtrl.model.currentPassword)) {
+                    validation.setError('currentPassword', "Password is required.");
+                    isValid = false;
+                }
+
+                if (!validatePassword(changePasswordCtrl.model.newPassword)) {
+                    validation.setError('newPassword', "New password is required.");
+                    isValid = false;
+                }
+
+                if (!validateRetypePassword(changePasswordCtrl.model.password, changePasswordCtrl.model.reTypeNewPassword)) {
+                    validation.setError('reTypeNewPassword', "Password doesn't match.");
+                    isValid = false;
+                }
+                return isValid;
+            }
+            return false;
+        }
+
+        self.save = function (model) {
+            return http.post('user/changePassword', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success("Password has been changed.");
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.init = function (ctrl) {
+            changePasswordCtrl = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(changePasswordCtrl.model);
             });
         };
 
@@ -15703,8 +15839,11 @@ angular.module('global-solusindo')
             return (password === retypePassword);
         }
 
-        function validate() {
+        function validate() { 
             if (userCtrl && userCtrl.model) {
+                if (userCtrl.model.user_pk > 0)
+                    return true;
+
                 var isValid = true;
                 if (!validatePassword(userCtrl.model.password)) {
                     validation.setError('password', "Password is required.");

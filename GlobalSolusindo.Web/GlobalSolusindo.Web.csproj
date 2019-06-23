@@ -117,6 +117,10 @@
     <Content Include="app\modules\po\poImportExcelCtrl.js" />
     <Content Include="app\modules\po\poImportExcelRoute.js" />
     <Content Include="app\modules\po\userImportExcelUploadService.js" />
+    <Content Include="app\modules\changePasswordEntry\changePasswordEntry.html" />
+    <Content Include="app\modules\changePasswordEntry\changePasswordEntryCtrl.js" />
+    <Content Include="app\modules\changePasswordEntry\changePasswordEntryRoute.js" />
+    <Content Include="app\modules\changePasswordEntry\changePasswordSaveService.js" />
     <Content Include="app\modules\userImportExcel\userImportExcel.html" />
     <Content Include="app\modules\userImportExcel\userImportExcelBindingService.js" />
     <Content Include="app\modules\userImportExcel\userImportExcelCtrl.js" />

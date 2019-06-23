@@ -34,7 +34,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm([FromBody]UserAuthParamMapPK userRoleMapPK)
         {
-            string accessType = "MappingUserToAuthParam_ViewAll";
+            //string accessType = "MappingUserToAuthParam_ViewAll";
             //ThrowIfUserHasNoRole(accessType);
             using (MappingUserToAuthParamEntryDataProvider mappingUserToAuthParamEntryDataProvider = new MappingUserToAuthParamEntryDataProvider(Db, ActiveUser, AccessControl, new MappingUserToAuthParamQuery(Db)))
             {

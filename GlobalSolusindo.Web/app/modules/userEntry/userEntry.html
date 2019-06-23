@@ -19,101 +19,199 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">User ID / UserName:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="userCode" name="userCode" autocomplete="off" ng-model="vm.model.userCode" placeholder="User ID" disabled>
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
 
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">Name:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="name" name="name" ng-model="vm.model.name" placeholder="Name">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
 
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">Position:</label>
-                        <div class="col-sm-4">
-                            <select id="kategoriJabatan_fk" name="kategoriJabatan_fk" class="form-control input-lg" size="0" ng-model="vm.model.kategoriJabatan_fk" required>
-                                <option ng-repeat="x in vm.formData.kategoriJabatans" ng-value="x.kategoriJabatan_pk">{{x.title}}</option>
-                            </select>
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">User ID:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="userCode" name="userCode" autocomplete="off" ng-model="vm.model.userCode" placeholder="User ID" disabled>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
 
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">Phone Number:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="noHP" name="noHP" ng-model="vm.model.noHP" placeholder="Phone Number">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Name:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="name" name="name" ng-model="vm.model.name" placeholder="Name">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
 
-                    <div class="row form-group">
-                        <label class="control-label col-md-2">Email:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="email" name="email" ng-model="vm.model.email" placeholder="Email">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Position:</label>
+                                <div class="col-sm-9">
+                                    <select id="kategoriJabatan_fk" name="kategoriJabatan_fk" class="form-control input-lg" size="0" ng-model="vm.model.kategoriJabatan_fk" required>
+                                        <option ng-repeat="x in vm.formData.kategoriJabatans" ng-value="x.kategoriJabatan_pk">{{x.title}}</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
 
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">Nomor KTP:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="noKTP" name="noKTP" ng-model="vm.model.noKTP" placeholder="Nomor KTP">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Phone Number:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="noHP" name="noHP" ng-model="vm.model.noHP" placeholder="Phone Number">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
 
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">Password:</label>
-                        <div class="col-sm-4">
-                            <input type="password" class="form-control" id="password" name="password" autocomplete="off" ng-model="vm.model.password" placeholder="Password">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Email:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="email" name="email" ng-model="vm.model.email" placeholder="Email">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
 
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">Retype Password:</label>
-                        <div class="col-sm-4">
-                            <input type="password" class="form-control" id="reTypePassword" name="reTypePassword" autocomplete="off" ng-model="vm.model.reTypePassword" placeholder="Retype Password">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Nomor KTP:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="noKTP" name="noKTP" ng-model="vm.model.noKTP" placeholder="Nomor KTP">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
 
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">Address:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="address" name="address" ng-model="vm.model.address" placeholder="Address">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                            <div class="row form-group" ng-show="vm.model.user_pk == 0">
+                                <label class="control-label col-sm-3">Password:</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="password" name="password" autocomplete="off" ng-model="vm.model.password" placeholder="Password">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
 
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">Description:</label>
-                        <div class="col-sm-4">
-                            <input type="text" class="form-control" id="description" name="description" ng-model="vm.model.description" placeholder="Description">
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                            <div class="row form-group"  ng-show="vm.model.user_pk == 0">
+                                <label class="control-label col-sm-3">Retype Password:</label>
+                                <div class="col-sm-9">
+                                    <input type="password" class="form-control" id="reTypePassword" name="reTypePassword" autocomplete="off" ng-model="vm.model.reTypePassword" placeholder="Retype Password">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
 
-                    <div class="row form-group">
-                        <label class="control-label col-sm-2">Salary:</label>
-                        <div class="col-sm-4">
-                            <input type="number" class="form-control" id="salary" name="salary" ng-model="vm.model.salary" placeholder="Salary">
-                            <div class="invalid-feedback"></div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Address:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="address" name="address" ng-model="vm.model.address" placeholder="Address">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Description:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="description" name="description" ng-model="vm.model.description" placeholder="Description">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Religion:</label>
+                                <div class="col-sm-9">
+                                    <select id="religion" name="religion" class="form-control input-lg" size="0" ng-model="vm.model.religion" required>
+                                        <option value="Buddha">Buddha</option>
+                                        <option value="Hindu">Hindu</option>
+                                        <option value="Islam">Islam</option>
+                                        <option value="Katolik">Katolik</option>
+                                        <option value="Protestan">Protestan</option>
+                                        <option value="Lainnya">Lainnya</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Category Contract:</label>
+                                <div class="col-sm-9">
+                                    <select id="categoryContract" name="categoryContract" class="form-control input-lg" size="0" ng-model="vm.model.categoryContract" required>
+                                        <option value="C">C</option>
+                                        <option value="P">P</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Gender:</label>
+                                <div class="col-sm-9">
+                                    <select id="gender" name="gender" class="form-control input-lg" size="0" ng-model="vm.model.gender" required>
+                                        <option value="L">Laki-Laki</option>
+                                        <option value="P">Perempuan</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Marital Status:</label>
+                                <div class="col-sm-9">
+                                    <select id="maritalStatus" name="maritalStatus" class="form-control input-lg" size="0" ng-model="vm.model.maritalStatus" required>
+                                        <option value="Kawin">Kawin</option>
+                                        <option value="Tidak Kawin">Tidak Kawin</option>
+                                        <option value="Cerai">Cerai</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">NPWP:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="npwp" name="npwp" ng-model="vm.model.npwp" placeholder="NPWP">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">BPJS:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="bpjs" name="bpjs" ng-model="vm.model.bpjs" placeholder="BPJS">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Join Date :</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="joinDate" name="joinDate" ng-model="vm.model.joinDate" class="form-control" date-time-picker options="{ format: 'DD-MM-YYYY' }" required />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Bank Name:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="bankName" name="bankName" ng-model="vm.model.bankName" placeholder="Bank Name">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Account Number:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="accountNumber" name="accountNumber" ng-model="vm.model.accountNumber" placeholder="Account Number">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Salary:</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" id="salary" name="salary" ng-model="vm.model.salary" placeholder="Salary">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <hr />
                     <div class="row form-group">
-                        <div class="col-md-6">
-                            <button class="btn btn-default" ui-sref="app.userList">Kembali</button>
+                        <div class="col-md-12">
                             <button class="btn btn-success float-right" id="saveButton">Tambah User</button>
+                            <button class="btn btn-default" ui-sref="app.userList">Kembali</button>
                         </div>
                     </div>
                 </div>

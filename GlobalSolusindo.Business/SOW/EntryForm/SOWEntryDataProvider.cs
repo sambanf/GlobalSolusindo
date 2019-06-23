@@ -95,8 +95,8 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
 
             foreach (var track in sowDTO.SOWTracks)
             {
-                sowDTO.Technology_FK = track.Technology_FK;
-                var technology = new TechnologyQuery(this.Db).GetByPrimaryKey((int)track.Technology_FK);
+                sowDTO.Technology_FK = track.TipePekerjaan_FK;
+                var technology = new TechnologyQuery(this.Db).GetByPrimaryKey((int)track.TipePekerjaan_FK);
                 if (technology != null)
                     formData.Technologies.Add(technology);
             }

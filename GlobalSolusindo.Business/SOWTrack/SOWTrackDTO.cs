@@ -1,6 +1,7 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.SOW;
 using GlobalSolusindo.Business.Technology.Queries;
+using GlobalSolusindo.Business.TipePekerjaan;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
@@ -18,11 +19,11 @@ namespace GlobalSolusindo.Business.SOWTrack
         public int? SOW_FK { get; set; }
 
         //[Required]
-        [JsonProperty("technology_fk")]
-        [ForeignKey(typeof(TechnologyQuery), "Technology_PK", true)]
-        public int? Technology_FK { get; set; }
+        [JsonProperty("tipePekerjaan_FK")]
+        [ForeignKey(typeof(TipePekerjaanQuery), "TipePekerjaan_PK", true)]
+        public int? TipePekerjaan_FK { get; set; }
 
-        public string TechnologyTitle { get; set; }
+        public string TipePekerjaanTitle { get; set; }
 
         [JsonProperty("route")]
         public string Route { get; set; }

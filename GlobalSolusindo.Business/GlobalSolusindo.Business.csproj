@@ -53,6 +53,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="TipePekerjaan\TipePekerjaanCreateHandler.cs" />
+    <Compile Include="TipePekerjaan\TipePekerjaanDeleteHandler.cs" />
+    <Compile Include="TipePekerjaan\TipePekerjaanDTO.cs" />
+    <Compile Include="TipePekerjaan\TipePekerjaanFactory.cs" />
+    <Compile Include="TipePekerjaan\TipePekerjaanQuery.cs" />
+    <Compile Include="TipePekerjaan\TipePekerjaanUpdateHandler.cs" />
+    <Compile Include="TipePekerjaan\TipePekerjaanValidator.cs" />
+    <Compile Include="TipePekerjaan\EntryForm\TipePekerjaanEntryControlBuilder.cs" />
+    <Compile Include="TipePekerjaan\EntryForm\TipePekerjaanEntryDataProvider.cs" />
+    <Compile Include="TipePekerjaan\ListForm\TipePekerjaanListDataProvider.cs" />
     <Compile Include="BTS\DML\BTSImportExcelHandler.cs" />
     <Compile Include="PO\DML\POCreateHandler.cs" />
     <Compile Include="PO\DML\PODeleteHandler.cs" />

@@ -55,11 +55,11 @@ namespace GlobalSolusindo.Business.SOWTrack.Queries
                 var technology = new TechnologyQuery(Db).GetByTitle(filter.NetworkType);
                 if (technology != null)
                 {
-                    filteredRecords.Where(x => x.Technology_FK == technology.Technology_PK);
+                    filteredRecords.Where(x => x.TipePekerjaan_FK == technology.Technology_PK);
                 }
                 else
                 {
-                    filteredRecords.Where(x => x.Technology_FK == 0);
+                    filteredRecords.Where(x => x.TipePekerjaan_FK == 0);
                 }
             }
 

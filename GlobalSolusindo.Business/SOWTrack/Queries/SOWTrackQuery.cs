@@ -28,14 +28,14 @@ namespace GlobalSolusindo.Business.SOWTrack.Queries
         public IQueryable<SOWTrackDTO> GetQuery()
         {
             var query = from sowTrack in Db.tblT_SOWTrack
-                        //join technology in Db.tblM_Technology on sowTrack.Technology_FK equals technology.Technology_PK
+                        join tipePekerjaan in Db.tblM_TipePekerjaan on sowTrack.TipePekerjaan_FK equals tipePekerjaan.TipePekerjaan_PK
                         where
                         sowTrack.Status_FK != deleted
                         select new SOWTrackDTO
                         {
                             SOWTrack_PK = sowTrack.SOWTrack_PK,
-                            //Technology_FK = sowTrack.Technology_FK,
-                            //TechnologyTitle = technology.Title,
+                            TipePekerjaan_FK = sowTrack.TipePekerjaan_FK,
+                            TipePekerjaanTitle = tipePekerjaan.Title,
                             SOW_FK = sowTrack.SOW_FK,
                             Route = sowTrack.Route,
                             CreatedBy = sowTrack.CreatedBy,
@@ -56,8 +56,8 @@ namespace GlobalSolusindo.Business.SOWTrack.Queries
 
         public SOWTrackDTO GetBySOWFKAndTechnologyTitle(int sowFK, string technologyTitle)
         {
-            return GetQuery().FirstOrDefault(x => x.SOW_FK == sowFK && x.TechnologyTitle == technologyTitle);
-        } 
+            return GetQuery().FirstOrDefault(x => x.SOW_FK == sowFK && x.TipePekerjaanTitle == technologyTitle);
+        }
 
         public List<SOWTrackDTO> GetBySOWFK(int sowFK)
         {

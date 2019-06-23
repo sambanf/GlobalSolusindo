@@ -1652,6 +1652,103 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/changePasswordEntry/changePasswordEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Change Password</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Password:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"password\" class=\"form-control\" id=\"currentPassword\" name=\"currentPassword\" autocomplete=\"off\" ng-model=\"vm.model.currentPassword\" placeholder=\"Current Password\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Password:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"password\" class=\"form-control\" id=\"newPassword\" name=\"newPassword\" autocomplete=\"off\" ng-model=\"vm.model.newPassword\" placeholder=\"New Password\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Retype Password:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"password\" class=\"form-control\" id=\"reTypePassword\" name=\"reTypePassword\" autocomplete=\"off\" ng-model=\"vm.model.reTypeNewPassword\" placeholder=\"Retype New Password\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <hr />\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success float-right\" id=\"saveButton\">Change Password</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.changePasswordList\">Kembali</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/checkIn/checkIn.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -3220,6 +3317,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                <div><i class=\"fa fa-user\"></i><strong> {{nav.model.name}}</strong></div>\r" +
     "\n" +
     "                <div><i></i> {{nav.model.email}}</div>\r" +
+    "\n" +
+    "                <div><i class=\"fa fa-lock\"></i> <a ui-sref=\"app.changePasswordEntry\">Change Password</a></div>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -8144,179 +8243,375 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\r" +
+    "\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-2\">User ID / UserName:</label>\r" +
+    "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
-    "\n" +
-    "                            <input type=\"text\" class=\"form-control\" id=\"userCode\" name=\"userCode\" autocomplete=\"off\" ng-model=\"vm.model.userCode\" placeholder=\"User ID\" disabled>\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
+    "                        <div class=\"col-md-6\">\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-2\">Name:</label>\r" +
+    "                                <label class=\"control-label col-sm-3\">User ID:</label>\r" +
     "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
+    "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                            <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" ng-model=\"vm.model.name\" placeholder=\"Name\">\r" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"userCode\" name=\"userCode\" autocomplete=\"off\" ng-model=\"vm.model.userCode\" placeholder=\"User ID\" disabled>\r" +
     "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                                </div>\r" +
     "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-2\">Position:</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
-    "\n" +
-    "                            <select id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.kategoriJabatan_fk\" required>\r" +
-    "\n" +
-    "                                <option ng-repeat=\"x in vm.formData.kategoriJabatans\" ng-value=\"x.kategoriJabatan_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                            </select>\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
+    "                            </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-2\">Phone Number:</label>\r" +
+    "                                <label class=\"control-label col-sm-3\">Name:</label>\r" +
     "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
+    "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                            <input type=\"text\" class=\"form-control\" id=\"noHP\" name=\"noHP\" ng-model=\"vm.model.noHP\" placeholder=\"Phone Number\">\r" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" ng-model=\"vm.model.name\" placeholder=\"Name\">\r" +
     "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                                </div>\r" +
     "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-md-2\">Email:</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
-    "\n" +
-    "                            <input type=\"text\" class=\"form-control\" id=\"email\" name=\"email\" ng-model=\"vm.model.email\" placeholder=\"Email\">\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
+    "                            </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-2\">Nomor KTP:</label>\r" +
+    "                                <label class=\"control-label col-sm-3\">Position:</label>\r" +
     "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
+    "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                            <input type=\"text\" class=\"form-control\" id=\"noKTP\" name=\"noKTP\" ng-model=\"vm.model.noKTP\" placeholder=\"Nomor KTP\">\r" +
+    "                                    <select id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.kategoriJabatan_fk\" required>\r" +
     "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.kategoriJabatans\" ng-value=\"x.kategoriJabatan_pk\">{{x.title}}</option>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                                    </select>\r" +
     "\n" +
-    "                    </div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "\r" +
+    "                                </div>\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-2\">Password:</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
-    "\n" +
-    "                            <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" autocomplete=\"off\" ng-model=\"vm.model.password\" placeholder=\"Password\">\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
+    "                            </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-2\">Retype Password:</label>\r" +
+    "                                <label class=\"control-label col-sm-3\">Phone Number:</label>\r" +
     "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
+    "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                            <input type=\"password\" class=\"form-control\" id=\"reTypePassword\" name=\"reTypePassword\" autocomplete=\"off\" ng-model=\"vm.model.reTypePassword\" placeholder=\"Retype Password\">\r" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"noHP\" name=\"noHP\" ng-model=\"vm.model.noHP\" placeholder=\"Phone Number\">\r" +
     "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                                </div>\r" +
     "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-2\">Address:</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
-    "\n" +
-    "                            <input type=\"text\" class=\"form-control\" id=\"address\" name=\"address\" ng-model=\"vm.model.address\" placeholder=\"Address\">\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
+    "                            </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-2\">Description:</label>\r" +
+    "                                <label class=\"control-label col-sm-3\">Email:</label>\r" +
     "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
+    "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                            <input type=\"text\" class=\"form-control\" id=\"description\" name=\"description\" ng-model=\"vm.model.description\" placeholder=\"Description\">\r" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"email\" name=\"email\" ng-model=\"vm.model.email\" placeholder=\"Email\">\r" +
     "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                                </div>\r" +
     "\n" +
-    "                    </div>\r" +
+    "                            </div>\r" +
     "\n" +
     "\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\r" +
+    "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-2\">Salary:</label>\r" +
+    "                                <label class=\"control-label col-sm-3\">Nomor KTP:</label>\r" +
     "\n" +
-    "                        <div class=\"col-sm-4\">\r" +
+    "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                            <input type=\"number\" class=\"form-control\" id=\"salary\" name=\"salary\" ng-model=\"vm.model.salary\" placeholder=\"Salary\">\r" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"noKTP\" name=\"noKTP\" ng-model=\"vm.model.noKTP\" placeholder=\"Nomor KTP\">\r" +
     "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\" ng-show=\"vm.model.user_pk == 0\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Password:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" autocomplete=\"off\" ng-model=\"vm.model.password\" placeholder=\"Password\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\"  ng-show=\"vm.model.user_pk == 0\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Retype Password:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"password\" class=\"form-control\" id=\"reTypePassword\" name=\"reTypePassword\" autocomplete=\"off\" ng-model=\"vm.model.reTypePassword\" placeholder=\"Retype Password\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Address:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"address\" name=\"address\" ng-model=\"vm.model.address\" placeholder=\"Address\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Description:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"description\" name=\"description\" ng-model=\"vm.model.description\" placeholder=\"Description\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Religion:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <select id=\"religion\" name=\"religion\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.religion\" required>\r" +
+    "\n" +
+    "                                        <option value=\"Buddha\">Buddha</option>\r" +
+    "\n" +
+    "                                        <option value=\"Hindu\">Hindu</option>\r" +
+    "\n" +
+    "                                        <option value=\"Islam\">Islam</option>\r" +
+    "\n" +
+    "                                        <option value=\"Katolik\">Katolik</option>\r" +
+    "\n" +
+    "                                        <option value=\"Protestan\">Protestan</option>\r" +
+    "\n" +
+    "                                        <option value=\"Lainnya\">Lainnya</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Category Contract:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <select id=\"categoryContract\" name=\"categoryContract\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.categoryContract\" required>\r" +
+    "\n" +
+    "                                        <option value=\"C\">C</option>\r" +
+    "\n" +
+    "                                        <option value=\"P\">P</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Gender:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <select id=\"gender\" name=\"gender\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.gender\" required>\r" +
+    "\n" +
+    "                                        <option value=\"L\">Laki-Laki</option>\r" +
+    "\n" +
+    "                                        <option value=\"P\">Perempuan</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Marital Status:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <select id=\"maritalStatus\" name=\"maritalStatus\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.maritalStatus\" required>\r" +
+    "\n" +
+    "                                        <option value=\"Kawin\">Kawin</option>\r" +
+    "\n" +
+    "                                        <option value=\"Tidak Kawin\">Tidak Kawin</option>\r" +
+    "\n" +
+    "                                        <option value=\"Cerai\">Cerai</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">NPWP:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"npwp\" name=\"npwp\" ng-model=\"vm.model.npwp\" placeholder=\"NPWP\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">BPJS:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"bpjs\" name=\"bpjs\" ng-model=\"vm.model.bpjs\" placeholder=\"BPJS\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Join Date :</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" id=\"joinDate\" name=\"joinDate\" ng-model=\"vm.model.joinDate\" class=\"form-control\" date-time-picker options=\"{ format: 'DD-MM-YYYY' }\" required />\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Bank Name:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"bankName\" name=\"bankName\" ng-model=\"vm.model.bankName\" placeholder=\"Bank Name\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Account Number:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" class=\"form-control\" id=\"accountNumber\" name=\"accountNumber\" ng-model=\"vm.model.accountNumber\" placeholder=\"Account Number\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Salary:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <input type=\"number\" class=\"form-control\" id=\"salary\" name=\"salary\" ng-model=\"vm.model.salary\" placeholder=\"Salary\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -8328,11 +8623,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <div class=\"col-md-6\">\r" +
-    "\n" +
-    "                            <button class=\"btn btn-default\" ui-sref=\"app.userList\">Kembali</button>\r" +
+    "                        <div class=\"col-md-12\">\r" +
     "\n" +
     "                            <button class=\"btn btn-success float-right\" id=\"saveButton\">Tambah User</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.userList\">Kembali</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

@@ -74,7 +74,8 @@ namespace GlobalSolusindo.Identity.User.Queries
                             NPWP = userDetail.NPWP,
                             Project = userDetail.Project,
                             Religion = userDetail.Religion,
-                            Salary = userDetail.Salary
+                            Salary = userDetail.Salary,
+                            AccountNumber = userDetail.AccountNumber
                             #endregion
                         };
 

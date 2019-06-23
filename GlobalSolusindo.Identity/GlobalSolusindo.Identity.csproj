@@ -151,6 +151,7 @@
     <Compile Include="User\DML\UserCreateHandler.cs" />
     <Compile Include="User\DML\UserDeleteHandler.cs" />
     <Compile Include="User\DML\UserImportCsv.cs" />
+    <Compile Include="User\DML\UpdatePasswordHandler.cs" />
     <Compile Include="User\DML\UserUpdateHandler.cs" />
     <Compile Include="User\DML\UserImportExcelHandler.cs" />
     <Compile Include="User\EntryForm\UserEntryControlBuilder.cs" />

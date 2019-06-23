@@ -67,7 +67,7 @@ namespace GlobalSolusindo.Identity.User.DML
         }
 
         public void CreateRoleGroupIfJabatanIsAssignable(UserDTO userDTO, DateTime dateStamp)
-        { 
+        {
             MappingUserToRoleGroupCreateHandler mappingUserToRoleGroupCreateHandler = new MappingUserToRoleGroupCreateHandler(Db, User, new MappingUserToRoleGroup.MappingUserToRoleGroupValidator(), new MappingUserToRoleGroup.MappingUserToRoleGroupFactory(Db, User), new MappingUserToRoleGroup.Queries.MappingUserToRoleGroupQuery(), accessControl);
 
             if (assignableJabatan.Contains(userDTO.KategoriJabatan_FK))
@@ -96,7 +96,7 @@ namespace GlobalSolusindo.Identity.User.DML
                     {
                         Db.tblM_MappingUserToRoleGroup.Remove(item);
                     }
-                    Db.SaveChanges();  
+                    Db.SaveChanges();
                 }
             }
 
@@ -106,6 +106,12 @@ namespace GlobalSolusindo.Identity.User.DML
         public SaveResult<UserEntryModel> Save(UserDTO userDTO, DateTime dateStamp)
         {
             userDTO.Username = userDTO.UserCode;
+            var user = Db.tblM_User.Find(userDTO.User_PK);
+            if (string.IsNullOrEmpty(userDTO.Password) && user != null)
+            {
+                userDTO.Password = user.Password;
+            }
+
             ModelValidationResult validationResult = userValidator.Validate(userDTO);
             bool success = false;
             UserEntryModel model = null;
@@ -119,7 +125,7 @@ namespace GlobalSolusindo.Identity.User.DML
 
                 if (userDetailSaveResult.Success)
                 {
-                    success = true; 
+                    success = true;
                     DeleteMappingUserRoleGroup(userDTO);
                     UpdateUser(userDTO, dateStamp);
                     Db.SaveChanges();
