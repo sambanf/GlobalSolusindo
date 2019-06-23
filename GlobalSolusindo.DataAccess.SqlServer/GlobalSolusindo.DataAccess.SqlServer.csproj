@@ -156,6 +156,9 @@
     <Compile Include="tblM_Technology.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblM_TipePekerjaan.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblM_User.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>

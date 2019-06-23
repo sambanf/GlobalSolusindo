@@ -58,8 +58,40 @@ namespace GlobalSolusindo.Identity.UserDetail
         [JsonProperty("description")]
         public string Description { get; set; }
 
-        //Penambahan => mas indra : 20190619
+        #region Penambahan table dari mas indra 20190619 
         [JsonProperty("salary")]
         public double? Salary { get; set; }
+
+        //[Required]
+        [JsonProperty("religion")]
+        public string Religion { get; set; }
+
+        [JsonProperty("categoryContract")]
+        public string CategoryContract { get; set; }
+
+        [JsonProperty("project")]
+        public string Project { get; set; } 
+
+        [JsonProperty("gender")]
+        public string Gender { get; set; }
+
+        [JsonProperty("maritalStatus")]
+        public string MaritalStatus { get; set; }
+
+        [JsonProperty("npwp")]
+        public string NPWP { get; set; }
+
+        [JsonProperty("bpjs")]
+        public string BPJS { get; set; }
+
+        [JsonProperty("joinDate")]
+        public DateTime? JoinDate { get; set; }
+
+        [JsonProperty("bankName")]
+        public string BankName { get; set; }
+
+        [JsonProperty("accountNumber")]
+        public string AccountNumber { get; set; }
+        #endregion
     }
 }

@@ -28,14 +28,14 @@ namespace GlobalSolusindo.Business.SOWTrack.Queries
         public IQueryable<SOWTrackDTO> GetQuery()
         {
             var query = from sowTrack in Db.tblT_SOWTrack
-                        join technology in Db.tblM_Technology on sowTrack.Technology_FK equals technology.Technology_PK
+                        //join technology in Db.tblM_Technology on sowTrack.Technology_FK equals technology.Technology_PK
                         where
                         sowTrack.Status_FK != deleted
                         select new SOWTrackDTO
                         {
                             SOWTrack_PK = sowTrack.SOWTrack_PK,
-                            Technology_FK = sowTrack.Technology_FK,
-                            TechnologyTitle = technology.Title,
+                            //Technology_FK = sowTrack.Technology_FK,
+                            //TechnologyTitle = technology.Title,
                             SOW_FK = sowTrack.SOW_FK,
                             Route = sowTrack.Route,
                             CreatedBy = sowTrack.CreatedBy,

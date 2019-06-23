@@ -342,6 +342,18 @@
           <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
           <Property Name="Status_FK" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblM_TipePekerjaan">
+          <Key>
+            <PropertyRef Name="TipePekerjaan_PK" />
+          </Key>
+          <Property Name="TipePekerjaan_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblM_User">
           <Key>
             <PropertyRef Name="User_PK" />
@@ -373,6 +385,16 @@
           <Property Name="Address" Type="nvarchar" MaxLength="500" />
           <Property Name="Salary" Type="float" />
           <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Religion" Type="nvarchar" MaxLength="100" />
+          <Property Name="CategoryContract" Type="nvarchar" MaxLength="100" />
+          <Property Name="Project" Type="nvarchar" MaxLength="100" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="100" />
+          <Property Name="MaritalStatus" Type="nvarchar" MaxLength="100" />
+          <Property Name="NPWP" Type="nvarchar" MaxLength="100" />
+          <Property Name="BPJS" Type="nvarchar" MaxLength="100" />
+          <Property Name="JoinDate" Type="datetime" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="100" />
+          <Property Name="AccountNumber" Type="nvarchar" MaxLength="100" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -589,7 +611,7 @@
           </Key>
           <Property Name="SOWTrack_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SOW_FK" Type="int" />
-          <Property Name="Technology_FK" Type="int" />
+          <Property Name="TipePekerjaan_FK" Type="int" />
           <Property Name="Route" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -925,6 +947,7 @@
           <EntitySet Name="tblM_RoleGroup" EntityType="Self.tblM_RoleGroup" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Status" EntityType="Self.tblM_Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Technology" EntityType="Self.tblM_Technology" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblM_TipePekerjaan" EntityType="Self.tblM_TipePekerjaan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_User" EntityType="Self.tblM_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_UserDetail" EntityType="Self.tblM_UserDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblM_Vendor" EntityType="Self.tblM_Vendor" Schema="dbo" store:Type="Tables" />
@@ -1053,6 +1076,10 @@
           <FunctionImport Name="usp_GetSowAssign" ReturnType="Collection(GlobalSolusindoModel.usp_GetSowAssign_Result)">
           <Parameter Name="SOW_FK" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="usp_GetDocNumber" ReturnType="Collection(String)">
+            <Parameter Name="documentCode" Mode="In" Type="String" />
+            <Parameter Name="updateCurrentNumber" Mode="In" Type="Boolean" />
+          </FunctionImport>
           <EntitySet Name="DocumentNumbers" EntityType="GlobalSolusindoModel.DocumentNumber" />
           <EntitySet Name="tblM_Area" EntityType="GlobalSolusindoModel.tblM_Area" />
           <EntitySet Name="tblM_Aset" EntityType="GlobalSolusindoModel.tblM_Aset" />
@@ -1079,6 +1106,7 @@
           <EntitySet Name="tblM_RoleGroup" EntityType="GlobalSolusindoModel.tblM_RoleGroup" />
           <EntitySet Name="tblM_Status" EntityType="GlobalSolusindoModel.tblM_Status" />
           <EntitySet Name="tblM_Technology" EntityType="GlobalSolusindoModel.tblM_Technology" />
+          <EntitySet Name="tblM_TipePekerjaan" EntityType="GlobalSolusindoModel.tblM_TipePekerjaan" />
           <EntitySet Name="tblM_User" EntityType="GlobalSolusindoModel.tblM_User" />
           <EntitySet Name="tblM_UserDetail" EntityType="GlobalSolusindoModel.tblM_UserDetail" />
           <EntitySet Name="tblM_Vendor" EntityType="GlobalSolusindoModel.tblM_Vendor" />
@@ -1168,10 +1196,6 @@
             <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
-          <FunctionImport Name="usp_GetDocNumber" ReturnType="Collection(String)">
-            <Parameter Name="documentCode" Mode="In" Type="String" />
-            <Parameter Name="updateCurrentNumber" Mode="In" Type="Boolean" />
-          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -1606,6 +1630,18 @@
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblM_TipePekerjaan">
+          <Key>
+            <PropertyRef Name="TipePekerjaan_PK" />
+          </Key>
+          <Property Name="TipePekerjaan_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblM_User">
           <Key>
             <PropertyRef Name="User_PK" />
@@ -1639,6 +1675,16 @@
           <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Salary" Type="Double" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Religion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CategoryContract" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Project" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Gender" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="MaritalStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="NPWP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="BPJS" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="JoinDate" Type="DateTime" Precision="3" />
+          <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AccountNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1862,7 +1908,7 @@
           </Key>
           <Property Name="SOWTrack_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SOW_FK" Type="Int32" />
-          <Property Name="Technology_FK" Type="Int32" />
+          <Property Name="TipePekerjaan_FK" Type="Int32" />
           <Property Name="Route" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -2239,6 +2285,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetDocNumber" FunctionName="GlobalSolusindoModel.Store.usp_GetDocNumber" />
           <EntitySetMapping Name="DocumentNumbers">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.DocumentNumber">
               <MappingFragment StoreEntitySet="DocumentNumber">
@@ -2599,6 +2646,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblM_TipePekerjaan">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_TipePekerjaan">
+              <MappingFragment StoreEntitySet="tblM_TipePekerjaan">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="TipePekerjaan_PK" ColumnName="TipePekerjaan_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblM_User">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_User">
               <MappingFragment StoreEntitySet="tblM_User">
@@ -2623,6 +2683,16 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AccountNumber" ColumnName="AccountNumber" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="JoinDate" ColumnName="JoinDate" />
+                <ScalarProperty Name="BPJS" ColumnName="BPJS" />
+                <ScalarProperty Name="NPWP" ColumnName="NPWP" />
+                <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Project" ColumnName="Project" />
+                <ScalarProperty Name="CategoryContract" ColumnName="CategoryContract" />
+                <ScalarProperty Name="Religion" ColumnName="Religion" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Salary" ColumnName="Salary" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -2862,7 +2932,7 @@
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Route" ColumnName="Route" />
-                <ScalarProperty Name="Technology_FK" ColumnName="Technology_FK" />
+                <ScalarProperty Name="TipePekerjaan_FK" ColumnName="TipePekerjaan_FK" />
                 <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
                 <ScalarProperty Name="SOWTrack_PK" ColumnName="SOWTrack_PK" />
               </MappingFragment>
@@ -2916,7 +2986,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="usp_GetDocNumber" FunctionName="GlobalSolusindoModel.Store.usp_GetDocNumber" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-19. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-23. 
 * @author Kairos
 */
 (function() {
@@ -15725,7 +15725,6 @@ angular.module('global-solusindo')
             if (!validate())
                 return;
 
-            model.userCode = model.username;
             if (model.user_pk === 0) {
                 return self.create(model);
             } else {
@@ -15953,10 +15952,38 @@ angular.module('global-solusindo')
             });
         };
 
+        self.downloadTpl = function () {
+            http.downloadFile('user/export', { keyword: '' }).then(function (data) {
+                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                var linkElement = document.createElement('a');
+                try {
+                    var blob = new Blob([data], { type: contentType });
+                    var url = window.URL.createObjectURL(blob);
+
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute("download", "UserUpload.xlsx");
+
+                    var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+
+
+        };
         self.init = function (ctrl) {
             userImportExcelCtrl = ctrl;
             angular.element('#uploadButton').on('click', function () {
                 self.save(userImportExcelCtrl.model);
+            });
+
+            angular.element('#downloadButton').on('click', function () {
+                self.downloadTpl();
             });
         };
 

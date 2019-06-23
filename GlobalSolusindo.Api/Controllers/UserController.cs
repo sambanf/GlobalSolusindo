@@ -1,4 +1,5 @@
-﻿using GlobalSolusindo.Identity.User;
+﻿using GlobalSolusindo.Api.Models;
+using GlobalSolusindo.Identity.User;
 using GlobalSolusindo.Identity.User.DML;
 using GlobalSolusindo.Identity.User.EntryForm;
 using GlobalSolusindo.Identity.User.Queries;
@@ -7,6 +8,7 @@ using Kairos.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Transactions;
 using System.Web.Http;
 
@@ -138,18 +140,6 @@ namespace GlobalSolusindo.Api.Controllers
             }
         }
 
-        //[Route("user/import")]
-        //[HttpPost]
-        //public IHttpActionResult Import([FromBody]UserImportDTO userImportDTO)
-        //{
-        //    string accessType = "";
-        //    ThrowIfUserHasNoRole(accessType);
-        //    if (userImportDTO == null)
-        //        throw new KairosException("Missing model parameter");
-        //    var importResult = new UserImportCsv(Db, ActiveUser).Import(userImportDTO);
-        //    return Ok(new SuccessResponse(importResult));
-        //}
-
         [Route("user/import")]
         [HttpPost]
         public IHttpActionResult Import([FromBody]UserImportDTO userImportDTO)
@@ -160,6 +150,21 @@ namespace GlobalSolusindo.Api.Controllers
                 throw new KairosException("Missing model parameter");
             var importResult = new UserImportExcelHandler(Db, ActiveUser, new UserValidator(), new UserFactory(Db, ActiveUser), new UserQuery(Db), AccessControl).ExecuteImport(userImportDTO, DateTime.Now);
             return Ok(new SuccessResponse(importResult));
+        }
+
+        [Route("user/export")]
+        [HttpPost]
+        public HttpResponseMessage Export([FromBody]UserSearchFilter filter)
+        {
+            if (filter != null)
+                filter.PageSize = 1000000;
+
+            string accessType = "User_ViewAll";
+            ThrowIfUserHasNoRole(accessType);
+            //if (filter == null)
+            //    throw new KairosException("Missing search filter parameter");
+            UserExport userExport = new UserExport();
+            return userExport.Export(Db, "UserUpload", filter);
         }
     }
 }

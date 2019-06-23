@@ -56,13 +56,26 @@ namespace GlobalSolusindo.Identity.User.Queries
                             Username = user.Username,
                             KategoriJabatan_FK = user.KategoriJabatan_FK,
                             KategoriJabatanTitle = jabatan.Title,
-                            RoleGroupTitle = string.IsNullOrEmpty(roleGroup.Title) ? "N/A" : roleGroup.Title, 
+                            RoleGroupTitle = string.IsNullOrEmpty(roleGroup.Title) ? "N/A" : roleGroup.Title,
                             //Password = user.Password,
                             CreatedBy = user.CreatedBy,
                             CreatedDate = user.CreatedDate,
                             UpdatedBy = user.UpdatedBy,
                             UpdatedDate = user.UpdatedDate,
-                            Status_FK = user.Status_FK
+                            Status_FK = user.Status_FK,
+
+                            #region Additional field dari mas indra
+                            BankName = userDetail.BankName,
+                            BPJS = userDetail.BPJS,
+                            CategoryContract = userDetail.CategoryContract,
+                            Gender = userDetail.Gender,
+                            JoinDate = userDetail.JoinDate,
+                            MaritalStatus = userDetail.MaritalStatus,
+                            NPWP = userDetail.NPWP,
+                            Project = userDetail.Project,
+                            Religion = userDetail.Religion,
+                            Salary = userDetail.Salary
+                            #endregion
                         };
 
             return query;

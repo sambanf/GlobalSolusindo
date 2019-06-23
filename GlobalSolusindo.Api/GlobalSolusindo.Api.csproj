@@ -171,6 +171,9 @@
     <Compile Include="MobileControllers\TimesheetMonthlyController.cs" />
     <Compile Include="Models\AbstractDataExport.cs" />
     <Compile Include="Models\AbstractDataExportBridge.cs" />
+    <Compile Include="Models\LOVDTO.cs" />
+    <Compile Include="Models\UserExport.cs" />
+    <Compile Include="Models\UserExportDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoleAuthorizeAttribute.cs" />
     <Compile Include="TokenAuthorizeAttribute.cs" />

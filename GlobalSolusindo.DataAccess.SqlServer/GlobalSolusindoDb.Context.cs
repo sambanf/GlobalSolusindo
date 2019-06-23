@@ -53,6 +53,7 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblM_RoleGroup> tblM_RoleGroup { get; set; }
         public virtual DbSet<tblM_Status> tblM_Status { get; set; }
         public virtual DbSet<tblM_Technology> tblM_Technology { get; set; }
+        public virtual DbSet<tblM_TipePekerjaan> tblM_TipePekerjaan { get; set; }
         public virtual DbSet<tblM_User> tblM_User { get; set; }
         public virtual DbSet<tblM_UserDetail> tblM_UserDetail { get; set; }
         public virtual DbSet<tblM_Vendor> tblM_Vendor { get; set; }

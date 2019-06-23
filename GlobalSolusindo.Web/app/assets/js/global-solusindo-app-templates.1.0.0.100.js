@@ -8146,11 +8146,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row form-group\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-2\">User ID:</label>\r" +
+    "                        <label class=\"control-label col-sm-2\">User ID / UserName:</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-4\">\r" +
     "\n" +
-    "                            <input type=\"text\" class=\"form-control\" id=\"userCode\" name=\"userCode\" autocomplete=\"off\" ng-model=\"vm.model.userCode\" placeholder=\"User ID\">\r" +
+    "                            <input type=\"text\" class=\"form-control\" id=\"userCode\" name=\"userCode\" autocomplete=\"off\" ng-model=\"vm.model.userCode\" placeholder=\"User ID\" disabled>\r" +
     "\n" +
     "                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -8308,6 +8308,22 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "\r" +
     "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-2\">Salary:</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <input type=\"number\" class=\"form-control\" id=\"salary\" name=\"salary\" ng-model=\"vm.model.salary\" placeholder=\"Salary\">\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
     "                    <hr />\r" +
     "\n" +
     "                    <div class=\"row form-group\">\r" +
@@ -8433,6 +8449,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                        <div class=\"col-md-6\">\r" +
     "\n" +
     "                            <button class=\"btn btn-default\" ui-sref=\"app.userList\">Kembali</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" id=\"downloadButton\">Template</button>\r" +
     "\n" +
     "                            <button class=\"btn btn-success float-right\" id=\"uploadButton\">Submit</button>\r" +
     "\n" +

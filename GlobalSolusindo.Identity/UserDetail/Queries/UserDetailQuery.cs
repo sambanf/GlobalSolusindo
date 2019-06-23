@@ -28,8 +28,8 @@ namespace GlobalSolusindo.Identity.UserDetail.Queries
         public IQueryable<UserDetailDTO> GetQuery()
         {
             var query = from userDetail in Db.tblM_UserDetail
-                        //where
-                        //userDetail.Status_FK != deleted
+                            //where
+                            //userDetail.Status_FK != deleted
                         select new UserDetailDTO
                         {
                             UserDetail_PK = userDetail.UserDetail_PK,
@@ -46,7 +46,21 @@ namespace GlobalSolusindo.Identity.UserDetail.Queries
                             CreatedDate = userDetail.CreatedDate,
                             UpdatedBy = userDetail.UpdatedBy,
                             UpdatedDate = userDetail.UpdatedDate,
-                            Status_FK = userDetail.Status_FK
+                            Status_FK = userDetail.Status_FK,
+
+                            #region Additional field dari mas indra
+                            BankName = userDetail.BankName,
+                            BPJS = userDetail.BPJS,
+                            CategoryContract = userDetail.CategoryContract,
+                            Gender = userDetail.Gender,
+                            JoinDate = userDetail.JoinDate,
+                            MaritalStatus = userDetail.MaritalStatus,
+                            NPWP = userDetail.NPWP,
+                            Project = userDetail.Project,
+                            Religion = userDetail.Religion,
+                            Salary = userDetail.Salary,
+                            AccountNumber = userDetail.AccountNumber
+                            #endregion
                         };
 
             return query;

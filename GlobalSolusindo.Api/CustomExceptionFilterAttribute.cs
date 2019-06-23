@@ -2,6 +2,7 @@
 using System;
 using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Web.Http.Filters;
@@ -75,6 +76,21 @@ namespace GlobalSolusindo.Api
             if (context.Exception is DbUpdateException)
             {
                 var ex = context.Exception as DbUpdateException;
+                var innerEx = ExInnerExceptionHelper.GetInnerException(ex);
+
+                if (innerEx is SqlException)
+                {
+                    var sqlEx = innerEx as SqlException;
+                    if (sqlEx.Number == 2627 && sqlEx.Message.Contains("duplicate"))
+                    {
+                        response = new ErrorResponse(ServiceStatusCode.UnhandledException, null, "Duplicate entry.");
+
+                        httpResponseMessage.Content = new ObjectContent(type, response, jsonFormatter);
+                        context.Response = httpResponseMessage;
+                        return; 
+                    }
+                }
+
                 response = new ErrorResponse(ServiceStatusCode.UnhandledException, null, ExMessageHelper.GetInnerestErrorMessage(ex));
 
                 httpResponseMessage.Content = new ObjectContent(type, response, jsonFormatter);

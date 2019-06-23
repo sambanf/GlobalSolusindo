@@ -16,7 +16,7 @@ namespace GlobalSolusindo.DataAccess
     {
         public int SOWTrack_PK { get; set; }
         public Nullable<int> SOW_FK { get; set; }
-        public Nullable<int> Technology_FK { get; set; }
+        public Nullable<int> TipePekerjaan_FK { get; set; }
         public string Route { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
