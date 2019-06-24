@@ -18,6 +18,7 @@ namespace GlobalSolusindo.DataAccess
         public string SOWName { get; set; }
         public Nullable<int> BTS_FK { get; set; }
         public Nullable<int> Project_FK { get; set; }
+        public Nullable<int> Technology_FK { get; set; }
         public Nullable<System.DateTime> TglMulai { get; set; }
         public Nullable<System.DateTime> TglSelesai { get; set; }
         public Nullable<int> StatusSOW_FK { get; set; }

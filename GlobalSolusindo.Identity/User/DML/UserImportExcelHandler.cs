@@ -257,7 +257,7 @@ namespace GlobalSolusindo.Identity.User.DML
                     status = 3;
                 }
 
-                userList.Add(new UserDTO()
+                var newUser = new UserDTO()
                 {
                     User_PK = userPk,
                     UserDetail_FK = userDetailFk,
@@ -271,13 +271,15 @@ namespace GlobalSolusindo.Identity.User.DML
                     PersonalEmail = personalEmail,
                     Address = address,
                     Description = description,
-                    //Username = userName,
+                    Username = userName,
                     KategoriJabatan_FK = jabatanFk,
                     KategoriJabatanTitle = jabatanName,
                     //Password = user.Password, 
                     Status_FK = status,
                     Password = "admin@123"
-                });
+                };
+
+                userList.Add(newUser);
             }
 
             return userList;

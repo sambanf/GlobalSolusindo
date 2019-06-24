@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-18. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-24. 
 * @author Kairos
 */
 

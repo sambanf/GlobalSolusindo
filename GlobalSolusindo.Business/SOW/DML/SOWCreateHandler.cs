@@ -59,6 +59,10 @@ namespace GlobalSolusindo.Business.SOW.DML
 
             foreach (var sowTrackDTO in sowDTO.SOWTracks)
             {
+                if (sowTrackDTO.TipePekerjaan_FK == 0)
+                {
+                    continue;
+                }
                 sowTrackDTO.SOW_FK = sowDTO.SOW_PK; 
                 var bts = new BTSQuery(Db).GetByPrimaryKey(sowDTO.BTS_FK);
                 tblT_SOWTrack sowTrack = sowTrackFactory.CreateFromDTO(sowTrackDTO, dateStamp);

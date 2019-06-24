@@ -13,52 +13,85 @@
         .module('global-solusindo')
         .controller('SOWEntryCtrl', SOWEntryCtrl);
 
-    SOWEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWSaveService', 'SOWBindingService', 'FormControlService', 'SOWSelect2Service', 'HttpService', 'sowMapService', 'kmlService'];
+    SOWEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWSaveService', 'SOWBindingService', 'FormControlService', 'SOWSelect2Service', 'HttpService', 'sowMapService', 'kmlService', 'uiService'];
 
-    function SOWEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, SOWSelect2Service, http, map, kml) {
+    function SOWEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, SOWSelect2Service, http, map, kml, ui) {
         var self = this;
         self.stateParam = sParam;
 
-        function setSowTracksModel(data) {
-            self.model.sowTracks = [];
-            self.model.sowTracks.push({
-                technology_fk: self.model.technology_fk,
-                route: data
-            });
-        }
-
-        function showFileNameInTextbox(fileName) {
-            document.getElementById("fileName").innerHTML = fileName;
-        }
-
-        function addEventListenerOnImageChanged() {
-            document.getElementById("kmlFile").addEventListener("change", readFile);
-        }
-
-        function showRouteInMaps(e) {
-            var xmlString = e.target.result;
-            var routes = kml.createRoutes(xmlString);
-            map.setRoute(routes);
-        }
-
-        function readFile() {
+        function readFile1() {
             if (this.files && this.files[0]) {
                 var FR = new FileReader();
                 var fileName = this.files[0].name;
                 FR.readAsText(this.files[0]);
                 FR.addEventListener("load", function (e) {
                     try {
-                        showRouteInMaps(e);
+
+                        //showRouteInMaps;
+                        var xmlString = e.target.result;
+                        var routes = kml.createRoutes(xmlString);
+                        map.setRoute1(routes);
+
+                        //showFileNameInTextbox
+                        document.getElementById("fileName1").innerHTML = fileName;
+
+                        //setSowTracksModel; 
+                        if (self.model.sowTracks[0].tipePekerjaan_fk) {
+                            self.model.sowTracks[0].route = e.target.result;
+
+                            $scope.$apply();
+                        }
+                        else {
+                            ui.alert.error('Please pick job type first');
+                        }
+
                     } catch (e) {
                         console.log(e);
                     }
-                    showFileNameInTextbox(fileName);
-                    setSowTracksModel(e.target.result);
                 });
             }
         }
 
-        addEventListenerOnImageChanged();
+        function addEventListenerOnImageChanged1() {
+
+            document.getElementById("kmlFile1").addEventListener("change", readFile1);
+        }
+
+        function readFile2() {
+            if (this.files && this.files[0]) {
+                var FR = new FileReader();
+                var fileName = this.files[0].name;
+                FR.readAsText(this.files[0]);
+                FR.addEventListener("load", function (e) {
+                    if (!self.model.sowTracks[1]) {
+                        ui.alert.error('Please pick job type first');
+                        return;
+                    }
+
+                    try {
+
+                        //showRouteInMaps;
+                        var xmlString = e.target.result;
+                        var routes = kml.createRoutes(xmlString);
+                        map.setRoute2(routes);
+
+                        //showFileNameInTextbox
+                        document.getElementById("fileName2").innerHTML = fileName;
+
+                        //setSowTracksModel; 
+                        self.model.sowTracks[1].route = e.target.result; 
+                        $scope.$apply();
+                    } catch (e) {
+                        console.log(e);
+                    }
+
+                });
+            }
+        }
+
+        function addEventListenerOnImageChanged2() {
+            document.getElementById("kmlFile2").addEventListener("change", readFile2);
+        }
 
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
@@ -75,12 +108,14 @@
 
                 http.get('user/search', requestData)
                     .then(function (response) {
-                    self.formData.users = response.data.records;
-                });
+                        self.formData.users = response.data.records;
+                    });
             };
 
             try {
-                map.init(self); 
+                addEventListenerOnImageChanged1();
+                addEventListenerOnImageChanged2();
+                map.init(self);
             } catch (e) {
                 console.log(e);
             }

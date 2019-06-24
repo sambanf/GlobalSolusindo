@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-23. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-25. 
 * @author Kairos
 */
 (function() {
@@ -415,7 +415,7 @@ angular.module('global-solusindo')
                 controller: 'ChangePasswordEntryCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'ChangePassword Entry'
+                    label: 'Change Password'
                 }
             });
     }]);
@@ -2036,9 +2036,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('ChangePasswordEntryCtrl', ChangePasswordEntryCtrl);
 
-    ChangePasswordEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'ChangePasswordSaveService', 'FormControlService'];
+    ChangePasswordEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'ChangePasswordSaveService'];
 
-    function ChangePasswordEntryCtrl($scope, sParam, $state, saveService, formControlService) {
+    function ChangePasswordEntryCtrl($scope, sParam, $state, saveService) {
         var self = this;
         self.stateParam = sParam;
 
@@ -2048,7 +2048,6 @@ angular.module('global-solusindo')
             reTypeNewPassword: ""
         };
 
-        formControlService.setFormControl(self);
         saveService.init(self);
 
         return self;
@@ -3786,52 +3785,85 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('SOWEntryCtrl', SOWEntryCtrl);
 
-    SOWEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWSaveService', 'SOWBindingService', 'FormControlService', 'SOWSelect2Service', 'HttpService', 'sowMapService', 'kmlService'];
+    SOWEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWSaveService', 'SOWBindingService', 'FormControlService', 'SOWSelect2Service', 'HttpService', 'sowMapService', 'kmlService', 'uiService'];
 
-    function SOWEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, SOWSelect2Service, http, map, kml) {
+    function SOWEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, SOWSelect2Service, http, map, kml, ui) {
         var self = this;
         self.stateParam = sParam;
 
-        function setSowTracksModel(data) {
-            self.model.sowTracks = [];
-            self.model.sowTracks.push({
-                technology_fk: self.model.technology_fk,
-                route: data
-            });
-        }
-
-        function showFileNameInTextbox(fileName) {
-            document.getElementById("fileName").innerHTML = fileName;
-        }
-
-        function addEventListenerOnImageChanged() {
-            document.getElementById("kmlFile").addEventListener("change", readFile);
-        }
-
-        function showRouteInMaps(e) {
-            var xmlString = e.target.result;
-            var routes = kml.createRoutes(xmlString);
-            map.setRoute(routes);
-        }
-
-        function readFile() {
+        function readFile1() {
             if (this.files && this.files[0]) {
                 var FR = new FileReader();
                 var fileName = this.files[0].name;
                 FR.readAsText(this.files[0]);
                 FR.addEventListener("load", function (e) {
                     try {
-                        showRouteInMaps(e);
+
+                        //showRouteInMaps;
+                        var xmlString = e.target.result;
+                        var routes = kml.createRoutes(xmlString);
+                        map.setRoute1(routes);
+
+                        //showFileNameInTextbox
+                        document.getElementById("fileName1").innerHTML = fileName;
+
+                        //setSowTracksModel; 
+                        if (self.model.sowTracks[0].tipePekerjaan_fk) {
+                            self.model.sowTracks[0].route = e.target.result;
+
+                            $scope.$apply();
+                        }
+                        else {
+                            ui.alert.error('Please pick job type first');
+                        }
+
                     } catch (e) {
                         console.log(e);
                     }
-                    showFileNameInTextbox(fileName);
-                    setSowTracksModel(e.target.result);
                 });
             }
         }
 
-        addEventListenerOnImageChanged();
+        function addEventListenerOnImageChanged1() {
+
+            document.getElementById("kmlFile1").addEventListener("change", readFile1);
+        }
+
+        function readFile2() {
+            if (this.files && this.files[0]) {
+                var FR = new FileReader();
+                var fileName = this.files[0].name;
+                FR.readAsText(this.files[0]);
+                FR.addEventListener("load", function (e) {
+                    if (!self.model.sowTracks[1]) {
+                        ui.alert.error('Please pick job type first');
+                        return;
+                    }
+
+                    try {
+
+                        //showRouteInMaps;
+                        var xmlString = e.target.result;
+                        var routes = kml.createRoutes(xmlString);
+                        map.setRoute2(routes);
+
+                        //showFileNameInTextbox
+                        document.getElementById("fileName2").innerHTML = fileName;
+
+                        //setSowTracksModel; 
+                        self.model.sowTracks[1].route = e.target.result; 
+                        $scope.$apply();
+                    } catch (e) {
+                        console.log(e);
+                    }
+
+                });
+            }
+        }
+
+        function addEventListenerOnImageChanged2() {
+            document.getElementById("kmlFile2").addEventListener("change", readFile2);
+        }
 
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
@@ -3848,12 +3880,14 @@ angular.module('global-solusindo')
 
                 http.get('user/search', requestData)
                     .then(function (response) {
-                    self.formData.users = response.data.records;
-                });
+                        self.formData.users = response.data.records;
+                    });
             };
 
             try {
-                map.init(self); 
+                addEventListenerOnImageChanged1();
+                addEventListenerOnImageChanged2();
+                map.init(self);
             } catch (e) {
                 console.log(e);
             }
@@ -6680,9 +6714,9 @@ angular.module('global-solusindo')
         var changePasswordCtrl;
 
         self.create = function (model) {
-         
+
         };
- 
+
         function validatePassword(password) {
             return (password != undefined && password != null && password.length > 0);
         }
@@ -6691,8 +6725,9 @@ angular.module('global-solusindo')
             return (password === retypePassword);
         }
 
-        function validate() { 
-            if (changePasswordCtrl && changePasswordCtrl.model) { 
+        function validate() {
+            validation.clearValidationErrors({});
+            if (changePasswordCtrl && changePasswordCtrl.model) {
 
                 var isValid = true;
                 if (!validatePassword(changePasswordCtrl.model.currentPassword)) {
@@ -6705,7 +6740,12 @@ angular.module('global-solusindo')
                     isValid = false;
                 }
 
-                if (!validateRetypePassword(changePasswordCtrl.model.password, changePasswordCtrl.model.reTypeNewPassword)) {
+                if (changePasswordCtrl.model.reTypeNewPassword === '') {
+                    validation.setError('reTypeNewPassword', "Please retype new password.");
+                    return false;
+                } 
+
+                if (!validateRetypePassword(changePasswordCtrl.model.newPassword, changePasswordCtrl.model.reTypeNewPassword)) {
                     validation.setError('reTypeNewPassword', "Password doesn't match.");
                     isValid = false;
                 }
@@ -6715,15 +6755,17 @@ angular.module('global-solusindo')
         }
 
         self.save = function (model) {
-            return http.post('user/changePassword', model).then(function (res) {
-                if (res.success) {
-                    ui.alert.success("Password has been changed.");
-                } else {
-                    ui.alert.error(res.message);
-                    if (res.data && res.data.errors)
-                        validation.serverValidation(res.data.errors);
-                }
-            });
+            if (validate()) {
+                return http.post('user/changePassword', model).then(function (res) {
+                    if (res.success) {
+                        ui.alert.success("Password has been changed.");
+                    } else {
+                        ui.alert.error(res.message);
+                        if (res.data && res.data.errors)
+                            validation.serverValidation(res.data.errors);
+                    }
+                });
+            }
         };
 
         self.init = function (ctrl) {
@@ -14560,12 +14602,21 @@ angular.module('global-solusindo')
             return http.get('sow/form/' + id);
         };
 
+        function applyConversion(model) {
+            if (model && model.sowTracks) {
+                model.sowTracks.forEach(function (sowTrack, index) {
+                    sowTrack.tipePekerjaan_fk = sowTrack.tipePekerjaan_fk + '';
+                });
+            }
+        }
+
         self.init = function (ctrl) {
             controller = ctrl;
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
                     controller.formData = res.data.formData;
+                    applyConversion(res.data.model);
                     controller.model = res.data.model;
                     controller.formData.users = [];
                     controller.formControls = res.data.formControls;
@@ -14604,15 +14655,39 @@ angular.module('global-solusindo')
             // The location of indonesia
             var indonesia = { lat: -2.548926, lng: 118.0148634 };
             // The map, centered at indonesia
-            var map = new google.maps.Map(document.getElementById('map'), {
+            var map1 = new google.maps.Map(document.getElementById('map1'), {
+                zoom: 2,
+                center: indonesia //{ lat: 0, lng: -180 }
+            });
+
+            var map2 = new google.maps.Map(document.getElementById('map2'), {
                 zoom: 2,
                 center: indonesia //{ lat: 0, lng: -180 }
             });
         }
 
-        self.setRoute = function (routes) {
+        self.setRoute1 = function (routes) {
             if (routes && routes[0] && routes[0][0]) {
-                var map = new google.maps.Map(document.getElementById('map'), {
+                var map = new google.maps.Map(document.getElementById('map1'), {
+                    zoom: 14,
+                    center: { lat: routes[0][0].lat, lng: routes[0][0].lng }
+                });
+                routes.forEach(function (route) {
+                    var flightPath = new google.maps.Polyline({
+                        path: route,
+                        geodesic: true,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2
+                    });
+                    flightPath.setMap(map);
+                });
+            }
+        };
+
+        self.setRoute2 = function (routes) {
+            if (routes && routes[0] && routes[0][0]) {
+                var map = new google.maps.Map(document.getElementById('map2'), {
                     zoom: 14,
                     center: { lat: routes[0][0].lat, lng: routes[0][0].lng }
                 });
@@ -14635,7 +14710,7 @@ angular.module('global-solusindo')
             if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[0]) {
                 var xmlString = sowCtrl.model.sowTracks[0].route;
                 var routes = kml.createRoutes(xmlString);
-                self.setRoute(routes);
+                self.setRoute1(routes);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[0]) {
@@ -14646,8 +14721,26 @@ angular.module('global-solusindo')
                         lat: coordinate.latitude,
                         lng: coordinate.longitude
                     });
-                })
-                self.setRoute(routeResult);
+                });
+                self.setRoute1(routeResult);
+            }
+
+            if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[1]) {
+                xmlString = sowCtrl.model.sowTracks[1].route;
+                routes = kml.createRoutes(xmlString);
+                self.setRoute2(routes);
+            }
+
+            if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[1]) {
+                routeResult = [];
+                coordinates = JSON.parse(sowCtrl.model.SOWTrackResults[1].routeResult);
+                coordinates.forEach(function (coordinate) {
+                    routeResult.push({
+                        lat: coordinate.latitude,
+                        lng: coordinate.longitude
+                    });
+                });
+                self.setRoute2(routeResult);
             }
         };
 

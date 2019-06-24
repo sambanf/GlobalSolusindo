@@ -32,7 +32,6 @@ namespace GlobalSolusindo.Api
 
         private static string HandleMaximumLengthError(string originalMessage)
         {
-            var z = 0;
             var modifiedMessage = originalMessage;
             var arr = originalMessage.Split('\'');
             if (arr.Count() >= 1)

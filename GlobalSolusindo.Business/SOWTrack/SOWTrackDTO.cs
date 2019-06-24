@@ -19,7 +19,7 @@ namespace GlobalSolusindo.Business.SOWTrack
         public int? SOW_FK { get; set; }
 
         //[Required]
-        [JsonProperty("tipePekerjaan_FK")]
+        [JsonProperty("tipePekerjaan_fk")]
         [ForeignKey(typeof(TipePekerjaanQuery), "TipePekerjaan_PK", true)]
         public int? TipePekerjaan_FK { get; set; }
 

@@ -24,15 +24,39 @@
             // The location of indonesia
             var indonesia = { lat: -2.548926, lng: 118.0148634 };
             // The map, centered at indonesia
-            var map = new google.maps.Map(document.getElementById('map'), {
+            var map1 = new google.maps.Map(document.getElementById('map1'), {
+                zoom: 2,
+                center: indonesia //{ lat: 0, lng: -180 }
+            });
+
+            var map2 = new google.maps.Map(document.getElementById('map2'), {
                 zoom: 2,
                 center: indonesia //{ lat: 0, lng: -180 }
             });
         }
 
-        self.setRoute = function (routes) {
+        self.setRoute1 = function (routes) {
             if (routes && routes[0] && routes[0][0]) {
-                var map = new google.maps.Map(document.getElementById('map'), {
+                var map = new google.maps.Map(document.getElementById('map1'), {
+                    zoom: 14,
+                    center: { lat: routes[0][0].lat, lng: routes[0][0].lng }
+                });
+                routes.forEach(function (route) {
+                    var flightPath = new google.maps.Polyline({
+                        path: route,
+                        geodesic: true,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2
+                    });
+                    flightPath.setMap(map);
+                });
+            }
+        };
+
+        self.setRoute2 = function (routes) {
+            if (routes && routes[0] && routes[0][0]) {
+                var map = new google.maps.Map(document.getElementById('map2'), {
                     zoom: 14,
                     center: { lat: routes[0][0].lat, lng: routes[0][0].lng }
                 });
@@ -55,7 +79,7 @@
             if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[0]) {
                 var xmlString = sowCtrl.model.sowTracks[0].route;
                 var routes = kml.createRoutes(xmlString);
-                self.setRoute(routes);
+                self.setRoute1(routes);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[0]) {
@@ -66,8 +90,26 @@
                         lat: coordinate.latitude,
                         lng: coordinate.longitude
                     });
-                })
-                self.setRoute(routeResult);
+                });
+                self.setRoute1(routeResult);
+            }
+
+            if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[1]) {
+                xmlString = sowCtrl.model.sowTracks[1].route;
+                routes = kml.createRoutes(xmlString);
+                self.setRoute2(routes);
+            }
+
+            if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[1]) {
+                routeResult = [];
+                coordinates = JSON.parse(sowCtrl.model.SOWTrackResults[1].routeResult);
+                coordinates.forEach(function (coordinate) {
+                    routeResult.push({
+                        lat: coordinate.latitude,
+                        lng: coordinate.longitude
+                    });
+                });
+                self.setRoute2(routeResult);
             }
         };
 

@@ -192,5 +192,10 @@ namespace GlobalSolusindo.DataAccess
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_GetDocNumber", documentCodeParameter, updateCurrentNumberParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> Get_Count_Po()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Get_Count_Po");
+        }
     }
 }

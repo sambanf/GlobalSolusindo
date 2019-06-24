@@ -51,6 +51,7 @@ namespace GlobalSolusindo.Business.SOW
                             BTSName = bts.Name,
                             Project_FK = sow.Project_FK.Value,
                             //ProjectTitle = project.Title,
+                            Technology_FK = sow.Technology_FK,
                             TglMulai = sow.TglMulai,
                             TglSelesai = sow.TglSelesai,
                             StatusSOW_FK = sow.StatusSOW_FK,
@@ -63,7 +64,7 @@ namespace GlobalSolusindo.Business.SOW
                         };
 
             return query;
-        } 
+        }
 
         public SOWDTO GetByPrimaryKey(int primaryKey)
         {

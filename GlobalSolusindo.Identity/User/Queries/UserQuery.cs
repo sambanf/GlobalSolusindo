@@ -14,7 +14,7 @@ namespace GlobalSolusindo.Identity.User.Queries
 
         public int GetTotalRecords()
         {
-            return GetQuery().Count();
+            return Db.tblM_User.Where(x => x.Status_FK != deleted).Count();
         }
 
         public UserQuery(GlobalSolusindoDb db) : base(db)
@@ -64,7 +64,6 @@ namespace GlobalSolusindo.Identity.User.Queries
                             UpdatedDate = user.UpdatedDate,
                             Status_FK = user.Status_FK,
 
-                            #region Additional field dari mas indra
                             BankName = userDetail.BankName,
                             BPJS = userDetail.BPJS,
                             CategoryContract = userDetail.CategoryContract,
@@ -76,7 +75,6 @@ namespace GlobalSolusindo.Identity.User.Queries
                             Religion = userDetail.Religion,
                             Salary = userDetail.Salary,
                             AccountNumber = userDetail.AccountNumber
-                            #endregion
                         };
 
             return query;

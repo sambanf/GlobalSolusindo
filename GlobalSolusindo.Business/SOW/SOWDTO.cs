@@ -64,8 +64,8 @@ namespace GlobalSolusindo.Business.SOW
         public List<SOWTrackDTO> SOWTracks { get; set; } = new List<SOWTrackDTO>();
 
         //[Required(ErrorMessage = "This field is required")]
-        [JsonProperty("tipePekerjaan_FK")]
-        [ForeignKey(typeof(TipePekerjaanQuery), "TipePekerjaan_PK", true)]
-        public int? TipePekerjaan_FK { get; set; }
+        [JsonProperty("technology_fk")]
+        [ForeignKey(typeof(TechnologyQuery), "Technology_PK", true)]
+        public int? Technology_FK { get; set; }
     }
 }

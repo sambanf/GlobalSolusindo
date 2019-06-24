@@ -1709,7 +1709,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                                    <input type=\"password\" class=\"form-control\" id=\"reTypePassword\" name=\"reTypePassword\" autocomplete=\"off\" ng-model=\"vm.model.reTypeNewPassword\" placeholder=\"Retype New Password\">\r" +
+    "                                    <input type=\"password\" class=\"form-control\" id=\"reTypeNewPassword\" name=\"reTypeNewPassword\" autocomplete=\"off\" ng-model=\"vm.model.reTypeNewPassword\" placeholder=\"Retype New Password\">\r" +
     "\n" +
     "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -7251,8 +7251,6 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"card-title\">Tambah SOW</div>\r" +
     "\n" +
-    "\r" +
-    "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
     "                        <div class=\"col-md-6\">\r" +
@@ -7277,7 +7275,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                    <select id=\"project_fk\" name=\"project_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.project_fk\" required>\r" +
+    "                                    <select id=\"project_fk\" name=\"project_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.project_fk\" required>\r" +
     "\n" +
     "                                        <option ng-repeat=\"x in vm.formData.projects\" ng-value=\"x.project_pk\">{{x.title}}</option>\r" +
     "\n" +
@@ -7295,7 +7293,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                    <select id=\"bts_fk\" name=\"bts_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.bts_fk\" required>\r" +
+    "                                    <select id=\"bts_fk\" name=\"bts_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.bts_fk\" required>\r" +
     "\n" +
     "                                        <option ng-repeat=\"x in vm.formData.btses\" ng-value=\"x.bts_pk\">{{x.name}}</option>\r" +
     "\n" +
@@ -7314,6 +7312,24 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                <div class=\"col-sm-6\">\r" +
     "\n" +
     "                                    <input type=\"text\" id=\"tglMulai\" name=\"tglMulai\" ng-model=\"vm.model.tglMulai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD-MM-YYYY' }\" required />\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Technology:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <select id=\"technology_fk\" name=\"technology_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.technology_fk\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.technologies\" ng-value=\"x.technology_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
     "\n" +
     "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -7451,29 +7467,43 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        </div>\r" +
     "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Track / Route</div>\r" +
+    "\n" +
+    "                    <div ng-repeat=\"sowTrack in vm.model.sowTracks\">\r" +
+    "\n" +
     "\r" +
     "\n" +
-    "                        <!--<div class=\"card-title\">Track</div>-->\r" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
     "\n" +
     "                        <div class=\"col-md-6\">\r" +
     "\n" +
     "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                                <div class=\"col-sm-12 input-group\">\r" +
+    "                                <label class=\"control-label col-sm-3\">Job Type:</label>\r" +
     "\n" +
-    "                                    <label class=\"control-label col-sm-3\">Technology:</label>\r" +
+    "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                                    <div class=\"col-sm-6\">\r" +
+    "                                    <select id=\"tipePekerjaan_fk1\" name=\"tipePekerjaan_fk1\" class=\"form-control\" ng-model=\"vm.model.sowTracks[0].tipePekerjaan_fk\" required>\r" +
     "\n" +
-    "                                        <select id=\"technology_fk\" name=\"technology_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.technology_fk\" required>\r" +
+    "                                        <option value=\"0\">None</option>\r" +
     "\n" +
-    "                                            <option ng-repeat=\"x in vm.formData.technologies\" ng-value=\"x.technology_pk\">{{x.title}}</option>\r" +
+    "                                        <option value=\"1\">SSO</option>\r" +
     "\n" +
-    "                                        </select>\r" +
+    "                                        <option value=\"2\">SSV</option>\r" +
     "\n" +
-    "                                        <div class=\"invalid-feedback\"></div>\r" +
+    "                                    </select>\r" +
     "\n" +
-    "                                    </div>\r" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
@@ -7491,9 +7521,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <div class=\"custom-file\">\r" +
     "\n" +
-    "                                        <input type=\"file\" class=\"custom-file-input\" id=\"kmlFile\" aria-describedby=\"inputGroupFileAddon01\">\r" +
+    "                                        <input type=\"file\" class=\"custom-file-input\" id=\"kmlFile1\" aria-describedby=\"inputGroupFileAddon01\">\r" +
     "\n" +
-    "                                        <label id=\"fileName\" class=\"custom-file-label\" for=\"filePhoto\">Choose file</label>\r" +
+    "                                        <label id=\"fileName1\" class=\"custom-file-label\" for=\"filePhoto\">Choose file</label>\r" +
     "\n" +
     "                                    </div>\r" +
     "\n" +
@@ -7501,15 +7531,71 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                            <div id=\"map\" style=\"border:1px solid gray\">\r" +
+    "                            <textarea ng-model=\"vm.model.sowTracks[0].route\" hidden></textarea>\r" +
+    "\n" +
+    "                            <div id=\"map1\" style=\"border:1px solid gray; height:500px\">\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Job Type:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                    <select id=\"tipePekerjaan_fk2\" name=\"tipePekerjaan_fk2\" class=\"form-control\" ng-model=\"vm.model.sowTracks[1].tipePekerjaan_fk\" required>\r" +
+    "\n" +
+    "                                        <option value=\"0\">None</option>\r" +
+    "\n" +
+    "                                        <option value=\"1\">SSO</option>\r" +
+    "\n" +
+    "                                        <option value=\"2\">SSV</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <div class=\"col-sm-12 input-group\">\r" +
+    "\n" +
+    "                                    <div class=\"input-group-prepend\">\r" +
+    "\n" +
+    "                                        <span class=\"input-group-text\" id=\"inputGroupFileAddon01\">Upload</span>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <div class=\"custom-file\">\r" +
+    "\n" +
+    "                                        <input type=\"file\" class=\"custom-file-input\" id=\"kmlFile2\" aria-describedby=\"inputGroupFileAddon01\">\r" +
+    "\n" +
+    "                                        <label id=\"fileName2\" class=\"custom-file-label\" for=\"filePhoto\">Choose file</label>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <textarea ng-model=\"vm.model.sowTracks[1].route\" hidden></textarea>\r" +
+    "\n" +
+    "                            <div id=\"map2\" style=\"border:1px solid gray; height:500px\">\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
-    "\n" +
-    "\r" +
     "\n" +
     "                </div>\r" +
     "\n" +

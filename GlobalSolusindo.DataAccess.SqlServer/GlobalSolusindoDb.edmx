@@ -281,12 +281,14 @@
         </EntityType>
         <EntityType Name="tblM_Project">
           <Key>
-            <PropertyRef Name="Project_PK" />
+            <PropertyRef Name="Operator_FK" />
+            <PropertyRef Name="DeliveryArea_FK" />
+            <PropertyRef Name="Vendor_FK" />
           </Key>
           <Property Name="Project_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Operator_FK" Type="int" />
-          <Property Name="DeliveryArea_FK" Type="int" />
-          <Property Name="Vendor_FK" Type="int" />
+          <Property Name="Operator_FK" Type="int" Nullable="false" />
+          <Property Name="DeliveryArea_FK" Type="int" Nullable="false" />
+          <Property Name="Vendor_FK" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -537,6 +539,7 @@
           <Property Name="SOWName" Type="nvarchar" MaxLength="500" />
           <Property Name="BTS_FK" Type="int" />
           <Property Name="Project_FK" Type="int" />
+          <Property Name="Technology_FK" Type="int" />
           <Property Name="TglMulai" Type="datetime" />
           <Property Name="TglSelesai" Type="datetime" />
           <Property Name="StatusSOW_FK" Type="int" />
@@ -880,6 +883,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="Get_Count_Po" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetTaskList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userID" Type="int" Mode="In" />
           <Parameter Name="statusSOW" Type="int" Mode="In" />
@@ -1196,6 +1200,7 @@
             <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
+          <FunctionImport Name="Get_Count_Po" ReturnType="Collection(Int32)" />
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -1555,12 +1560,14 @@
         </EntityType>
         <EntityType Name="tblM_Project">
           <Key>
-            <PropertyRef Name="Project_PK" />
+            <PropertyRef Name="Operator_FK" />
+            <PropertyRef Name="DeliveryArea_FK" />
+            <PropertyRef Name="Vendor_FK" />
           </Key>
           <Property Name="Project_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Operator_FK" Type="Int32" />
-          <Property Name="DeliveryArea_FK" Type="Int32" />
-          <Property Name="Vendor_FK" Type="Int32" />
+          <Property Name="Operator_FK" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryArea_FK" Type="Int32" Nullable="false" />
+          <Property Name="Vendor_FK" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1834,6 +1841,7 @@
           <Property Name="SOWName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="BTS_FK" Type="Int32" />
           <Property Name="Project_FK" Type="Int32" />
+          <Property Name="Technology_FK" Type="Int32" />
           <Property Name="TglMulai" Type="DateTime" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
           <Property Name="StatusSOW_FK" Type="Int32" />
@@ -2853,6 +2861,7 @@
                 <ScalarProperty Name="StatusSOW_FK" ColumnName="StatusSOW_FK" />
                 <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
                 <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="Technology_FK" ColumnName="Technology_FK" />
                 <ScalarProperty Name="Project_FK" ColumnName="Project_FK" />
                 <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
                 <ScalarProperty Name="SOWName" ColumnName="SOWName" />
@@ -2986,6 +2995,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Get_Count_Po" FunctionName="GlobalSolusindoModel.Store.Get_Count_Po" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

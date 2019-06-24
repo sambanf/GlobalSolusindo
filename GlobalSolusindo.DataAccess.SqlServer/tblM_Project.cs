@@ -15,9 +15,9 @@ namespace GlobalSolusindo.DataAccess
     public partial class tblM_Project
     {
         public int Project_PK { get; set; }
-        public Nullable<int> Operator_FK { get; set; }
-        public Nullable<int> DeliveryArea_FK { get; set; }
-        public Nullable<int> Vendor_FK { get; set; }
+        public int Operator_FK { get; set; }
+        public int DeliveryArea_FK { get; set; }
+        public int Vendor_FK { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }

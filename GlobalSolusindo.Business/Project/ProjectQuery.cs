@@ -44,9 +44,9 @@ namespace GlobalSolusindo.Business.Project
                         select new ProjectDTO
                         {
                             Project_PK = project.Project_PK, 
-                            Operator_FK = project.Operator_FK.Value,
+                            Operator_FK = project.Operator_FK,
                             OperatorTitle = _operator.Title,
-                            DeliveryArea_FK = project.DeliveryArea_FK.Value,
+                            DeliveryArea_FK = project.DeliveryArea_FK,
                             DeliveryAreaTitle = deliveryArea.Title,
                             VendorTitle = vendor.Title,
                             Vendor_FK = project.Vendor_FK,
