@@ -151,7 +151,7 @@ namespace GlobalSolusindo.Business.PO.DML
             //Esar 1st
             var esarSubmit1st = row.Cell(20).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(20).Value);
             var vsSubmit1st = row.Cell(21).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(21).Value);
-            var quantity1st = (row.Cell(22).Value.ToString() == "") ? 0 : int.Parse(row.Cell(22).Value.ToString());
+            var quantity1st = (row.Cell(22).Value.ToString() == "") ? 0 : decimal.Parse(row.Cell(22).Value.ToString());
             var invoiceSubmit1st = row.Cell(23).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(23).Value);
             var paidDate1st = row.Cell(24).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(24).Value);
             var esarStatus1st = statusOnProgress;
@@ -159,7 +159,7 @@ namespace GlobalSolusindo.Business.PO.DML
             //Esar 2nd
             var esarSubmit2nd = row.Cell(26).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(26).Value);
             var vsSubmit2nd = row.Cell(27).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(27).Value);
-            var quantity2nd = (row.Cell(28).Value.ToString() == "") ? 0 : int.Parse(row.Cell(28).Value.ToString());
+            var quantity2nd = (row.Cell(28).Value.ToString() == "") ? 0 : decimal.Parse(row.Cell(28).Value.ToString());
             var invoiceSubmit2nd = row.Cell(29).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(29).Value);
             var paidDate2nd = row.Cell(30).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(30).Value);
             var esarStatus2nd = statusOnProgress;
