@@ -150,18 +150,22 @@ namespace GlobalSolusindo.Identity.User.DML
             foreach (var validationResult in validationResults)
             {
                 var userDTO = (UserDTO)validationResult.GetModel();
+                var createHandler = new UserCreateHandler(Db, User, new UserValidator(), new UserFactory(Db, User), new UserQuery(Db), new AccessControl(this.User));
+                var updateHandler = new UserUpdateHandler(Db, User, new UserValidator(), new UserFactory(Db, User), new UserQuery(Db), new AccessControl(User));
                 if (validationResult.IsValid)
                 {
                     if (userDTO.User_PK > 0)
                     {
-                        DeleteMappingUserRoleGroup(userDTO);
-                        UpdateUser(userDTO, dateStamp);
-                        CreateRoleGroupIfJabatanIsAssignable(userDTO, dateStamp);
+                        updateHandler.Save(userDTO, dateStamp);
+                        //DeleteMappingUserRoleGroup(userDTO);
+                        //UpdateUser(userDTO, dateStamp);
+                        //CreateRoleGroupIfJabatanIsAssignable(userDTO, dateStamp);
                     }
                     else
                     {
-                        AddUser(userDTO, dateStamp);
-                        CreateRoleGroupIfJabatanIsAssignable(userDTO, dateStamp);
+                        createHandler.Save(userDTO, dateStamp);
+                        //AddUser(userDTO, dateStamp);
+                        //CreateRoleGroupIfJabatanIsAssignable(userDTO, dateStamp);
                     }
 
                     var saveResult = new SaveResult<UserDTO>()
@@ -210,13 +214,72 @@ namespace GlobalSolusindo.Identity.User.DML
             var nonEmptyRowCount = sheet.RowsUsed().Count() + 1;
             var userQuery = new UserQuery(Db);
             List<UserDTO> userList = new List<UserDTO>();
+            var jabatanQuery = new KategoriJabatanQuery(Db);
 
             //first index is 1, and the first one is header title
             for (int i = 2; i < nonEmptyRowCount; i++)
             {
                 var row = sheet.Row(i);
-                var jabatanQuery = new KategoriJabatanQuery(Db);
-                var userName = (string)row.Cell(2).Value;
+
+                //Excel value
+                var xNomor = row.Cell(1).Value;
+                var xUserName = row.Cell(2).Value;
+                var XJabatanName = row.Cell(3).Value;
+                var xFullName = row.Cell(4).Value;
+                var xTglLahir = row.Cell(5).Value;
+                var xKtp = row.Cell(6).Value;
+                var xReligion = row.Cell(7).Value;
+                var xCategoryContract = row.Cell(8).Value;
+                var xProject = row.Cell(9).Value;
+                var xGender = row.Cell(10).Value;
+                var xMaritalStatus = row.Cell(11).Value;
+                var xNpwp = row.Cell(12).Value;
+                var xBpjs = row.Cell(13).Value;
+                var xJoinDate = row.Cell(14).Value;
+                var xContactNumber = row.Cell(15).Value;
+                var xG1EmailId = row.Cell(16).Value;
+                var xPersonalEmail = row.Cell(17).Value;
+                var xAddress = row.Cell(18).Value;
+                var xBankName = row.Cell(19).Value;
+                var xAccountNumber = row.Cell(20).Value;
+                var xSalary = row.Cell(21).Value;
+                var xRemark = row.Cell(22).Value;
+                var xStatus = row.Cell(23).Value;
+
+                var defaultEmptyDate = new DateTime(1990, 01, 01);
+                var dateContainer = new DateTime(1990, 01, 01);
+                double doubleContainer = 0;
+                int intContainer = 0;
+
+
+                var nomor = row.Cell(1).Value;
+                var userName = xUserName == null ? "" : xUserName.ToString();
+                var jabatanName = XJabatanName == null ? "" : XJabatanName.ToString();
+                var fullName = xFullName == null ? "" : xFullName.ToString();
+                var tglLahir = xTglLahir == null ? defaultEmptyDate :
+                    DateTime.TryParse(xTglLahir.ToString(), out dateContainer) == true ? dateContainer : defaultEmptyDate;
+                var ktp = xKtp == null ? "" : xKtp.ToString();
+                var religion = xReligion == null ? "" : xReligion.ToString();
+                var categoryContract = xCategoryContract == null ? "" : xCategoryContract.ToString();
+                var project = xProject == null ? "" : xProject.ToString();
+                var gender = xGender == null ? "" : xGender.ToString();
+                var maritalStatus = xMaritalStatus == null ? "" : xMaritalStatus.ToString();
+                var npwp = xNpwp == null ? "" : xNpwp.ToString();
+                var bpjs = xBpjs == null ? "" : xBpjs.ToString();
+                var joinDate = xJoinDate == null ? defaultEmptyDate :
+                    DateTime.TryParse(xJoinDate.ToString(), out dateContainer) == true ? dateContainer : defaultEmptyDate;
+                var contactNumber = xContactNumber == null ? "" : xContactNumber.ToString();
+                var g1EmailId = xG1EmailId == null ? "" : xG1EmailId.ToString();
+                var personalEmail = xPersonalEmail == null ? "" : xPersonalEmail.ToString();
+                var address = xAddress == null ? "" : xAddress.ToString();
+                var bankName = xBankName == null ? "" : xBankName.ToString();
+                var accountNumber = xAccountNumber == null ? "" : xAccountNumber.ToString();
+                var salary = xSalary == null ? 0 :
+                    double.TryParse(xSalary.ToString(), out doubleContainer) == true ? doubleContainer : 0;
+                var remark = xRemark == null ? "" : xRemark.ToString();
+                var status = xStatus == null ? 1 :
+                    int.TryParse(xStatus.ToString(), out intContainer) == true ? intContainer : 1;
+
                 var userPk = 0;
                 var userDetailFk = 0;
                 //get by itsname first;
@@ -229,32 +292,11 @@ namespace GlobalSolusindo.Identity.User.DML
                     userDetailFk = userDtoOnDb.UserDetail_FK;
                 }
 
-                var jabatanName = (string)row.Cell(3).Value;
                 var jabatanFk = 0;
                 var jabatan = jabatanQuery.GetByTitle(jabatanName);
                 if (jabatan != null)
                 {
                     jabatanFk = jabatan.KategoriJabatan_PK;
-                }
-
-                var fullName = Convert.ToString(row.Cell(4).Value);
-
-                DateTime dateOfBirth = DateTime.Now;
-                if (row.Cell(5).Value != null || string.IsNullOrEmpty(row.Cell(5).Value.ToString()))
-                    DateTime.TryParse(row.Cell(5).Value.ToString(), out dateOfBirth);
-
-                var ktp = (string)row.Cell(6).Value;
-                var phoneNumber = (string)row.Cell(7).Value;
-                var email = (string)row.Cell(8).Value;
-                var personalEmail = (string)row.Cell(9).Value;
-                var address = (string)row.Cell(10).Value;
-                var description = (string)row.Cell(11).Value;
-                var status = 1;
-
-                int.TryParse(row.Cell(13).Value.ToString(), out status);
-                if (status == 0)
-                {
-                    status = 3;
                 }
 
                 var newUser = new UserDTO()
@@ -264,19 +306,30 @@ namespace GlobalSolusindo.Identity.User.DML
                     UserDetail_PK = userDetailFk,
                     UserCode = userCode,
                     Name = fullName,
-                    TglLahir = dateOfBirth,
+                    TglLahir = tglLahir,
                     NoKTP = ktp,
-                    NoHP = phoneNumber,
-                    Email = email,
+                    NoHP = contactNumber,
+                    Email = g1EmailId,
                     PersonalEmail = personalEmail,
                     Address = address,
-                    Description = description,
+                    Description = remark,
                     Username = userName,
                     KategoriJabatan_FK = jabatanFk,
                     KategoriJabatanTitle = jabatanName,
                     //Password = user.Password, 
                     Status_FK = status,
-                    Password = "admin@123"
+                    Password = "admin@123",
+                    AccountNumber = accountNumber,
+                    BankName = bankName,
+                    BPJS = bpjs,
+                    CategoryContract = categoryContract,
+                    Gender = gender,
+                    JoinDate = joinDate,
+                    MaritalStatus = maritalStatus,
+                    NPWP = npwp,
+                    Project = project,
+                    Religion = religion,
+                    Salary = salary
                 };
 
                 userList.Add(newUser);

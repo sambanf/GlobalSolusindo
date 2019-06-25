@@ -28,7 +28,6 @@ namespace GlobalSolusindo.Business.PO.Queries
         public IQueryable<PODTO> GetQuery()
         {
             var query = from po in Db.tblT_PO
-                        
                         where
                         po.Status_FK != deleted
                         select new PODTO
@@ -51,24 +50,25 @@ namespace GlobalSolusindo.Business.PO.Queries
                             POStatus = po.POStatus,
                             PaymentTerm = po.PaymentTerm,
                             WorkStatus = po.WorkStatus,
-                            OADate = po.OADate,
-                            SSVDate = po.SSVDate,
-                            SSVAppDate = po.SSVAppDate,
-                            SOMSSVDate = po.SOMSSVDate,
-                            QCAccDate = po.QCAccDate,
-                            PACClusterID = po.PACClusterID,
-                            PACClusterStatus = po.PACClusterStatus,
-                            SOMPACCluster = po.SOMPACCluster,
-                            DocStatus = po.DocStatus,
-                            ESAR1stStatus = po.ESAR1stStatus,
-                            ESAR2ndStatus = po.ESAR2ndStatus,
+                            EsarStatus1st = po.EsarStatus1st,
+                            EsarStatus2nd = po.EsarStatus2nd,
+                            EsarSubmit1st = po.EsarSubmit1st,
+                            EsarSubmit2nd = po.EsarSubmit2nd,
+                            InvoiceSubmit1st = po.InvoiceSubmit1st,
+                            InvoiceSubmit2nd = po.InvoiceSubmit2nd,
+                            PaidDate1st = po.PaidDate1st,
+                            PaidDate2nd = po.PaidDate2nd,
+                            Quantity1st = po.Quantity1st,
+                            Quantity2nd = po.Quantity2nd,
+                            Value = po.Value,
+                            VsSubmit1st = po.VsSubmit1st,
+                            VsSubmit2nd = po.VsSubmit2nd,
                             Remarks = po.Remarks,
                             CreatedBy = po.CreatedBy,
                             CreatedDate = po.CreatedDate,
                             UpdatedBy = po.UpdatedBy,
                             UpdatedDate = po.UpdatedDate,
                             Status_FK = po.Status_FK
-
                         };
 
             return query;
@@ -80,7 +80,7 @@ namespace GlobalSolusindo.Business.PO.Queries
 
             return record;
         }
-        
+
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {

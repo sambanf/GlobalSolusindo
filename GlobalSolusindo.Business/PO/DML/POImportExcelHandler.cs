@@ -1,9 +1,11 @@
-﻿using GlobalSolusindo.Base;
+﻿using ClosedXML.Excel;
+using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.PO.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.DataAccess.PO.EntryForm;
 using Kairos.Data;
 using Kairos.Excel;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,11 @@ using System.Transactions;
 
 namespace GlobalSolusindo.Business.PO.DML
 {
+    public class POImportDTO
+    {
+        [JsonProperty("file")]
+        public string File { get; set; }
+    }
 
     public class POImportExcelHandler : CreateOperation
     {
@@ -18,7 +25,7 @@ namespace GlobalSolusindo.Business.PO.DML
         private POFactory poFactory;
         private POQuery poQuery;
         private POEntryDataProvider poEntryDataProvider;
-        
+
         public POImportExcelHandler(GlobalSolusindoDb db, tblM_User user, POValidator poValidator,
             POFactory poFactory, POQuery poQuery) : base(db, user)
         {
@@ -69,7 +76,7 @@ namespace GlobalSolusindo.Business.PO.DML
                 if (validationResult.IsValid)
                 {
                     var exists = poQuery.GetByPrimaryKey(poDTO.PO_PK);
-                    if (poDTO.PO_PK > 0&& exists!=null)
+                    if (poDTO.PO_PK > 0 && exists != null)
                     {
 
                         UpdatePO(poDTO, dateStamp);
@@ -116,6 +123,109 @@ namespace GlobalSolusindo.Business.PO.DML
             }
         }
 
+        public PODTO CreatePODTO(IXLRow row)
+        {
+            const int statusOnProgress = 1;
+            const int statusDone = 2;
+
+            var pO_PK = (row.Cell(1).Value.ToString() == "") ? 0 : int.Parse(row.Cell(1).Value.ToString());
+            var account = row.Cell(2).Value.ToString();
+            var projectCode = row.Cell(3).Value.ToString();
+            var siteIDImp = row.Cell(4).Value.ToString();
+            var siteID = row.Cell(5).Value.ToString();
+            var siteName = row.Cell(6).Value.ToString();
+            var dUID = row.Cell(7).Value.ToString();
+            var pMOUniq = row.Cell(8).Value.ToString();
+            var sOWAct = row.Cell(9).Value.ToString();
+            var system = row.Cell(10).Value.ToString();
+            var sOWPO = row.Cell(11).Value.ToString();
+            var itemDesc = row.Cell(12).Value.ToString();
+            var pONo = row.Cell(13).Value.ToString();
+            var shipmentNo = row.Cell(14).Value.ToString();
+            var qty = (row.Cell(15).Value.ToString() == "") ? 0 : int.Parse(row.Cell(15).Value.ToString());
+            var value = (row.Cell(16).Value.ToString() == "") ? 0 : int.Parse(row.Cell(16).Value.ToString());
+            var paymentTerm = row.Cell(17).Value.ToString();
+            var workStatus = row.Cell(18).Value.ToString();
+            var remarks = row.Cell(19).Value.ToString();
+
+            //Esar 1st
+            var esarSubmit1st = row.Cell(20).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(20).Value);
+            var vsSubmit1st = row.Cell(21).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(21).Value);
+            var quantity1st = (row.Cell(22).Value.ToString() == "") ? 0 : int.Parse(row.Cell(22).Value.ToString());
+            var invoiceSubmit1st = row.Cell(23).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(23).Value);
+            var paidDate1st = row.Cell(24).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(24).Value);
+            var esarStatus1st = statusOnProgress;
+
+            //Esar 2nd
+            var esarSubmit2nd = row.Cell(26).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(26).Value);
+            var vsSubmit2nd = row.Cell(27).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(27).Value);
+            var quantity2nd = (row.Cell(28).Value.ToString() == "") ? 0 : int.Parse(row.Cell(28).Value.ToString());
+            var invoiceSubmit2nd = row.Cell(29).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(29).Value);
+            var paidDate2nd = row.Cell(30).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(30).Value);
+            var esarStatus2nd = statusOnProgress;
+            //esarStatus1st & esarStatud2nd
+
+            var poStatus = statusOnProgress;
+
+            //Esar done definition
+            var isDone1st = esarSubmit1st != null && vsSubmit1st != null && quantity1st > 0 && invoiceSubmit1st != null && paidDate1st != null;
+            if (isDone1st)
+            {
+                esarStatus1st = statusDone;
+            }
+
+            var isDone2nd = esarSubmit2nd != null && vsSubmit2nd != null && quantity2nd > 0 && invoiceSubmit2nd != null && paidDate2nd != null;
+            if (isDone2nd)
+            {
+                esarStatus2nd = statusDone;
+            }
+
+            var poStatusIsDone = (isDone1st && quantity1st == 1) || (isDone1st && isDone2nd);
+
+            if (poStatusIsDone)
+            {
+                poStatus = statusDone;
+            }
+
+            var po = new PODTO()
+            {
+                PO_PK = pO_PK,
+                Account = account,
+                ProjectCode = projectCode,
+                SiteIDImp = siteIDImp,
+                SiteID = siteID,
+                SiteName = siteName,
+                DUID = dUID,
+                PMOUniq = pMOUniq,
+                SOWAct = sOWAct,
+                System = system,
+                SOWPO = sOWPO,
+                ItemDesc = itemDesc,
+                PONo = pONo,
+                ShipmentNo = shipmentNo,
+                Qty = qty,
+                POStatus = poStatus,
+                PaymentTerm = paymentTerm,
+                WorkStatus = workStatus,
+                Remarks = remarks,
+                EsarStatus1st = esarStatus1st,
+                EsarStatus2nd = esarStatus2nd,
+                InvoiceSubmit1st = invoiceSubmit1st,
+                InvoiceSubmit2nd = invoiceSubmit2nd,
+                EsarSubmit1st = esarSubmit1st,
+                EsarSubmit2nd = esarSubmit2nd,
+                Quantity1st = quantity1st,
+                Quantity2nd = quantity2nd,
+                PaidDate1st = paidDate1st,
+                PaidDate2nd = paidDate2nd,
+                VsSubmit1st = vsSubmit1st,
+                VsSubmit2nd = vsSubmit2nd,
+                Value = value
+            };
+
+            return po;
+        }
+
         public List<PODTO> CreateListFromExcelBase64(POImportDTO importDTO)
         {
             var base64 = importDTO.File;
@@ -131,77 +241,12 @@ namespace GlobalSolusindo.Business.PO.DML
             for (int i = 2; i < nonEmptyRowCount; i++)
             {
                 var row = sheet.Row(i);
-                var pO_PK = int.Parse(row.Cell(1).Value.ToString());
-                var account = row.Cell(2).Value.ToString();
-                var projectCode = row.Cell(3).Value.ToString();
-                var siteIDImp = row.Cell(4).Value.ToString();
-                var siteID = row.Cell(5).Value.ToString();
-                var siteName = row.Cell(6).Value.ToString();
-                var dUID = row.Cell(7).Value.ToString();
-                var pMOUniq = row.Cell(8).Value.ToString();
-                var sOWAct = row.Cell(9).Value.ToString();
-                var system = row.Cell(10).Value.ToString();
-                var sOWPO = row.Cell(11).Value.ToString();
-                var itemDesc = row.Cell(12).Value.ToString();
-                var pONo = row.Cell(13).Value.ToString();
-                var shipmentNo = row.Cell(14).Value.ToString();
-                var qty = (row.Cell(15).Value.ToString()=="")?0:int.Parse(row.Cell(15).Value.ToString());
-                var pOStatus = row.Cell(16).Value.ToString();
-                var paymentTerm = row.Cell(17).Value.ToString();
-                var workStatus = row.Cell(18).Value.ToString();
-                var oADate = row.Cell(19).Value.ToString()==""?null:(DateTime?)Convert.ToDateTime(row.Cell(19).Value);
-                var sSVDate = row.Cell(20).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(20).Value);
-                var sSVAppDate = row.Cell(21).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(21).Value);
-                var sOMSSVDate = row.Cell(22).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(22).Value);
-                var qCAccDate = row.Cell(23).Value.ToString() == "" ? null : (DateTime?)Convert.ToDateTime(row.Cell(23).Value);
-                var pACClusterID = row.Cell(24).Value.ToString();
-                var pACClusterStatus = row.Cell(25).Value.ToString();
-                var sOMPACCluster = row.Cell(26).Value.ToString();
-                var docStatus = row.Cell(27).Value.ToString();
-                var eSAR1stStatus = row.Cell(28).Value.ToString();
-                var eSAR2ndStatus = row.Cell(29).Value.ToString();
-                var remarks = row.Cell(30).Value.ToString();
-                
 
-                poList.Add(new PODTO()
-                {
-                    PO_PK = pO_PK,
-                    Account = account,
-                    ProjectCode = projectCode,
-                    SiteIDImp = siteIDImp,
-                    SiteID = siteID,
-                    SiteName = siteName,
-                    DUID = dUID,
-                    PMOUniq = pMOUniq,
-                    SOWAct = sOWAct,
-                    System = system,
-                    SOWPO = sOWPO,
-                    ItemDesc = itemDesc,
-                    PONo = pONo,
-                    ShipmentNo = shipmentNo,
-                    Qty = qty,
-                    POStatus = pOStatus,
-                    PaymentTerm = paymentTerm,
-                    WorkStatus = workStatus,
-                    OADate = oADate,
-                    SSVDate = sSVDate,
-                    SSVAppDate = sSVAppDate,
-                    SOMSSVDate = sOMSSVDate,
-                    QCAccDate = qCAccDate,
-                    PACClusterID = pACClusterID,
-                    PACClusterStatus = pACClusterStatus,
-                    SOMPACCluster = sOMPACCluster,
-                    DocStatus = docStatus,
-                    ESAR1stStatus = eSAR1stStatus,
-                    ESAR2ndStatus = eSAR2ndStatus,
-                    Remarks = remarks
-                });
+                var newPO = CreatePODTO(row);
+                poList.Add(newPO);
             }
 
             return poList;
-
         }
-
-        
     }
 }

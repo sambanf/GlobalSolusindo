@@ -107,10 +107,7 @@ namespace GlobalSolusindo.Identity.User.DML
         {
             userDTO.Username = userDTO.UserCode;
             var user = Db.tblM_User.Find(userDTO.User_PK);
-            if (string.IsNullOrEmpty(userDTO.Password) && user != null)
-            {
-                userDTO.Password = user.Password;
-            }
+            userDTO.Password = user.Password;
 
             ModelValidationResult validationResult = userValidator.Validate(userDTO);
             bool success = false;

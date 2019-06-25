@@ -29,21 +29,23 @@ namespace GlobalSolusindo.DataAccess
         public string PONo { get; set; }
         public string ShipmentNo { get; set; }
         public int Qty { get; set; }
-        public string POStatus { get; set; }
+        public Nullable<int> Value { get; set; }
+        public Nullable<int> POStatus { get; set; }
         public string PaymentTerm { get; set; }
         public string WorkStatus { get; set; }
-        public Nullable<System.DateTime> OADate { get; set; }
-        public Nullable<System.DateTime> SSVDate { get; set; }
-        public Nullable<System.DateTime> SSVAppDate { get; set; }
-        public Nullable<System.DateTime> SOMSSVDate { get; set; }
-        public Nullable<System.DateTime> QCAccDate { get; set; }
-        public string PACClusterID { get; set; }
-        public string PACClusterStatus { get; set; }
-        public string SOMPACCluster { get; set; }
-        public string DocStatus { get; set; }
-        public string ESAR1stStatus { get; set; }
-        public string ESAR2ndStatus { get; set; }
         public string Remarks { get; set; }
+        public Nullable<System.DateTime> EsarSubmit1st { get; set; }
+        public Nullable<System.DateTime> VsSubmit1st { get; set; }
+        public Nullable<decimal> Quantity1st { get; set; }
+        public Nullable<System.DateTime> InvoiceSubmit1st { get; set; }
+        public Nullable<System.DateTime> PaidDate1st { get; set; }
+        public Nullable<int> EsarStatus1st { get; set; }
+        public Nullable<System.DateTime> EsarSubmit2nd { get; set; }
+        public Nullable<System.DateTime> VsSubmit2nd { get; set; }
+        public Nullable<decimal> Quantity2nd { get; set; }
+        public Nullable<System.DateTime> InvoiceSubmit2nd { get; set; }
+        public Nullable<System.DateTime> PaidDate2nd { get; set; }
+        public Nullable<int> EsarStatus2nd { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }

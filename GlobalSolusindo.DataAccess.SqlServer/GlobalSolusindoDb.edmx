@@ -510,21 +510,23 @@
           <Property Name="PONo" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="ShipmentNo" Type="nvarchar" MaxLength="50" />
           <Property Name="Qty" Type="int" Nullable="false" />
-          <Property Name="POStatus" Type="nvarchar" MaxLength="200" />
+          <Property Name="Value" Type="int" />
+          <Property Name="POStatus" Type="int" />
           <Property Name="PaymentTerm" Type="nvarchar" MaxLength="500" />
           <Property Name="WorkStatus" Type="nvarchar" MaxLength="200" />
-          <Property Name="OADate" Type="datetime" />
-          <Property Name="SSVDate" Type="datetime" />
-          <Property Name="SSVAppDate" Type="datetime" />
-          <Property Name="SOMSSVDate" Type="datetime" />
-          <Property Name="QCAccDate" Type="datetime" />
-          <Property Name="PACClusterID" Type="nvarchar" MaxLength="200" />
-          <Property Name="PACClusterStatus" Type="nvarchar" MaxLength="200" />
-          <Property Name="SOMPACCluster" Type="nvarchar" MaxLength="200" />
-          <Property Name="DocStatus" Type="nvarchar" MaxLength="200" />
-          <Property Name="ESAR1stStatus" Type="nvarchar" MaxLength="200" />
-          <Property Name="ESAR2ndStatus" Type="nvarchar" MaxLength="200" />
           <Property Name="Remarks" Type="nvarchar(max)" />
+          <Property Name="EsarSubmit1st" Type="datetime" />
+          <Property Name="VsSubmit1st" Type="datetime" />
+          <Property Name="Quantity1st" Type="decimal" Precision="5" Scale="1" />
+          <Property Name="InvoiceSubmit1st" Type="datetime" />
+          <Property Name="PaidDate1st" Type="datetime" />
+          <Property Name="EsarStatus1st" Type="int" />
+          <Property Name="EsarSubmit2nd" Type="datetime" />
+          <Property Name="VsSubmit2nd" Type="datetime" />
+          <Property Name="Quantity2nd" Type="decimal" Precision="5" Scale="1" />
+          <Property Name="InvoiceSubmit2nd" Type="datetime" />
+          <Property Name="PaidDate2nd" Type="datetime" />
+          <Property Name="EsarStatus2nd" Type="int" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="200" Nullable="false" />
@@ -1084,6 +1086,7 @@
             <Parameter Name="documentCode" Mode="In" Type="String" />
             <Parameter Name="updateCurrentNumber" Mode="In" Type="Boolean" />
           </FunctionImport>
+          <FunctionImport Name="Get_Count_Po" ReturnType="Collection(Int32)" />
           <EntitySet Name="DocumentNumbers" EntityType="GlobalSolusindoModel.DocumentNumber" />
           <EntitySet Name="tblM_Area" EntityType="GlobalSolusindoModel.tblM_Area" />
           <EntitySet Name="tblM_Aset" EntityType="GlobalSolusindoModel.tblM_Aset" />
@@ -1200,7 +1203,6 @@
             <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
-          <FunctionImport Name="Get_Count_Po" ReturnType="Collection(Int32)" />
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -1812,21 +1814,23 @@
           <Property Name="PONo" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="ShipmentNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Qty" Type="Int32" Nullable="false" />
-          <Property Name="POStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="Int32" />
+          <Property Name="POStatus" Type="Int32" />
           <Property Name="PaymentTerm" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="WorkStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="OADate" Type="DateTime" Precision="3" />
-          <Property Name="SSVDate" Type="DateTime" Precision="3" />
-          <Property Name="SSVAppDate" Type="DateTime" Precision="3" />
-          <Property Name="SOMSSVDate" Type="DateTime" Precision="3" />
-          <Property Name="QCAccDate" Type="DateTime" Precision="3" />
-          <Property Name="PACClusterID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="PACClusterStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SOMPACCluster" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="DocStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ESAR1stStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="ESAR2ndStatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="EsarSubmit1st" Type="DateTime" Precision="3" />
+          <Property Name="VsSubmit1st" Type="DateTime" Precision="3" />
+          <Property Name="Quantity1st" Type="Decimal" Precision="5" Scale="1" />
+          <Property Name="InvoiceSubmit1st" Type="DateTime" Precision="3" />
+          <Property Name="PaidDate1st" Type="DateTime" Precision="3" />
+          <Property Name="EsarStatus1st" Type="Int32" />
+          <Property Name="EsarSubmit2nd" Type="DateTime" Precision="3" />
+          <Property Name="VsSubmit2nd" Type="DateTime" Precision="3" />
+          <Property Name="Quantity2nd" Type="Decimal" Precision="5" Scale="1" />
+          <Property Name="InvoiceSubmit2nd" Type="DateTime" Precision="3" />
+          <Property Name="PaidDate2nd" Type="DateTime" Precision="3" />
+          <Property Name="EsarStatus2nd" Type="Int32" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -2294,6 +2298,7 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_GetDocNumber" FunctionName="GlobalSolusindoModel.Store.usp_GetDocNumber" />
+          <FunctionImportMapping FunctionImportName="Get_Count_Po" FunctionName="GlobalSolusindoModel.Store.Get_Count_Po" />
           <EntitySetMapping Name="DocumentNumbers">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.DocumentNumber">
               <MappingFragment StoreEntitySet="DocumentNumber">
@@ -2817,21 +2822,23 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="EsarStatus2nd" ColumnName="EsarStatus2nd" />
+                <ScalarProperty Name="PaidDate2nd" ColumnName="PaidDate2nd" />
+                <ScalarProperty Name="InvoiceSubmit2nd" ColumnName="InvoiceSubmit2nd" />
+                <ScalarProperty Name="Quantity2nd" ColumnName="Quantity2nd" />
+                <ScalarProperty Name="VsSubmit2nd" ColumnName="VsSubmit2nd" />
+                <ScalarProperty Name="EsarSubmit2nd" ColumnName="EsarSubmit2nd" />
+                <ScalarProperty Name="EsarStatus1st" ColumnName="EsarStatus1st" />
+                <ScalarProperty Name="PaidDate1st" ColumnName="PaidDate1st" />
+                <ScalarProperty Name="InvoiceSubmit1st" ColumnName="InvoiceSubmit1st" />
+                <ScalarProperty Name="Quantity1st" ColumnName="Quantity1st" />
+                <ScalarProperty Name="VsSubmit1st" ColumnName="VsSubmit1st" />
+                <ScalarProperty Name="EsarSubmit1st" ColumnName="EsarSubmit1st" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="ESAR2ndStatus" ColumnName="ESAR2ndStatus" />
-                <ScalarProperty Name="ESAR1stStatus" ColumnName="ESAR1stStatus" />
-                <ScalarProperty Name="DocStatus" ColumnName="DocStatus" />
-                <ScalarProperty Name="SOMPACCluster" ColumnName="SOMPACCluster" />
-                <ScalarProperty Name="PACClusterStatus" ColumnName="PACClusterStatus" />
-                <ScalarProperty Name="PACClusterID" ColumnName="PACClusterID" />
-                <ScalarProperty Name="QCAccDate" ColumnName="QCAccDate" />
-                <ScalarProperty Name="SOMSSVDate" ColumnName="SOMSSVDate" />
-                <ScalarProperty Name="SSVAppDate" ColumnName="SSVAppDate" />
-                <ScalarProperty Name="SSVDate" ColumnName="SSVDate" />
-                <ScalarProperty Name="OADate" ColumnName="OADate" />
                 <ScalarProperty Name="WorkStatus" ColumnName="WorkStatus" />
                 <ScalarProperty Name="PaymentTerm" ColumnName="PaymentTerm" />
                 <ScalarProperty Name="POStatus" ColumnName="POStatus" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Qty" ColumnName="Qty" />
                 <ScalarProperty Name="ShipmentNo" ColumnName="ShipmentNo" />
                 <ScalarProperty Name="PONo" ColumnName="PONo" />
@@ -2995,7 +3002,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="Get_Count_Po" FunctionName="GlobalSolusindoModel.Store.Get_Count_Po" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

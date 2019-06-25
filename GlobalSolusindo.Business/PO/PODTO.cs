@@ -7,6 +7,7 @@ using GlobalSolusindo.Identity.UserDetail;
 using Kairos.Data;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace GlobalSolusindo.Business.PO
@@ -62,48 +63,43 @@ namespace GlobalSolusindo.Business.PO
         //[JsonProperty("qty")]
         public int Qty { get; set; }
 
-        //[JsonProperty("POStatus")]
-        public string POStatus { get; set; }
+        public int? Value { get; set; }
 
         //[JsonProperty("paymentTerm")]
         public string PaymentTerm { get; set; }
+
         //[JsonProperty("workStatus")]
         public string WorkStatus { get; set; }
 
-        //[JsonProperty("OADate")]
-        public System.DateTime? OADate { get; set; }
-        //[JsonProperty("SSVDate")]
-        public System.DateTime? SSVDate { get; set; }
-        //[JsonProperty("SSVAppDate")]
-        public System.DateTime? SSVAppDate { get; set; }
-        //[JsonProperty("SOMSSVDate")]
-        public System.DateTime? SOMSSVDate { get; set; }
-        //[JsonProperty("QCAccDate")]
-        public System.DateTime? QCAccDate { get; set; }
-        //[JsonProperty("PACClusterID")]
-        public string PACClusterID { get; set; }
-
-        //[JsonProperty("PACClusterStatus")]
-        public string PACClusterStatus { get; set; }
-        //[JsonProperty("SOMPACCluster")]
-        public string SOMPACCluster { get; set; }
-
-        //[JsonProperty("DocStatus")]
-        public string DocStatus { get; set; }
-
-        //[JsonProperty("ESAR1stStatus")]
-        public string ESAR1stStatus { get; set; }
-        //[JsonProperty("ESAR2ndStatus")]
-        public string ESAR2ndStatus { get; set; }
-
         //[JsonProperty("remarks")]
         public string Remarks { get; set; }
+
+        //Esar 1st
+        public DateTime? EsarSubmit1st { get; set; }
+        public DateTime? VsSubmit1st { get; set; }
+        public decimal? Quantity1st { get; set; }
+        public DateTime? InvoiceSubmit1st { get; set; }
+        public DateTime? PaidDate1st { get; set; }
+        public int? EsarStatus1st { get; set; }
+
+
+        //Esar 2nd
+        public DateTime? EsarSubmit2nd { get; set; }
+        public DateTime? VsSubmit2nd { get; set; }
+        public decimal? Quantity2nd { get; set; }
+        public DateTime? InvoiceSubmit2nd { get; set; }
+        public DateTime? PaidDate2nd { get; set; }
+        public int? EsarStatus2nd { get; set; }
+
+        //[JsonProperty("POStatus")]
+        public int? POStatus { get; set; }
+
         public tblT_PO ToPOEntity()
         {
             if (this == null)
                 return null;
             return this.ToObject<tblT_PO>();
         }
-         
+
     }
 }

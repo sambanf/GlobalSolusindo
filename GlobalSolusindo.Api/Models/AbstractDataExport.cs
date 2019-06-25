@@ -57,11 +57,11 @@ namespace GlobalSolusindo.Api.Models
                 _sheet.AutoSizeColumn(i);
             }
             _sheet.SetColumnHidden(0, true);
-            _sheet.SetColumnHidden(30, true);
-            _sheet.SetColumnHidden(31, true);
             _sheet.SetColumnHidden(32, true);
             _sheet.SetColumnHidden(33, true);
             _sheet.SetColumnHidden(34, true);
+            _sheet.SetColumnHidden(35, true);
+            _sheet.SetColumnHidden(36, true);
 
             using (var memoryStream = new MemoryStream()) //creating memoryStream
             {

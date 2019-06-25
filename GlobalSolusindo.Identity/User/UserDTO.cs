@@ -29,7 +29,7 @@ namespace GlobalSolusindo.Identity.User
         public string RoleGroupTitle { get; set; }
 
         //[Required]
-        //[JsonProperty("username")]
+        [JsonProperty("username")]
         //[Unique(typeof(UserQuery), nameof(User_PK))]
         public string Username { get; set; }
 
