@@ -37,8 +37,8 @@ namespace GlobalSolusindo.Business.SOW
         [ForeignKey(typeof(ProjectQuery), "Project_PK")]
         public int Project_FK { get; set; }
 
-        [JsonProperty("projectTitle")]
-        public string ProjectTitle { get; set; }
+        //[JsonProperty("projectTitle")]
+        //public string ProjectTitle { get; set; }
 
         [Required]
         [JsonProperty("tglMulai")]
@@ -67,5 +67,8 @@ namespace GlobalSolusindo.Business.SOW
         [JsonProperty("technology_fk")]
         [ForeignKey(typeof(TechnologyQuery), "Technology_PK", true)]
         public int? Technology_FK { get; set; }
+
+        [JsonProperty("duid")]
+        public string DUID { get; set; }
     }
 }

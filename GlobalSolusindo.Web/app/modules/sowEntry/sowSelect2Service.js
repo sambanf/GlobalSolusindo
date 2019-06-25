@@ -23,7 +23,7 @@
             select2Service.liveSearch("project/search", {
                 selector: '#project_fk',
                 valueMember: 'project_pk',
-                displayMember: 'title',
+                displayMember: 'operatorTitle',
                 callback: function (data) {
                     controller.formData.projects = data;
                 },

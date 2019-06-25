@@ -545,6 +545,7 @@
           <Property Name="TglMulai" Type="datetime" />
           <Property Name="TglSelesai" Type="datetime" />
           <Property Name="StatusSOW_FK" Type="int" />
+          <Property Name="DUID" Type="nvarchar" MaxLength="200" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -1849,6 +1850,7 @@
           <Property Name="TglMulai" Type="DateTime" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
           <Property Name="StatusSOW_FK" Type="Int32" />
+          <Property Name="DUID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2865,6 +2867,7 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DUID" ColumnName="DUID" />
                 <ScalarProperty Name="StatusSOW_FK" ColumnName="StatusSOW_FK" />
                 <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
                 <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />

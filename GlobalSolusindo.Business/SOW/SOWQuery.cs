@@ -50,6 +50,7 @@ namespace GlobalSolusindo.Business.SOW
                             BTS_FK = sow.BTS_FK.Value,
                             BTSName = bts.Name,
                             Project_FK = sow.Project_FK.Value,
+                            DUID = sow.DUID,
                             //ProjectTitle = project.Title,
                             Technology_FK = sow.Technology_FK,
                             TglMulai = sow.TglMulai,
