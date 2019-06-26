@@ -7277,7 +7277,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <select id=\"project_fk\" name=\"project_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.project_fk\" required>\r" +
     "\n" +
-    "                                        <option ng-repeat=\"x in vm.formData.projects\" ng-value=\"x.project_pk\">{{x.title}}</option>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.projects\" ng-value=\"x.project_pk\">{{x.operatorTitle}}</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -7330,6 +7330,20 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                        <option ng-repeat=\"x in vm.formData.technologies\" ng-value=\"x.technology_pk\">{{x.title}}</option>\r" +
     "\n" +
     "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">DUID:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" id=\"duid\" name=\"duid\" class=\"form-control\" ng-model=\"vm.model.duid\" placeholder=\"DUID\">\r" +
     "\n" +
     "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +

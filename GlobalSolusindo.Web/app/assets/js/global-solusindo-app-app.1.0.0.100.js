@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-25. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-26. 
 * @author Kairos
 */
 (function() {
@@ -14845,7 +14845,7 @@ angular.module('global-solusindo')
             select2Service.liveSearch("project/search", {
                 selector: '#project_fk',
                 valueMember: 'project_pk',
-                displayMember: 'title',
+                displayMember: 'operatorTitle',
                 callback: function (data) {
                     controller.formData.projects = data;
                 },

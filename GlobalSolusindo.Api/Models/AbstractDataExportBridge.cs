@@ -17,6 +17,7 @@ namespace GlobalSolusindo.Api.Models
             _type = new List<string>();
         }
 
+
         public override void WriteData<T>(List<T> exportData)
         {
             PropertyDescriptorCollection properties = TypeDescriptor.GetProperties(typeof(T));
@@ -57,18 +58,26 @@ namespace GlobalSolusindo.Api.Models
                     if (currentCellValue != null &&
                         !string.IsNullOrEmpty(Convert.ToString(currentCellValue)))
                     {
-                        if (type == "string")
+                        if (!string.IsNullOrEmpty(type))
                         {
                             Row1.SetCellValue(Convert.ToString(currentCellValue));
                         }
-                        else if (type == "int32")
-                        {
-                            Row1.SetCellValue(Convert.ToInt32(currentCellValue));
-                        }
-                        else if (type == "double")
-                        {
-                            Row1.SetCellValue(Convert.ToDouble(currentCellValue));
-                        }
+                        //if (type == "string")
+                        //{
+                        //    Row1.SetCellValue(Convert.ToString(currentCellValue));
+                        //}
+                        //else if (type == "int32")
+                        //{
+                        //    Row1.SetCellValue(Convert.ToInt32(currentCellValue));
+                        //}
+                        //else if (type == "double")
+                        //{
+                        //    Row1.SetCellValue(Convert.ToDouble(currentCellValue));
+                        //}
+                        //else if (type == "DateTime")
+                        //{
+                        //    Row1.SetCellValue(Convert.ToDouble(currentCellValue));
+                        //}
                     }
                     else
                     {
