@@ -1,0 +1,47 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Tambah Menu</div>
+                    <div class="col-md-8">
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Menu Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="code" name="code" class="form-control" ng-model="vm.model.code" placeholder="Menu Name">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Caption:</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="caption" name="caption" class="form-control" ng-model="vm.model.caption" placeholder="Menu Name">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Path:</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="path" name="path" class="form-control" ng-model="vm.model.path" placeholder="Menu Name">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Group Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="parentGroup" name="parentGroup" class="form-control" ng-model="vm.model.parentGroup" placeholder="Menu Name">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" ui-sref="app.menuList">Kembali</button>
+                                <button class="btn btn-success float-right" id="saveButton">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

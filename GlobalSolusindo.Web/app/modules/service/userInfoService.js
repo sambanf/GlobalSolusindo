@@ -18,13 +18,13 @@
     function userInfoService($state, http, ui, validation, $window) {
         var self = this;
 
-        self.getUserInfo = function() {
+        self.getUserInfo = function () {
             return $window.localStorage.getItem('user');
-        }
+        };
 
         self.setUserInfo = function (userInfo) {
             $window.localStorage.setItem('user', JSON.stringify(userInfo));
-        }
+        };
 
         return self;
     }

@@ -17,7 +17,8 @@ namespace GlobalSolusindo.DataAccess
         public int Menu_PK { get; set; }
         public string Code { get; set; }
         public string Caption { get; set; }
-        public Nullable<int> ParentId { get; set; }
+        public string Path { get; set; }
+        public string ParentGroup { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }

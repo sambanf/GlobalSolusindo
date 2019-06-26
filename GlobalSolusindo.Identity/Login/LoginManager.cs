@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.Menu;
 using GlobalSolusindo.Identity.User;
 using GlobalSolusindo.Identity.User.Queries;
 using Kairos.Data;
@@ -51,7 +52,7 @@ namespace GlobalSolusindo.Identity.Login
             return null;
         }
 
-    
+
         public LoginResult<UserDTO> GrantAccess(LoginDTO loginDTO)
         {
             var validationResult = Validate(loginDTO);
@@ -100,15 +101,18 @@ namespace GlobalSolusindo.Identity.Login
                 userDTO = new UserQuery(this.Db).GetByEmail(username);
             }
 
-            
+            var treeMenu = new MenuGenerator(Db).GenerateMenus(user.User_PK);
+
+
             return new LoginResult<UserDTO>()
             {
                 Token = Guid.NewGuid().ToString(),
                 Success = true,
                 Message = "Login success.",
                 Model = userDTO,
-                ValidationResult = validationResult
+                ValidationResult = validationResult,
+                TreeMenu = treeMenu
             };
-        } 
+        }
     }
 }

@@ -33,7 +33,7 @@
 
         self.delete = function (data) {
             var ids = [data.user_pk];
-            ui.alert.confirm("Are you sure want to delete user '" + data.title + "'?", function () {
+            ui.alert.confirm("Are you sure want to delete user '" + data.name + "'?", function () {
                 return deleteRecords(ids);
             });
         };

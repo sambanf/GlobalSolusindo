@@ -31,6 +31,10 @@
             $cookies.put('token', token);
         }
 
+        function setTreeMenuOnStorage(treeMenu) {
+            $window.localStorage.setItem('treeMenu', JSON.stringify(treeMenu));
+        }
+
         function setUserInfo(userInfo) {
             userInfoService.setUserInfo(userInfo);
         }
@@ -46,6 +50,7 @@
                         ui.alert.success(res.message);
                         setTokenInfo(res.token);
                         setUserInfo(res.model);
+                        setTreeMenuOnStorage(res.treeMenu);
                         goToDashboard();
                     } else {
                         serverError.show(res);

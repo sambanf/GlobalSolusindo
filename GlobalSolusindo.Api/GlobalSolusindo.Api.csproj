@@ -120,6 +120,7 @@
     <Compile Include="ApiControllerBase.cs" />
     <Compile Include="ApiResponse.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\POController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\CheckInController.cs" />

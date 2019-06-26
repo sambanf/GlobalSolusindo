@@ -3333,7 +3333,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/layouts/side-bar/sidebar.html',
-    "<div class=\"sidebar\">\r" +
+    "<div class=\"sidebar\" ng-controller=\"sidebarCtrl as vm\">\r" +
     "\n" +
     "    <div class=\"company-info\">\r" +
     "\n" +
@@ -3365,393 +3365,25 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            </li>\r" +
     "\n" +
-    "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
+    "        </ul>\r" +
     "\n" +
-    "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
-    "\n" +
-    "                    <i class=\"fa fa-list-alt\"></i> <span>Transaksi</span>\r" +
-    "\n" +
-    "                </a>\r" +
-    "\n" +
-    "                <ul class=\"nav-dropdown-items\">\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.projectList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Project</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.sowList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>SOW</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.checkInList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Task Approval</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.myTaskListList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>My Task List</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.poImportExcel\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Import PO</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                </ul>\r" +
-    "\n" +
-    "            </li> \r" +
-    "\n" +
-    "\r" +
+    "        <ul class=\"nav\" ng-repeat=\"groupMenu in vm.treeMenu.groupMenus\">\r" +
     "\n" +
     "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
     "\n" +
     "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
     "\n" +
-    "                    <i class=\"fa fa-table\"></i> <span>Master Data</span>\r" +
+    "                    <i class=\"fa fa-list-alt\"></i> <span>{{groupMenu.groupName}}</span>\r" +
     "\n" +
     "                </a>\r" +
     "\n" +
-    "                <ul class=\"nav-dropdown-items\">\r" +
+    "                <ul class=\"nav-dropdown-items\" ng-repeat=\"menu in groupMenu.menus\">\r" +
     "\n" +
     "                    <li class=\"nav-item\">\r" +
     "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.vendorList\">\r" +
+    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"{{menu.path}}\">\r" +
     "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Vendor</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.btsList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>BTS</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.asetList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Asset</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                </ul>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
-    "\n" +
-    "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
-    "\n" +
-    "                    <i class=\"fa fa-user\"></i> <span>User Management</span>\r" +
-    "\n" +
-    "                </a>\r" +
-    "\n" +
-    "                <ul class=\"nav-dropdown-items\">\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.userList\">\r" +
-    "\n" +
-    "                            <i class=\"fas fa-circle\"></i> <span>User</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.role-list\">\r" +
-    "\n" +
-    "                            <i class=\"fas fa-circle\"></i> <span>Role</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.roleGroupList\">\r" +
-    "\n" +
-    "                            <i class=\"fas fa-circle\"></i> <span>Role Group</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.mappingRoleToRoleGroupList\">\r" +
-    "\n" +
-    "                            <i class=\"fas fa-circle\"></i> <span>Mapping Role to Role Group</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.mappingUserToRoleGroupList\">\r" +
-    "\n" +
-    "                            <i class=\"fas fa-circle\"></i> <span>Mapping User Role Group</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.authParamList\">\r" +
-    "\n" +
-    "                            <i class=\"fas fa-circle\"></i> <span>Auth Param</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.mappingUserToAuthParamList\">\r" +
-    "\n" +
-    "                            <i class=\"fas fa-circle\"></i> <span>Mapping User to Auth Param</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.kategoriJabatanList\">\r" +
-    "\n" +
-    "                            <i class=\"fas fa-circle\"></i> <span>Kategori Jabatan</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                </ul>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
-    "\n" +
-    "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
-    "\n" +
-    "                    <i class=\"fa fa-paperclip\"></i> <span>Complementary</span>\r" +
-    "\n" +
-    "                </a>\r" +
-    "\n" +
-    "                <ul class=\"nav-dropdown-items\">\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.operatorList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Operator/Tower Provider</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.costKategoriList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Cost Kategori</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.areaList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Area</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.deliveryAreaList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Delivery Area</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.kotaList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Kota</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.cabangList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Cabang</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.asetKategoriList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Aset Kategori</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.issueTypeList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Issue Type</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.technologyList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Technology</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                </ul>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
-    "\n" +
-    "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
-    "\n" +
-    "                    <i class=\"fa fa-bus\"></i> <span>Izin / Cuti</span>\r" +
-    "\n" +
-    "                </a>\r" +
-    "\n" +
-    "                <ul class=\"nav-dropdown-items\">\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.izinCutiList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Pengajuan Izin/Cuti</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.izinCutiApprovalList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Approval Izin/Cuti</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                </ul>\r" +
-    "\n" +
-    "            </li>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "            <li class=\"nav-item nav-dropdown\" ng-class=\"{open: $state.includes('app.availability')}\">\r" +
-    "\n" +
-    "                <a class=\"nav-link nav-dropdown-toggle\" ng-class=\"{active: $state.includes('app.availability')}\" href=\"#\">\r" +
-    "\n" +
-    "                    <i class=\"fa fa-chart-bar\"></i> <span>Report</span>\r" +
-    "\n" +
-    "                </a>\r" +
-    "\n" +
-    "                <ul class=\"nav-dropdown-items\">\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.timesheetEngineerList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Timesheet Engineer</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.taskEngineerList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Task Engineer</span>\r" +
-    "\n" +
-    "                        </a>\r" +
-    "\n" +
-    "                    </li>\r" +
-    "\n" +
-    "                    <li class=\"nav-item\">\r" +
-    "\n" +
-    "                        <a class=\"nav-link\" ui-sref-active=\"active\" ui-sref=\"app.dailyTaskList\">\r" +
-    "\n" +
-    "                            <i class=\"fa fa-circle\"></i> <span>Daily Task</span>\r" +
+    "                            <i class=\"fa fa-circle\"></i> <span>{{menu.caption}}</span>\r" +
     "\n" +
     "                        </a>\r" +
     "\n" +
@@ -4470,6 +4102,178 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "    <button id=\"saveButton\" class=\"btn btn-primary\" type=\"button\">Save</button>\r" +
     "\n" +
     "    <button id=\"cancelButton\" class=\"btn btn-default\" type=\"button\">Cancel</button>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/menu/menu.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Menu</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-6\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success\" ui-sref=\"app.menuEntry({ id: '0'})\">Tambah Menu</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"menu\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Code</th>\r" +
+    "\n" +
+    "                                        <th>Caption</th>\r" +
+    "\n" +
+    "                                        <th>Path</th>\r" +
+    "\n" +
+    "                                        <th>Group</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/menuEntry/menuEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Menu</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Menu Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"code\" name=\"code\" class=\"form-control\" ng-model=\"vm.model.code\" placeholder=\"Menu Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Caption:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"caption\" name=\"caption\" class=\"form-control\" ng-model=\"vm.model.caption\" placeholder=\"Menu Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Path:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"path\" name=\"path\" class=\"form-control\" ng-model=\"vm.model.path\" placeholder=\"Menu Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Group Name:</label>\r" +
+    "\n" +
+    "                            <div class=\"col-sm-10\">\r" +
+    "\n" +
+    "                                <input type=\"text\" id=\"parentGroup\" name=\"parentGroup\" class=\"form-control\" ng-model=\"vm.model.parentGroup\" placeholder=\"Menu Name\">\r" +
+    "\n" +
+    "                                <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.menuList\">Kembali</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
     "\n" +
     "</div>"
   );

@@ -193,9 +193,121 @@ namespace GlobalSolusindo.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_GetDocNumber", documentCodeParameter, updateCurrentNumberParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> Get_Count_Po()
+        public virtual ObjectResult<Nullable<int>> Get_Count_Po(Nullable<System.DateTime> star, Nullable<System.DateTime> end)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Get_Count_Po");
+            var starParameter = star.HasValue ?
+                new ObjectParameter("star", star) :
+                new ObjectParameter("star", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Get_Count_Po", starParameter, endParameter);
+        }
+    
+        public virtual ObjectResult<GetDashboardGoalCompletion_Result> GetDashboardGoalCompletion(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardGoalCompletion_Result>("GetDashboardGoalCompletion", startParameter, endParameter);
+        }
+    
+        public virtual ObjectResult<GetDashboardRevenueCost_Result> GetDashboardRevenueCost(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardRevenueCost_Result>("GetDashboardRevenueCost", startParameter, endParameter);
+        }
+    
+        public virtual ObjectResult<GetDashboardRevenueCostProfit_Result> GetDashboardRevenueCostProfit(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardRevenueCostProfit_Result>("GetDashboardRevenueCostProfit", startParameter, endParameter);
+        }
+    
+        public virtual ObjectResult<GetDashboardValue_Result> GetDashboardValue(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardValue_Result>("GetDashboardValue", startParameter, endParameter);
+        }
+    
+        public virtual ObjectResult<GetGoalCompletion_Result> GetGoalCompletion(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetGoalCompletion_Result>("GetGoalCompletion", startParameter, endParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetTotalJumlahInvoice(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetTotalJumlahInvoice", startParameter, endParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetTotalJumlahPo(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetTotalJumlahPo", startParameter, endParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> GetTotalValuePO(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetTotalValuePO", startParameter, endParameter);
         }
     }
 }

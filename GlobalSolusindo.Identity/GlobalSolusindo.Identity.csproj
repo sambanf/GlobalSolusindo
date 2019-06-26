@@ -54,6 +54,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessControl.cs" />
+    <Compile Include="Login\LoginResult.cs" />
+    <Compile Include="Menu\CreateHandler.cs" />
+    <Compile Include="Menu\DeleteHandler.cs" />
+    <Compile Include="Menu\DTO.cs" />
+    <Compile Include="Menu\Factory.cs" />
+    <Compile Include="Menu\Query.cs" />
+    <Compile Include="Menu\TreeMenu.cs" />
+    <Compile Include="Menu\UpdateHandler.cs" />
+    <Compile Include="Menu\Validator.cs" />
+    <Compile Include="Menu\EntryForm\EntryControlBuilder.cs" />
+    <Compile Include="Menu\EntryForm\EntryDataProvider.cs" />
+    <Compile Include="Menu\ListForm\ListDataProvider.cs" />
     <Compile Include="KategoriJabatan\KategoriJabatanDTO.cs" />
     <Compile Include="KategoriJabatan\KategoriJabatanFactory.cs" />
     <Compile Include="KategoriJabatan\KategoriJabatanValidator.cs" />
@@ -69,6 +81,7 @@
     <Compile Include="KategoriJabatan\ListForm\KategoriJabatanListModel.cs" />
     <Compile Include="KategoriJabatan\Queries\KategoriJabatanQuery.cs" />
     <Compile Include="KategoriJabatan\Queries\KategoriJabatanSearch.cs" />
+    <Compile Include="Menu\MenuGenerator.cs" />
     <Compile Include="TokenSessionManager.cs" />
     <Compile Include="Login\LoginManager.cs" />
     <Compile Include="MappingUserToAuthParam\DML\MappingUserToAuthParamCreateHandler.cs" />

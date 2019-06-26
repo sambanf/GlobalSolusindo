@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="sidebar" ng-controller="sidebarCtrl as vm">
     <div class="company-info">
         <div class="company-icon">
             <i class="fas fa-broadcast-tower"></i>
@@ -14,200 +14,16 @@
                     <i class="fas fa-home"></i> <span>Homepage</span>
                 </a>
             </li>
+        </ul>
+        <ul class="nav" ng-repeat="groupMenu in vm.treeMenu.groupMenus">
             <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
                 <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-                    <i class="fa fa-list-alt"></i> <span>Transaksi</span>
+                    <i class="fa fa-list-alt"></i> <span>{{groupMenu.groupName}}</span>
                 </a>
-                <ul class="nav-dropdown-items">
+                <ul class="nav-dropdown-items" ng-repeat="menu in groupMenu.menus">
                     <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.projectList">
-                            <i class="fa fa-circle"></i> <span>Project</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.sowList">
-                            <i class="fa fa-circle"></i> <span>SOW</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.checkInList">
-                            <i class="fa fa-circle"></i> <span>Task Approval</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.myTaskListList">
-                            <i class="fa fa-circle"></i> <span>My Task List</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.poImportExcel">
-                            <i class="fa fa-circle"></i> <span>Import PO</span>
-                        </a>
-                    </li>
-                </ul>
-            </li> 
-
-            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
-                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-                    <i class="fa fa-table"></i> <span>Master Data</span>
-                </a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.vendorList">
-                            <i class="fa fa-circle"></i> <span>Vendor</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.btsList">
-                            <i class="fa fa-circle"></i> <span>BTS</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.asetList">
-                            <i class="fa fa-circle"></i> <span>Asset</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
-                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-                    <i class="fa fa-user"></i> <span>User Management</span>
-                </a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.userList">
-                            <i class="fas fa-circle"></i> <span>User</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.role-list">
-                            <i class="fas fa-circle"></i> <span>Role</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.roleGroupList">
-                            <i class="fas fa-circle"></i> <span>Role Group</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.mappingRoleToRoleGroupList">
-                            <i class="fas fa-circle"></i> <span>Mapping Role to Role Group</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.mappingUserToRoleGroupList">
-                            <i class="fas fa-circle"></i> <span>Mapping User Role Group</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.authParamList">
-                            <i class="fas fa-circle"></i> <span>Auth Param</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.mappingUserToAuthParamList">
-                            <i class="fas fa-circle"></i> <span>Mapping User to Auth Param</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.kategoriJabatanList">
-                            <i class="fas fa-circle"></i> <span>Kategori Jabatan</span>
-                        </a>
-                    </li>
-
-                </ul>
-            </li>
-
-            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
-                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-                    <i class="fa fa-paperclip"></i> <span>Complementary</span>
-                </a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.operatorList">
-                            <i class="fa fa-circle"></i> <span>Operator/Tower Provider</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.costKategoriList">
-                            <i class="fa fa-circle"></i> <span>Cost Kategori</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.areaList">
-                            <i class="fa fa-circle"></i> <span>Area</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.deliveryAreaList">
-                            <i class="fa fa-circle"></i> <span>Delivery Area</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.kotaList">
-                            <i class="fa fa-circle"></i> <span>Kota</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.cabangList">
-                            <i class="fa fa-circle"></i> <span>Cabang</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.asetKategoriList">
-                            <i class="fa fa-circle"></i> <span>Aset Kategori</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.issueTypeList">
-                            <i class="fa fa-circle"></i> <span>Issue Type</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.technologyList">
-                            <i class="fa fa-circle"></i> <span>Technology</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
-                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-                    <i class="fa fa-bus"></i> <span>Izin / Cuti</span>
-                </a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.izinCutiList">
-                            <i class="fa fa-circle"></i> <span>Pengajuan Izin/Cuti</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.izinCutiApprovalList">
-                            <i class="fa fa-circle"></i> <span>Approval Izin/Cuti</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li class="nav-item nav-dropdown" ng-class="{open: $state.includes('app.availability')}">
-                <a class="nav-link nav-dropdown-toggle" ng-class="{active: $state.includes('app.availability')}" href="#">
-                    <i class="fa fa-chart-bar"></i> <span>Report</span>
-                </a>
-                <ul class="nav-dropdown-items">
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.timesheetEngineerList">
-                            <i class="fa fa-circle"></i> <span>Timesheet Engineer</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.taskEngineerList">
-                            <i class="fa fa-circle"></i> <span>Task Engineer</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref-active="active" ui-sref="app.dailyTaskList">
-                            <i class="fa fa-circle"></i> <span>Daily Task</span>
+                        <a class="nav-link" ui-sref-active="active" ui-sref="{{menu.path}}">
+                            <i class="fa fa-circle"></i> <span>{{menu.caption}}</span>
                         </a>
                     </li>
                 </ul>
