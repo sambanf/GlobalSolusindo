@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-27. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-28. 
 * @author Kairos
 */
 (function() {
@@ -2642,112 +2642,6 @@ angular.module('global-solusindo')
 
         var treeMenu = JSON.parse($window.localStorage.getItem('treeMenu'));
         vm.treeMenu = treeMenu;
-        console.log(treeMenu);
-
-        //vm.menu = [{
-        //    "title": "homepage",
-        //    "path": "homepage",
-        //    "icon": "fas fa-chart-line"
-        //},
-        //{
-        //    "title": "user management",
-        //    "path": "",
-        //    "icon": "fas fa-chart-line",
-        //    "children": [
-        //        {
-        //            "title": "user",
-        //            "path": "app.userList",
-        //            "icon": "fas fa-chart-line"
-        //        },
-        //        {
-        //            "title": "role",
-        //            "path": "homepage",
-        //            "icon": "fas fa-chart-line"
-        //        }, {
-        //            "title": "role group",
-        //            "path": "app.roleGroup",
-        //            "icon": "fas fa-chart-line"
-        //        },
-        //        {
-        //            "title": "mapping role to role group",
-        //            "path": "homepage",
-        //            "icon": "fas fa-chart-line"
-        //        },
-        //        {
-        //            "title": "mapping user to role group",
-        //            "path": "app.mappingRoleToRoleGroupList",
-        //            "icon": "fas fa-chart-line"
-        //        },
-        //        {
-        //            "title": "auth param",
-        //            "path": "app.authParam",
-        //            "icon": "fas fa-chart-line"
-        //        },
-        //        {
-        //            "title": "mapping user to auth param",
-        //            "path": "app.mappingRoleToRoleGroup",
-        //            "icon": "fas fa-chart-line"
-        //        },
-        //        {
-        //            "title": "Position",
-        //            "path": "app.positionList",
-        //            "icon": "fas fa-chart-line"
-        //        },
-        //    ]
-        //},
-        //{
-        //    "title": "master data",
-        //    "path": "homepage",
-        //    "icon": "fas fa-chart-line",
-        //    "children": [{
-        //        "title": "BTS",
-        //        "path": "homepage",
-        //        "icon": "fas fa-chart-line"
-        //    },
-        //    {
-        //        "title": "Asset Kategori",
-        //        "path": "app.asetKategoriList",
-        //        "icon": "fas fa-chart-line"
-        //    },
-        //    {
-        //        "title": "Asset",
-        //        "path": "homepage",
-        //        "icon": "fas fa-chart-line"
-        //    },
-        //    {
-        //        "title": "sow",
-        //        "path": "homepage",
-        //        "icon": "fas fa-chart-line"
-        //    }
-        //    ]
-        //},
-        //{
-        //    "title": "approval izin/ cuti",
-        //    "path": "homepage",
-        //    "icon": "fas fa-chart-line"
-        //},
-        //{
-        //    "title": "report",
-        //    "path": "homepage",
-        //    "icon": "fas fa-chart-line",
-        //    "children": [{
-        //        "title": "timesheet engineer",
-        //        "path": "homepage",
-        //        "icon": "fas fa-chart-line"
-        //    },
-        //    {
-        //        "title": "task engineer",
-        //        "path": "homepage",
-        //        "icon": "fas fa-chart-line"
-        //    },
-        //    {
-        //        "title": "daily task",
-        //        "path": "homepage",
-        //        "icon": "fas fa-chart-line"
-        //    }
-        //    ]
-        //}
-        //];
         return vm;
     }
 
@@ -13834,8 +13728,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -16054,7 +15948,7 @@ angular.module('global-solusindo')
 
         self.delete = function (data) {
             var ids = [data.user_pk];
-            ui.alert.confirm("Are you sure want to delete user '" + data.title + "'?", function () {
+            ui.alert.confirm("Are you sure want to delete user '" + data.name + "'?", function () {
                 return deleteRecords(ids);
             });
         };

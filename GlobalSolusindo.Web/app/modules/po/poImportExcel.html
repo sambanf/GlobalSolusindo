@@ -86,7 +86,7 @@
                                             <td><label>{{po.PONo}}</label></td>
                                             <td><label>{{po.ShipmentNo}}</label></td>
                                             <td><label>{{po.Qty}}</label></td>
-                                            <td><label>{{po.POStatus}}</label></td>
+                                            <td><label>{{po.POStatus == 1 ? 'On Progress' : 'Done'}}</label></td>
                                             <!--<td><label>{{po.PaymentTerm}}</label></td>
                                             <td><label>{{po.WorkStatus}}</label></td>
                                             <td><label>{{po.OADate}}</label></td>

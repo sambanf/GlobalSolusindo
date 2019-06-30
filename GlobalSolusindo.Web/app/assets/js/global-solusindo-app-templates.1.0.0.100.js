@@ -4888,7 +4888,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                            <td><label>{{po.Qty}}</label></td>\r" +
     "\n" +
-    "                                            <td><label>{{po.POStatus}}</label></td>\r" +
+    "                                            <td><label>{{po.POStatus == 1 ? 'On Progress' : 'Done'}}</label></td>\r" +
     "\n" +
     "                                            <!--<td><label>{{po.PaymentTerm}}</label></td>\r" +
     "\n" +
