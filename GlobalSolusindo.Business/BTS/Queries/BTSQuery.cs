@@ -39,7 +39,6 @@ namespace GlobalSolusindo.Business.BTS.Queries
                         select new BTSDTO
                         {
                             BTS_PK = bts.BTS_PK,
-                            CustomerSite = bts.CustomerSite,
                             TowerID = bts.TowerID,
                             CellID = bts.CellID,
                             Name = bts.Name,
@@ -74,7 +73,7 @@ namespace GlobalSolusindo.Business.BTS.Queries
 
         public BTSDTO GetByName(string name)
         {
-            BTSDTO record = GetQuery().FirstOrDefault(bts => bts.Name == name); 
+            BTSDTO record = GetQuery().FirstOrDefault(bts => bts.Name == name);
             return record;
         }
 

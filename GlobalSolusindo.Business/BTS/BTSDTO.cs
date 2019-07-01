@@ -18,8 +18,9 @@ namespace GlobalSolusindo.Business.BTS
         [JsonProperty("bts_pk")]
         public int BTS_PK { get; set; }
 
-        [JsonProperty("customerSite")]
-        public string CustomerSite { get; set; }
+        //Dihapus, permintaan mas indra 2019/07/01
+        //[JsonProperty("customerSite")]
+        //public string CustomerSite { get; set; }
 
         [Required]
         [JsonProperty("towerId")]

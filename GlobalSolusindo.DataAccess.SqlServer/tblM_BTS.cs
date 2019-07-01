@@ -15,7 +15,6 @@ namespace GlobalSolusindo.DataAccess
     public partial class tblM_BTS
     {
         public int BTS_PK { get; set; }
-        public string CustomerSite { get; set; }
         public string TowerID { get; set; }
         public string CellID { get; set; }
         public string Name { get; set; }

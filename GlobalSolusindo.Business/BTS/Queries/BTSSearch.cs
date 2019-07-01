@@ -28,7 +28,6 @@ namespace GlobalSolusindo.Business.BTS.Queries
                     || bts.OperatorTitle.Contains(filter.Keyword)
                     || bts.TowerID.Contains(filter.Keyword)
                     || bts.CellID.Contains(filter.Keyword)
-                    || bts.CustomerSite.Contains(filter.Keyword)
                     || bts.Alamat.Contains(filter.Keyword)
                     );
 
