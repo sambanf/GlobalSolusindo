@@ -15,6 +15,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class BTSController : ApiControllerBase
     {
+        private const string createRole = "BTS_Input";
+        private const string updateRole = "BTS_Edit";
+        private const string readRole = "BTS_ViewAll";
+        private const string deleteRole = "BTS_Delete";
+        private const string importRole = "BTS_Import";
+
         public BTSController()
         {
         }
@@ -23,8 +29,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "BTS_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (BTSQuery btsQuery = new BTSQuery(Db))
             {
                 var data = btsQuery.GetByPrimaryKey(id);
@@ -37,9 +42,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "BTS_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (BTSEntryDataProvider btsEntryDataProvider = new BTSEntryDataProvider(Db, ActiveUser, AccessControl, new BTSQuery(Db)))
             {
                 var data = btsEntryDataProvider.Get(id);
@@ -53,7 +57,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]BTSSearchFilter filter)
         {
             string accessType = "BTS_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +72,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]BTSDTO bts)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (bts == null)
                 throw new KairosException("Missing model parameter");
 
@@ -92,8 +95,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]BTSDTO bts)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (bts == null)
                 throw new KairosException("Missing model parameter");
 
@@ -120,8 +122,7 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(deleteRole);
 
             using (var btsDeleteHandler = new BTSDeleteHandler(Db, ActiveUser))
             {
@@ -142,9 +143,8 @@ namespace GlobalSolusindo.Api.Controllers
         [Route("bts/import")]
         [HttpPost]
         public IHttpActionResult Import([FromBody]BTSImportDTO btsImportDTO)
-        {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+        { 
+            ThrowIfUserHasNoRole(importRole);
             if (btsImportDTO == null)
                 throw new KairosException("Missing model parameter");
             var importResult = new BTSImportExcelHandler(Db, ActiveUser, new BTSValidator(), new BTSFactory(Db, ActiveUser), new BTSQuery(Db), AccessControl).ExecuteImport(btsImportDTO, DateTime.Now);

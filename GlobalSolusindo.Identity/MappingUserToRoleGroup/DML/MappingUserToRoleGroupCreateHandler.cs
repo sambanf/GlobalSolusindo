@@ -51,10 +51,10 @@ namespace GlobalSolusindo.Identity.MappingUserToRoleGroup.DML
                 if (assignableJabatan.Contains(user.KategoriJabatan_FK))
                 {
                     var mappingUserRoleGroupCount = Db.tblM_MappingUserToRoleGroup.Where(x => x.User_PK == user.User_PK).Count();
-                    if (mappingUserRoleGroupCount > 0)
-                    {
-                        throw new KairosException($"This user cannot have more than one role group because its position is '{user.KategoriJabatanTitle}'.");
-                    }
+                    //if (mappingUserRoleGroupCount > 0)
+                    //{
+                    //    throw new KairosException($"This user cannot have more than one role group because its position is '{user.KategoriJabatanTitle}'.");
+                    //}
                 }
             }
 

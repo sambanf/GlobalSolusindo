@@ -23,6 +23,7 @@
         }
         self.create = function (model) {
             http.post('bts', model).then(function (res) {
+                debugger;
                 if (res.success) {
                     ui.alert.success(res.message);
                     //$state.go('app.btsEntry', { id: res.data.model.bts_pk });

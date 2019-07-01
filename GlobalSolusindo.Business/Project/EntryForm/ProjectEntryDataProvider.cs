@@ -6,6 +6,8 @@ using GlobalSolusindo.Business.Operator.Queries;
 using GlobalSolusindo.Business.Vendor;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
+using GlobalSolusindo.Identity.User;
+using GlobalSolusindo.Identity.User.Queries;
 using Kairos;
 using Kairos.UI;
 using Newtonsoft.Json;
@@ -23,6 +25,9 @@ namespace GlobalSolusindo.Business.Project.EntryForm
 
         [JsonProperty("vendors")]
         public List<VendorDTO> Vendors { get; set; } = new List<VendorDTO>();
+
+        [JsonProperty("users")]
+        public List<UserDTO> Users { get; set; } = new List<UserDTO>();
     }
 
     public class ProjectEntryModel
@@ -71,7 +76,7 @@ namespace GlobalSolusindo.Business.Project.EntryForm
 
             var _operator = new OperatorQuery(this.Db).GetByPrimaryKey(projectDTO.Operator_FK);
             if (_operator != null)
-                formData.Operators.Add(_operator); 
+                formData.Operators.Add(_operator);
 
             var deliveryArea = new DeliveryAreaQuery(this.Db).GetByPrimaryKey(projectDTO.DeliveryArea_FK);
             if (deliveryArea != null)
@@ -81,11 +86,20 @@ namespace GlobalSolusindo.Business.Project.EntryForm
             if (vendor != null)
                 formData.Vendors.Add(vendor);
 
+            bool projectManagerIsExist = (projectDTO.User_FK != null);
+
+            if (projectManagerIsExist)
+            {
+                var user = new UserQuery(this.Db).GetByPrimaryKey((int)projectDTO.User_FK);
+                if (user != null)
+                    formData.Users.Add(user);
+            }
+
             return formData;
         }
 
         private ProjectEntryModel GetCreateStateModel()
-        { 
+        {
             List<Control> formControls = CreateFormControls(0);
             ProjectDTO projectDTO = new ProjectDTO();
             ProjectEntryFormData formData = new ProjectEntryFormData();
@@ -98,7 +112,7 @@ namespace GlobalSolusindo.Business.Project.EntryForm
         }
 
         private ProjectEntryModel GetUpdateStateModel(int projectPK)
-        { 
+        {
             List<Control> formControls = CreateFormControls(projectPK);
             ProjectDTO projectDTO = projectQuery.GetByPrimaryKey(projectPK);
 

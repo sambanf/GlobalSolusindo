@@ -56,7 +56,16 @@
     <Compile Include="DocumentNumber.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetDashboardGoalCompletionByProject_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetDashboardGoalCompletion_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDashboardRevenueCostByProject_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDashboardRevenueCostProfitFilterByProject_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="GetDashboardRevenueCostProfit_Result.cs">
@@ -65,10 +74,19 @@
     <Compile Include="GetDashboardRevenueCost_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetDashboardValueByProject_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetDashboardValue_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetGoalCompetionByProject_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetGoalCompletion_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetSalesReportByProject_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="GetTaskList_Result.cs">

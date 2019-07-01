@@ -25,7 +25,7 @@ namespace GlobalSolusindo.Api
     [TokenAuthorize()]
     public class ApiControllerBase : ApiController
     {
-        private const bool requireAccessControl = false;
+        private const bool requireAccessControl = true;
  
         public tblM_User ActiveUser
         {
@@ -47,12 +47,21 @@ namespace GlobalSolusindo.Api
 
         public void ThrowIfUserHasNoRole(string roleTitle)
         {
+
             if (!requireAccessControl)
             {
                 return;
             }
+
+            var isSuperAdministrator = AccessControl.UserHasRole("Full_Access");
+
+            if (isSuperAdministrator)
+            {
+                return;
+            }
+
             if (!AccessControl.UserHasRole(roleTitle))
-                throw new AccessException($"You don't have access to do this operation '{roleTitle}'");
+                throw new AccessException($"You don't have access or role to do the following operation '{roleTitle}'");
         }
 
         public void SaveLog(string moduleName, string actionName, string data)

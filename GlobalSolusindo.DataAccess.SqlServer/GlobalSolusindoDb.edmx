@@ -290,6 +290,7 @@
           <Property Name="Operator_FK" Type="int" Nullable="false" />
           <Property Name="DeliveryArea_FK" Type="int" Nullable="false" />
           <Property Name="Vendor_FK" Type="int" Nullable="false" />
+          <Property Name="User_FK" Type="int" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -895,21 +896,52 @@
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
         </Function>
+        <Function Name="GetDashboardGoalCompletionByProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="project" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetDashboardRevenueCost" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
         </Function>
+        <Function Name="GetDashboardRevenueCostByProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="project" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetDashboardRevenueCostProfit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="project" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetDashboardRevenueCostProfitFilterByProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="project" Type="int" Mode="In" />
         </Function>
         <Function Name="GetDashboardValue" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
         </Function>
+        <Function Name="GetDashboardValueByProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="project" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetGoalCompetionByProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="project" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetGoalCompletion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
+        </Function>
+        <Function Name="GetSalesReportByProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="Vendor" Type="int" Mode="In" />
         </Function>
         <Function Name="GetTaskList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="userID" Type="int" Mode="In" />
@@ -1127,6 +1159,39 @@
             <Parameter Name="star" Mode="In" Type="DateTime" />
             <Parameter Name="end" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="GetDashboardGoalCompletion" ReturnType="Collection(GlobalSolusindoModel.GetDashboardGoalCompletion_Result)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetDashboardRevenueCost" ReturnType="Collection(GlobalSolusindoModel.GetDashboardRevenueCost_Result)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetDashboardRevenueCostProfit" ReturnType="Collection(GlobalSolusindoModel.GetDashboardRevenueCostProfit_Result)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="project" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetDashboardValue" ReturnType="Collection(GlobalSolusindoModel.GetDashboardValue_Result)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetGoalCompletion" ReturnType="Collection(GlobalSolusindoModel.GetGoalCompletion_Result)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetTotalJumlahInvoice" ReturnType="Collection(Int32)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetTotalJumlahPo" ReturnType="Collection(Int32)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetTotalValuePO" ReturnType="Collection(Int32)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <EntitySet Name="DocumentNumbers" EntityType="GlobalSolusindoModel.DocumentNumber" />
           <EntitySet Name="tblM_Area" EntityType="GlobalSolusindoModel.tblM_Area" />
           <EntitySet Name="tblM_Aset" EntityType="GlobalSolusindoModel.tblM_Aset" />
@@ -1243,37 +1308,35 @@
             <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
-          <FunctionImport Name="GetDashboardGoalCompletion" ReturnType="Collection(GlobalSolusindoModel.GetDashboardGoalCompletion_Result)">
+          <FunctionImport Name="GetDashboardGoalCompletionByProject" ReturnType="Collection(GlobalSolusindoModel.GetDashboardGoalCompletionByProject_Result)">
             <Parameter Name="start" Mode="In" Type="DateTime" />
             <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="project" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetDashboardRevenueCost" ReturnType="Collection(GlobalSolusindoModel.GetDashboardRevenueCost_Result)">
+          <FunctionImport Name="GetDashboardRevenueCostByProject" ReturnType="Collection(GlobalSolusindoModel.GetDashboardRevenueCostByProject_Result)">
             <Parameter Name="start" Mode="In" Type="DateTime" />
             <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="project" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetDashboardRevenueCostProfit" ReturnType="Collection(GlobalSolusindoModel.GetDashboardRevenueCostProfit_Result)">
+          <FunctionImport Name="GetDashboardRevenueCostProfitFilterByProject" ReturnType="Collection(GlobalSolusindoModel.GetDashboardRevenueCostProfitFilterByProject_Result)">
             <Parameter Name="start" Mode="In" Type="DateTime" />
             <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="project" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetDashboardValue" ReturnType="Collection(GlobalSolusindoModel.GetDashboardValue_Result)">
+          <FunctionImport Name="GetDashboardValueByProject" ReturnType="Collection(GlobalSolusindoModel.GetDashboardValueByProject_Result)">
             <Parameter Name="start" Mode="In" Type="DateTime" />
             <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="project" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetGoalCompletion" ReturnType="Collection(GlobalSolusindoModel.GetGoalCompletion_Result)">
+          <FunctionImport Name="GetGoalCompetionByProject" ReturnType="Collection(GlobalSolusindoModel.GetGoalCompetionByProject_Result)">
             <Parameter Name="start" Mode="In" Type="DateTime" />
             <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="project" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="GetTotalJumlahInvoice" ReturnType="Collection(Int32)">
+          <FunctionImport Name="GetSalesReportByProject" ReturnType="Collection(GlobalSolusindoModel.GetSalesReportByProject_Result)">
             <Parameter Name="start" Mode="In" Type="DateTime" />
             <Parameter Name="end" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="GetTotalJumlahPo" ReturnType="Collection(Int32)">
-            <Parameter Name="start" Mode="In" Type="DateTime" />
-            <Parameter Name="end" Mode="In" Type="DateTime" />
-          </FunctionImport>
-          <FunctionImport Name="GetTotalValuePO" ReturnType="Collection(Int32)">
-            <Parameter Name="start" Mode="In" Type="DateTime" />
-            <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="Vendor" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
@@ -1346,6 +1409,42 @@
           <Property Type="String" Name="UpdatedBy" Nullable="true" MaxLength="50" />
           <Property Type="DateTime" Name="UpdatedDate" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="Status_FK" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="GetDashboardGoalCompletion_Result">
+          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="SumValue" Nullable="true" />
+          <Property Type="Int32" Name="SumInvoice" Nullable="true" />
+          <Property Type="Int32" Name="SumNotInvoice" Nullable="true" />
+          <Property Type="Int32" Name="Complete" Nullable="true" />
+          <Property Type="Int32" Name="NotComplete" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetDashboardRevenueCost_Result">
+          <Property Type="String" Name="NameMonth" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="ValueRevenue" Nullable="true" />
+          <Property Type="Int32" Name="ValueCost" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetDashboardRevenueCostProfit_Result">
+          <Property Type="Int32" Name="TotalRevenue" Nullable="true" />
+          <Property Type="Int32" Name="TotalCost" Nullable="true" />
+          <Property Type="Int32" Name="TotalProfit" Nullable="true" />
+          <Property Type="Int32" Name="PersentaseCost" Nullable="true" />
+          <Property Type="Int32" Name="PersentaseRevenue" Nullable="true" />
+          <Property Type="Int32" Name="PersentaseProfit" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetDashboardValue_Result">
+          <Property Type="Int32" Name="TotalValuePo" Nullable="true" />
+          <Property Type="Int32" Name="TotalJumlahPo" Nullable="true" />
+          <Property Type="Int32" Name="TotalJumlahInvoice" Nullable="true" />
+          <Property Type="Int32" Name="JumlahMember" Nullable="true" />
+          <Property Type="Int32" Name="JumlahAset" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetGoalCompletion_Result">
+          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="SumValue" Nullable="true" />
+          <Property Type="Int32" Name="SumInvoice" Nullable="true" />
+          <Property Type="Int32" Name="SumNotInvoice" Nullable="true" />
+          <Property Type="Int32" Name="Complete" Nullable="true" />
+          <Property Type="Int32" Name="NotComplete" Nullable="true" />
         </ComplexType>
         <EntityType Name="DocumentNumber">
           <Key>
@@ -1643,6 +1742,7 @@
           <Property Name="Operator_FK" Type="Int32" Nullable="false" />
           <Property Name="DeliveryArea_FK" Type="Int32" Nullable="false" />
           <Property Name="Vendor_FK" Type="Int32" Nullable="false" />
+          <Property Name="User_FK" Type="Int32" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -2265,20 +2365,17 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <ComplexType Name="GetDashboardGoalCompletion_Result">
-          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="SumValue" Nullable="true" />
-          <Property Type="Int32" Name="SumInvoice" Nullable="true" />
-          <Property Type="Int32" Name="SumNotInvoice" Nullable="true" />
-          <Property Type="Int32" Name="Complete" Nullable="true" />
-          <Property Type="Int32" Name="NotComplete" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="GetDashboardRevenueCost_Result">
+        <ComplexType Name="GetDashboardGoalCompletionByProject_Result">
           <Property Type="String" Name="NameMonth" Nullable="true" MaxLength="20" />
           <Property Type="Int32" Name="ValueRevenue" Nullable="true" />
           <Property Type="Int32" Name="ValueCost" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="GetDashboardRevenueCostProfit_Result">
+        <ComplexType Name="GetDashboardRevenueCostByProject_Result">
+          <Property Type="String" Name="NameMonth" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="ValueRevenue" Nullable="true" />
+          <Property Type="Int32" Name="ValueCost" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetDashboardRevenueCostProfitFilterByProject_Result">
           <Property Type="Int32" Name="TotalRevenue" Nullable="true" />
           <Property Type="Int32" Name="TotalCost" Nullable="true" />
           <Property Type="Int32" Name="TotalProfit" Nullable="true" />
@@ -2286,20 +2383,25 @@
           <Property Type="Int32" Name="PersentaseRevenue" Nullable="true" />
           <Property Type="Int32" Name="PersentaseProfit" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="GetDashboardValue_Result">
+        <ComplexType Name="GetDashboardValueByProject_Result">
           <Property Type="Int32" Name="TotalValuePo" Nullable="true" />
           <Property Type="Int32" Name="TotalJumlahPo" Nullable="true" />
           <Property Type="Int32" Name="TotalJumlahInvoice" Nullable="true" />
           <Property Type="Int32" Name="JumlahMember" Nullable="true" />
           <Property Type="Int32" Name="JumlahAset" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="GetGoalCompletion_Result">
+        <ComplexType Name="GetGoalCompetionByProject_Result">
           <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="SumValue" Nullable="true" />
           <Property Type="Int32" Name="SumInvoice" Nullable="true" />
           <Property Type="Int32" Name="SumNotInvoice" Nullable="true" />
           <Property Type="Int32" Name="Complete" Nullable="true" />
           <Property Type="Int32" Name="NotComplete" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="GetSalesReportByProject_Result">
+          <Property Type="String" Name="ProjectName" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Month" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="Value" Nullable="true" />
         </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
@@ -2409,6 +2511,65 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="usp_GetDocNumber" FunctionName="GlobalSolusindoModel.Store.usp_GetDocNumber" />
           <FunctionImportMapping FunctionImportName="Get_Count_Po" FunctionName="GlobalSolusindoModel.Store.Get_Count_Po" />
+          <FunctionImportMapping FunctionImportName="GetDashboardGoalCompletion" FunctionName="GlobalSolusindoModel.Store.GetDashboardGoalCompletion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardGoalCompletion_Result">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="SumValue" ColumnName="SumValue" />
+                <ScalarProperty Name="SumInvoice" ColumnName="SumInvoice" />
+                <ScalarProperty Name="SumNotInvoice" ColumnName="SumNotInvoice" />
+                <ScalarProperty Name="Complete" ColumnName="Complete" />
+                <ScalarProperty Name="NotComplete" ColumnName="NotComplete" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDashboardRevenueCost" FunctionName="GlobalSolusindoModel.Store.GetDashboardRevenueCost">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardRevenueCost_Result">
+                <ScalarProperty Name="NameMonth" ColumnName="NameMonth" />
+                <ScalarProperty Name="ValueRevenue" ColumnName="ValueRevenue" />
+                <ScalarProperty Name="ValueCost" ColumnName="ValueCost" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDashboardRevenueCostProfit" FunctionName="GlobalSolusindoModel.Store.GetDashboardRevenueCostProfit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardRevenueCostProfit_Result">
+                <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
+                <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
+                <ScalarProperty Name="TotalProfit" ColumnName="TotalProfit" />
+                <ScalarProperty Name="PersentaseCost" ColumnName="PersentaseCost" />
+                <ScalarProperty Name="PersentaseRevenue" ColumnName="PersentaseRevenue" />
+                <ScalarProperty Name="PersentaseProfit" ColumnName="PersentaseProfit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDashboardValue" FunctionName="GlobalSolusindoModel.Store.GetDashboardValue">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardValue_Result">
+                <ScalarProperty Name="TotalValuePo" ColumnName="TotalValuePo" />
+                <ScalarProperty Name="TotalJumlahPo" ColumnName="TotalJumlahPo" />
+                <ScalarProperty Name="TotalJumlahInvoice" ColumnName="TotalJumlahInvoice" />
+                <ScalarProperty Name="JumlahMember" ColumnName="JumlahMember" />
+                <ScalarProperty Name="JumlahAset" ColumnName="JumlahAset" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetGoalCompletion" FunctionName="GlobalSolusindoModel.Store.GetGoalCompletion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetGoalCompletion_Result">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="SumValue" ColumnName="SumValue" />
+                <ScalarProperty Name="SumInvoice" ColumnName="SumInvoice" />
+                <ScalarProperty Name="SumNotInvoice" ColumnName="SumNotInvoice" />
+                <ScalarProperty Name="Complete" ColumnName="Complete" />
+                <ScalarProperty Name="NotComplete" ColumnName="NotComplete" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetTotalJumlahInvoice" FunctionName="GlobalSolusindoModel.Store.GetTotalJumlahInvoice" />
+          <FunctionImportMapping FunctionImportName="GetTotalJumlahPo" FunctionName="GlobalSolusindoModel.Store.GetTotalJumlahPo" />
+          <FunctionImportMapping FunctionImportName="GetTotalValuePO" FunctionName="GlobalSolusindoModel.Store.GetTotalValuePO" />
           <EntitySetMapping Name="DocumentNumbers">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.DocumentNumber">
               <MappingFragment StoreEntitySet="DocumentNumber">
@@ -2710,6 +2871,7 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
                 <ScalarProperty Name="Vendor_FK" ColumnName="Vendor_FK" />
                 <ScalarProperty Name="DeliveryArea_FK" ColumnName="DeliveryArea_FK" />
                 <ScalarProperty Name="Operator_FK" ColumnName="Operator_FK" />
@@ -3114,30 +3276,27 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetDashboardGoalCompletion" FunctionName="GlobalSolusindoModel.Store.GetDashboardGoalCompletion">
+          <FunctionImportMapping FunctionImportName="GetDashboardGoalCompletionByProject" FunctionName="GlobalSolusindoModel.Store.GetDashboardGoalCompletionByProject">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardGoalCompletion_Result">
-                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
-                <ScalarProperty Name="SumValue" ColumnName="SumValue" />
-                <ScalarProperty Name="SumInvoice" ColumnName="SumInvoice" />
-                <ScalarProperty Name="SumNotInvoice" ColumnName="SumNotInvoice" />
-                <ScalarProperty Name="Complete" ColumnName="Complete" />
-                <ScalarProperty Name="NotComplete" ColumnName="NotComplete" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetDashboardRevenueCost" FunctionName="GlobalSolusindoModel.Store.GetDashboardRevenueCost">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardRevenueCost_Result">
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardGoalCompletionByProject_Result">
                 <ScalarProperty Name="NameMonth" ColumnName="NameMonth" />
                 <ScalarProperty Name="ValueRevenue" ColumnName="ValueRevenue" />
                 <ScalarProperty Name="ValueCost" ColumnName="ValueCost" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetDashboardRevenueCostProfit" FunctionName="GlobalSolusindoModel.Store.GetDashboardRevenueCostProfit">
+          <FunctionImportMapping FunctionImportName="GetDashboardRevenueCostByProject" FunctionName="GlobalSolusindoModel.Store.GetDashboardRevenueCostByProject">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardRevenueCostProfit_Result">
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardRevenueCostByProject_Result">
+                <ScalarProperty Name="NameMonth" ColumnName="NameMonth" />
+                <ScalarProperty Name="ValueRevenue" ColumnName="ValueRevenue" />
+                <ScalarProperty Name="ValueCost" ColumnName="ValueCost" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetDashboardRevenueCostProfitFilterByProject" FunctionName="GlobalSolusindoModel.Store.GetDashboardRevenueCostProfitFilterByProject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardRevenueCostProfitFilterByProject_Result">
                 <ScalarProperty Name="TotalRevenue" ColumnName="TotalRevenue" />
                 <ScalarProperty Name="TotalCost" ColumnName="TotalCost" />
                 <ScalarProperty Name="TotalProfit" ColumnName="TotalProfit" />
@@ -3147,9 +3306,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetDashboardValue" FunctionName="GlobalSolusindoModel.Store.GetDashboardValue">
+          <FunctionImportMapping FunctionImportName="GetDashboardValueByProject" FunctionName="GlobalSolusindoModel.Store.GetDashboardValueByProject">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardValue_Result">
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDashboardValueByProject_Result">
                 <ScalarProperty Name="TotalValuePo" ColumnName="TotalValuePo" />
                 <ScalarProperty Name="TotalJumlahPo" ColumnName="TotalJumlahPo" />
                 <ScalarProperty Name="TotalJumlahInvoice" ColumnName="TotalJumlahInvoice" />
@@ -3158,9 +3317,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetGoalCompletion" FunctionName="GlobalSolusindoModel.Store.GetGoalCompletion">
+          <FunctionImportMapping FunctionImportName="GetGoalCompetionByProject" FunctionName="GlobalSolusindoModel.Store.GetGoalCompetionByProject">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetGoalCompletion_Result">
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetGoalCompetionByProject_Result">
                 <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
                 <ScalarProperty Name="SumValue" ColumnName="SumValue" />
                 <ScalarProperty Name="SumInvoice" ColumnName="SumInvoice" />
@@ -3170,9 +3329,15 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="GetTotalJumlahInvoice" FunctionName="GlobalSolusindoModel.Store.GetTotalJumlahInvoice" />
-          <FunctionImportMapping FunctionImportName="GetTotalJumlahPo" FunctionName="GlobalSolusindoModel.Store.GetTotalJumlahPo" />
-          <FunctionImportMapping FunctionImportName="GetTotalValuePO" FunctionName="GlobalSolusindoModel.Store.GetTotalValuePO" />
+          <FunctionImportMapping FunctionImportName="GetSalesReportByProject" FunctionName="GlobalSolusindoModel.Store.GetSalesReportByProject">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetSalesReportByProject_Result">
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -232,7 +232,7 @@ namespace GlobalSolusindo.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardRevenueCost_Result>("GetDashboardRevenueCost", startParameter, endParameter);
         }
     
-        public virtual ObjectResult<GetDashboardRevenueCostProfit_Result> GetDashboardRevenueCostProfit(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
+        public virtual ObjectResult<GetDashboardRevenueCostProfit_Result> GetDashboardRevenueCostProfit(Nullable<System.DateTime> start, Nullable<System.DateTime> end, Nullable<int> project)
         {
             var startParameter = start.HasValue ?
                 new ObjectParameter("start", start) :
@@ -242,7 +242,11 @@ namespace GlobalSolusindo.DataAccess
                 new ObjectParameter("end", end) :
                 new ObjectParameter("end", typeof(System.DateTime));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardRevenueCostProfit_Result>("GetDashboardRevenueCostProfit", startParameter, endParameter);
+            var projectParameter = project.HasValue ?
+                new ObjectParameter("project", project) :
+                new ObjectParameter("project", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardRevenueCostProfit_Result>("GetDashboardRevenueCostProfit", startParameter, endParameter, projectParameter);
         }
     
         public virtual ObjectResult<GetDashboardValue_Result> GetDashboardValue(Nullable<System.DateTime> start, Nullable<System.DateTime> end)
@@ -308,6 +312,108 @@ namespace GlobalSolusindo.DataAccess
                 new ObjectParameter("end", typeof(System.DateTime));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GetTotalValuePO", startParameter, endParameter);
+        }
+    
+        public virtual ObjectResult<GetDashboardGoalCompletionByProject_Result> GetDashboardGoalCompletionByProject(Nullable<System.DateTime> start, Nullable<System.DateTime> end, Nullable<int> project)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var projectParameter = project.HasValue ?
+                new ObjectParameter("project", project) :
+                new ObjectParameter("project", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardGoalCompletionByProject_Result>("GetDashboardGoalCompletionByProject", startParameter, endParameter, projectParameter);
+        }
+    
+        public virtual ObjectResult<GetDashboardRevenueCostByProject_Result> GetDashboardRevenueCostByProject(Nullable<System.DateTime> start, Nullable<System.DateTime> end, Nullable<int> project)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var projectParameter = project.HasValue ?
+                new ObjectParameter("project", project) :
+                new ObjectParameter("project", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardRevenueCostByProject_Result>("GetDashboardRevenueCostByProject", startParameter, endParameter, projectParameter);
+        }
+    
+        public virtual ObjectResult<GetDashboardRevenueCostProfitFilterByProject_Result> GetDashboardRevenueCostProfitFilterByProject(Nullable<System.DateTime> start, Nullable<System.DateTime> end, Nullable<int> project)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var projectParameter = project.HasValue ?
+                new ObjectParameter("project", project) :
+                new ObjectParameter("project", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardRevenueCostProfitFilterByProject_Result>("GetDashboardRevenueCostProfitFilterByProject", startParameter, endParameter, projectParameter);
+        }
+    
+        public virtual ObjectResult<GetDashboardValueByProject_Result> GetDashboardValueByProject(Nullable<System.DateTime> start, Nullable<System.DateTime> end, Nullable<int> project)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var projectParameter = project.HasValue ?
+                new ObjectParameter("project", project) :
+                new ObjectParameter("project", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDashboardValueByProject_Result>("GetDashboardValueByProject", startParameter, endParameter, projectParameter);
+        }
+    
+        public virtual ObjectResult<GetGoalCompetionByProject_Result> GetGoalCompetionByProject(Nullable<System.DateTime> start, Nullable<System.DateTime> end, Nullable<int> project)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var projectParameter = project.HasValue ?
+                new ObjectParameter("project", project) :
+                new ObjectParameter("project", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetGoalCompetionByProject_Result>("GetGoalCompetionByProject", startParameter, endParameter, projectParameter);
+        }
+    
+        public virtual ObjectResult<GetSalesReportByProject_Result> GetSalesReportByProject(Nullable<System.DateTime> start, Nullable<System.DateTime> end, Nullable<int> vendor)
+        {
+            var startParameter = start.HasValue ?
+                new ObjectParameter("start", start) :
+                new ObjectParameter("start", typeof(System.DateTime));
+    
+            var endParameter = end.HasValue ?
+                new ObjectParameter("end", end) :
+                new ObjectParameter("end", typeof(System.DateTime));
+    
+            var vendorParameter = vendor.HasValue ?
+                new ObjectParameter("Vendor", vendor) :
+                new ObjectParameter("Vendor", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesReportByProject_Result>("GetSalesReportByProject", startParameter, endParameter, vendorParameter);
         }
     }
 }

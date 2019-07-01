@@ -43,7 +43,7 @@ namespace GlobalSolusindo.Business.Project
                         project.Status_FK != deleted
                         select new ProjectDTO
                         {
-                            Project_PK = project.Project_PK, 
+                            Project_PK = project.Project_PK,
                             Operator_FK = project.Operator_FK,
                             OperatorTitle = _operator.Title,
                             DeliveryArea_FK = project.DeliveryArea_FK,
@@ -54,6 +54,7 @@ namespace GlobalSolusindo.Business.Project
                             CreatedDate = project.CreatedDate,
                             UpdatedBy = project.UpdatedBy,
                             UpdatedDate = project.UpdatedDate,
+                            User_FK = project.User_FK,
                             Status_FK = project.Status_FK
                         };
 

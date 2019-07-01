@@ -107,7 +107,7 @@ namespace GlobalSolusindo.Identity.User.Queries
 
         public UserDTO GetByUsername(string username)
         {
-            UserDTO record = GetQuery().FirstOrDefault(user => user.Username == username);
+            UserDTO record = GetQuery().FirstOrDefault(user => user.Status_FK != 3 && user.Username == username);
             GetPhoto(record);
             return record;
         }

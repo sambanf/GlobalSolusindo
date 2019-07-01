@@ -37,7 +37,7 @@ namespace GlobalSolusindo.Identity.Login
 
         public tblM_User GetUserByUsername(string username)
         {
-            var user = Db.tblM_User.FirstOrDefault(x => x.Username == username);
+            var user = Db.tblM_User.FirstOrDefault(x => x.Status_FK != 3 && x.Username == username);
             return user;
         }
 

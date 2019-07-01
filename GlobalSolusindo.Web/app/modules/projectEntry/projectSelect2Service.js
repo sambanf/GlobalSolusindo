@@ -33,6 +33,20 @@
             });
         }
 
+        function getUsers() {
+            select2Service.liveSearch("user/search", {
+                selector: '#user_fk',
+                valueMember: 'user_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.users = data;
+                },
+                onSelected: function (data) {
+                    controller.model.user_fk = data.user_pk;
+                }
+            });
+        }
+
         function getDeliveryArea() {
             select2Service.liveSearch("deliveryArea/search", {
                 selector: '#deliveryArea_fk',
@@ -67,6 +81,7 @@
                 getOperators(); 
                 getDeliveryArea();
                 getVendors();
+                getUsers();
             });
         };
 

@@ -3,6 +3,7 @@ using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
 using System;
+using System.Linq;
 
 namespace GlobalSolusindo.Business.Project
 {
@@ -31,7 +32,7 @@ namespace GlobalSolusindo.Business.Project
 
             if (projectDTO == null)
                 throw new ArgumentNullException("Project model is null.");
-            project = Db.tblM_Project.Find(projectDTO.Project_PK);
+            project = Db.tblM_Project.FirstOrDefault(x => x.Project_PK == projectDTO.Project_PK);
             if (project == null)
                 throw new KairosException($"Record with key '{projectDTO.Project_PK}' is not found.");
 

@@ -18,6 +18,7 @@ namespace GlobalSolusindo.DataAccess
         public int Operator_FK { get; set; }
         public int DeliveryArea_FK { get; set; }
         public int Vendor_FK { get; set; }
+        public Nullable<int> User_FK { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }

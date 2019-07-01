@@ -7,28 +7,11 @@
                     <div class="card h-100">
                         <div class="card-title">Tambah Project</div>
                         <div class="col-md-8">
-                            <!--<div class="row form-group">
-                                <label class="control-label col-sm-2">Project Name:</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="title" ng-model="vm.model.title" name="title"
-                                           placeholder="Project Name">
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </div>-->
                             <div class="row form-group">
                                 <label class="control-label col-sm-2">Operator:</label>
                                 <div class="col-sm-6">
-                                    <select id="operator_fk" name="operator_fk" class="form-control input-lg" size="0" ng-model="vm.model.operator_fk" required>
+                                    <select id="operator_fk" name="operator_fk" class="form-control input-lg" ng-model="vm.model.operator_fk" required>
                                         <option ng-repeat="x in vm.formData.operators" ng-value="x.operator_pk">{{x.title}}</option>
-                                    </select>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <label class="control-label col-sm-2">Delivery Area:</label>
-                                <div class="col-sm-6">
-                                    <select id="deliveryArea_fk" name="deliveryArea_fk" class="form-control input-lg" size="0" ng-model="vm.model.deliveryArea_fk" required>
-                                        <option ng-repeat="x in vm.formData.deliveryAreas" ng-value="x.deliveryArea_pk">{{x.title}}</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -36,14 +19,32 @@
                             <div class="row form-group">
                                 <label class="control-label col-sm-2">Vendor:</label>
                                 <div class="col-sm-6">
-                                    <select id="vendor_fk" name="vendor_fk" class="form-control input-lg" size="0" ng-model="vm.model.vendor_fk" required>
+                                    <select id="vendor_fk" name="vendor_fk" class="form-control input-lg" ng-model="vm.model.vendor_fk" required>
                                         <option ng-repeat="x in vm.formData.vendors" ng-value="x.vendor_pk">{{x.title}}</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-2">Delivery Area:</label>
+                                <div class="col-sm-6">
+                                    <select id="deliveryArea_fk" name="deliveryArea_fk" class="form-control input-lg" ng-model="vm.model.deliveryArea_fk" required>
+                                        <option ng-repeat="x in vm.formData.deliveryAreas" ng-value="x.deliveryArea_pk">{{x.title}}</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-2">Project Manager:</label>
+                                <div class="col-sm-6">
+                                    <select id="user_fk" name="user_fk" class="form-control input-lg" ng-model="vm.model.user_fk" required>
+                                        <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-8">
                                     <button class="btn btn-default" ui-sref="app.projectList">Kembali</button>
                                     <button class="btn btn-success float-right" id="saveButton">Simpan</button>
                                 </div>
