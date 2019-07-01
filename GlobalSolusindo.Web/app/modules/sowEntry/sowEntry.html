@@ -54,70 +54,71 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
-                            <div class="row form-group">
-                                <fieldset>
-                                    <div class="card-title">Assign</div>
-                                    <div class="col-md-12">
-                                        <table id="sowAssign">
-                                            <thead>
-                                                <tr>
-                                                    <th hidden>SOWAssign_PK</th>
-                                                    <th hidden>SOW FK</th>
-                                                    <th hidden>Jabatan FK</th>
-                                                    <th>Jabatan</th>
-                                                    <th>User</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr ng-repeat="sowAssign in vm.model.sowAssigns">
-                                                    <td hidden>
-                                                        <input type="text" id="sowAssign_pk" name="sowAssign_pk" ng-model="sowAssign.sowAssign_pk" disabled />
-                                                        <div class="invalid-feedback"></div>
-                                                    </td>
-                                                    <td class="text-center" hidden>
-                                                        <input type="text" id="sow_fk" name="sow_fk" ng-model="sowAssign.sow_fk" disabled />
-                                                        <div class="invalid-feedback"></div>
-                                                    </td>
-                                                    <td class="text-left" hidden>
-                                                        <input type="text" id="kategoriJabatan_fk" name="kategoriJabatan_fk" class="form-control" ng-model="sowAssign.kategoriJabatan_fk" disabled />
-                                                        <div class="invalid-feedback"></div>
-                                                    </td>
-                                                    <td class="text-left">
-                                                        <input type="text" id="kategoriJabatanTitle" name="kategoriJabatanTitle" class="form-control" ng-model="sowAssign.kategoriJabatanTitle" disabled />
-                                                        <div class="invalid-feedback"></div>
-                                                    </td>
-                                                    <td>
-                                                        <ui-select id="user_fk" name="user_fk" ng-model="sowAssign.user_fk" size="0" theme="select2" ng-disabled="vm.disabled" title="Find user"
-                                                                   required style="width:200px">
-                                                            <ui-select-match placeholder="Find user">{{$select.selected.name}}</ui-select-match>
-                                                            <ui-select-choices refresh="vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)" refresh-delay="0" repeat="user.user_pk as user in vm.formData.users">
-                                                                <div>
-                                                                    <strong>
-                                                                        {{user.name }}
-                                                                    </strong>
-                                                                </div>
-                                                                <div>
-                                                                    {{"Username: " + user.username}}
-                                                                </div>
-                                                                <div style="margin:2px; border-bottom:1px solid #ccc">
-                                                                    {{"Email: " + user.email}}
-                                                                </div>
-                                                            </ui-select-choices>
-                                                        </ui-select>
-                                                        <div class="invalid-feedback"></div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </fieldset>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-md-8">
-                                    <button class="btn btn-default" ui-sref="app.sowList">Kembali</button>
-                                    <button class="btn btn-success float-right" id="saveButton">Simpan</button>
-                                </div>
-                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card-title">Assign</div>
+                        </div>
+                        <div class="col-md-6">
+                            <table id="sowAssign" class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th hidden>SOWAssign_PK</th>
+                                        <th hidden>SOW FK</th>
+                                        <th hidden>Jabatan FK</th>
+                                        <th>Jabatan</th>
+                                        <th>User</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="sowAssign in vm.model.sowAssigns">
+                                        <td hidden>
+                                            <input type="text" id="sowAssign_pk" name="sowAssign_pk" ng-model="sowAssign.sowAssign_pk" disabled />
+                                            <div class="invalid-feedback"></div>
+                                        </td>
+                                        <td class="text-center" hidden>
+                                            <input type="text" id="sow_fk" name="sow_fk" ng-model="sowAssign.sow_fk" disabled />
+                                            <div class="invalid-feedback"></div>
+                                        </td>
+                                        <td class="text-left" hidden>
+                                            <input type="text" id="kategoriJabatan_fk" name="kategoriJabatan_fk" class="form-control" ng-model="sowAssign.kategoriJabatan_fk" disabled />
+                                            <div class="invalid-feedback"></div>
+                                        </td>
+                                        <td class="text-left">
+                                            <input type="text" id="kategoriJabatanTitle" name="kategoriJabatanTitle" class="form-control" ng-model="sowAssign.kategoriJabatanTitle" disabled />
+                                            <div class="invalid-feedback"></div>
+                                        </td>
+                                        <td>
+                                            <ui-select id="user_fk" name="user_fk" ng-model="sowAssign.user_fk" size="0" theme="select2" ng-disabled="vm.disabled" title="Find user"
+                                                       required style="width:200px">
+                                                <ui-select-match placeholder="Find user">{{$select.selected.name}}</ui-select-match>
+                                                <ui-select-choices refresh="vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)" refresh-delay="0" repeat="user.user_pk as user in vm.formData.users">
+                                                    <div>
+                                                        <strong>
+                                                            {{user.name }}
+                                                        </strong>
+                                                    </div>
+                                                    <div>
+                                                        {{"Username: " + user.username}}
+                                                    </div>
+                                                    <div style="margin:2px; border-bottom:1px solid #ccc">
+                                                        {{"Email: " + user.email}}
+                                                    </div>
+                                                </ui-select-choices>
+                                            </ui-select>
+                                            <div class="invalid-feedback"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <div class="col-md-8">
+                            <button class="btn btn-default" ui-sref="app.sowList">Kembali</button>
+                            <button class="btn btn-success float-right" id="saveButton">Simpan</button>
                         </div>
                     </div>
                 </div>

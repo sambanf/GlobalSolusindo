@@ -8,6 +8,7 @@ using GlobalSolusindo.Business.Technology;
 using GlobalSolusindo.Business.Technology.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
+using GlobalSolusindo.Identity.KategoriJabatan.Queries;
 using GlobalSolusindo.Identity.User;
 using GlobalSolusindo.Identity.User.Queries;
 using Kairos;
@@ -15,6 +16,7 @@ using Kairos.UI;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW.EntryForm
 {
@@ -106,13 +108,30 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
 
         private SOWDTO CreateModel(int pk)
         {
+            var jabatanQuery = new KategoriJabatanQuery(Db);
             var now = DateTime.Now;
             if (pk > 0)
             {
                 SOWDTO sow = sowQuery.GetByPrimaryKey(pk);
                 if (sow != null)
                 {
-                    sow.SOWAssigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk);
+                    var unOrderedassigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk);
+
+                    var orderedAssigns = new List<SOWAssignDTO>();
+                    var teamLead = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 1);
+                    var rno = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 6);
+                    rno.KategoriJabatanTitle = "RNO";
+                    var rf = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 5);
+                    var dt = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 2);
+                    var rigger = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 3);
+
+                    orderedAssigns.Add(teamLead);
+                    orderedAssigns.Add(rno);
+                    orderedAssigns.Add(rf);
+                    orderedAssigns.Add(dt);
+                    orderedAssigns.Add(rigger);
+
+                    sow.SOWAssigns = orderedAssigns;
                 }
                 return sow;
             }
@@ -130,21 +149,8 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 SOWAssign_PK = 0,
                 SOW_FK = sowDTO.SOW_PK,
                 SOWName = sowDTO.SOWName,
-                KategoriJabatanTitle = "Team Leader",
+                KategoriJabatanTitle = jabatanQuery.GetByPrimaryKey(1).Title,
                 KategoriJabatan_FK = 1,
-                User_FK = 0,
-                UserName = "",
-                TglMulai = now,
-            });
-
-            //RF
-            sowAssigns.Add(new SOWAssignDTO()
-            {
-                SOWAssign_PK = 0,
-                SOW_FK = sowDTO.SOW_PK,
-                SOWName = sowDTO.SOWName,
-                KategoriJabatanTitle = "RF",
-                KategoriJabatan_FK = 5,
                 User_FK = 0,
                 UserName = "",
                 TglMulai = now,
@@ -156,21 +162,34 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 SOWAssign_PK = 0,
                 SOW_FK = sowDTO.SOW_PK,
                 SOWName = sowDTO.SOWName,
-                KategoriJabatanTitle = "RNO",
+                KategoriJabatanTitle = "RNO",//jabatanQuery.GetByPrimaryKey(6).Title,
                 KategoriJabatan_FK = 6,
                 User_FK = 0,
                 UserName = "",
                 TglMulai = now,
             });
 
-            //Rigger
+            //RF
             sowAssigns.Add(new SOWAssignDTO()
             {
                 SOWAssign_PK = 0,
                 SOW_FK = sowDTO.SOW_PK,
                 SOWName = sowDTO.SOWName,
-                KategoriJabatanTitle = "Rigger",
-                KategoriJabatan_FK = 3,
+                KategoriJabatanTitle = jabatanQuery.GetByPrimaryKey(5).Title,
+                KategoriJabatan_FK = 5,
+                User_FK = 0,
+                UserName = "",
+                TglMulai = now,
+            });
+
+            //DT
+            sowAssigns.Add(new SOWAssignDTO()
+            {
+                SOWAssign_PK = 0,
+                SOW_FK = sowDTO.SOW_PK,
+                SOWName = sowDTO.SOWName,
+                KategoriJabatanTitle = jabatanQuery.GetByPrimaryKey(2).Title,
+                KategoriJabatan_FK = 2,
                 User_FK = 0,
                 UserName = "",
                 TglMulai = now,
@@ -182,12 +201,13 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 SOWAssign_PK = 0,
                 SOW_FK = sowDTO.SOW_PK,
                 SOWName = sowDTO.SOWName,
-                KategoriJabatanTitle = "Drive Tester",
-                KategoriJabatan_FK = 2,
+                KategoriJabatanTitle = jabatanQuery.GetByPrimaryKey(3).Title,
+                KategoriJabatan_FK = 3,
                 User_FK = 0,
                 UserName = "",
                 TglMulai = now,
             });
+
 
             sowDTO.SOWAssigns = sowAssigns;
 

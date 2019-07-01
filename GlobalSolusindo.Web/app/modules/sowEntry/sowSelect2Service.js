@@ -31,16 +31,17 @@
                     controller.model.project_fk = data.project_pk;
                 },
                 templateResult: function (item) {
+                    var markup = '';
                     if (item.loading) {
-                        var markup = "<div class='select2-result-repository__statistics'>" +
+                        markup = "<div class='select2-result-repository__statistics'>" +
                             "<div>" + item.text + "</div>" +
                             "</div>" +
                             "</div></div>";
                         return markup;
                     } else {
-                        var markup = "<div class='select2-result-repository__statistics'>" +
-                            "<div><b>" + item.title + "</b></div>" +
-                            "<div>" + item.operatorTitle + "</div>" +
+                        markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div><b>" + item.operatorTitle + "</b></div>" +
+                            "<div>" + item.vendorTitle + "</div>" +
                             "<div>" + item.deliveryAreaTitle + "</div>" +
                             "</div>" +
                             "</div></div>";
@@ -62,19 +63,21 @@
                     controller.model.bts_fk = data.bts_pk;
                 },
                 templateResult: function (item) {
+                    var markup = '';
                     if (item.loading) {
-                        var markup = "<div class='select2-result-repository__statistics'>" +
+                        markup = "<div class='select2-result-repository__statistics'>" +
                             "<div>" + item.text + "</div>" +
                             "</div>" +
                             "</div></div>";
                         return markup;
                     } else {
-                        var markup = "<div class='select2-result-repository__statistics'>" +
+                        var towerId = (item.towerId == null || item.towerId == undefined) ? '' : item.towerId;
+                        var cellId = (item.cellId == null || item.cellId == undefined) ? '' : item.cellId;
+                        markup = "<div class='select2-result-repository__statistics'>" +
                             "<div><b>" + item.name + "</b></div>" +
                             "<div>Operator: " + item.operatorTitle + "</div>" +
-                            "<div>Tower ID: " + item.towerId + "</div>" +
-                            "<div>Cell ID: " + item.cellId + "</div>" +
-                            "<div>Cabang: " + item.cabangTitle + "</div>" +
+                            "<div>Tower ID: " + towerId + "</div>" +
+                            "<div>Cell ID: " + cellId + "</div>" +
                             "</div>" +
                             "</div></div>";
                         return markup;
