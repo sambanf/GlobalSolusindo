@@ -1089,7 +1089,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-6\">\r" +
     "\n" +
-    "                                <div class=\"row form-group\">\r" +
+    "\r" +
+    "\n" +
+    "                                <!--//Dihapus, permintaan mas indra 2019/07/01-->\r" +
+    "\n" +
+    "                                <!--<div class=\"row form-group\">\r" +
     "\n" +
     "                                    <label class=\"control-label col-md-3\">Customer Site ID:</label>\r" +
     "\n" +
@@ -1101,7 +1105,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    </div>\r" +
     "\n" +
-    "                                </div>\r" +
+    "                                </div>-->\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -5102,49 +5106,15 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-md-8\">\r" +
     "\n" +
-    "                            <!--<div class=\"row form-group\">\r" +
-    "\n" +
-    "                                <label class=\"control-label col-sm-2\">Project Name:</label>\r" +
-    "\n" +
-    "                                <div class=\"col-sm-10\">\r" +
-    "\n" +
-    "                                    <input type=\"text\" class=\"form-control\" id=\"title\" ng-model=\"vm.model.title\" name=\"title\"\r" +
-    "\n" +
-    "                                           placeholder=\"Project Name\">\r" +
-    "\n" +
-    "                                    <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                                </div>\r" +
-    "\n" +
-    "                            </div>-->\r" +
-    "\n" +
     "                            <div class=\"row form-group\">\r" +
     "\n" +
     "                                <label class=\"control-label col-sm-2\">Operator:</label>\r" +
     "\n" +
     "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                    <select id=\"operator_fk\" name=\"operator_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.operator_fk\" required>\r" +
+    "                                    <select id=\"operator_fk\" name=\"operator_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.operator_fk\" required>\r" +
     "\n" +
     "                                        <option ng-repeat=\"x in vm.formData.operators\" ng-value=\"x.operator_pk\">{{x.title}}</option>\r" +
-    "\n" +
-    "                                    </select>\r" +
-    "\n" +
-    "                                    <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                                </div>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"row form-group\">\r" +
-    "\n" +
-    "                                <label class=\"control-label col-sm-2\">Delivery Area:</label>\r" +
-    "\n" +
-    "                                <div class=\"col-sm-6\">\r" +
-    "\n" +
-    "                                    <select id=\"deliveryArea_fk\" name=\"deliveryArea_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.deliveryArea_fk\" required>\r" +
-    "\n" +
-    "                                        <option ng-repeat=\"x in vm.formData.deliveryAreas\" ng-value=\"x.deliveryArea_pk\">{{x.title}}</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -5160,7 +5130,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                    <select id=\"vendor_fk\" name=\"vendor_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.vendor_fk\" required>\r" +
+    "                                    <select id=\"vendor_fk\" name=\"vendor_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.vendor_fk\" required>\r" +
     "\n" +
     "                                        <option ng-repeat=\"x in vm.formData.vendors\" ng-value=\"x.vendor_pk\">{{x.title}}</option>\r" +
     "\n" +
@@ -5172,9 +5142,45 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Delivery Area:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <select id=\"deliveryArea_fk\" name=\"deliveryArea_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.deliveryArea_fk\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.deliveryAreas\" ng-value=\"x.deliveryArea_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Project Manager:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.user_fk\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.name}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
     "                            <div class=\"row\">\r" +
     "\n" +
-    "                                <div class=\"col-md-12\">\r" +
+    "                                <div class=\"col-md-8\">\r" +
     "\n" +
     "                                    <button class=\"btn btn-default\" ui-sref=\"app.projectList\">Kembali</button>\r" +
     "\n" +
@@ -6818,7 +6824,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    </div>\r" +
     "\n" +
-    "                                    <div class=\"row\">\r" +
+    "                                    <!--<div class=\"row\">\r" +
     "\n" +
     "                                        <label class=\"control-label col-sm-3\">Kota</label>\r" +
     "\n" +
@@ -6832,7 +6838,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <label class=\"control-label col-sm-6\" id=\"cabangTitle\" name=\"cabangTitle\">{{vm.model.btsInfo.cabangTitle}}</label>\r" +
     "\n" +
-    "                                    </div>\r" +
+    "                                    </div>-->\r" +
     "\n" +
     "                                    <div class=\"row\">\r" +
     "\n" +
@@ -6950,9 +6956,77 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"card-title\">Track Location</div>\r" +
     "\n" +
-    "                            <div id=\"map\" style=\"border:1px solid gray\">\r" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Job Type:</label>\r" +
+    "\n" +
+    "                                        <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                            <select id=\"tipePekerjaan_fk1\" name=\"tipePekerjaan_fk1\" class=\"form-control\" ng-model=\"vm.model.sowTracks[0].tipePekerjaan_fk + ''\" disabled>\r" +
+    "\n" +
+    "                                                <option value=\"0\">None</option>\r" +
+    "\n" +
+    "                                                <option value=\"1\">SSO</option>\r" +
+    "\n" +
+    "                                                <option value=\"2\">SSV</option>\r" +
+    "\n" +
+    "                                            </select>\r" +
+    "\n" +
+    "                                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <textarea ng-model=\"vm.model.sowTracks[0].route\" hidden></textarea>\r" +
+    "\n" +
+    "                                    <div id=\"map1\" style=\"border:1px solid gray; height:500px\">\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                                <div class=\"col-md-6\">\r" +
+    "\n" +
+    "                                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                        <label class=\"control-label col-sm-3\">Job Type:</label>\r" +
+    "\n" +
+    "                                        <div class=\"col-sm-9\">\r" +
+    "\n" +
+    "                                            <select id=\"tipePekerjaan_fk2\" name=\"tipePekerjaan_fk2\" class=\"form-control\" ng-model=\"vm.model.sowTracks[1].tipePekerjaan_fk + ''\" disabled>\r" +
+    "\n" +
+    "                                                <option value=\"0\">None</option>\r" +
+    "\n" +
+    "                                                <option value=\"1\">SSO</option>\r" +
+    "\n" +
+    "                                                <option value=\"2\">SSV</option>\r" +
+    "\n" +
+    "                                            </select>\r" +
+    "\n" +
+    "                                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                    <textarea ng-model=\"vm.model.sowTracks[1].route\" hidden></textarea>\r" +
+    "\n" +
+    "                                    <div id=\"map2\" style=\"border:1px solid gray; height:500px\">\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
+    "\n" +
+    "\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -7155,133 +7229,135 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                            <div class=\"row form-group\">\r" +
+    "\r" +
     "\n" +
-    "                                <fieldset>\r" +
+    "                        </div>\r" +
     "\n" +
-    "                                    <div class=\"card-title\">Assign</div>\r" +
+    "                    </div>\r" +
     "\n" +
-    "                                    <div class=\"col-md-12\">\r" +
+    "                    <div class=\"row\">\r" +
     "\n" +
-    "                                        <table id=\"sowAssign\">\r" +
+    "                        <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                            <thead>\r" +
+    "                            <div class=\"card-title\">Assign</div>\r" +
     "\n" +
-    "                                                <tr>\r" +
+    "                        </div>\r" +
     "\n" +
-    "                                                    <th hidden>SOWAssign_PK</th>\r" +
+    "                        <div class=\"col-md-6\">\r" +
     "\n" +
-    "                                                    <th hidden>SOW FK</th>\r" +
+    "                            <table id=\"sowAssign\" class=\"table table-sm\">\r" +
     "\n" +
-    "                                                    <th hidden>Jabatan FK</th>\r" +
+    "                                <thead>\r" +
     "\n" +
-    "                                                    <th>Jabatan</th>\r" +
+    "                                    <tr>\r" +
     "\n" +
-    "                                                    <th>User</th>\r" +
+    "                                        <th hidden>SOWAssign_PK</th>\r" +
     "\n" +
-    "                                                </tr>\r" +
+    "                                        <th hidden>SOW FK</th>\r" +
     "\n" +
-    "                                            </thead>\r" +
+    "                                        <th hidden>Jabatan FK</th>\r" +
     "\n" +
-    "                                            <tbody>\r" +
+    "                                        <th>Jabatan</th>\r" +
     "\n" +
-    "                                                <tr ng-repeat=\"sowAssign in vm.model.sowAssigns\">\r" +
+    "                                        <th>User</th>\r" +
     "\n" +
-    "                                                    <td hidden>\r" +
+    "                                    </tr>\r" +
     "\n" +
-    "                                                        <input type=\"text\" id=\"sowAssign_pk\" name=\"sowAssign_pk\" ng-model=\"sowAssign.sowAssign_pk\" disabled />\r" +
+    "                                </thead>\r" +
     "\n" +
-    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "                                <tbody>\r" +
     "\n" +
-    "                                                    </td>\r" +
+    "                                    <tr ng-repeat=\"sowAssign in vm.model.sowAssigns\">\r" +
     "\n" +
-    "                                                    <td class=\"text-center\" hidden>\r" +
+    "                                        <td hidden>\r" +
     "\n" +
-    "                                                        <input type=\"text\" id=\"sow_fk\" name=\"sow_fk\" ng-model=\"sowAssign.sow_fk\" disabled />\r" +
+    "                                            <input type=\"text\" id=\"sowAssign_pk\" name=\"sowAssign_pk\" ng-model=\"sowAssign.sowAssign_pk\" disabled />\r" +
     "\n" +
-    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "                                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                                                    </td>\r" +
+    "                                        </td>\r" +
     "\n" +
-    "                                                    <td class=\"text-left\" hidden>\r" +
+    "                                        <td class=\"text-center\" hidden>\r" +
     "\n" +
-    "                                                        <input type=\"text\" id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatan_fk\" disabled />\r" +
+    "                                            <input type=\"text\" id=\"sow_fk\" name=\"sow_fk\" ng-model=\"sowAssign.sow_fk\" disabled />\r" +
     "\n" +
-    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "                                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                                                    </td>\r" +
+    "                                        </td>\r" +
     "\n" +
-    "                                                    <td class=\"text-left\">\r" +
+    "                                        <td class=\"text-left\" hidden>\r" +
     "\n" +
-    "                                                        <input type=\"text\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatanTitle\" disabled />\r" +
+    "                                            <input type=\"text\" id=\"kategoriJabatan_fk\" name=\"kategoriJabatan_fk\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatan_fk\" disabled />\r" +
     "\n" +
-    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "                                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                                                    </td>\r" +
+    "                                        </td>\r" +
     "\n" +
-    "                                                    <td>\r" +
+    "                                        <td class=\"text-left\">\r" +
     "\n" +
-    "                                                        <ui-select id=\"user_fk\" name=\"user_fk\" ng-model=\"sowAssign.user_fk\" size=\"0\" theme=\"select2\" ng-disabled=\"vm.disabled\" title=\"Find user\"\r" +
+    "                                            <input type=\"text\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\" class=\"form-control\" ng-model=\"sowAssign.kategoriJabatanTitle\" disabled />\r" +
     "\n" +
-    "                                                                   required style=\"width:200px\">\r" +
+    "                                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                                                            <ui-select-match placeholder=\"Find user\">{{$select.selected.name}}</ui-select-match>\r" +
+    "                                        </td>\r" +
     "\n" +
-    "                                                            <ui-select-choices refresh=\"vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)\" refresh-delay=\"0\" repeat=\"user.user_pk as user in vm.formData.users\">\r" +
+    "                                        <td>\r" +
     "\n" +
-    "                                                                <div>\r" +
+    "                                            <ui-select id=\"user_fk\" name=\"user_fk\" ng-model=\"sowAssign.user_fk\" size=\"0\" theme=\"select2\" ng-disabled=\"vm.disabled\" title=\"Find user\"\r" +
     "\n" +
-    "                                                                    <strong>\r" +
+    "                                                       required style=\"width:200px\">\r" +
     "\n" +
-    "                                                                        {{user.name }}\r" +
+    "                                                <ui-select-match placeholder=\"Find user\">{{$select.selected.name}}</ui-select-match>\r" +
     "\n" +
-    "                                                                    </strong>\r" +
+    "                                                <ui-select-choices refresh=\"vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)\" refresh-delay=\"0\" repeat=\"user.user_pk as user in vm.formData.users\">\r" +
     "\n" +
-    "                                                                </div>\r" +
+    "                                                    <div>\r" +
     "\n" +
-    "                                                                <div>\r" +
+    "                                                        <strong>\r" +
     "\n" +
-    "                                                                    {{\"Username: \" + user.username}}\r" +
+    "                                                            {{user.name }}\r" +
     "\n" +
-    "                                                                </div>\r" +
+    "                                                        </strong>\r" +
     "\n" +
-    "                                                                <div style=\"margin:2px; border-bottom:1px solid #ccc\">\r" +
+    "                                                    </div>\r" +
     "\n" +
-    "                                                                    {{\"Email: \" + user.email}}\r" +
+    "                                                    <div>\r" +
     "\n" +
-    "                                                                </div>\r" +
+    "                                                        {{\"Username: \" + user.username}}\r" +
     "\n" +
-    "                                                            </ui-select-choices>\r" +
+    "                                                    </div>\r" +
     "\n" +
-    "                                                        </ui-select>\r" +
+    "                                                    <div style=\"margin:2px; border-bottom:1px solid #ccc\">\r" +
     "\n" +
-    "                                                        <div class=\"invalid-feedback\"></div>\r" +
+    "                                                        {{\"Email: \" + user.email}}\r" +
     "\n" +
-    "                                                    </td>\r" +
+    "                                                    </div>\r" +
     "\n" +
-    "                                                </tr>\r" +
+    "                                                </ui-select-choices>\r" +
     "\n" +
-    "                                            </tbody>\r" +
+    "                                            </ui-select>\r" +
     "\n" +
-    "                                        </table>\r" +
+    "                                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                                    </div>\r" +
+    "                                        </td>\r" +
     "\n" +
-    "                                </fieldset>\r" +
+    "                                    </tr>\r" +
     "\n" +
-    "                            </div>\r" +
+    "                                </tbody>\r" +
     "\n" +
-    "                            <div class=\"row form-group\">\r" +
+    "                            </table>\r" +
     "\n" +
-    "                                <div class=\"col-md-8\">\r" +
+    "                        </div>\r" +
     "\n" +
-    "                                    <button class=\"btn btn-default\" ui-sref=\"app.sowList\">Kembali</button>\r" +
+    "                    </div>\r" +
     "\n" +
-    "                                    <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "                    <div class=\"row form-group\">\r" +
     "\n" +
-    "                                </div>\r" +
+    "                        <div class=\"col-md-8\">\r" +
     "\n" +
-    "                            </div>\r" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.sowList\">Kembali</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

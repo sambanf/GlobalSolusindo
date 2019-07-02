@@ -40,16 +40,23 @@
 
             $("#user tbody").on("click", "#show", function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
+
+                http.get('user/form/' + data.user_pk).then(function (response) {
+                    var user = response.data.model;
+
                     var modalInstance = $uibModal.open({
                         templateUrl: 'app/modules/user/userDetail.html',
                         controller: function ($scope, $uibModalInstance) {
-                            $scope.model = data;
+
+                            $scope.model = user;
                             $scope.close = function () {
                                 $uibModalInstance.close();
                             };
                         }
                     });
-                    modalInstance.result.then(function (selectedItem) {}, function () {});
+                    modalInstance.result.then(function (selectedItem) { }, function () { });
+                });
+
             });
         };
 

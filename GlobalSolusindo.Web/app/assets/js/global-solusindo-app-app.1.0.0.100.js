@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-06-30. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-02. 
 * @author Kairos
 */
 (function() {
@@ -6159,6 +6159,7 @@ angular.module('global-solusindo')
         }
         self.create = function (model) {
             http.post('bts', model).then(function (res) {
+                debugger;
                 if (res.success) {
                     ui.alert.success(res.message);
                     //$state.go('app.btsEntry', { id: res.data.model.bts_pk });
@@ -11996,6 +11997,20 @@ angular.module('global-solusindo')
             });
         }
 
+        function getUsers() {
+            select2Service.liveSearch("user/search", {
+                selector: '#user_fk',
+                valueMember: 'user_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.users = data;
+                },
+                onSelected: function (data) {
+                    controller.model.user_fk = data.user_pk;
+                }
+            });
+        }
+
         function getDeliveryArea() {
             select2Service.liveSearch("deliveryArea/search", {
                 selector: '#deliveryArea_fk',
@@ -12030,6 +12045,7 @@ angular.module('global-solusindo')
                 getOperators(); 
                 getDeliveryArea();
                 getVendors();
+                getUsers();
             });
         };
 
@@ -13950,6 +13966,7 @@ angular.module('global-solusindo')
                     }
 
                 }).then(function (response) {
+
                     handleHttpSuccess(response);
                     deferred.resolve(response.data);
                     PendingRequest.remove(url);
@@ -15155,16 +15172,17 @@ angular.module('global-solusindo')
                     controller.model.project_fk = data.project_pk;
                 },
                 templateResult: function (item) {
+                    var markup = '';
                     if (item.loading) {
-                        var markup = "<div class='select2-result-repository__statistics'>" +
+                        markup = "<div class='select2-result-repository__statistics'>" +
                             "<div>" + item.text + "</div>" +
                             "</div>" +
                             "</div></div>";
                         return markup;
                     } else {
-                        var markup = "<div class='select2-result-repository__statistics'>" +
-                            "<div><b>" + item.title + "</b></div>" +
-                            "<div>" + item.operatorTitle + "</div>" +
+                        markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div><b>" + item.operatorTitle + "</b></div>" +
+                            "<div>" + item.vendorTitle + "</div>" +
                             "<div>" + item.deliveryAreaTitle + "</div>" +
                             "</div>" +
                             "</div></div>";
@@ -15186,19 +15204,21 @@ angular.module('global-solusindo')
                     controller.model.bts_fk = data.bts_pk;
                 },
                 templateResult: function (item) {
+                    var markup = '';
                     if (item.loading) {
-                        var markup = "<div class='select2-result-repository__statistics'>" +
+                        markup = "<div class='select2-result-repository__statistics'>" +
                             "<div>" + item.text + "</div>" +
                             "</div>" +
                             "</div></div>";
                         return markup;
                     } else {
-                        var markup = "<div class='select2-result-repository__statistics'>" +
+                        var towerId = (item.towerId == null || item.towerId == undefined) ? '' : item.towerId;
+                        var cellId = (item.cellId == null || item.cellId == undefined) ? '' : item.cellId;
+                        markup = "<div class='select2-result-repository__statistics'>" +
                             "<div><b>" + item.name + "</b></div>" +
                             "<div>Operator: " + item.operatorTitle + "</div>" +
-                            "<div>Tower ID: " + item.towerId + "</div>" +
-                            "<div>Cell ID: " + item.cellId + "</div>" +
-                            "<div>Cabang: " + item.cabangTitle + "</div>" +
+                            "<div>Tower ID: " + towerId + "</div>" +
+                            "<div>Cell ID: " + cellId + "</div>" +
                             "</div>" +
                             "</div></div>";
                         return markup;

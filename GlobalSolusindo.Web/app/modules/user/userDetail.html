@@ -4,7 +4,7 @@
 <div class="modal-body" id="modal-body">
     <div class="row">
         <div class="col-sm-3 form-group text-center">
-            <img id="photo" src="/app/assets/images/default-large.png" style="width:150px;margin:0 auto" class="img-fluid" />
+            <img id="photo" src="{{model.filePhotoInBase64 == null ? '/app/assets/images/default-large.png' : model.filePhotoInBase64}}" style="width:150px;margin:0 auto" class="img-fluid" />
         </div>
         <div class="col-md-9">
 

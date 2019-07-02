@@ -25,7 +25,7 @@ namespace GlobalSolusindo.Api
     [TokenAuthorize()]
     public class ApiControllerBase : ApiController
     {
-        private const bool requireAccessControl = true;
+        private const bool requireAccessControl = false;
  
         public tblM_User ActiveUser
         {
