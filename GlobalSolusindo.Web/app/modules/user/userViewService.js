@@ -32,6 +32,11 @@
                 self.view(data.user_pk);
             });
 
+            $('#user tbody').on('click', '#assetHistory', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                $state.go('app.asetHistoriList', { userDetail_pk: data.userDetail_fk });
+            });
+
             $("#user tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
                 var id = data["user_pk"];

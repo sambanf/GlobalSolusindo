@@ -161,6 +161,7 @@
     <Compile Include="UserDetail\UserDetailDTO.cs" />
     <Compile Include="UserDetail\UserDetailFactory.cs" />
     <Compile Include="UserDetail\UserDetailValidator.cs" />
+    <Compile Include="User\DML\UserInactivateHandler.cs" />
     <Compile Include="User\DML\UserCreateHandler.cs" />
     <Compile Include="User\DML\UserDeleteHandler.cs" />
     <Compile Include="User\DML\UserImportCsv.cs" />

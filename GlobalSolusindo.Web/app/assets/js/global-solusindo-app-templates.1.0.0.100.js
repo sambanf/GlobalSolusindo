@@ -8084,6 +8084,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Phone Number</th>\r" +
     "\n" +
+    "                                        <th>Status</th>\r" +
+    "\n" +
     "                                        <th></th>\r" +
     "\n" +
     "                                    </tr>\r" +
@@ -8122,7 +8124,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "        <div class=\"col-sm-3 form-group text-center\">\r" +
     "\n" +
-    "            <img id=\"photo\" src=\"/app/assets/images/default-large.png\" style=\"width:150px;margin:0 auto\" class=\"img-fluid\" />\r" +
+    "            <img id=\"photo\" src=\"{{model.filePhotoInBase64 == null ? '/app/assets/images/default-large.png' : model.filePhotoInBase64}}\" style=\"width:150px;margin:0 auto\" class=\"img-fluid\" />\r" +
     "\n" +
     "        </div>\r" +
     "\n" +

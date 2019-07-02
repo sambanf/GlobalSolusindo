@@ -183,5 +183,39 @@ namespace GlobalSolusindo.Api.Controllers
                 }
             }
         }
+
+        [Route("user/inactivate")]
+        [HttpPost]
+        public IHttpActionResult Inactivate([FromBody]UserActivationDTO userInactivateDTO)
+        {
+            using (var userInactivateHandler = new UserActivationHandler(Db, ActiveUser))
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    var saveResult = userInactivateHandler.Inactivate(userInactivateDTO, dateStamp: DateTime.Now);
+                    transaction.Complete();
+                    if (saveResult.Success)
+                        return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
+                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                }
+            }
+        }
+
+        [Route("user/activate")]
+        [HttpPost]
+        public IHttpActionResult Activate([FromBody]UserActivationDTO userInactivateDTO)
+        {
+            using (var userInactivateHandler = new UserActivationHandler(Db, ActiveUser))
+            {
+                using (var transaction = new TransactionScope())
+                {
+                    var saveResult = userInactivateHandler.Activate(userInactivateDTO, dateStamp: DateTime.Now);
+                    transaction.Complete();
+                    if (saveResult.Success)
+                        return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
+                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                }
+            }
+        }
     }
 }

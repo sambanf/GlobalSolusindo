@@ -4038,14 +4038,15 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('UserCtrl', UserCtrl);
 
-    UserCtrl.$inject = ['$scope', '$state', 'userDtService', 'userDeleteService', 'userViewService'];
+    UserCtrl.$inject = ['$scope', '$state', 'userDtService', 'userDeleteService', 'userViewService', 'userInactivateService'];
 
-    function UserCtrl($scope, $state, dtService, deleteService, viewService) {
+    function UserCtrl($scope, $state, dtService, deleteService, viewService, inactivateService) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+        inactivateService.init(self);
 
         return self;
     }
@@ -16066,12 +16067,28 @@ angular.module('global-solusindo')
                         "data": "noHP"
                     },
                     {
+                        "data": "status_fk",
+                        "render": function (status) {
+                            switch (status) {
+                                case 1:
+                                    return "Active";
+                                case 2:
+                                    return "Inactive";
+                                case 3:
+                                    return "Deleted";
+                                default:
+                                    return "Active";
+                            }
+                        }
+                    },
+                    {
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
                             return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
                                 "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                                "<button id='inactivate' rel='tooltip' title='Inactivate User' data-placement='left' class='btn btn-danger'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
                         }
                     }
                 ],
@@ -16081,6 +16098,90 @@ angular.module('global-solusindo')
                 }
             });
         };
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('userInactivateService', user);
+
+    user.$inject = ['HttpService', 'uiService'];
+
+    function user(http, ui) {
+        var self = this;
+        var controller;
+
+        function inactivateRecords(ids) {
+            return http.post('user', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message, 'popup');
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.inactivate = function (data) {
+            var ids = [data.user_pk];
+            ui.alert.confirm("Are you sure want to inactivate user '" + data.name + "'?", function () {
+                return inactivateRecords(ids);
+            });
+        };
+
+        //self.inactivateMultiple = function (selectedRecords) {
+        //    var ids = [];
+
+        //    if (selectedRecords) {
+        //        for (var i = 0; i < selectedRecords.length; i++) {
+        //            ids.push(selectedRecords[i].user_pk);
+        //        }
+        //    }
+
+        //    ui.alert.confirm("Are you sure want to inactivate " + ids.length + " selected data?", function () {
+        //        return inactivateRecords(ids);
+        //    });
+        //};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row inactivate button event
+            $('#user tbody').on('click', '#inactivate', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.inactivate(selectedRecord);
+            });
+
+            ////Toolbar inactivate button event
+            //angular.element('#inactivateButton').on('click', function () {
+            //    var selectedRows = controller.datatable.rows('.selected').data();
+            //    var rowsAreSelected = selectedRows.length > 0;
+            //    if (!rowsAreSelected) {
+            //        ui.alert.error('Please select the record you want to inactivate.');
+            //        return;
+            //    }
+
+            //    var selectedRecords = [];
+            //    for (var i = 0; i < selectedRows.length; i++) {
+            //        selectedRecords.push(selectedRows[i]);
+            //    }
+            //    self.inactivateMultiple(selectedRecords);
+            //});
+        };
+
         return self;
     }
 
@@ -16127,16 +16228,23 @@ angular.module('global-solusindo')
 
             $("#user tbody").on("click", "#show", function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
+
+                http.get('user/form/' + data.user_pk).then(function (response) {
+                    var user = response.data.model;
+
                     var modalInstance = $uibModal.open({
                         templateUrl: 'app/modules/user/userDetail.html',
                         controller: function ($scope, $uibModalInstance) {
-                            $scope.model = data;
+
+                            $scope.model = user;
                             $scope.close = function () {
                                 $uibModalInstance.close();
                             };
                         }
                     });
-                    modalInstance.result.then(function (selectedItem) {}, function () {});
+                    modalInstance.result.then(function (selectedItem) { }, function () { });
+                });
+
             });
         };
 
