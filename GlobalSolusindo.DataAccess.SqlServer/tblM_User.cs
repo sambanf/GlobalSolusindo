@@ -14,6 +14,12 @@ namespace GlobalSolusindo.DataAccess
     
     public partial class tblM_User
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblM_User()
+        {
+            this.tblT_AsetHistori = new HashSet<tblT_AsetHistori>();
+        }
+    
         public int User_PK { get; set; }
         public int UserDetail_FK { get; set; }
         public int KategoriJabatan_FK { get; set; }
@@ -26,6 +32,8 @@ namespace GlobalSolusindo.DataAccess
         public int Status_FK { get; set; }
     
         public virtual tblM_Status tblM_Status { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblT_AsetHistori> tblT_AsetHistori { get; set; }
         public virtual tblM_UserDetail tblM_UserDetail { get; set; }
     }
 }

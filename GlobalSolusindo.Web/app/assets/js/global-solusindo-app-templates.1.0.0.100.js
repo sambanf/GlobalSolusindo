@@ -415,6 +415,292 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/asetHistori/asetHistori.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Aset Histori</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <!--User Info-->\r" +
+    "\n" +
+    "                        <div class=\"col-md-10\">\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">User ID</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-6\" id=\"userId\" name=\"userId\">{{vm.user.userCode}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Name</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-6\" id=\"name\" name=\"name\">{{vm.user.name}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Position</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-6\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\">{{vm.user.kategoriJabatanTitle}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-6\">\r" +
+    "\n" +
+    "                            <button id=\"addNewButton\" class=\"btn btn-success\">Tambah Aset</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"asetHistori\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Kategori Aset</th>\r" +
+    "\n" +
+    "                                        <th>Nama Aset</th>\r" +
+    "\n" +
+    "                                        <th>Tanggal Pinjam</th>\r" +
+    "\n" +
+    "                                        <th>Tanggal Kembali</th>\r" +
+    "\n" +
+    "                                        <th>Keterangan</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/asetHistori/asetHistoriDetail.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h5 class=\"modal-title\" id=\"modal-title\">Detail</h5>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-sm-3 form-group\">\r" +
+    "\n" +
+    "            <img id=\"photo\" src=\"/app/assets/images/tower-bts.jpg\"  class=\"img-fluid\" />\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"col-md-9\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Kode Asset :</label><label class=\"col-sm-8\">{{ model.asetHistoriId }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Tanggal Pembuatan :</label><label class=\"col-sm-8\">{{ model.createdDate | date: 'dd/MM/yyyy' }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Kategori AsetHistori :</label><label class=\"col-sm-8\">{{ model.kategoriAsetHistoriName }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Nama AsetHistori :</label><label class=\"col-sm-8\">{{ model.name }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Deskripsi AsetHistori :</label><label class=\"col-sm-8\">{{ model.description }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n"
+  );
+
+
+  $templateCache.put('app/modules/asetHistoriEntry/asetHistoriEntry.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\" style=\"height:-webkit-fill-available\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Tambah Aset Histori</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Aset :</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <select id=\"aset_fk\" name=\"aset_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.aset_fk\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.asets\" ng-value=\"x.aset_pk\">{{x.name}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Tanggal :</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" id=\"tglMulai\" name=\"tglMulai\" ng-model=\"vm.model.tglMulai\" class=\"form-control\" date-time-picker options=\"{ format: 'DD-MM-YYYY' }\" required />\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Deskripsi :</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                                    <textarea id=\"description\" name=\"description\" class=\"form-control\" ng-model=\"vm.model.description\"></textarea>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <hr />\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                            <button class=\"btn btn-default\" id=\"backButton\">Kembali</button>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
   $templateCache.put('app/modules/asetKategori/asetKategori.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -1735,7 +2021,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <button class=\"btn btn-success float-right\" id=\"saveButton\">Change Password</button>\r" +
     "\n" +
-    "                            <button class=\"btn btn-default\" ui-sref=\"app.changePasswordList\">Kembali</button>\r" +
+    "                            <button class=\"btn btn-default\" ui-sref=\"app.dashboard\">Kembali</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -5316,95 +5602,6 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                </div>\r" +
     "\n" +
     "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </form>\r" +
-    "\n" +
-    "</div>"
-  );
-
-
-  $templateCache.put('app/modules/report/asetHistori/asetHistori.html',
-    "<div class=\"animated fadeIn\">\r" +
-    "\n" +
-    "    <form class=\"form-horizontal\">\r" +
-    "\n" +
-    "        <div class=\"row\">\r" +
-    "\n" +
-    "            <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                <div class=\"card\">\r" +
-    "\n" +
-    "                    <div class=\"card-title\">Histori Penggunaan Aset</div>\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <!--User Info-->\r" +
-    "\n" +
-    "                        <div class=\"col-md-10\">\r" +
-    "\n" +
-    "                            <div class=\"row\">\r" +
-    "\n" +
-    "                                <label class=\"control-label col-sm-2\">User ID</label>\r" +
-    "\n" +
-    "                                <label class=\"control-label col-sm-6\" id=\"userId\" name=\"userId\">{{vm.user.userCode}}</label>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"row\">\r" +
-    "\n" +
-    "                                <label class=\"control-label col-sm-2\">Name</label>\r" +
-    "\n" +
-    "                                <label class=\"control-label col-sm-6\" id=\"name\" name=\"name\">{{vm.user.name}}</label>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                            <div class=\"row\">\r" +
-    "\n" +
-    "                                <label class=\"control-label col-sm-2\">Position</label>\r" +
-    "\n" +
-    "                                <label class=\"control-label col-sm-6\" id=\"kategoriJabatanTitle\" name=\"kategoriJabatanTitle\">{{vm.user.kategoriJabatanTitle}}</label>\r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                            <table id=\"asetHistori\">\r" +
-    "\n" +
-    "                                <thead>\r" +
-    "\n" +
-    "                                    <tr>\r" +
-    "\n" +
-    "                                        <th>No</th>\r" +
-    "\n" +
-    "                                        <th>Tanggal Pinjam</th>\r" +
-    "\n" +
-    "                                        <th>Tanggal Kembali</th>\r" +
-    "\n" +
-    "                                        <th>Kategori Aset</th>\r" +
-    "\n" +
-    "                                        <th>Nama Aset</th> \r" +
-    "\n" +
-    "                                    </tr>\r" +
-    "\n" +
-    "                                </thead>\r" +
-    "\n" +
-    "                            </table>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +

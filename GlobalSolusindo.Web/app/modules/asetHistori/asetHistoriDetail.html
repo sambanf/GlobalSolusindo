@@ -1,0 +1,36 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Detail</h5>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row">
+        <div class="col-sm-3 form-group">
+            <img id="photo" src="/app/assets/images/tower-bts.jpg"  class="img-fluid" />
+        </div>
+        <div class="col-md-9">
+
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Kode Asset :</label><label class="col-sm-8">{{ model.asetHistoriId }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Tanggal Pembuatan :</label><label class="col-sm-8">{{ model.createdDate | date: 'dd/MM/yyyy' }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Kategori AsetHistori :</label><label class="col-sm-8">{{ model.kategoriAsetHistoriName }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Nama AsetHistori :</label><label class="col-sm-8">{{ model.name }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Deskripsi AsetHistori :</label><label class="col-sm-8">{{ model.description }}</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="close()">Cancel</button>
+</div>
+
+
+
+
+

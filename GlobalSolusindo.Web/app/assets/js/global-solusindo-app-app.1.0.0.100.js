@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-02. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-05. 
 * @author Kairos
 */
 (function() {
@@ -192,6 +192,46 @@ angular.module('global-solusindo')
                 controllerAs: 'asetVm',
                 ncyBreadcrumb: {
                     label: 'Aset Entry'
+                }
+            });
+    }]);
+'use strict';
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.asetHistoriList', {
+                url: '/asetHistoriList/:user_fk',
+                templateUrl: 'app/modules/asetHistori/asetHistori.html',
+                controller: 'AsetHistoriCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Aset Histori'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.asetHistoriEntry', {
+                url: '/asetHistoriEntry/:id/:user_fk',
+                templateUrl: 'app/modules/asetHistoriEntry/asetHistoriEntry.html',
+                controller: 'AsetHistoriEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Aset Histori Entry'
                 }
             });
     }]);
@@ -1164,22 +1204,6 @@ angular.module('global-solusindo')
     .config(['$stateProvider', function ($stateProvider) {
 
         $stateProvider
-            .state('app.asetHistoriList', {
-                url: '/asetHistoriList/:userDetail_pk',
-                templateUrl: 'app/modules/report/asetHistori/asetHistori.html',
-                controller: 'AsetHistoriCtrl',
-                controllerAs: 'vm',
-                ncyBreadcrumb: {
-                    label: 'Aset Histori'
-                }
-            });
-    }]);
-'use strict';
-
-angular.module('global-solusindo')
-    .config(['$stateProvider', function ($stateProvider) {
-
-        $stateProvider
             .state('app.dailyTaskList', {
                 url: '/dailyTaskList',
                 templateUrl: 'app/modules/report/dailyTask/dailyTask.html',
@@ -1738,6 +1762,64 @@ angular.module('global-solusindo')
                 },
                 onSelected: function (data) {
                     self.model.kategoriAset_fk = data.asetKategori_pk;
+                }
+            });
+        });
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    angular.module('global-solusindo')
+        .controller('AsetHistoriCtrl', AsetHistoriCtrl);
+
+    AsetHistoriCtrl.$inject = ['$scope', '$state', 'asetHistoriDtService', 'asetHistoriDeleteService', 'asetHistoriViewService'];
+
+    function AsetHistoriCtrl($scope, $state, dtService, deleteService, viewService) {
+        var self = this;
+        self.datatable = dtService.init(self);
+        deleteService.init(self);
+        viewService.init(self);
+
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('AsetHistoriEntryCtrl', AsetHistoriEntryCtrl);
+
+    AsetHistoriEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'AsetHistoriSaveService', 'AsetHistoriBindingService', 'FormControlService', 'select2Service'];
+
+    function AsetHistoriEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+            
+            select2Service.liveSearch("aset/search", {
+                selector: '#aset_fk',
+                valueMember: 'aset_pk',
+                displayMember: 'name',
+                callback: function (data) { 
+                    self.formData.asets = data;
+                },
+                onSelected: function (data) {
+                    self.model.aset_fk = data.aset_pk;
                 }
             });
         });
@@ -3377,22 +3459,6 @@ angular.module('global-solusindo')
     'use strict';
 
     angular.module('global-solusindo')
-        .controller('AsetHistoriCtrl', AsetHistoriCtrl);
-
-    AsetHistoriCtrl.$inject = ['$scope', '$state', 'asetHistoriDtService', '$stateParams'];
-
-    function AsetHistoriCtrl($scope, $state, dtService, $stateParams) {
-        var self = this;
-        self.stateParam = $stateParams;
-        dtService.init(self);
-
-        return self;
-    }
-})();
-(function () {
-    'use strict';
-
-    angular.module('global-solusindo')
         .controller('DailyTaskCtrl', DailyTaskCtrl);
 
     DailyTaskCtrl.$inject = ['$scope', '$state', 'dailyTaskDtService', 'HttpService', 'select2Service'];
@@ -4892,6 +4958,353 @@ angular.module('global-solusindo')
             controller = ctrl;
             angular.element('#saveButton').on('click', function () {
                 self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetHistoriDeleteService', asetHistori);
+
+    asetHistori.$inject = ['HttpService', 'uiService'];
+
+    function asetHistori(http, ui) {
+        var self = this;
+        var controller;
+
+        function deleteRecords(ids) {
+            return http.delete('asetHistori', ids).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message, 'popup');
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.delete = function (data) {
+            var ids = [data.asetHistori_pk];
+            ui.alert.confirm("Are you sure want to delete aset histori '" + data.title + "'?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.deleteMultiple = function (selectedRecords) {
+            var ids = [];
+
+            if (selectedRecords) {
+                for (var i = 0; i < selectedRecords.length; i++) {
+                    ids.push(selectedRecords[i].asetHistori_pk);
+                }
+            }
+
+            ui.alert.confirm("Are you sure want to delete " + ids.length + " selected data?", function () {
+                return deleteRecords(ids);
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+
+            //Row delete button event
+            $('#asetHistori tbody').on('click', '#delete', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.delete(selectedRecord);
+            });
+
+            //Toolbar delete button event
+            angular.element('#deleteButton').on('click', function () {
+                var selectedRows = controller.datatable.rows('.selected').data();
+                var rowsAreSelected = selectedRows.length > 0;
+                if (!rowsAreSelected) {
+                    ui.alert.error('Please select the record you want to delete.');
+                    return;
+                }
+
+                var selectedRecords = [];
+                for (var i = 0; i < selectedRows.length; i++) {
+                    selectedRecords.push(selectedRows[i]);
+                }
+                self.deleteMultiple(selectedRecords);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetHistoriDtService', asetHistori);
+
+    asetHistori.$inject = ['DatatableService', '$stateParams'];
+
+    function asetHistori(ds, $stateParams) {
+        var self = this;
+        var controller = {};
+        self.init = function (ctrl) {
+            var titleColumnIndex = 1;
+            controller = ctrl;
+            return ds.init("#asetHistori", "asetHistori/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    user_fk: $stateParams.user_fk
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "asetHistori_pk"
+                    },
+                    {
+                        "data": "asetKategoriTitle"
+                    },
+                    {
+                        "data": "asetName"
+                    },
+                    {
+                        "data": "tglMulai",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
+                    },
+                    {
+                        "data": "tglSelesai",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
+                    },
+                    {
+                        "data": "description"
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                            //"<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
+                               
+                        }
+                    }
+                ],
+                ajaxCallback: function (response) {
+                    controller.user = response.data.user;
+                },
+                exportButtons: {
+                    columns: [1, 2, 3],
+                    title: "AsetHistori"
+                }
+            });
+        };
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('asetHistoriViewService', asetHistoriView);
+
+    asetHistoriView.$inject = ['HttpService', '$state', '$stateParams', 'uiService', '$uibModal'];
+
+    function asetHistoriView(http, $state, $stateParams, ui, $uibModal) {
+        var self = this;
+        var controller;
+
+        self.view = function (id, user_fk) {
+            $state.go('app.asetHistoriEntry', {
+                id: id,
+                user_fk: user_fk
+            });
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            $('#asetHistori tbody').on('click', '#view', function () {
+                var asetHistori = controller.datatable.row($(this).parents('tr')).data();
+                self.view(asetHistori.asetHistori_pk, asetHistori.user_fk);
+            });
+
+            $("#asetHistori tbody").on("dblclick", "tr", function () {
+                var asetHistori = controller.datatable.row(this).data();
+                self.view(asetHistori.asetHistori_pk, asetHistori.user_fk);
+            });
+
+            angular.element('#addNewButton').on('click', function () {
+                self.view(0, $stateParams.user_fk);
+            });
+
+            $("#asetHistori tbody").on("click", "#show", function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/asetHistori/asetHistoriDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('AsetHistoriBindingService', AsetHistoriBindingService);
+
+    AsetHistoriBindingService.$inject = ['HttpService', '$state'];
+
+    function AsetHistoriBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('asetHistori/form/' + id);
+        };
+
+        function setImage(data) {
+            document.getElementById("photoAsetHistori").src = data;
+        }
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.formData = res.data.formData;
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('AsetHistoriSaveService', AsetHistoriEntry);
+
+    AsetHistoriEntry.$inject = ['$state', '$stateParams', 'HttpService', 'uiService', 'validationService'];
+
+    function AsetHistoriEntry($state, $stateParams, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        function goToListPage() {
+            $state.go('app.asetHistoriList', { user_fk: $stateParams.user_fk });
+        }
+
+        self.create = function (model) {
+            model.user_fk = $stateParams.user_fk;
+            http.post('asetHistori', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    // $state.go('app.asetHistoriEntry', { id: res.data.model.asetHistori_pk });
+                    goToListPage();
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            model.user_fk = $stateParams.user_fk;
+            http.put('asetHistori', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    goToListPage();
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.asetHistori_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+
+            angular.element('#backButton').on('click', function () {
+                goToListPage();
             });
         };
 
@@ -12137,66 +12550,6 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('asetHistoriDtService', asetHistoriDtService);
-
-    asetHistoriDtService.$inject = ['DatatableService'];
-
-    function asetHistoriDtService(ds) {
-        var self = this;
-        var controller = {};
-
-        self.init = function (ctrl) {
-            controller = ctrl;
-            var titleColumnIndex = 1;
-            var dt = ds.init("#asetHistori", "asetHistori/search", {
-                extendRequestData: {
-                    pageIndex: 1,
-                    pageSize: 10,
-                    userDetail_fk: controller.stateParam.userDetail_pk
-                },
-                order: [titleColumnIndex, "asc"],
-                columns: [{
-                    "orderable": false,
-                    "data": "asetHistori_pk"
-                },
-                {
-                    "data": "tglMulai"
-                },
-                {
-                    "data": "tglSelesai"
-                },
-                {
-                    "data": "asetKategoriTitle"
-                },
-                {
-                    "data": "asetName"
-                }
-                ],
-                ajaxCallback: function (response) {
-                    controller.user = response.data.user;
-                }
-            });
-            controller.datatable = dt;
-            return dt;
-        };
-
-        return self;
-    }
-
-})();
-(function () {
-    'use strict';
-
-    /**
-     * @ngdoc function
-     * @name app.service:dashboardService
-     * @description
-     * # dashboardService
-     * Service of the app
-     */
-
-    angular
-        .module('global-solusindo')
         .factory('dailyTaskDtService', dailyTaskDtService);
 
     dailyTaskDtService.$inject = ['DatatableService', 'dailyTaskSearchService'];
@@ -13745,8 +14098,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -16082,12 +16435,18 @@ angular.module('global-solusindo')
                         }
                     },
                     {
+                        "data": "status_fk",
                         "orderable": false,
                         "className": "text-center",
-                        "render": function (data) {
+                        "render": function (statusFk) {
+                            var activateClassName = statusFk == 1 ? "btn btn-danger" : "btn btn-primary";
+                            var activateTitle = statusFk == 1 ? "Deactivate User" : "Activate User";
+                            var activateIcon = statusFk == 1 ? "fas fa-user-times" : "fas fa-user";
+
                             return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
                                 "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='inactivate' rel='tooltip' title='Inactivate User' data-placement='left' class='btn btn-danger'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='assetHistory' rel='tooltip' title='Asset History' data-placement='left' class='btn btn-success'><i class='fas fa-info'></i></button> " +
+                                "<button id='inactivate' rel='tooltip' title='" + activateTitle + "' data-placement='left' class='" + activateClassName + "'><i class='" + activateIcon + "'></i></button> " +
                                 "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
                         }
                     }
@@ -16124,7 +16483,23 @@ angular.module('global-solusindo')
         var controller;
 
         function inactivateRecords(ids) {
-            return http.post('user', ids).then(function (response) {
+            return http.post('user/inactivate', {
+                user_pk: ids
+            }).then(function (response) {
+                var res = response;
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message, 'popup');
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        function activateRecords(ids) {
+            return http.post('user/activate', {
+                user_pk: ids
+            }).then(function (response) {
                 var res = response;
                 if (res.success) {
                     controller.datatable.draw();
@@ -16136,10 +16511,18 @@ angular.module('global-solusindo')
         }
 
         self.inactivate = function (data) {
-            var ids = [data.user_pk];
-            ui.alert.confirm("Are you sure want to inactivate user '" + data.name + "'?", function () {
-                return inactivateRecords(ids);
+            var ids = data.user_pk;
+            var isActive = data.status_fk == 1;
+            if (isActive) {
+                ui.alert.confirm("Are you sure want to inactivate user '" + data.name + "'?", function () {
+                    return inactivateRecords(ids);
+                });
+                return;
+            }
+            ui.alert.confirm("Are you sure want to activate user '" + data.name + "'?", function () {
+                return activateRecords(ids);
             });
+
         };
 
         //self.inactivateMultiple = function (selectedRecords) {
@@ -16218,6 +16601,11 @@ angular.module('global-solusindo')
             $('#user tbody').on('click', '#view', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
                 self.view(data.user_pk);
+            });
+
+            $('#user tbody').on('click', '#assetHistory', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                $state.go('app.asetHistoriList', { user_fk: data.user_pk });
             });
 
             $("#user tbody").on("dblclick", "tr", function () {
