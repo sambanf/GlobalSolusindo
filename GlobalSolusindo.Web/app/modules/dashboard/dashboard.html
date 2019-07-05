@@ -6,105 +6,228 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-20p item-container ng-scope">
-            <div class="card p-0 bg-white hoverable">
-                <div class="top-dashboard">
-                    <div class="row">
-                        <div class="col-5 col-lg-3">
-                            <div class="the-icons">
-                                <i class="fa fa-file-alt"></i>
+
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row form-group col-sm-12" style="margin-bottom:20px">
+                        <label class="control-label col-sm-1">Start Date</label>
+                        <div class="col-sm-2">
+                            <input type="text" id="tglMulai1" name="tglMulai" ng-model="db.tglMulaiFilter1" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" value="{{db.TglMulai}}" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <label class="control-label col-sm-1">End Date</label>
+                        <div class="col-sm-2">
+                            <input type="text" id="tglAkhir1" name="tglAkhir" ng-model="db.tglAkhirFilter1" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" value="{{db.TglAkhir}}" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="row col-md-2">
+                            <button id="searchButton1" style="border-radius: 20px" ng-click="db.searchFilter1()" class="btn btn-success">Cari</button>
+                        </div>
+                    </div>
+                    <div class="row form-group col-sm-12" style="margin-bottom:20px">
+                        <label class="control-label col-sm-1">Project</label>
+                        <div class="col-sm-2">
+                            <select id="project_fk1" name="user_fk" class="form-control input-lg" size="0" ng-model="db.model.user_fk" required>
+                                <option ng-repeat="x in db.formData.users" ng-value="x.project_pk">{{x.operatorTitle}}  {{x.deliveryAreaTitle}} {{x.vendorTitle}}</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-20p item-container ng-scope">
+                            <div class="card p-0 bg-white hoverable">
+                                <div class="top-dashboard">
+                                    <div class="row">
+                                        <div class="col-5 col-lg-3">
+                                            <div class="the-icons">
+                                                <i class="fa fa-file-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-lg-9 state-text">
+                                            <h5 class="mt-2">Total Value PO</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="value-dashboard">
+                                    <h4>Rp {{db.totalpo}}</h4>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-7 col-lg-9 state-text">
-                            <h5 class="mt-2">Total Install PO</h5>
+                        <div class="col-md-20p item-container ng-scope">
+                            <div class="card p-0 bg-white hoverable">
+                                <div class="top-dashboard" style="background-color: #0996e6;">
+                                    <div class="row">
+                                        <div class="col-5 col-lg-3">
+                                            <div class="the-icons">
+                                                <i class="fa fa-file-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-lg-9 state-text">
+                                            <h5>Total Jumlah PO</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="value-dashboard">
+                                    <h4 style="color: #0996e6">{{db.jmlpo}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-20p item-container ng-scope">
+                            <div class="card p-0 bg-white hoverable">
+                                <div class="top-dashboard" style="background-color:#e25913;">
+                                    <div class="row">
+                                        <div class="col-5 col-lg-3">
+                                            <div class="the-icons">
+                                                <i class="fa fa-file-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-lg-9 state-text">
+                                            <h5>Total Jumlah Invoice</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="value-dashboard">
+                                    <h4 style="color: #e25913">{{db.jmlInvoice}}</h4>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-20p item-container ng-scope">
+                            <div class="card p-0 bg-white hoverable">
+                                <div class="top-dashboard" style="background-color: #f6b314;">
+                                    <div class="row">
+                                        <div class="col-5 col-lg-3">
+                                            <div class="the-icons">
+                                                <i class="fa fa-file-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-lg-9 state-text">
+                                            <h5>Jumlah Member</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="value-dashboard">
+                                    <h4 style=" color: #f6b314">{{db.jmlMember}}</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-20p item-container ng-scope">
+                            <div class="card p-0 bg-white hoverable">
+                                <div class="top-dashboard" style="background-color:#9f3ce8;">
+                                    <div class="row">
+                                        <div class="col-5 col-lg-3">
+                                            <div class="the-icons">
+                                                <i class="fa fa-file-alt"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-7 col-lg-9 state-text">
+                                            <h5 class="mt-2">Jumlah Asset</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="value-dashboard">
+                                    <h4 style=" color: #9f3ce8">{{db.jmlAset}}</h4>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="value-dashboard">
-                    <h4>Rp. 100.000.000</h4>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header" style="background:white">
+                    <h4>Monthly Recap Report</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row form-group col-sm-12" style="margin-bottom:20px">
+                        <label class="control-label col-sm-1">Start Date</label>
+                        <div class="col-sm-2">
+                            <input type="text" id="tglMulai2" name="tglMulai" ng-model="db.tglMulaiFilter2" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <label class="control-label col-sm-1">End Date</label>
+                        <div class="col-sm-2">
+                            <input type="text" id="tglAkhir2" name="tglAkhir" ng-model="db.tglAkhirFilter2" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="row col-md-2">
+                            <button id="searchButton2" style="border-radius: 20px" ng-click="db.searchFileter2()" class="btn btn-success">Cari</button>
+                        </div>
+                    </div>
+                    <div class="row form-group col-sm-12" style="margin-bottom:20px">
+                        <label class="control-label col-sm-1">Project</label>
+                        <div class="col-sm-2">
+                            <select id="operator_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="db.model.user_fk" required>
+                                <option ng-repeat="x in db.formData.operator" ng-value="x.operator_pk">{{x.title}}</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="containerSalesReport" style="min-width: 700px; height: 400px; margin: 0 auto"></div>
+                        <div id="containerGoalCompletion" style="min-width: 700px; height: 400px; margin: 0 auto"></div>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="col-md-20p item-container ng-scope">
-            <div class="card p-0 bg-white hoverable">
-                <div class="top-dashboard" style="background-color: #0996e6;" >
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header" style="background:white">
+                    <h4 id="revCost">Revenue vs Cost</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row form-group col-sm-12" style="margin-bottom:20px">
+                        <label class="control-label col-sm-1">Start Date</label>
+                        <div class="col-sm-2">
+                            <input type="text" id="tglMulai3" name="tglMulai" ng-model="db.tglMulaiFilter3" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <label class="control-label col-sm-1">End Date</label>
+                        <div class="col-sm-2">
+                            <input type="text" id="tglAkhir3" name="tglAkhir" ng-model="db.tglAkhirFilter3" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <div class="invalid-feedback"></div>
+                        </div>
+                        <div class="row col-md-2">
+                            <button id="searchButton3" style="border-radius: 20px" ng-click="db.searchFilter3()" class="btn btn-success">Cari</button>
+                        </div>
+                    </div>
+                    <div class="row form-group col-sm-12" style="margin-bottom:20px">
+                        <label class="control-label col-sm-1">Project</label>
+                        <div class="col-sm-2">
+                            <select id="project_Id" name="user_fk" class="form-control input-lg" size="0" ng-model="db.model.user_fk" required>
+                                <option ng-repeat="x in db.formData.users" ng-value="x.project_pk">{{x.operatorTitle}}  {{x.deliveryAreaTitle}} {{x.vendorTitle}}</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div id="containerRevenueCost" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
                     <div class="row">
-                        <div class="col-5 col-lg-3">
-                            <div class="the-icons">
-                                <i class="fa fa-file-alt"></i>
+                        <div class="col-sm-4">
+                            <div style="text-align:center">
+                                <label></label><br />
+                                <label style="font-weight:bold">Rp {{db.TotalRevenue}}</label><br />
+                                <label>Total Revenue</label>
                             </div>
                         </div>
-                        <div class="col-7 col-lg-9 state-text">
-                            <h5>Total Jumlah PO</h5>
+                        <div class="col-sm-4">
+                            <div style="text-align:center">
+                                <label></label><br />
+                                <label style="font-weight:bold">Rp {{db.TotalCost}}</label><br />
+                                <label>Total Cost</label>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div style="text-align:center">
+                                <label id="lblPersentage" style="font-weight:bold">{{db.PersentageProfit}} %</label><br />
+                                <label style="font-weight:bold">Rp {{db.TotalProfit}}</label><br />
+                                <label>Total Profit</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="value-dashboard">
-                    <h4  style="color: #0996e6">100</h4>
-                </div>
             </div>
         </div>
-
-        <div class="col-md-20p item-container ng-scope">
-            <div class="card p-0 bg-white hoverable">
-                <div class="top-dashboard" style="background-color:#e25913;">
-                    <div class="row">
-                        <div class="col-5 col-lg-3">
-                            <div class="the-icons">
-                                <i class="fa fa-file-alt"></i>
-                            </div>
-                        </div>
-                        <div class="col-7 col-lg-9 state-text">
-                            <h5>Total Jumlah Invoice</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="value-dashboard">
-                    <h4 style="color: #e25913">150</h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-20p item-container ng-scope">
-            <div class="card p-0 bg-white hoverable">
-                <div class="top-dashboard" style="background-color: #f6b314;">
-                    <div class="row">
-                        <div class="col-5 col-lg-3">
-                            <div class="the-icons">
-                                <i class="fa fa-file-alt"></i>
-                            </div>
-                        </div>
-                        <div class="col-7 col-lg-9 state-text">
-                            <h5>Total Jumlah Member</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="value-dashboard">
-                    <h4 style=" color: #f6b314">200</h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-20p item-container ng-scope">
-            <div class="card p-0 bg-white hoverable">
-                <div class="top-dashboard"  style="background-color:#9f3ce8;">
-                    <div class="row">
-                        <div class="col-5 col-lg-3">
-                            <div class="the-icons">
-                                <i class="fa fa-file-alt"></i>
-                            </div>
-                        </div>
-                        <div class="col-7 col-lg-9 state-text">
-                            <h5 class="mt-2">Jumlah Asset</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="value-dashboard">
-                    <h4 style=" color: #9f3ce8">200</h4>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>

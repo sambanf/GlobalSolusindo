@@ -53,6 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PO\DashboardValue.cs" />
+    <Compile Include="PO\GoalCompletion.cs" />
+    <Compile Include="PO\RevenueCost.cs" />
+    <Compile Include="PO\RevenueCostProfit.cs" />
+    <Compile Include="PO\SalesReport.cs" />
     <Compile Include="TipePekerjaan\TipePekerjaanCreateHandler.cs" />
     <Compile Include="TipePekerjaan\TipePekerjaanDeleteHandler.cs" />
     <Compile Include="TipePekerjaan\TipePekerjaanDTO.cs" />
