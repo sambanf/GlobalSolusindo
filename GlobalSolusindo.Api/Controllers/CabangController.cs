@@ -15,6 +15,11 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class CabangController : ApiControllerBase
     {
+        private const string createRole = "Cabang_Input";
+        private const string updateRole = "Cabang_Edit";
+        private const string readRole = "Cabang_ViewAll";
+        private const string deleteRole = "Cabang_Delete";
+        private const string importRole = "Cabang_Import";
         public CabangController()
         {
         }
@@ -23,8 +28,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "Cabang_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (CabangQuery cabangQuery = new CabangQuery(Db))
             {
                 var data = cabangQuery.GetByPrimaryKey(id);
@@ -36,10 +40,9 @@ namespace GlobalSolusindo.Api.Controllers
         [Route("cabang/form/{id}")]
         [HttpGet]
         public IHttpActionResult GetForm(int id)
-        {
-            string accessType = "Cabang_ViewAll";
+        { 
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (CabangEntryDataProvider cabangEntryDataProvider = new CabangEntryDataProvider(Db, ActiveUser, AccessControl, new CabangQuery(Db)))
             {
                 var data = cabangEntryDataProvider.Get(id);
@@ -52,8 +55,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]CabangSearchFilter filter)
         {
-            string accessType = "Cabang_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +70,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]CabangDTO cabang)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (cabang == null)
                 throw new KairosException("Missing model parameter");
 
@@ -92,8 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]CabangDTO cabang)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (cabang == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,11 +117,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var cabangDeleteHandler = new CabangDeleteHandler(Db, ActiveUser))
             {

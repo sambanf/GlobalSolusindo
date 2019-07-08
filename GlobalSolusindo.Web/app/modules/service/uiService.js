@@ -20,9 +20,11 @@
 
         self.alert = {
             error: function (message) {
-                alertify.alert().setContent(message).setHeader('Error').set({
-                    transition: 'zoom'
-                }).show(true, 'error');
+                if (message) {
+                    alertify.alert().setContent(message).setHeader('Error').set({
+                        transition: 'zoom'
+                    }).show(true, 'error');
+                }
             },
             errorToast: function (message) {
                 alertify.set('notifier', 'position', 'top-center');

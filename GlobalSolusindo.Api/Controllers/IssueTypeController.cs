@@ -15,6 +15,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class IssueTypeController : ApiControllerBase
     {
+        private const string createRole = "IssueType_Input";
+        private const string updateRole = "IssueType_Edit";
+        private const string readRole = "IssueType_ViewAll";
+        private const string deleteRole = "IssueType_Delete";
+        private const string importRole = "IssueType_Import";
+
         public IssueTypeController()
         {
         }
@@ -23,8 +29,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "IssueType_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (IssueTypeQuery issueTypeQuery = new IssueTypeQuery(Db))
             {
                 var data = issueTypeQuery.GetByPrimaryKey(id);
@@ -37,9 +42,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "IssueType_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (IssueTypeEntryDataProvider issueTypeEntryDataProvider = new IssueTypeEntryDataProvider(Db, ActiveUser, AccessControl, new IssueTypeQuery(Db)))
             {
                 var data = issueTypeEntryDataProvider.Get(id);
@@ -52,8 +56,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]IssueTypeSearchFilter filter)
         {
-            string accessType = "IssueType_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +71,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]IssueTypeDTO issueType)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (issueType == null)
                 throw new KairosException("Missing model parameter");
 
@@ -92,8 +94,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]IssueTypeDTO issueType)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (issueType == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,11 +118,9 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var issueTypeDeleteHandler = new IssueTypeDeleteHandler(Db, ActiveUser))
             {
@@ -134,7 +133,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(issueTypeDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    
+
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

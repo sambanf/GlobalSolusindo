@@ -15,6 +15,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class KategoriJabatanController : ApiControllerBase
     {
+        private const string createRole = "KategoriJabatan_Input";
+        private const string updateRole = "KategoriJabatan_Edit";
+        private const string readRole = "KategoriJabatan_ViewAll";
+        private const string deleteRole = "KategoriJabatan_Delete";
+        private const string importRole = "KategoriJabatan_Import";
+
         public KategoriJabatanController()
         {
         }
@@ -23,8 +29,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "KategoriJabatan_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (KategoriJabatanQuery kategoriJabatanQuery = new KategoriJabatanQuery(Db))
             {
                 var data = kategoriJabatanQuery.GetByPrimaryKey(id);
@@ -37,9 +42,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "KategoriJabatan_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (KategoriJabatanEntryDataProvider kategoriJabatanEntryDataProvider = new KategoriJabatanEntryDataProvider(Db, ActiveUser, AccessControl, new KategoriJabatanQuery(Db)))
             {
                 var data = kategoriJabatanEntryDataProvider.Get(id);
@@ -52,8 +56,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]KategoriJabatanSearchFilter filter)
         {
-            string accessType = "KategoriJabatan_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +71,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]KategoriJabatanDTO kategoriJabatan)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (kategoriJabatan == null)
                 throw new KairosException("Missing model parameter");
 
@@ -78,7 +80,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var kategoriJabatanCreateHandler = new KategoriJabatanCreateHandler(Db, ActiveUser, new KategoriJabatanValidator(), new KategoriJabatanFactory(Db, ActiveUser), new KategoriJabatanQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = kategoriJabatanCreateHandler.Save(kategoriJabatanDTO: kategoriJabatan, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -92,8 +94,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]KategoriJabatanDTO kategoriJabatan)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (kategoriJabatan == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,11 +118,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var kategoriJabatanDeleteHandler = new KategoriJabatanDeleteHandler(Db, ActiveUser))
             {

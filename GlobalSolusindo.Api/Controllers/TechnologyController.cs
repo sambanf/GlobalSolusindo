@@ -15,6 +15,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class TechnologyController : ApiControllerBase
     {
+        private const string createRole = "Technology_Input";
+        private const string updateRole = "Technology_Edit";
+        private const string readRole = "Technology_ViewAll";
+        private const string deleteRole = "Technology_Delete";
+        private const string importRole = "Technology_Import";
+
         public TechnologyController()
         {
         }
@@ -23,8 +29,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "Technology_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (TechnologyQuery technologyQuery = new TechnologyQuery(Db))
             {
                 var data = technologyQuery.GetByPrimaryKey(id);
@@ -37,9 +42,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "Technology_ViewAll";
-            if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+            if (id > 0) ThrowIfUserHasNoRole(readRole);
             using (TechnologyEntryDataProvider technologyEntryDataProvider = new TechnologyEntryDataProvider(Db, ActiveUser, AccessControl, new TechnologyQuery(Db)))
             {
                 var data = technologyEntryDataProvider.Get(id);
@@ -52,8 +55,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]TechnologySearchFilter filter)
         {
-            string accessType = "Technology_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +70,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]TechnologyDTO technology)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (technology == null)
                 throw new KairosException("Missing model parameter");
 
@@ -92,8 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]TechnologyDTO technology)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (technology == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,11 +117,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var technologyDeleteHandler = new TechnologyDeleteHandler(Db, ActiveUser))
             {
@@ -134,7 +133,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(technologyDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    
+
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

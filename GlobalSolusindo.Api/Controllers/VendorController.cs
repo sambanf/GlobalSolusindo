@@ -13,6 +13,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class VendorController : ApiControllerBase
     {
+        private const string createRole = "Vendor_Input";
+        private const string updateRole = "Vendor_Edit";
+        private const string readRole = "Vendor_ViewAll";
+        private const string deleteRole = "Vendor_Delete";
+        private const string importRole = "Vendor_Import";
+
         public VendorController()
         {
         }
@@ -21,8 +27,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "Vendor_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (VendorQuery vendorQuery = new VendorQuery(Db))
             {
                 var data = vendorQuery.GetByPrimaryKey(id);
@@ -35,9 +40,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "Vendor_ViewAll";
-            if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+            if (id > 0) ThrowIfUserHasNoRole(readRole);
             using (VendorEntryDataProvider vendorEntryDataProvider = new VendorEntryDataProvider(Db, ActiveUser, AccessControl, new VendorQuery(Db)))
             {
                 var data = vendorEntryDataProvider.Get(id);
@@ -50,8 +53,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]VendorSearchFilter filter)
         {
-            string accessType = "Vendor_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
+
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -66,8 +69,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]VendorDTO vendor)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (vendor == null)
                 throw new KairosException("Missing model parameter");
 
@@ -90,8 +92,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]VendorDTO vendor)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (vendor == null)
                 throw new KairosException("Missing model parameter");
 
@@ -115,11 +116,9 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var vendorDeleteHandler = new VendorDeleteHandler(Db, ActiveUser))
             {
@@ -132,7 +131,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(vendorDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    
+
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

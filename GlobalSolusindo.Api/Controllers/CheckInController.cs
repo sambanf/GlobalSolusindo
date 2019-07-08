@@ -16,8 +16,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "CheckIn_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            //string accessType = "CheckIn_ViewAll";
+            //ThrowIfUserHasNoRole(accessType);
             using (CheckInQuery checkInQuery = new CheckInQuery(Db))
             {
                 var data = checkInQuery.GetByPrimaryKey(id);
@@ -30,9 +30,9 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "CheckIn_ViewAll";
-            if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+            //string accessType = "CheckIn_ViewAll";
+            //if (id > 0)
+            //    ThrowIfUserHasNoRole(accessType);
             using (CheckInEntryDataProvider checkInEntryDataProvider = new CheckInEntryDataProvider(Db, ActiveUser, AccessControl, new CheckInQuery(Db)))
             {
                 var data = checkInEntryDataProvider.Get(id);
@@ -45,8 +45,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]CheckInSearchFilter filter)
         {
-            string accessType = "CheckIn_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            //string accessType = "CheckIn_ViewAll";
+            //ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -61,8 +61,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult SearchMyTaskList([FromUri]CheckInSearchFilter filter)
         {
-            string accessType = "CheckIn_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            //string accessType = "CheckIn_ViewAll";
+            //ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 

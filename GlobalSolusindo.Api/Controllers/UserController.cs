@@ -16,6 +16,16 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class UserController : ApiControllerBase
     {
+        private const string createRole = "User_Input";
+        private const string updateRole = "User_Edit";
+        private const string readRole = "User_ViewAll";
+        private const string deleteRole = "User_Delete";
+        private const string importRole = "User_Import";
+        private const string exportRole = "User_Export";
+
+        private const string activateRole = "User_Activate";
+        private const string deactivateRole = "User_Deactivate";
+
         public UserController()
         {
         }
@@ -24,8 +34,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "User_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (UserQuery userQuery = new UserQuery(Db))
             {
                 var data = userQuery.GetByPrimaryKey(id);
@@ -38,9 +47,9 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "User_ViewAll";
+
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (UserEntryDataProvider userEntryDataProvider = new UserEntryDataProvider(Db, ActiveUser, AccessControl, new UserQuery(Db)))
             {
                 var data = userEntryDataProvider.Get(id);
@@ -53,8 +62,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]UserSearchFilter filter)
         {
-            string accessType = "User_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -69,8 +77,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]UserDTO user)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (user == null)
                 throw new KairosException("Missing model parameter");
 
@@ -93,8 +100,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]UserDTO user)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (user == null)
                 throw new KairosException("Missing model parameter");
 
@@ -118,11 +124,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var userDeleteHandler = new UserDeleteHandler(Db, ActiveUser))
             {
@@ -144,8 +149,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Import([FromBody]UserImportDTO userImportDTO)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(importRole);
+
             if (userImportDTO == null)
                 throw new KairosException("Missing model parameter");
             var importResult = new UserImportExcelHandler(Db, ActiveUser, new UserValidator(), new UserFactory(Db, ActiveUser), new UserQuery(Db), AccessControl).ExecuteImport(userImportDTO, DateTime.Now);
@@ -156,6 +161,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public HttpResponseMessage Export([FromBody]UserSearchFilter filter)
         {
+            ThrowIfUserHasNoRole(exportRole);
             if (filter != null)
                 filter.PageSize = 1000000;
 
@@ -188,6 +194,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Inactivate([FromBody]UserActivationDTO userInactivateDTO)
         {
+            ThrowIfUserHasNoRole(deactivateRole);
             using (var userInactivateHandler = new UserActivationHandler(Db, ActiveUser))
             {
                 using (var transaction = new TransactionScope())
@@ -205,6 +212,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Activate([FromBody]UserActivationDTO userInactivateDTO)
         {
+            ThrowIfUserHasNoRole(activateRole);
             using (var userInactivateHandler = new UserActivationHandler(Db, ActiveUser))
             {
                 using (var transaction = new TransactionScope())

@@ -73,7 +73,7 @@
             }
             if (response.data && !response.data.success) {
                 if (response.data.status != 200 && response.data.message) {
-                    ui.alert.error();
+                    ui.alert.error(response.data.message);
                 }
             }
         }

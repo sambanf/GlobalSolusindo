@@ -12,6 +12,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class MappingUserToRoleGroupController : ApiControllerBase
     {
+        private const string createRole = "MappingUserToRoleGroup_Input";
+        private const string updateRole = "MappingUserToRoleGroup_Edit";
+        private const string readRole = "MappingUserToRoleGroup_ViewAll";
+        private const string deleteRole = "MappingUserToRoleGroup_Delete";
+        private const string importRole = "MappingUserToRoleGroup_Import";
+
         public MappingUserToRoleGroupController()
         {
         }
@@ -20,8 +26,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get([FromBody]UserRoleMapPK userRoleMapPK)
         {
-            string accessType = "MappingUserToRoleGroup_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (MappingUserToRoleGroupQuery mappingUserToRoleGroupQuery = new MappingUserToRoleGroupQuery(Db))
             {
                 var data = mappingUserToRoleGroupQuery.GetByPrimaryKey(userRoleMapPK.RoleGroupPK, userRoleMapPK.UserPK);
@@ -34,8 +39,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm([FromBody]UserRoleMapPK userRoleMapPK)
         {
-            string accessType = "MappingUserToRoleGroup_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (MappingUserToRoleGroupEntryDataProvider mappingUserToRoleGroupEntryDataProvider = new MappingUserToRoleGroupEntryDataProvider(Db, ActiveUser, AccessControl, new MappingUserToRoleGroupQuery(Db)))
             {
                 var data = mappingUserToRoleGroupEntryDataProvider.Get(userRoleMapPK.RoleGroupPK, userRoleMapPK.UserPK);
@@ -48,8 +52,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]MappingUserToRoleGroupSearchFilter filter)
         {
-            string accessType = "MappingUserToRoleGroup_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -64,8 +67,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]MappingUserToRoleGroupDTO mappingUserToRoleGroup)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (mappingUserToRoleGroup == null)
                 throw new KairosException("Missing model parameter"); 
 
@@ -86,8 +88,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]MappingUserToRoleGroupDTO mappingUserToRoleGroup)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (mappingUserToRoleGroup == null)
                 throw new KairosException("Missing model parameter"); 
 
@@ -108,11 +109,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] UserRoleMapPK keys)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (keys == null)
                 throw new KairosException("Missing parameter: 'primary keys'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var mappingUserToRoleGroupDeleteHandler = new MappingUserToRoleGroupDeleteHandler(Db, ActiveUser))
             {

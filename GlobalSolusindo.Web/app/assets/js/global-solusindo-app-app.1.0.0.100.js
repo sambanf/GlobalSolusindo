@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-05. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-09. 
 * @author Kairos
 */
 (function() {
@@ -2290,7 +2290,7 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('DashboardCtrl', Dashboard);
 
-    Dashboard.$inject = ['$scope', 'HttpService','highcharts'];
+    Dashboard.$inject = ['$scope', 'HttpService'];
 
     /*
     * recommend
@@ -2298,7 +2298,7 @@ angular.module('global-solusindo')
     * and bindable members up top.
     */
 
-    function Dashboard($scope, http, Highcharts) {
+    function Dashboard($scope, http) {
         /*jshint validthis: true */
         var db = this;
 
@@ -14493,9 +14493,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://localhost:88/";
         //var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -14548,7 +14547,7 @@ angular.module('global-solusindo')
             }
             if (response.data && !response.data.success) {
                 if (response.data.status != 200 && response.data.message) {
-                    ui.alert.error();
+                    ui.alert.error(response.data.message);
                 }
             }
         }
@@ -15106,9 +15105,11 @@ angular.module('global-solusindo')
 
         self.alert = {
             error: function (message) {
-                alertify.alert().setContent(message).setHeader('Error').set({
-                    transition: 'zoom'
-                }).show(true, 'error');
+                if (message) {
+                    alertify.alert().setContent(message).setHeader('Error').set({
+                        transition: 'zoom'
+                    }).show(true, 'error');
+                }
             },
             errorToast: function (message) {
                 alertify.set('notifier', 'position', 'top-center');
