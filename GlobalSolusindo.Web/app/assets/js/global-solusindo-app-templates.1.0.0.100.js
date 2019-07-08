@@ -903,55 +903,104 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/asset/assetModal/assetModal.html',
-    "<div class=\"modal-header\">\n" +
-    "    <h6 class=\"modal-title\">Tambah Asset</h6>\n" +
-    "</div>\n" +
-    "<div class=\"modal-body\">\n" +
-    "    <div class=\"row\">\n" +
-    "        <div class=\"col-sm-12\">\n" +
-    "            <div class=\"row\">\n" +
-    "                <div class=\"col-md-12\">\n" +
-    "                    <div class=\"row form-group\">\n" +
-    "                        <label class=\"control-label col-sm-4\">Kategory Asset :</label>\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <select id=\"position_fk\" name=\"position_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.position_fk\" required>\n" +
-    "                                <option ng-repeat=\"x in vm.formData.positions\" ng-value=\"x.position_pk\">{{x.name}}</option>\n" +
-    "                            </select>\n" +
-    "                            <div class=\"invalid-feedback\"></div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
+    "<div class=\"modal-header\">\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\n" +
-    "                        <label class=\"control-label col-sm-4\">Nama Asset :</label>\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.name\" required />\n" +
-    "                            <div class=\"invalid-feedback\"></div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
+    "    <h6 class=\"modal-title\">Tambah Asset</h6>\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\n" +
-    "                        <label class=\"control-label col-sm-4\">Gambar Asset :</label>\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.image\" required />\n" +
-    "                            <div class=\"invalid-feedback\"></div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
+    "</div>\r" +
     "\n" +
-    "                    <div class=\"row form-group\">\n" +
-    "                        <label class=\"control-label col-sm-4\">Deskripsi :</label>\n" +
-    "                        <div class=\"col-sm-8\">\n" +
-    "                            <textarea class=\"form-control\" ng-model=\"vm.model.desc\"></textarea>\n" +
-    "                            <div class=\"invalid-feedback\"></div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </div>\n" +
-    "</div>\n" +
-    "<div class=\"modal-footer\">\n" +
-    "    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">Simpan</button>\n" +
-    "    <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">Cancel</button>\n" +
+    "<div class=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-sm-12\">\r" +
+    "\n" +
+    "            <div class=\"row\">\r" +
+    "\n" +
+    "                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-4\">Kategory Asset :</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <select id=\"position_fk\" name=\"position_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.position_fk\" required>\r" +
+    "\n" +
+    "                                <option ng-repeat=\"x in vm.formData.positions\" ng-value=\"x.position_pk\">{{x.name}}</option>\r" +
+    "\n" +
+    "                            </select>\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-4\">Nama Asset :</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.name\" required />\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-4\">Gambar Asset :</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.image\" required />\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <div class=\"row form-group\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-4\">Deskripsi :</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-8\">\r" +
+    "\n" +
+    "                            <textarea class=\"form-control\" ng-model=\"vm.model.desc\"></textarea>\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">Simpan</button>\r" +
+    "\n" +
+    "    <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">Cancel</button>\r" +
+    "\n" +
     "</div>"
   );
 
@@ -2474,116 +2523,472 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/dashboard/dashboard.html',
-    "<div class=\"container-fluid animated fadeIn\">\n" +
-    "    <div class=\"row card-header\">\n" +
-    "        <div class=\"col-md-12\">\n" +
-    "            <div class=\"header-dashboard\">\n" +
-    "                <div class=\"month-pick\">\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\n" +
-    "                <div class=\"top-dashboard\">\n" +
-    "                    <div class=\"row\">\n" +
-    "                        <div class=\"col-5 col-lg-3\">\n" +
-    "                            <div class=\"the-icons\">\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
-    "                            <h5 class=\"mt-2\">Total Install PO</h5>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"value-dashboard\">\n" +
-    "                    <h4>Rp. 100.000.000</h4>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
+    "<div class=\"container-fluid animated fadeIn\">\r" +
     "\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\n" +
-    "                <div class=\"top-dashboard\" style=\"background-color: #0996e6;\" >\n" +
-    "                    <div class=\"row\">\n" +
-    "                        <div class=\"col-5 col-lg-3\">\n" +
-    "                            <div class=\"the-icons\">\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
-    "                            <h5>Total Jumlah PO</h5>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"value-dashboard\">\n" +
-    "                    <h4  style=\"color: #0996e6\">100</h4>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
+    "    <div class=\"row card-header\">\r" +
     "\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\n" +
-    "                <div class=\"top-dashboard\" style=\"background-color:#e25913;\">\n" +
-    "                    <div class=\"row\">\n" +
-    "                        <div class=\"col-5 col-lg-3\">\n" +
-    "                            <div class=\"the-icons\">\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
-    "                            <h5>Total Jumlah Invoice</h5>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"value-dashboard\">\n" +
-    "                    <h4 style=\"color: #e25913\">150</h4>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
+    "        <div class=\"col-md-12\">\r" +
     "\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\n" +
-    "                <div class=\"top-dashboard\" style=\"background-color: #f6b314;\">\n" +
-    "                    <div class=\"row\">\n" +
-    "                        <div class=\"col-5 col-lg-3\">\n" +
-    "                            <div class=\"the-icons\">\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
-    "                            <h5>Total Jumlah Member</h5>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"value-dashboard\">\n" +
-    "                    <h4 style=\" color: #f6b314\">200</h4>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
+    "            <div class=\"header-dashboard\">\r" +
     "\n" +
-    "        <div class=\"col-md-20p item-container ng-scope\">\n" +
-    "            <div class=\"card p-0 bg-white hoverable\">\n" +
-    "                <div class=\"top-dashboard\"  style=\"background-color:#9f3ce8;\">\n" +
-    "                    <div class=\"row\">\n" +
-    "                        <div class=\"col-5 col-lg-3\">\n" +
-    "                            <div class=\"the-icons\">\n" +
-    "                                <i class=\"fa fa-file-alt\"></i>\n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"col-7 col-lg-9 state-text\">\n" +
-    "                            <h5 class=\"mt-2\">Jumlah Asset</h5>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div class=\"value-dashboard\">\n" +
-    "                    <h4 style=\" color: #9f3ce8\">200</h4>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
+    "                <div class=\"month-pick\">\r" +
     "\n" +
-    "    </div>\n" +
-    "</div>"
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "        <div class=\"col-sm-12\">\r" +
+    "\n" +
+    "            <div class=\"card\">\r" +
+    "\n" +
+    "                <div class=\"card-body\">\r" +
+    "\n" +
+    "                    <div class=\"row form-group col-sm-12\" style=\"margin-bottom:20px\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-1\">Start Date</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                            <input type=\"text\" id=\"tglMulai1\" name=\"tglMulai\" ng-model=\"db.tglMulaiFilter1\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" value=\"{{db.TglMulai}}\" />\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-1\">End Date</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                            <input type=\"text\" id=\"tglAkhir1\" name=\"tglAkhir\" ng-model=\"db.tglAkhirFilter1\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" value=\"{{db.TglAkhir}}\" />\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row col-md-2\">\r" +
+    "\n" +
+    "                            <button id=\"searchButton1\" style=\"border-radius: 20px\" ng-click=\"db.searchFilter1()\" class=\"btn btn-success\">Cari</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group col-sm-12\" style=\"margin-bottom:20px\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-1\">Project</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                            <select id=\"project_fk1\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"db.model.user_fk\" required>\r" +
+    "\n" +
+    "                                <option ng-repeat=\"x in db.formData.users\" ng-value=\"x.project_pk\">{{x.operatorTitle}}  {{x.deliveryAreaTitle}} {{x.vendorTitle}}</option>\r" +
+    "\n" +
+    "                            </select>\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-20p item-container ng-scope\">\r" +
+    "\n" +
+    "                            <div class=\"card p-0 bg-white hoverable\">\r" +
+    "\n" +
+    "                                <div class=\"top-dashboard\">\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <div class=\"col-5 col-lg-3\">\r" +
+    "\n" +
+    "                                            <div class=\"the-icons\">\r" +
+    "\n" +
+    "                                                <i class=\"fa fa-file-alt\"></i>\r" +
+    "\n" +
+    "                                            </div>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                        <div class=\"col-7 col-lg-9 state-text\">\r" +
+    "\n" +
+    "                                            <h5 class=\"mt-2\">Total Value PO</h5>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"value-dashboard\">\r" +
+    "\n" +
+    "                                    <h4>Rp {{db.totalpo}}</h4>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-20p item-container ng-scope\">\r" +
+    "\n" +
+    "                            <div class=\"card p-0 bg-white hoverable\">\r" +
+    "\n" +
+    "                                <div class=\"top-dashboard\" style=\"background-color: #0996e6;\">\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <div class=\"col-5 col-lg-3\">\r" +
+    "\n" +
+    "                                            <div class=\"the-icons\">\r" +
+    "\n" +
+    "                                                <i class=\"fa fa-file-alt\"></i>\r" +
+    "\n" +
+    "                                            </div>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                        <div class=\"col-7 col-lg-9 state-text\">\r" +
+    "\n" +
+    "                                            <h5>Total Jumlah PO</h5>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"value-dashboard\">\r" +
+    "\n" +
+    "                                    <h4 style=\"color: #0996e6\">{{db.jmlpo}}</h4>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-20p item-container ng-scope\">\r" +
+    "\n" +
+    "                            <div class=\"card p-0 bg-white hoverable\">\r" +
+    "\n" +
+    "                                <div class=\"top-dashboard\" style=\"background-color:#e25913;\">\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <div class=\"col-5 col-lg-3\">\r" +
+    "\n" +
+    "                                            <div class=\"the-icons\">\r" +
+    "\n" +
+    "                                                <i class=\"fa fa-file-alt\"></i>\r" +
+    "\n" +
+    "                                            </div>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                        <div class=\"col-7 col-lg-9 state-text\">\r" +
+    "\n" +
+    "                                            <h5>Total Jumlah Invoice</h5>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"value-dashboard\">\r" +
+    "\n" +
+    "                                    <h4 style=\"color: #e25913\">{{db.jmlInvoice}}</h4>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        <div class=\"col-md-20p item-container ng-scope\">\r" +
+    "\n" +
+    "                            <div class=\"card p-0 bg-white hoverable\">\r" +
+    "\n" +
+    "                                <div class=\"top-dashboard\" style=\"background-color: #f6b314;\">\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <div class=\"col-5 col-lg-3\">\r" +
+    "\n" +
+    "                                            <div class=\"the-icons\">\r" +
+    "\n" +
+    "                                                <i class=\"fa fa-file-alt\"></i>\r" +
+    "\n" +
+    "                                            </div>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                        <div class=\"col-7 col-lg-9 state-text\">\r" +
+    "\n" +
+    "                                            <h5>Jumlah Member</h5>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"value-dashboard\">\r" +
+    "\n" +
+    "                                    <h4 style=\" color: #f6b314\">{{db.jmlMember}}</h4>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-20p item-container ng-scope\">\r" +
+    "\n" +
+    "                            <div class=\"card p-0 bg-white hoverable\">\r" +
+    "\n" +
+    "                                <div class=\"top-dashboard\" style=\"background-color:#9f3ce8;\">\r" +
+    "\n" +
+    "                                    <div class=\"row\">\r" +
+    "\n" +
+    "                                        <div class=\"col-5 col-lg-3\">\r" +
+    "\n" +
+    "                                            <div class=\"the-icons\">\r" +
+    "\n" +
+    "                                                <i class=\"fa fa-file-alt\"></i>\r" +
+    "\n" +
+    "                                            </div>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                        <div class=\"col-7 col-lg-9 state-text\">\r" +
+    "\n" +
+    "                                            <h5 class=\"mt-2\">Jumlah Asset</h5>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
+    "                                    </div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                                <div class=\"value-dashboard\">\r" +
+    "\n" +
+    "                                    <h4 style=\" color: #9f3ce8\">{{db.jmlAset}}</h4>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"col-sm-12\">\r" +
+    "\n" +
+    "            <div class=\"card\">\r" +
+    "\n" +
+    "                <div class=\"card-header\" style=\"background:white\">\r" +
+    "\n" +
+    "                    <h4>Monthly Recap Report</h4>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"card-body\">\r" +
+    "\n" +
+    "                    <div class=\"row form-group col-sm-12\" style=\"margin-bottom:20px\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-1\">Start Date</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                            <input type=\"text\" id=\"tglMulai2\" name=\"tglMulai\" ng-model=\"db.tglMulaiFilter2\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-1\">End Date</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                            <input type=\"text\" id=\"tglAkhir2\" name=\"tglAkhir\" ng-model=\"db.tglAkhirFilter2\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row col-md-2\">\r" +
+    "\n" +
+    "                            <button id=\"searchButton2\" style=\"border-radius: 20px\" ng-click=\"db.searchFileter2()\" class=\"btn btn-success\">Cari</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group col-sm-12\" style=\"margin-bottom:20px\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-1\">Project</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                            <select id=\"operator_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"db.model.user_fk\" required>\r" +
+    "\n" +
+    "                                <option ng-repeat=\"x in db.formData.operator\" ng-value=\"x.operator_pk\">{{x.title}}</option>\r" +
+    "\n" +
+    "                            </select>\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div id=\"containerSalesReport\" style=\"min-width: 700px; height: 400px; margin: 0 auto\"></div>\r" +
+    "\n" +
+    "                        <div id=\"containerGoalCompletion\" style=\"min-width: 700px; height: 400px; margin: 0 auto\"></div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"col-sm-12\">\r" +
+    "\n" +
+    "            <div class=\"card\">\r" +
+    "\n" +
+    "                <div class=\"card-header\" style=\"background:white\">\r" +
+    "\n" +
+    "                    <h4 id=\"revCost\">Revenue vs Cost</h4>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "                <div class=\"card-body\">\r" +
+    "\n" +
+    "                    <div class=\"row form-group col-sm-12\" style=\"margin-bottom:20px\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-1\">Start Date</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                            <input type=\"text\" id=\"tglMulai3\" name=\"tglMulai\" ng-model=\"db.tglMulaiFilter3\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-1\">End Date</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                            <input type=\"text\" id=\"tglAkhir3\" name=\"tglAkhir\" ng-model=\"db.tglAkhirFilter3\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row col-md-2\">\r" +
+    "\n" +
+    "                            <button id=\"searchButton3\" style=\"border-radius: 20px\" ng-click=\"db.searchFilter3()\" class=\"btn btn-success\">Cari</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row form-group col-sm-12\" style=\"margin-bottom:20px\">\r" +
+    "\n" +
+    "                        <label class=\"control-label col-sm-1\">Project</label>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-2\">\r" +
+    "\n" +
+    "                            <select id=\"project_Id\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"db.model.user_fk\" required>\r" +
+    "\n" +
+    "                                <option ng-repeat=\"x in db.formData.users\" ng-value=\"x.project_pk\">{{x.operatorTitle}}  {{x.deliveryAreaTitle}} {{x.vendorTitle}}</option>\r" +
+    "\n" +
+    "                            </select>\r" +
+    "\n" +
+    "                            <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div id=\"containerRevenueCost\" style=\"min-width: 310px; height: 400px; margin: 0 auto\"></div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <div style=\"text-align:center\">\r" +
+    "\n" +
+    "                                <label></label><br />\r" +
+    "\n" +
+    "                                <label style=\"font-weight:bold\">Rp {{db.TotalRevenue}}</label><br />\r" +
+    "\n" +
+    "                                <label>Total Revenue</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <div style=\"text-align:center\">\r" +
+    "\n" +
+    "                                <label></label><br />\r" +
+    "\n" +
+    "                                <label style=\"font-weight:bold\">Rp {{db.TotalCost}}</label><br />\r" +
+    "\n" +
+    "                                <label>Total Cost</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-sm-4\">\r" +
+    "\n" +
+    "                            <div style=\"text-align:center\">\r" +
+    "\n" +
+    "                                <label id=\"lblPersentage\" style=\"font-weight:bold\">{{db.PersentageProfit}} %</label><br />\r" +
+    "\n" +
+    "                                <label style=\"font-weight:bold\">Rp {{db.TotalProfit}}</label><br />\r" +
+    "\n" +
+    "                                <label>Total Profit</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
   );
 
 
@@ -3552,9 +3957,12 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/layouts/footer.html',
-    "<!-- <footer class=\"app-footer\">\n" +
-    "  <span><a href=\"http://coreui.io\">CoreUI</a> &copy; 2018 creativeLabs.</span>\n" +
-    "  <span class=\"ml-auto\">Powered by <a href=\"http://coreui.io\">CoreUI</a></span>\n" +
+    "<!-- <footer class=\"app-footer\">\r" +
+    "\n" +
+    "  <span><a href=\"http://coreui.io\">CoreUI</a> &copy; 2018 creativeLabs.</span>\r" +
+    "\n" +
+    "  <span class=\"ml-auto\">Powered by <a href=\"http://coreui.io\">CoreUI</a></span>\r" +
+    "\n" +
     "</footer> -->"
   );
 
@@ -3846,63 +4254,120 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupEntry.html',
-    "<div class=\"animated fadeIn\">\n" +
-    "    <form class=\"form-horizontal\">\n" +
-    "        <div class=\"row\">\n" +
-    "            <div class=\"col-md-12\">\n" +
-    "                <div class=\"card\">\n" +
-    "                    <div class=\"card-title\">Mapping Role To Role Group</div>\n" +
-    "                    <div class=\"col-md-8\">\n" +
-    "                        <div class=\"row form-group\">\n" +
-    "                            <label class=\"control-label col-sm-3\">Role Group Name:</label>\n" +
-    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\n" +
-    "                                {{vm.model.title}}\n" +
-    "                            </label>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"row\">\n" +
-    "                            <label class=\"control-label col-sm-3\">Description:</label>\n" +
-    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\n" +
-    "                                {{vm.model.description}}\n" +
-    "                            </label>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"row\">\n" +
-    "                            <div class=\"col-md-12\">\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingRoleToRoleGroupList\">Kembali</button> \n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div class=\"row\">\n" +
-    "            <div class=\"col-md-12\">\n" +
-    "                <div class=\"card\">\n" +
-    "                    <div class=\"card-title\">List Role Group</div>\n" +
-    "                    <div class=\"row\"> \n" +
-    "                        <div class=\"col-md-12\">\n" +
-    "                            <button role-modal on-callback=\"vm.roleModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\n" +
-    "                                Manage Role\n" +
-    "                            </button>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"row\">\n" +
-    "                        <div class=\"col-md-12\">\n" +
-    "                            <table id=\"mappingRoleToRoleGroupEntry\">\n" +
-    "                                <thead>\n" +
-    "                                    <tr>\n" +
-    "                                        <th>No</th>\n" +
-    "                                        <th>Role Name</th>\n" +
-    "                                        <th>Description</th>\n" +
-    "                                        <!--<th></th>-->\n" +
-    "                                    </tr>\n" +
-    "                                </thead>\n" +
-    "                            </table>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </form>\n" +
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Mapping Role To Role Group</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-3\">Role Group Name:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\r" +
+    "\n" +
+    "                                {{vm.model.title}}\r" +
+    "\n" +
+    "                            </label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-3\">Description:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\r" +
+    "\n" +
+    "                                {{vm.model.description}}\r" +
+    "\n" +
+    "                            </label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingRoleToRoleGroupList\">Kembali</button> \r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Role Group</div>\r" +
+    "\n" +
+    "                    <div class=\"row\"> \r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <button role-modal on-callback=\"vm.roleModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\r" +
+    "\n" +
+    "                                Manage Role\r" +
+    "\n" +
+    "                            </button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"mappingRoleToRoleGroupEntry\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Role Name</th>\r" +
+    "\n" +
+    "                                        <th>Description</th>\r" +
+    "\n" +
+    "                                        <!--<th></th>-->\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
     "</div>"
   );
 
@@ -3963,46 +4428,86 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/mappingRoleToRoleGroupEntry/modal/roleModal.html',
-    "<div class=\"modal-header\">\n" +
-    "    <h5 class=\"modal-title\">Roles</h5>\n" +
-    "</div>\n" +
+    "<div class=\"modal-header\">\r" +
     "\n" +
-    "<div class=\"modal-body\">\n" +
-    "    <div class=\"row\">\n" +
-    "        <!--<div class=\"col-md-12 p-0\">\n" +
-    "            <table id=\"roleModal\" class=\"table\">\n" +
-    "                <thead>\n" +
-    "                    <tr>\n" +
-    "                        <th width=\"30\" hidden>Role PK</th>\n" +
-    "                        <th width=\"30\" hidden>Role Group PK</th>\n" +
-    "                        <th width=\"200\">Role Name</th>\n" +
-    "                        <th class=\"text-center\">Check</th>\n" +
-    "                    </tr>\n" +
-    "                </thead>\n" +
-    "                <tbody>\n" +
-    "                    <tr ng-repeat=\"i in vm.model.mappingRoleToRoleGroups\">\n" +
-    "                        <td width=\"30\" hidden>{{ i.role_pk}}</td>\n" +
-    "                        <td width=\"30\" hidden>{{ i.roleGroup_pk}}</td>\n" +
-    "                        <td width=\"200\">{{i.roleName}}</td>\n" +
-    "                        <td class=\"text-center\"> <input type=\"checkbox\" ng-checked=\"i.isChecked\" ng-model=\"i.isChecked\"></td>\n" +
-    "                    </tr>\n" +
-    "                </tbody>\n" +
-    "            </table>-->\n" +
+    "    <h5 class=\"modal-title\">Roles</h5>\r" +
     "\n" +
-    "            <div class=\"col-md-4\" ng-repeat=\"i in vm.model.mappingRoleToRoleGroups\">\n" +
-    "                <label class=\"control control--checkbox\">\n" +
-    "                    {{i.roleName}}\n" +
-    "                    <input tabindex=\"26\" type=\"checkbox\" name=\"role\"\n" +
-    "                           checked=\"checked\"  ng-checked=\"i.isChecked\" ng-model=\"i.isChecked\" />\n" +
-    "                    <span class=\"control__indicator\"></span>\n" +
-    "                </label>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "</div>\n" +
+    "</div>\r" +
     "\n" +
-    "<div class=\"modal-footer\">\n" +
-    "    <button id=\"saveButton\" class=\"btn btn-primary\" type=\"button\">Save</button>\n" +
-    "    <button id=\"cancelButton\" class=\"btn btn-default\" type=\"button\">Cancel</button>\n" +
+    "\r" +
+    "\n" +
+    "<div class=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <!--<div class=\"col-md-12 p-0\">\r" +
+    "\n" +
+    "            <table id=\"roleModal\" class=\"table\">\r" +
+    "\n" +
+    "                <thead>\r" +
+    "\n" +
+    "                    <tr>\r" +
+    "\n" +
+    "                        <th width=\"30\" hidden>Role PK</th>\r" +
+    "\n" +
+    "                        <th width=\"30\" hidden>Role Group PK</th>\r" +
+    "\n" +
+    "                        <th width=\"200\">Role Name</th>\r" +
+    "\n" +
+    "                        <th class=\"text-center\">Check</th>\r" +
+    "\n" +
+    "                    </tr>\r" +
+    "\n" +
+    "                </thead>\r" +
+    "\n" +
+    "                <tbody>\r" +
+    "\n" +
+    "                    <tr ng-repeat=\"i in vm.model.mappingRoleToRoleGroups\">\r" +
+    "\n" +
+    "                        <td width=\"30\" hidden>{{ i.role_pk}}</td>\r" +
+    "\n" +
+    "                        <td width=\"30\" hidden>{{ i.roleGroup_pk}}</td>\r" +
+    "\n" +
+    "                        <td width=\"200\">{{i.roleName}}</td>\r" +
+    "\n" +
+    "                        <td class=\"text-center\"> <input type=\"checkbox\" ng-checked=\"i.isChecked\" ng-model=\"i.isChecked\"></td>\r" +
+    "\n" +
+    "                    </tr>\r" +
+    "\n" +
+    "                </tbody>\r" +
+    "\n" +
+    "            </table>-->\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "            <div class=\"col-md-4\" ng-repeat=\"i in vm.model.mappingRoleToRoleGroups\">\r" +
+    "\n" +
+    "                <label class=\"control control--checkbox\">\r" +
+    "\n" +
+    "                    {{i.roleName}}\r" +
+    "\n" +
+    "                    <input tabindex=\"26\" type=\"checkbox\" name=\"role\"\r" +
+    "\n" +
+    "                           checked=\"checked\"  ng-checked=\"i.isChecked\" ng-model=\"i.isChecked\" />\r" +
+    "\n" +
+    "                    <span class=\"control__indicator\"></span>\r" +
+    "\n" +
+    "                </label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button id=\"saveButton\" class=\"btn btn-primary\" type=\"button\">Save</button>\r" +
+    "\n" +
+    "    <button id=\"cancelButton\" class=\"btn btn-default\" type=\"button\">Cancel</button>\r" +
+    "\n" +
     "</div>"
   );
 
@@ -4061,49 +4566,92 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/mappingUserToAuthParamEntry/mappingUserToAuthParamEntry.html',
-    "<div class=\"animated fadeIn\">\n" +
-    "    <form class=\"form-horizontal\">\n" +
-    "        <div class=\"row\">\n" +
-    "            <div class=\"col-md-12\">\n" +
-    "                <div class=\"card\">\n" +
-    "                    <div class=\"card-title\">Mapping User To Auth Param</div>\n" +
-    "                    <div class=\"col-md-8\">\n" +
-    "                        <div class=\"row form-group\">\n" +
-    "                            <label class=\"control-label col-sm-3\">Auth Param Name:</label>\n" +
-    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\n" +
-    "                                {{vm.model.title}}\n" +
-    "                            </label>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"row\">\n" +
-    "                            <label class=\"control-label col-sm-3\">Description:</label>\n" +
-    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\n" +
-    "                                {{vm.model.description}}\n" +
-    "                            </label>\n" +
-    "                        </div>\n" +
-    "                        <div class=\"row\">\n" +
-    "                            <div class=\"col-md-12\">\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingUserToAuthParamList\">Kembali</button> \n" +
-    "                            </div>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "        <div class=\"row\">\n" +
-    "            <div class=\"col-md-12\">\n" +
-    "                <div class=\"card\">\n" +
-    "                    <div class=\"card-title\">List Mapping User To Auth Param</div>\n" +
-    "                    <div class=\"row\"> \n" +
-    "                        <div class=\"col-md-12\">\n" +
-    "                            <button user--auth-param-modal on-callback=\"vm.userAuthParamModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\n" +
-    "                                Add New User\n" +
-    "                            </button>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                    <div class=\"row\">\n" +
-    "                        <div class=\"col-md-12\">\n" +
-    "                            <table id=\"mappingUserToAuthParam\">\n" +
-    "                                <thead>\n" +
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">Mapping User To Auth Param</div>\r" +
+    "\n" +
+    "                    <div class=\"col-md-8\">\r" +
+    "\n" +
+    "                        <div class=\"row form-group\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-3\">Auth Param Name:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\r" +
+    "\n" +
+    "                                {{vm.model.title}}\r" +
+    "\n" +
+    "                            </label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-3\">Description:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\r" +
+    "\n" +
+    "                                {{vm.model.description}}\r" +
+    "\n" +
+    "                            </label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingUserToAuthParamList\">Kembali</button> \r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List Mapping User To Auth Param</div>\r" +
+    "\n" +
+    "                    <div class=\"row\"> \r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <button user--auth-param-modal on-callback=\"vm.userAuthParamModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\r" +
+    "\n" +
+    "                                Add New User\r" +
+    "\n" +
+    "                            </button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"mappingUserToAuthParam\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
     "                                    <tr>\r" +
     "\n" +
     "                                        <th>Auth Param PK</th>\r" +
@@ -4120,15 +4668,24 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th></th>\r" +
     "\n" +
-    "                                    </tr>\n" +
-    "                                </thead>\n" +
-    "                            </table>\n" +
-    "                        </div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </div>\n" +
-    "    </form>\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
     "</div>"
   );
 

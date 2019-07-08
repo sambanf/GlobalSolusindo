@@ -74,6 +74,83 @@ namespace GlobalSolusindo.Business.PO.Queries
             return query;
         }
 
+        public IQueryable<GoalCompletion> GetDashboardGoalCompletion(DateTime startDate, DateTime endDate, int project)
+        {
+            var goalCompletion = Db.GetGoalCompetionByProject(startDate, endDate, project).ToList();
+
+            var query = from Data in goalCompletion
+                        select new GoalCompletion
+                        {
+                            ProjectName = Data.ProjectName,
+                            SumValue = Data.SumValue,
+                            SumInvoice = Data.SumInvoice,
+                            SumNotInvoice = Data.SumNotInvoice,
+                            Complete = Data.Complete,
+                            NotComplete = Data.NotComplete
+                        };
+
+            return query.AsQueryable();
+
+        }
+
+        public IQueryable<DashboardValue> GetDashboardValue(DateTime startDate, DateTime endDate, int project)
+        {
+            var dashboardValue = Db.GetDashboardValueByProject(startDate, endDate, project).ToList();
+            var query = from Data in dashboardValue
+                        select new DashboardValue
+                        {
+                            TotalValuePo = Data.TotalValuePo,
+                            TotalJumlahPo = Data.TotalJumlahPo,
+                            TotalJumlahInvoice = Data.TotalJumlahInvoice,
+                            JumlahMember = Data.JumlahMember,
+                            JumlahAset = Data.JumlahAset
+                        };
+            return query.AsQueryable();
+        }
+
+        public IQueryable<RevenueCost> GetRevenueCost(DateTime startDate, DateTime endDate, int project)
+        {
+            var revenueCost = Db.GetDashboardRevenueCostByProject(startDate, endDate, project).ToList();
+            var query = from Data in revenueCost
+                        select new RevenueCost
+                        {
+                            NameMonth = Data.NameMonth,
+                            Revenue = Data.ValueRevenue,
+                            Cost = Data.ValueCost
+                        };
+            return query.AsQueryable();
+
+        }
+
+        public IQueryable<RevenueCostProfit> GetRevenueCostProfit(DateTime startDate, DateTime endDate, int project)
+        {
+            var revenueCostProfit = Db.GetDashboardRevenueCostProfitFilterByProject(startDate, endDate, project).ToList();
+            var query = from Data in revenueCostProfit
+                        select new RevenueCostProfit
+                        {
+                            TotalRevenue = Data.TotalRevenue,
+                            TotalCost = Data.TotalCost,
+                            TotalProfit = Data.TotalProfit,
+                            PersentaseRevenue = Data.PersentaseRevenue,
+                            PersentaseCost = Data.PersentaseCost,
+                            PersentaseProfit = Data.PersentaseProfit
+                        };
+            return query.AsQueryable();
+        }
+
+        public IQueryable<SalesReport> GetSalesReport(DateTime startDate, DateTime endDate, int vendor)
+        {
+            var salesReport = Db.GetSalesReportByProject(startDate, endDate, vendor).ToList();
+            var query = from Data in salesReport
+                        select new SalesReport
+                        {
+                            ProjectName = Data.ProjectName,
+                            Month = Data.Month,
+                            Value = Data.Value
+                        };
+            return query.AsQueryable();
+        }
+
         public PODTO GetByPrimaryKey(int primaryKey)
         {
             PODTO record = GetQuery().FirstOrDefault(user => user.PO_PK == primaryKey);
