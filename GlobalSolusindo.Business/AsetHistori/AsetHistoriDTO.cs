@@ -1,6 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.Aset.Queries;
-using GlobalSolusindo.Identity.UserDetail.Queries;
+using GlobalSolusindo.Identity.User.Queries;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
 using System;
@@ -14,12 +14,12 @@ namespace GlobalSolusindo.Business.AsetHistori
         public int AsetHistori_PK { get; set; }
 
         [Required]
-        [JsonProperty("userDetail_fk")]
-        [ForeignKey(typeof(UserDetailQuery), "UserDetail_PK")]
-        public int UserDetail_FK { get; set; }
+        [JsonProperty("user_fk")]
+        [ForeignKey(typeof(UserQuery), "User_PK")]
+        public int User_FK { get; set; }
 
-        [JsonProperty("userName")]
-        public string UserName { get; set; }
+        [JsonProperty("userFullName")]
+        public string UserFullName { get; set; }
 
         [Required]
         [JsonProperty("aset_fk")]
@@ -40,5 +40,8 @@ namespace GlobalSolusindo.Business.AsetHistori
 
         [JsonProperty("tglSelesai")]
         public DateTime? TglSelesai { get; set; }
+
+        [JsonProperty("description")]
+        public string Description { get; set; }
     }
 }

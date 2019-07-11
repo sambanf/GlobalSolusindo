@@ -5,8 +5,8 @@ angular.module('global-solusindo')
 
         $stateProvider
             .state('app.asetHistoriList', {
-                url: '/asetHistoriList/:userDetail_pk',
-                templateUrl: 'app/modules/report/asetHistori/asetHistori.html',
+                url: '/asetHistoriList/:user_fk',
+                templateUrl: 'app/modules/asetHistori/asetHistori.html',
                 controller: 'AsetHistoriCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {

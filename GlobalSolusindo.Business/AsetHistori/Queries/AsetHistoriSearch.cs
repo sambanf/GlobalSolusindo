@@ -10,8 +10,8 @@ namespace GlobalSolusindo.Business.AsetHistori.Queries
 {
     public class AsetHistoriSearchFilter : SearchFilter
     {
-        [JsonProperty("userDetail_fk")]
-        public int UserDetail_FK { get; set; }
+        [JsonProperty("user_fk")]
+        public int User_FK { get; set; }
     }
 
     public class AsetHistoriSearchResult : SearchResult<AsetHistoriDTO>
@@ -39,10 +39,11 @@ namespace GlobalSolusindo.Business.AsetHistori.Queries
             var filteredRecords =
                 asetHistoriQuery.GetQuery()
                 .Where(asetHistori =>
-                    asetHistori.UserDetail_FK == filter.UserDetail_FK
-                    && (asetHistori.UserName.Contains(filter.Keyword)
+                    asetHistori.User_FK == filter.User_FK
+                    && (asetHistori.UserFullName.Contains(filter.Keyword)
                     || asetHistori.AsetID.Contains(filter.Keyword)
                     || asetHistori.AsetName.Contains(filter.Keyword)
+                     || asetHistori.Description.Contains(filter.Keyword)
                     ));
 
             var displayedRecords = filteredRecords.
@@ -57,7 +58,7 @@ namespace GlobalSolusindo.Business.AsetHistori.Queries
             searchResult.Count.TotalFiltered = filteredRecords.Count();
             searchResult.Count.TotalDisplayed = displayedRecords.Count();
             searchResult.Records = displayedRecords;
-            searchResult.User = new UserQuery(Db).GetByUserDetailFK(filter.UserDetail_FK);
+            searchResult.User = new UserQuery(Db).GetByUserDetailFK(filter.User_FK);
             return searchResult;
         }
     }

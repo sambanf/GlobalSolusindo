@@ -15,6 +15,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class CostKategoriController : ApiControllerBase
     {
+        private const string createRole = "CostKategori_Input";
+        private const string updateRole = "CostKategori_Edit";
+        private const string readRole = "CostKategori_ViewAll";
+        private const string deleteRole = "CostKategori_Delete";
+        private const string importRole = "CostKategori_Import";
+
         public CostKategoriController()
         {
         }
@@ -23,8 +29,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "CostKategori_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (CostKategoriQuery costKategoriQuery = new CostKategoriQuery(Db))
             {
                 var data = costKategoriQuery.GetByPrimaryKey(id);
@@ -37,9 +42,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "CostKategori_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (CostKategoriEntryDataProvider costKategoriEntryDataProvider = new CostKategoriEntryDataProvider(Db, ActiveUser, AccessControl, new CostKategoriQuery(Db)))
             {
                 var data = costKategoriEntryDataProvider.Get(id);
@@ -52,8 +56,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]CostKategoriSearchFilter filter)
         {
-            string accessType = "CostKategori_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +71,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]CostKategoriDTO costKategori)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (costKategori == null)
                 throw new KairosException("Missing model parameter");
 
@@ -78,7 +80,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var costKategoriCreateHandler = new CostKategoriCreateHandler(Db, ActiveUser, new CostKategoriValidator(), new CostKategoriFactory(Db, ActiveUser), new CostKategoriQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = costKategoriCreateHandler.Save(costKategoriDTO: costKategori, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -92,8 +94,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]CostKategoriDTO costKategori)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (costKategori == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,11 +118,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var costKategoriDeleteHandler = new CostKategoriDeleteHandler(Db, ActiveUser))
             {

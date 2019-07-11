@@ -34,7 +34,7 @@
 
             $('#user tbody').on('click', '#assetHistory', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
-                $state.go('app.asetHistoriList', { userDetail_pk: data.userDetail_fk });
+                $state.go('app.asetHistoriList', { user_fk: data.user_pk });
             });
 
             $("#user tbody").on("dblclick", "tr", function () {

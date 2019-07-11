@@ -15,6 +15,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class KotaController : ApiControllerBase
     {
+        private const string createRole = "Kota_Input";
+        private const string updateRole = "Kota_Edit";
+        private const string readRole = "Kota_ViewAll";
+        private const string deleteRole = "Kota_Delete";
+        private const string importRole = "Kota_Import";
+
         public KotaController()
         {
         }
@@ -23,8 +29,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "Kota_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (KotaQuery kotaQuery = new KotaQuery(Db))
             {
                 var data = kotaQuery.GetByPrimaryKey(id);
@@ -37,9 +42,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "Kota_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (KotaEntryDataProvider kotaEntryDataProvider = new KotaEntryDataProvider(Db, ActiveUser, AccessControl, new KotaQuery(Db)))
             {
                 var data = kotaEntryDataProvider.Get(id);
@@ -52,8 +56,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]KotaSearchFilter filter)
         {
-            string accessType = "Kota_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +71,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]KotaDTO kota)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (kota == null)
                 throw new KairosException("Missing model parameter");
 
@@ -78,7 +80,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var kotaCreateHandler = new KotaCreateHandler(Db, ActiveUser, new KotaValidator(), new KotaFactory(Db, ActiveUser), new KotaQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = kotaCreateHandler.Save(kotaDTO: kota, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -92,8 +94,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]KotaDTO kota)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (kota == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,11 +118,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var kotaDeleteHandler = new KotaDeleteHandler(Db, ActiveUser))
             {

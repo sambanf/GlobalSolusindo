@@ -15,6 +15,11 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class AuthParamController : ApiControllerBase
     {
+        private const string createRole = "AuthParam_Input";
+        private const string updateRole = "AuthParam_Edit";
+        private const string readRole = "AuthParam_ViewAll";
+        private const string deleteRole = "AuthParam_Delete";
+        private const string importRole = "AuthParam_Import";
         public AuthParamController()
         {
         }
@@ -23,8 +28,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "AuthParam_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (AuthParamQuery authParamQuery = new AuthParamQuery(Db))
             {
                 var data = authParamQuery.GetByPrimaryKey(id);
@@ -37,9 +41,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "AuthParam_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (AuthParamEntryDataProvider authParamEntryDataProvider = new AuthParamEntryDataProvider(Db, ActiveUser, AccessControl, new AuthParamQuery(Db)))
             {
                 var data = authParamEntryDataProvider.Get(id);
@@ -52,8 +55,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]AuthParamSearchFilter filter)
         {
-            string accessType = "AuthParam_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +70,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]AuthParamDTO authParam)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (authParam == null)
                 throw new KairosException("Missing model parameter");
 
@@ -92,8 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]AuthParamDTO authParam)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (authParam == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,11 +117,9 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var authParamDeleteHandler = new AuthParamDeleteHandler(Db, ActiveUser))
             {

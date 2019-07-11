@@ -56,7 +56,6 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]BTSSearchFilter filter)
         {
-            string accessType = "BTS_ViewAll";
             ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
@@ -119,10 +118,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            ThrowIfUserHasNoRole(deleteRole);
 
             using (var btsDeleteHandler = new BTSDeleteHandler(Db, ActiveUser))
             {
@@ -143,7 +142,7 @@ namespace GlobalSolusindo.Api.Controllers
         [Route("bts/import")]
         [HttpPost]
         public IHttpActionResult Import([FromBody]BTSImportDTO btsImportDTO)
-        { 
+        {
             ThrowIfUserHasNoRole(importRole);
             if (btsImportDTO == null)
                 throw new KairosException("Missing model parameter");

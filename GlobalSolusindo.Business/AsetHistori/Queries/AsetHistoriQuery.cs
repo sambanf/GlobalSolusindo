@@ -28,7 +28,9 @@ namespace GlobalSolusindo.Business.AsetHistori.Queries
         public IQueryable<AsetHistoriDTO> GetQuery()
         {
             var query = from asetHistori in Db.tblT_AsetHistori
-                        join userDetail in Db.tblM_UserDetail on asetHistori.UserDetail_FK equals userDetail.UserDetail_PK into userDetailTemp
+                        join user in Db.tblM_User on asetHistori.User_FK equals user.User_PK into userTemp
+                        from user in userTemp.DefaultIfEmpty()
+                        join userDetail in Db.tblM_UserDetail on user.UserDetail_FK equals userDetail.UserDetail_PK into userDetailTemp
                         from userDetail in userDetailTemp.DefaultIfEmpty()
                         join aset in Db.tblM_Aset on asetHistori.Aset_FK equals aset.Aset_PK into asetTemp
                         from aset in asetTemp.DefaultIfEmpty()
@@ -39,8 +41,8 @@ namespace GlobalSolusindo.Business.AsetHistori.Queries
                         select new AsetHistoriDTO
                         {
                             AsetHistori_PK = asetHistori.AsetHistori_PK,
-                            UserDetail_FK = asetHistori.UserDetail_FK,
-                            UserName = userDetail.Name,
+                            User_FK = asetHistori.User_FK,
+                            UserFullName = userDetail.Name,
                             Aset_FK = asetHistori.Aset_FK,
                             AsetID = aset.AsetID,
                             AsetName = aset.Name,
@@ -51,7 +53,8 @@ namespace GlobalSolusindo.Business.AsetHistori.Queries
                             CreatedDate = asetHistori.CreatedDate,
                             UpdatedBy = asetHistori.UpdatedBy,
                             UpdatedDate = asetHistori.UpdatedDate,
-                            Status_FK = asetHistori.Status_FK
+                            Status_FK = asetHistori.Status_FK,
+                            Description = asetHistori.Description
                         };
 
             return query;
@@ -65,7 +68,7 @@ namespace GlobalSolusindo.Business.AsetHistori.Queries
 
         public List<AsetHistoriDTO> GetUserDetailFK(int userDetailFK)
         {
-            var records = GetQuery().Where(asetHistori => asetHistori.UserDetail_FK == userDetailFK).ToList();
+            var records = GetQuery().Where(asetHistori => asetHistori.User_FK == userDetailFK).ToList();
             return records;
         }
 

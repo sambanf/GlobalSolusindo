@@ -18,6 +18,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class SOWController : ApiControllerBase
     {
+        private const string createRole = "SOW_Input";
+        private const string updateRole = "SOW_Edit";
+        private const string readRole = "SOW_ViewAll";
+        private const string deleteRole = "SOW_Delete";
+        private const string importRole = "SOW_Import";
+        private const string approvalRole = "SOW_Approval";
         public SOWController()
         {
         }
@@ -26,8 +32,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "SOW_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (SOWQuery sowQuery = new SOWQuery(Db))
             {
                 var data = sowQuery.GetByPrimaryKey(id);
@@ -40,9 +45,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "SOW_ViewAll";
-            if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+            if (id > 0) ThrowIfUserHasNoRole(readRole);
+
             using (SOWEntryDataProvider sowEntryDataProvider = new SOWEntryDataProvider(Db, ActiveUser, AccessControl, new SOWQuery(Db)))
             {
                 var data = sowEntryDataProvider.Get(id);
@@ -55,8 +59,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetInfo(int id)
         {
-            string accessType = "SOW_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (SOWInfoDataProvider sowEntryDataProvider = new SOWInfoDataProvider(Db, ActiveUser, AccessControl, new SOWQuery(Db)))
             {
                 var data = sowEntryDataProvider.Get(id);
@@ -69,8 +72,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]SOWSearchFilter filter)
         {
-            string accessType = "SOW_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -85,8 +87,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]SOWDTO sow)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (sow == null)
                 throw new KairosException("Missing model parameter");
 
@@ -109,8 +110,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]SOWDTO sow)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (sow == null)
                 throw new KairosException("Missing model parameter");
 
@@ -134,8 +134,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Approve([FromBody]SOWApprovalDTO sOWApproval)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(approvalRole);
             if (sOWApproval == null)
                 throw new KairosException("Missing model parameter");
 
@@ -159,11 +158,9 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var sowDeleteHandler = new SOWDeleteHandler(Db, ActiveUser))
             {

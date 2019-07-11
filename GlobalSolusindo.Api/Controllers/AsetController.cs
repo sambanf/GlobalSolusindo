@@ -15,6 +15,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class AsetController : ApiControllerBase
     {
+        private const string createRole = "Aset_Input";
+        private const string updateRole = "Aset_Edit";
+        private const string readRole = "Aset_ViewAll";
+        private const string deleteRole = "Aset_Delete";
+        private const string importRole = "Aset_Import";
+
         public AsetController()
         {
         }
@@ -23,8 +29,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "Aset_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (AsetQuery asetQuery = new AsetQuery(Db))
             {
                 var data = asetQuery.GetByPrimaryKey(id);
@@ -37,9 +42,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "Aset_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (AsetEntryDataProvider asetEntryDataProvider = new AsetEntryDataProvider(Db, ActiveUser, AccessControl, new AsetQuery(Db)))
             {
                 var data = asetEntryDataProvider.Get(id);
@@ -52,8 +56,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]AsetSearchFilter filter)
         {
-            string accessType = "Aset_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +71,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]AsetDTO aset)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (aset == null)
                 throw new KairosException("Missing model parameter");
 
@@ -78,7 +80,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var asetCreateHandler = new AsetCreateHandler(Db, ActiveUser, new AsetValidator(), new AsetFactory(Db, ActiveUser), new AsetQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = asetCreateHandler.Save(asetDTO: aset, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -92,8 +94,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]AsetDTO aset)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (aset == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,11 +118,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var asetDeleteHandler = new AsetDeleteHandler(Db, ActiveUser))
             {

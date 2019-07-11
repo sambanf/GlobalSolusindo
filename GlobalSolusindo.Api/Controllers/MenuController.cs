@@ -13,6 +13,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class MenuController : ApiControllerBase
     {
+        private const string createRole = "Menu_Input";
+        private const string updateRole = "Menu_Edit";
+        private const string readRole = "Menu_ViewAll";
+        private const string deleteRole = "Menu_Delete";
+        private const string importRole = "Menu_Import";
+
         public MenuController()
         {
         }
@@ -21,8 +27,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "Menu_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (MenuQuery menuQuery = new MenuQuery(Db))
             {
                 var data = menuQuery.GetByPrimaryKey(id);
@@ -35,9 +40,9 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "Menu_ViewAll";
+
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (MenuEntryDataProvider menuEntryDataProvider = new MenuEntryDataProvider(Db, ActiveUser, AccessControl, new MenuQuery(Db)))
             {
                 var data = menuEntryDataProvider.Get(id);
@@ -50,8 +55,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]MenuSearchFilter filter)
         {
-            string accessType = "Menu_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -66,8 +70,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]MenuDTO menu)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (menu == null)
                 throw new KairosException("Missing model parameter");
 
@@ -90,8 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]MenuDTO menu)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (menu == null)
                 throw new KairosException("Missing model parameter");
 
@@ -115,11 +117,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var menuDeleteHandler = new MenuDeleteHandler(Db, ActiveUser))
             {
@@ -132,7 +133,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(menuDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    
+
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

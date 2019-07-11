@@ -10,6 +10,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class ReportController : ApiControllerBase
     {
+        private const string createRole = "Report_Input";
+        private const string updateRole = "Report_Edit";
+        private const string readRole = "Report_ViewAll";
+        private const string deleteRole = "Report_Delete";
+        private const string importRole = "Report_Import";
+
         public ReportController()
         {
         }
@@ -18,8 +24,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult SearchTimesheetDetail([FromUri]TimesheetDetailSearchFilter filter)
         {
-            string accessType = "Report_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -34,8 +39,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult SearchActivities([FromUri]ActivitiesSearchFilter filter)
         {
-            string accessType = "Report_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -50,8 +54,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult SearchTaskEngineer([FromUri]TaskEngineerSearchFilter filter)
         {
-            string accessType = "Report_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -66,9 +69,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult TaskEngineerDetail(int sowAssign_fk)
         {
-            string accessType = "Report_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
-
+            ThrowIfUserHasNoRole(readRole);
             using (var taskEngineerDetailDataProvider = new TaskEngineerDetailDataProvider(Db, ActiveUser, AccessControl))
             {
                 var data = taskEngineerDetailDataProvider.Get(sowAssign_fk);
@@ -80,8 +81,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult SearchDailyTask([FromUri]DailyTaskSearchFilter filter)
         {
-            string accessType = "Report_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 

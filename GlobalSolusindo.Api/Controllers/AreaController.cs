@@ -13,6 +13,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class AreaController : ApiControllerBase
     {
+        private const string createRole = "Area_Input";
+        private const string updateRole = "Area_Edit";
+        private const string readRole = "Area_ViewAll";
+        private const string deleteRole = "Area_Delete";
+        private const string importRole = "Area_Import";
+
         public AreaController()
         {
         }
@@ -21,8 +27,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "Area_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (AreaQuery areaQuery = new AreaQuery(Db))
             {
                 var data = areaQuery.GetByPrimaryKey(id);
@@ -35,9 +40,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "Area_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (AreaEntryDataProvider areaEntryDataProvider = new AreaEntryDataProvider(Db, ActiveUser, AccessControl, new AreaQuery(Db)))
             {
                 var data = areaEntryDataProvider.Get(id);
@@ -50,8 +54,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]AreaSearchFilter filter)
         {
-            string accessType = "Area_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -66,8 +69,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]AreaDTO area)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (area == null)
                 throw new KairosException("Missing model parameter");
 
@@ -90,8 +92,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]AreaDTO area)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (area == null)
                 throw new KairosException("Missing model parameter");
 
@@ -115,11 +116,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var areaDeleteHandler = new AreaDeleteHandler(Db, ActiveUser))
             {

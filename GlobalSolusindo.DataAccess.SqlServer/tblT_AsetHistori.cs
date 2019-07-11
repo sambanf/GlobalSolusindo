@@ -15,10 +15,11 @@ namespace GlobalSolusindo.DataAccess
     public partial class tblT_AsetHistori
     {
         public int AsetHistori_PK { get; set; }
-        public int UserDetail_FK { get; set; }
+        public int User_FK { get; set; }
         public int Aset_FK { get; set; }
         public System.DateTime TglMulai { get; set; }
         public Nullable<System.DateTime> TglSelesai { get; set; }
+        public string Description { get; set; }
         public string CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
@@ -27,6 +28,6 @@ namespace GlobalSolusindo.DataAccess
     
         public virtual tblM_Aset tblM_Aset { get; set; }
         public virtual tblM_Status tblM_Status { get; set; }
-        public virtual tblM_UserDetail tblM_UserDetail { get; set; }
+        public virtual tblM_User tblM_User { get; set; }
     }
 }

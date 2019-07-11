@@ -15,6 +15,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class AsetHistoriController : ApiControllerBase
     {
+        private const string createRole = "AsetHistori_Input";
+        private const string updateRole = "AsetHistori_Edit";
+        private const string readRole = "AsetHistori_ViewAll";
+        private const string deleteRole = "AsetHistori_Delete";
+        private const string importRole = "AsetHistori_Import";
+
         public AsetHistoriController()
         {
         }
@@ -23,9 +29,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "AsetHistori_ViewAll";
-            if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (AsetHistoriQuery asetHistoriQuery = new AsetHistoriQuery(Db))
             {
                 var data = asetHistoriQuery.GetByPrimaryKey(id);
@@ -38,9 +42,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "AsetHistori_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (AsetHistoriEntryDataProvider asetHistoriEntryDataProvider = new AsetHistoriEntryDataProvider(Db, ActiveUser, AccessControl, new AsetHistoriQuery(Db)))
             {
                 var data = asetHistoriEntryDataProvider.Get(id);
@@ -53,8 +56,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]AsetHistoriSearchFilter filter)
         {
-            string accessType = "AsetHistori_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -69,8 +71,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]AsetHistoriDTO asetHistori)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (asetHistori == null)
                 throw new KairosException("Missing model parameter");
 
@@ -79,7 +80,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var asetHistoriCreateHandler = new AsetHistoriCreateHandler(Db, ActiveUser, new AsetHistoriValidator(), new AsetHistoriFactory(Db, ActiveUser), new AsetHistoriQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = asetHistoriCreateHandler.Save(asetHistoriDTO: asetHistori, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -93,8 +94,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]AsetHistoriDTO asetHistori)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (asetHistori == null)
                 throw new KairosException("Missing model parameter");
 
@@ -118,11 +118,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
-            if (ids == null)
-                throw new KairosException("Missing parameter: 'ids'");
+            ThrowIfUserHasNoRole(deleteRole);
 
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            if (ids == null)
+                throw new KairosException("Missing parameter: 'ids'"); 
 
             using (var asetHistoriDeleteHandler = new AsetHistoriDeleteHandler(Db, ActiveUser))
             {

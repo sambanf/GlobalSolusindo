@@ -19,8 +19,8 @@
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -73,7 +73,7 @@
             }
             if (response.data && !response.data.success) {
                 if (response.data.status != 200 && response.data.message) {
-                    ui.alert.error();
+                    ui.alert.error(response.data.message);
                 }
             }
         }

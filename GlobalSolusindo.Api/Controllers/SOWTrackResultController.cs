@@ -21,8 +21,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "SOWTrackResult_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            //string accessType = "SOWTrackResult_ViewAll";
+            //ThrowIfUserHasNoRole(accessType);
             using (SOWTrackResultQuery sowTrackResultQuery = new SOWTrackResultQuery(Db))
             {
                 var data = sowTrackResultQuery.GetByPrimaryKey(id);
@@ -35,9 +35,9 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "SOWTrackResult_ViewAll";
-            if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+            //string accessType = "SOWTrackResult_ViewAll";
+            //if (id > 0)
+            //    ThrowIfUserHasNoRole(accessType);
             using (SOWTrackResultEntryDataProvider sowTrackResultEntryDataProvider = new SOWTrackResultEntryDataProvider(Db, ActiveUser, AccessControl, new SOWTrackResultQuery(Db)))
             {
                 var data = sowTrackResultEntryDataProvider.Get(id);
@@ -50,8 +50,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]SOWTrackResultSearchFilter filter)
         {
-            string accessType = "SOWTrackResult_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            //string accessType = "SOWTrackResult_ViewAll";
+            //ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -66,8 +66,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]SOWTrackResultDTO sowTrackResult)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            //string accessType = "";
+            //ThrowIfUserHasNoRole(accessType);
             if (sowTrackResult == null)
                 throw new KairosException("Missing model parameter");
 
@@ -90,8 +90,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]SOWTrackResultDTO sowTrackResult)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            //string accessType = "";
+            //ThrowIfUserHasNoRole(accessType);
             if (sowTrackResult == null)
                 throw new KairosException("Missing model parameter");
 
@@ -118,8 +118,8 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            //string accessType = "";
+            //ThrowIfUserHasNoRole(accessType);
 
             using (var sowTrackResultDeleteHandler = new SOWTrackResultDeleteHandler(Db, ActiveUser))
             {

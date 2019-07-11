@@ -122,9 +122,9 @@ namespace GlobalSolusindo.Business.SOW.DML
                 throw new ArgumentNullException("SOW model is null.");
             tblT_SOW sow = sowFactory.CreateFromDbAndUpdateFromDTO(sowDTO, dateStamp);
 
-            if (sow.TglSelesai != null)
+            if (sow.StatusSOW_FK == 3)
             {
-                throw new Kairos.KairosException("Cannot update this SOW because already been approved/rejected.");
+                throw new Kairos.KairosException("Cannot update this SOW because already approved.");
             }
         }
 

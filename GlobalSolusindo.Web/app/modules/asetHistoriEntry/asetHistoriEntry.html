@@ -1,0 +1,47 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12" style="height:-webkit-fill-available">
+                <div class="card">
+                    <div class="card-title">Tambah Aset Histori</div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="row form-group">
+                                <label class="control-label col-sm-2">Aset :</label>
+                                <div class="col-sm-6">
+                                    <select id="aset_fk" name="aset_fk" class="form-control input-lg" ng-model="vm.model.aset_fk" required>
+                                        <option ng-repeat="x in vm.formData.asets" ng-value="x.aset_pk">{{x.name}}</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-2">Tanggal :</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD-MM-YYYY' }" required />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-2">Deskripsi :</label>
+                                <div class="col-sm-8">
+                                    <textarea id="description" name="description" class="form-control" ng-model="vm.model.description"></textarea>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-8">
+                            <button class="btn btn-default" id="backButton">Kembali</button>
+                            <button class="btn btn-success float-right" id="saveButton">Simpan</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

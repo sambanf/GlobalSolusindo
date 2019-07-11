@@ -15,6 +15,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class OperatorController : ApiControllerBase
     {
+        private const string createRole = "BTS_Input";
+        private const string updateRole = "BTS_Edit";
+        private const string readRole = "BTS_ViewAll";
+        private const string deleteRole = "BTS_Delete";
+        private const string importRole = "BTS_Import";
+
         public OperatorController()
         {
         }

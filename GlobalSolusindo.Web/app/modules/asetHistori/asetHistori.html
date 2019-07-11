@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-title">Histori Penggunaan Aset</div>
+                    <div class="card-title">List Aset Histori</div>
                     <div class="row">
                         <!--User Info-->
                         <div class="col-md-10">
@@ -21,16 +21,28 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <button id="addNewButton" class="btn btn-success">Tambah Aset</button>
+                            <button id="deleteButton" class="btn btn-danger">Delete Selected</button>
+                        </div>
+                        <div class="col-md-6 text-right" id="exportButtons">
+
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <table id="asetHistori">
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>Kategori Aset</th>
+                                        <th>Nama Aset</th>
                                         <th>Tanggal Pinjam</th>
                                         <th>Tanggal Kembali</th>
-                                        <th>Kategori Aset</th>
-                                        <th>Nama Aset</th> 
+                                        <th>Keterangan</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                             </table>

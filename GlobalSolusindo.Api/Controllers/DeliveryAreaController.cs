@@ -15,6 +15,11 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class DeliveryAreaController : ApiControllerBase
     {
+        private const string createRole = "DeliveryArea_Input";
+        private const string updateRole = "DeliveryArea_Edit";
+        private const string readRole = "DeliveryArea_ViewAll";
+        private const string deleteRole = "DeliveryArea_Delete";
+        private const string importRole = "DeliveryArea_Import";
         public DeliveryAreaController()
         {
         }
@@ -23,8 +28,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            string accessType = "DeliveryArea_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (DeliveryAreaQuery deliveryAreaQuery = new DeliveryAreaQuery(Db))
             {
                 var data = deliveryAreaQuery.GetByPrimaryKey(id);
@@ -37,9 +41,8 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetForm(int id)
         {
-            string accessType = "DeliveryArea_ViewAll";
             if (id > 0)
-                ThrowIfUserHasNoRole(accessType);
+                ThrowIfUserHasNoRole(readRole);
             using (DeliveryAreaEntryDataProvider deliveryAreaEntryDataProvider = new DeliveryAreaEntryDataProvider(Db, ActiveUser, AccessControl, new DeliveryAreaQuery(Db)))
             {
                 var data = deliveryAreaEntryDataProvider.Get(id);
@@ -52,8 +55,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult Search([FromUri]DeliveryAreaSearchFilter filter)
         {
-            string accessType = "DeliveryArea_ViewAll";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
@@ -68,8 +70,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Create([FromBody]DeliveryAreaDTO deliveryArea)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(createRole);
             if (deliveryArea == null)
                 throw new KairosException("Missing model parameter");
 
@@ -78,7 +79,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var deliveryAreaCreateHandler = new DeliveryAreaCreateHandler(Db, ActiveUser, new DeliveryAreaValidator(), new DeliveryAreaFactory(Db, ActiveUser), new DeliveryAreaQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
-                { 
+                {
                     var saveResult = deliveryAreaCreateHandler.Save(deliveryAreaDTO: deliveryArea, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
@@ -92,8 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPut]
         public IHttpActionResult Update([FromBody]DeliveryAreaDTO deliveryArea)
         {
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(updateRole);
             if (deliveryArea == null)
                 throw new KairosException("Missing model parameter");
 
@@ -117,11 +117,10 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpDelete]
         public IHttpActionResult Delete([FromBody] List<int> ids)
         {
+            ThrowIfUserHasNoRole(deleteRole);
+
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
-
-            string accessType = "";
-            ThrowIfUserHasNoRole(accessType);
 
             using (var deliveryAreaDeleteHandler = new DeliveryAreaDeleteHandler(Db, ActiveUser))
             {

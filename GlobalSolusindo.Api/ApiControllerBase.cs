@@ -25,8 +25,8 @@ namespace GlobalSolusindo.Api
     [TokenAuthorize()]
     public class ApiControllerBase : ApiController
     {
-        private const bool requireAccessControl = false;
- 
+        private const bool requireAccessControl = true;
+
         public tblM_User ActiveUser
         {
             get
@@ -65,7 +65,7 @@ namespace GlobalSolusindo.Api
         }
 
         public void SaveLog(string moduleName, string actionName, string data)
-        { 
+        {
         }
     }
 }

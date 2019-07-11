@@ -421,10 +421,11 @@
             <PropertyRef Name="AsetHistori_PK" />
           </Key>
           <Property Name="AsetHistori_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserDetail_FK" Type="int" Nullable="false" />
+          <Property Name="User_FK" Type="int" Nullable="false" />
           <Property Name="Aset_FK" Type="int" Nullable="false" />
           <Property Name="TglMulai" Type="datetime" Nullable="false" />
           <Property Name="TglSelesai" Type="datetime" />
+          <Property Name="Description" Type="nvarchar(max)" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -719,15 +720,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblM_AsetHistori_UserDetail_FK">
-          <End Role="tblM_UserDetail" Type="Self.tblM_UserDetail" Multiplicity="1" />
+        <Association Name="FK_tblM_AsetHistori_User_FK">
+          <End Role="tblM_User" Type="Self.tblM_User" Multiplicity="1" />
           <End Role="tblT_AsetHistori" Type="Self.tblT_AsetHistori" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tblM_UserDetail">
-              <PropertyRef Name="UserDetail_PK" />
+            <Principal Role="tblM_User">
+              <PropertyRef Name="User_PK" />
             </Principal>
             <Dependent Role="tblT_AsetHistori">
-              <PropertyRef Name="UserDetail_FK" />
+              <PropertyRef Name="User_FK" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1055,8 +1056,8 @@
             <End Role="tblM_Status" EntitySet="tblM_Status" />
             <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblM_AsetHistori_UserDetail_FK" Association="Self.FK_tblM_AsetHistori_UserDetail_FK">
-            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
+          <AssociationSet Name="FK_tblM_AsetHistori_User_FK" Association="Self.FK_tblM_AsetHistori_User_FK">
+            <End Role="tblM_User" EntitySet="tblM_User" />
             <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
           </AssociationSet>
           <AssociationSet Name="FK_tblM_AuthParam_Status_FK" Association="Self.FK_tblM_AuthParam_Status_FK">
@@ -1325,13 +1326,13 @@
             <End Role="tblM_Status" EntitySet="tblM_Status" />
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
+          <AssociationSet Name="FK_tblM_AsetHistori_User_FK" Association="GlobalSolusindoModel.FK_tblM_AsetHistori_User_FK">
+            <End Role="tblM_User" EntitySet="tblM_User" />
+            <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
+          </AssociationSet>
           <AssociationSet Name="FK_tblM_User_UserDetail_FK" Association="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK">
             <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
             <End Role="tblM_User" EntitySet="tblM_User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tblM_AsetHistori_UserDetail_FK" Association="GlobalSolusindoModel.FK_tblM_AsetHistori_UserDetail_FK">
-            <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
-            <End Role="tblT_AsetHistori" EntitySet="tblT_AsetHistori" />
           </AssociationSet>
           <AssociationSet Name="FK_tblM_UserHistori_UserDetail_FK" Association="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK">
             <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
@@ -1875,6 +1876,7 @@
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_User_Status_FK" FromRole="tblM_User" ToRole="tblM_Status" />
+          <NavigationProperty Name="tblT_AsetHistori" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_User_FK" FromRole="tblM_User" ToRole="tblT_AsetHistori" />
           <NavigationProperty Name="tblM_UserDetail" Relationship="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" FromRole="tblM_User" ToRole="tblM_UserDetail" />
         </EntityType>
         <EntityType Name="tblM_UserDetail">
@@ -1910,7 +1912,6 @@
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_UserDetail_Status_FK" FromRole="tblM_UserDetail" ToRole="tblM_Status" />
           <NavigationProperty Name="tblM_User" Relationship="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblM_User" />
-          <NavigationProperty Name="tblT_AsetHistori" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblT_AsetHistori" />
           <NavigationProperty Name="tblT_UserHistori" Relationship="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK" FromRole="tblM_UserDetail" ToRole="tblT_UserHistori" />
         </EntityType>
         <EntityType Name="tblM_Vendor">
@@ -1930,10 +1931,11 @@
             <PropertyRef Name="AsetHistori_PK" />
           </Key>
           <Property Name="AsetHistori_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserDetail_FK" Type="Int32" Nullable="false" />
+          <Property Name="User_FK" Type="Int32" Nullable="false" />
           <Property Name="Aset_FK" Type="Int32" Nullable="false" />
           <Property Name="TglMulai" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="TglSelesai" Type="DateTime" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -1941,7 +1943,7 @@
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
           <NavigationProperty Name="tblM_Aset" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_Aset_FK" FromRole="tblT_AsetHistori" ToRole="tblM_Aset" />
           <NavigationProperty Name="tblM_Status" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_Status_FK" FromRole="tblT_AsetHistori" ToRole="tblM_Status" />
-          <NavigationProperty Name="tblM_UserDetail" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_UserDetail_FK" FromRole="tblT_AsetHistori" ToRole="tblM_UserDetail" />
+          <NavigationProperty Name="tblM_User" Relationship="GlobalSolusindoModel.FK_tblM_AsetHistori_User_FK" FromRole="tblT_AsetHistori" ToRole="tblM_User" />
         </EntityType>
         <EntityType Name="tblT_CheckIn">
           <Key>
@@ -2365,6 +2367,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tblM_AsetHistori_User_FK">
+          <End Type="GlobalSolusindoModel.tblM_User" Role="tblM_User" Multiplicity="1" />
+          <End Type="GlobalSolusindoModel.tblT_AsetHistori" Role="tblT_AsetHistori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblM_User">
+              <PropertyRef Name="User_PK" />
+            </Principal>
+            <Dependent Role="tblT_AsetHistori">
+              <PropertyRef Name="User_FK" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tblM_User_UserDetail_FK">
           <End Type="GlobalSolusindoModel.tblM_UserDetail" Role="tblM_UserDetail" Multiplicity="1" />
           <End Type="GlobalSolusindoModel.tblM_User" Role="tblM_User" Multiplicity="*" />
@@ -2373,18 +2387,6 @@
               <PropertyRef Name="UserDetail_PK" />
             </Principal>
             <Dependent Role="tblM_User">
-              <PropertyRef Name="UserDetail_FK" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tblM_AsetHistori_UserDetail_FK">
-          <End Type="GlobalSolusindoModel.tblM_UserDetail" Role="tblM_UserDetail" Multiplicity="1" />
-          <End Type="GlobalSolusindoModel.tblT_AsetHistori" Role="tblT_AsetHistori" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblM_UserDetail">
-              <PropertyRef Name="UserDetail_PK" />
-            </Principal>
-            <Dependent Role="tblT_AsetHistori">
               <PropertyRef Name="UserDetail_FK" />
             </Dependent>
           </ReferentialConstraint>
@@ -3074,10 +3076,11 @@
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
                 <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
                 <ScalarProperty Name="Aset_FK" ColumnName="Aset_FK" />
-                <ScalarProperty Name="UserDetail_FK" ColumnName="UserDetail_FK" />
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
                 <ScalarProperty Name="AsetHistori_PK" ColumnName="AsetHistori_PK" />
               </MappingFragment>
             </EntityTypeMapping>

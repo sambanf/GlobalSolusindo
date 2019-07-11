@@ -20,6 +20,12 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class POController : ApiControllerBase
     {
+        private const string createRole = "PO_Input";
+        private const string updateRole = "PO_Edit";
+        private const string readRole = "PO_ViewAll";
+        private const string deleteRole = "PO_Delete";
+        private const string importRole = "PO_Import";
+
         public POController()
         {
         }

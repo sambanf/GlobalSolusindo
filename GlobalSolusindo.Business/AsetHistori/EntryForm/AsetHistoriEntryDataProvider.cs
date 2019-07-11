@@ -1,10 +1,13 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.Aset.Queries;
 using GlobalSolusindo.Business.AsetHistori.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos;
 using Kairos.UI;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GlobalSolusindo.Business.AsetHistori.EntryForm
 {
@@ -36,40 +39,47 @@ namespace GlobalSolusindo.Business.AsetHistori.EntryForm
         private AsetHistoriEntryModel GetCreateStateModel()
         {
             AsetHistoriEntryFormData formData = new AsetHistoriEntryFormData();
+
+            formData.Asets = new AsetQuery(Db).GetQuery().ToList();
+
             List<Control> formControls = CreateFormControls(0);
-            AsetHistoriDTO asetHistoriDTO = new AsetHistoriDTO();
-            return new AsetHistoriEntryModel()
+            AsetHistoriDTO asetHistoriDTO = new AsetHistoriDTO()
             {
-                FormData = formData,
+                TglMulai = DateTime.Now
+            };
+            return new AsetHistoriEntryModel()
+        {
+            FormData = formData,
                 FormControls = formControls,
                 Model = asetHistoriDTO,
             };
-        }
-
-        private AsetHistoriEntryModel GetUpdateStateModel(int asetHistoriPK)
-        {
-            AsetHistoriEntryFormData formData = new AsetHistoriEntryFormData();
-            List<Control> formControls = CreateFormControls(asetHistoriPK);
-            AsetHistoriDTO asetHistoriDTO = asetHistoriQuery.GetByPrimaryKey(asetHistoriPK);
-
-            if (asetHistoriDTO == null)
-                throw new KairosException($"Record with primary key '{asetHistoriDTO.AsetHistori_PK}' is not found.");
-
-            return new AsetHistoriEntryModel()
-            {
-                FormData = formData,
-                FormControls = formControls,
-                Model = asetHistoriDTO,
-            };
-        }
-
-        public AsetHistoriEntryModel Get(int asetHistoriPK)
-        {
-            if (asetHistoriPK == 0)
-            {
-                return GetCreateStateModel();
-            }
-            return GetUpdateStateModel(asetHistoriPK);
-        }
     }
+
+    private AsetHistoriEntryModel GetUpdateStateModel(int asetHistoriPK)
+    {
+        AsetHistoriEntryFormData formData = new AsetHistoriEntryFormData();
+        formData.Asets = new AsetQuery(Db).GetQuery().ToList();
+        List<Control> formControls = CreateFormControls(asetHistoriPK);
+        AsetHistoriDTO asetHistoriDTO = asetHistoriQuery.GetByPrimaryKey(asetHistoriPK);
+
+        if (asetHistoriDTO == null)
+            throw new KairosException($"Record with primary key '{asetHistoriDTO.AsetHistori_PK}' is not found.");
+
+        return new AsetHistoriEntryModel()
+        {
+            FormData = formData,
+            FormControls = formControls,
+            Model = asetHistoriDTO,
+        };
+    }
+
+    public AsetHistoriEntryModel Get(int asetHistoriPK)
+    {
+        if (asetHistoriPK == 0)
+        {
+            return GetCreateStateModel();
+        }
+        return GetUpdateStateModel(asetHistoriPK);
+    }
+}
 }
