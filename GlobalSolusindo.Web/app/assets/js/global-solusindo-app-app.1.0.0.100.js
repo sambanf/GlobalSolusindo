@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-13. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-14. 
 * @author Kairos
 */
 (function() {
@@ -1136,6 +1136,30 @@ angular.module('global-solusindo')
     }]);
 'use strict';
 
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.positionEntry', {
+                url: '/positionEntry/:id',
+                templateUrl: 'app/modules/positionEntry/positionEntry.html',
+                controller: 'PositionEntryCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Position Entry'
+                }
+            });
+    }]);
+'use strict';
+
 angular.module('global-solusindo')
     .config(['$stateProvider', function ($stateProvider) {
 
@@ -2208,21 +2232,15 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('CheckInEntryCtrl', CheckInEntryCtrl);
 
-    CheckInEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'CheckInSaveService', 'CheckInBindingService', 'FormControlService', 'select2Service', 'sowMapService'];
+    CheckInEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'CheckInSaveService', 'CheckInBindingService', 'FormControlService', 'select2Service'];
 
-    function CheckInEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service, map) {
+    function CheckInEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
-            try { 
-                map.init(self);
-
-            } catch (e) {
-
-            }
         });
 
         return self;
@@ -3654,21 +3672,15 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('MyTaskListEntryCtrl', MyTaskListEntryCtrl);
 
-    MyTaskListEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MyTaskListSaveService', 'MyTaskListBindingService', 'FormControlService', 'select2Service', 'sowMapService'];
+    MyTaskListEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MyTaskListSaveService', 'MyTaskListBindingService', 'FormControlService', 'select2Service'];
 
-    function MyTaskListEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service, map) {
+    function MyTaskListEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
-            try {
-                map.init(self);
-
-            } catch (e) {
-
-            }
         });
 
         return self;
@@ -3773,6 +3785,35 @@ angular.module('global-solusindo')
 
         bindingService.init(self);
         uploadService.init(self);
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.controller:userEntryCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('PositionEntryCtrl', PositionEntryCtrl);
+
+    PositionEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'PositionSaveService', 'PositionBindingService', 'FormControlService'];
+
+    function PositionEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        bindingService.init(self).then(function (res) {
+            formControlService.setFormControl(self);
+            saveService.init(self);
+        });
+
         return self;
     }
 })();
@@ -12460,6 +12501,111 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
+        .factory('PositionBindingService', PositionBindingService);
+
+    PositionBindingService.$inject = ['HttpService', '$state'];
+
+    function PositionBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+
+        self.applyBinding = function (id) {
+            return http.get('position/form/' + id);
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var id = ctrl.stateParam.id;
+            return new Promise(function (resolve, reject) {
+                self.applyBinding(id).then(function (res) {
+                    controller.model = res.data.model;
+                    controller.formControls = res.data.formControls;
+                    resolve(res);
+                });
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('PositionSaveService', PositionEntry);
+
+    PositionEntry.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function PositionEntry($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        self.create = function (model) {
+            http.post('position', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                    $state.go('app.positionEntry', { id: res.data.model.position_pk });
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.update = function (model) {
+            http.put('position', model).then(function (res) {
+                if (res.success) {
+                    ui.alert.success(res.message);
+                } else {
+                    ui.alert.error(res.message);
+                    validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.save = function (model) {
+            validation.clearValidationErrors({});
+            if (model.position_pk === 0) {
+                return self.create(model);
+            } else {
+                return self.update(model);
+            }
+        };
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#saveButton').on('click', function () {
+                self.save(controller.model);
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
         .factory('projectDeleteService', project);
 
     project.$inject = ['HttpService', 'uiService'];
@@ -14493,8 +14639,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://global-solusindo-ws.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
         var base_host = "";
 
         var auth = {};
@@ -18349,6 +18495,7 @@ angular.module('checklist-model', [])
         .directive('a', navigationDirective)
         .directive('a', layoutToggleDirective)
         .directive('button', triggerTooltip)
+        .directive('button', collapseMenuTogglerDirective)
         .directive('form', formEl)
         .directive('a', preventClickDirective)
         .directive('loading', loadingSpinner)
@@ -18418,7 +18565,7 @@ angular.module('checklist-model', [])
         function link(scope, element, attrs) {
             element.on('click', function () {
                 if (element.hasClass('navbar-toggler') && !element.hasClass('layout-toggler')) {
-                    angular.element('body').toggleClass('sidebar-mobile-show')
+                    angular.element('body').toggleClass('sidebar-mobile-show');
                 }
             })
         }
@@ -18443,6 +18590,7 @@ angular.module('checklist-model', [])
                 if (element.hasClass('aside-menu-toggler')) {
                     angular.element('body').toggleClass('aside-menu-hidden');
                 }
+                console.log('a');
             });
         }
     }

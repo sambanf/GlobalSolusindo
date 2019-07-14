@@ -1675,6 +1675,14 @@ table.dataTable .btn {
     font-size: 12px;
 }
 
+.card-header .btn {
+    margin-top: 0;
+}
+
+.control-label {
+    margin-top: 7px;
+}
+
 @media only screen and (max-width: 992px) {
     #top-alert .pl-0 {
         padding-left: 15px !important;
@@ -1682,6 +1690,28 @@ table.dataTable .btn {
 
     .app-header.navbar .navbar-brand {
         width: 165px;
+    }
+
+    .sidebar-mobile-show .app-header.navbar {
+        margin-left: 250px;
+    }
+
+    .sidebar {
+        margin-left: -260px;
+    }
+    .sidebar-mobile-show .main {
+        margin-left: 250px !important;
+    }
+    table.dataTable tbody td, table.dataTable tbody th {
+        white-space: nowrap;
+    }
+
+    .app-header.navbar .navbar-toggler {
+        color: #ffffff;
+    }
+
+    .col-md-20p {
+        width: 100%;
     }
 
     #head-ticker,

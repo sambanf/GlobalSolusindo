@@ -17,6 +17,7 @@
         .directive('a', navigationDirective)
         .directive('a', layoutToggleDirective)
         .directive('button', triggerTooltip)
+        .directive('button', collapseMenuTogglerDirective)
         .directive('form', formEl)
         .directive('a', preventClickDirective)
         .directive('loading', loadingSpinner)
@@ -86,7 +87,7 @@
         function link(scope, element, attrs) {
             element.on('click', function () {
                 if (element.hasClass('navbar-toggler') && !element.hasClass('layout-toggler')) {
-                    angular.element('body').toggleClass('sidebar-mobile-show')
+                    angular.element('body').toggleClass('sidebar-mobile-show');
                 }
             })
         }
@@ -111,6 +112,7 @@
                 if (element.hasClass('aside-menu-toggler')) {
                     angular.element('body').toggleClass('aside-menu-hidden');
                 }
+                console.log('a');
             });
         }
     }
