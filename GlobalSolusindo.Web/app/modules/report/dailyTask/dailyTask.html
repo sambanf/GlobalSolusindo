@@ -22,8 +22,8 @@
                         </div>
                     </div>
                     <div class="row form-group" style="margin-top: 2%;">
-                        <label class="control-label col-sm-2" style="margin-right: -60px; top: 8px">Nama Pekerja</label>
-                        <div class="col-sm-2" style="margin-left: -50px;">
+                        <label class="control-label col-sm-2" style="top: 8px">Nama Pekerja</label>
+                        <div class="col-sm-2">
                             <select id="user_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="vm.model.user_fk">
                                 <option value="0">All</option>
                                 <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.name}}</option>
@@ -31,7 +31,7 @@
                             <div class="invalid-feedback"></div>
                         </div>
                         <label class="control-label col-sm-1" style="top: 8px">Status</label>
-                        <div class="col-sm-2" style="margin-left: -50px;">
+                        <div class="col-sm-2">
                             <select id="select_name" name="user_fk" class="form-control input-lg" size="0" ng-model="vm.model.statusName">
                                 <option ng-repeat="x in vm.formData.status" ng-value="x.name">{{x.name}}</option>
                             </select>

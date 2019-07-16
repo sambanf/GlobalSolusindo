@@ -1,0 +1,37 @@
+﻿<div class="animated fadeIn">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-title">Tambah Position</div>
+                    <div class="col-md-8">
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Position Name:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="title" ng-model="vm.model.name"
+                                       placeholder="Position Name">
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <label class="control-label col-sm-2">Description:</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" ng-model="vm.model.description" name="description" placeholder="Description">
+                                        </textarea>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button class="btn btn-default" ui-sref="app.positionList">Kembali</button>
+                                <button id="saveButton" class="btn btn-success float-right">
+                                    Tambah
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

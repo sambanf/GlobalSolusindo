@@ -12,12 +12,12 @@
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <label class="control-label col-xs-1">Name</label>
+                        <label class="control-label col-sm-1">Name</label>
                         <div class="col-sm-2">
                             <input type="text" id="username" name="username" class="form-control" ng-model="vm.model.username" disabled>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <label class="control-label col-xs-1">BTS</label>
+                        <label class="control-label col-sm-1">BTS</label>
                         <div class="col-sm-2">
                             <select id="bts_fk" name="bts_fk" class="form-control input-lg" size="0" ng-model="vm.model.bts_fk" required>
                                 <option ng-repeat="x in vm.formData.btses" ng-value="x.bts_pk">{{x.name}}</option>
@@ -34,7 +34,7 @@
                             <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
                         </div>
-                        <label class="control-label col-xs-1">Tgl Akhir</label>
+                        <label class="control-label col-sm-1">Tgl Akhir</label>
                         <div class="col-sm-2">
                             <input type="text" id="tglAkhir" name="tglAkhir" ng-model="vm.model.tglAkhir" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
