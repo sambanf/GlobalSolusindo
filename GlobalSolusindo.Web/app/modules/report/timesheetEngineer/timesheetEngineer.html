@@ -6,21 +6,21 @@
                     <div class="card-title">Timesheet Engineer</div>
                     <div class="row form-group" style="margin-left: -1px; margin-right: -1px; border-bottom: 1px solid #ccc;">
                         <label class="control-label col-sm-1">User ID</label>
-                        <div class="col-sm-2" style="margin-left: -50px;">
+                        <div class="col-sm-2">
                             <select id="bts_fk" name="bts_fk" class="form-control input-lg" size="0" ng-model="brc.model.user_pk" required>
                                 <option ng-repeat="x in brc.formData.users" ng-value="x.user_pk">{{x.username}}</option>
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
                         <label class="control-label col-sm-1">Name</label>
-                        <div class="col-sm-2" style="margin-left: -50px;">
+                        <div class="col-sm-2">
                             <select id="select_name" name="user_fk" class="form-control input-lg" size="0" ng-model="brc.model.user_fk" required>
                                 <option ng-repeat="x in brc.formData.users" ng-value="x.user_pk">{{x.name}}</option>
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-md-2">
-                            <button id="searchButton" type="button" class="btn btn-success" style="border-radius: 20px" ng-click="brc.search()">Search</button>
+                            <button id="searchButton" type="button" class="btn btn-success mt-xs-2" style="border-radius: 20px" ng-click="brc.search()">Search</button>
                         </div>
                     </div>
                     <div class="row">
