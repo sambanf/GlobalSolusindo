@@ -11,7 +11,7 @@
 
     angular
         .module('global-solusindo')
-        .factory('UserImportExcelBindingService', UserImportExcelBindingService);
+        .factory('SOWImportExcelBindingService', UserImportExcelBindingService);
 
     UserImportExcelBindingService.$inject = ['HttpService', '$state'];
 
