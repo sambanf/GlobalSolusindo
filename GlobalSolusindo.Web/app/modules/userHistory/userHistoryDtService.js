@@ -1,4 +1,4 @@
-(function () {
+﻿(function () {
     'use strict';
 
     /**
@@ -11,21 +11,21 @@
 
     angular
         .module('global-solusindo')
-        .factory('asetHistoriDtService', asetHistori);
+        .factory('userHistoryDtService', userHistory);
 
-    asetHistori.$inject = ['DatatableService', '$stateParams'];
+    userHistory.$inject = ['DatatableService', '$stateParams'];
 
-    function asetHistori(ds, $stateParams) {
+    function userHistory(ds, $stateParams) {
         var self = this;
         var controller = {};
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
             controller = ctrl;
-            return ds.init("#asetHistori", "asetHistori/search", {
+            return ds.init("#userHistori", "userHistori/search", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10,
-                    user_fk: $stateParams.user_fk
+                    aset_fk: $stateParams.aset_fk
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
@@ -34,10 +34,10 @@
                         "data": "asetHistori_pk"
                     },
                     {
-                        "data": "asetKategoriTitle"
+                        "data": "userFullName"
                     },
                     {
-                        "data": "asetName"
+                        "data": "userPosition"
                     },
                     {
                         "data": "tglMulai",
@@ -57,20 +57,20 @@
                             //return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
                             //    "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
                             ////"<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> "
+                                //"<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
+                                //"<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
                                
                         }
                     }
                 ],
                 ajaxCallback: function (response) {
                     controller.user = response.data.user;
-                },
-                exportButtons: {
-                    columns: [1, 2, 3],
-                    title: "AsetHistori"
-                }
+                }//,
+                //exportButtons: {
+                //    columns: [1, 2, 3],
+                //    title: "AsetHistori"
+                //}
             });
         };
         return self;

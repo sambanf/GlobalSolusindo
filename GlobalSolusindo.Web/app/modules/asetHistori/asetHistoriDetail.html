@@ -9,16 +9,16 @@
         <div class="col-md-9">
 
             <div class="row form-group">
-                <label class="control-label col-sm-4 text-right">Kode Asset :</label><label class="col-sm-8">{{ model.asetHistoriId }}</label>
+                <label class="control-label col-sm-4 text-right">Kode Asset :</label><label class="col-sm-8">{{ model.asetID }}</label>
             </div>
             <div class="row form-group">
                 <label class="control-label col-sm-4 text-right">Tanggal Pembuatan :</label><label class="col-sm-8">{{ model.createdDate | date: 'dd/MM/yyyy' }}</label>
             </div>
             <div class="row form-group">
-                <label class="control-label col-sm-4 text-right">Kategori AsetHistori :</label><label class="col-sm-8">{{ model.kategoriAsetHistoriName }}</label>
+                <label class="control-label col-sm-4 text-right">Kategori AsetHistori :</label><label class="col-sm-8">{{ model.asetKategoriTitle }}</label>
             </div>
             <div class="row form-group">
-                <label class="control-label col-sm-4 text-right">Nama AsetHistori :</label><label class="col-sm-8">{{ model.name }}</label>
+                <label class="control-label col-sm-4 text-right">Nama AsetHistori :</label><label class="col-sm-8">{{ model.asetName }}</label>
             </div>
             <div class="row form-group">
                 <label class="control-label col-sm-4 text-right">Deskripsi AsetHistori :</label><label class="col-sm-8">{{ model.description }}</label>

@@ -13,7 +13,7 @@
         .module('global-solusindo')
         .controller('DashboardCtrl', Dashboard);
 
-    Dashboard.$inject = ['$scope', 'HttpService'];
+    Dashboard.$inject = ['$scope', 'HttpService','uiService'];
 
     /*
     * recommend
@@ -21,7 +21,7 @@
     * and bindable members up top.
     */
 
-    function Dashboard($scope, http) {
+    function Dashboard($scope, http, ui) {
         /*jshint validthis: true */
         var db = this;
 
@@ -42,6 +42,13 @@
         }
         today = yyyy + '/' + mm + '/' + dd;
 
+        $scope.tglMulaiFilter1 = newyear;
+        $scope.tglAkhirFilter1 = today;
+        $scope.tglMulaiFilter2 = newyear;
+        $scope.tglAkhirFilter2 = today;
+        $scope.tglMulaiFilter3 = newyear;
+        $scope.tglAkhirFilter3 = today;
+
         getDashbord1(newyear, today, 0);
         getGoalCompletion(newyear, today, 0);
         getRevenueCost(newyear, today, 0);
@@ -49,6 +56,13 @@
 
 
         function getDashbord1(startDate, endDate, project) {
+            
+            if (!startDate && !endDate)
+            {
+                startDate = '1900-01-01';
+                endDate = '1900-01-01';
+            }
+
             http.get('dashboard/GetDashboardValue', {
                 start: startDate,
                 end: endDate,
@@ -140,6 +154,7 @@
                     credits: {
                         enabled: false
                     },
+                    exporting: { enabled: false },
                     series: [{
                         dataLabels: [{
                             align: 'left',
@@ -207,6 +222,7 @@
                             text: ''
                         }
                     },
+                    exporting: { enabled: false },
                     tooltip: {
                         valueSuffix: '',
                         //headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -228,7 +244,7 @@
                     series: [{
                         name: 'Revenue',
                         data: Revenue,
-                        color: '#FF4500'
+                        color: '#4dbd74'
 
                     }, {
                         name: 'Cost',
@@ -262,21 +278,50 @@
             var e = document.getElementById("project_fk1");
             var projectId = e.options[e.selectedIndex].value;
             var ProjectIdVal = projectId.replace('number:', '')
-            getDashbord1(db.tglMulaiFilter1, db.tglAkhirFilter1, ProjectIdVal);
+            getDashbord1($scope.tglMulaiFilter1, $scope.tglAkhirFilter1, ProjectIdVal);
         });
         angular.element('#searchButton2').on('click', function () {
             var e = document.getElementById("operator_fk");
             var operatorId = e.options[e.selectedIndex].value;
             var operatorIdVal = operatorId.replace('number:', '');
-            getGoalCompletion(db.tglMulaiFilter2, db.tglAkhirFilter2, operatorIdVal);
-            getSalesReport(db.tglMulaiFilter2, db.tglAkhirFilter2, operatorIdVal);
+            var tglMulai = new Date($scope.tglMulaiFilter2);
+            var tglAkhir = new Date($scope.tglAkhirFilter2);
+
+            var year = tglMulai.getFullYear();
+            var month = tglMulai.getMonth();
+            var oneYear = new Date(year + 1, month, 1)
+            oneYear.setDate(oneYear.getDate() - 1);
+
+            if (tglAkhir > oneYear) {
+                ui.alert.warningToast("Can't entry more than one year");
+            }
+            else
+            {
+                getGoalCompletion(tglMulai, tglAkhir, operatorIdVal);
+                getSalesReport(tglMulai, tglAkhir, operatorIdVal);
+            }
 
         });
         angular.element('#searchButton3').on('click', function () {
             var e = document.getElementById("project_Id");
             var projectId = e.options[e.selectedIndex].value;
-            var ProjectIdVal = projectId.replace('number:', '')
-            getRevenueCost(db.tglMulaiFilter3, db.tglAkhirFilter3, ProjectIdVal);
+            var ProjectIdVal = projectId.replace('number:', '');
+
+            var tglMulai = new Date($scope.tglMulaiFilter3);
+            var tglAkhir = new Date($scope.tglAkhirFilter3);
+
+            var year = tglMulai.getFullYear();
+            var month = tglMulai.getMonth();
+            var oneYear = new Date(year + 1, month, 1)
+            oneYear.setDate(oneYear.getDate() - 1);
+
+            if (tglAkhir > oneYear) {
+                ui.alert.warningToast("Can't entry more than one year");
+            }
+            else {
+
+                getRevenueCost(tglMulai, tglAkhir, ProjectIdVal);
+            }
 
         });
 
@@ -346,10 +391,11 @@
                     credits: {
                         enabled: false
                     },
+
                     xAxis: {
                         categories: Month
                     },
-
+                    exporting: { enabled: false },
                     series: NewData,
 
                     responsive: {
@@ -420,5 +466,8 @@
 
         getProject();
         getOperator();
+        $scope.project_fk1 = 0;
+        $scope.operator_fk2 = 0;
+        $scope.project_fk3 = 0;
     }
 })();

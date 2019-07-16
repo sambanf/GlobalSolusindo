@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserHistory\Queriesuser\UserHistoriQuery.cs" />
+    <Compile Include="UserHistory\Queriesuser\UserHistoriSearch.cs" />
+    <Compile Include="UserHistory\UserHistoriDTO.cs" />
     <Compile Include="PO\DashboardValue.cs" />
     <Compile Include="PO\GoalCompletion.cs" />
     <Compile Include="PO\RevenueCost.cs" />
