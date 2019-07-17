@@ -149,6 +149,9 @@
     <Content Include="app\modules\aset\asetDtService.js" />
     <Content Include="app\modules\aset\asetRoute.js" />
     <Content Include="app\modules\aset\asetViewService.js" />
+    <Content Include="app\modules\dashboard\dashboardNullCtrl.js" />
+    <Content Include="app\modules\dashboard\dashboardNull.html" />
+    <Content Include="app\modules\dashboard\dashboardNullRoute.js" />
     <Content Include="app\modules\menuEntry\menuBindingService.js" />
     <Content Include="app\modules\menuEntry\menuEntry.html" />
     <Content Include="app\modules\menuEntry\menuEntryCtrl.js" />
