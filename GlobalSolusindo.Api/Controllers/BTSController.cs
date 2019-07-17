@@ -4,6 +4,7 @@ using GlobalSolusindo.Business.BTS.DML;
 using GlobalSolusindo.Business.BTS.EntryForm;
 using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.BTSStatus.Queries;
+using GlobalSolusindo.Business.BTSTechnology;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -149,7 +150,7 @@ namespace GlobalSolusindo.Api.Controllers
             ThrowIfUserHasNoRole(importRole);
             if (btsImportDTO == null)
                 throw new KairosException("Missing model parameter");
-            var importResult = new BTSImportExcelHandler(Db, ActiveUser, new BTSValidator(), new BTSFactory(Db, ActiveUser), new BTSQuery(Db), AccessControl).ExecuteImport(btsImportDTO, DateTime.Now);
+            var importResult = new BTSImportExcelHandler(Db, ActiveUser, new BTSValidator(), new BTSFactory(Db, ActiveUser), new BTSTechnologyFactory(Db,ActiveUser), new BTSQuery(Db), AccessControl).ExecuteImport(btsImportDTO, DateTime.Now);
             return Ok(new SuccessResponse(importResult));
         }
 

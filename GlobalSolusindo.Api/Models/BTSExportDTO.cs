@@ -7,14 +7,12 @@ namespace GlobalSolusindo.Api.Models
     {
         [Description("TowerID")]
         public string TowerID { get; set; }
-        [Description("CellID")]
-        public string CellID { get; set; }
         [Description("Name")]
         public string Name { get; set; }
+        [Description("CellID")]
+        public string CellID { get; set; }
         [Description("Operator")]
         public string Operator { get; set; }
-        [Description("StatusBTS")]
-        public string StatusBts { get; set; }
         [Description("Longitude")]
         public string Longitude { get; set; }
         [Description("Latitude")]
@@ -24,5 +22,11 @@ namespace GlobalSolusindo.Api.Models
         public string Area { get; set; }
         [Description("Alamat")]
         public string Alamat { get; set; }
+        [Description("StatusBTS")]
+        public string StatusBts { get; set; }
+
+        [Description("Technology")]
+        public string Technology { get; set; }
+
     }
 }

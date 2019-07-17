@@ -35,13 +35,16 @@ namespace GlobalSolusindo.Api.Models
             _fileName = fileName;
             //CREATE WORKBOOK
             var workbook = new XLWorkbook();
-            DataTable bts = new DataTable("BTS");
+            DataTable bts = new DataTable("BTSUpload"); //DataTable Name = Worksheet Name
             BTSExportDTO obj = new BTSExportDTO();
+            //Setup Column Names
             foreach (var item in obj.GetType().GetProperties())
             {
                 bts.Columns.Add(item.Name);
             }
-            workbook.AddWorksheet(bts);
+            workbook.AddWorksheet(bts); // NO DATA = ADD Worksheet to WorkBook
+
+            //Worksheet Properties
             var worksheet = workbook.Worksheet(1);
             worksheet.Columns().Width = 15;
             //BTS Status
@@ -70,7 +73,7 @@ namespace GlobalSolusindo.Api.Models
                     endcell++;
                 }
                 var worksheet2 = workbook.AddWorksheet(validationTable);
-                worksheet.Column(5).SetDataValidation().List(worksheet2.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                worksheet.Column(9).SetDataValidation().List(worksheet2.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
                 //Validation Operator
                 DataTable validationTable2 = new DataTable();
@@ -129,7 +132,7 @@ namespace GlobalSolusindo.Api.Models
                             endcell++;
                         }
                         var worksheet4 = workbook.AddWorksheet(validationTable3);
-                        worksheet.Column(8).SetDataValidation().List(worksheet4.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                        worksheet.Column(7).SetDataValidation().List(worksheet4.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
                     }
 
 

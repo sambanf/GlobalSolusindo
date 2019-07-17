@@ -2,7 +2,10 @@
 using GlobalSolusindo.Business.Area;
 using GlobalSolusindo.Business.BTS.EntryForm;
 using GlobalSolusindo.Business.BTS.Queries;
+using GlobalSolusindo.Business.BTSTechnology;
+using GlobalSolusindo.Business.BTSTechnology.Queries;
 using GlobalSolusindo.Business.Operator.Queries;
+using GlobalSolusindo.Business.Technology.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using Kairos.Data;
@@ -26,13 +29,15 @@ namespace GlobalSolusindo.Business.BTS.DML
     {
         private BTSValidator btsValidator;
         private BTSFactory btsFactory;
+        private BTSTechnologyFactory btstFactory;
         private BTSQuery btsQuery;
         private BTSEntryDataProvider btsEntryDataProvider;
 
-        public BTSImportExcelHandler(GlobalSolusindoDb db, tblM_User user, BTSValidator btsValidator, BTSFactory btsFactory, BTSQuery btsQuery, AccessControl accessControl) : base(db, user)
+        public BTSImportExcelHandler(GlobalSolusindoDb db, tblM_User user, BTSValidator btsValidator, BTSFactory btsFactory, BTSTechnologyFactory bTSTechnologyFactory, BTSQuery btsQuery, AccessControl accessControl) : base(db, user)
         {
             this.btsValidator = btsValidator;
             this.btsFactory = btsFactory;
+            this.btstFactory = bTSTechnologyFactory;
             this.btsQuery = btsQuery;
             this.btsEntryDataProvider = new BTSEntryDataProvider(db, user, accessControl, btsQuery);
             //((IObjectContextAdapter)Db).ObjectContext.CommandTimeout = 300; //set time out
@@ -51,6 +56,16 @@ namespace GlobalSolusindo.Business.BTS.DML
             return validationResults;
         }
 
+        public tblM_BTSTechnology AddBTSTechno(BTSTechnologyDTO btstDTO, DateTime dateStamp)
+        {
+            if (btstDTO == null)
+                throw new ArgumentNullException("BTS model is null.");
+            tblM_BTSTechnology btst = btstFactory.CreateFromDTO(btstDTO, dateStamp);
+            btst = Db.tblM_BTSTechnology.Add(btst);
+            return btst;
+        }
+
+
         public tblM_BTS AddBTS(BTSDTO btsDTO, DateTime dateStamp)
         {
             if (btsDTO == null)
@@ -66,25 +81,60 @@ namespace GlobalSolusindo.Business.BTS.DML
             if (btsDTO == null)
                 throw new ArgumentNullException("BTS model is null.");
             tblM_BTS bts = btsFactory.CreateFromDbAndUpdateFromDTO(btsDTO, dateStamp);
+            
         }
 
         public List<SaveResult<BTSDTO>> GetSaveResults(List<BTSDTO> btsList, DateTime dateStamp)
         {
+            var btstechnoQuery = new BTSTechnologyQuery(Db);
             var validationResults = Validate(btsList);
             List<SaveResult<BTSDTO>> saveResults = new List<SaveResult<BTSDTO>>();
 
             foreach (var validationResult in validationResults)
             {
                 var btsDTO = (BTSDTO)validationResult.GetModel();
-                if (validationResult.IsValid)
+                bool check = true;
+                foreach (var item in btsDTO.BTSTechnologies)
+                {
+                    if (item.Technology_FK == 0)
+                    {
+                        check = false;
+                    }
+                }
+
+                if (validationResult.IsValid && (check == true))
                 {
                     if (btsDTO.BTS_PK > 0)
                     {
                         UpdateBTS(btsDTO, dateStamp);
+                        List<BTSTechnologyDTO> list = btstechnoQuery.GetByBTSFK(btsDTO.BTS_PK);
+                        
+                        foreach (var item in btsDTO.BTSTechnologies)
+                        {
+                            item.BTS_FK = btsDTO.BTS_PK;
+                            bool ada = false;
+                            foreach (var item2 in list)
+                            {
+                                if (item.Technology_FK == item2.Technology_FK)
+                                {
+                                    ada = true;
+                                }
+                            }
+                            if (ada == false)
+                            {
+                                
+                                AddBTSTechno(item, dateStamp);
+                            }
+                        }
                     }
                     else
                     {
                         AddBTS(btsDTO, dateStamp);
+                        foreach (var item in btsDTO.BTSTechnologies)
+                        {
+                            item.BTS_FK = btsDTO.BTS_PK;
+                            AddBTSTechno(item, dateStamp);
+                        }
                     }
 
                     var saveResult = new SaveResult<BTSDTO>()
@@ -133,6 +183,7 @@ namespace GlobalSolusindo.Business.BTS.DML
             var nonEmptyRowCount = sheet.RowsUsed().Count() + 1;
             var areaQuery = new AreaQuery(Db);
             var operatorQuery = new OperatorQuery(Db);
+            var technologyQuery = new TechnologyQuery(Db);
             var btsQuery = new BTSQuery(Db);
             List<BTSDTO> btsList = new List<BTSDTO>();
 
@@ -140,8 +191,8 @@ namespace GlobalSolusindo.Business.BTS.DML
             for (int i = 2; i < nonEmptyRowCount; i++)
             {
                 var row = sheet.Row(i);
-                var towerId = (string)row.Cell(1).Value;
-                var btsName = (string)row.Cell(2).Value;
+                var towerId = row.Cell(1).Value.ToString();
+                var btsName = row.Cell(2).Value.ToString();
 
                 //get by itsname first;
                 var btsDtoOnDb = btsQuery.GetByTowerID(towerId);
@@ -157,19 +208,39 @@ namespace GlobalSolusindo.Business.BTS.DML
                     btsPk = btsDtoOnDb.BTS_PK;
                 }
 
-                var cellId = (string)row.Cell(3).Value;
+                var cellId = row.Cell(3).Value.ToString();
 
-                var operatorName = (string)row.Cell(4).Value;
+                var operatorName = row.Cell(4).Value.ToString();
                 var operatorId = operatorQuery.GetByTitle(operatorName).Operator_PK;
 
                 var longitude = Convert.ToString(row.Cell(5).Value);
                 var latitude = Convert.ToString(row.Cell(6).Value);
 
-                var areaName = (string)row.Cell(7).Value;
+                var areaName = row.Cell(7).Value.ToString();
                 var areaId = areaQuery.GetByTitle(areaName).Area_PK;
 
-                var address = (string)row.Cell(8).Value;
-                var status = (string)row.Cell(9).Value;
+                var address = row.Cell(8).Value.ToString();
+                var status = row.Cell(9).Value.ToString();
+
+                List<BTSTechnologyDTO> techno = new List<BTSTechnologyDTO>();
+                
+                var technology = row.Cell(10).Value.ToString().Split(';').ToList();
+                foreach (var item in technology)
+                {
+                    BTSTechnologyDTO itemtech = new BTSTechnologyDTO();
+                    try
+                    {
+                        
+                        itemtech.Technology_FK = technologyQuery.GetByTitle(item).Technology_PK;
+                    }
+                    catch (Exception)
+                    {
+                        itemtech.Technology_FK = 0;
+                    }
+                    techno.Add(itemtech);
+                }
+
+                
 
                 btsList.Add(new BTSDTO()
                 {
@@ -186,6 +257,7 @@ namespace GlobalSolusindo.Business.BTS.DML
                     Status_FK = 1,
                     TowerID = towerId,
                     StatusBTS_FK = 1,
+                    BTSTechnologies = techno
                 });
             }
 

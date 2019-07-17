@@ -149,7 +149,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Import([FromBody]UserImportDTO userImportDTO)
         {
-            ThrowIfUserHasNoRole(importRole);
+            //ThrowIfUserHasNoRole(importRole);
 
             if (userImportDTO == null)
                 throw new KairosException("Missing model parameter");
@@ -161,7 +161,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public HttpResponseMessage Export([FromBody]UserSearchFilter filter)
         {
-            ThrowIfUserHasNoRole(exportRole);
+            //ThrowIfUserHasNoRole(exportRole);
             if (filter != null)
                 filter.PageSize = 1000000;
 
