@@ -1,13 +1,17 @@
-﻿using GlobalSolusindo.Business.BTS;
+﻿using GlobalSolusindo.Api.Models;
+using GlobalSolusindo.Business.BTS;
 using GlobalSolusindo.Business.BTS.DML;
 using GlobalSolusindo.Business.BTS.EntryForm;
 using GlobalSolusindo.Business.BTS.Queries;
+using GlobalSolusindo.Business.BTSStatus.Queries;
+using GlobalSolusindo.Business.BTSTechnology;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Transactions;
 using System.Web.Http;
 
@@ -146,8 +150,17 @@ namespace GlobalSolusindo.Api.Controllers
             ThrowIfUserHasNoRole(importRole);
             if (btsImportDTO == null)
                 throw new KairosException("Missing model parameter");
-            var importResult = new BTSImportExcelHandler(Db, ActiveUser, new BTSValidator(), new BTSFactory(Db, ActiveUser), new BTSQuery(Db), AccessControl).ExecuteImport(btsImportDTO, DateTime.Now);
+            var importResult = new BTSImportExcelHandler(Db, ActiveUser, new BTSValidator(), new BTSFactory(Db, ActiveUser), new BTSTechnologyFactory(Db,ActiveUser), new BTSQuery(Db), AccessControl).ExecuteImport(btsImportDTO, DateTime.Now);
             return Ok(new SuccessResponse(importResult));
+        }
+
+
+        [Route("bts/export")]
+        [HttpPost]
+        public HttpResponseMessage Export([FromBody]BTSStatusSearchFilter filter)
+        {
+            BTSExport userExport = new BTSExport();
+            return userExport.Export(Db, "BTSUpload", filter);
         }
     }
 }

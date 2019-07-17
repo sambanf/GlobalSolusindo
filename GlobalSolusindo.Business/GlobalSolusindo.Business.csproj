@@ -61,6 +61,7 @@
     <Compile Include="PO\RevenueCost.cs" />
     <Compile Include="PO\RevenueCostProfit.cs" />
     <Compile Include="PO\SalesReport.cs" />
+    <Compile Include="SOW\DML\SOWImportExcel.cs" />
     <Compile Include="TipePekerjaan\TipePekerjaanCreateHandler.cs" />
     <Compile Include="TipePekerjaan\TipePekerjaanDeleteHandler.cs" />
     <Compile Include="TipePekerjaan\TipePekerjaanDTO.cs" />

@@ -50,7 +50,11 @@ namespace GlobalSolusindo.Api.MobileControllers
                 {
                     CreateSession(loginResult.Token, loginResult.Model);
                     var user = loginResult.Model;
-
+                    bool isDtvar = false;
+                    if (user.KategoriJabatan_FK == 2)
+                    {
+                        isDtvar = true;
+                    }
                     return Ok(
                         new
                         {
@@ -59,6 +63,8 @@ namespace GlobalSolusindo.Api.MobileControllers
                             fullname = user.Name,
                             email = user.Email,
                             photo = user.FilePhotoInBase64,
+                            kategorijabatanfk = user.KategoriJabatan_FK,
+                            isDt = isDtvar,
                             role = user.KategoriJabatanTitle,
                             description = user.Description,
                             token = loginResult.Token,

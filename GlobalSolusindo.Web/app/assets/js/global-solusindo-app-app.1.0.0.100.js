@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-14. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-16. 
 * @author Kairos
 */
 (function() {
@@ -1459,6 +1459,30 @@ angular.module('global-solusindo')
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
                     label: 'SOW Entry'
+                }
+            });
+    }]);
+'use strict';
+
+/**
+ * @ngdoc function
+ * @name app.route:orderRoute
+ * @description
+ * # dashboardRoute
+ * Route of the app
+ */
+
+angular.module('global-solusindo')
+    .config(['$stateProvider', function ($stateProvider) {
+
+        $stateProvider
+            .state('app.sowImportExcel', {
+                url: '/sowImportExcel',
+                templateUrl: 'app/modules/sowImportExcel/sowImportExcel.html',
+                controller: 'SOWImportExcelCtrl',
+                controllerAs: 'vm',
+                ncyBreadcrumb: {
+                    label: 'Import SOW'
                 }
             });
     }]);
@@ -4393,6 +4417,61 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
+     * @name app.controller:userImportExcelCtrl
+     * @description
+     * # dashboardCtrl
+     * Controller of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .controller('SOWImportExcelCtrl', UserImportExcelCtrl);
+
+    UserImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserImportExcelUploadService', 'UserImportExcelBindingService', 'FormControlService'];
+
+    function UserImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
+        var self = this;
+        self.stateParam = sParam;
+
+        function setModelWithFileData(data) {
+            self.model.file = data;
+        }
+
+        function setFileName(fileName) {
+            document.getElementById("fileName").innerHTML = fileName;
+        }
+
+        function addEventListenerOnImageChanged() {
+            document.getElementById("file").addEventListener("change", readFile);
+        }
+
+        function readFile() {
+
+            if (this.files && this.files[0]) {
+                var FR = new FileReader();
+                var fileName = this.files[0].name;
+                FR.addEventListener("load", function (e) { 
+                    setModelWithFileData(e.target.result);
+                   
+                    setFileName(fileName);
+                });
+
+                FR.readAsDataURL(this.files[0]);
+            }
+        }
+
+        addEventListenerOnImageChanged();
+
+        bindingService.init(self);
+        uploadService.init(self);
+        return self;
+    }
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
      * @name app.controller:costEntryModal
      * @description
      * # dashboardCtrl
@@ -7231,10 +7310,39 @@ angular.module('global-solusindo')
             });
         };
 
+        self.downloadTpl = function () {
+            http.downloadFile('bts/export', { keyword: '' }).then(function (data) {
+                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                var linkElement = document.createElement('a');
+                try {
+                    var blob = new Blob([data], { type: contentType });
+                    var url = window.URL.createObjectURL(blob);
+
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute("download", "BTSUpload.xlsx");
+
+                    var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+
+
+        };
+
         self.init = function (ctrl) {
             btsImportExcelCtrl = ctrl;
             angular.element('#uploadButton').on('click', function () {
                 self.save(btsImportExcelCtrl.model);
+            });
+
+            angular.element('#downloadButton').on('click', function () {
+                self.downloadTpl();
             });
         };
 
@@ -14640,7 +14748,8 @@ angular.module('global-solusindo')
         var debugMode = false;
 
         //var base_url = "http://global-solusindo-ws.local/";
-        var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://localhost/GlobalAPI/";
         var base_host = "";
 
         var auth = {};
@@ -16160,6 +16269,116 @@ angular.module('global-solusindo')
                 getBTSs();
                 getTechnologies();
                 //controller.getUsers = getUsers;
+            });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('SOWImportExcelBindingService', UserImportExcelBindingService);
+
+    UserImportExcelBindingService.$inject = ['HttpService', '$state'];
+
+    function UserImportExcelBindingService(http, $state) {
+        var self = this;
+        var controller = {};
+       
+        self.init = function (ctrl) {
+            controller = ctrl; 
+            controller.model = {};
+            controller.model.file = {};
+            controller.uploadResuls = [];
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('SOWImportExcelUploadService', UserImportExcelUploadService);
+
+    UserImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function UserImportExcelUploadService($state, http, ui, validation) {
+        var self = this;
+        var userImportExcelCtrl;
+
+        function goToListPage() {
+            $state.go('app.sowList');
+        }
+
+        self.save = function (model) {
+            http.post('user/import', model).then(function (res) {
+                userImportExcelCtrl.uploadResults = res.data;
+                if (res.success) {
+                    ui.alert.success('Upload process complete.');
+                } else {
+                    ui.alert.error(res.message);
+                    if (res.data && res.data.errors)
+                        validation.serverValidation(res.data.errors);
+                }
+            });
+        };
+
+        self.downloadTpl = function () {
+            debugger;
+            http.downloadFile('user/export', { keyword: '' }).then(function (data) {
+                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                var linkElement = document.createElement('a');
+                try {
+                    var blob = new Blob([data], { type: contentType });
+                    var url = window.URL.createObjectURL(blob);
+
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute("download", "SOWUpload.xlsx");
+
+                    var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+
+
+        };
+        self.init = function (ctrl) {
+            userImportExcelCtrl = ctrl;
+            angular.element('#uploadButton').on('click', function () {
+                self.save(userImportExcelCtrl.model);
+            });
+
+            angular.element('#downloadButton').on('click', function () {
+                self.downloadTpl();
             });
         };
 
