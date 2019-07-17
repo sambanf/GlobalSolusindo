@@ -1,0 +1,33 @@
+﻿<div class="modal-header">
+    <h3 class="modal-title" id="modal-title">User History Detail</h3>
+</div>
+<div class="modal-body" id="modal-body">
+    <div class="row">
+        <div class="col-sm-3 form-group text-center">
+            <img id="photo" src="{{model.filePhotoInBase64 == null ? '/app/assets/images/default-large.png' : model.filePhotoInBase64}}" style="width:150px;margin:0 auto" class="img-fluid" />
+        </div>
+        <div class="col-md-9">
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Name :</label><label class="col-sm-8">{{ model.name }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Position :</label><label class="col-sm-8">{{ model.kategoriJabatanTitle }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Phone :</label><label class="col-sm-8">{{ model.noHP }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Email :</label><label class="col-sm-8">{{ model.email }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Address :</label><label class="col-sm-8">{{ model.address }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Description :</label><label class="col-sm-8">{{ model.description }}</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-warning" type="button" ng-click="close()">Cancel</button>
+</div>

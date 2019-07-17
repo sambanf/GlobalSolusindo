@@ -8,21 +8,24 @@
         </div>
         <div class="col-sm-12">
             <div class="card">
+                <div class="card-header" style="background:white">
+                    <h4>Summary Report</h4>
+                </div>
                 <div class="card-body">
                     <div class="row" style="margin-bottom:20px">
                         <label class="control-label col-sm-1">Start Date</label>
                         <div class="col-sm-2">
-                            <input type="text" id="tglMulai1" name="tglMulai" ng-model="db.tglMulaiFilter1" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" value="{{db.TglMulai}}" />
+                            <input type="text" id="tglMulai1" name="tglMulai" ng-model="tglMulaiFilter1" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
                         </div>
                         <label class="control-label col-sm-1">End Date</label>
                         <div class="col-sm-2">
-                            <input type="text" id="tglAkhir1" name="tglAkhir" ng-model="db.tglAkhirFilter1" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" value="{{db.TglAkhir}}" />
+                            <input type="text" id="tglAkhir1" name="tglAkhir" ng-model="tglAkhirFilter1" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
                         </div>
                         <label class="control-label col-sm-1">Project</label>
                         <div class="col-sm-4">
-                            <select id="project_fk1" name="user_fk" class="form-control input-lg" size="0" ng-model="db.model.user_fk" required>
+                            <select id="project_fk1" name="project_fk1" class="form-control input-lg" size="0" ng-model="project_fk1" required>
                                 <option ng-repeat="x in db.formData.users" ng-value="x.project_pk">{{x.operatorTitle}}  {{x.deliveryAreaTitle}} {{x.vendorTitle}}</option>
                             </select>
                             <div class="invalid-feedback"></div>
@@ -140,17 +143,17 @@
                     <div class="row" style="margin-bottom:20px">
                         <label class="control-label col-sm-1">Start Date</label>
                         <div class="col-sm-2">
-                            <input type="text" id="tglMulai2" name="tglMulai" ng-model="db.tglMulaiFilter2" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <input type="text" id="tglMulai2" name="tglMulai" ng-model="tglMulaiFilter2" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
                         </div>
                         <label class="control-label col-sm-1">End Date</label>
                         <div class="col-sm-2">
-                            <input type="text" id="tglAkhir2" name="tglAkhir" ng-model="db.tglAkhirFilter2" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <input type="text" id="tglAkhir2" name="tglAkhir" ng-model="tglAkhirFilter2" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
                         </div>
                         <label class="control-label col-sm-1">Project</label>
                         <div class="col-sm-4">
-                            <select id="operator_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="db.model.user_fk" required>
+                            <select id="operator_fk" name="operator_fk2" class="form-control input-lg" size="0" ng-model="operator_fk2" required>
                                 <option ng-repeat="x in db.formData.operator" ng-value="x.operator_pk">{{x.title}}</option>
                             </select>
                             <div class="invalid-feedback"></div>
@@ -160,8 +163,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div id="containerSalesReport" style="min-width: 700px; height: 400px; margin: 0 auto"></div>
-                        <div id="containerGoalCompletion" style="min-width: 700px; height: 400px; margin: 0 auto"></div>
+                        <div id="containerSalesReport" style="min-width: 310px; width:700px; height: 400px; margin: 0 auto"></div>
+                        <div id="containerGoalCompletion" style="min-width: 310px; width:700px; height: 400px; margin: 0 auto"></div>
                     </div>
                 </div>
             </div>
@@ -175,17 +178,17 @@
                     <div class="row" style="margin-bottom:20px">
                         <label class="control-label col-sm-1">Start Date</label>
                         <div class="col-sm-2">
-                            <input type="text" id="tglMulai3" name="tglMulai" ng-model="db.tglMulaiFilter3" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <input type="text" id="tglMulai3" name="tglMulai" ng-model="tglMulaiFilter3" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
                         </div>
                         <label class="control-label col-sm-1">End Date</label>
                         <div class="col-sm-2">
-                            <input type="text" id="tglAkhir3" name="tglAkhir" ng-model="db.tglAkhirFilter3" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
+                            <input type="text" id="tglAkhir3" name="tglAkhir" ng-model="tglAkhirFilter3" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
                         </div>
                         <label class="control-label col-sm-1">Project</label>
                         <div class="col-sm-4">
-                            <select id="project_Id" name="user_fk" class="form-control input-lg" size="0" ng-model="db.model.user_fk" required>
+                            <select id="project_Id" name="project_fk3" class="form-control input-lg" size="0" ng-model="project_fk3" required>
                                 <option ng-repeat="x in db.formData.users" ng-value="x.project_pk">{{x.operatorTitle}}  {{x.deliveryAreaTitle}} {{x.vendorTitle}}</option>
                             </select>
                             <div class="invalid-feedback"></div>

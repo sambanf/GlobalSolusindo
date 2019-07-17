@@ -20,6 +20,30 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class DashboardController : ApiControllerBase
     {
+
+        private const string readRole = "Dashboard_ViewAll";
+
+        [Route("dashboard/IsDashboardViewAll")]
+        [HttpGet]
+        public IHttpActionResult IsDashboardViewAll(string dashboard)
+        {
+            var data = false;
+            //ThrowIfUserHasNoRole(readRole);
+            var isSuperAdministrator = AccessControl.UserHasRole("Full_Access");
+            if (isSuperAdministrator)
+            {
+                data = true;
+            }
+            else {
+                bool isDashboardView = AccessControl.UserHasRole(readRole);
+                data = isDashboardView;
+            }
+            
+            
+            return Ok(new SuccessResponse(data));
+            
+        }
+
         [Route("dashboard/GetGoalCompletion")]
         [HttpGet]
         public IHttpActionResult GetGoalCompletion(string start, string end, int project)
@@ -28,7 +52,7 @@ namespace GlobalSolusindo.Api.Controllers
             //ThrowIfUserHasNoRole(accessType);
             //if (filter == null)
             //    throw new KairosException("Missing search filter parameter");
-
+            ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
 
@@ -47,7 +71,7 @@ namespace GlobalSolusindo.Api.Controllers
             //ThrowIfUserHasNoRole(accessType);
             //if (filter == null)
             //    throw new KairosException("Missing search filter parameter");
-
+            ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
 
@@ -65,7 +89,7 @@ namespace GlobalSolusindo.Api.Controllers
             //ThrowIfUserHasNoRole(accessType);
             //if (filter == null)
             //    throw new KairosException("Missing search filter parameter");
-
+            ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
 
@@ -83,7 +107,7 @@ namespace GlobalSolusindo.Api.Controllers
             //ThrowIfUserHasNoRole(accessType);
             //if (filter == null)
             //    throw new KairosException("Missing search filter parameter");
-
+            ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
 
@@ -102,7 +126,7 @@ namespace GlobalSolusindo.Api.Controllers
             //ThrowIfUserHasNoRole(accessType);
             //if (filter == null)
             //    throw new KairosException("Missing search filter parameter");
-
+            ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
 

@@ -37,7 +37,12 @@
                 var id = data["aset_pk"];
                 self.view(id);
             });
+            $('#aset tbody').on('click', '#userHistory', function () {
+                //alert('User History');
+                var data = controller.datatable.row($(this).parents('tr')).data();
 
+                $state.go('app.userHistory', { aset_fk: data.aset_pk });
+            });
             $("#aset tbody").on("click", "#show", function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
                 var modalInstance = $uibModal.open({
