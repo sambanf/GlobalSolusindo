@@ -105,6 +105,7 @@
     <Content Include="app\assets\images\sort_desc_disabled.png" />
     <Content Include="app\assets\images\tower-bts.jpg" />
     <Content Include="app\assets\images\trucks.png" />
+    <Content Include="app\assets\js\exporting.js" />
     <Content Include="app\assets\js\global-solusindo-app-app.1.0.0.100.js" />
     <Content Include="app\assets\js\global-solusindo-app-dist.1.0.0.100.js" />
     <Content Include="app\assets\js\global-solusindo-app-dist.min.1.0.0.100.js" />
@@ -148,6 +149,9 @@
     <Content Include="app\modules\aset\asetDtService.js" />
     <Content Include="app\modules\aset\asetRoute.js" />
     <Content Include="app\modules\aset\asetViewService.js" />
+    <Content Include="app\modules\dashboard\dashboardNullCtrl.js" />
+    <Content Include="app\modules\dashboard\dashboardNull.html" />
+    <Content Include="app\modules\dashboard\dashboardNullRoute.js" />
     <Content Include="app\modules\menuEntry\menuBindingService.js" />
     <Content Include="app\modules\menuEntry\menuEntry.html" />
     <Content Include="app\modules\menuEntry\menuEntryCtrl.js" />
@@ -169,11 +173,12 @@
     <Content Include="app\modules\changePasswordEntry\changePasswordEntryCtrl.js" />
     <Content Include="app\modules\changePasswordEntry\changePasswordEntryRoute.js" />
     <Content Include="app\modules\changePasswordEntry\changePasswordSaveService.js" />
-    <Content Include="app\modules\sowImportExcel\sowImportExcel.html" />
-    <Content Include="app\modules\sowImportExcel\sowImportExcelBindingService.js" />
-    <Content Include="app\modules\sowImportExcel\sowImportExcelCtrl.js" />
-    <Content Include="app\modules\sowImportExcel\sowImportExcelRoute.js" />
-    <Content Include="app\modules\sowImportExcel\sowImportExcelUploadService.js" />
+    <Content Include="app\modules\userHistory\userHistoryDetail.html" />
+    <Content Include="app\modules\userHistory\userHistory.html" />
+    <Content Include="app\modules\userHistory\userHistoryCtrl.js" />
+    <Content Include="app\modules\userHistory\userHistoryDtService.js" />
+    <Content Include="app\modules\userHistory\userHistoryRoute.js" />
+    <Content Include="app\modules\userHistory\userHistoryViewService.js" />
     <Content Include="app\modules\userImportExcel\userImportExcel.html" />
     <Content Include="app\modules\userImportExcel\userImportExcelBindingService.js" />
     <Content Include="app\modules\userImportExcel\userImportExcelCtrl.js" />
@@ -653,3 +658,4 @@
   </Target>
   -->
 </Project>
+
