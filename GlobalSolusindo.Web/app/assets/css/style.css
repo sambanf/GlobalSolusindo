@@ -925,6 +925,13 @@ main.full #map {
         top: auto;
         margin-left: -50px;
     }
+.select2-container{
+	width: 100%!important;
+}
+
+.select2-container:not(.select2){
+	width: calc(100% - 30px)!important;
+}
 
 .md-dialog-container {
     z-index: 1061;
