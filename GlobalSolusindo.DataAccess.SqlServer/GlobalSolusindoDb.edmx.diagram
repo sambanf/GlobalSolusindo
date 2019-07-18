@@ -33,7 +33,6 @@
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Technology" Width="1.5" PointX="7.75" PointY="12.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_TipePekerjaan" Width="1.5" PointX="9.75" PointY="12.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_User" Width="1.5" PointX="5.25" PointY="29" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_UserDetail" Width="1.5" PointX="3" PointY="32.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Vendor" Width="1.5" PointX="11.75" PointY="12.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_AsetHistori" Width="1.5" PointX="7.5" PointY="24.625" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_CheckIn" Width="1.5" PointX="13.75" PointY="4.75" />
@@ -62,9 +61,14 @@
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_Role_Status_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_AsetHistori_Status_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_User_Status_FK" />
-        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserDetail_Status_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserHistori_Status_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_AsetHistori_User_FK" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_CategoryContract" Width="1.5" PointX="0.75" PointY="4.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Gender" Width="1.5" PointX="18.75" PointY="12.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_MaritalStatus" Width="1.5" PointX="18.75" PointY="15.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Religion" Width="1.5" PointX="16.75" PointY="18.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_UserDetail" Width="1.5" PointX="3" PointY="24.875" />
+        <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserDetail_Status_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK" />
       </Diagram>

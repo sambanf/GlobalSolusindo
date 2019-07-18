@@ -54,6 +54,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessControl.cs" />
+    <Compile Include="CategoryContract\CategoryContractDTO.cs" />
+    <Compile Include="CategoryContract\Queries\CategoryContractQuery.cs" />
+    <Compile Include="CategoryContract\Queries\CategoryContractSearch.cs" />
+    <Compile Include="Religion\ReligionDTO.cs" />
+    <Compile Include="Religion\Queries\ReligionQuery.cs" />
+    <Compile Include="Religion\Queries\ReligionSearch.cs" />
+    <Compile Include="MaritalStatus\MaritalStatusDTO.cs" />
+    <Compile Include="MaritalStatus\Queries\MaritalStatusQuery.cs" />
+    <Compile Include="MaritalStatus\Queries\MaritalStatusSearch.cs" />
+    <Compile Include="Gender\GenderDTO.cs" />
+    <Compile Include="Gender\Queries\GenderQuery.cs" />
+    <Compile Include="Gender\Queries\GenderSearch.cs" />
     <Compile Include="Login\LoginResult.cs" />
     <Compile Include="Menu\CreateHandler.cs" />
     <Compile Include="Menu\DeleteHandler.cs" />

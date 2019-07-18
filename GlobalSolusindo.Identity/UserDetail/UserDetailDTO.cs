@@ -64,19 +64,19 @@ namespace GlobalSolusindo.Identity.UserDetail
 
         //[Required]
         [JsonProperty("religion")]
-        public string Religion { get; set; }
+        public int? Religion { get; set; }
 
         [JsonProperty("categoryContract")]
-        public string CategoryContract { get; set; }
+        public int? CategoryContract { get; set; }
 
         [JsonProperty("project")]
-        public string Project { get; set; } 
+        public int? Project { get; set; } 
 
         [JsonProperty("gender")]
-        public string Gender { get; set; }
+        public int? Gender { get; set; }
 
         [JsonProperty("maritalStatus")]
-        public string MaritalStatus { get; set; }
+        public int? MaritalStatus { get; set; }
 
         [JsonProperty("npwp")]
         public string NPWP { get; set; }

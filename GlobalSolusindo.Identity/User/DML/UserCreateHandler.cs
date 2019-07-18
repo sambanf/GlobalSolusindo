@@ -28,7 +28,7 @@ namespace GlobalSolusindo.Identity.User.DML
         }
         public string GetNextUserCode()
         {
-            return db.usp_GetDocNumber("USER", true).FirstOrDefault();
+            return db.usp_GetDocNumber("USER", 0).FirstOrDefault();
         }
     }
 

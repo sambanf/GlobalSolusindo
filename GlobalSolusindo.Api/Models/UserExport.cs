@@ -1,6 +1,15 @@
 ﻿using ClosedXML.Excel;
+using GlobalSolusindo.Business.Project;
 using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.CategoryContract;
+using GlobalSolusindo.Identity.CategoryContract.Queries;
+using GlobalSolusindo.Identity.Gender;
+using GlobalSolusindo.Identity.Gender.Queries;
 using GlobalSolusindo.Identity.KategoriJabatan.Queries;
+using GlobalSolusindo.Identity.MaritalStatus;
+using GlobalSolusindo.Identity.MaritalStatus.Queries;
+using GlobalSolusindo.Identity.Religion;
+using GlobalSolusindo.Identity.Religion.Queries;
 using GlobalSolusindo.Identity.User.Queries;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
@@ -25,9 +34,14 @@ namespace GlobalSolusindo.Api.Models
         protected string _fileName;
 
         protected IWorkbook _workbook;
-
+        GenderQuery genderQuery = new GenderQuery();
+        CategoryContractQuery categoryContractQuery = new CategoryContractQuery();
+        MaritalStatusQuery maritalStatusQuery = new MaritalStatusQuery();
+        ReligionQuery religionQuery = new ReligionQuery();
+        ProjectQuery projectQuery = new ProjectQuery();
         public HttpResponseMessage Export(GlobalSolusindoDb Db, string fileName, UserSearchFilter filter)
         {
+            
             _fileName = fileName;
             _workbook = new XSSFWorkbook(); //Creating New Excel object
             var workbook = new XLWorkbook();
@@ -43,11 +57,11 @@ namespace GlobalSolusindo.Api.Models
                     Name = c.Name,
                     TglLahir = c.TglLahir,
                     NoKTP = c.NoKTP,
-                    ReligionName = c.Religion,//?
-                    CategoryContract = c.CategoryContract,//?
-                    Project = c.Project,//?
-                    Gender = c.Gender,//?
-                    MartialStatus = c.MaritalStatus,//?
+                    ReligionName = c.Religion == null || c.Religion == 0 ? "" : religionQuery.GetByPrimaryKey((int)c.Religion).Name,//?
+                    CategoryContract = c.CategoryContract == null || c.CategoryContract == 0 ? "" : categoryContractQuery.GetByPrimaryKey((int)c.CategoryContract).Name,
+                    Project = c.Project == null || c.Project == 0 ? "" : projectQuery.GetByPrimaryKey((int)c.Project).Project_PK+"-"+projectQuery.GetByPrimaryKey((int)c.Project).OperatorTitle+"-"+projectQuery.GetByPrimaryKey((int)c.Project).VendorTitle+"-"+ projectQuery.GetByPrimaryKey((int)c.Project).DeliveryAreaTitle,//?
+                    Gender = c.Gender == null || c.Gender == 0 ? "" : genderQuery.GetByPrimaryKey((int)c.Gender).Name,
+                    MartialStatus = c.MaritalStatus == null || c.MaritalStatus == 0 ? "" : maritalStatusQuery.GetByPrimaryKey((int)c.MaritalStatus).Name,
                     NPWP = c.NPWP,//?
                     BPJS = c.BPJS,//?
                     ContactNumber = c.NoHP,
@@ -61,7 +75,7 @@ namespace GlobalSolusindo.Api.Models
                     Status = null//?
 
                 }).ToList();
-                
+                projectQuery.Dispose();
                 DataTable user = new DataTable("UserUpload");
                 UserExportDTO obj = new UserExportDTO();
                 foreach (var item in obj.GetType().GetProperties())
@@ -129,50 +143,160 @@ namespace GlobalSolusindo.Api.Models
 
                     var worksheet2 = workbook.AddWorksheet(validationTable);
                     worksheet.Column(3).SetDataValidation().List(worksheet2.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+
+                    //GENDER
+                    using (var genderQuery = new GenderQuery())
+                    {
+                        //SETUP TABLE 
+                        DataTable validationTablegender = new DataTable();
+                        validationTablegender.TableName = "Gender";
+
+                        //SETUP COLUMN
+                        GenderDTO objgender = new GenderDTO();
+                        foreach (var item in objkatja.GetType().GetProperties())
+                        {
+                            validationTablegender.Columns.Add(item.Name);
+                        }
+                        var datagender = genderQuery.GetQuery().Select(c => new GenderDTO { Gender_PK = c.Gender_PK , Name = c.Name }).ToList();
+                        DataRow drgender;
+                        startcell = 2; endcell = 2;
+                        foreach (var item in datagender)
+                        {
+                            drgender = validationTablegender.NewRow();
+                            drgender["Id"] = item.Gender_PK;
+                            drgender["Name"] = item.Name;
+                            validationTablegender.Rows.Add(drgender);
+                            endcell++;
+                        }
+                        var worksheetgender = workbook.AddWorksheet(validationTablegender);
+                        worksheet.Column(10).SetDataValidation().List(worksheetgender.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+
+                        //RELIGION
+                        using (var ReligionQuery = new ReligionQuery())
+                        {
+                            //SETUP TABLE 
+                            DataTable validationTableReligion = new DataTable();
+                            validationTableReligion.TableName = "Religion";
+
+                            //SETUP COLUMN
+                            ReligionDTO objReligion = new ReligionDTO();
+                            foreach (var item in objkatja.GetType().GetProperties())
+                            {
+                                validationTableReligion.Columns.Add(item.Name);
+                            }
+                            var dataReligion = ReligionQuery.GetQuery().Select(c => new ReligionDTO { Religion_PK = c.Religion_PK, Name = c.Name }).ToList();
+                            DataRow drReligion;
+                            startcell = 2; endcell = 2;
+                            foreach (var item in dataReligion)
+                            {
+                                drReligion = validationTableReligion.NewRow();
+                                drReligion["Id"] = item.Religion_PK;
+                                drReligion["Name"] = item.Name;
+                                validationTableReligion.Rows.Add(drReligion);
+                                endcell++;
+                            }
+                            var worksheetReligion = workbook.AddWorksheet(validationTableReligion);
+                            worksheet.Column(7).SetDataValidation().List(worksheetReligion.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+
+                            //MaritalStatus
+                            using (var MaritalStatusQuery = new MaritalStatusQuery())
+                            {
+                                //SETUP TABLE 
+                                DataTable validationTableMaritalStatus = new DataTable();
+                                validationTableMaritalStatus.TableName = "MaritalStatus";
+
+                                //SETUP COLUMN
+                                MaritalStatusDTO objMaritalStatus = new MaritalStatusDTO();
+                                foreach (var item in objkatja.GetType().GetProperties())
+                                {
+                                    validationTableMaritalStatus.Columns.Add(item.Name);
+                                }
+                                var dataMaritalStatus = MaritalStatusQuery.GetQuery().Select(c => new MaritalStatusDTO { MaritalStatus_PK = c.MaritalStatus_PK, Name = c.Name }).ToList();
+                                DataRow drMaritalStatus;
+                                startcell = 2; endcell = 2;
+                                foreach (var item in dataMaritalStatus)
+                                {
+                                    drMaritalStatus = validationTableMaritalStatus.NewRow();
+                                    drMaritalStatus["Id"] = item.MaritalStatus_PK;
+                                    drMaritalStatus["Name"] = item.Name;
+                                    validationTableMaritalStatus.Rows.Add(drMaritalStatus);
+                                    endcell++;
+                                }
+                                var worksheetMaritalStatus = workbook.AddWorksheet(validationTableMaritalStatus);
+                                worksheet.Column(11).SetDataValidation().List(worksheetMaritalStatus.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+
+                                //CategoryContract
+                                using (var CategoryContractQuery = new CategoryContractQuery())
+                                {
+                                    //SETUP TABLE 
+                                    DataTable validationTableCategoryContract = new DataTable();
+                                    validationTableCategoryContract.TableName = "CategoryContract";
+
+                                    //SETUP COLUMN
+                                    CategoryContractDTO objCategoryContract = new CategoryContractDTO();
+                                    foreach (var item in objkatja.GetType().GetProperties())
+                                    {
+                                        validationTableCategoryContract.Columns.Add(item.Name);
+                                    }
+                                    var dataCategoryContract = CategoryContractQuery.GetQuery().Select(c => new CategoryContractDTO { CategoryContract_PK = c.CategoryContract_PK, Name = c.Name }).ToList();
+                                    DataRow drCategoryContract;
+                                    startcell = 2; endcell = 2;
+                                    foreach (var item in dataCategoryContract)
+                                    {
+                                        drCategoryContract = validationTableCategoryContract.NewRow();
+                                        drCategoryContract["Id"] = item.CategoryContract_PK;
+                                        drCategoryContract["Name"] = item.Name;
+                                        validationTableCategoryContract.Rows.Add(drCategoryContract);
+                                        endcell++;
+                                    }
+                                    var worksheetCategoryContract = workbook.AddWorksheet(validationTableCategoryContract);
+                                    worksheet.Column(8).SetDataValidation().List(worksheetCategoryContract.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+
+                                    //Project
+                                    using (var ProjectQuery2 = new ProjectQuery())
+                                    {
+                                        //SETUP TABLE 
+                                        DataTable validationTableProject = new DataTable();
+                                        validationTableProject.TableName = "Project";
+
+                                        //SETUP COLUMN
+                                        ProjectDTO objProject = new ProjectDTO();
+                                        foreach (var item in objkatja.GetType().GetProperties())
+                                        {
+                                            validationTableProject.Columns.Add(item.Name);
+                                        }
+                                        var dataProject = ProjectQuery2.GetQuery();
+                                        DataRow drProject;
+                                        startcell = 2; endcell = 2;
+                                        foreach (var item in dataProject)
+                                        {
+                                            drProject = validationTableProject.NewRow();
+                                            drProject["Id"] = item.Project_PK;
+                                            drProject["Name"] = item.Project_PK + "-" + item.OperatorTitle + "-" + item.VendorTitle + "-" + item.DeliveryAreaTitle;
+                                            validationTableProject.Rows.Add(drProject);
+                                            endcell++;
+                                        }
+                                        var worksheetProject = workbook.AddWorksheet(validationTableProject);
+                                        worksheet.Column(9).SetDataValidation().List(worksheetProject.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+
+                                    }
+
+
+                                }
+
+
+                            }
+                        }
+                    }
                 }
-                //SETUP TABLE 
-                DataTable validationTableUmum = new DataTable();
-                validationTableUmum.TableName = "ReligionGenderMaritalValidation";
-                validationTableUmum.Columns.Add("Religion");
-                validationTableUmum.Columns.Add("Gender");
-                validationTableUmum.Columns.Add("MartialStatus");
-                //DATA ROW HARDCODED KARENA TIDAK ADA DI DB
-                DataRow drumum;
-                drumum = validationTableUmum.NewRow();
-                drumum["Religion"] = "Islam";
-                drumum["Gender"] = "Laki-Laki";
-                drumum["MartialStatus"] = "Kawin";
-                validationTableUmum.Rows.Add(drumum);
-                drumum = validationTableUmum.NewRow();
-                drumum["Religion"] = "Protestan";
-                drumum["Gender"] = "Perempuan";
-                drumum["MartialStatus"] = "Belum Kawin";
-                validationTableUmum.Rows.Add(drumum);
-                drumum = validationTableUmum.NewRow();
-                drumum["Religion"] = "Katolik";
-                validationTableUmum.Rows.Add(drumum);
-                drumum = validationTableUmum.NewRow();
-                drumum["Religion"] = "Buddha";
-                validationTableUmum.Rows.Add(drumum);
-                drumum = validationTableUmum.NewRow();
-                drumum["Religion"] = "Hindu";
-                validationTableUmum.Rows.Add(drumum);
-                drumum = validationTableUmum.NewRow();
-                drumum["Religion"] = "Konghucu";
-                validationTableUmum.Rows.Add(drumum);
-                var worksheet3 = workbook.AddWorksheet(validationTableUmum);
-                worksheet.Protect()    
+                worksheet.Protect("kairosg1")    
                     .SetFormatCells()   // Cell Formatting
                     .SetInsertColumns() // Inserting Columns
                     .SetDeleteColumns() // Deleting Columns
                     .SetDeleteRows();   // Deleting Rows;
-                worksheet.Columns(1, 2).Style.Fill.BackgroundColor = XLColor.WhiteSmoke;
+                worksheet.Columns(1, 2).Style.Fill.BackgroundColor = XLColor.DarkGray;
                 worksheet.Columns(1, 2).Style.Font.FontColor = XLColor.Black;
                 worksheet.Columns(3,20).Style.Protection.SetLocked(false);
-
-                worksheet.Column(7).SetDataValidation().List(worksheet3.Range("A2:A7"), true);
-                worksheet.Column(10).SetDataValidation().List(worksheet3.Range("B2:B3"), true);
-                worksheet.Column(11).SetDataValidation().List(worksheet3.Range("C2:C3"), true);
             }
 
 

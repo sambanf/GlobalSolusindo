@@ -138,10 +138,16 @@
     <Compile Include="tblM_Cabang.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblM_CategoryContract.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblM_CostKategori.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="tblM_DeliveryArea.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblM_Gender.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="tblM_IssueType.cs">
@@ -165,6 +171,9 @@
     <Compile Include="tblM_MappingUserToRoleGroup.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblM_MaritalStatus.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblM_Menu.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
@@ -175,6 +184,9 @@
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="tblM_Project.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblM_Religion.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="tblM_Role.cs">
