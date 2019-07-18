@@ -551,7 +551,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Kode Asset :</label><label class=\"col-sm-8\">{{ model.asetHistoriId }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Kode Asset :</label><label class=\"col-sm-8\">{{ model.asetID }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -563,13 +563,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Kategori AsetHistori :</label><label class=\"col-sm-8\">{{ model.kategoriAsetHistoriName }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Kategori AsetHistori :</label><label class=\"col-sm-8\">{{ model.asetKategoriTitle }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Nama AsetHistori :</label><label class=\"col-sm-8\">{{ model.name }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Nama AsetHistori :</label><label class=\"col-sm-8\">{{ model.asetName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -903,104 +903,55 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/asset/assetModal/assetModal.html',
-    "<div class=\"modal-header\">\r" +
+    "<div class=\"modal-header\">\n" +
+    "    <h6 class=\"modal-title\">Tambah Asset</h6>\n" +
+    "</div>\n" +
+    "<div class=\"modal-body\">\n" +
+    "    <div class=\"row\">\n" +
+    "        <div class=\"col-sm-12\">\n" +
+    "            <div class=\"row\">\n" +
+    "                <div class=\"col-md-12\">\n" +
+    "                    <div class=\"row form-group\">\n" +
+    "                        <label class=\"control-label col-sm-4\">Kategory Asset :</label>\n" +
+    "                        <div class=\"col-sm-8\">\n" +
+    "                            <select id=\"position_fk\" name=\"position_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.position_fk\" required>\n" +
+    "                                <option ng-repeat=\"x in vm.formData.positions\" ng-value=\"x.position_pk\">{{x.name}}</option>\n" +
+    "                            </select>\n" +
+    "                            <div class=\"invalid-feedback\"></div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
     "\n" +
-    "    <h6 class=\"modal-title\">Tambah Asset</h6>\r" +
+    "                    <div class=\"row form-group\">\n" +
+    "                        <label class=\"control-label col-sm-4\">Nama Asset :</label>\n" +
+    "                        <div class=\"col-sm-8\">\n" +
+    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.name\" required />\n" +
+    "                            <div class=\"invalid-feedback\"></div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
     "\n" +
-    "</div>\r" +
+    "                    <div class=\"row form-group\">\n" +
+    "                        <label class=\"control-label col-sm-4\">Gambar Asset :</label>\n" +
+    "                        <div class=\"col-sm-8\">\n" +
+    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.image\" required />\n" +
+    "                            <div class=\"invalid-feedback\"></div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
     "\n" +
-    "<div class=\"modal-body\">\r" +
-    "\n" +
-    "    <div class=\"row\">\r" +
-    "\n" +
-    "        <div class=\"col-sm-12\">\r" +
-    "\n" +
-    "            <div class=\"row\">\r" +
-    "\n" +
-    "                <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-4\">Kategory Asset :</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <select id=\"position_fk\" name=\"position_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.position_fk\" required>\r" +
-    "\n" +
-    "                                <option ng-repeat=\"x in vm.formData.positions\" ng-value=\"x.position_pk\">{{x.name}}</option>\r" +
-    "\n" +
-    "                            </select>\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-4\">Nama Asset :</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.name\" required />\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-4\">Gambar Asset :</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <input type=\"text\" class=\"form-control\" ng-model=\"vm.model.image\" required />\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "                    <div class=\"row form-group\">\r" +
-    "\n" +
-    "                        <label class=\"control-label col-sm-4\">Deskripsi :</label>\r" +
-    "\n" +
-    "                        <div class=\"col-sm-8\">\r" +
-    "\n" +
-    "                            <textarea class=\"form-control\" ng-model=\"vm.model.desc\"></textarea>\r" +
-    "\n" +
-    "                            <div class=\"invalid-feedback\"></div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "</div>\r" +
-    "\n" +
-    "<div class=\"modal-footer\">\r" +
-    "\n" +
-    "    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">Simpan</button>\r" +
-    "\n" +
-    "    <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">Cancel</button>\r" +
-    "\n" +
+    "                    <div class=\"row form-group\">\n" +
+    "                        <label class=\"control-label col-sm-4\">Deskripsi :</label>\n" +
+    "                        <div class=\"col-sm-8\">\n" +
+    "                            <textarea class=\"form-control\" ng-model=\"vm.model.desc\"></textarea>\n" +
+    "                            <div class=\"invalid-feedback\"></div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </div>\n" +
+    "</div>\n" +
+    "<div class=\"modal-footer\">\n" +
+    "    <button class=\"btn btn-primary\" type=\"button\" ng-click=\"vm.ok()\">Simpan</button>\n" +
+    "    <button class=\"btn btn-default\" type=\"button\" ng-click=\"vm.cancel()\">Cancel</button>\n" +
     "</div>"
   );
 
@@ -2541,6 +2492,12 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"card\">\r" +
     "\n" +
+    "                <div class=\"card-header\" style=\"background:white\">\r" +
+    "\n" +
+    "                    <h4>Summary Report</h4>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
     "                <div class=\"card-body\">\r" +
     "\n" +
     "                    <div class=\"row\" style=\"margin-bottom:20px\">\r" +
@@ -2549,7 +2506,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
-    "                            <input type=\"text\" id=\"tglMulai1\" name=\"tglMulai\" ng-model=\"db.tglMulaiFilter1\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" value=\"{{db.TglMulai}}\" />\r" +
+    "                            <input type=\"text\" id=\"tglMulai1\" name=\"tglMulai\" ng-model=\"tglMulaiFilter1\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
     "\n" +
     "                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -2559,7 +2516,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
-    "                            <input type=\"text\" id=\"tglAkhir1\" name=\"tglAkhir\" ng-model=\"db.tglAkhirFilter1\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" value=\"{{db.TglAkhir}}\" />\r" +
+    "                            <input type=\"text\" id=\"tglAkhir1\" name=\"tglAkhir\" ng-model=\"tglAkhirFilter1\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
     "\n" +
     "                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -2569,7 +2526,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-4\">\r" +
     "\n" +
-    "                            <select id=\"project_fk1\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"db.model.user_fk\" required>\r" +
+    "                            <select id=\"project_fk1\" name=\"project_fk1\" class=\"form-control input-lg\" size=\"0\" ng-model=\"project_fk1\" required>\r" +
     "\n" +
     "                                <option ng-repeat=\"x in db.formData.users\" ng-value=\"x.project_pk\">{{x.operatorTitle}}  {{x.deliveryAreaTitle}} {{x.vendorTitle}}</option>\r" +
     "\n" +
@@ -2805,7 +2762,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
-    "                            <input type=\"text\" id=\"tglMulai2\" name=\"tglMulai\" ng-model=\"db.tglMulaiFilter2\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
+    "                            <input type=\"text\" id=\"tglMulai2\" name=\"tglMulai\" ng-model=\"tglMulaiFilter2\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
     "\n" +
     "                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -2815,7 +2772,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
-    "                            <input type=\"text\" id=\"tglAkhir2\" name=\"tglAkhir\" ng-model=\"db.tglAkhirFilter2\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
+    "                            <input type=\"text\" id=\"tglAkhir2\" name=\"tglAkhir\" ng-model=\"tglAkhirFilter2\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
     "\n" +
     "                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -2825,7 +2782,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-4\">\r" +
     "\n" +
-    "                            <select id=\"operator_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"db.model.user_fk\" required>\r" +
+    "                            <select id=\"operator_fk\" name=\"operator_fk2\" class=\"form-control input-lg\" size=\"0\" ng-model=\"operator_fk2\" required>\r" +
     "\n" +
     "                                <option ng-repeat=\"x in db.formData.operator\" ng-value=\"x.operator_pk\">{{x.title}}</option>\r" +
     "\n" +
@@ -2845,9 +2802,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div id=\"containerSalesReport\" style=\"min-width: 700px; height: 400px; margin: 0 auto\"></div>\r" +
+    "                        <div id=\"containerSalesReport\" style=\"min-width: 310px; width:700px; height: 400px; margin: 0 auto\"></div>\r" +
     "\n" +
-    "                        <div id=\"containerGoalCompletion\" style=\"min-width: 700px; height: 400px; margin: 0 auto\"></div>\r" +
+    "                        <div id=\"containerGoalCompletion\" style=\"min-width: 310px; width:700px; height: 400px; margin: 0 auto\"></div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -2875,7 +2832,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
-    "                            <input type=\"text\" id=\"tglMulai3\" name=\"tglMulai\" ng-model=\"db.tglMulaiFilter3\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
+    "                            <input type=\"text\" id=\"tglMulai3\" name=\"tglMulai\" ng-model=\"tglMulaiFilter3\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
     "\n" +
     "                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -2885,7 +2842,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
-    "                            <input type=\"text\" id=\"tglAkhir3\" name=\"tglAkhir\" ng-model=\"db.tglAkhirFilter3\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
+    "                            <input type=\"text\" id=\"tglAkhir3\" name=\"tglAkhir\" ng-model=\"tglAkhirFilter3\" class=\"form-control\" date-time-picker options=\"{ format: 'DD/MM/YYYY' }\" />\r" +
     "\n" +
     "                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -2895,7 +2852,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-sm-4\">\r" +
     "\n" +
-    "                            <select id=\"project_Id\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"db.model.user_fk\" required>\r" +
+    "                            <select id=\"project_Id\" name=\"project_fk3\" class=\"form-control input-lg\" size=\"0\" ng-model=\"project_fk3\" required>\r" +
     "\n" +
     "                                <option ng-repeat=\"x in db.formData.users\" ng-value=\"x.project_pk\">{{x.operatorTitle}}  {{x.deliveryAreaTitle}} {{x.vendorTitle}}</option>\r" +
     "\n" +
@@ -2966,6 +2923,32 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "            </div>\r" +
     "\n" +
     "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n"
+  );
+
+
+  $templateCache.put('app/modules/dashboard/dashboardNull.html',
+    "<div class=\"container-fluid animated fadeIn\">\r" +
+    "\n" +
+    "    <div class=\"row card-header\">\r" +
+    "\n" +
+    "        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "            <div class=\"header-dashboard\">\r" +
+    "\n" +
+    "                <div class=\"month-pick\">\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <h1></h1>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
@@ -3939,12 +3922,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/layouts/footer.html',
-    "<!-- <footer class=\"app-footer\">\r" +
-    "\n" +
-    "  <span><a href=\"http://coreui.io\">CoreUI</a> &copy; 2018 creativeLabs.</span>\r" +
-    "\n" +
-    "  <span class=\"ml-auto\">Powered by <a href=\"http://coreui.io\">CoreUI</a></span>\r" +
-    "\n" +
+    "<!-- <footer class=\"app-footer\">\n" +
+    "  <span><a href=\"http://coreui.io\">CoreUI</a> &copy; 2018 creativeLabs.</span>\n" +
+    "  <span class=\"ml-auto\">Powered by <a href=\"http://coreui.io\">CoreUI</a></span>\n" +
     "</footer> -->"
   );
 
@@ -4236,120 +4216,63 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/mappingRoleToRoleGroupEntry/mappingRoleToRoleGroupEntry.html',
-    "<div class=\"animated fadeIn\">\r" +
-    "\n" +
-    "    <form class=\"form-horizontal\">\r" +
-    "\n" +
-    "        <div class=\"row\">\r" +
-    "\n" +
-    "            <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                <div class=\"card\">\r" +
-    "\n" +
-    "                    <div class=\"card-title\">Mapping Role To Role Group</div>\r" +
-    "\n" +
-    "                    <div class=\"col-md-8\">\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-3\">Role Group Name:</label>\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\r" +
-    "\n" +
-    "                                {{vm.model.title}}\r" +
-    "\n" +
-    "                            </label>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"row\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-3\">Description:</label>\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\r" +
-    "\n" +
-    "                                {{vm.model.description}}\r" +
-    "\n" +
-    "                            </label>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"row\">\r" +
-    "\n" +
-    "                            <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingRoleToRoleGroupList\">Kembali</button> \r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"row\">\r" +
-    "\n" +
-    "            <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                <div class=\"card\">\r" +
-    "\n" +
-    "                    <div class=\"card-title\">List Role Group</div>\r" +
-    "\n" +
-    "                    <div class=\"row\"> \r" +
-    "\n" +
-    "                        <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                            <button role-modal on-callback=\"vm.roleModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\r" +
-    "\n" +
-    "                                Manage Role\r" +
-    "\n" +
-    "                            </button>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                            <table id=\"mappingRoleToRoleGroupEntry\">\r" +
-    "\n" +
-    "                                <thead>\r" +
-    "\n" +
-    "                                    <tr>\r" +
-    "\n" +
-    "                                        <th>No</th>\r" +
-    "\n" +
-    "                                        <th>Role Name</th>\r" +
-    "\n" +
-    "                                        <th>Description</th>\r" +
-    "\n" +
-    "                                        <!--<th></th>-->\r" +
-    "\n" +
-    "                                    </tr>\r" +
-    "\n" +
-    "                                </thead>\r" +
-    "\n" +
-    "                            </table>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </form>\r" +
-    "\n" +
+    "<div class=\"animated fadeIn\">\n" +
+    "    <form class=\"form-horizontal\">\n" +
+    "        <div class=\"row\">\n" +
+    "            <div class=\"col-md-12\">\n" +
+    "                <div class=\"card\">\n" +
+    "                    <div class=\"card-title\">Mapping Role To Role Group</div>\n" +
+    "                    <div class=\"col-md-8\">\n" +
+    "                        <div class=\"row form-group\">\n" +
+    "                            <label class=\"control-label col-sm-3\">Role Group Name:</label>\n" +
+    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\n" +
+    "                                {{vm.model.title}}\n" +
+    "                            </label>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"row\">\n" +
+    "                            <label class=\"control-label col-sm-3\">Description:</label>\n" +
+    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\n" +
+    "                                {{vm.model.description}}\n" +
+    "                            </label>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"row\">\n" +
+    "                            <div class=\"col-md-12\">\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingRoleToRoleGroupList\">Kembali</button> \n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"row\">\n" +
+    "            <div class=\"col-md-12\">\n" +
+    "                <div class=\"card\">\n" +
+    "                    <div class=\"card-title\">List Role Group</div>\n" +
+    "                    <div class=\"row\"> \n" +
+    "                        <div class=\"col-md-12\">\n" +
+    "                            <button role-modal on-callback=\"vm.roleModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\n" +
+    "                                Manage Role\n" +
+    "                            </button>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div class=\"row\">\n" +
+    "                        <div class=\"col-md-12\">\n" +
+    "                            <table id=\"mappingRoleToRoleGroupEntry\">\n" +
+    "                                <thead>\n" +
+    "                                    <tr>\n" +
+    "                                        <th>No</th>\n" +
+    "                                        <th>Role Name</th>\n" +
+    "                                        <th>Description</th>\n" +
+    "                                        <!--<th></th>-->\n" +
+    "                                    </tr>\n" +
+    "                                </thead>\n" +
+    "                            </table>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </form>\n" +
     "</div>"
   );
 
@@ -4548,92 +4471,49 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/mappingUserToAuthParamEntry/mappingUserToAuthParamEntry.html',
-    "<div class=\"animated fadeIn\">\r" +
-    "\n" +
-    "    <form class=\"form-horizontal\">\r" +
-    "\n" +
-    "        <div class=\"row\">\r" +
-    "\n" +
-    "            <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                <div class=\"card\">\r" +
-    "\n" +
-    "                    <div class=\"card-title\">Mapping User To Auth Param</div>\r" +
-    "\n" +
-    "                    <div class=\"col-md-8\">\r" +
-    "\n" +
-    "                        <div class=\"row form-group\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-3\">Auth Param Name:</label>\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\r" +
-    "\n" +
-    "                                {{vm.model.title}}\r" +
-    "\n" +
-    "                            </label>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"row\">\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-3\">Description:</label>\r" +
-    "\n" +
-    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\r" +
-    "\n" +
-    "                                {{vm.model.description}}\r" +
-    "\n" +
-    "                            </label>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                        <div class=\"row\">\r" +
-    "\n" +
-    "                            <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingUserToAuthParamList\">Kembali</button> \r" +
-    "\n" +
-    "                            </div>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "        <div class=\"row\">\r" +
-    "\n" +
-    "            <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                <div class=\"card\">\r" +
-    "\n" +
-    "                    <div class=\"card-title\">List Mapping User To Auth Param</div>\r" +
-    "\n" +
-    "                    <div class=\"row\"> \r" +
-    "\n" +
-    "                        <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                            <button user--auth-param-modal on-callback=\"vm.userAuthParamModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\r" +
-    "\n" +
-    "                                Add New User\r" +
-    "\n" +
-    "                            </button>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                    <div class=\"row\">\r" +
-    "\n" +
-    "                        <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                            <table id=\"mappingUserToAuthParam\">\r" +
-    "\n" +
-    "                                <thead>\r" +
-    "\n" +
+    "<div class=\"animated fadeIn\">\n" +
+    "    <form class=\"form-horizontal\">\n" +
+    "        <div class=\"row\">\n" +
+    "            <div class=\"col-md-12\">\n" +
+    "                <div class=\"card\">\n" +
+    "                    <div class=\"card-title\">Mapping User To Auth Param</div>\n" +
+    "                    <div class=\"col-md-8\">\n" +
+    "                        <div class=\"row form-group\">\n" +
+    "                            <label class=\"control-label col-sm-3\">Auth Param Name:</label>\n" +
+    "                            <label class=\"control-label col-sm-2\" type=\"text\" id=\"title\" name=\"title\">\n" +
+    "                                {{vm.model.title}}\n" +
+    "                            </label>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"row\">\n" +
+    "                            <label class=\"control-label col-sm-3\">Description:</label>\n" +
+    "                            <label class=\"control-label col-sm-2\" name=\"description\" placeholder=\"Description\">\n" +
+    "                                {{vm.model.description}}\n" +
+    "                            </label>\n" +
+    "                        </div>\n" +
+    "                        <div class=\"row\">\n" +
+    "                            <div class=\"col-md-12\">\n" +
+    "                                <button class=\"btn btn-default\" ui-sref=\"app.mappingUserToAuthParamList\">Kembali</button> \n" +
+    "                            </div>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "        <div class=\"row\">\n" +
+    "            <div class=\"col-md-12\">\n" +
+    "                <div class=\"card\">\n" +
+    "                    <div class=\"card-title\">List Mapping User To Auth Param</div>\n" +
+    "                    <div class=\"row\"> \n" +
+    "                        <div class=\"col-md-12\">\n" +
+    "                            <button user--auth-param-modal on-callback=\"vm.userAuthParamModalCallback\" class=\"btn btn-success\" id=\"modalRoleButton\">\n" +
+    "                                Add New User\n" +
+    "                            </button>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                    <div class=\"row\">\n" +
+    "                        <div class=\"col-md-12\">\n" +
+    "                            <table id=\"mappingUserToAuthParam\">\n" +
+    "                                <thead>\n" +
     "                                    <tr>\r" +
     "\n" +
     "                                        <th>Auth Param PK</th>\r" +
@@ -4650,24 +4530,15 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th></th>\r" +
     "\n" +
-    "                                    </tr>\r" +
-    "\n" +
-    "                                </thead>\r" +
-    "\n" +
-    "                            </table>\r" +
-    "\n" +
-    "                        </div>\r" +
-    "\n" +
-    "                    </div>\r" +
-    "\n" +
-    "                </div>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "        </div>\r" +
-    "\n" +
-    "    </form>\r" +
-    "\n" +
+    "                                    </tr>\n" +
+    "                                </thead>\n" +
+    "                            </table>\n" +
+    "                        </div>\n" +
+    "                    </div>\n" +
+    "                </div>\n" +
+    "            </div>\n" +
+    "        </div>\n" +
+    "    </form>\n" +
     "</div>"
   );
 
@@ -9560,6 +9431,188 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "        </div>\r" +
     "\n" +
     "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/userHistory/userHistory.html',
+    "<div class=\"animated fadeIn\">\r" +
+    "\n" +
+    "    <form class=\"form-horizontal\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                <div class=\"card\">\r" +
+    "\n" +
+    "                    <div class=\"card-title\">List User History</div>\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <!--Asset Info-->\r" +
+    "\n" +
+    "                        <div class=\"col-md-10\">\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Kode Aset</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-6\" id=\"kodeAset\" name=\"userId\">{{kodeAset}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Kategori</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-6\" id=\"kategori\" name=\"name\">{{kategori}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-2\">Nama Aset</label>\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-6\" id=\"namaAset\" name=\"kategoriJabatanTitle\">{{namaAset}}</label>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                    <!--<div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"form-group col-md-6\">\r" +
+    "\n" +
+    "                            <button id=\"addNewButton\" class=\"btn btn-success\">Tambah Aset</button>\r" +
+    "\n" +
+    "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>-->\r" +
+    "\n" +
+    "                    <div class=\"row\">\r" +
+    "\n" +
+    "                        <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                            <table id=\"userHistori\">\r" +
+    "\n" +
+    "                                <thead>\r" +
+    "\n" +
+    "                                    <tr>\r" +
+    "\n" +
+    "                                        <th>No</th>\r" +
+    "\n" +
+    "                                        <th>Name</th>\r" +
+    "\n" +
+    "                                        <th>Position</th>\r" +
+    "\n" +
+    "                                        <th>Tanggal Pinjam</th>\r" +
+    "\n" +
+    "                                        <th>Tanggal Kembali</th>\r" +
+    "\n" +
+    "                                        <th>Keterangan</th>\r" +
+    "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
+    "                                    </tr>\r" +
+    "\n" +
+    "                                </thead>\r" +
+    "\n" +
+    "                            </table>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </form>\r" +
+    "\n" +
+    "</div>"
+  );
+
+
+  $templateCache.put('app/modules/userHistory/userHistoryDetail.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h3 class=\"modal-title\" id=\"modal-title\">User History Detail</h3>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "    <div class=\"row\">\r" +
+    "\n" +
+    "        <div class=\"col-sm-3 form-group text-center\">\r" +
+    "\n" +
+    "            <img id=\"photo\" src=\"{{model.filePhotoInBase64 == null ? '/app/assets/images/default-large.png' : model.filePhotoInBase64}}\" style=\"width:150px;margin:0 auto\" class=\"img-fluid\" />\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "        <div class=\"col-md-9\">\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Name :</label><label class=\"col-sm-8\">{{ model.name }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Position :</label><label class=\"col-sm-8\">{{ model.kategoriJabatanTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Phone :</label><label class=\"col-sm-8\">{{ model.noHP }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Email :</label><label class=\"col-sm-8\">{{ model.email }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Address :</label><label class=\"col-sm-8\">{{ model.address }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-4 text-right\">Description :</label><label class=\"col-sm-8\">{{ model.description }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "<div class=\"modal-footer\">\r" +
+    "\n" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
     "\n" +
     "</div>"
   );

@@ -19,9 +19,9 @@
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        //var base_url = "http://global-solusindo-ws.local/";
+        var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        var base_url = "http://localhost/GlobalAPI/";
+        //var base_url = "http://localhost/GlobalAPI/";
         var base_host = "";
 
         var auth = {};
@@ -60,7 +60,7 @@
             if (status === 500)
                 ui.alert.error("Something error happen on the server." + debugMessage);
             if (status === -1)
-                ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
+                //ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
             if (status === 401) {
                 handleUnauthorized();
             }

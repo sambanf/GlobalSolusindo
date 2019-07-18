@@ -63,11 +63,13 @@
 
                     if (response && response.data && response.data.records) {
                         response.data.records.forEach(function (bts) {
+                             
                             marker.push(bts.name);
                             marker.push(parseFloat(bts.latitude));
                             marker.push(parseFloat(bts.longitude));
                             marker.push(5);
-
+                            marker.push(bts.operatorTitle);
+                            marker.push(bts.statusBtsTitle);
                             cities.push(marker);
                             marker = [];
                         });
