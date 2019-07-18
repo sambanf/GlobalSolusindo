@@ -33,11 +33,11 @@ namespace GlobalSolusindo.DataAccess
         public string Address { get; set; }
         public Nullable<double> Salary { get; set; }
         public string Description { get; set; }
-        public string Religion { get; set; }
-        public string CategoryContract { get; set; }
-        public string Project { get; set; }
-        public string Gender { get; set; }
-        public string MaritalStatus { get; set; }
+        public Nullable<int> Religion { get; set; }
+        public Nullable<int> CategoryContract { get; set; }
+        public Nullable<int> Project { get; set; }
+        public Nullable<int> Gender { get; set; }
+        public Nullable<int> MaritalStatus { get; set; }
         public string NPWP { get; set; }
         public string BPJS { get; set; }
         public Nullable<System.DateTime> JoinDate { get; set; }

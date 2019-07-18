@@ -1,9 +1,13 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
+using GlobalSolusindo.Identity.CategoryContract.Queries;
+using GlobalSolusindo.Identity.Gender.Queries;
 using GlobalSolusindo.Identity.KategoriJabatan.Queries;
 using GlobalSolusindo.Identity.MappingUserToRoleGroup;
 using GlobalSolusindo.Identity.MappingUserToRoleGroup.DML;
+using GlobalSolusindo.Identity.MaritalStatus.Queries;
+using GlobalSolusindo.Identity.Religion.Queries;
 using GlobalSolusindo.Identity.User.EntryForm;
 using GlobalSolusindo.Identity.User.Queries;
 using GlobalSolusindo.Identity.UserDetail;
@@ -216,7 +220,10 @@ namespace GlobalSolusindo.Identity.User.DML
             var userQuery = new UserQuery(Db);
             List<UserDTO> userList = new List<UserDTO>();
             var jabatanQuery = new KategoriJabatanQuery(Db);
-
+            MaritalStatusQuery maritalStatusQuery = new MaritalStatusQuery();
+            GenderQuery genderQuery = new GenderQuery();
+            CategoryContractQuery categoryContractQuery = new CategoryContractQuery();
+            ReligionQuery religionQuery = new ReligionQuery();
             //first index is 1, and the first one is header title
             for (int i = 2; i < nonEmptyRowCount; i++)
             {
@@ -323,13 +330,14 @@ namespace GlobalSolusindo.Identity.User.DML
                     AccountNumber = accountNumber,
                     BankName = bankName,
                     BPJS = bpjs,
-                    CategoryContract = categoryContract,
-                    Gender = gender,
+                    ////WAIT
+                    CategoryContract = categoryContract == "" ? 0 : categoryContractQuery.GetByName(categoryContract).CategoryContract_PK,
+                    Gender = gender == "" ? 0 : genderQuery.GetByName(gender).Gender_PK,
                     JoinDate = joinDate,
-                    MaritalStatus = maritalStatus,
+                    MaritalStatus = maritalStatus == "" ? 0 : maritalStatusQuery.GetByName(maritalStatus).MaritalStatus_PK,
                     NPWP = npwp,
-                    Project = project,
-                    Religion = religion,
+                    Project = project == "" ? 0 : Convert.ToInt16(project.Split('-')[0]),
+                    Religion = religion == "" ? 0 : religionQuery.GetByName(religion).Religion_PK,
                     Salary = salary
                 };
 

@@ -55,7 +55,6 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblM_Technology> tblM_Technology { get; set; }
         public virtual DbSet<tblM_TipePekerjaan> tblM_TipePekerjaan { get; set; }
         public virtual DbSet<tblM_User> tblM_User { get; set; }
-        public virtual DbSet<tblM_UserDetail> tblM_UserDetail { get; set; }
         public virtual DbSet<tblM_Vendor> tblM_Vendor { get; set; }
         public virtual DbSet<tblT_AsetHistori> tblT_AsetHistori { get; set; }
         public virtual DbSet<tblT_CheckIn> tblT_CheckIn { get; set; }
@@ -71,6 +70,11 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblT_SOWTrackResult> tblT_SOWTrackResult { get; set; }
         public virtual DbSet<tblT_UserHistori> tblT_UserHistori { get; set; }
         public virtual DbSet<tblT_UserPayroll> tblT_UserPayroll { get; set; }
+        public virtual DbSet<tblM_CategoryContract> tblM_CategoryContract { get; set; }
+        public virtual DbSet<tblM_Gender> tblM_Gender { get; set; }
+        public virtual DbSet<tblM_MaritalStatus> tblM_MaritalStatus { get; set; }
+        public virtual DbSet<tblM_Religion> tblM_Religion { get; set; }
+        public virtual DbSet<tblM_UserDetail> tblM_UserDetail { get; set; }
     
         public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
         {
@@ -180,17 +184,17 @@ namespace GlobalSolusindo.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSowAssign_Result>("usp_GetSowAssign", sOW_FKParameter);
         }
     
-        public virtual ObjectResult<string> usp_GetDocNumber(string documentCode, Nullable<bool> updateCurrentNumber)
+        public virtual ObjectResult<string> usp_GetDocNumber(string documentCode, Nullable<int> updateCurrentnumber)
         {
             var documentCodeParameter = documentCode != null ?
                 new ObjectParameter("documentCode", documentCode) :
                 new ObjectParameter("documentCode", typeof(string));
     
-            var updateCurrentNumberParameter = updateCurrentNumber.HasValue ?
-                new ObjectParameter("updateCurrentNumber", updateCurrentNumber) :
-                new ObjectParameter("updateCurrentNumber", typeof(bool));
+            var updateCurrentnumberParameter = updateCurrentnumber.HasValue ?
+                new ObjectParameter("updateCurrentnumber", updateCurrentnumber) :
+                new ObjectParameter("updateCurrentnumber", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_GetDocNumber", documentCodeParameter, updateCurrentNumberParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("usp_GetDocNumber", documentCodeParameter, updateCurrentnumberParameter);
         }
     
         public virtual ObjectResult<Nullable<int>> Get_Count_Po(Nullable<System.DateTime> star, Nullable<System.DateTime> end)

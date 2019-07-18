@@ -28,8 +28,8 @@ namespace GlobalSolusindo.DataAccess
             this.tblM_Role = new HashSet<tblM_Role>();
             this.tblT_AsetHistori = new HashSet<tblT_AsetHistori>();
             this.tblM_User = new HashSet<tblM_User>();
-            this.tblM_UserDetail = new HashSet<tblM_UserDetail>();
             this.tblT_UserHistori = new HashSet<tblT_UserHistori>();
+            this.tblM_UserDetail = new HashSet<tblM_UserDetail>();
         }
     
         public int Status_PK { get; set; }
@@ -62,8 +62,8 @@ namespace GlobalSolusindo.DataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblM_User> tblM_User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblM_UserDetail> tblM_UserDetail { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblT_UserHistori> tblT_UserHistori { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblM_UserDetail> tblM_UserDetail { get; set; }
     }
 }
