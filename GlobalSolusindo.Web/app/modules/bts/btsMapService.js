@@ -29,20 +29,24 @@
         }
 
         var cities = [];
-            //[
-            //    ['Jakarta', -6.121435, 106.774124, 4],
-            //    ['Bogor', -6.595038, 106.816635, 5],
-            //    ['Banjarmasin', -3.316694, 114.590111, 5],
-            //    ['Medan', 3.597031, 98.678513, 5],
-            //];
+        //[
+        //    ['Jakarta', -6.121435, 106.774124, 4],
+        //    ['Bogor', -6.595038, 106.816635, 5],
+        //    ['Banjarmasin', -3.316694, 114.590111, 5],
+        //    ['Medan', 3.597031, 98.678513, 5],
+        //];
 
         function setMarkers(map) {
             for (var i = 0; i < cities.length; i++) {
                 var city = cities[i];
+                console.log(city);
+                var name = city[0];
+                var operator = city[4];
+                var status = city[5];
                 var marker = new google.maps.Marker({
                     position: { lat: city[1], lng: city[2] },
                     map: map,
-                    title: city[0],
+                    title: name + ', ' + operator + ', ' + status + '(' + city[1] + ', ' + city[2] + ')',
                     zIndex: city[3]
                 });
             }
