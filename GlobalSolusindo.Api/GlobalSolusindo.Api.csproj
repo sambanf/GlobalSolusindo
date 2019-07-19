@@ -173,6 +173,9 @@
     <Compile Include="Models\AbstractDataExportBridge.cs" />
     <Compile Include="Models\LOVDTO.cs" />
     <Compile Include="Models\BTSExport.cs" />
+    <Compile Include="Models\SOWExport.cs" />
+    <Compile Include="Models\SOWExportDTOViewAll.cs" />
+    <Compile Include="Models\SOWExportDTO.cs" />
     <Compile Include="Models\UserExport.cs" />
     <Compile Include="Models\BTSExportDTO.cs" />
     <Compile Include="Models\UserExportDTO.cs" />

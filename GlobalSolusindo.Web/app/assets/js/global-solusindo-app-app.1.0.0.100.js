@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-18. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-19. 
 * @author Kairos
 */
 (function() {
@@ -4569,7 +4569,7 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
-     * @name app.controller:userImportExcelCtrl
+     * @name app.controller:SOWImportExcelCtrl
      * @description
      * # dashboardCtrl
      * Controller of the app
@@ -4577,11 +4577,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .controller('SOWImportExcelCtrl', UserImportExcelCtrl);
+        .controller('SOWImportExcelCtrl', SOWImportExcelCtrl);
 
-    UserImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserImportExcelUploadService', 'UserImportExcelBindingService', 'FormControlService'];
+    SOWImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWImportExcelUploadService', 'SOWImportExcelBindingService', 'FormControlService'];
 
-    function UserImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
+    function SOWImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
         var self = this;
         self.stateParam = sParam;
 
@@ -7014,11 +7014,13 @@ angular.module('global-solusindo')
 
                     if (response && response.data && response.data.records) {
                         response.data.records.forEach(function (bts) {
+                             
                             marker.push(bts.name);
                             marker.push(parseFloat(bts.latitude));
                             marker.push(parseFloat(bts.longitude));
                             marker.push(5);
-
+                            marker.push(bts.operatorTitle);
+                            marker.push(bts.statusBtsTitle);
                             cities.push(marker);
                             marker = [];
                         });
@@ -7065,20 +7067,24 @@ angular.module('global-solusindo')
         }
 
         var cities = [];
-            //[
-            //    ['Jakarta', -6.121435, 106.774124, 4],
-            //    ['Bogor', -6.595038, 106.816635, 5],
-            //    ['Banjarmasin', -3.316694, 114.590111, 5],
-            //    ['Medan', 3.597031, 98.678513, 5],
-            //];
+        //[
+        //    ['Jakarta', -6.121435, 106.774124, 4],
+        //    ['Bogor', -6.595038, 106.816635, 5],
+        //    ['Banjarmasin', -3.316694, 114.590111, 5],
+        //    ['Medan', 3.597031, 98.678513, 5],
+        //];
 
         function setMarkers(map) {
             for (var i = 0; i < cities.length; i++) {
                 var city = cities[i];
+                console.log(city);
+                var name = city[0];
+                var operator = city[4];
+                var status = city[5];
                 var marker = new google.maps.Marker({
                     position: { lat: city[1], lng: city[2] },
                     map: map,
-                    title: city[0],
+                    title: name + ', ' + operator + ', ' + status + '(' + city[1] + ', ' + city[2] + ')',
                     zIndex: city[3]
                 });
             }
@@ -11277,6 +11283,7 @@ angular.module('global-solusindo')
                     ui.alert.success(res.message);
                     controller.modalInstance.close();
                 } else {
+                    debugger;
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
                         validation.serverValidation(res.data.errors);
@@ -14944,9 +14951,9 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gs.local/";
+        //var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        //var base_url = "http://localhost/GlobalAPI/";
+        var base_url = "http://localhost/GlobalAPI/";
         var base_host = "";
 
         var auth = {};
@@ -16486,11 +16493,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('SOWImportExcelBindingService', UserImportExcelBindingService);
+        .factory('SOWImportExcelBindingService', SOWImportExcelBindingService);
 
-    UserImportExcelBindingService.$inject = ['HttpService', '$state'];
+    SOWImportExcelBindingService.$inject = ['HttpService', '$state'];
 
-    function UserImportExcelBindingService(http, $state) {
+    function SOWImportExcelBindingService(http, $state) {
         var self = this;
         var controller = {};
        
@@ -16518,21 +16525,21 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('SOWImportExcelUploadService', UserImportExcelUploadService);
+        .factory('SOWImportExcelUploadService', SOWImportExcelUploadService);
 
-    UserImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    SOWImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function UserImportExcelUploadService($state, http, ui, validation) {
+    function SOWImportExcelUploadService($state, http, ui, validation) {
         var self = this;
-        var userImportExcelCtrl;
+        var SOWImportExcelCtrl;
 
         function goToListPage() {
             $state.go('app.sowList');
         }
 
         self.save = function (model) {
-            http.post('user/import', model).then(function (res) {
-                userImportExcelCtrl.uploadResults = res.data;
+            http.post('sow/import', model).then(function (res) {
+                SOWImportExcelCtrl.uploadResults = res.data;
                 if (res.success) {
                     ui.alert.success('Upload process complete.');
                 } else {
@@ -16545,7 +16552,7 @@ angular.module('global-solusindo')
 
         self.downloadTpl = function () {
             debugger;
-            http.downloadFile('user/export', { keyword: '' }).then(function (data) {
+            http.downloadFile('sow/export', { keyword: '' }).then(function (data) {
                 var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
                 var linkElement = document.createElement('a');
                 try {
@@ -16569,9 +16576,9 @@ angular.module('global-solusindo')
 
         };
         self.init = function (ctrl) {
-            userImportExcelCtrl = ctrl;
+            SOWImportExcelCtrl = ctrl;
             angular.element('#uploadButton').on('click', function () {
-                self.save(userImportExcelCtrl.model);
+                self.save(SOWImportExcelCtrl.model);
             });
 
             angular.element('#downloadButton').on('click', function () {

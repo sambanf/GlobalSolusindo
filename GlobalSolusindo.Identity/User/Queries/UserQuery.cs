@@ -80,6 +80,43 @@ namespace GlobalSolusindo.Identity.User.Queries
             return query;
         }
 
+        public IQueryable<UserDTO> GetByJabatanAndProject(int katejab, int PMPK)
+        {
+            var query = from user in Db.tblM_User
+                        join userDetail in Db.tblM_UserDetail on user.UserDetail_FK equals userDetail.UserDetail_PK
+                        join project in Db.tblM_Project on userDetail.Project equals project.Project_PK
+                        join jabatan in Db.tblM_KategoriJabatan on user.KategoriJabatan_FK equals jabatan.KategoriJabatan_PK
+                        where user.KategoriJabatan_FK == katejab && project.User_FK == PMPK && user.Status_FK != deleted
+                        select new UserDTO
+                        {
+                            User_PK = user.User_PK,
+                            UserDetail_FK = user.UserDetail_FK,
+                            UserDetail_PK = userDetail.UserDetail_PK,
+                            UserCode = userDetail.UserCode,
+                            Name = userDetail.Name,
+                            TglLahir = userDetail.TglLahir,
+                            NoKTP = userDetail.NoKTP,
+                            NoHP = userDetail.NoHP,
+                            Email = userDetail.Email,
+                            PersonalEmail = userDetail.PersonalEmail,
+                            Address = userDetail.Address,
+                            Description = userDetail.Description,
+                            Username = user.Username,
+                            KategoriJabatan_FK = user.KategoriJabatan_FK,
+                            KategoriJabatanTitle = jabatan.Title,
+                            //Password = user.Password,
+                            CreatedBy = user.CreatedBy,
+                            CreatedDate = user.CreatedDate,
+                            UpdatedBy = user.UpdatedBy,
+                            UpdatedDate = user.UpdatedDate,
+                            Status_FK = user.Status_FK,
+
+               
+                        };
+
+            return query;
+        }
+
         private void GetPhoto(UserDTO record)
         {
             if (record != null)

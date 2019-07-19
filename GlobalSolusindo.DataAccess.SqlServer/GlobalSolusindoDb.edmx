@@ -581,7 +581,9 @@
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UpdatedDate" Type="datetime" Nullable="false" />
           <Property Name="Status_FK" Type="int" Nullable="false" />
-          <Property Name="Flag" Type="int" />
+          <Property Name="PMOUniq" Type="nvarchar" MaxLength="100" />
+          <Property Name="LVDate" Type="datetime" />
+          <Property Name="AcceptedDate" Type="datetime" />
         </EntityType>
         <EntityType Name="tblT_SOWAssign">
           <Key>
@@ -1289,7 +1291,6 @@
           <EntitySet Name="tblT_Cost" EntityType="GlobalSolusindoModel.tblT_Cost" />
           <EntitySet Name="tblT_IzinCuti" EntityType="GlobalSolusindoModel.tblT_IzinCuti" />
           <EntitySet Name="tblT_PO" EntityType="GlobalSolusindoModel.tblT_PO" />
-          <EntitySet Name="tblT_SOW" EntityType="GlobalSolusindoModel.tblT_SOW" />
           <EntitySet Name="tblT_SOWAssign" EntityType="GlobalSolusindoModel.tblT_SOWAssign" />
           <EntitySet Name="tblT_SOWIssue" EntityType="GlobalSolusindoModel.tblT_SOWIssue" />
           <EntitySet Name="tblT_SOWResult" EntityType="GlobalSolusindoModel.tblT_SOWResult" />
@@ -1375,6 +1376,7 @@
             <End Role="tblM_UserDetail" EntitySet="tblM_UserDetail" />
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
+          <EntitySet Name="tblT_SOW" EntityType="GlobalSolusindoModel.tblT_SOW" />
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -2050,26 +2052,6 @@
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
         </EntityType>
-        <EntityType Name="tblT_SOW">
-          <Key>
-            <PropertyRef Name="SOW_PK" />
-          </Key>
-          <Property Name="SOW_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SOWName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="BTS_FK" Type="Int32" />
-          <Property Name="Project_FK" Type="Int32" />
-          <Property Name="Technology_FK" Type="Int32" />
-          <Property Name="TglMulai" Type="DateTime" Precision="3" />
-          <Property Name="TglSelesai" Type="DateTime" Precision="3" />
-          <Property Name="StatusSOW_FK" Type="Int32" />
-          <Property Name="DUID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Status_FK" Type="Int32" Nullable="false" />
-          <Property Name="Flag" Type="Int32" />
-        </EntityType>
         <EntityType Name="tblT_SOWAssign">
           <Key>
             <PropertyRef Name="SOWAssign_PK" />
@@ -2469,6 +2451,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblT_SOW">
+          <Key>
+            <PropertyRef Name="SOW_PK" />
+          </Key>
+          <Property Name="SOW_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SOWName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="BTS_FK" Type="Int32" />
+          <Property Name="Project_FK" Type="Int32" />
+          <Property Name="Technology_FK" Type="Int32" />
+          <Property Name="TglMulai" Type="DateTime" Precision="3" />
+          <Property Name="TglSelesai" Type="DateTime" Precision="3" />
+          <Property Name="StatusSOW_FK" Type="Int32" />
+          <Property Name="DUID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+          <Property Name="PMOUniq" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LVDate" Type="DateTime" Precision="3" />
+          <Property Name="AcceptedDate" Type="DateTime" Precision="3" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3225,27 +3229,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblT_SOW">
-            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOW">
-              <MappingFragment StoreEntitySet="tblT_SOW">
-                <ScalarProperty Name="Flag" ColumnName="Flag" />
-                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="DUID" ColumnName="DUID" />
-                <ScalarProperty Name="StatusSOW_FK" ColumnName="StatusSOW_FK" />
-                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
-                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
-                <ScalarProperty Name="Technology_FK" ColumnName="Technology_FK" />
-                <ScalarProperty Name="Project_FK" ColumnName="Project_FK" />
-                <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
-                <ScalarProperty Name="SOWName" ColumnName="SOWName" />
-                <ScalarProperty Name="SOW_PK" ColumnName="SOW_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblT_SOWAssign">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOWAssign">
               <MappingFragment StoreEntitySet="tblT_SOWAssign">
@@ -3434,6 +3417,29 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UserCode" ColumnName="UserCode" />
                 <ScalarProperty Name="UserDetail_PK" ColumnName="UserDetail_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblT_SOW">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_SOW">
+              <MappingFragment StoreEntitySet="tblT_SOW">
+                <ScalarProperty Name="AcceptedDate" ColumnName="AcceptedDate" />
+                <ScalarProperty Name="LVDate" ColumnName="LVDate" />
+                <ScalarProperty Name="PMOUniq" ColumnName="PMOUniq" />
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="DUID" ColumnName="DUID" />
+                <ScalarProperty Name="StatusSOW_FK" ColumnName="StatusSOW_FK" />
+                <ScalarProperty Name="TglSelesai" ColumnName="TglSelesai" />
+                <ScalarProperty Name="TglMulai" ColumnName="TglMulai" />
+                <ScalarProperty Name="Technology_FK" ColumnName="Technology_FK" />
+                <ScalarProperty Name="Project_FK" ColumnName="Project_FK" />
+                <ScalarProperty Name="BTS_FK" ColumnName="BTS_FK" />
+                <ScalarProperty Name="SOWName" ColumnName="SOWName" />
+                <ScalarProperty Name="SOW_PK" ColumnName="SOW_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

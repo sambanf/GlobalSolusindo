@@ -19,9 +19,9 @@
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gsapi.local/";
+        //var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        //var base_url = "http://localhost/GlobalAPI/";
+        var base_url = "http://localhost/GlobalAPI/";
         var base_host = "";
 
         var auth = {};
