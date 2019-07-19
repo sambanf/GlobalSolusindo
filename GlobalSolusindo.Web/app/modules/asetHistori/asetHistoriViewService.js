@@ -35,7 +35,18 @@
 
             $("#asetHistori tbody").on("dblclick", "tr", function () {
                 var asetHistori = controller.datatable.row(this).data();
-                self.view(asetHistori.asetHistori_pk, asetHistori.user_fk);
+                //var data = controller.datatable.row($(this).parents('tr')).data();
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/asetHistori/asetHistoriDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = asetHistori;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
+                //self.view(asetHistori.asetHistori_pk, asetHistori.user_fk);
             });
 
             angular.element('#addNewButton').on('click', function () {

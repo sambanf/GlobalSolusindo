@@ -32,11 +32,11 @@
                 self.view(data.operator_pk);
             });
 
-            $("#operator tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["operator_pk"];
-                self.view(id);
-            });
+            //$("#operator tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["operator_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

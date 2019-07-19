@@ -32,11 +32,11 @@
                 self.view(data.costKategori_pk);
             });
 
-            $("#costKategori tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["costKategori_pk"];
-                self.view(id);
-            });
+            //$("#costKategori tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["costKategori_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

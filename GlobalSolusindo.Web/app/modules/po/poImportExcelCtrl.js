@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .controller('POImportExcelCtrl', poImportExcelCtrl);
 
-    poImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'POImportExcelUploadService', 'POImportExcelBindingService', 'FormControlService'];
+    poImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'POImportExcelUploadService', 'POImportExcelBindingService', 'FormControlService','HttpService'];
 
-    function poImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
+    function poImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService, http) {
         var self = this;
         self.stateParam = sParam;
 
@@ -50,6 +50,46 @@
 
         bindingService.init(self);
         uploadService.init(self);
+
+        
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var importRole = "PO_Import";
+            var exportRole = "PO_Export";
+
+            document.getElementById("downloadButton").style.visibility = "hidden";
+            document.getElementById("uploadButton").style.visibility = "hidden";
+
+            setRole(res.data, "downloadButton", exportRole);
+            setRole(res.data, "uploadButton", importRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
+
+
         return self;
     }
 })();

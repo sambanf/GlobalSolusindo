@@ -32,11 +32,11 @@
                 self.view(data.izinCuti_pk);
             });
 
-            $("#izinCuti tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["izinCuti_pk"];
-                self.view(id);
-            });
+            //$("#izinCuti tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["izinCuti_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

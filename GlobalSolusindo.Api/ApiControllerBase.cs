@@ -2,8 +2,10 @@
 using GlobalSolusindo.Identity;
 using GlobalSolusindo.Identity.User;
 using Kairos;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Controllers;
+using GlobalSolusindo.Identity.Role;
 
 namespace GlobalSolusindo.Api
 {
@@ -62,6 +64,13 @@ namespace GlobalSolusindo.Api
 
             if (!AccessControl.UserHasRole(roleTitle))
                 throw new AccessException($"You don't have access or role to do the following operation '{roleTitle}'");
+        }
+
+        public List<RoleDTO> GetRole() {
+            
+            var userRoles = AccessControl.userGetRoles();
+            
+            return userRoles;
         }
 
         public void SaveLog(string moduleName, string actionName, string data)

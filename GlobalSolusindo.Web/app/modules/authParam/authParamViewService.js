@@ -34,8 +34,19 @@
 
             $("#authParam tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["authParam_pk"];
-                self.view(id);
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/authParam/authParamDetail.html',
+                    windowClass: 'small-modal',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
+                //var id = data["authParam_pk"];
+                //self.view(id);
             });
 
             $("#authParam tbody").on("click", "#show", function () {

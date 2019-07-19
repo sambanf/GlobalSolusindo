@@ -34,8 +34,16 @@
 
             $("#aset tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["aset_pk"];
-                self.view(id);
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/aset/asetDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
             });
             $('#aset tbody').on('click', '#userHistory', function () {
                 //alert('User History');

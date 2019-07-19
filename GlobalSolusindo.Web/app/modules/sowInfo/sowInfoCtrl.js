@@ -31,6 +31,38 @@
             }
         });
 
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Cost_Input";
+
+            document.getElementById("addCost").style.visibility = "hidden";
+            
+            setRole(res.data, "addCost", createRole);
+            
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
+
         return self;
     }
 })();

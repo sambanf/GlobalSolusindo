@@ -66,6 +66,24 @@ namespace GlobalSolusindo.Identity
             return roles;
         }
 
+        public List<RoleDTO> userGetRoles()
+        {
+            var roleToRoleGroupQuery = new MappingRoleToRoleGroupQuery(this.Db);
+            var roleQuery = new RoleQuery(this.Db);
+            var roles = new List<RoleDTO>();
+            var mappingUserToRoleGroups = GetMappingUserToRoleGroups();
+
+            foreach (var mappingUserToRoleGroup in mappingUserToRoleGroups)
+            {
+                var roleGroupPk = (int)mappingUserToRoleGroup.RoleGroup_PK;
+                var mappingRoleToRoleGroups = roleToRoleGroupQuery.GetByRoleGroupPK(roleGroupPk).ToList();
+
+                var rolePKs = mappingRoleToRoleGroups.Select(x => x.Role_PK);
+                roles.AddRange(roleQuery.GetQuery().Where(x => rolePKs.Contains(x.Role_PK)).ToList());
+            }
+            return roles;
+        }
+
         public bool UserHasRole(string roleTitle)
         {
             bool userIsInRole = GetRoles().Where(x => x.Title.Contains(roleTitle)).Count() > 0;

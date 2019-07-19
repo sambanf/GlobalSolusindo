@@ -32,11 +32,11 @@
                 self.view(data.asetKategori_pk);
             });
 
-            $("#asetKategori tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["asetKategori_pk"];
-                self.view(id);
-            });
+            //$("#asetKategori tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["asetKategori_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
