@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-18. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-21. 
 * @author Kairos
 */
 (function() {
@@ -1726,16 +1726,54 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('AreaCtrl', AreaCtrl);
 
-    AreaCtrl.$inject = ['$scope', '$state', 'areaDtService', 'areaDeleteService', 'areaViewService'];
+    AreaCtrl.$inject = ['$scope', '$state', 'areaDtService', 'areaDeleteService', 'areaViewService','HttpService'];
 
-    function AreaCtrl($scope, $state, dtService, deleteService, viewService) {
+    function AreaCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
 
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Area_Input";
+            var deleteRole = "Area_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
+        
         return self;
+
     }
 })();
 (function () {
@@ -1773,14 +1811,49 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('AsetCtrl', AsetCtrl);
 
-    AsetCtrl.$inject = ['$scope', '$state', 'asetDtService', 'asetDeleteService', 'asetViewService'];
+    AsetCtrl.$inject = ['$scope', '$state', 'asetDtService', 'asetDeleteService', 'asetViewService','HttpService'];
 
-    function AsetCtrl($scope, $state, dtService, deleteService, viewService) {
+    function AsetCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Aset_Input";
+            var deleteRole = "Aset_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -1865,13 +1938,50 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('AsetHistoriCtrl', AsetHistoriCtrl);
 
-    AsetHistoriCtrl.$inject = ['$scope', '$state', 'asetHistoriDtService', 'asetHistoriDeleteService', 'asetHistoriViewService'];
+    AsetHistoriCtrl.$inject = ['$scope', '$state', 'asetHistoriDtService', 'asetHistoriDeleteService', 'asetHistoriViewService','HttpService'];
 
-    function AsetHistoriCtrl($scope, $state, dtService, deleteService, viewService) {
+    function AsetHistoriCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "AsetHistori_Input";
+            var deleteRole = "AsetHistori_Delete";
+
+            document.getElementById("addNewButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addNewButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -1923,14 +2033,51 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('AsetKategoriCtrl', AsetKategoriCtrl);
 
-    AsetKategoriCtrl.$inject = ['$scope', '$state', 'asetKategoriDtService', 'asetKategoriDeleteService', 'asetKategoriViewService'];
+    AsetKategoriCtrl.$inject = ['$scope', '$state', 'asetKategoriDtService', 'asetKategoriDeleteService', 'asetKategoriViewService','HttpService'];
 
-    function AsetKategoriCtrl($scope, $state, dtService, deleteService, viewService) {
+    function AsetKategoriCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "AsetKategori_Input";
+            var deleteRole = "AsetKategori_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -2041,14 +2188,49 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('AuthParamCtrl', AuthParamCtrl);
 
-    AuthParamCtrl.$inject = ['$scope', '$state', 'authParamDtService', 'authParamDeleteService', 'authParamViewService'];
+    AuthParamCtrl.$inject = ['$scope', '$state', 'authParamDtService', 'authParamDeleteService', 'authParamViewService','HttpService'];
 
-    function AuthParamCtrl($scope, $state, dtService, deleteService, viewService) {
+    function AuthParamCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "AuthParam_Input";
+            var deleteRole = "AuthParam_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -2088,15 +2270,53 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('BTSCtrl', BTSCtrl);
 
-    BTSCtrl.$inject = ['$scope', '$state', 'btsDtService', 'btsDeleteService', 'btsViewService'];
+    BTSCtrl.$inject = ['$scope', '$state', 'btsDtService', 'btsDeleteService', 'btsViewService','HttpService'];
 
-    function BTSCtrl($scope, $state, dtService, deleteService, viewService) {
+    function BTSCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
          
         self.datatable = dtService.init(self);
-        
         deleteService.init(self);
         viewService.init(self); 
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "BTS_Input";
+            var deleteRole = "BTS_Delete";
+            var importRole = 'BTS_Import';
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+            document.getElementById("importButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+            setRole(res.data, "importButton", importRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
+
         return self;
     }
 })();
@@ -2192,14 +2412,51 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('CabangCtrl', CabangCtrl);
 
-    CabangCtrl.$inject = ['$scope', '$state', 'cabangDtService', 'cabangDeleteService', 'cabangViewService'];
+    CabangCtrl.$inject = ['$scope', '$state', 'cabangDtService', 'cabangDeleteService', 'cabangViewService','HttpService'];
 
-    function CabangCtrl($scope, $state, dtService, deleteService, viewService) {
+    function CabangCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Cabang_Input";
+            var deleteRole = "Cabang_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -2318,14 +2575,51 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('CostKategoriCtrl', CostKategoriCtrl);
 
-    CostKategoriCtrl.$inject = ['$scope', '$state', 'costKategoriDtService', 'costKategoriDeleteService', 'costKategoriViewService'];
+    CostKategoriCtrl.$inject = ['$scope', '$state', 'costKategoriDtService', 'costKategoriDeleteService', 'costKategoriViewService','HttpService'];
 
-    function CostKategoriCtrl($scope, $state, dtService, deleteService, viewService) {
+    function CostKategoriCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "CostKategori_Input";
+            var deleteRole = "CostKategori_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -2900,14 +3194,51 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('DeliveryAreaCtrl', DeliveryAreaCtrl);
 
-    DeliveryAreaCtrl.$inject = ['$scope', '$state', 'deliveryAreaDtService', 'deliveryAreaDeleteService', 'deliveryAreaViewService'];
+    DeliveryAreaCtrl.$inject = ['$scope', '$state', 'deliveryAreaDtService', 'deliveryAreaDeleteService', 'deliveryAreaViewService','HttpService'];
 
-    function DeliveryAreaCtrl($scope, $state, dtService, deleteService, viewService) {
+    function DeliveryAreaCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "DeliveryArea_Input";
+            var deleteRole = "DeliveryArea_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -2947,14 +3278,51 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('IssueTypeCtrl', IssueTypeCtrl);
 
-    IssueTypeCtrl.$inject = ['$scope', '$state', 'issueTypeDtService', 'issueTypeDeleteService', 'issueTypeViewService'];
+    IssueTypeCtrl.$inject = ['$scope', '$state', 'issueTypeDtService', 'issueTypeDeleteService', 'issueTypeViewService','HttpService'];
 
-    function IssueTypeCtrl($scope, $state, dtService, deleteService, viewService) {
+    function IssueTypeCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "IssueType_Input";
+            var deleteRole = "IssueType_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -2994,14 +3362,49 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('IzinCutiCtrl', IzinCutiCtrl);
 
-    IzinCutiCtrl.$inject = ['$scope', '$state', 'izinCutiDtService', 'izinCutiDeleteService', 'izinCutiViewService'];
+    IzinCutiCtrl.$inject = ['$scope', '$state', 'izinCutiDtService', 'izinCutiDeleteService', 'izinCutiViewService','HttpService'];
 
-    function IzinCutiCtrl($scope, $state, dtService, deleteService, viewService) {
+    function IzinCutiCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "IzinCuti_Input";
+            var deleteRole = "IzinCuti_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -3038,9 +3441,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('izinCutiApprovalEntryCtrl', izinCutiApprovalEntryCtrl);
 
-    izinCutiApprovalEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'izinCutiApprovalSaveService', 'izinCutiApprovalBindingService', 'FormControlService', 'select2Service'];
+    izinCutiApprovalEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'izinCutiApprovalSaveService', 'izinCutiApprovalBindingService', 'FormControlService', 'select2Service','HttpService'];
 
-    function izinCutiApprovalEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+    function izinCutiApprovalEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service, http) {
         var self = this;
         self.stateParam = sParam;
 
@@ -3048,6 +3451,40 @@ angular.module('global-solusindo')
             formControlService.setFormControl(self);
             saveService.init(self);
         });
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var approveRejectRole = "IzinCuti_Approval";
+
+            document.getElementById("approveButton").style.visibility = "hidden";
+            document.getElementById("rejectButton").style.visibility = "hidden";
+
+            setRole(res.data, "approveButton", approveRejectRole);
+            setRole(res.data, "rejectButton", approveRejectRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -3087,14 +3524,49 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('KategoriJabatanCtrl', KategoriJabatanCtrl);
 
-    KategoriJabatanCtrl.$inject = ['$scope', '$state', 'kategoriJabatanDtService', 'kategoriJabatanDeleteService', 'kategoriJabatanViewService'];
+    KategoriJabatanCtrl.$inject = ['$scope', '$state', 'kategoriJabatanDtService', 'kategoriJabatanDeleteService', 'kategoriJabatanViewService','HttpService'];
 
-    function KategoriJabatanCtrl($scope, $state, dtService, deleteService, viewService) {
+    function KategoriJabatanCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "KategoriJabatan_Input";
+            var deleteRole = "KategoriJabatan_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -3134,14 +3606,51 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('KotaCtrl', KotaCtrl);
 
-    KotaCtrl.$inject = ['$scope', '$state', 'kotaDtService', 'kotaDeleteService', 'kotaViewService'];
+    KotaCtrl.$inject = ['$scope', '$state', 'kotaDtService', 'kotaDeleteService', 'kotaViewService','HttpService'];
 
-    function KotaCtrl($scope, $state, dtService, deleteService, viewService) {
+    function KotaCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Kota_Input";
+            var deleteRole = "Kota_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -3429,9 +3938,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('MappingRoleToRoleGroupEntryCtrl', MappingRoleToRoleGroupEntryCtrl);
 
-    MappingRoleToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingRoleToRoleGroupSaveService', 'MappingRoleToRoleGroupBindingService', 'FormControlService', 'mappingRoleToRoleGroupEntryDtService'];
+    MappingRoleToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingRoleToRoleGroupSaveService', 'MappingRoleToRoleGroupBindingService', 'FormControlService', 'mappingRoleToRoleGroupEntryDtService','HttpService'];
 
-    function MappingRoleToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService) {
+    function MappingRoleToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, http) {
         var self = this;
         self.stateParam = sParam;
 
@@ -3444,6 +3953,38 @@ angular.module('global-solusindo')
         self.roleModalCallback = function () {
             self.roleDt.draw();
         };
+        
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "MappingRoleToRoleGroup_Input";
+
+            document.getElementById("modalRoleButton").style.visibility = "hidden";
+
+            setRole(res.data, "modalRoleButton", createRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -3572,9 +4113,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('MappingUserToAuthParamEntryCtrl', MappingUserToAuthParamEntryCtrl);
 
-    MappingUserToAuthParamEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToAuthParamSaveService', 'MappingUserToAuthParamBindingService', 'FormControlService', 'mappingUserToAuthParamEntryDtService', 'select2Service', 'mappingUserToAuthParamDeleteService'];
+    MappingUserToAuthParamEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToAuthParamSaveService', 'MappingUserToAuthParamBindingService', 'FormControlService', 'mappingUserToAuthParamEntryDtService', 'select2Service', 'mappingUserToAuthParamDeleteService','HttpService'];
 
-    function MappingUserToAuthParamEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, select2Service, deleteService) {
+    function MappingUserToAuthParamEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, select2Service, deleteService, http) {
         var self = this;
         self.stateParam = sParam;
 
@@ -3586,6 +4127,38 @@ angular.module('global-solusindo')
         self.userAuthParamModalCallback = function () {
             self.userDt.draw();
         };
+        
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "MappingUserToAuthParam_Input";
+
+            document.getElementById("modalRoleButton").style.visibility = "hidden";
+
+            setRole(res.data, "modalRoleButton", createRole);
+
+        })
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -3686,9 +4259,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('MappingUserToRoleGroupEntryCtrl', MappingUserToRoleGroupEntryCtrl);
 
-    MappingUserToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToRoleGroupSaveService', 'MappingUserToRoleGroupBindingService', 'FormControlService', 'mappingUserToRoleGroupEntryDtService', 'select2Service', 'mappingUserToRoleGroupDeleteService'];
+    MappingUserToRoleGroupEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'MappingUserToRoleGroupSaveService', 'MappingUserToRoleGroupBindingService', 'FormControlService', 'mappingUserToRoleGroupEntryDtService', 'select2Service', 'mappingUserToRoleGroupDeleteService','HttpService'];
 
-    function MappingUserToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, select2Service, deleteService) {
+    function MappingUserToRoleGroupEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, dtService, select2Service, deleteService, http) {
         var self = this;
         self.stateParam = sParam;
 
@@ -3701,6 +4274,38 @@ angular.module('global-solusindo')
             self.userDt.draw();
         };
 
+        
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "MappingUserToRoleGroup_Input";
+
+            document.getElementById("modalRoleButton").style.visibility = "hidden";
+
+            setRole(res.data, "modalRoleButton", createRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
         return self;
     }
 })();
@@ -3868,14 +4473,49 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('OperatorCtrl', OperatorCtrl);
 
-    OperatorCtrl.$inject = ['$scope', '$state', 'operatorDtService', 'operatorDeleteService', 'operatorViewService'];
+    OperatorCtrl.$inject = ['$scope', '$state', 'operatorDtService', 'operatorDeleteService', 'operatorViewService','HttpService'];
 
-    function OperatorCtrl($scope, $state, dtService, deleteService, viewService) {
+    function OperatorCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Operator_Input";
+            var deleteRole = "Operator_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -3924,9 +4564,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('POImportExcelCtrl', poImportExcelCtrl);
 
-    poImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'POImportExcelUploadService', 'POImportExcelBindingService', 'FormControlService'];
+    poImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'POImportExcelUploadService', 'POImportExcelBindingService', 'FormControlService','HttpService'];
 
-    function poImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
+    function poImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService, http) {
         var self = this;
         self.stateParam = sParam;
 
@@ -3961,6 +4601,46 @@ angular.module('global-solusindo')
 
         bindingService.init(self);
         uploadService.init(self);
+
+        
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var importRole = "PO_Import";
+            var exportRole = "PO_Export";
+
+            document.getElementById("downloadButton").style.visibility = "hidden";
+            document.getElementById("uploadButton").style.visibility = "hidden";
+
+            setRole(res.data, "downloadButton", exportRole);
+            setRole(res.data, "uploadButton", importRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
+
+
         return self;
     }
 })();
@@ -3999,14 +4679,51 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('ProjectCtrl', ProjectCtrl);
 
-    ProjectCtrl.$inject = ['$scope', '$state', 'projectDtService', 'projectDeleteService', 'projectViewService'];
+    ProjectCtrl.$inject = ['$scope', '$state', 'projectDtService', 'projectDeleteService', 'projectViewService','HttpService'];
 
-    function ProjectCtrl($scope, $state, dtService, deleteService, viewService) {
+    function ProjectCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
-       dtService.init(self);
+        dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Project_Input";
+            var deleteRole = "Project_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -4239,9 +4956,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('TimesheetEngineerDetailCtrl', TimesheetEngineerDetailCtrl);
 
-    TimesheetEngineerDetailCtrl.$inject = ['$scope', '$stateParams', '$state', 'FormControlService', 'timesheetEngineerDetailDtService', 'timesheetEngineerDetailViewService', 'select2Service'];
+    TimesheetEngineerDetailCtrl.$inject = ['$scope', '$stateParams', '$state', 'FormControlService', 'timesheetEngineerDetailDtService', 'timesheetEngineerDetailViewService', 'select2Service','HttpService'];
 
-    function TimesheetEngineerDetailCtrl($scope, sParam, $state, formControlService, dtService, timesheetEngineerDetailViewService, select2Service) {
+    function TimesheetEngineerDetailCtrl($scope, sParam, $state, formControlService, dtService, timesheetEngineerDetailViewService, select2Service, http) {
         var self = this;
         self.stateParam = sParam;
         self.model = {};
@@ -4288,6 +5005,38 @@ angular.module('global-solusindo')
 
         getMonths();
         getYears();
+        
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "AsetHistori_ViewAll";
+            
+            document.getElementById("asetHistoriButton").style.visibility = "hidden";
+
+            setRole(res.data, "asetHistoriButton", readRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -4327,14 +5076,50 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('RoleCtrl', RoleCtrl);
 
-    RoleCtrl.$inject = ['$scope', '$state', 'roleDtService', 'roleDeleteService', 'roleViewService'];
+    RoleCtrl.$inject = ['$scope', '$state', 'roleDtService', 'roleDeleteService', 'roleViewService','HttpService'];
 
-    function RoleCtrl($scope, $state, dtService, deleteService, viewService) {
+    function RoleCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Role_Input";
+            var deleteRole = "Role_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
+
 
         return self;
     }
@@ -4345,14 +5130,49 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('RoleGroupCtrl', RoleGroupCtrl);
 
-    RoleGroupCtrl.$inject = ['$scope', '$state', 'roleGroupDtService', 'roleGroupDeleteService', 'roleGroupViewService'];
+    RoleGroupCtrl.$inject = ['$scope', '$state', 'roleGroupDtService', 'roleGroupDeleteService', 'roleGroupViewService','HttpService'];
 
-    function RoleGroupCtrl($scope, $state, dtService, deleteService, viewService) {
+    function RoleGroupCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "RoleGroup_Input";
+            var deleteRole = "RoleGroup_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -4392,14 +5212,52 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('SOWCtrl', SOWCtrl);
 
-    SOWCtrl.$inject = ['$scope', '$state', 'sowDtService', 'sowDeleteService', 'sowViewService'];
+    SOWCtrl.$inject = ['$scope', '$state', 'sowDtService', 'sowDeleteService', 'sowViewService','HttpService'];
 
-    function SOWCtrl($scope, $state, dtService, deleteService, viewService) {
+    function SOWCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "SOW_Input";
+            var deleteRole = "SOW_Delete";
+            var importRole = "SOW_Import";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("importButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "importButton", importRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -4715,6 +5573,38 @@ angular.module('global-solusindo')
             }
         });
 
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Cost_Input";
+
+            document.getElementById("addCost").style.visibility = "hidden";
+            
+            setRole(res.data, "addCost", createRole);
+            
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
+
         return self;
     }
 })();
@@ -4724,14 +5614,49 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('TechnologyCtrl', TechnologyCtrl);
 
-    TechnologyCtrl.$inject = ['$scope', '$state', 'technologyDtService', 'technologyDeleteService', 'technologyViewService'];
+    TechnologyCtrl.$inject = ['$scope', '$state', 'technologyDtService', 'technologyDeleteService', 'technologyViewService','HttpService'];
 
-    function TechnologyCtrl($scope, $state, dtService, deleteService, viewService) {
+    function TechnologyCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Technology_Input";
+            var deleteRole = "Technology_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -4771,9 +5696,9 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('UserCtrl', UserCtrl);
 
-    UserCtrl.$inject = ['$scope', '$state', 'userDtService', 'userDeleteService', 'userViewService', 'userInactivateService'];
+    UserCtrl.$inject = ['$scope', '$state', 'userDtService', 'userDeleteService', 'userViewService', 'userInactivateService', 'HttpService'];
 
-    function UserCtrl($scope, $state, dtService, deleteService, viewService, inactivateService) {
+    function UserCtrl($scope, $state, dtService, deleteService, viewService, inactivateService, http) {
         var self = this;
 
         self.datatable = dtService.init(self);
@@ -4781,6 +5706,47 @@ angular.module('global-solusindo')
         viewService.init(self);
         inactivateService.init(self);
 
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+            
+            var createRole = "User_Input";
+            var deleteRole = "User_Delete";
+            var importRole = "User_Import";
+            
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("importButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "importButton", importRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+
+
+
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                } 
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+            
+        }
+        
         return self;
     }
 })();
@@ -4998,14 +5964,49 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('VendorCtrl', VendorCtrl);
 
-    VendorCtrl.$inject = ['$scope', '$state', 'vendorDtService', 'vendorDeleteService', 'vendorViewService'];
+    VendorCtrl.$inject = ['$scope', '$state', 'vendorDtService', 'vendorDeleteService', 'vendorViewService','HttpService'];
 
-    function VendorCtrl($scope, $state, dtService, deleteService, viewService) {
+    function VendorCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
 
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var createRole = "Vendor_Input";
+            var deleteRole = "Vendor_Delete";
+
+            document.getElementById("addButton").style.visibility = "hidden";
+            document.getElementById("deleteButton").style.visibility = "hidden";
+
+            setRole(res.data, "addButton", createRole);
+            setRole(res.data, "deleteButton", deleteRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }
@@ -5138,11 +6139,46 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('areaDtService', areaDtService);
 
-    areaDtService.$inject = ['DatatableService'];
+    areaDtService.$inject = ['DatatableService','HttpService'];
 
-    function areaDtService(ds) {
+    function areaDtService(ds,http) {
         var self = this;
         var controller = {};
+        
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "Area_Edit";
+            var deleteRole = "Area_Delete";
+            
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
+
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -5165,8 +6201,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -5217,11 +6253,11 @@ angular.module('global-solusindo')
                 self.view(data.area_pk);
             });
 
-            $("#area tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["area_pk"];
-                self.view(id);
-            });
+            //$("#area tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["area_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -5441,10 +6477,52 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('asetDtService', aset);
 
-    aset.$inject = ['DatatableService'];
+    aset.$inject = ['DatatableService','HttpService'];
 
-    function aset(ds) {
+    function aset(ds, http) {
         var self = this;
+
+        var show = 'hidden';
+        var view = 'hidden';
+        var userHistory = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "Aset_Edit";
+            var readRole = "Aset_ViewAll";
+            var deleteRole = "Aset_Delete";
+            var userHistoryRole = "UserHistori_ViewAll";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRole(res.data, userHistoryRole)) {
+                userHistory = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -5472,10 +6550,10 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='userHistory' rel='tooltip' title='Asset History' data-placement='left' class='btn btn-success'><i class='fas fa-info'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='userHistory' rel='tooltip' title='Asset History' data-placement='left' class='btn btn-success' style='visibility:" + userHistory +"'><i class='fas fa-book'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -5525,8 +6603,16 @@ angular.module('global-solusindo')
 
             $("#aset tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["aset_pk"];
-                self.view(id);
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/aset/asetDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
             });
             $('#aset tbody').on('click', '#userHistory', function () {
                 //alert('User History');
@@ -5773,11 +6859,49 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('asetHistoriDtService', asetHistori);
 
-    asetHistori.$inject = ['DatatableService', '$stateParams'];
+    asetHistori.$inject = ['DatatableService', '$stateParams','HttpService'];
 
-    function asetHistori(ds, $stateParams) {
+    function asetHistori(ds, $stateParams, http) {
         var self = this;
         var controller = {};
+
+        var show = 'hidden';
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "AsetHistori_ViewAll";
+            var updateRole = "AsetHistori_Edit";
+            var deleteRole = "AsetHistori_Delete";
+
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
+
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
             controller = ctrl;
@@ -5817,9 +6941,9 @@ angular.module('global-solusindo')
                             //return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
                             //    "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
                             ////"<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                                
                         }
                     }
@@ -5874,7 +6998,18 @@ angular.module('global-solusindo')
 
             $("#asetHistori tbody").on("dblclick", "tr", function () {
                 var asetHistori = controller.datatable.row(this).data();
-                self.view(asetHistori.asetHistori_pk, asetHistori.user_fk);
+                //var data = controller.datatable.row($(this).parents('tr')).data();
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/asetHistori/asetHistoriDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = asetHistori;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
+                //self.view(asetHistori.asetHistori_pk, asetHistori.user_fk);
             });
 
             angular.element('#addNewButton').on('click', function () {
@@ -6123,10 +7258,44 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('asetKategoriDtService', asetKategori);
 
-    asetKategori.$inject = ['DatatableService'];
+    asetKategori.$inject = ['DatatableService','HttpService'];
 
-    function asetKategori(ds) {
+    function asetKategori(ds,http) {
         var self = this;
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "AsetKategori_Edit";
+            var deleteRole = "AsetKategori_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -6148,8 +7317,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -6197,11 +7366,11 @@ angular.module('global-solusindo')
                 self.view(data.asetKategori_pk);
             });
 
-            $("#asetKategori tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["asetKategori_pk"];
-                self.view(id);
-            });
+            //$("#asetKategori tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["asetKategori_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -6650,10 +7819,47 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('authParamDtService', authParam);
 
-    authParam.$inject = ['DatatableService'];
+    authParam.$inject = ['DatatableService','HttpService'];
 
-    function authParam(ds) {
+    function authParam(ds, http) {
         var self = this;
+
+        var show = 'hidden';
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "AuthParam_ViewAll";
+            var updateRole = "AuthParam_Edit";
+            var deleteRole = "AuthParam_Delete";
+
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -6678,9 +7884,9 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -6730,8 +7936,19 @@ angular.module('global-solusindo')
 
             $("#authParam tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["authParam_pk"];
-                self.view(id);
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/authParam/authParamDetail.html',
+                    windowClass: 'small-modal',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
+                //var id = data["authParam_pk"];
+                //self.view(id);
             });
 
             $("#authParam tbody").on("click", "#show", function () {
@@ -6964,10 +8181,49 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('btsDtService', bts);
 
-    bts.$inject = ['DatatableService', 'btsMapService'];
+    bts.$inject = ['DatatableService', 'btsMapService','HttpService'];
 
-    function bts(ds, mapService) {
+    function bts(ds, mapService, http) {
         var self = this;
+
+        var show = 'hidden';
+        var view = 'hidden';
+        var assetHistory = 'hidden';
+        var inactivate = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "BTS_Edit";
+            var readRole = "BTS_ViewAll";
+            var deleteRole = "BTS_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -6998,9 +8254,9 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -7014,11 +8270,13 @@ angular.module('global-solusindo')
 
                     if (response && response.data && response.data.records) {
                         response.data.records.forEach(function (bts) {
+                             
                             marker.push(bts.name);
                             marker.push(parseFloat(bts.latitude));
                             marker.push(parseFloat(bts.longitude));
                             marker.push(5);
-
+                            marker.push(bts.operatorTitle);
+                            marker.push(bts.statusBtsTitle);
                             cities.push(marker);
                             marker = [];
                         });
@@ -7065,20 +8323,24 @@ angular.module('global-solusindo')
         }
 
         var cities = [];
-            //[
-            //    ['Jakarta', -6.121435, 106.774124, 4],
-            //    ['Bogor', -6.595038, 106.816635, 5],
-            //    ['Banjarmasin', -3.316694, 114.590111, 5],
-            //    ['Medan', 3.597031, 98.678513, 5],
-            //];
+        //[
+        //    ['Jakarta', -6.121435, 106.774124, 4],
+        //    ['Bogor', -6.595038, 106.816635, 5],
+        //    ['Banjarmasin', -3.316694, 114.590111, 5],
+        //    ['Medan', 3.597031, 98.678513, 5],
+        //];
 
         function setMarkers(map) {
             for (var i = 0; i < cities.length; i++) {
                 var city = cities[i];
+                console.log(city);
+                var name = city[0];
+                var operator = city[4];
+                var status = city[5];
                 var marker = new google.maps.Marker({
                     position: { lat: city[1], lng: city[2] },
                     map: map,
-                    title: city[0],
+                    title: name + ', ' + operator + ', ' + status + '(' + city[1] + ', ' + city[2] + ')',
                     zIndex: city[3]
                 });
             }
@@ -7129,8 +8391,16 @@ angular.module('global-solusindo')
 
             $("#bts tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["bts_pk"];
-                self.view(id);
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/bts/btsDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
             });
 
             $("#bts tbody").on("click", "#show", function () {
@@ -7646,10 +8916,42 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('cabangDtService', cabang);
 
-    cabang.$inject = ['DatatableService'];
+    cabang.$inject = ['DatatableService','HttpService'];
 
-    function cabang(ds) {
+    function cabang(ds, http) {
         var self = this;
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "Cabang_Edit";
+            var deleteRole = "Cabang_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -7671,8 +8973,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -7720,11 +9022,11 @@ angular.module('global-solusindo')
                 self.view(data.cabang_pk);
             });
 
-            $("#cabang tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["cabang_pk"];
-                self.view(id);
-            });
+            //$("#cabang tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["cabang_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -8337,10 +9639,44 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('costKategoriDtService', costKategori);
 
-    costKategori.$inject = ['DatatableService'];
+    costKategori.$inject = ['DatatableService','HttpService'];
 
-    function costKategori(ds) {
+    function costKategori(ds, http) {
         var self = this;
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "CostKategori_Edit";
+            var deleteRole = "CostKategori_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -8362,8 +9698,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -8411,11 +9747,11 @@ angular.module('global-solusindo')
                 self.view(data.costKategori_pk);
             });
 
-            $("#costKategori tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["costKategori_pk"];
-                self.view(id);
-            });
+            //$("#costKategori tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["costKategori_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -8659,10 +9995,44 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('deliveryAreaDtService', deliveryArea);
 
-    deliveryArea.$inject = ['DatatableService'];
+    deliveryArea.$inject = ['DatatableService','HttpService'];
 
-    function deliveryArea(ds) {
+    function deliveryArea(ds, http) {
         var self = this;
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "DeliveryArea_Edit";
+            var deleteRole = "DeliveryArea_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -8684,8 +10054,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -8733,11 +10103,11 @@ angular.module('global-solusindo')
                 self.view(data.deliveryArea_pk);
             });
 
-            $("#deliveryArea tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["deliveryArea_pk"];
-                self.view(id);
-            });
+            //$("#deliveryArea tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["deliveryArea_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -8956,11 +10326,43 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('issueTypeDtService', issueTypeDtService);
 
-    issueTypeDtService.$inject = ['DatatableService'];
+    issueTypeDtService.$inject = ['DatatableService','HttpService'];
 
-    function issueTypeDtService(ds) {
+    function issueTypeDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "IssueType_Edit";
+            var deleteRole = "IssueType_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -8983,8 +10385,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -9035,11 +10437,11 @@ angular.module('global-solusindo')
                 self.view(data.issueType_pk);
             });
 
-            $("#issueType tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["issueType_pk"];
-                self.view(id);
-            });
+            //$("#issueType tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["issueType_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -9259,11 +10661,45 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('izinCutiDtService', izinCuti);
 
-    izinCuti.$inject = ['DatatableService'];
+    izinCuti.$inject = ['DatatableService','HttpService'];
 
-    function izinCuti(ds) {
+    function izinCuti(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "IzinCuti_Edit";
+            var deleteRole = "IzinCuti_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -9307,8 +10743,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -9359,11 +10795,11 @@ angular.module('global-solusindo')
                 self.view(data.izinCuti_pk);
             });
 
-            $("#izinCuti tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["izinCuti_pk"];
-                self.view(id);
-            });
+            //$("#izinCuti tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["izinCuti_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -9385,11 +10821,40 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('izinCutiApprovalDtService', izinCutiApprovalDtService);
 
-    izinCutiApprovalDtService.$inject = ['DatatableService'];
+    izinCutiApprovalDtService.$inject = ['DatatableService','HttpService'];
 
-    function izinCutiApprovalDtService(ds) {
+    function izinCutiApprovalDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "IzinCutiApproval_ViewAll";
+
+            if (setRole(res.data, readRole)) {
+                view = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -9433,7 +10898,7 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view +"'>Detail</button>";
                         }
                     }
                 ]
@@ -9832,11 +11297,45 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('kategoriJabatanDtService', kategoriJabatan);
 
-    kategoriJabatan.$inject = ['DatatableService'];
+    kategoriJabatan.$inject = ['DatatableService','HttpService'];
 
-    function kategoriJabatan(ds) {
+    function kategoriJabatan(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "KategoriJabatan_Edit";
+            var deleteRole = "KategoriJabatan_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -9859,8 +11358,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -9911,11 +11410,11 @@ angular.module('global-solusindo')
                 self.view(data.kategoriJabatan_pk);
             });
 
-            $("#kategoriJabatan tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["kategoriJabatan_pk"];
-                self.view(id);
-            });
+            //$("#kategoriJabatan tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["kategoriJabatan_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -10135,10 +11634,42 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('kotaDtService', kota);
 
-    kota.$inject = ['DatatableService'];
+    kota.$inject = ['DatatableService','HttpService'];
 
-    function kota(ds) {
+    function kota(ds, http) {
         var self = this;
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "Kota_Edit";
+            var deleteRole = "Kota_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -10160,8 +11691,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -10209,11 +11740,11 @@ angular.module('global-solusindo')
                 self.view(data.kota_pk);
             });
 
-            $("#kota tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["kota_pk"];
-                self.view(id);
-            });
+            //$("#kota tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["kota_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -10415,10 +11946,37 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('mappingRoleToRoleGroupDtService', mappingRoleToRoleGroup);
 
-    mappingRoleToRoleGroup.$inject = ['DatatableService'];
+    mappingRoleToRoleGroup.$inject = ['DatatableService','HttpService'];
 
-    function mappingRoleToRoleGroup(ds) {
+    function mappingRoleToRoleGroup(ds, http) {
         var self = this;
+
+        var view = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "MappingRoleToRoleGroup_ViewAll";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -10442,7 +12000,7 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' title='View Role' data-placement='left' class='btn btn-success'>Role</button>";
+                        return "<button id='view' title='View Role' data-placement='left' class='btn btn-success' style='visibility:" + view +"'>Role</button>";
                     }
                 }
                 ]
@@ -10857,10 +12415,37 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('mappingUserToAuthParamDtService', MappingUserToAuthParam);
 
-    MappingUserToAuthParam.$inject = ['DatatableService'];
+    MappingUserToAuthParam.$inject = ['DatatableService','HttpService'];
 
-    function MappingUserToAuthParam(ds) {
+    function MappingUserToAuthParam(ds, http) {
         var self = this;
+        
+        var view = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "MappingUserToAuthParam_ViewAll";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -10884,7 +12469,7 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' title='View Users' data-placement='left' class='btn btn-success'>User</button>";
+                        return "<button id='view' title='View Users' data-placement='left' class='btn btn-success' style='visibility:" + view +"'>User</button>";
                     }
                 }
                 ]
@@ -11048,12 +12633,39 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('mappingUserToAuthParamEntryDtService', mappingUserToAuthParamEntryDtService);
 
-    mappingUserToAuthParamEntryDtService.$inject = ['DatatableService'];
+    mappingUserToAuthParamEntryDtService.$inject = ['DatatableService','HttpService'];
 
-    function mappingUserToAuthParamEntryDtService(ds) {
+    function mappingUserToAuthParamEntryDtService(ds, http) {
         var self = this;
         var controller;
         var datatable;
+
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var deleteRole = "MappingUserToAuthParam_Delete";
+
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.reloadDatatable = function () {
             console.log(controller);
@@ -11098,7 +12710,7 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>";
                         }
                     }
                 ]
@@ -11316,10 +12928,39 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('mappingUserToRoleGroupDtService', MappingUserToRoleGroup);
 
-    MappingUserToRoleGroup.$inject = ['DatatableService'];
+    MappingUserToRoleGroup.$inject = ['DatatableService','HttpService'];
 
-    function MappingUserToRoleGroup(ds) {
+    function MappingUserToRoleGroup(ds, http) {
         var self = this;
+
+        
+
+        var view = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "MappingUserToRoleGroup_ViewAll";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -11343,7 +12984,7 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' title='View Users' data-placement='left' class='btn btn-success'>User</button>";
+                        return "<button id='view' title='View Users' data-placement='left' class='btn btn-success' style='visibility:" + view +"'>User</button>";
                     }
                 }
                 ]
@@ -11507,12 +13148,39 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('mappingUserToRoleGroupEntryDtService', mappingUserToRoleGroupEntryDtService);
 
-    mappingUserToRoleGroupEntryDtService.$inject = ['DatatableService'];
+    mappingUserToRoleGroupEntryDtService.$inject = ['DatatableService','HttpService'];
 
-    function mappingUserToRoleGroupEntryDtService(ds) {
+    function mappingUserToRoleGroupEntryDtService(ds, http) {
         var self = this;
         var controller;
         var datatable;
+        
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+            
+            var deleteRole = "MappingUserToRoleGroup_Delete";
+            
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.reloadDatatable = function () {
             console.log(controller);
@@ -11557,7 +13225,7 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>";
                         }
                     }
                 ]
@@ -12171,11 +13839,38 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('myTaskListDtService', myTaskListDtService);
 
-    myTaskListDtService.$inject = ['DatatableService'];
+    myTaskListDtService.$inject = ['DatatableService','HttpService'];
 
-    function myTaskListDtService(ds) {
+    function myTaskListDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "MyTaskList_ViewAll";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -12224,7 +13919,7 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> ";
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> ";
                         }
                     }
                 ],
@@ -12275,11 +13970,11 @@ angular.module('global-solusindo')
                 self.view(data.checkIn_pk);
             });
 
-            $("#myTaskList tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["checkIn_pk"];
-                self.view(id);
-            });
+            //$("#myTaskList tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["checkIn_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -12481,10 +14176,42 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('operatorDtService', operator);
 
-    operator.$inject = ['DatatableService'];
+    operator.$inject = ['DatatableService','HttpService'];
 
-    function operator(ds) {
+    function operator(ds, http) {
         var self = this;
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "Operator_Edit";
+            var deleteRole = "Operator_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -12506,8 +14233,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -12555,11 +14282,11 @@ angular.module('global-solusindo')
                 self.view(data.operator_pk);
             });
 
-            $("#operator tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["operator_pk"];
-                self.view(id);
-            });
+            //$("#operator tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["operator_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -12997,11 +14724,50 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('projectDtService', project);
 
-    project.$inject = ['DatatableService'];
+    project.$inject = ['DatatableService','HttpService'];
 
-    function project(ds) {
+    function project(ds, http) {
         var self = this;
         var controller = {};
+
+        var show = 'hidden';
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "Project_Edit";
+            var updateRole = "Project_Edit";
+            var deleteRole = "Project_Delete";
+
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -13031,9 +14797,9 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -13085,8 +14851,18 @@ angular.module('global-solusindo')
 
             $("#project tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["project_pk"];
-                self.view(id);
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/project/projectDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
+                //var id = data["project_pk"];
+                //self.view(id);
             });
 
             $("#project tbody").on("click", "#show", function () {
@@ -13609,11 +15385,38 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('taskEngineerDtService', taskEngineerDtService);
 
-    taskEngineerDtService.$inject = ['DatatableService'];
+    taskEngineerDtService.$inject = ['DatatableService','HttpService'];
 
-    function taskEngineerDtService(ds) {
+    function taskEngineerDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+        
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "TaskEngineer_ViewAll";
+        
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         //instantiate DatatableService
         self.dtService = ds;
@@ -13669,7 +15472,7 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view +"'>Detail</button>";
                         }
                     }
                 ]
@@ -13784,11 +15587,39 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('timesheetEngineerDtService', timesheetEngineerDtService);
 
-    timesheetEngineerDtService.$inject = ['DatatableService'];
+    timesheetEngineerDtService.$inject = ['DatatableService','HttpService'];
 
-    function timesheetEngineerDtService(ds) {
+    function timesheetEngineerDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+       
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "TimesheetEngineer_ViewAll";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
+
 
         self.dtCallback = function (dt) {
             self.datatable = dt.DataTable;
@@ -13837,7 +15668,7 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view +"'>Detail</button>";
                         }
                     }
                 ]
@@ -13909,11 +15740,39 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('timesheetEngineerDetailDtService', timesheetEngineerDetailDtService);
 
-    timesheetEngineerDetailDtService.$inject = ['DatatableService'];
+    timesheetEngineerDetailDtService.$inject = ['DatatableService','HttpService'];
 
-    function timesheetEngineerDetailDtService(ds) {
+    function timesheetEngineerDetailDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "TimesheetEngineer_ViewAll";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -13947,7 +15806,7 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view +"'>Detail</button>";
                         }
                     }
                 ],
@@ -14230,10 +16089,49 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('roleDtService', role);
 
-    role.$inject = ['DatatableService'];
+    role.$inject = ['DatatableService','HttpService'];
 
-    function role(ds) {
+    function role(ds, http) {
         var self = this;
+
+        var view = 'hidden';
+        var show = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "Role_Edit";
+            var updateRole = "Role_Edit";
+            var deleteRole = "Role_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             return ds.init("#role", "role/search", {
@@ -14257,9 +16155,9 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -14309,8 +16207,19 @@ angular.module('global-solusindo')
 
             $("#role tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["role_pk"];
-                self.view(id)
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/role/roleDetail.html',
+                    windowClass: 'small-modal',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
+                //var id = data["role_pk"];
+                //self.view(id)
             });
 
             $("#role tbody").on("click", "#show", function () {
@@ -14432,10 +16341,49 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('roleGroupDtService', roleGroup);
 
-    roleGroup.$inject = ['DatatableService'];
+    roleGroup.$inject = ['DatatableService','HttpService'];
 
-    function roleGroup(ds) {
+    function roleGroup(ds, http) {
         var self = this;
+
+        var show = 'hidden';
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "RoleGroup_Edit";
+            var updateRole = "RoleGroup_Edit";
+            var deleteRole = "RoleGroup_Delete";
+
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
@@ -14460,9 +16408,9 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -14512,8 +16460,19 @@ angular.module('global-solusindo')
 
             $("#roleGroup tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["roleGroup_pk"];
-                self.view(id);
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/roleGroup/roleGroupDetail.html',
+                    windowClass: 'small-modal',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
+                //var id = data["roleGroup_pk"];
+                //self.view(id);
             });
 
             $("#roleGroup tbody").on("click", "#show", function () {
@@ -14944,7 +16903,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
-        var base_url = "http://gs.local/";
+        //var base_url = "http://localhost:88/";
+        var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
         //var base_url = "http://localhost/GlobalAPI/";
         var base_host = "";
@@ -14982,10 +16942,12 @@ angular.module('global-solusindo')
                 console.log(response);
                 ui.alert.error("Error. Debug mode is ON." + debugMessage);
             }
-            if (status === 500)
+            if (status === 500) {
                 ui.alert.error("Something error happen on the server." + debugMessage);
-            if (status === -1)
-                //ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
+            }
+            //if (status === -1) {
+            //    ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
+            //}
             if (status === 401) {
                 handleUnauthorized();
             }
@@ -15870,11 +17832,53 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('sowDtService', sow);
 
-    sow.$inject = ['DatatableService'];
+    sow.$inject = ['DatatableService','HttpService'];
 
-    function sow(ds) {
+    function sow(ds, http) {
         var self = this;
         var controller = {};
+
+        var show = 'hidden';
+        var view = 'hidden';
+        var dlt = 'hidden';
+        var approval = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "SOW_ViewAll";
+            var updateRole = "SOW_Edit";
+            var deleteRole = "SOW_Delete";
+            var approvalRole = "SOW_Approval";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRole(res.data, approvalRole)) {
+                approval = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -15907,16 +17911,16 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     },
                     {
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info'>Approval</button>";
+                            return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval +"'>Approval</button>";
                         }
                     }
                 ],
@@ -15991,8 +17995,10 @@ angular.module('global-solusindo')
 
             $("#sow tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["sow_pk"];
-                self.view(id);
+                //var id = data["sow_pk"];
+                //self.view(id);
+                //var data = controller.datatable.row($(this).parents('tr')).data();
+                self.info(data.sow_pk);
             });
         };
 
@@ -16652,11 +18658,43 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('costDtService', costDtService);
 
-    costDtService.$inject = ['DatatableService'];
+    costDtService.$inject = ['DatatableService','HttpService'];
 
-    function costDtService(ds) {
+    function costDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "Cost_Edit";
+            var deleteRole = "Cost_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -16688,8 +18726,8 @@ angular.module('global-solusindo')
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                     }
                 }
                 ]
@@ -17041,11 +19079,43 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('technologyDtService', technologyDtService);
 
-    technologyDtService.$inject = ['DatatableService'];
+    technologyDtService.$inject = ['DatatableService','HttpService'];
 
-    function technologyDtService(ds) {
+    function technologyDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "Technology_Edit";
+            var deleteRole = "Technology_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -17068,9 +19138,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -17121,11 +19190,11 @@ angular.module('global-solusindo')
                 self.view(data.technology_pk);
             });
 
-            $("#technology tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["technology_pk"];
-                self.view(id);
-            });
+            //$("#technology tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["technology_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
@@ -17345,11 +19414,61 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('userDtService', user);
 
-    user.$inject = ['DatatableService'];
+    user.$inject = ['DatatableService','HttpService'];
 
-    function user(ds) {
+    function user(ds,http) {
         var self = this;
 
+        var show = 'hidden';
+        var view = 'hidden';
+        var assetHistory = 'hidden';
+        var inactivate = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+            
+            var updateRole = "User_Edit";
+            var readRole = "User_ViewAll";
+            var asetHistoryRole = "AsetHistori_ViewAll";
+            var deleteRole = "User_Delete";
+            var activateRole = "User_Activate";
+            var deactivateRole = "User_Deactivate";
+            
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRole(res.data, asetHistoryRole)) {
+                assetHistory = 'visible';
+            }
+            if (setRole(res.data, deactivateRole)) {
+                inactivate = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
+        
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
             return ds.init("#user", "user/search", {
@@ -17402,14 +19521,14 @@ angular.module('global-solusindo')
                             var activateTitle = statusFk == 1 ? "Deactivate User" : "Activate User";
                             var activateIcon = statusFk == 1 ? "fas fa-user-times" : "fas fa-user";
 
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='assetHistory' rel='tooltip' title='Asset History' data-placement='left' class='btn btn-success'><i class='fas fa-info'></i></button> " +
-                                "<button id='inactivate' rel='tooltip' title='" + activateTitle + "' data-placement='left' class='" + activateClassName + "'><i class='" + activateIcon + "'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='showButton btn btn-success' style='visibility:"+ show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='assetHistory' rel='tooltip' title='Asset History' data-placement='left' class='btn btn-success' style='visibility:" + assetHistory +"'><i class='fas fa-book'></i></button> " +
+                                "<button id='inactivate' rel='tooltip' title='" + activateTitle + "' data-placement='left' class='" + activateClassName + "' style='visibility:" + inactivate +"'><i class='" + activateIcon + "'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>";
                         }
                     }
-                ],
+                ], 
                 exportButtons: {
                     columns: [1, 2, 3, 4],
                     title: "Users"
@@ -17418,7 +19537,6 @@ angular.module('global-solusindo')
         };
         return self;
     }
-
 })();
 (function () {
     'use strict';
@@ -17568,9 +19686,26 @@ angular.module('global-solusindo')
             });
 
             $("#user tbody").on("dblclick", "tr", function () {
+                //var data = controller.datatable.row(this).data();
+                //var id = data["user_pk"];
+                //self.view(id);
                 var data = controller.datatable.row(this).data();
-                var id = data["user_pk"];
-                self.view(id);
+
+                http.get('user/form/' + data.user_pk).then(function (response) {
+                    var user = response.data.model;
+
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'app/modules/user/userDetail.html',
+                        controller: function ($scope, $uibModalInstance) {
+
+                            $scope.model = user;
+                            $scope.close = function () {
+                                $uibModalInstance.close();
+                            };
+                        }
+                    });
+                    modalInstance.result.then(function (selectedItem) { }, function () { });
+                });
             });
 
             $("#user tbody").on("click", "#show", function () {
@@ -18258,11 +20393,45 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('vendorDtService', vendorDtService);
 
-    vendorDtService.$inject = ['DatatableService'];
+    vendorDtService.$inject = ['DatatableService','HttpService'];
 
-    function vendorDtService(ds) {
+    function vendorDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "Vendor_Edit";
+            var deleteRole = "Vendor_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -18285,8 +20454,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],
@@ -18337,11 +20506,11 @@ angular.module('global-solusindo')
                 self.view(data.vendor_pk);
             });
 
-            $("#vendor tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["vendor_pk"];
-                self.view(id);
-            });
+            //$("#vendor tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["vendor_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
