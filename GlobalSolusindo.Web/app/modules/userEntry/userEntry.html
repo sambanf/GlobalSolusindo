@@ -53,7 +53,7 @@
                                 <label class="control-label col-sm-3">Project:</label>
                                 <div class="col-sm-6">
                                     <select id="project_fk" name="project_fk" class="form-control input-lg" ng-model="vm.model.project" required>
-                                        <option ng-repeat="x in vm.formData.projects" ng-value="x.project_pk">{{x.operatorTitle}}</option>
+                                        <option ng-repeat="x in vm.formData.projects" ng-value="x.project_pk">{{x.operatorTitle + ' - ' + x.vendorTitle + ' - ' + x.deliveryAreaTitle}}</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
