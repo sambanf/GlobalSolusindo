@@ -67,7 +67,7 @@ namespace GlobalSolusindo.Identity.Menu
         {
             var menuQuery = new MenuQuery();
             var roles = GetRoles(userPk);
-            var roleMenus = roles.Where(x => x.Title.Contains("Menu"));
+            var roleMenus = roles.Where(x => x.Title.Contains("ViewAll"));
             var showAllMenu = roles.Where(x => x.Title.Contains("Menu_ViewAll")).Count() > 0;
             var menus = new List<MenuDTO>();
             var groupMenus = new List<GroupMenu>();
@@ -112,7 +112,9 @@ namespace GlobalSolusindo.Identity.Menu
             {
                 var menuCode = role.Title;
                 var menu = menuQuery.GetByCode(menuCode);
-                menus.Add(menu);
+                if (menu != null) {
+                    menus.Add(menu);
+                }
             }
 
             groupMenuNames = menus

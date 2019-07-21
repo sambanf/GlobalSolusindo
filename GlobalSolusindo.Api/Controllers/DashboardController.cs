@@ -23,6 +23,16 @@ namespace GlobalSolusindo.Api.Controllers
 
         private const string readRole = "Dashboard_ViewAll";
 
+
+        [Route("dashboard/getRole")]
+        [HttpGet]
+        public IHttpActionResult getRole(string dashboard)
+        {
+            var roles = AccessControl.userGetRoles();
+            return Ok(new SuccessResponse(roles));
+
+        }
+
         [Route("dashboard/IsDashboardViewAll")]
         [HttpGet]
         public IHttpActionResult IsDashboardViewAll(string dashboard)

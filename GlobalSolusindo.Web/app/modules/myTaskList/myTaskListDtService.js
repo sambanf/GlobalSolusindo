@@ -13,11 +13,38 @@
         .module('global-solusindo')
         .factory('myTaskListDtService', myTaskListDtService);
 
-    myTaskListDtService.$inject = ['DatatableService'];
+    myTaskListDtService.$inject = ['DatatableService','HttpService'];
 
-    function myTaskListDtService(ds) {
+    function myTaskListDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "MyTaskList_ViewAll";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -66,7 +93,7 @@
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> ";
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> ";
                         }
                     }
                 ],

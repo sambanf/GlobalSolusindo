@@ -32,11 +32,11 @@
                 self.view(data.kota_pk);
             });
 
-            $("#kota tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["kota_pk"];
-                self.view(id);
-            });
+            //$("#kota tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["kota_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

@@ -19,10 +19,10 @@ namespace GlobalSolusindo.Business.CheckIn
         [Required]
         [JsonProperty("sowAssign_fk")]
         [ForeignKey(typeof(SOWAssignQuery), "SOWAssign_PK")]
-        public int SOWAssign_FK { get; set; }
+        public int? SOWAssign_FK { get; set; }
          
         [JsonProperty("userID")] 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         [JsonProperty("userName")]
         public string UserName { get; set; }

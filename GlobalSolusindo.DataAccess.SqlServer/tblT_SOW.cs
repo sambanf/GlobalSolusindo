@@ -28,6 +28,8 @@ namespace GlobalSolusindo.DataAccess
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedDate { get; set; }
         public int Status_FK { get; set; }
-        public Nullable<int> Flag { get; set; }
+        public string PMOUniq { get; set; }
+        public Nullable<System.DateTime> LVDate { get; set; }
+        public Nullable<System.DateTime> AcceptedDate { get; set; }
     }
 }

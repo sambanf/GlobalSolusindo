@@ -32,11 +32,11 @@
                 self.view(data.kategoriJabatan_pk);
             });
 
-            $("#kategoriJabatan tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["kategoriJabatan_pk"];
-                self.view(id);
-            });
+            //$("#kategoriJabatan tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["kategoriJabatan_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

@@ -32,11 +32,11 @@
                 self.view(data.deliveryArea_pk);
             });
 
-            $("#deliveryArea tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["deliveryArea_pk"];
-                self.view(id);
-            });
+            //$("#deliveryArea tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["deliveryArea_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

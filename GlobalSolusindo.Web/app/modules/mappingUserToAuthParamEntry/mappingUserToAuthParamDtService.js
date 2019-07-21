@@ -13,12 +13,39 @@
         .module('global-solusindo')
         .factory('mappingUserToAuthParamEntryDtService', mappingUserToAuthParamEntryDtService);
 
-    mappingUserToAuthParamEntryDtService.$inject = ['DatatableService'];
+    mappingUserToAuthParamEntryDtService.$inject = ['DatatableService','HttpService'];
 
-    function mappingUserToAuthParamEntryDtService(ds) {
+    function mappingUserToAuthParamEntryDtService(ds, http) {
         var self = this;
         var controller;
         var datatable;
+
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var deleteRole = "MappingUserToAuthParam_Delete";
+
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.reloadDatatable = function () {
             console.log(controller);
@@ -63,7 +90,7 @@
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
+                            return "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>";
                         }
                     }
                 ]
