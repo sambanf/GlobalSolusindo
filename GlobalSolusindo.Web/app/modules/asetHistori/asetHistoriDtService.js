@@ -13,11 +13,49 @@
         .module('global-solusindo')
         .factory('asetHistoriDtService', asetHistori);
 
-    asetHistori.$inject = ['DatatableService', '$stateParams'];
+    asetHistori.$inject = ['DatatableService', '$stateParams','HttpService'];
 
-    function asetHistori(ds, $stateParams) {
+    function asetHistori(ds, $stateParams, http) {
         var self = this;
         var controller = {};
+
+        var show = 'hidden';
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "AsetHistori_ViewAll";
+            var updateRole = "AsetHistori_Edit";
+            var deleteRole = "AsetHistori_Delete";
+
+            if (setRole(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
+
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
             controller = ctrl;
@@ -57,9 +95,9 @@
                             //return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
                             //    "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
                             ////"<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                                
                         }
                     }

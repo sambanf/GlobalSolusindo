@@ -65,6 +65,7 @@ namespace GlobalSolusindo.Identity.UserDetail
 
             userDetailDTO.CreatedBy = userDetail.CreatedBy;
             userDetailDTO.CreatedDate = userDetail.CreatedDate;
+            userDetail.Project = userDetailDTO.Project;
             userDetail.UpdatedBy = userDetailDTO.UpdatedBy = User.Username;
             userDetail.UpdatedDate = userDetailDTO.UpdatedDate = dateStamp;
 

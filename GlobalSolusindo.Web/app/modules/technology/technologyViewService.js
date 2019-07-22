@@ -32,11 +32,11 @@
                 self.view(data.technology_pk);
             });
 
-            $("#technology tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["technology_pk"];
-                self.view(id);
-            });
+            //$("#technology tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["technology_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

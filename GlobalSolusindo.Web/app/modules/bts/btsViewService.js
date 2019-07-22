@@ -34,8 +34,16 @@
 
             $("#bts tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["bts_pk"];
-                self.view(id);
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/bts/btsDetail.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.model = data;
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
+                modalInstance.result.then(function (selectedItem) { }, function () { });
             });
 
             $("#bts tbody").on("click", "#show", function () {

@@ -32,11 +32,11 @@
                 self.view(data.issueType_pk);
             });
 
-            $("#issueType tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["issueType_pk"];
-                self.view(id);
-            });
+            //$("#issueType tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["issueType_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

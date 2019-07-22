@@ -38,9 +38,26 @@
             });
 
             $("#user tbody").on("dblclick", "tr", function () {
+                //var data = controller.datatable.row(this).data();
+                //var id = data["user_pk"];
+                //self.view(id);
                 var data = controller.datatable.row(this).data();
-                var id = data["user_pk"];
-                self.view(id);
+
+                http.get('user/form/' + data.user_pk).then(function (response) {
+                    var user = response.data.model;
+
+                    var modalInstance = $uibModal.open({
+                        templateUrl: 'app/modules/user/userDetail.html',
+                        controller: function ($scope, $uibModalInstance) {
+
+                            $scope.model = user;
+                            $scope.close = function () {
+                                $uibModalInstance.close();
+                            };
+                        }
+                    });
+                    modalInstance.result.then(function (selectedItem) { }, function () { });
+                });
             });
 
             $("#user tbody").on("click", "#show", function () {

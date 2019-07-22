@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .controller('TimesheetEngineerDetailCtrl', TimesheetEngineerDetailCtrl);
 
-    TimesheetEngineerDetailCtrl.$inject = ['$scope', '$stateParams', '$state', 'FormControlService', 'timesheetEngineerDetailDtService', 'timesheetEngineerDetailViewService', 'select2Service'];
+    TimesheetEngineerDetailCtrl.$inject = ['$scope', '$stateParams', '$state', 'FormControlService', 'timesheetEngineerDetailDtService', 'timesheetEngineerDetailViewService', 'select2Service','HttpService'];
 
-    function TimesheetEngineerDetailCtrl($scope, sParam, $state, formControlService, dtService, timesheetEngineerDetailViewService, select2Service) {
+    function TimesheetEngineerDetailCtrl($scope, sParam, $state, formControlService, dtService, timesheetEngineerDetailViewService, select2Service, http) {
         var self = this;
         self.stateParam = sParam;
         self.model = {};
@@ -62,6 +62,38 @@
 
         getMonths();
         getYears();
+        
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var readRole = "AsetHistori_ViewAll";
+            
+            document.getElementById("asetHistoriButton").style.visibility = "hidden";
+
+            setRole(res.data, "asetHistoriButton", readRole);
+
+        })
+        
+        function setRole(roles, control, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            if (role) {
+                document.getElementById(control).style.visibility = "visible";
+            }
+            else {
+                document.getElementById(control).style.visibility = "hidden";
+            }
+
+        }
 
         return self;
     }

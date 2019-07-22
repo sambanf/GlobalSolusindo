@@ -13,11 +13,45 @@
         .module('global-solusindo')
         .factory('izinCutiDtService', izinCuti);
 
-    izinCuti.$inject = ['DatatableService'];
+    izinCuti.$inject = ['DatatableService','HttpService'];
 
-    function izinCuti(ds) {
+    function izinCuti(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+        var dlt = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "IzinCuti_Edit";
+            var deleteRole = "IzinCuti_Delete";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRole(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+        })
+
+
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -61,8 +95,8 @@
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>"
+                            return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                         }
                     }
                 ],

@@ -61,6 +61,12 @@ namespace GlobalSolusindo.Identity.User.EntryForm
                 formData.KategoriJabatans.Add(kategoriJabatan);
             }
 
+            var project = new ProjectQuery(Db).GetById(userDTO.Project);
+            if (project != null)
+            {
+                formData.Projects.Add(project);
+            }
+
             return new UserEntryModel()
             {
                 FormData = formData,

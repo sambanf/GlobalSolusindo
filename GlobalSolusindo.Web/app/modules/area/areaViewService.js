@@ -32,11 +32,11 @@
                 self.view(data.area_pk);
             });
 
-            $("#area tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["area_pk"];
-                self.view(id);
-            });
+            //$("#area tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["area_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

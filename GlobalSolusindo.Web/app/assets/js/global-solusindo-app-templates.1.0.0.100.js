@@ -18,7 +18,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.areaEntry({ id: '0'})\">Tambah Area</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.areaEntry({ id: '0'})\">Tambah Area</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -142,7 +142,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.asetEntry({ id: '0'})\">Tambah Aset</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.asetEntry({ id: '0'})\">Tambah Aset</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -718,7 +718,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.asetKategoriEntry({ id: '0'})\">Tambah Aset Kategori</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.asetKategoriEntry({ id: '0'})\">Tambah Aset Kategori</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -1022,7 +1022,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.authParamEntry({ id: '0'})\">Tambah Auth Param</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.authParamEntry({ id: '0'})\">Tambah Auth Param</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -1231,9 +1231,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.btsEntry({ id: '0'})\">Tambah BTS</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.btsEntry({ id: '0'})\">Tambah BTS</button>\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.btsImportExcel({})\">Import from excel</button>\r" +
+    "                            <button id=\"importButton\" class=\"btn btn-success\" ui-sref=\"app.btsImportExcel({})\">Import from excel</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -1308,12 +1308,6 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-3 text-right\">Customer Site ID :</label><label class=\"col-sm-9\">{{ model.customerSite }}</label>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"row form-group\">\r" +
-    "\n" +
     "                <label class=\"control-label col-sm-3 text-right\">Tower ID :</label><label class=\"col-sm-9\">{{ model.towerId }}</label>\r" +
     "\n" +
     "            </div>\r" +
@@ -1357,18 +1351,6 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "            <div class=\"row form-group\">\r" +
     "\n" +
     "                <label class=\"control-label col-sm-3 text-right\">Area :</label><label class=\"col-sm-9\">{{ model.areaTitle }}</label>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"row form-group\">\r" +
-    "\n" +
-    "                <label class=\"control-label col-sm-3 text-right\">Kota :</label><label class=\"col-sm-9\">{{ model.kotaTitle }}</label>\r" +
-    "\n" +
-    "            </div>\r" +
-    "\n" +
-    "            <div class=\"row form-group\">\r" +
-    "\n" +
-    "                <label class=\"control-label col-sm-3 text-right\">Cabang :</label><label class=\"col-sm-9\">{{ model.cabangTitle }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -1884,7 +1866,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.cabangEntry({ id: '0'})\">Tambah Cabang</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.cabangEntry({ id: '0'})\">Tambah Cabang</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -2411,7 +2393,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.costKategoriEntry({ id: '0'})\">Tambah Cost Kategori</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.costKategoriEntry({ id: '0'})\">Tambah Cost Kategori</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -2851,9 +2833,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
-    "                        <div id=\"containerSalesReport\" style=\"min-width: 310px; width:700px; height: 400px; margin: 0 auto\"></div>\r" +
+    "                        <div id=\"containerSalesReport\" style=\" width:700px; height: 400px; margin: 0 auto\"></div>\r" +
     "\n" +
-    "                        <div id=\"containerGoalCompletion\" style=\"min-width: 310px; width:700px; height: 400px; margin: 0 auto\"></div>\r" +
+    "                        <div id=\"containerGoalCompletion\" style=\" width:700px; height: 400px; margin: 0 auto\"></div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -2919,7 +2901,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    </div>\r" +
     "\n" +
-    "                    <div id=\"containerRevenueCost\" style=\"min-width: 310px; height: 400px; margin: 0 auto\"></div>\r" +
+    "                    <div id=\"containerRevenueCost\" style=\" height: 400px; margin: 0 auto\"></div>\r" +
     "\n" +
     "                    <div class=\"row\">\r" +
     "\n" +
@@ -3023,7 +3005,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.deliveryAreaEntry({ id: '0'})\">Tambah Delivery Area</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.deliveryAreaEntry({ id: '0'})\">Tambah Delivery Area</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -3149,7 +3131,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.issueTypeEntry({ id: '0'})\">Tambah Issue Type</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.issueTypeEntry({ id: '0'})\">Tambah Issue Type</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -3273,7 +3255,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.izinCutiEntry({ id: '0'})\">Tambah Izin Cuti</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.izinCutiEntry({ id: '0'})\">Tambah Izin Cuti</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -3636,7 +3618,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.kategoriJabatanEntry({ id: '0'})\">Tambah Kategori Jabatan</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.kategoriJabatanEntry({ id: '0'})\">Tambah Kategori Jabatan</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -3762,7 +3744,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.kotaEntry({ id: '0'})\">Tambah Kota</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.kotaEntry({ id: '0'})\">Tambah Kota</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -5459,7 +5441,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.operatorEntry({ id: '0'})\">Tambah Operator</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.operatorEntry({ id: '0'})\">Tambah Operator</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -5903,7 +5885,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.projectEntry({ id: '0'})\">Tambah Project</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.projectEntry({ id: '0'})\">Tambah Project</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -6966,7 +6948,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <label class=\"control-label col-sm-2\">Asset</label>\r" +
     "\n" +
-    "                                        <button class=\"btn btn-info col-sm-4\" ui-sref=\"app.asetHistoriList({ userDetail_pk: vm.user.userDetail_fk})\">Histori Penggunaan Aset</button>\r" +
+    "                                        <button id=\"asetHistoriButton\" class=\"btn btn-info col-sm-4\" ui-sref=\"app.asetHistoriList({ userDetail_pk: vm.user.userDetail_fk})\">Histori Penggunaan Aset</button>\r" +
     "\n" +
     "                                    </div>\r" +
     "\n" +
@@ -7164,7 +7146,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.role-entry({ id: '0'})\">Tambah Role</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.role-entry({ id: '0'})\">Tambah Role</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -7282,7 +7264,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.roleGroupEntry({ id: '0'})\">Tambah Role Group</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.roleGroupEntry({ id: '0'})\">Tambah Role Group</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -7473,9 +7455,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.sowEntry({ id: '0'})\">Add Task</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.sowEntry({ id: '0'})\">Add Task</button>\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.sowImportExcel({})\">Import from excel</button>\r" +
+    "                            <button id=\"importButton\" class=\"btn btn-success\" ui-sref=\"app.sowImportExcel({})\">Import from excel</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -8902,7 +8884,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.technologyEntry({ id: '0'})\">Tambah Technology</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.technologyEntry({ id: '0'})\">Tambah Technology</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -9026,9 +9008,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.userEntry({ id: '0'})\">Tambah User</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.userEntry({ id: '0'})\">Tambah User</button>\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.userImportExcel({})\">Import from excel</button>\r" +
+    "                            <button id=\"importButton\" class=\"btn btn-success\" ui-sref=\"app.userImportExcel({})\">Import from excel</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -9990,7 +9972,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button class=\"btn btn-success\" ui-sref=\"app.vendorEntry({ id: '0'})\">Tambah Vendor</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.vendorEntry({ id: '0'})\">Tambah Vendor</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +

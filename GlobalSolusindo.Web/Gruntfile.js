@@ -185,6 +185,7 @@ module.exports = function (grunt) {
                         //'app/assets/js/angular-ui-router.js.map',
                         /** Insert any Development JS or CSS */
                         'app/app.js',
+                        'app/assets/js/highcharts.js',
                         'app/app.config.js',
                         'app/**/*Module.js',
                         'app/**/*Model.js',
@@ -202,6 +203,7 @@ module.exports = function (grunt) {
 						'app/assets/fonts/**',
                         'app/assets/css/<%= pkg.name %>-style.<%= pkg.version %>.<%= pkg.build %>.css',
                         'app/assets/css/*.css',
+                        'app/assets/js/highcharts.js',
                         'app/assets/js/<%= pkg.name %>-dist.min.<%= pkg.version %>.<%= pkg.build %>.js',
                         'app/assets/js/<%= pkg.name %>-app.<%= pkg.version %>.<%= pkg.build %>.js',
                         'app/assets/js/<%= pkg.name %>-templates.<%= pkg.version %>.<%= pkg.build %>.js'

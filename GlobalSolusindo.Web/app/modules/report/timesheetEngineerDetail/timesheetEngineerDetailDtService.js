@@ -13,11 +13,39 @@
         .module('global-solusindo')
         .factory('timesheetEngineerDetailDtService', timesheetEngineerDetailDtService);
 
-    timesheetEngineerDetailDtService.$inject = ['DatatableService'];
+    timesheetEngineerDetailDtService.$inject = ['DatatableService','HttpService'];
 
-    function timesheetEngineerDetailDtService(ds) {
+    function timesheetEngineerDetailDtService(ds, http) {
         var self = this;
         var controller = {};
+
+        var view = 'hidden';
+
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var updateRole = "TimesheetEngineer_ViewAll";
+
+            if (setRole(res.data, updateRole)) {
+                view = 'visible';
+            }
+            
+        })
+        
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
 
         self.init = function (ctrl) {
             controller = ctrl;
@@ -51,7 +79,7 @@
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info'>Detail</button>";
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view +"'>Detail</button>";
                         }
                     }
                 ],
