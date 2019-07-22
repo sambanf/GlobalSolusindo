@@ -39,7 +39,6 @@
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_Cost" Width="1.5" PointX="13.75" PointY="10.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_IzinCuti" Width="1.5" PointX="13.75" PointY="14.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_PO" Width="1.5" PointX="15.75" PointY="0.75" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOW" Width="1.5" PointX="15.75" PointY="9.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOWAssign" Width="1.5" PointX="15.75" PointY="14.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOWIssue" Width="1.5" PointX="5.75" PointY="16.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOWResult" Width="1.5" PointX="7.75" PointY="16.75" />
@@ -71,6 +70,7 @@
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserDetail_Status_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOW" Width="1.5" PointX="12.375" PointY="19.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

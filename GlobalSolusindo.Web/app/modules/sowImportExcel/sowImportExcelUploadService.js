@@ -11,21 +11,21 @@
 
     angular
         .module('global-solusindo')
-        .factory('SOWImportExcelUploadService', UserImportExcelUploadService);
+        .factory('SOWImportExcelUploadService', SOWImportExcelUploadService);
 
-    UserImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    SOWImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function UserImportExcelUploadService($state, http, ui, validation) {
+    function SOWImportExcelUploadService($state, http, ui, validation) {
         var self = this;
-        var userImportExcelCtrl;
+        var SOWImportExcelCtrl;
 
         function goToListPage() {
             $state.go('app.sowList');
         }
 
         self.save = function (model) {
-            http.post('user/import', model).then(function (res) {
-                userImportExcelCtrl.uploadResults = res.data;
+            http.post('sow/import', model).then(function (res) {
+                SOWImportExcelCtrl.uploadResults = res.data;
                 if (res.success) {
                     ui.alert.success('Upload process complete.');
                 } else {
@@ -38,7 +38,7 @@
 
         self.downloadTpl = function () {
             debugger;
-            http.downloadFile('user/export', { keyword: '' }).then(function (data) {
+            http.downloadFile('sow/export', { keyword: '' }).then(function (data) {
                 var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
                 var linkElement = document.createElement('a');
                 try {
@@ -62,9 +62,9 @@
 
         };
         self.init = function (ctrl) {
-            userImportExcelCtrl = ctrl;
+            SOWImportExcelCtrl = ctrl;
             angular.element('#uploadButton').on('click', function () {
-                self.save(userImportExcelCtrl.model);
+                self.save(SOWImportExcelCtrl.model);
             });
 
             angular.element('#downloadButton').on('click', function () {

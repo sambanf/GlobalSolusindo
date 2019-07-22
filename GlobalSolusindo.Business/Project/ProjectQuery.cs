@@ -61,10 +61,40 @@ namespace GlobalSolusindo.Business.Project
             return query;
         }
 
+        public IQueryable<ProjectDTO> GetProjectByPM(int PMPK)
+        {
+            var query = from project in Db.tblM_Project
+                        join _operator in Db.tblM_Operator on project.Operator_FK equals _operator.Operator_PK into operatorTemp
+                        from _operator in operatorTemp.DefaultIfEmpty()
+                        join deliveryArea in Db.tblM_DeliveryArea on project.DeliveryArea_FK equals deliveryArea.DeliveryArea_PK into deliveryAreaTemp
+                        from deliveryArea in deliveryAreaTemp.DefaultIfEmpty()
+                        join vendor in Db.tblM_Vendor on project.Vendor_FK equals vendor.Vendor_PK into vendorTemp
+                        from vendor in vendorTemp.DefaultIfEmpty()
+                        where project.User_FK == PMPK && project.Status_FK != deleted
+                        select new ProjectDTO
+                        {
+                            Project_PK = project.Project_PK,
+                            Operator_FK = project.Operator_FK,
+                            OperatorTitle = _operator.Title,
+                            DeliveryArea_FK = project.DeliveryArea_FK,
+                            DeliveryAreaTitle = deliveryArea.Title,
+                            VendorTitle = vendor.Title,
+                            Vendor_FK = project.Vendor_FK,
+                            CreatedBy = project.CreatedBy,
+                            CreatedDate = project.CreatedDate,
+                            UpdatedBy = project.UpdatedBy,
+                            UpdatedDate = project.UpdatedDate,
+                            User_FK = project.User_FK,
+                            Status_FK = project.Status_FK
+                        };
+            return query;
+        }
+
         public SearchResult<ProjectDTO> Search(ProjectSearchFilter filter)
         {
             if (string.IsNullOrEmpty(filter.SortName))
                 filter.SortName = "Project_PK";
+
             ProjectQuery projectQuery = new ProjectQuery(this.Db);
 
             var filteredRecords =

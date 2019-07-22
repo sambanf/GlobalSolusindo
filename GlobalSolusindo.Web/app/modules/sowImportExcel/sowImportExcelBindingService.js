@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .factory('SOWImportExcelBindingService', UserImportExcelBindingService);
+        .factory('SOWImportExcelBindingService', SOWImportExcelBindingService);
 
-    UserImportExcelBindingService.$inject = ['HttpService', '$state'];
+    SOWImportExcelBindingService.$inject = ['HttpService', '$state'];
 
-    function UserImportExcelBindingService(http, $state) {
+    function SOWImportExcelBindingService(http, $state) {
         var self = this;
         var controller = {};
        

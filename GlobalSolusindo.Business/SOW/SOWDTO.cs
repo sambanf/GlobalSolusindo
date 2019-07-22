@@ -16,8 +16,12 @@ namespace GlobalSolusindo.Business.SOW
 {
     public class SOWDTO : DTO
     {
+        
         [JsonProperty("sow_pk")]
         public int SOW_PK { get; set; }
+
+        [JsonProperty("pmouniq")]
+        public string PMOUniq { get; set; }
 
         [Required]
         [JsonProperty("sowName")]
@@ -70,5 +74,9 @@ namespace GlobalSolusindo.Business.SOW
 
         [JsonProperty("duid")]
         public string DUID { get; set; }
+        [JsonProperty("lvdate")]
+        public DateTime LVDate { get; set; }
+        [JsonProperty("accdate")]
+        public DateTime AcceptedDate { get; set; }
     }
 }
