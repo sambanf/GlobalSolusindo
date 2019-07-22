@@ -56,8 +56,10 @@
 
             $("#sow tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
-                var id = data["sow_pk"];
-                self.view(id);
+                //var id = data["sow_pk"];
+                //self.view(id);
+                //var data = controller.datatable.row($(this).parents('tr')).data();
+                self.info(data.sow_pk);
             });
         };
 

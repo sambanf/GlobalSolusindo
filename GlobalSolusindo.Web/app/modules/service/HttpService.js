@@ -19,9 +19,16 @@
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
+<<<<<<< HEAD
         //var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
         var base_url = "http://localhost/GlobalAPI/";
+=======
+        //var base_url = "http://localhost:88/";
+        //var base_url = "http://gsapi.local/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://localhost/GlobalAPI/";
+>>>>>>> 99014444a7a617313aa14c1ad43535ab65b75269
         var base_host = "";
 
         var auth = {};
@@ -57,10 +64,12 @@
                 console.log(response);
                 ui.alert.error("Error. Debug mode is ON." + debugMessage);
             }
-            if (status === 500)
+            if (status === 500) {
                 ui.alert.error("Something error happen on the server." + debugMessage);
-            if (status === -1)
-                //ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
+            }
+            //if (status === -1) {
+            //    ui.alert.error("Connection error, please check network or internet connection." + debugMessage);
+            //}
             if (status === 401) {
                 handleUnauthorized();
             }

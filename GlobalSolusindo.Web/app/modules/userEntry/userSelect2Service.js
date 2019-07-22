@@ -19,6 +19,38 @@
         var self = this;
         var controller;
 
+        function getProjects() {
+            select2Service.liveSearch("project/search", {
+                selector: '#project_fk',
+                valueMember: 'project_pk',
+                displayMember: 'operatorTitle',
+                callback: function (data) {
+                    controller.formData.projects = data;
+                },
+                onSelected: function (data) {
+                    controller.model.project = data.project_pk;
+                },
+                templateResult: function (item) {
+                    var markup = '';
+                    if (item.loading) {
+                        markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div>" + item.text + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    } else {
+                        markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div><b>" + item.operatorTitle + "</b></div>" +
+                            "<div>" + item.vendorTitle + "</div>" +
+                            "<div>" + item.deliveryAreaTitle + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    }
+                }
+            });
+        }
+
         function getKategoriJabatans() {
             select2Service.liveSearch("kategoriJabatan/search", {
                 selector: '#kategoriJabatan_fk',
@@ -37,6 +69,7 @@
             controller = ctrl;
             angular.element(document).ready(function () {
                 getKategoriJabatans();
+                getProjects();
             });
         };
 

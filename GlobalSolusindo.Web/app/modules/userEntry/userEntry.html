@@ -50,6 +50,16 @@
                             </div>
 
                             <div class="row form-group">
+                                <label class="control-label col-sm-3">Project:</label>
+                                <div class="col-sm-6">
+                                    <select id="project_fk" name="project_fk" class="form-control input-lg" ng-model="vm.model.project" required>
+                                        <option ng-repeat="x in vm.formData.projects" ng-value="x.project_pk">{{x.operatorTitle + ' - ' + x.vendorTitle + ' - ' + x.deliveryAreaTitle}}</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
                                 <label class="control-label col-sm-3">Phone Number:</label>
                                 <div class="col-sm-9">
                                     <input type="text" class="form-control" id="noHP" name="noHP" ng-model="vm.model.noHP" placeholder="Phone Number">
@@ -81,7 +91,7 @@
                                 </div>
                             </div>
 
-                            <div class="row form-group"  ng-show="vm.model.user_pk == 0">
+                            <div class="row form-group" ng-show="vm.model.user_pk == 0">
                                 <label class="control-label col-sm-3">Retype Password:</label>
                                 <div class="col-sm-9">
                                     <input type="password" class="form-control" id="reTypePassword" name="reTypePassword" autocomplete="off" ng-model="vm.model.reTypePassword" placeholder="Retype Password">
@@ -211,7 +221,7 @@
                     <div class="row form-group">
                         <div class="col-md-12">
                             <button class="btn btn-success" id="saveButton">Tambah User</button>
-                            <button class="btn btn-default float-right" ui-sref="app.userList">Kembali</button>
+                            <button class="btn btn-default ml-1" ui-sref="app.userList">Kembali</button>
                         </div>
                     </div>
                 </div>

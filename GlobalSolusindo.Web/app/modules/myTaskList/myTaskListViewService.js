@@ -32,11 +32,11 @@
                 self.view(data.checkIn_pk);
             });
 
-            $("#myTaskList tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["checkIn_pk"];
-                self.view(id);
-            });
+            //$("#myTaskList tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["checkIn_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

@@ -17,7 +17,7 @@
                                 <label class="control-label col-sm-3">Project:</label>
                                 <div class="col-sm-6">
                                     <select id="project_fk" name="project_fk" class="form-control input-lg" ng-model="vm.model.project_fk" required>
-                                        <option ng-repeat="x in vm.formData.projects" ng-value="x.project_pk">{{x.operatorTitle}}</option>
+                                        <option ng-repeat="x in vm.formData.projects" ng-value="x.project_pk">{{x.operatorTitle + ' - ' + x.vendorTitle + ' - ' + x.deliveryAreaTitle}}</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -118,7 +118,7 @@
                     <div class="row form-group">
                         <div class="col-md-8">
                             <button class="btn btn-success" id="saveButton">Simpan</button>
-                            <button class="btn btn-default float-right" ui-sref="app.sowList">Kembali</button>
+                            <button class="btn btn-default ml-1" ui-sref="app.sowList">Kembali</button>
                         </div>
                     </div>
                 </div>

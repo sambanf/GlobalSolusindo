@@ -32,11 +32,11 @@
                 self.view(data.cabang_pk);
             });
 
-            $("#cabang tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["cabang_pk"];
-                self.view(id);
-            });
+            //$("#cabang tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["cabang_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;

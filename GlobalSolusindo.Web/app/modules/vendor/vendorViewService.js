@@ -32,11 +32,11 @@
                 self.view(data.vendor_pk);
             });
 
-            $("#vendor tbody").on("dblclick", "tr", function () {
-                var data = controller.datatable.row(this).data();
-                var id = data["vendor_pk"];
-                self.view(id);
-            });
+            //$("#vendor tbody").on("dblclick", "tr", function () {
+            //    var data = controller.datatable.row(this).data();
+            //    var id = data["vendor_pk"];
+            //    self.view(id);
+            //});
         };
 
         return self;
