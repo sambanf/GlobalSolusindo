@@ -24,7 +24,8 @@ using GlobalSolusindo.Business.TaskList.Queries;
 using GlobalSolusindo.Business.Project;
 using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.Technology.Queries;
-
+using GlobalSolusindo.Identity;
+using System.Globalization;
 
 namespace GlobalSolusindo.Api.Models
 {
@@ -33,7 +34,6 @@ namespace GlobalSolusindo.Api.Models
     {
         protected string _sheetName;
         protected string _fileName;
-
 
         public HttpResponseMessage Export(GlobalSolusindoDb Db, tblM_User user, string fileName, TaskListSearchFilter filter)
         {
@@ -255,16 +255,130 @@ namespace GlobalSolusindo.Api.Models
 
                 }
 
-
-
-
-
-                //SETUP TABLE TEAMLEAD, RNO, RIGGER, TESTER
-
-
-
-
             }
+
+            MemoryStream memoryStream = GetStream(workbook);
+            var response = new HttpResponseMessage(HttpStatusCode.OK)
+            {
+                Content = new ByteArrayContent(memoryStream.ToArray())
+            };
+
+            response.Content.Headers.ContentType = new MediaTypeHeaderValue
+                   ("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.Content.Headers.ContentDisposition =
+                   new ContentDispositionHeaderValue("attachment")
+                   {
+                       FileName = $"{_fileName}_{DateTime.Now.ToString("yyyyMMddHHmmss")}.xlsx"
+                   };
+
+            return response;
+
+
+        }
+
+        public HttpResponseMessage ExportViewAll(GlobalSolusindoDb Db, tblM_User user, string fileName, TaskListSearchFilter filter)
+        {
+            _fileName = fileName;
+            //CREATE WORKBOOK
+            var workbook = new XLWorkbook();
+            DataTable SOW = new DataTable("SOWUpload"); //DataTable Name = Worksheet Name
+
+            AccessControl ac = new AccessControl(Db, user);
+            //if (ac.UserHasRole("SOWPO_View"))
+            {
+                SOWExportDTOViewAll obj = new SOWExportDTOViewAll();
+                UserQuery userQuery = new UserQuery();
+                //Setup Column Names
+                foreach (var item in obj.GetType().GetProperties())
+                {
+                    SOW.Columns.Add(item.Name);
+                }
+                DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+                Calendar cal = dfi.Calendar;
+                using (SOWQuery sOWQuery = new SOWQuery())
+                {
+                    var data = sOWQuery.GetQueryforExcel().ToList();
+                    DataRow dr;
+                    foreach (var item in data)
+                    {
+                        dr = SOW.NewRow();
+                        dr["PMOUniq"] = item.PMOUniq;
+                        dr["PLOUniq"] = item.PLOUniq;
+                        dr["SiteIDPO"] = item.SiteIDPO;
+                        dr["SiteNamePO"] = item.SiteNamePO;
+                        dr["System"] = item.System;
+                        dr["SOW"] = item.SOW;
+                        dr["Long"] = item.Long;
+                        dr["lat"] = item.lat;
+                        dr["CODate"] = item.CODate;
+                        //DT Date
+                        dr["SSVDate"] = item.SSVDate;
+                        dr["SSODate"] = item.SSODate;
+                        //LVDate
+                        dr["LVDate"] = item.LVDate;
+                        dr["LVWeek"] = item.LVDate == null ? "" : cal.GetWeekOfYear(item.LVDate.GetValueOrDefault(DateTime.Now), dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
+                        dr["LVMonth"] = item.LVDate == null ? "" : cal.GetMonth(item.LVDate.GetValueOrDefault(DateTime.Now)).ToString();
+                        dr["LVYear"] = item.LVDate == null ? "" : cal.GetYear(item.LVDate.GetValueOrDefault(DateTime.Now)).ToString();
+                        dr["AgingLV"] = getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)).ToString();
+                        dr["MarkLV1"] = getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) == 0 ? "NY LV" :
+                                        getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) > 180 ? ">180 Days" :
+                                        getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) > 90 ? ">90 Days" :
+                                        getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) > 40 ? ">40 Days" :
+                                        getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) > 30 ? "30 - 40 Days" :
+                                        getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) > 14 ? "15 - 30 Days" :
+                                        getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) < 15 ? "0 - 14 Days" : "";
+                        dr["MarkLV2"] = getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) == 0 ? "NY SSV" :
+                                            getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) > 7 ? "> 7 Days" :
+                                            getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) > 3 ? "> 3 Days" :
+                                            getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)) <= 3 ? "< 3 Days" : "";
+
+                        //Accepted Date
+                        dr["AcceptedDate"] = item.AcceptedDate;
+                        dr["QCAging"] = item.AcceptedDate == null ? getDayBeetween(DateTime.Now, item.LVDate.GetValueOrDefault(DateTime.Now)).ToString() : getDayBeetween(item.AcceptedDate.GetValueOrDefault(DateTime.Now), item.LVDate.GetValueOrDefault(DateTime.Now)).ToString();
+                        dr["QCYear"] = item.AcceptedDate == null ? "" : cal.GetYear(item.AcceptedDate.GetValueOrDefault(DateTime.Now)).ToString();
+                        dr["QCMonth"] = item.AcceptedDate == null ? "" : cal.GetMonth(item.AcceptedDate.GetValueOrDefault(DateTime.Now)).ToString();
+                        dr["QCWeek"] = item.AcceptedDate == null ? "" : cal.GetWeekOfYear(item.AcceptedDate.GetValueOrDefault(DateTime.Now), dfi.CalendarWeekRule, dfi.FirstDayOfWeek).ToString();
+                        dr["QCDate"] = item.AcceptedDate;
+                        dr["Region"] = item.Region;
+                        //USER
+                        dr["PLOQC"] = item.PLOQC == null ? "" : userQuery.GetByUsername(item.PLOQC).Name;
+                        dr["LinkReport"] = item.LinkReport;
+                        //RF
+                        dr["RF"] = item.RF == null ? "" : userQuery.GetByUsername(item.RF).Name;
+                        dr["LinkReport2"] = item.LinkReport2;
+                        //Rigger
+                        dr["Rigger"] = item.Rigger == null ? "" : userQuery.GetByUsername(item.Rigger).Name; 
+                        dr["LinkAOR"] = item.LinkAOR;
+                        //DT
+                        dr["DT"] = item.DT == null ? "" : userQuery.GetByUsername(item.DT).Name;
+                        dr["LinkSSO"] = item.LinkSSO;
+                        dr["LinkSSV"] = item.LinkSSV;
+
+                        //PO :3
+                        dr["NOPO"] = item.NOPO;
+                        dr["Esarsubmit"] = item.Esarsubmit;
+                        dr["VsSubmit"] = item.VsSubmit;
+                        dr["Quantity"] = item.Quantity;
+                        dr["InvoiceSubmit"] = item.InvoiceSubmit;
+                        dr["PaidDate"] = item.PaidDate;
+                        dr["Esarstatus1"] = item.Esarstatus1;
+                        dr["Esarsubmit2"] = item.Esarsubmit2;
+                        dr["VsSubmit2"] = item.VsSubmit2;
+                        dr["Quantity2"] = item.Quantity2;
+                        dr["InvoiceSubmit2"] = item.InvoiceSubmit2;
+                        dr["PaidDate2"] = item.PaidDate2;
+                        dr["Esarstatus2"] = item.Esarstatus2;
+                        dr["StatusPO"] = (item.Quantity == "" ? 0 : Convert.ToDecimal(item.Quantity) ) + (item.Quantity2 == "" ? 0 : Convert.ToDecimal(item.Quantity2)) <1 &&( (item.Esarstatus1 !="2") || (item.Esarstatus2 != "2")) ? "On Progress" : "Done";
+                        dr["remarkpo"] = item.remarkpo;
+                        SOW.Rows.Add(dr);
+                    }
+
+                }
+            }
+
+            var worksheet = workbook.AddWorksheet(SOW);
+            worksheet.Columns().Width = 15;
+
 
             MemoryStream memoryStream = GetStream(workbook);
             var response = new HttpResponseMessage(HttpStatusCode.OK)
@@ -290,6 +404,13 @@ namespace GlobalSolusindo.Api.Models
             excelWorkbook.SaveAs(fs);
             fs.Position = 0;
             return fs;
+        }
+
+        private int getDayBeetween(DateTime date1, DateTime date2)
+        {
+            DateTimeFormatInfo dfi = DateTimeFormatInfo.CurrentInfo;
+            Calendar cal = dfi.Calendar;
+            return (cal.GetDayOfYear(date1) - cal.GetDayOfYear(date2));
         }
     }
 }

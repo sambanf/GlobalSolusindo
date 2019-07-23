@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SOW\DML\SOWImportExcelHandler.cs" />
+    <Compile Include="SOW\SOWDTOViewAll.cs" />
     <Compile Include="UserHistory\Queriesuser\UserHistoriQuery.cs" />
     <Compile Include="UserHistory\Queriesuser\UserHistoriSearch.cs" />
     <Compile Include="UserHistory\UserHistoriDTO.cs" />

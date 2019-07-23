@@ -7,6 +7,7 @@ using Kairos.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.SOW
@@ -53,7 +54,6 @@ namespace GlobalSolusindo.Business.SOW
                             BTSName = bts.Name,
                             Project_FK = sow.Project_FK.Value,
                             DUID = sow.DUID,
-                            //ProjectTitle = project.Title,
                             Technology_FK = sow.Technology_FK,
                             TglMulai = sow.TglMulai,
                             TglSelesai = sow.TglSelesai,
@@ -65,6 +65,56 @@ namespace GlobalSolusindo.Business.SOW
                             UpdatedDate = sow.UpdatedDate,
                             Status_FK = sow.Status_FK
                         };
+
+            return query;
+        }
+        
+        public IQueryable<SOWDTOViewAll> GetQueryforExcel()
+        {
+
+            var query = from sowpo in Db.vw_SOWViewAll
+            select new SOWDTOViewAll
+            {
+                PLOUniq = sowpo.SiteIDPO + " - " + sowpo.SiteNamePO + " - " + sowpo.SOW,
+                PMOUniq = sowpo.PMOUniq,
+                DUID = sowpo.DUID,
+                SiteIDPO = sowpo.SiteIDPO,
+                SiteNamePO = sowpo.SiteNamePO,
+                System = sowpo.System,
+                SOW = sowpo.SOW,
+                Long = sowpo.Long,
+                lat = sowpo.Lat,
+                CODate = sowpo.CODate,
+                SSVDate = sowpo.SSVDate,
+                SSODate = sowpo.SSODate,
+                LVDate = sowpo.LVDate,
+                AcceptedDate = sowpo.AcceptedDate,
+                Region = sowpo.Region,
+                PLOQC = sowpo.RNO,
+                LinkReport = sowpo.LinkRNO,
+                RF = sowpo.RF,
+                LinkReport2 = sowpo.LinkRF,
+                Rigger = sowpo.Rigger,
+                LinkAOR = sowpo.LinkRigger,
+                DT = sowpo.DT,
+                LinkSSV = sowpo.SSVLink,
+                LinkSSO = sowpo.SSOLink,
+                NOPO = sowpo.NoPo,
+                Value = sowpo.Value.ToString(),
+                Esarsubmit = sowpo.EsarSubmit1st,
+                VsSubmit = sowpo.VsSubmit1st,
+                Quantity = sowpo.Quantity1st.ToString(),
+                InvoiceSubmit = sowpo.InvoiceSubmit1st,
+                PaidDate = sowpo.PaidDate1st,
+                Esarstatus1 = sowpo.EsarStatus1st.ToString(),
+                Esarsubmit2 = sowpo.EsarSubmit2nd,
+                VsSubmit2 = sowpo.VsSubmit2nd,
+                Quantity2 = sowpo.Quantity2nd.ToString(),
+                InvoiceSubmit2 = sowpo.InvoiceSubmit2nd,
+                PaidDate2 = sowpo.PaidDate2nd,
+                Esarstatus2 = sowpo.EsarStatus2nd.ToString(),
+                remarkpo = sowpo.Remarks,
+            };
 
             return query;
         }

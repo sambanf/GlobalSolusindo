@@ -103,9 +103,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.areaList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.areaList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -257,7 +257,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "</div>\r" +
     "\n" +
@@ -397,7 +397,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
-    "                            <button class=\"btn btn-default float-right\" ui-sref=\"app.asetList\">Kembali</button>\r" +
+    "                            <button class=\"btn btn-default ml-1\" ui-sref=\"app.asetList\">Kembali</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -587,7 +587,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "</div>\r" +
     "\n" +
@@ -805,9 +805,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.asetKategoriList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.asetKategoriList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -1117,7 +1117,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "</div>"
   );
@@ -1172,11 +1172,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"row\">\r" +
     "\n" +
-    "                            <div class=\"col-md-12\">\r" +
+    "                            <div class=\"col-md-12\"> <button class=\"btn btn-success\"\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.authParamList\">Kembali</button> <button class=\"btn btn-success\"\r" +
+    "                                id=\"saveButton\">Tambah AuthParam</button>\r" +
     "\n" +
-    "                                    id=\"saveButton\">Tambah AuthParam</button>\r" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.authParamList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -1368,7 +1368,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "</div>\r" +
     "\n" +
@@ -1700,7 +1700,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.btsList\">Kembali</button>\r" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.btsList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -1953,9 +1953,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.cabangList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.cabangList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -2354,11 +2354,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"col-md-12\">\r" +
     "\n" +
-    "                        <button class=\"btn btn-danger\" id=\"rejectButton\">Reject</button>\r" +
-    "\n" +
     "                        <button class=\"btn btn-success\" id=\"approveButton\">Approve</button>\r" +
     "\n" +
-    "                        <button class=\"btn btn-default float-right\" ui-sref=\"app.checkInList\">Kembali</button>\r" +
+    "                        <button class=\"btn btn-danger ml-1\" id=\"rejectButton\">Reject</button>\r" +
+    "\n" +
+    "                        <button class=\"btn btn-default ml-1\" ui-sref=\"app.checkInList\">Kembali</button>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -2480,9 +2480,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-success float-right\" id=\"saveButton\">Simpan</button>\r" +
+    "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
-    "                                <button class=\"btn btn-default\" ui-sref=\"app.costKategoriList\">Kembali</button>\r" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.costKategoriList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -3092,9 +3092,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.deliveryAreaList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.deliveryAreaList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -3216,9 +3216,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.issueTypeList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.issueTypeList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -3445,9 +3445,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <button class=\"btn btn-success\" id=\"approveButton\">Approve</button>\r" +
     "\n" +
-    "                                <button class=\"btn btn-danger\" id=\"rejectButton\">Reject</button>\r" +
+    "                                <button class=\"btn btn-danger ml-1\" id=\"rejectButton\">Reject</button>\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.izinCutiApprovalList\">Kembali</button>\r" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.izinCutiApprovalList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -3579,9 +3579,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-8\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.izinCutiList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.izinCutiList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -3705,9 +3705,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.kategoriJabatanList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.kategoriJabatanList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -3831,9 +3831,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.kotaList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.kotaList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -5102,7 +5102,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.menuList\">Kembali</button>\r" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.menuList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -5406,7 +5406,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <button class=\"btn btn-success\" id=\"submitButton\">Submit</button>\r" +
     "\n" +
-    "                        <button class=\"btn btn-default float-right\" ui-sref=\"app.myTaskListList\">Kembali</button>\r" +
+    "                        <button class=\"btn btn-default ml-1\" ui-sref=\"app.myTaskListList\">Kembali</button>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -5528,9 +5528,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.operatorList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.operatorList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -6096,7 +6096,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
-    "                                    <button class=\"btn btn-default float-right\" ui-sref=\"app.projectList\">Kembali</button>\r" +
+    "                                    <button class=\"btn btn-default ml-1\" ui-sref=\"app.projectList\">Kembali</button>\r" +
     "\n" +
     "                                </div>\r" +
     "\n" +
@@ -7103,13 +7103,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.role-list\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">\r" +
     "\n" +
     "                                    Tambah Role\r" +
     "\n" +
     "                                </button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.role-list\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -7241,7 +7241,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "</div>"
   );
@@ -7359,7 +7359,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "</div>"
   );
@@ -7414,11 +7414,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"row\">\r" +
     "\n" +
-    "                            <div class=\"col-md-12\">\r" +
-    "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.roleGroupList\">Kembali</button> <button class=\"btn btn-success\"\r" +
+    "                            <div class=\"col-md-12\"><button class=\"btn btn-success\"\r" +
     "\n" +
     "                                    id=\"saveButton\">Tambah RoleGroup</button>\r" +
+    "\n" +
+    "                                    <button class=\"btn btn-default ml-1\" ui-sref=\"app.roleGroupList\">Kembali</button> \r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -7465,7 +7465,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
     "\n" +
-    "\r" +
+    "                            <button class=\"btn btn-default\" id=\"downloadButtonViewall\">Download View All</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -7980,7 +7980,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <select id=\"project_fk\" name=\"project_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.project_fk\" required>\r" +
     "\n" +
-    "                                        <option ng-repeat=\"x in vm.formData.projects\" ng-value=\"x.project_pk\">{{x.operatorTitle}}</option>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.projects\" ng-value=\"x.project_pk\">{{x.operatorTitle + ' - ' + x.vendorTitle + ' - ' + x.deliveryAreaTitle}}</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -8182,7 +8182,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
-    "                            <button class=\"btn btn-default float-right\" ui-sref=\"app.sowList\">Kembali</button>\r" +
+    "                            <button class=\"btn btn-default ml-1\" ui-sref=\"app.sowList\">Kembali</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -8969,9 +8969,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.technologyList\">Kembali</button>\r" +
-    "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
+    "\n" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.technologyList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +
@@ -9136,7 +9136,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "</div>"
   );
@@ -9247,6 +9247,26 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"row form-group\">\r" +
     "\n" +
+    "                                <label class=\"control-label col-sm-3\">Project:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <select id=\"project_fk\" name=\"project_fk\" class=\"form-control input-lg\" ng-model=\"vm.model.project\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.projects\" ng-value=\"x.project_pk\">{{x.operatorTitle + ' - ' + x.vendorTitle + ' - ' + x.deliveryAreaTitle}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
     "                                <label class=\"control-label col-sm-3\">Phone Number:</label>\r" +
     "\n" +
     "                                <div class=\"col-sm-9\">\r" +
@@ -9309,7 +9329,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "\r" +
     "\n" +
-    "                            <div class=\"row form-group\"  ng-show=\"vm.model.user_pk == 0\">\r" +
+    "                            <div class=\"row form-group\" ng-show=\"vm.model.user_pk == 0\">\r" +
     "\n" +
     "                                <label class=\"control-label col-sm-3\">Retype Password:</label>\r" +
     "\n" +
@@ -9569,7 +9589,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <button class=\"btn btn-success\" id=\"saveButton\">Tambah User</button>\r" +
     "\n" +
-    "                            <button class=\"btn btn-default float-right\" ui-sref=\"app.userList\">Kembali</button>\r" +
+    "                            <button class=\"btn btn-default ml-1\" ui-sref=\"app.userList\">Kembali</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -9763,7 +9783,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Cancel</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "</div>"
   );
@@ -10059,7 +10079,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <button class=\"btn btn-success\" id=\"saveButton\">Simpan</button>\r" +
     "\n" +
-    "                                <button class=\"btn btn-default float-right\" ui-sref=\"app.vendorList\">Kembali</button>\r" +
+    "                                <button class=\"btn btn-default ml-1\" ui-sref=\"app.vendorList\">Kembali</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +

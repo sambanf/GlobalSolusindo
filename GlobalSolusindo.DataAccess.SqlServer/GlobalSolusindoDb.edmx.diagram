@@ -71,6 +71,8 @@
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOW" Width="1.5" PointX="12.375" PointY="19.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_LogActivity" Width="1.5" PointX="19.375" PointY="18.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.vw_SOWViewAll" Width="1.5" PointX="20.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
