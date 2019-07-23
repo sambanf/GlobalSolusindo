@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-21. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-23. 
 * @author Kairos
 */
 (function() {
@@ -5259,6 +5259,29 @@ angular.module('global-solusindo')
 
         }
 
+        angular.element('#downloadButtonViewall').on('click', function () {
+            http.downloadFile('sow/exportviewall', { keyword: '' }).then(function (data) {
+                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                var linkElement = document.createElement('a');
+                try {
+                    var blob = new Blob([data], { type: contentType });
+                    var url = window.URL.createObjectURL(blob);
+
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute("download", "SOWViewAll.xlsx");
+
+                    var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+        });
+
         return self;
     }
 })();
@@ -5427,7 +5450,7 @@ angular.module('global-solusindo')
 
     /**
      * @ngdoc function
-     * @name app.controller:userImportExcelCtrl
+     * @name app.controller:SOWImportExcelCtrl
      * @description
      * # dashboardCtrl
      * Controller of the app
@@ -5435,11 +5458,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .controller('SOWImportExcelCtrl', UserImportExcelCtrl);
+        .controller('SOWImportExcelCtrl', SOWImportExcelCtrl);
 
-    UserImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserImportExcelUploadService', 'UserImportExcelBindingService', 'FormControlService'];
+    SOWImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWImportExcelUploadService', 'SOWImportExcelBindingService', 'FormControlService'];
 
-    function UserImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
+    function SOWImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
         var self = this;
         self.stateParam = sParam;
 
@@ -12889,6 +12912,7 @@ angular.module('global-solusindo')
                     ui.alert.success(res.message);
                     controller.modalInstance.close();
                 } else {
+                    debugger;
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
                         validation.serverValidation(res.data.errors);
@@ -16902,11 +16926,10 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
-
-        //var base_url = "http://localhost:88/";
-        var base_url = "http://gsapi.local/";
+        //var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        //var base_url = "http://localhost/GlobalAPI/";
+        var base_url = "http://localhost/GlobalAPI/";
+
         var base_host = "";
 
         var auth = {};
@@ -18492,11 +18515,11 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('SOWImportExcelBindingService', UserImportExcelBindingService);
+        .factory('SOWImportExcelBindingService', SOWImportExcelBindingService);
 
-    UserImportExcelBindingService.$inject = ['HttpService', '$state'];
+    SOWImportExcelBindingService.$inject = ['HttpService', '$state'];
 
-    function UserImportExcelBindingService(http, $state) {
+    function SOWImportExcelBindingService(http, $state) {
         var self = this;
         var controller = {};
        
@@ -18524,21 +18547,21 @@ angular.module('global-solusindo')
 
     angular
         .module('global-solusindo')
-        .factory('SOWImportExcelUploadService', UserImportExcelUploadService);
+        .factory('SOWImportExcelUploadService', SOWImportExcelUploadService);
 
-    UserImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    SOWImportExcelUploadService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
 
-    function UserImportExcelUploadService($state, http, ui, validation) {
+    function SOWImportExcelUploadService($state, http, ui, validation) {
         var self = this;
-        var userImportExcelCtrl;
+        var SOWImportExcelCtrl;
 
         function goToListPage() {
             $state.go('app.sowList');
         }
 
         self.save = function (model) {
-            http.post('user/import', model).then(function (res) {
-                userImportExcelCtrl.uploadResults = res.data;
+            http.post('sow/import', model).then(function (res) {
+                SOWImportExcelCtrl.uploadResults = res.data;
                 if (res.success) {
                     ui.alert.success('Upload process complete.');
                 } else {
@@ -18551,7 +18574,7 @@ angular.module('global-solusindo')
 
         self.downloadTpl = function () {
             debugger;
-            http.downloadFile('user/export', { keyword: '' }).then(function (data) {
+            http.downloadFile('sow/export', { keyword: '' }).then(function (data) {
                 var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
                 var linkElement = document.createElement('a');
                 try {
@@ -18575,9 +18598,9 @@ angular.module('global-solusindo')
 
         };
         self.init = function (ctrl) {
-            userImportExcelCtrl = ctrl;
+            SOWImportExcelCtrl = ctrl;
             angular.element('#uploadButton').on('click', function () {
-                self.save(userImportExcelCtrl.model);
+                self.save(SOWImportExcelCtrl.model);
             });
 
             angular.element('#downloadButton').on('click', function () {
@@ -19908,6 +19931,38 @@ angular.module('global-solusindo')
         var self = this;
         var controller;
 
+        function getProjects() {
+            select2Service.liveSearch("project/search", {
+                selector: '#project_fk',
+                valueMember: 'project_pk',
+                displayMember: 'operatorTitle',
+                callback: function (data) {
+                    controller.formData.projects = data;
+                },
+                onSelected: function (data) {
+                    controller.model.project = data.project_pk;
+                },
+                templateResult: function (item) {
+                    var markup = '';
+                    if (item.loading) {
+                        markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div>" + item.text + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    } else {
+                        markup = "<div class='select2-result-repository__statistics'>" +
+                            "<div><b>" + item.operatorTitle + "</b></div>" +
+                            "<div>" + item.vendorTitle + "</div>" +
+                            "<div>" + item.deliveryAreaTitle + "</div>" +
+                            "</div>" +
+                            "</div></div>";
+                        return markup;
+                    }
+                }
+            });
+        }
+
         function getKategoriJabatans() {
             select2Service.liveSearch("kategoriJabatan/search", {
                 selector: '#kategoriJabatan_fk',
@@ -19926,6 +19981,7 @@ angular.module('global-solusindo')
             controller = ctrl;
             angular.element(document).ready(function () {
                 getKategoriJabatans();
+                getProjects();
             });
         };
 
