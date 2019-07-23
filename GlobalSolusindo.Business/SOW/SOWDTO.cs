@@ -4,6 +4,7 @@ using GlobalSolusindo.Business.Project;
 using GlobalSolusindo.Business.SOWAssign;
 using GlobalSolusindo.Business.SOWStatus.Queries;
 using GlobalSolusindo.Business.SOWTrack;
+using GlobalSolusindo.Business.SOWTrackResult;
 using GlobalSolusindo.Business.Technology.Queries;
 using GlobalSolusindo.Business.TipePekerjaan;
 using Kairos.DataAnnotations;
@@ -66,6 +67,9 @@ namespace GlobalSolusindo.Business.SOW
 
         [JsonProperty("sowTracks")]
         public List<SOWTrackDTO> SOWTracks { get; set; } = new List<SOWTrackDTO>();
+
+        [JsonProperty("sowTrackResults")]
+        public List<SOWTrackResultDTO> SOWTrackResults { get; set; } = new List<SOWTrackResultDTO>();
 
         //[Required(ErrorMessage = "This field is required")]
         [JsonProperty("technology_fk")]

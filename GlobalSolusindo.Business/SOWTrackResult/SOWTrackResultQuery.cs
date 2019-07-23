@@ -87,6 +87,15 @@ namespace GlobalSolusindo.Business.SOWTrackResult
             return records;
         }
 
+        public SOWTrackResultDTO GetBySowTrackFk(int sowTrackFk)
+        {
+            var records = GetQuery()
+                .Where(sowTrackResult => sowTrackResult.SOWTrack_FK == sowTrackFk)
+                .ToList();
+
+            return records.LastOrDefault();
+        }
+
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {
