@@ -206,5 +206,16 @@ namespace GlobalSolusindo.Api.Controllers
             return SOWExport.Export(Db, ActiveUser, "SOWUpload", filter);
         }
 
+        [Route("SOW/exportviewall")]
+        [HttpPost]
+        public HttpResponseMessage ExportViewAll([FromBody]TaskListSearchFilter filter)
+        {
+            string accessType = "SOW_ViewAll";
+            ThrowIfUserHasNoRole(accessType);
+            SOWExport SOWExport = new SOWExport();
+            return SOWExport.ExportViewAll(Db, ActiveUser, "SOWViewAll", filter);
+        }
+
+
     }
 }

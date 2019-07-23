@@ -225,6 +225,9 @@
     <Compile Include="tblT_IzinCuti.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblT_LogActivity.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblT_PO.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
@@ -265,6 +268,12 @@
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="usp_GetSowAssign_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="usp_GetSOWViewAll_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="vw_SOWViewAll.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
   </ItemGroup>
