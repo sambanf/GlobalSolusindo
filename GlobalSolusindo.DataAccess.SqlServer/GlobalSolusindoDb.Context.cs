@@ -75,6 +75,8 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblM_Religion> tblM_Religion { get; set; }
         public virtual DbSet<tblM_UserDetail> tblM_UserDetail { get; set; }
         public virtual DbSet<tblT_SOW> tblT_SOW { get; set; }
+        public virtual DbSet<tblT_LogActivity> tblT_LogActivity { get; set; }
+        public virtual DbSet<vw_SOWViewAll> vw_SOWViewAll { get; set; }
     
         public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
         {
@@ -418,6 +420,11 @@ namespace GlobalSolusindo.DataAccess
                 new ObjectParameter("Vendor", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetSalesReportByProject_Result>("GetSalesReportByProject", startParameter, endParameter, vendorParameter);
+        }
+    
+        public virtual ObjectResult<usp_GetSOWViewAll_Result> usp_GetSOWViewAll()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSOWViewAll_Result>("usp_GetSOWViewAll");
         }
     }
 }

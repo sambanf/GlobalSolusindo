@@ -75,8 +75,8 @@ namespace GlobalSolusindo.Business.SOW
         [JsonProperty("duid")]
         public string DUID { get; set; }
         [JsonProperty("lvdate")]
-        public DateTime LVDate { get; set; }
+        public DateTime? LVDate { get; set; }
         [JsonProperty("accdate")]
-        public DateTime AcceptedDate { get; set; }
+        public DateTime? AcceptedDate { get; set; }
     }
 }

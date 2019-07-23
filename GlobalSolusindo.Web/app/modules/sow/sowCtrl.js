@@ -51,6 +51,29 @@
 
         }
 
+        angular.element('#downloadButtonViewall').on('click', function () {
+            http.downloadFile('sow/exportviewall', { keyword: '' }).then(function (data) {
+                var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                var linkElement = document.createElement('a');
+                try {
+                    var blob = new Blob([data], { type: contentType });
+                    var url = window.URL.createObjectURL(blob);
+
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute("download", "SOWViewAll.xlsx");
+
+                    var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+        });
+
         return self;
     }
 })();

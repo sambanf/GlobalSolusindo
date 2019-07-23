@@ -42,7 +42,8 @@ namespace GlobalSolusindo.Api.Models
         public string Rigger { get; set; }
         public string LinkAOR { get; set; }
         public string DT { get; set; }
-        public string LinkLogfile { get; set; }
+        public string LinkSSV { get; set; }
+        public string LinkSSO { get; set; }
         public string NOPO { get; set; }
         public string Value { get; set; }
         public string Esarsubmit { get; set; }
@@ -56,7 +57,7 @@ namespace GlobalSolusindo.Api.Models
         public string Quantity2 { get; set; }
         public string InvoiceSubmit2 { get; set; }
         public string PaidDate2 { get; set; }
-        public string Essarstatus2 { get; set; }
+        public string Esarstatus2 { get; set; }
         public string StatusPO { get; set; }
         public string remarkpo { get; set; }
 
