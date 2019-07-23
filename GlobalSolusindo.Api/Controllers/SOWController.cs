@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.SOW.DML;
 using GlobalSolusindo.Business.SOW.EntryForm;
 using GlobalSolusindo.Business.SOW.InfoForm;
+using GlobalSolusindo.Api.Models;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.Business.SOWAssign;
 using GlobalSolusindo.Business.SOWTrack;
@@ -11,8 +12,10 @@ using Kairos.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Transactions;
 using System.Web.Http;
+using GlobalSolusindo.Business.TaskList.Queries;
 
 namespace GlobalSolusindo.Api.Controllers
 {
@@ -177,5 +180,31 @@ namespace GlobalSolusindo.Api.Controllers
                 }
             }
         }
+
+
+
+        [Route("sow/import")]
+        [HttpPost]
+        public IHttpActionResult Import([FromBody]SOWImportDTO SOWImportDTO)
+        {
+            ThrowIfUserHasNoRole(importRole);
+
+            if (SOWImportDTO == null)
+                throw new KairosException("Missing model parameter");
+            
+            var importResult = new SOWImportExcelHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl).ExecuteImport(SOWImportDTO, DateTime.Now);
+            return Ok(new SuccessResponse(importResult));
+        }
+
+        [Route("SOW/export")]
+        [HttpPost]
+        public HttpResponseMessage Export([FromBody]TaskListSearchFilter filter)
+        {
+            string accessType = "SOW_ViewAll";
+            ThrowIfUserHasNoRole(accessType);
+            SOWExport SOWExport = new SOWExport();
+            return SOWExport.Export(Db, ActiveUser, "SOWUpload", filter);
+        }
+
     }
 }

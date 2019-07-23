@@ -19,10 +19,16 @@
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
 
+<<<<<<< HEAD
+        //var base_url = "http://gsapi.local/";
+        //var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://localhost/GlobalAPI/";
+=======
         //var base_url = "http://localhost:88/";
         //var base_url = "http://gsapi.local/";
         var base_url = "http://globaloneapi.kairos-it.com/";
         //var base_url = "http://localhost/GlobalAPI/";
+>>>>>>> 99014444a7a617313aa14c1ad43535ab65b75269
         var base_host = "";
 
         var auth = {};

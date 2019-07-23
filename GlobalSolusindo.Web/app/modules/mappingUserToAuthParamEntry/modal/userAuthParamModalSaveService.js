@@ -25,6 +25,7 @@
                     ui.alert.success(res.message);
                     controller.modalInstance.close();
                 } else {
+                    debugger;
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
                         validation.serverValidation(res.data.errors);

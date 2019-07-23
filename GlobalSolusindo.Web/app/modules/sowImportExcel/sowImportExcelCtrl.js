@@ -3,7 +3,7 @@
 
     /**
      * @ngdoc function
-     * @name app.controller:userImportExcelCtrl
+     * @name app.controller:SOWImportExcelCtrl
      * @description
      * # dashboardCtrl
      * Controller of the app
@@ -11,11 +11,11 @@
 
     angular
         .module('global-solusindo')
-        .controller('SOWImportExcelCtrl', UserImportExcelCtrl);
+        .controller('SOWImportExcelCtrl', SOWImportExcelCtrl);
 
-    UserImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'UserImportExcelUploadService', 'UserImportExcelBindingService', 'FormControlService'];
+    SOWImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWImportExcelUploadService', 'SOWImportExcelBindingService', 'FormControlService'];
 
-    function UserImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
+    function SOWImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService) {
         var self = this;
         self.stateParam = sParam;
 
