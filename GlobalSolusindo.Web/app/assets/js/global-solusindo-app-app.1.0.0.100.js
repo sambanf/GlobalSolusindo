@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-23. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-24. 
 * @author Kairos
 */
 (function() {
@@ -2555,15 +2555,20 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('CheckInEntryCtrl', CheckInEntryCtrl);
 
-    CheckInEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'CheckInSaveService', 'CheckInBindingService', 'FormControlService', 'select2Service'];
+    CheckInEntryCtrl.$inject = ['$scope', '$stateParams', '$state', 'CheckInSaveService', 'CheckInBindingService', 'FormControlService', 'select2Service', 'checkInMapService'];
 
-    function CheckInEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service) {
+    function CheckInEntryCtrl($scope, sParam, $state, saveService, bindingService, formControlService, select2Service, map) {
         var self = this;
         self.stateParam = sParam;
 
         bindingService.init(self).then(function (res) {
             formControlService.setFormControl(self);
             saveService.init(self);
+            try {
+                map.init(self);
+            } catch (e) {
+
+            }
         });
 
         return self;
@@ -9500,6 +9505,125 @@ angular.module('global-solusindo')
                     resolve(res);
                 });
             });
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('checkInMapService', checkInMapService);
+
+    checkInMapService.$inject = ['HttpService', '$state', 'uiService', 'kmlService'];
+
+    function checkInMapService(http, $state, ui, kml) {
+        var self = this;
+
+        var checkInCtrl = {};
+
+        function initMap() {
+            // The location of indonesia
+            var indonesia = { lat: -2.548926, lng: 118.0148634 };
+            // The map, centered at indonesia
+            var map1 = new google.maps.Map(document.getElementById('map1'), {
+                zoom: 2,
+                center: indonesia //{ lat: 0, lng: -180 }
+            });
+
+            var map2 = new google.maps.Map(document.getElementById('map2'), {
+                zoom: 2,
+                center: indonesia //{ lat: 0, lng: -180 }
+            });
+        }
+
+        self.setRoute1 = function (routes) {
+            if (routes && routes[0] && routes[0][0]) {
+                var map = new google.maps.Map(document.getElementById('map1'), {
+                    zoom: 14,
+                    center: { lat: routes[0][0].lat, lng: routes[0][0].lng }
+                });
+                routes.forEach(function (route) {
+                    var flightPath = new google.maps.Polyline({
+                        path: route,
+                        geodesic: true,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2
+                    });
+                    flightPath.setMap(map);
+                });
+            }
+        };
+
+        self.setRoute2 = function (routes) {
+            if (routes && routes[0] && routes[0][0]) {
+                var map = new google.maps.Map(document.getElementById('map2'), {
+                    zoom: 14,
+                    center: { lat: routes[0][0].lat, lng: routes[0][0].lng }
+                });
+                routes.forEach(function (route) {
+                    var flightPath = new google.maps.Polyline({
+                        path: route,
+                        geodesic: true,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 1.0,
+                        strokeWeight: 2
+                    });
+                    flightPath.setMap(map);
+                });
+            }
+        };
+
+        self.init = function (ctrl) {
+            Ctrl = ctrl;
+            initMap();
+            if (checkInCtrl && checkInCtrl.model && checkInCtrl.model.checkInTracks && checkInCtrl.model.checkInTracks[0]) {
+                var xmlString = checkInCtrl.model.checkInTracks[0].route;
+                var routes = kml.createRoutes(xmlString);
+                self.setRoute1(routes);
+            }
+
+            if (checkInCtrl && checkInCtrl.model && checkInCtrl.model.SOWTrackResults && checkInCtrl.model.SOWTrackResults[0]) {
+                var routeResult = [];
+                var coordinates = JSON.parse(checkInCtrl.model.SOWTrackResults[0].routeResult);
+                coordinates.forEach(function (coordinate) {
+                    routeResult.push({
+                        lat: coordinate.latitude,
+                        lng: coordinate.longitude
+                    });
+                });
+                self.setRoute1(routeResult);
+            }
+
+            if (checkInCtrl && checkInCtrl.model && checkInCtrl.model.checkInTracks && checkInCtrl.model.checkInTracks[1]) {
+                xmlString = checkInCtrl.model.checkInTracks[1].route;
+                routes = kml.createRoutes(xmlString);
+                self.setRoute2(routes);
+            }
+
+            if (checkInCtrl && checkInCtrl.model && checkInCtrl.model.SOWTrackResults && checkInCtrl.model.SOWTrackResults[1]) {
+                routeResult = [];
+                coordinates = JSON.parse(checkInCtrl.model.SOWTrackResults[1].routeResult);
+                coordinates.forEach(function (coordinate) {
+                    routeResult.push({
+                        lat: coordinate.latitude,
+                        lng: coordinate.longitude
+                    });
+                });
+                self.setRoute2(routeResult);
+            }
         };
 
         return self;
@@ -16926,9 +17050,9 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
-        //var base_url = "http://gsapi.local/";
+        var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        var base_url = "http://localhost/GlobalAPI/";
+        //var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
 

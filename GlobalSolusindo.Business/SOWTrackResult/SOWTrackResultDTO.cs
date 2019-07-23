@@ -42,6 +42,12 @@ namespace GlobalSolusindo.Business.SOWTrackResult
         }
 
         [JsonProperty("routeResult")]
-        public string RouteResult { get; set; } 
+        public string RouteResult { get; set; }
+
+        [JsonProperty("tipePekerjaan_fk")]
+        public int? TipePekerjaan_FK { get; set; }
+
+        [JsonProperty("tipePekerjaanTitle")]
+        public string TipePekerjaanTitle { get; set; }
     }
 }

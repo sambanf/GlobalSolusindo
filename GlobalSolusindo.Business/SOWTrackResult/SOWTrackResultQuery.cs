@@ -33,6 +33,10 @@ namespace GlobalSolusindo.Business.SOWTrackResult
         public IQueryable<SOWTrackResultDTO> GetQuery()
         {
             var query = from sowTrackResult in Db.tblT_SOWTrackResult
+                        join sowTrack in Db.tblT_SOWTrack on sowTrackResult.SOWTrack_FK equals sowTrack.SOWTrack_PK into sowTrackTemp
+                        from sowTrack in sowTrackTemp.DefaultIfEmpty()
+                        join tipePekerjaan in Db.tblM_TipePekerjaan on sowTrack.TipePekerjaan_FK equals tipePekerjaan.TipePekerjaan_PK into tipePekerjaanTemp
+                        from tipePekerjaan in tipePekerjaanTemp.DefaultIfEmpty()
                         where
                         sowTrackResult.Status_FK != deleted
                         select new SOWTrackResultDTO
@@ -41,6 +45,8 @@ namespace GlobalSolusindo.Business.SOWTrackResult
                             CheckIn_FK = sowTrackResult.CheckIn_FK,
                             RouteResult = sowTrackResult.Route,
                             SOWTrack_FK = sowTrackResult.SOWTrack_FK,
+                            TipePekerjaan_FK = sowTrack.TipePekerjaan_FK,
+                            TipePekerjaanTitle = tipePekerjaan.Title,
                             CreatedBy = sowTrackResult.CreatedBy,
                             CreatedDate = sowTrackResult.CreatedDate,
                             UpdatedBy = sowTrackResult.UpdatedBy,

@@ -68,53 +68,53 @@ namespace GlobalSolusindo.Business.SOW
 
             return query;
         }
-        
+
         public IQueryable<SOWDTOViewAll> GetQueryforExcel()
         {
 
             var query = from sowpo in Db.vw_SOWViewAll
-            select new SOWDTOViewAll
-            {
-                PLOUniq = sowpo.SiteIDPO + " - " + sowpo.SiteNamePO + " - " + sowpo.SOW,
-                PMOUniq = sowpo.PMOUniq,
-                DUID = sowpo.DUID,
-                SiteIDPO = sowpo.SiteIDPO,
-                SiteNamePO = sowpo.SiteNamePO,
-                System = sowpo.System,
-                SOW = sowpo.SOW,
-                Long = sowpo.Long,
-                lat = sowpo.Lat,
-                CODate = sowpo.CODate,
-                SSVDate = sowpo.SSVDate,
-                SSODate = sowpo.SSODate,
-                LVDate = sowpo.LVDate,
-                AcceptedDate = sowpo.AcceptedDate,
-                Region = sowpo.Region,
-                PLOQC = sowpo.RNO,
-                LinkReport = sowpo.LinkRNO,
-                RF = sowpo.RF,
-                LinkReport2 = sowpo.LinkRF,
-                Rigger = sowpo.Rigger,
-                LinkAOR = sowpo.LinkRigger,
-                DT = sowpo.DT,
-                LinkSSV = sowpo.SSVLink,
-                LinkSSO = sowpo.SSOLink,
-                NOPO = sowpo.NoPo,
-                Value = sowpo.Value.ToString(),
-                Esarsubmit = sowpo.EsarSubmit1st,
-                VsSubmit = sowpo.VsSubmit1st,
-                Quantity = sowpo.Quantity1st.ToString(),
-                InvoiceSubmit = sowpo.InvoiceSubmit1st,
-                PaidDate = sowpo.PaidDate1st,
-                Esarstatus1 = sowpo.EsarStatus1st.ToString(),
-                Esarsubmit2 = sowpo.EsarSubmit2nd,
-                VsSubmit2 = sowpo.VsSubmit2nd,
-                Quantity2 = sowpo.Quantity2nd.ToString(),
-                InvoiceSubmit2 = sowpo.InvoiceSubmit2nd,
-                PaidDate2 = sowpo.PaidDate2nd,
-                Esarstatus2 = sowpo.EsarStatus2nd.ToString(),
-                remarkpo = sowpo.Remarks,
-            };
+                        select new SOWDTOViewAll
+                        {
+                            PLOUniq = sowpo.SiteIDPO + " - " + sowpo.SiteNamePO + " - " + sowpo.SOW,
+                            PMOUniq = sowpo.PMOUniq,
+                            DUID = sowpo.DUID,
+                            SiteIDPO = sowpo.SiteIDPO,
+                            SiteNamePO = sowpo.SiteNamePO,
+                            System = sowpo.System,
+                            SOW = sowpo.SOW,
+                            Long = sowpo.Long,
+                            lat = sowpo.Lat,
+                            CODate = sowpo.CODate,
+                            SSVDate = sowpo.SSVDate,
+                            SSODate = sowpo.SSODate,
+                            LVDate = sowpo.LVDate,
+                            AcceptedDate = sowpo.AcceptedDate,
+                            Region = sowpo.Region,
+                            PLOQC = sowpo.RNO,
+                            LinkReport = sowpo.LinkRNO,
+                            RF = sowpo.RF,
+                            LinkReport2 = sowpo.LinkRF,
+                            Rigger = sowpo.Rigger,
+                            LinkAOR = sowpo.LinkRigger,
+                            DT = sowpo.DT,
+                            LinkSSV = sowpo.SSVLink,
+                            LinkSSO = sowpo.SSOLink,
+                            NOPO = sowpo.NoPo,
+                            Value = sowpo.Value.ToString(),
+                            Esarsubmit = sowpo.EsarSubmit1st,
+                            VsSubmit = sowpo.VsSubmit1st,
+                            Quantity = sowpo.Quantity1st.ToString(),
+                            InvoiceSubmit = sowpo.InvoiceSubmit1st,
+                            PaidDate = sowpo.PaidDate1st,
+                            Esarstatus1 = sowpo.EsarStatus1st.ToString(),
+                            Esarsubmit2 = sowpo.EsarSubmit2nd,
+                            VsSubmit2 = sowpo.VsSubmit2nd,
+                            Quantity2 = sowpo.Quantity2nd.ToString(),
+                            InvoiceSubmit2 = sowpo.InvoiceSubmit2nd,
+                            PaidDate2 = sowpo.PaidDate2nd,
+                            Esarstatus2 = sowpo.EsarStatus2nd.ToString(),
+                            remarkpo = sowpo.Remarks,
+                        };
 
             return query;
         }
@@ -163,10 +163,11 @@ namespace GlobalSolusindo.Business.SOW
                 jabatan.Title.ToLower().Contains("team lead");
         }
 
-        private bool JabatanHRDorBOD(tblM_KategoriJabatan jabatan)
+        private bool JabatanIsHRDorEssarorBOD(tblM_KategoriJabatan jabatan)
         {
             return jabatan.Title.ToLower().Contains("bod") ||
-                jabatan.Title.ToLower().Contains("hrd");
+                jabatan.Title.ToLower().Contains("hrd")
+                || jabatan.Title.ToLower().Contains("essar");
         }
 
         public List<int> GetProjectIds(tblM_KategoriJabatan jabatan, tblM_User user)
@@ -184,7 +185,7 @@ namespace GlobalSolusindo.Business.SOW
             if (JabatanIsProjectManager(jabatan))
             {
                 var projectIds = Db.tblM_Project
-                    .Where(x=>x.User_FK == user.User_PK)
+                    .Where(x => x.User_FK == user.User_PK)
                     .Select(x => x.Project_PK)
                     .ToList();
 
@@ -209,15 +210,15 @@ namespace GlobalSolusindo.Business.SOW
                     || sow.BTSName.Contains(filter.Keyword)
                     );
 
-         
+
             var jabatan = GetJabatan(filter.User);
             if (jabatan == null)
             {
                 filteredRecords = new List<SOWDTO>().AsQueryable();
-            } 
+            }
             else
             {
-                if (!JabatanHRDorBOD(jabatan))
+                if (!JabatanIsHRDorEssarorBOD(jabatan))
                 {
                     if (JabatanIsProjectManager(jabatan) || JabatanIsTeamLead(jabatan))
                     {
