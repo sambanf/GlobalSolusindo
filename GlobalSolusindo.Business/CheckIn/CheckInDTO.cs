@@ -113,5 +113,6 @@ namespace GlobalSolusindo.Business.CheckIn
         public SOWResultDTO SOWResult { get; set; } = new SOWResultDTO();
 
         public List<SOWTrackResultDTO> SOWTrackResults { get; set; } = new List<SOWTrackResultDTO>();
+        public int Project_FK { get; internal set; }
     }
 }

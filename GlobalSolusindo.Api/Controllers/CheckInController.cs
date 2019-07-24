@@ -43,16 +43,21 @@ namespace GlobalSolusindo.Api.Controllers
 
         [Route("checkIn/search")]
         [HttpGet]
-        public IHttpActionResult Search([FromUri]CheckInSearchFilter filter)
+        public IHttpActionResult Search([FromUri]TaskApprovalSearchFilter filter)
         {
             //string accessType = "CheckIn_ViewAll";
             //ThrowIfUserHasNoRole(accessType);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
+            //filter.User = ActiveUser;
+
             using (var checkInSearch = new CheckInSearch(Db))
             {
-                var data = checkInSearch.GetDataByFilter(filter);
+                filter.User = ActiveUser;
+                //var data = checkInSearch.GetDataByFilter(filter);
+                //return Ok(new SuccessResponse(data));
+                var data = checkInSearch.Search(filter);
                 return Ok(new SuccessResponse(data));
             }
         }
