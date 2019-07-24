@@ -187,6 +187,7 @@
     <Compile Include="User\ListForm\UserListDataProvider.cs" />
     <Compile Include="User\ListForm\UserListFormData.cs" />
     <Compile Include="User\ListForm\UserListModel.cs" />
+    <Compile Include="User\Queries\LOVDTO.cs" />
     <Compile Include="User\Queries\UserQuery.cs" />
     <Compile Include="User\Queries\UserSearch.cs" />
     <Compile Include="User\UserDTO.cs" />

@@ -218,5 +218,19 @@ namespace GlobalSolusindo.Api.Controllers
         }
 
 
+        [Route("sow/link/{id}")]
+        [HttpGet]
+        public IHttpActionResult Link(int id)
+        {
+            ThrowIfUserHasNoRole(readRole);
+
+            using (var sowSearch = new TaskListSearch(Db))
+            {
+                var data = sowSearch.GetLink(id);
+                return Ok(new SuccessResponse(data));
+            }
+
+        }
+
     }
 }

@@ -68,10 +68,26 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (var userSearch = new UserSearch(Db))
             {
+                var data = userSearch.GetDataByFilter(filter);
+                return Ok(new SuccessResponse(data));
+            }
+        }
+
+        [Route("user/list")]
+        [HttpGet]
+        public IHttpActionResult List([FromUri]UserSearchFilter filter)
+        {
+            ThrowIfUserHasNoRole(readRole);
+            if (filter == null)
+                throw new KairosException("Missing search filter parameter");
+
+            using (var userSearch = new UserSearch(Db))
+            {
                 var data = userSearch.GetDataByFilter(filter, ActiveUser);
                 return Ok(new SuccessResponse(data));
             }
         }
+
 
         [Route("user")]
         [HttpPost]

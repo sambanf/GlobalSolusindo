@@ -70,7 +70,7 @@
         
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
-            return ds.init("#user", "user/search", {
+            return ds.init("#user", "user/list", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
