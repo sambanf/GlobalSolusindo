@@ -117,8 +117,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="col-md-12">
-                        <button class="btn btn-success" id="approveButton">Approve</button>
-                        <button class="btn btn-danger ml-1" id="rejectButton">Reject</button>
+                        <button ng-show="vm.model.status === 'Waiting'" class="btn btn-success" id="approveButton">Approve</button>
+                        <button ng-show="vm.model.status === 'Waiting'" class="btn btn-danger ml-1" id="rejectButton">Reject</button>
                         <button class="btn btn-default ml-1" ui-sref="app.checkInList">Kembali</button>
                     </div>
 

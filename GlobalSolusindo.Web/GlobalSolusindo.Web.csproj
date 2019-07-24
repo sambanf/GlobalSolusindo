@@ -105,7 +105,6 @@
     <Content Include="app\assets\images\sort_desc_disabled.png" />
     <Content Include="app\assets\images\tower-bts.jpg" />
     <Content Include="app\assets\images\trucks.png" />
-    <Content Include="app\assets\js\exporting.js" />
     <Content Include="app\assets\js\global-solusindo-app-app.1.0.0.100.js" />
     <Content Include="app\assets\js\global-solusindo-app-dist.1.0.0.100.js" />
     <Content Include="app\assets\js\global-solusindo-app-dist.min.1.0.0.100.js" />

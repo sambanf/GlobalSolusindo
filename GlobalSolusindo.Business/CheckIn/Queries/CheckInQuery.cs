@@ -43,6 +43,8 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
                         from userDetail in userDetailTemp.DefaultIfEmpty()
                         join kategoriJabatan in Db.tblM_KategoriJabatan on user.KategoriJabatan_FK equals kategoriJabatan.KategoriJabatan_PK into kategoriJabatanTemp
                         from kategoriJabatan in kategoriJabatanTemp.DefaultIfEmpty()
+                        join project in Db.tblM_Project on sow.Project_FK equals project.Project_PK into projectTemp
+                        from project in projectTemp.DefaultIfEmpty()
                         where
                         checkIn.Status_FK != deleted
                         select new CheckInDTO
@@ -77,7 +79,8 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
                             UpdatedBy = checkIn.UpdatedBy,
                             UpdatedDate = checkIn.UpdatedDate,
                             Status_FK = checkIn.Status_FK,
-                            FileSubmitted = string.IsNullOrEmpty(sowResult.FileUrl) ? "No" : "Yes"
+                            FileSubmitted = string.IsNullOrEmpty(sowResult.FileUrl) ? "No" : "Yes",
+                            Project_FK = project.Project_PK
                         };
 
             return query;
