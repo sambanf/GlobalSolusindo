@@ -39,15 +39,14 @@ namespace GlobalSolusindo.Api.Models
         MaritalStatusQuery maritalStatusQuery = new MaritalStatusQuery();
         ReligionQuery religionQuery = new ReligionQuery();
         ProjectQuery projectQuery = new ProjectQuery();
-        public HttpResponseMessage Export(GlobalSolusindoDb Db, string fileName, UserSearchFilter filter)
+        public HttpResponseMessage Export(GlobalSolusindoDb Db, tblM_User user1 ,string fileName, UserSearchFilter filter)
         {
-            
             _fileName = fileName;
             _workbook = new XSSFWorkbook(); //Creating New Excel object
             var workbook = new XLWorkbook();
             using (var userSearch = new UserSearch(Db))
             {
-                var data = userSearch.GetDataByFilter(filter);
+                var data = userSearch.GetDataByFilter(filter, user1);
                 var dataExport = data.Records.Select(c => new UserExportDTO
                 { 
                     Nomor = c.User_PK,

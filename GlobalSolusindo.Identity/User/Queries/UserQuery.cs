@@ -80,13 +80,20 @@ namespace GlobalSolusindo.Identity.User.Queries
             return query;
         }
 
-        public IQueryable<UserDTO> GetByJabatanAndProject(int katejab, int PMPK)
+        public IQueryable<UserDTO> GetListUserByTL(int tlpk)
         {
+            int? prj =  GetByPrimaryKey(tlpk).Project;
             var query = from user in Db.tblM_User
-                        join userDetail in Db.tblM_UserDetail on user.UserDetail_FK equals userDetail.UserDetail_PK
+                        join userDetail in Db.tblM_UserDetail on user.UserDetail_FK equals userDetail.UserDetail_PK into userDetailTemp
+                        from userDetail in userDetailTemp.DefaultIfEmpty()
+                        join userRoleGroupMapping in Db.tblM_MappingUserToRoleGroup on user.User_PK equals userRoleGroupMapping.User_PK into userRoleGroupMappingTemp
+                        from userRoleGroupMapping in userRoleGroupMappingTemp.DefaultIfEmpty()
+                        join roleGroup in Db.tblM_RoleGroup on userRoleGroupMapping.RoleGroup_PK equals roleGroup.RoleGroup_PK into roleGroupTemp
+                        from roleGroup in roleGroupTemp.DefaultIfEmpty()
+                        join jabatan in Db.tblM_KategoriJabatan on user.KategoriJabatan_FK equals jabatan.KategoriJabatan_PK into jabatanTemp
+                        from jabatan in jabatanTemp.DefaultIfEmpty()
                         join project in Db.tblM_Project on userDetail.Project equals project.Project_PK
-                        join jabatan in Db.tblM_KategoriJabatan on user.KategoriJabatan_FK equals jabatan.KategoriJabatan_PK
-                        where user.KategoriJabatan_FK == katejab && project.User_FK == PMPK && user.Status_FK != deleted
+                        where userDetail.Project == prj && user.Status_FK != deleted
                         select new UserDTO
                         {
                             User_PK = user.User_PK,
@@ -104,6 +111,7 @@ namespace GlobalSolusindo.Identity.User.Queries
                             Username = user.Username,
                             KategoriJabatan_FK = user.KategoriJabatan_FK,
                             KategoriJabatanTitle = jabatan.Title,
+                            RoleGroupTitle = string.IsNullOrEmpty(roleGroup.Title) ? "N/A" : roleGroup.Title,
                             //Password = user.Password,
                             CreatedBy = user.CreatedBy,
                             CreatedDate = user.CreatedDate,
@@ -111,9 +119,117 @@ namespace GlobalSolusindo.Identity.User.Queries
                             UpdatedDate = user.UpdatedDate,
                             Status_FK = user.Status_FK,
 
-               
+                            BankName = userDetail.BankName,
+                            BPJS = userDetail.BPJS,
+                            CategoryContract = userDetail.CategoryContract,
+                            Gender = userDetail.Gender,
+                            JoinDate = userDetail.JoinDate,
+                            MaritalStatus = userDetail.MaritalStatus,
+                            NPWP = userDetail.NPWP,
+                            Project = userDetail.Project,
+                            Religion = userDetail.Religion,
+                            Salary = userDetail.Salary,
+                            AccountNumber = userDetail.AccountNumber
                         };
 
+            return query;
+        }
+
+        public IQueryable<UserDTO> GetByJabatanAndProject(int katejab, int PMPK)
+        {
+            IQueryable<UserDTO> query;
+            if (katejab == 0)
+            {
+                query = from user in Db.tblM_User
+                            join userDetail in Db.tblM_UserDetail on user.UserDetail_FK equals userDetail.UserDetail_PK
+                            join project in Db.tblM_Project on userDetail.Project equals project.Project_PK
+                            join jabatan in Db.tblM_KategoriJabatan on user.KategoriJabatan_FK equals jabatan.KategoriJabatan_PK
+                            where project.User_FK == PMPK && user.Status_FK != deleted
+                            select new UserDTO
+                            {
+                                User_PK = user.User_PK,
+                                UserDetail_FK = user.UserDetail_FK,
+                                UserDetail_PK = userDetail.UserDetail_PK,
+                                UserCode = userDetail.UserCode,
+                                Name = userDetail.Name,
+                                TglLahir = userDetail.TglLahir,
+                                NoKTP = userDetail.NoKTP,
+                                NoHP = userDetail.NoHP,
+                                Email = userDetail.Email,
+                                PersonalEmail = userDetail.PersonalEmail,
+                                Address = userDetail.Address,
+                                Description = userDetail.Description,
+                                Username = user.Username,
+                                KategoriJabatan_FK = user.KategoriJabatan_FK,
+                                KategoriJabatanTitle = jabatan.Title,
+                                //Password = user.Password,
+                                CreatedBy = user.CreatedBy,
+                                CreatedDate = user.CreatedDate,
+                                UpdatedBy = user.UpdatedBy,
+                                UpdatedDate = user.UpdatedDate,
+                                Status_FK = user.Status_FK,
+
+                                BankName = userDetail.BankName,
+                                BPJS = userDetail.BPJS,
+                                CategoryContract = userDetail.CategoryContract,
+                                Gender = userDetail.Gender,
+                                JoinDate = userDetail.JoinDate,
+                                MaritalStatus = userDetail.MaritalStatus,
+                                NPWP = userDetail.NPWP,
+                                Project = userDetail.Project,
+                                Religion = userDetail.Religion,
+                                Salary = userDetail.Salary,
+                                AccountNumber = userDetail.AccountNumber
+
+                            };
+            }
+            else
+            {
+                query = from user in Db.tblM_User
+                            join userDetail in Db.tblM_UserDetail on user.UserDetail_FK equals userDetail.UserDetail_PK
+                            join project in Db.tblM_Project on userDetail.Project equals project.Project_PK
+                            join jabatan in Db.tblM_KategoriJabatan on user.KategoriJabatan_FK equals jabatan.KategoriJabatan_PK
+                            where user.KategoriJabatan_FK == katejab && project.User_FK == PMPK && user.Status_FK != deleted
+                            select new UserDTO
+                            {
+                                User_PK = user.User_PK,
+                                UserDetail_FK = user.UserDetail_FK,
+                                UserDetail_PK = userDetail.UserDetail_PK,
+                                UserCode = userDetail.UserCode,
+                                Name = userDetail.Name,
+                                TglLahir = userDetail.TglLahir,
+                                NoKTP = userDetail.NoKTP,
+                                NoHP = userDetail.NoHP,
+                                Email = userDetail.Email,
+                                PersonalEmail = userDetail.PersonalEmail,
+                                Address = userDetail.Address,
+                                Description = userDetail.Description,
+                                Username = user.Username,
+                                KategoriJabatan_FK = user.KategoriJabatan_FK,
+                                KategoriJabatanTitle = jabatan.Title,
+                                //Password = user.Password,
+                                CreatedBy = user.CreatedBy,
+                                CreatedDate = user.CreatedDate,
+                                UpdatedBy = user.UpdatedBy,
+                                UpdatedDate = user.UpdatedDate,
+                                Status_FK = user.Status_FK,
+
+                                BankName = userDetail.BankName,
+                                BPJS = userDetail.BPJS,
+                                CategoryContract = userDetail.CategoryContract,
+                                Gender = userDetail.Gender,
+                                JoinDate = userDetail.JoinDate,
+                                MaritalStatus = userDetail.MaritalStatus,
+                                NPWP = userDetail.NPWP,
+                                Project = userDetail.Project,
+                                Religion = userDetail.Religion,
+                                Salary = userDetail.Salary,
+                                AccountNumber = userDetail.AccountNumber
+
+
+                            };
+            }
+            
             return query;
         }
 
