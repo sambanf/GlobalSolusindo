@@ -68,7 +68,7 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (var userSearch = new UserSearch(Db))
             {
-                var data = userSearch.GetDataByFilter(filter);
+                var data = userSearch.GetDataByFilter(filter, ActiveUser);
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -170,7 +170,7 @@ namespace GlobalSolusindo.Api.Controllers
             //if (filter == null)
             //    throw new KairosException("Missing search filter parameter");
             UserExport userExport = new UserExport();
-            return userExport.Export(Db, "UserUpload", filter);
+            return userExport.Export(Db,ActiveUser, "UserUpload", filter);
         }
 
         [Route("user/changePassword")]

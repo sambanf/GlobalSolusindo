@@ -175,6 +175,7 @@
     <Compile Include="Models\LOVDTO.cs" />
     <Compile Include="Models\BTSExport.cs" />
     <Compile Include="Models\SOWExport.cs" />
+    <Compile Include="Models\SOWExportDTOViewNonPO.cs" />
     <Compile Include="Models\SOWExportDTOViewAll.cs" />
     <Compile Include="Models\SOWExportDTO.cs" />
     <Compile Include="Models\UserExport.cs" />
@@ -233,7 +234,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57390</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

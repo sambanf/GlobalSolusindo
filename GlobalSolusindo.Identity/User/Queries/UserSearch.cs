@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.UserDetail.Queries;
 using Kairos.Data;
 using Newtonsoft.Json;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace GlobalSolusindo.Identity.User.Queries
         {
         }
 
-        public SearchResult<UserDTO> GetDataByFilter(UserSearchFilter filter)
+        public SearchResult<UserDTO> GetDataByFilter(UserSearchFilter filter, tblM_User us)
         {
             if (string.IsNullOrEmpty(filter.SortName))
                 filter.SortName = "User_PK";
@@ -55,7 +56,27 @@ namespace GlobalSolusindo.Identity.User.Queries
                     .Where(user =>
                     user.KategoriJabatan_FK == (int)filter.KategoriJabatan_FK);
             }
-
+            
+            if (us.KategoriJabatan_FK == 7)
+            {
+                filteredRecords = query.GetByJabatanAndProject(0, us.User_PK).Where(user =>
+                   user.Username.Contains(filter.Keyword)
+                   || user.UserCode.Contains(filter.Keyword)
+                   || user.Name.Contains(filter.Keyword)
+                   || user.NoKTP.Contains(filter.Keyword)
+                   || user.NoHP.Contains(filter.Keyword)
+                   || user.Email.Contains(filter.Keyword));
+            }
+            if (us.KategoriJabatan_FK == 1)
+            {
+                filteredRecords = query.GetListUserByTL(us.User_PK).Where(user =>
+                   user.Username.Contains(filter.Keyword)
+                   || user.UserCode.Contains(filter.Keyword)
+                   || user.Name.Contains(filter.Keyword)
+                   || user.NoKTP.Contains(filter.Keyword)
+                   || user.NoHP.Contains(filter.Keyword)
+                   || user.Email.Contains(filter.Keyword));
+            }
             if (filter.User_PK > 0)
             {
                 filteredRecords = filteredRecords
