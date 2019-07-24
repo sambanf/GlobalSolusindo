@@ -94,7 +94,7 @@
                 ],
                 exportButtons: {
                     columns: [1, 2, 3, 4],
-                    title: "BTS"
+                    title: "Site"
                 },
                 ajaxCallback: function (response) {
                     var cities = [];
