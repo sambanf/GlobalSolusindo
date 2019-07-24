@@ -18,7 +18,7 @@ angular.module('global-solusindo')
                 controller: 'BTSEntryCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'BTS Entry'
+                    label: 'Site Entry'
                 }
             });
     }]);

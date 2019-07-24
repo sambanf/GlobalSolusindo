@@ -33,7 +33,7 @@
 
         self.delete = function (data) {
             var ids = [data.bts_pk];
-            ui.alert.confirm("Are you sure want to delete bts '" + data.title + "'?", function () {
+            ui.alert.confirm("Are you sure want to delete Site '" + data.title + "'?", function () {
                 return deleteRecords(ids);
             });
         };
