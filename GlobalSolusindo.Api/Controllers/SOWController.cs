@@ -76,6 +76,7 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]SOWSearchFilter filter)
         {
             ThrowIfUserHasNoRole(readRole);
+            filter.User = ActiveUser;
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
