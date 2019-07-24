@@ -10,7 +10,7 @@ angular.module('global-solusindo')
                 controller: 'BTSCtrl',
                 controllerAs: 'brc',
                 ncyBreadcrumb: {
-                    label: 'BTS'
+                    label: 'Site'
                 }
             });
     }]);

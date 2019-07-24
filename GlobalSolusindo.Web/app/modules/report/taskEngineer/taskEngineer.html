@@ -17,7 +17,7 @@
                             <input type="text" id="username" name="username" class="form-control" ng-model="vm.model.username" disabled>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <label class="control-label col-sm-1">BTS</label>
+                        <label class="control-label col-sm-1">Site</label>
                         <div class="col-sm-2">
                             <select id="bts_fk" name="bts_fk" class="form-control input-lg" size="0" ng-model="vm.model.bts_fk" required>
                                 <option ng-repeat="x in vm.formData.btses" ng-value="x.bts_pk">{{x.name}}</option>
@@ -69,7 +69,7 @@
                                         <th>User ID</th>
                                         <th>Name</th>
                                         <th>Position</th>
-                                        <th>BTS</th>
+                                        <th>Site</th>
                                         <th>Task Status</th>
                                         <th>Detail</th>
                                     </tr>
