@@ -252,13 +252,11 @@ namespace GlobalSolusindo.Identity.User.DML
                 var xAccountNumber = row.Cell(20).Value;
                 var xSalary = row.Cell(21).Value;
                 var xRemark = row.Cell(22).Value;
-                var xStatus = row.Cell(23).Value;
+                var xStatus = row.Cell(23).Value.ToString();
 
                 var defaultEmptyDate = new DateTime(1990, 01, 01);
                 var dateContainer = new DateTime(1990, 01, 01);
                 double doubleContainer = 0;
-                int intContainer = 0;
-
 
                 var nomor = row.Cell(1).Value;
                 var userName = xUserName == null ? "" : xUserName.ToString();
@@ -285,8 +283,7 @@ namespace GlobalSolusindo.Identity.User.DML
                 var salary = xSalary == null ? 0 :
                     double.TryParse(xSalary.ToString(), out doubleContainer) == true ? doubleContainer : 0;
                 var remark = xRemark == null ? "" : xRemark.ToString();
-                var status = xStatus == null ? 1 :
-                    int.TryParse(xStatus.ToString(), out intContainer) == true ? intContainer : 1;
+                var status = xStatus == null || xStatus == "Active" ? 1 :xStatus == "Inactive" ? 2:3;
 
                 var userPk = 0;
                 var userDetailFk = 0;

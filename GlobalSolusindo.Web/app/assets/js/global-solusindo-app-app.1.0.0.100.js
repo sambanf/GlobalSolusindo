@@ -343,7 +343,7 @@ angular.module('global-solusindo')
                 controller: 'BTSCtrl',
                 controllerAs: 'brc',
                 ncyBreadcrumb: {
-                    label: 'BTS'
+                    label: 'Site'
                 }
             });
     }]);
@@ -367,7 +367,7 @@ angular.module('global-solusindo')
                 controller: 'BTSEntryCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'BTS Entry'
+                    label: 'Site Entry'
                 }
             });
     }]);
@@ -2561,7 +2561,7 @@ angular.module('global-solusindo')
         var self = this;
         self.stateParam = sParam;
 
-        bindingService.init(self).then(function (res) {
+        bindingService.init(self).then(function (res) { 
             formControlService.setFormControl(self);
             saveService.init(self);
             try {
@@ -5273,7 +5273,7 @@ angular.module('global-solusindo')
                     var url = window.URL.createObjectURL(blob);
 
                     linkElement.setAttribute('href', url);
-                    linkElement.setAttribute("download", "SOWViewAll.xlsx");
+                    linkElement.setAttribute("download", "SOWTracker.xlsx");
 
                     var clickEvent = new MouseEvent("click", {
                         "view": window,
@@ -8145,7 +8145,7 @@ angular.module('global-solusindo')
 
         self.delete = function (data) {
             var ids = [data.bts_pk];
-            ui.alert.confirm("Are you sure want to delete bts '" + data.title + "'?", function () {
+            ui.alert.confirm("Are you sure want to delete Site '" + data.title + "'?", function () {
                 return deleteRecords(ids);
             });
         };
@@ -8290,7 +8290,7 @@ angular.module('global-solusindo')
                 ],
                 exportButtons: {
                     columns: [1, 2, 3, 4],
-                    title: "BTS"
+                    title: "Site"
                 },
                 ajaxCallback: function (response) {
                     var cities = [];
@@ -9540,62 +9540,40 @@ angular.module('global-solusindo')
             var map1 = new google.maps.Map(document.getElementById('map1'), {
                 zoom: 2,
                 center: indonesia //{ lat: 0, lng: -180 }
-            });
-
-            var map2 = new google.maps.Map(document.getElementById('map2'), {
-                zoom: 2,
-                center: indonesia //{ lat: 0, lng: -180 }
-            });
+            }); 
         }
 
         self.setRoute1 = function (routes) {
-            if (routes && routes[0] && routes[0][0]) {
+            
+            if (routes) {
+                
                 var map = new google.maps.Map(document.getElementById('map1'), {
                     zoom: 14,
-                    center: { lat: routes[0][0].lat, lng: routes[0][0].lng }
+                    center: { lat: routes[0].lat, lng: routes[0].lng }
                 });
-                routes.forEach(function (route) {
-                    var flightPath = new google.maps.Polyline({
-                        path: route,
-                        geodesic: true,
-                        strokeColor: '#FF0000',
-                        strokeOpacity: 1.0,
-                        strokeWeight: 2
-                    });
-                    flightPath.setMap(map);
-                });
+                var flightPath = new google.maps.Polyline({
+                    path: routes,
+                    geodesic: true,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 1.0,
+                    strokeWeight: 2
+                }); 
+                flightPath.setMap(map);
             }
         };
-
-        self.setRoute2 = function (routes) {
-            if (routes && routes[0] && routes[0][0]) {
-                var map = new google.maps.Map(document.getElementById('map2'), {
-                    zoom: 14,
-                    center: { lat: routes[0][0].lat, lng: routes[0][0].lng }
-                });
-                routes.forEach(function (route) {
-                    var flightPath = new google.maps.Polyline({
-                        path: route,
-                        geodesic: true,
-                        strokeColor: '#FF0000',
-                        strokeOpacity: 1.0,
-                        strokeWeight: 2
-                    });
-                    flightPath.setMap(map);
-                });
-            }
-        };
+ 
 
         self.init = function (ctrl) {
-            Ctrl = ctrl;
+            checkInCtrl = ctrl;
             initMap();
-            if (checkInCtrl && checkInCtrl.model && checkInCtrl.model.checkInTracks && checkInCtrl.model.checkInTracks[0]) {
-                var xmlString = checkInCtrl.model.checkInTracks[0].route;
+            if (checkInCtrl && checkInCtrl.model && checkInCtrl.model.sowTracks && checkInCtrl.model.sowTracks[0]) {
+                var xmlString = checkInCtrl.model.sowTracks[0].route;
                 var routes = kml.createRoutes(xmlString);
                 self.setRoute1(routes);
             }
 
             if (checkInCtrl && checkInCtrl.model && checkInCtrl.model.SOWTrackResults && checkInCtrl.model.SOWTrackResults[0]) {
+                
                 var routeResult = [];
                 var coordinates = JSON.parse(checkInCtrl.model.SOWTrackResults[0].routeResult);
                 coordinates.forEach(function (coordinate) {
@@ -9605,25 +9583,7 @@ angular.module('global-solusindo')
                     });
                 });
                 self.setRoute1(routeResult);
-            }
-
-            if (checkInCtrl && checkInCtrl.model && checkInCtrl.model.checkInTracks && checkInCtrl.model.checkInTracks[1]) {
-                xmlString = checkInCtrl.model.checkInTracks[1].route;
-                routes = kml.createRoutes(xmlString);
-                self.setRoute2(routes);
-            }
-
-            if (checkInCtrl && checkInCtrl.model && checkInCtrl.model.SOWTrackResults && checkInCtrl.model.SOWTrackResults[1]) {
-                routeResult = [];
-                coordinates = JSON.parse(checkInCtrl.model.SOWTrackResults[1].routeResult);
-                coordinates.forEach(function (coordinate) {
-                    routeResult.push({
-                        lat: coordinate.latitude,
-                        lng: coordinate.longitude
-                    });
-                });
-                self.setRoute2(routeResult);
-            }
+            } 
         };
 
         return self;
@@ -17050,9 +17010,9 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
-        var base_url = "http://gsapi.local/";
+        //var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        //var base_url = "http://localhost/GlobalAPI/";
+        var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
 
@@ -18883,6 +18843,46 @@ angular.module('global-solusindo')
             return dt;
         };
 
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#cost", "cost/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    sow_fk: controller.stateParam.id
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "orderable": false,
+                    "data": "cost_pk"
+                },
+                {
+                    "data": "kategoriCostTitle"
+                },
+                {
+                    "data": "nominal"
+                },
+                {
+                    "data": "deskripsi"
+                },
+                {
+                    "data": "tanggal"
+                },
+                {
+                    "orderable": false,
+                    "className": "text-center",
+                    "render": function (data) {
+                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view + "'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt + "'><i class='fa fa-trash-alt'></i></button>"
+                    }
+                }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
         return self;
     }
 
@@ -19618,7 +19618,7 @@ angular.module('global-solusindo')
         
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
-            return ds.init("#user", "user/search", {
+            return ds.init("#user", "user/list", {
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10
@@ -19829,7 +19829,7 @@ angular.module('global-solusindo')
 
             $('#user tbody').on('click', '#assetHistory', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
-                $state.go('app.asetHistoriList', { user_fk: data.user_pk });
+                $state.go('app.asetHistoriList', { user_fk: data.userDetail_pk });
             });
 
             $("#user tbody").on("dblclick", "tr", function () {

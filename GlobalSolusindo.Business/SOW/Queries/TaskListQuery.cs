@@ -21,6 +21,27 @@ namespace GlobalSolusindo.Business.SOW.Queries
         {
         }
 
+        public IQueryable<SOWLinkDT> GetSOWLinks()
+        {
+            var query = from sow in Db.vw_SOWLink
+                        select new SOWLinkDT
+                        {
+                            SOW_PK = sow.SOW_PK,
+                            RNO  = sow.RNO,
+                            LinkRNO =  sow.LinkRNO,
+                            RF   = sow.RF,
+                            LinkRF  =  sow.LinkRF,
+                            Rigger  = sow.Rigger,
+                            LinkRigger =   sow.LinkRigger,
+                            DT = sow.DT,
+                            SSVLink = sow.SSVLink,
+                            SSOLink = sow.SSOLink
+
+                        };
+
+            return query;
+        }
+
         public IQueryable<TaskListDTO> GetQuery()
         {
             var query = from sow in Db.tblT_SOW

@@ -71,7 +71,7 @@ namespace GlobalSolusindo.Api.Models
                     NoRekening = c.AccountNumber,//?
                     Salary = c.Salary,//?
                     Remark = c.Description,//?
-                    Status = null//?
+                    Status = c.Status_FK == 1? "Active" : c.Status_FK == 2? "Inactive":"Deleted"//?
 
                 }).ToList();
                 projectQuery.Dispose();
@@ -278,12 +278,34 @@ namespace GlobalSolusindo.Api.Models
                                         var worksheetProject = workbook.AddWorksheet(validationTableProject);
                                         worksheet.Column(9).SetDataValidation().List(worksheetProject.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
+                                        using (var userQuery = new UserQuery())
+                                        {
+                                            //SETUP TABLE 
+                                            DataTable validationTableStatus = new DataTable();
+                                            validationTableStatus.TableName = "Status";
+
+                                            //SETUP COLUMN
+                                            LOVDTO objStatus = new LOVDTO();
+                                            foreach (var item in objkatja.GetType().GetProperties())
+                                            {
+                                                validationTableStatus.Columns.Add(item.Name);
+                                            }
+                                            var dataStatus = userQuery.getQueryStatus().ToList();
+                                            DataRow drStatus;
+                                            startcell = 2; endcell = 2;
+                                            foreach (var item in dataStatus)
+                                            {
+                                                drStatus = validationTableStatus.NewRow();
+                                                drStatus["Id"] = item.Id;
+                                                drStatus["Name"] = item.Name;
+                                                validationTableStatus.Rows.Add(drStatus);
+                                                endcell++;
+                                            }
+                                            var worksheetStatus = workbook.AddWorksheet(validationTableStatus);
+                                            worksheet.Column(23).SetDataValidation().List(worksheetStatus.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                                        }
                                     }
-
-
                                 }
-
-
                             }
                         }
                     }
@@ -295,7 +317,7 @@ namespace GlobalSolusindo.Api.Models
                     .SetDeleteRows();   // Deleting Rows;
                 worksheet.Columns(1, 2).Style.Fill.BackgroundColor = XLColor.DarkGray;
                 worksheet.Columns(1, 2).Style.Font.FontColor = XLColor.Black;
-                worksheet.Columns(3,20).Style.Protection.SetLocked(false);
+                worksheet.Columns(3,50).Style.Protection.SetLocked(false);
             }
 
 

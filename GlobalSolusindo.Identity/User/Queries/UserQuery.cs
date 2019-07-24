@@ -285,6 +285,21 @@ namespace GlobalSolusindo.Identity.User.Queries
             SqlParameter sqlParameter = new SqlParameter("@value", value);
             return Db.tblM_User.SqlQuery(sql, sqlParameter).Count();
         }
+
+        public IQueryable<LOVDTO> getQueryStatus()
+        {
+            var query = from status in Db.tblM_Status
+                        where status.Status_PK != 3
+                        select new LOVDTO
+                        {
+                            Id = status.Status_PK,
+                            Name = status.Title
+                        };
+
+            return query;
+        }
+
+
         #endregion
     }
 }

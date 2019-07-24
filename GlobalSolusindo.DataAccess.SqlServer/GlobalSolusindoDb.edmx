@@ -714,6 +714,25 @@
           <Property Name="Status_FK" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWLink' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_SOWLink">
+          <Key>
+            <PropertyRef Name="SOW_PK" />
+            <PropertyRef Name="Status_FK" />
+          </Key>
+          <Property Name="SOW_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RNO" Type="nvarchar" MaxLength="200" />
+          <Property Name="LinkRNO" Type="varchar(max)" />
+          <Property Name="RF" Type="nvarchar" MaxLength="200" />
+          <Property Name="LinkRF" Type="varchar(max)" />
+          <Property Name="Rigger" Type="nvarchar" MaxLength="200" />
+          <Property Name="LinkRigger" Type="varchar(max)" />
+          <Property Name="DT" Type="nvarchar" MaxLength="200" />
+          <Property Name="SSVLink" Type="varchar(max)" />
+          <Property Name="SSOLink" Type="varchar(max)" />
+          <Property Name="Status_FK" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vw_SOWViewAll">
           <Key>
@@ -976,11 +995,11 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="fn_GetLinkDT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+        <Function Name="fn_GetLinkDT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar(max)">
           <Parameter Name="Param1" Type="int" Mode="In" />
           <Parameter Name="Param2" Type="int" Mode="In" />
         </Function>
-        <Function Name="fn_GetLinkNonDT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar">
+        <Function Name="fn_GetLinkNonDT" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="varchar(max)">
           <Parameter Name="Param1" Type="int" Mode="In" />
           <Parameter Name="Param2" Type="int" Mode="In" />
         </Function>
@@ -1142,6 +1161,21 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <EntitySet Name="tblT_SOWTrackResult" EntityType="Self.tblT_SOWTrackResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_UserHistori" EntityType="Self.tblT_UserHistori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblT_UserPayroll" EntityType="Self.tblT_UserPayroll" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vw_SOWLink" EntityType="Self.vw_SOWLink" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_SOWLink].[SOW_PK] AS [SOW_PK], 
+    [vw_SOWLink].[RNO] AS [RNO], 
+    [vw_SOWLink].[LinkRNO] AS [LinkRNO], 
+    [vw_SOWLink].[RF] AS [RF], 
+    [vw_SOWLink].[LinkRF] AS [LinkRF], 
+    [vw_SOWLink].[Rigger] AS [Rigger], 
+    [vw_SOWLink].[LinkRigger] AS [LinkRigger], 
+    [vw_SOWLink].[DT] AS [DT], 
+    [vw_SOWLink].[SSVLink] AS [SSVLink], 
+    [vw_SOWLink].[SSOLink] AS [SSOLink], 
+    [vw_SOWLink].[Status_FK] AS [Status_FK]
+    FROM [dbo].[vw_SOWLink] AS [vw_SOWLink]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="vw_SOWViewAll" EntityType="Self.vw_SOWViewAll" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [vw_SOWViewAll].[PMOUniq] AS [PMOUniq], 
@@ -1490,6 +1524,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <EntitySet Name="tblT_LogActivity" EntityType="GlobalSolusindoModel.tblT_LogActivity" />
           <FunctionImport Name="usp_GetSOWViewAll" ReturnType="Collection(GlobalSolusindoModel.usp_GetSOWViewAll_Result)" />
           <EntitySet Name="vw_SOWViewAll" EntityType="GlobalSolusindoModel.vw_SOWViewAll" />
+          <EntitySet Name="vw_SOWLink" EntityType="GlobalSolusindoModel.vw_SOWLink" />
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -2679,6 +2714,23 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="SSVLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SSOLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="vw_SOWLink">
+          <Key>
+            <PropertyRef Name="SOW_PK" />
+            <PropertyRef Name="Status_FK" />
+          </Key>
+          <Property Name="SOW_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RNO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LinkRNO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RF" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LinkRF" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rigger" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LinkRigger" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DT" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SSVLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SSOLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3744,6 +3796,23 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
                 <ScalarProperty Name="SiteIDPO" ColumnName="SiteIDPO" />
                 <ScalarProperty Name="DUID" ColumnName="DUID" />
                 <ScalarProperty Name="PMOUniq" ColumnName="PMOUniq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_SOWLink">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.vw_SOWLink">
+              <MappingFragment StoreEntitySet="vw_SOWLink">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="SSOLink" ColumnName="SSOLink" />
+                <ScalarProperty Name="SSVLink" ColumnName="SSVLink" />
+                <ScalarProperty Name="DT" ColumnName="DT" />
+                <ScalarProperty Name="LinkRigger" ColumnName="LinkRigger" />
+                <ScalarProperty Name="Rigger" ColumnName="Rigger" />
+                <ScalarProperty Name="LinkRF" ColumnName="LinkRF" />
+                <ScalarProperty Name="RF" ColumnName="RF" />
+                <ScalarProperty Name="LinkRNO" ColumnName="LinkRNO" />
+                <ScalarProperty Name="RNO" ColumnName="RNO" />
+                <ScalarProperty Name="SOW_PK" ColumnName="SOW_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

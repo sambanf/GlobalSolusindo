@@ -3,6 +3,7 @@ using GlobalSolusindo.Business.BTSTechnology.Queries;
 using GlobalSolusindo.Business.SOW;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.User.Queries;
 using Kairos.Data;
 using Newtonsoft.Json;
 using System;
@@ -14,6 +15,8 @@ namespace GlobalSolusindo.Business.TaskList.Queries
 {
     public class TaskListSearchFilter : SearchFilter
     {
+        [JsonProperty("")]
+        public int SOW_FK { get; set; }
         private int length;
         private int page;
 
@@ -58,6 +61,54 @@ namespace GlobalSolusindo.Business.TaskList.Queries
         {
         }
 
+        public List<SOWLinkDTO> GetLink(int id)
+        {
+            TaskListQuery costQuery = new TaskListQuery(this.Db);
+
+            UserQuery userQuery = new UserQuery(this.Db);
+            var data = costQuery.GetSOWLinks().Where(x=>x.SOW_PK == id).FirstOrDefault();
+            var result = new List<SOWLinkDTO>();
+            //RNO
+            var resultfill = new SOWLinkDTO()
+            {
+                Jabatan = "RNO",
+                nama = userQuery.GetByUsername(data.RNO).Name,
+                link = data.LinkRNO,
+                SSV = " "
+            };
+            result.Add(resultfill);
+            //RF
+            resultfill = new SOWLinkDTO()
+            {
+                Jabatan = "RF",
+                nama = userQuery.GetByUsername(data.RF).Name,
+                link = data.LinkRF,
+                SSV = " "
+            };
+            result.Add(resultfill);
+            //Rigger
+            resultfill = new SOWLinkDTO()
+            {
+                Jabatan = "Rigger",
+                nama = userQuery.GetByUsername(data.Rigger).Name,
+                link = data.LinkRigger,
+                SSV = " "
+            };
+            result.Add(resultfill);
+            //DT
+            resultfill = new SOWLinkDTO()
+            {
+                Jabatan = "DT",
+                nama = userQuery.GetByUsername(data.DT).Name,
+                link = data.SSOLink,
+                SSV = data.SSVLink
+            };
+            result.Add(resultfill);
+
+            return result;
+        }
+
+
         public SearchResult<TaskListDTO> GetDataByFilter(TaskListSearchFilter filter)
         {
             if (string.IsNullOrEmpty(filter.SortName))
@@ -91,40 +142,40 @@ namespace GlobalSolusindo.Business.TaskList.Queries
         private List<NetworkType> GetNetworkType(int? userFk, int? btsFk)
         {
             var sql = @"
-select
-	--distinct SOWTrackResult.CheckIn_FK,
-	SOWAssign.SOWAssign_PK, 
-	--SOWTrackResult.SOWTrackResult_PK,
-	SOWAssign.User_FK,
-	SOWTrack.SOWTrack_PK,
-	SOW.SOW_PK,
-	BTSTechnology.BTS_FK,
-	SOWTrack.Technology_FK,
-	Technology.Title AS Type,
-    (ISNULL((select  max(checkin_pk) from tblT_CheckIn where SOWAssign_FK = SOWAssign.SOWAssign_PK),0)) AS CheckIn_PK, 
-	CASE when EXISTS(select CheckIn_FK from tblT_SOWTrackResult SOWTrackResult where SOWTrackResult.SOWTrack_FK = SOWTrack.SOWTrack_PK) 
-	THEN 
-		CASE ISNULL((select top 1 Route from tblT_SOWTrackResult SOWTrackResult where SOWTrackResult.SOWTrack_FK = SOWTrack.SOWTrack_PK order by SOWTrackResult.SOWTrackResult_PK desc), '') 
-		WHEN ''
-			THEN 2
-		ELSE
-			 3
-		END
-	ELSE
-		1
-	END AS Status
-from 
-	tblM_BTSTechnology BTSTechnology 
-	LEFT JOIN tblM_BTS BTS ON BTSTechnology.BTS_FK = BTS.BTS_PK
-	LEFT JOIN tblT_SOW SOW ON BTS.BTS_PK = SOW.BTS_FK 
-	LEFT JOIN tblT_SOWTrack SOWTrack ON BTSTechnology.Technology_FK = SOWTrack.Technology_FK
-	LEFT JOIN tblT_SOWAssign SOWAssign ON SOW.SOW_PK = SOWAssign.SOW_FK   
-	LEFT JOIN tblM_Technology Technology ON SOWTrack.Technology_FK = Technology.Technology_PK 
-WHERE 
-	SOWAssign.User_FK = @userFk   
-	AND SOWTrack.SOW_FK = SOW.SOW_PK  
-    AND SOW.BTS_FK = @btsFk
-";
+                    select
+	                    --distinct SOWTrackResult.CheckIn_FK,
+	                    SOWAssign.SOWAssign_PK, 
+	                    --SOWTrackResult.SOWTrackResult_PK,
+	                    SOWAssign.User_FK,
+	                    SOWTrack.SOWTrack_PK,
+	                    SOW.SOW_PK,
+	                    BTSTechnology.BTS_FK,
+	                    SOWTrack.Technology_FK,
+	                    Technology.Title AS Type,
+                        (ISNULL((select  max(checkin_pk) from tblT_CheckIn where SOWAssign_FK = SOWAssign.SOWAssign_PK),0)) AS CheckIn_PK, 
+	                    CASE when EXISTS(select CheckIn_FK from tblT_SOWTrackResult SOWTrackResult where SOWTrackResult.SOWTrack_FK = SOWTrack.SOWTrack_PK) 
+	                    THEN 
+		                    CASE ISNULL((select top 1 Route from tblT_SOWTrackResult SOWTrackResult where SOWTrackResult.SOWTrack_FK = SOWTrack.SOWTrack_PK order by SOWTrackResult.SOWTrackResult_PK desc), '') 
+		                    WHEN ''
+			                    THEN 2
+		                    ELSE
+			                     3
+		                    END
+	                    ELSE
+		                    1
+	                    END AS Status
+                    from 
+	                    tblM_BTSTechnology BTSTechnology 
+	                    LEFT JOIN tblM_BTS BTS ON BTSTechnology.BTS_FK = BTS.BTS_PK
+	                    LEFT JOIN tblT_SOW SOW ON BTS.BTS_PK = SOW.BTS_FK 
+	                    LEFT JOIN tblT_SOWTrack SOWTrack ON BTSTechnology.Technology_FK = SOWTrack.Technology_FK
+	                    LEFT JOIN tblT_SOWAssign SOWAssign ON SOW.SOW_PK = SOWAssign.SOW_FK   
+	                    LEFT JOIN tblM_Technology Technology ON SOWTrack.Technology_FK = Technology.Technology_PK 
+                    WHERE 
+	                    SOWAssign.User_FK = @userFk   
+	                    AND SOWTrack.SOW_FK = SOW.SOW_PK  
+                        AND SOW.BTS_FK = @btsFk
+                    ";
 
             return Db.Database.SqlQuery<NetworkType>(sql, new SqlParameter("@userFk", userFk), new SqlParameter("@btsFk", btsFk)).ToList();
         }
@@ -158,7 +209,6 @@ WHERE
                                           Type = x.Type
                                       }).ToList()
                                   };
-
             var displayedRecords = filteredRecords;
 
             var searchResult = new SearchResult<TaskListDTO>(filter);

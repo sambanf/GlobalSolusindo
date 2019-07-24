@@ -273,6 +273,9 @@
     <Compile Include="usp_GetSOWViewAll_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="vw_SOWLink.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="vw_SOWViewAll.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>

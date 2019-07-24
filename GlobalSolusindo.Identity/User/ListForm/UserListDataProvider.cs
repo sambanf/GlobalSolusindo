@@ -21,7 +21,7 @@ namespace GlobalSolusindo.Identity.User.ListForm
         public UserListModel Get(UserSearchFilter searchFilter, tblM_User user)
         {
             UserListFormData formData = new UserListFormData();
-            SearchResult<UserDTO> searchResult = userSearch.GetDataByFilter(searchFilter, user);
+            SearchResult<UserDTO> searchResult = userSearch.GetDataByFilter(searchFilter);
             return new UserListModel()
             {
                 FormData = formData,
