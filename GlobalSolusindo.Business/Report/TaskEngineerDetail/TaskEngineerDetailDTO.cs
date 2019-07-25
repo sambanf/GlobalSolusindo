@@ -15,5 +15,8 @@ namespace GlobalSolusindo.Business.TaskEngineerDetail
 
         [JsonProperty("bts")]
         public BTSDTO BTS { get; set; }
+
+        [JsonProperty("cellidstatus")]
+        public bool? CellIDStatus { get; set; }
     }
 }

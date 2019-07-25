@@ -31,6 +31,7 @@
                     controller.sowAssign = res.data.sowAssign;
                     controller.user = res.data.user;
                     controller.bts = res.data.bts;
+                    controller.cellid = res.data.cellidstatus;
                     resolve(res);
                 });
             });
