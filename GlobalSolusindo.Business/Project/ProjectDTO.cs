@@ -44,10 +44,12 @@ namespace GlobalSolusindo.Business.Project
         [JsonProperty("vendorTitle")]
         public string VendorTitle { get; set; }
 
-
         [Required]
         [JsonProperty("user_fk")]
         [ForeignKey(typeof(UserQuery), "User_PK")]
         public int? User_FK { get; set; }
+
+        [JsonProperty("userName")]
+        public string UserName { get; set; }
     }
 }
