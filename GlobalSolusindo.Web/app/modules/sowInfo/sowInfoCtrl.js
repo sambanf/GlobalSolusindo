@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .controller('SOWInfoCtrl', SOWInfoCtrl);
 
-    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService', 'costDtService', 'costShowModalService', 'costDeleteService', 'sowMapService'];
+    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService', 'costDtService', 'costShowModalService', 'costDeleteService', 'sowMapService', 'sowlinkDtService'];
 
-    function SOWInfoCtrl($scope, sParam, $state, bindingService, http, costDtService, costShowModalService, costDeleteService, map) {
+    function SOWInfoCtrl($scope, sParam, $state, bindingService, http, costDtService, costShowModalService, costDeleteService, map, sowlinkDtService) {
         var self = this;
         self.stateParam = sParam;
 
@@ -23,6 +23,7 @@
             costDtService.init(self);
             costShowModalService.init(self);
             costDeleteService.init(self);
+            sowlinkDtService.init(self);
             try {
                 map.init(self);
 
