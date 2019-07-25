@@ -8823,7 +8823,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"card\">\r" +
     "\n" +
-    "                            <div class=\"card-title\">List Cost</div>\r" +
+    "                            <div class=\"card-title\">Link Pekerjaan</div>\r" +
     "\n" +
     "                            <div class=\"row\">\r" +
     "\n" +
@@ -8839,9 +8839,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                                <th>Nama</th>\r" +
     "\n" +
-    "                                                <th>Link</th>\r" +
+    "                                                <th>Link / SSO</th>\r" +
     "\n" +
-    "                                                <th>SSO</th>\r" +
+    "                                                <th>SSV</th>\r" +
     "\n" +
     "                                            </tr>\r" +
     "\n" +

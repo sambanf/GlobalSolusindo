@@ -16,6 +16,7 @@ using System.Net.Http;
 using System.Transactions;
 using System.Web.Http;
 using GlobalSolusindo.Business.TaskList.Queries;
+using GlobalSolusindo.Business.Cost.Queries;
 
 namespace GlobalSolusindo.Api.Controllers
 {
@@ -218,15 +219,15 @@ namespace GlobalSolusindo.Api.Controllers
         }
 
 
-        [Route("sow/link/{id}")]
+        [Route("sow/link")]
         [HttpGet]
-        public IHttpActionResult Link(int id)
+        public IHttpActionResult Link([FromUri]CostSearchFilter filter)
         {
             ThrowIfUserHasNoRole(readRole);
 
             using (var sowSearch = new TaskListSearch(Db))
             {
-                var data = sowSearch.GetLink(id);
+                var data = sowSearch.GetLink(filter);
                 return Ok(new SuccessResponse(data));
             }
 

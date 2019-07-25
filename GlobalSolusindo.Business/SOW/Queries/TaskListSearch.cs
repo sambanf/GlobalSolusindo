@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.Business.BTSTechnology.Queries;
+using GlobalSolusindo.Business.Cost.Queries;
 using GlobalSolusindo.Business.SOW;
 using GlobalSolusindo.Business.SOW.Queries;
 using GlobalSolusindo.DataAccess;
@@ -61,51 +62,56 @@ namespace GlobalSolusindo.Business.TaskList.Queries
         {
         }
 
-        public List<SOWLinkDTO> GetLink(int id)
+        public SearchResult<SOWLinkDTO> GetLink(CostSearchFilter filter)
         {
             TaskListQuery costQuery = new TaskListQuery(this.Db);
 
             UserQuery userQuery = new UserQuery(this.Db);
-            var data = costQuery.GetSOWLinks().Where(x=>x.SOW_PK == id).FirstOrDefault();
+            var data = costQuery.GetSOWLinks().Where(x=>x.SOW_PK == filter.SOW_FK).FirstOrDefault();
             var result = new List<SOWLinkDTO>();
             //RNO
             var resultfill = new SOWLinkDTO()
             {
                 Jabatan = "RNO",
-                nama = userQuery.GetByUsername(data.RNO).Name,
-                link = data.LinkRNO,
-                SSV = " "
+                nama = data.RNO == null ? " " : userQuery.GetByUsername(data.RNO).Name,
+                link = data.LinkRNO == null? " " :data.LinkRNO,
+                SSV = ""
             };
             result.Add(resultfill);
             //RF
             resultfill = new SOWLinkDTO()
             {
                 Jabatan = "RF",
-                nama = userQuery.GetByUsername(data.RF).Name,
-                link = data.LinkRF,
-                SSV = " "
+                nama = data.RF == null? " " : userQuery.GetByUsername(data.RF).Name,
+                link = data.LinkRF == null? " " : data.LinkRF ,
+                SSV = ""
             };
             result.Add(resultfill);
             //Rigger
             resultfill = new SOWLinkDTO()
             {
                 Jabatan = "Rigger",
-                nama = userQuery.GetByUsername(data.Rigger).Name,
-                link = data.LinkRigger,
-                SSV = " "
+                nama = data.Rigger == null? "" : userQuery.GetByUsername(data.Rigger).Name,
+                link = data.LinkRigger == null? "" : data.LinkRigger,
+                SSV = ""
             };
             result.Add(resultfill);
             //DT
             resultfill = new SOWLinkDTO()
             {
                 Jabatan = "DT",
-                nama = userQuery.GetByUsername(data.DT).Name,
-                link = data.SSOLink,
-                SSV = data.SSVLink
+                nama = data.DT == null? "" : userQuery.GetByUsername(data.DT).Name,
+                link = data.SSOLink == null? "" : data.SSOLink,
+                SSV = data.SSVLink == null? "" : data.SSVLink
             };
             result.Add(resultfill);
 
-            return result;
+            var searchResult = new SearchResult<SOWLinkDTO>(filter);
+            searchResult.Filter = filter;
+            searchResult.Count.TotalDisplayed = result.Count();
+            searchResult.Records = result;
+
+            return searchResult;
         }
 
 
