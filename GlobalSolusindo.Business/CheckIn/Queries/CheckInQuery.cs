@@ -106,6 +106,26 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
             return record;
         }
 
+        public CheckInDTO GetBySOWAssign(int sowAssign_PK)
+        {
+            CheckInDTO record = GetQuery().FirstOrDefault(checkIn => checkIn.SOWAssign_FK == sowAssign_PK);
+            //if (record != null)
+            //{
+            //    var sowResult = new SOWResultQuery(Db).GetByCheckinFK(checkInPrimaryKey);
+            //    if (sowResult != null)
+            //    {
+            //        record.SOWResult = sowResult;
+            //    }
+
+            //    var sowTrackResults = new SOWTrackResultQuery(Db).GetByCheckinFK(checkInPrimaryKey);
+            //    if (sowTrackResults != null)
+            //    {
+            //        record.SOWTrackResults = sowTrackResults;
+            //    }
+            //}
+            return record;
+        }
+
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {

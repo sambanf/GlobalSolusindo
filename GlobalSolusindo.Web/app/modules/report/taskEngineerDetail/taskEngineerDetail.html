@@ -73,6 +73,12 @@
                                                 <label class="control-label col-sm-2">Location</label>
                                                 <label class="control-label col-sm-6" id="location" name="location">{{vm.bts.location}}</label>
                                             </div>
+                                            <div class="row">
+                                                <label class="control-label col-sm-2">Cell ID Status</label>
+                                                <label class="control-label col-sm-6" ng-show="vm.cellid === true" id="statuscellid" name="statuscellid">Ya (Cell ID CheckIn sesuai dengan BTS)</label>
+                                                <label class="control-label col-sm-6" ng-show="vm.cellid === false" id="statuscellid" name="statuscellid">Tidak (Cell ID CheckIn tidak sesuai dengan BTS)</label>
+                                                <label class="control-label col-sm-6" ng-show="vm.cellid === null" id="statuscellid" name="statuscellid">(Data Cell ID pada BTS tidak ada)</label>
+                                            </div>
                                         </div>
 
                                     </div>
