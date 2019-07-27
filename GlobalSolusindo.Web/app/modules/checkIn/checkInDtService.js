@@ -25,7 +25,9 @@
             var dt = ds.init("#checkIn", "checkIn/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 10,
+                    SortName:'checkIn_pk' ,
+                    SortDir:'desc'
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [

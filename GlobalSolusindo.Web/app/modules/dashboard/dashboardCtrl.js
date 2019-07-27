@@ -50,6 +50,8 @@
         function ShowDashboard(isDashboardViewAll) {
             if (isDashboardViewAll) {
 
+                document.getElementById("dashboard").style.display = 'inherit';
+                
                 db.TglMulai = '2019-01-01';
                 db.TglAkhir = '2019-06-30';
 
@@ -495,7 +497,7 @@
 
             }
             else {
-
+                document.getElementById("dashboard").style.display = 'none';
                 $state.go('app.dashboardNull');
 
             }
