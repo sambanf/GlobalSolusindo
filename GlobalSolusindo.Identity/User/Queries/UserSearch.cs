@@ -3,6 +3,7 @@ using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity.UserDetail.Queries;
 using Kairos.Data;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GlobalSolusindo.Identity.User.Queries
@@ -23,7 +24,27 @@ namespace GlobalSolusindo.Identity.User.Queries
         public int User_PK { get; set; }
 
         [JsonProperty("kategoriJabatan_fk")]
-        public int KategoriJabatan_FK{ get; set; }
+        public int KategoriJabatan_FK { get; set; }
+    }
+
+
+    //Helper untuk distinct user yang double
+    class UserListDistinct
+    {
+        public static List<UserDTO> DistinctRecords(List<UserDTO> records)
+        {
+            List<UserDTO> result = new List<UserDTO>();
+
+            foreach (var record in records)
+            {
+                var userIsExist = result.Where(x => x.User_PK == record.User_PK).Count() > 0;
+                if (!userIsExist)
+                {
+                    result.Add(record);
+                }
+            }
+            return result;
+        }
     }
 
     public class UserSearch : QueryBase
@@ -56,7 +77,7 @@ namespace GlobalSolusindo.Identity.User.Queries
                     .Where(user =>
                     user.KategoriJabatan_FK == (int)filter.KategoriJabatan_FK);
             }
-            
+
             if (us.KategoriJabatan_FK == 7)
             {
                 filteredRecords = query.GetByJabatanAndProject(0, us.User_PK).Where(user =>
@@ -131,11 +152,15 @@ namespace GlobalSolusindo.Identity.User.Queries
                     user.User_PK == (int)filter.User_PK);
             }
 
+            filteredRecords = filteredRecords.Distinct();
+
             var displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)
                 .Skip(filter.Skip)
                 .Take(filter.PageSize)
                 .ToList();
+
+            displayedRecords = UserListDistinct.DistinctRecords(displayedRecords);
 
             var searchResult = new SearchResult<UserDTO>(filter);
             searchResult.Filter = filter;
