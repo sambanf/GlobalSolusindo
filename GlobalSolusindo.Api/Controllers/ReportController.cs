@@ -4,6 +4,7 @@ using GlobalSolusindo.Business.TaskEngineer.Queries;
 using GlobalSolusindo.Business.TaskEngineerDetail;
 using GlobalSolusindo.Business.TimesheetDetail.Queries;
 using Kairos;
+using Newtonsoft.Json;
 using System.Web.Http;
 
 namespace GlobalSolusindo.Api.Controllers
@@ -31,6 +32,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var timesheetDetailSearch = new TimesheetDetailSearch(Db))
             {
                 var data = timesheetDetailSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, "ReportTimeSheetDetail_ViewAll", JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -46,6 +48,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var activitiesSearch = new ActivitiesSearch(Db))
             {
                 var data = activitiesSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, "ReportActivities_ViewAll", JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -61,6 +64,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var taskEngineerSearch = new TaskEngineerSearch(Db))
             {
                 var data = taskEngineerSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, "ReportTaskEngineer_ViewAll", JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -73,6 +77,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var taskEngineerDetailDataProvider = new TaskEngineerDetailDataProvider(Db, ActiveUser, AccessControl))
             {
                 var data = taskEngineerDetailDataProvider.Get(sowAssign_fk);
+                SaveLog(ActiveUser.Username, "ReportTaskEngineerDetail_ViewAll", JsonConvert.SerializeObject(new { primaryKey = sowAssign_fk }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -88,6 +93,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var dailyTaskSearch = new DailyTaskSearch(Db))
             {
                 var data = dailyTaskSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, "ReportDailyTask_ViewAll", JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }

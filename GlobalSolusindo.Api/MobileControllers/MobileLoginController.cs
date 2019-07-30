@@ -30,6 +30,8 @@ namespace GlobalSolusindo.Api.MobileControllers
 
     public class MobileLoginController : ApiController
     {
+        ApiControllerBase apicontrollerBase = new ApiControllerBase();
+
         private void CreateSession(string token, UserDTO user)
         {
             TokenSessionManager.Add(token, user);
@@ -55,6 +57,7 @@ namespace GlobalSolusindo.Api.MobileControllers
                     {
                         isDtvar = true;
                     }
+                    apicontrollerBase.SaveLog(request.Email, "Mobile_Login", JsonConvert.SerializeObject(request), "Success", "", "", "");
                     return Ok(
                         new
                         {
@@ -71,12 +74,16 @@ namespace GlobalSolusindo.Api.MobileControllers
                             tokenType = "Bearer"
                         });
                 }
-                return Ok(
+                else
+                {
+                    apicontrollerBase.SaveLog(request.Email, "Mobile_Login", JsonConvert.SerializeObject(request), "Error", loginResult.Message, "", "");
+                    return Ok(
                     new
                     {
                         status = false,
-                        msg = loginResult.ValidationResult.IsValid ? loginResult.Message: loginResult.ValidationResult.Errors[0].Message
+                        msg = loginResult.ValidationResult.IsValid ? loginResult.Message : loginResult.ValidationResult.Errors[0].Message
                     });
+                }
             }
         }
     }

@@ -31,7 +31,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AreaQuery areaQuery = new AreaQuery(Db))
             {
                 var data = areaQuery.GetByPrimaryKey(id);
-                SaveLog("Area", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, "Area_ViewAll", JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -45,7 +45,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AreaEntryDataProvider areaEntryDataProvider = new AreaEntryDataProvider(Db, ActiveUser, AccessControl, new AreaQuery(Db)))
             {
                 var data = areaEntryDataProvider.Get(id);
-                SaveLog("Area", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, "Area_ViewAll", JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -61,6 +61,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var areaQuery = new AreaQuery(Db))
             {
                 var data = areaQuery.Search(filter);
+                SaveLog(ActiveUser.Username, "Area_ViewAll", JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -82,8 +83,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = areaCreateHandler.Save(areaDTO: area, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, saveResult.Model.Model.Area_PK.ToString(), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, "", "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -99,6 +107,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (area.Area_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            AreaQuery areaQuery = new AreaQuery();
+            AreaDTO valueOld = new AreaDTO();
+            valueOld = areaQuery.GetByPrimaryKey(area.Area_PK);
+
             using (var areaUpdateHandler = new AreaUpdateHandler(Db, ActiveUser, new AreaValidator(), new AreaFactory(Db, ActiveUser), new AreaQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -106,8 +118,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = areaUpdateHandler.Save(area, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, saveResult.Model.Model.Area_PK.ToString(), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, "", "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -132,7 +151,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(areaDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

@@ -31,7 +31,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (MenuQuery menuQuery = new MenuQuery(Db))
             {
                 var data = menuQuery.GetByPrimaryKey(id);
-                SaveLog("Menu", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -46,7 +46,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (MenuEntryDataProvider menuEntryDataProvider = new MenuEntryDataProvider(Db, ActiveUser, AccessControl, new MenuQuery(Db)))
             {
                 var data = menuEntryDataProvider.Get(id);
-                SaveLog("Menu", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -62,6 +62,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var menuQuery = new MenuQuery(Db))
             {
                 var data = menuQuery.Search(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -83,8 +84,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = menuCreateHandler.Save(menuDTO: menu, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(menu), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(menu), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -100,6 +108,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (menu.Menu_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            MenuQuery menuQuery = new MenuQuery();
+            MenuDTO valueOld = new MenuDTO();
+            valueOld = menuQuery.GetByPrimaryKey(menu.Menu_PK);
+
             using (var menuUpdateHandler = new MenuUpdateHandler(Db, ActiveUser, new MenuValidator(), new MenuFactory(Db, ActiveUser), new MenuQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -107,8 +119,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = menuUpdateHandler.Save(menu, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(menu), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(menu), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -133,7 +152,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(menuDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

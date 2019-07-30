@@ -35,11 +35,11 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Get(int id)
         {
             //string accessType = "PO_ViewAll";
-            //ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             using (POQuery poQuery = new POQuery(Db))
             {
                 var data = poQuery.GetByPrimaryKey(id);
-                SaveLog("PO", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -49,12 +49,12 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult GetForm(int id)
         {
             //string accessType = "PO_ViewAll";
-            //if (id > 0)
-            //    ThrowIfUserHasNoRole(accessType);
+            if (id > 0)
+                ThrowIfUserHasNoRole(readRole);
             using (POEntryDataProvider poEntryDataProvider = new POEntryDataProvider(Db, ActiveUser, new POQuery(Db)))
             {
                 var data = poEntryDataProvider.Get(id);
-                SaveLog("PO", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -64,13 +64,14 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult Search([FromUri]POSearchFilter filter)
         {
             //string accessType = "PO_ViewAll";
-            //ThrowIfUserHasNoRole(accessType);
+            ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
 
             using (var poSearch = new POSearch(Db))
             {
                 var data = poSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -98,6 +99,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(poDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, "PO_Delete", JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }
@@ -114,6 +116,7 @@ namespace GlobalSolusindo.Api.Controllers
             if (poImportDTO == null)
                 throw new KairosException("Missing model parameter");
             var importResult = new POImportExcelHandler(Db, ActiveUser, new POValidator(), new POFactory(Db, ActiveUser), new POQuery(Db)).ExecuteImport(poImportDTO, DateTime.Now);
+            SaveLog(ActiveUser.Username, "PO_Import", JsonConvert.SerializeObject(poImportDTO), "Success", "", "", "");
             return Ok(new SuccessResponse(importResult));
         }
 
@@ -131,8 +134,11 @@ namespace GlobalSolusindo.Api.Controllers
                 var data = poSearch.GetDataByFilter(filter);
                 AbstractDataExportBridge expor = new AbstractDataExportBridge();
                 //expor.WriteData<PODTO>(data.Records);
+                SaveLog(ActiveUser.Username, "PO_Export", JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return expor.Export<PODTO>(data.Records, "PoUpload", "POUpload");
+
             }
         }
     }
 }
+

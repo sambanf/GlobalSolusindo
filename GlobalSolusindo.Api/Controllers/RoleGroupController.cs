@@ -32,7 +32,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (RoleGroupQuery roleGroupQuery = new RoleGroupQuery(Db))
             {
                 var data = roleGroupQuery.GetByPrimaryKey(id);
-                SaveLog("RoleGroup", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -45,7 +45,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (RoleGroupEntryDataProvider roleGroupEntryDataProvider = new RoleGroupEntryDataProvider(Db, ActiveUser, AccessControl, new RoleGroupQuery(Db)))
             {
                 var data = roleGroupEntryDataProvider.Get(id);
-                SaveLog("RoleGroup", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -61,6 +61,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var roleGroupSearch = new RoleGroupSearch(Db))
             {
                 var data = roleGroupSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -82,8 +83,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = roleGroupCreateHandler.Save(roleGroupDTO: roleGroup, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(roleGroup), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(roleGroup), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -99,6 +107,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (roleGroup.RoleGroup_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            RoleGroupQuery roleGroupQuery = new RoleGroupQuery();
+            RoleGroupDTO valueOld = new RoleGroupDTO();
+            valueOld = roleGroupQuery.GetByPrimaryKey(roleGroup.RoleGroup_PK);
+
             using (var roleGroupUpdateHandler = new RoleGroupUpdateHandler(Db, ActiveUser, new RoleGroupValidator(), new RoleGroupFactory(Db, ActiveUser), new RoleGroupQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -106,8 +118,16 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = roleGroupUpdateHandler.Save(roleGroup, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(roleGroup), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(roleGroup), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -131,6 +151,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(roleGroupDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

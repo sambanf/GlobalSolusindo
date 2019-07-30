@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Business.SOWResult;
 using Kairos;
+using Newtonsoft.Json;
 using System;
 using System.Transactions;
 using System.Web.Http;
@@ -30,16 +31,23 @@ namespace GlobalSolusindo.Api.MobileControllers
                     var saveResult = createHandler.Save(sowResultDTO: sowResultDTO, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "Mobile_DoSubmitUrl", JsonConvert.SerializeObject(sowResultDTO), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new
                         {
                             status = true,
                         });
-                    return Ok(new
+                    }
+                    else
                     {
-                        status = false,
-                        msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
-                        validationResult = saveResult.ValidationResult
-                    });
+                        SaveLog(ActiveUser.Username, "Mobile_DoSubmitUrl", JsonConvert.SerializeObject(sowResultDTO), "Error", saveResult.Message, "", "");
+                        return Ok(new
+                        {
+                            status = false,
+                            msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
+                            validationResult = saveResult.ValidationResult
+                        });
+                    }
                 }
             }
         }
@@ -57,6 +65,10 @@ namespace GlobalSolusindo.Api.MobileControllers
                 throw new KairosException("Need Remark to reject");
             }
 
+            SOWResultQuery sowResultQuery = new SOWResultQuery();
+            SOWResultDTO valueOld = new SOWResultDTO();
+            valueOld = sowResultQuery.GetByPrimaryKey(sowResult.SOWResult_PK);
+
             using (var updateHandler = new SOWResultUpdateHandler(Db, ActiveUser, new SOWResultValidator(), new SOWResultFactory(Db, ActiveUser), new SOWResultQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -64,16 +76,23 @@ namespace GlobalSolusindo.Api.MobileControllers
                     var saveResult = updateHandler.Save(sowResultDTO: sowResult, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "Mobile_DoCloseTask", JsonConvert.SerializeObject(sowResult), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new
                         {
                             status = true
                         });
-                    return Ok(new
+                    }
+                    else
                     {
-                        status = false,
-                        msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
-                        validationResult = saveResult.ValidationResult
-                    });
+                        SaveLog(ActiveUser.Username, "Mobile_DoCloseTask", JsonConvert.SerializeObject(sowResult), "Error", saveResult.Message, "", "");
+                        return Ok(new
+                        {
+                            status = false,
+                            msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
+                            validationResult = saveResult.ValidationResult
+                        });
+                    }
                 }
             }
         }

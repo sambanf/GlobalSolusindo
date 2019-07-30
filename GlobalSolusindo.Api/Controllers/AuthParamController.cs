@@ -32,7 +32,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AuthParamQuery authParamQuery = new AuthParamQuery(Db))
             {
                 var data = authParamQuery.GetByPrimaryKey(id);
-                SaveLog("AuthParam", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -46,7 +46,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AuthParamEntryDataProvider authParamEntryDataProvider = new AuthParamEntryDataProvider(Db, ActiveUser, AccessControl, new AuthParamQuery(Db)))
             {
                 var data = authParamEntryDataProvider.Get(id);
-                SaveLog("AuthParam", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -62,6 +62,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var authParamSearch = new AuthParamSearch(Db))
             {
                 var data = authParamSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -83,8 +84,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = authParamCreateHandler.Save(authParamDTO: authParam, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(authParam), "Success", "","", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(authParam), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -100,6 +108,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (authParam.AuthParam_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            AuthParamQuery authParamQuery = new AuthParamQuery();
+            AuthParamDTO valueOld = new AuthParamDTO();
+            valueOld = authParamQuery.GetByPrimaryKey(authParam.AuthParam_PK);
+
             using (var authParamUpdateHandler = new AuthParamUpdateHandler(Db, ActiveUser, new AuthParamValidator(), new AuthParamFactory(Db, ActiveUser), new AuthParamQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -107,8 +119,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = authParamUpdateHandler.Save(authParam, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(authParam), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(authParam), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -131,7 +150,8 @@ namespace GlobalSolusindo.Api.Controllers
                     {
                         result.Add(authParamDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
-                    transaction.Complete(); 
+                    transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
 

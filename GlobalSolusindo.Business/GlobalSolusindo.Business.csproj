@@ -55,6 +55,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LogActivity\DML\InsertLogActivity.cs" />
+    <Compile Include="LogActivity\DML\LogActivityCreateHandler.cs" />
+    <Compile Include="LogActivity\EntryForm\LogActivityEntryControlBuilder.cs" />
+    <Compile Include="LogActivity\EntryForm\LogActivityEntryDataProvider.cs" />
+    <Compile Include="LogActivity\EntryForm\LogActivityEntryFormData.cs" />
+    <Compile Include="LogActivity\EntryForm\LogActivityEntryModel.cs" />
+    <Compile Include="LogActivity\LogActivityDTO.cs" />
+    <Compile Include="LogActivity\LogActivityFactory.cs" />
+    <Compile Include="LogActivity\LogActivityValidator.cs" />
+    <Compile Include="LogActivity\Queries\LogActivityQuery.cs" />
     <Compile Include="SOW\DML\SOWImportExcelHandler.cs" />
     <Compile Include="SOW\SOWDTOViewAll.cs" />
     <Compile Include="SOW\SOWLinkDT.cs" />

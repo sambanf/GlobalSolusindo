@@ -33,7 +33,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (KotaQuery kotaQuery = new KotaQuery(Db))
             {
                 var data = kotaQuery.GetByPrimaryKey(id);
-                SaveLog("Kota", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -47,7 +47,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (KotaEntryDataProvider kotaEntryDataProvider = new KotaEntryDataProvider(Db, ActiveUser, AccessControl, new KotaQuery(Db)))
             {
                 var data = kotaEntryDataProvider.Get(id);
-                SaveLog("Kota", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -63,6 +63,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var kotaSearch = new KotaSearch(Db))
             {
                 var data = kotaSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -84,8 +85,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = kotaCreateHandler.Save(kotaDTO: kota, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(kota), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(kota), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -101,6 +109,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (kota.Kota_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            KotaQuery kotaQuery = new KotaQuery();
+            KotaDTO valueOld = new KotaDTO();
+            valueOld = kotaQuery.GetByPrimaryKey(kota.Kota_PK);
+
             using (var kotaUpdateHandler = new KotaUpdateHandler(Db, ActiveUser, new KotaValidator(), new KotaFactory(Db, ActiveUser), new KotaQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -108,8 +120,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = kotaUpdateHandler.Save(kota, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(kota), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(kota), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -134,6 +153,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(kotaDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

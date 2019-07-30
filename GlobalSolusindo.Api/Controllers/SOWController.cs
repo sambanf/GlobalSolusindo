@@ -40,7 +40,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (SOWQuery sowQuery = new SOWQuery(Db))
             {
                 var data = sowQuery.GetByPrimaryKey(id);
-                SaveLog("SOW", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -54,7 +54,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (SOWEntryDataProvider sowEntryDataProvider = new SOWEntryDataProvider(Db, ActiveUser, AccessControl, new SOWQuery(Db)))
             {
                 var data = sowEntryDataProvider.Get(id);
-                SaveLog("SOW", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -67,7 +67,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (SOWInfoDataProvider sowEntryDataProvider = new SOWInfoDataProvider(Db, ActiveUser, AccessControl, new SOWQuery(Db)))
             {
                 var data = sowEntryDataProvider.Get(id);
-                SaveLog("SOW", "GetInfo", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -84,6 +84,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var sowQuery = new SOWQuery(Db))
             {
                 var data = sowQuery.Search(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -105,8 +106,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = sowCreateHandler.Save(sowDTO: sow, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(sow), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(sow), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -122,6 +130,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (sow.SOW_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            SOWQuery sowQuery = new SOWQuery();
+            SOWDTO valueOld = new SOWDTO();
+            valueOld = sowQuery.GetByPrimaryKey(sow.SOW_PK);
+
             using (var sowUpdateHandler = new SOWUpdateHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWTrackFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -129,8 +141,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = sowUpdateHandler.Save(sow, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(sow), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(sow), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -153,8 +172,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = sOWApprovalHandler.Save(sOWApproval, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, approvalRole, JsonConvert.SerializeObject(sOWApproval), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, approvalRole, JsonConvert.SerializeObject(sOWApproval), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -178,6 +204,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(sowDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }
@@ -195,6 +222,7 @@ namespace GlobalSolusindo.Api.Controllers
                 throw new KairosException("Missing model parameter");
             
             var importResult = new SOWImportExcelHandler(Db, ActiveUser, new SOWValidator(), new SOWFactory(Db, ActiveUser), new SOWAssignFactory(Db, ActiveUser), new SOWQuery(Db), AccessControl).ExecuteImport(SOWImportDTO, DateTime.Now);
+            SaveLog(ActiveUser.Username, importRole, JsonConvert.SerializeObject(SOWImportDTO), "Success", "", "", "");
             return Ok(new SuccessResponse(importResult));
         }
 
@@ -205,6 +233,7 @@ namespace GlobalSolusindo.Api.Controllers
             string accessType = "SOW_ViewAll";
             ThrowIfUserHasNoRole(accessType);
             SOWExport SOWExport = new SOWExport();
+            SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(filter), "Success", "", "", "");
             return SOWExport.Export(Db, ActiveUser, "SOWUpload", filter);
         }
 
@@ -215,6 +244,7 @@ namespace GlobalSolusindo.Api.Controllers
             string accessType = "SOW_ViewAll";
             ThrowIfUserHasNoRole(accessType);
             SOWExport SOWExport = new SOWExport();
+            SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(filter), "Success", "", "", "");
             return SOWExport.ExportViewAll(Db, ActiveUser, "SOWViewAll", filter);
         }
 
@@ -228,6 +258,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var sowSearch = new TaskListSearch(Db))
             {
                 var data = sowSearch.GetLink(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
 
@@ -243,7 +274,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var sowSearch = new TaskListSearch(Db))
             {
                 var data = sowSearch.GetSOWName(filter);
-
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
 

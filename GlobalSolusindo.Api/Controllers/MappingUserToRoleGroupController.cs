@@ -30,7 +30,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (MappingUserToRoleGroupQuery mappingUserToRoleGroupQuery = new MappingUserToRoleGroupQuery(Db))
             {
                 var data = mappingUserToRoleGroupQuery.GetByPrimaryKey(userRoleMapPK.RoleGroupPK, userRoleMapPK.UserPK);
-                SaveLog("MappingUserToRoleGroup", "Get", JsonConvert.SerializeObject(new { primaryKey = userRoleMapPK.RoleGroupPK }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = userRoleMapPK }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -43,7 +43,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (MappingUserToRoleGroupEntryDataProvider mappingUserToRoleGroupEntryDataProvider = new MappingUserToRoleGroupEntryDataProvider(Db, ActiveUser, AccessControl, new MappingUserToRoleGroupQuery(Db)))
             {
                 var data = mappingUserToRoleGroupEntryDataProvider.Get(userRoleMapPK.RoleGroupPK, userRoleMapPK.UserPK);
-                SaveLog("MappingUserToRoleGroup", "GetForm", JsonConvert.SerializeObject(new { primaryKey = userRoleMapPK.RoleGroupPK }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = userRoleMapPK }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -59,6 +59,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var mappingUserToRoleGroupSearch = new MappingUserToRoleGroupSearch(Db))
             {
                 var data = mappingUserToRoleGroupSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -78,8 +79,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = mappingUserToRoleGroupCreateHandler.Save(mappingUserToRoleGroupDTO: mappingUserToRoleGroup, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(mappingUserToRoleGroup), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(mappingUserToRoleGroup), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -90,7 +98,11 @@ namespace GlobalSolusindo.Api.Controllers
         {
             ThrowIfUserHasNoRole(updateRole);
             if (mappingUserToRoleGroup == null)
-                throw new KairosException("Missing model parameter"); 
+                throw new KairosException("Missing model parameter");
+
+            //MappingUserToRoleGroupQuery mappingUserToRoleGroupQuery = new MappingUserToRoleGroupQuery();
+            //MappingUserToRoleGroupDTO valueOld = new MappingUserToRoleGroupDTO();
+            //valueOld = mappingUserToRoleGroupQuery.GetByPrimaryKey()
 
             using (var mappingUserToRoleGroupUpdateHandler = new MappingUserToRoleGroupUpdateHandler(Db, ActiveUser, new MappingUserToRoleGroupValidator(), new MappingUserToRoleGroupFactory(Db, ActiveUser), new MappingUserToRoleGroupQuery(Db), AccessControl))
             {
@@ -99,8 +111,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = mappingUserToRoleGroupUpdateHandler.Save(mappingUserToRoleGroup, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(mappingUserToRoleGroup), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(mappingUserToRoleGroup), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -120,6 +139,7 @@ namespace GlobalSolusindo.Api.Controllers
                 {
                     var result =   mappingUserToRoleGroupDeleteHandler.Execute(keys.RoleGroupPK, keys.UserPK, Base.DeleteMethod.Hard);
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(keys), "Success", "", "", "");
                     return Ok(new SuccessResponse(result));
                 }
             }

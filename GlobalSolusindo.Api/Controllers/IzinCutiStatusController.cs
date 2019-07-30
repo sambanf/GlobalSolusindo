@@ -28,7 +28,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (IzinCutiStatusQuery izinCutiStatusQuery = new IzinCutiStatusQuery(Db))
             {
                 var data = izinCutiStatusQuery.GetByPrimaryKey(id);
-                SaveLog("IzinCutiStatus", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -43,7 +43,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (IzinCutiStatusEntryDataProvider izinCutiStatusEntryDataProvider = new IzinCutiStatusEntryDataProvider(Db, ActiveUser, AccessControl, new IzinCutiStatusQuery(Db)))
             {
                 var data = izinCutiStatusEntryDataProvider.Get(id);
-                SaveLog("IzinCutiStatus", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -60,6 +60,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var izinCutiStatusSearch = new IzinCutiStatusSearch(Db))
             {
                 var data = izinCutiStatusSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -82,8 +83,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = izinCutiStatusCreateHandler.Save(izinCutiStatusDTO: izinCutiStatus, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "IzinCutiStatus_Input", JsonConvert.SerializeObject(izinCutiStatus), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, "IzinCutiStatus_Input", JsonConvert.SerializeObject(izinCutiStatus), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -100,6 +108,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (izinCutiStatus.IzinCutiStatus_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            IzinCutiStatusQuery izinCutiStatusQuery = new IzinCutiStatusQuery();
+            IzinCutiStatusDTO valueOld = new IzinCutiStatusDTO();
+            valueOld = izinCutiStatusQuery.GetByPrimaryKey(izinCutiStatus.IzinCutiStatus_PK);
+
             using (var izinCutiStatusUpdateHandler = new IzinCutiStatusUpdateHandler(Db, ActiveUser, new IzinCutiStatusValidator(), new IzinCutiStatusFactory(Db, ActiveUser), new IzinCutiStatusQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -107,8 +119,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = izinCutiStatusUpdateHandler.Save(izinCutiStatus, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "IzinCutiStatus_Update", JsonConvert.SerializeObject(izinCutiStatus), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, "IzinCutiStatus_Update", JsonConvert.SerializeObject(izinCutiStatus), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -134,6 +153,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(izinCutiStatusDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, "IzinCutiStatus_Delete", JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

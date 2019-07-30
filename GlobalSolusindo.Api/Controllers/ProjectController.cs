@@ -32,7 +32,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (ProjectQuery projectQuery = new ProjectQuery(Db))
             {
                 var data = projectQuery.GetByPrimaryKey(id);
-                SaveLog("Project", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -46,7 +46,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (ProjectEntryDataProvider projectEntryDataProvider = new ProjectEntryDataProvider(Db, ActiveUser, AccessControl, new ProjectQuery(Db)))
             {
                 var data = projectEntryDataProvider.Get(id);
-                SaveLog("Project", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -62,6 +62,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var projectQuery = new ProjectQuery(Db))
             {
                 var data = projectQuery.Search(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -83,8 +84,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = projectCreateHandler.Save(projectDTO: project, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(project), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(project), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -100,6 +108,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (project.Project_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            ProjectQuery projectQuery = new ProjectQuery();
+            ProjectDTO valueOld = new ProjectDTO();
+            valueOld = projectQuery.GetByPrimaryKey(project.Project_PK);
+
             using (var projectUpdateHandler = new ProjectUpdateHandler(Db, ActiveUser, new ProjectValidator(), new ProjectFactory(Db, ActiveUser), new ProjectQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -107,8 +119,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = projectUpdateHandler.Save(project, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(project), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(project), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -133,6 +152,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(projectDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.SOWTrackResult;
 using Kairos;
 using Kairos.Google.KMLs;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Transactions;
@@ -48,6 +49,7 @@ namespace GlobalSolusindo.Api.Controllers
                 {
                     result = new List<object>();
                 }
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(result);
             }
         }
@@ -71,17 +73,23 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = sowTrackResultUpdateHandler.Save(sowTrackResultDTO: sowTrackResult, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "Mobile_DoFinishDrive", JsonConvert.SerializeObject(sowTrackResult), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new
                         {
                             status = true
                         });
-                    
-                    return Ok(new
+                    }
+                    else
                     {
-                        status = false,
-                        message = saveResult.Message,
-                        data = saveResult.ValidationResult
-                    });
+                        SaveLog(ActiveUser.Username, "Mobile_DoFinishDrive", JsonConvert.SerializeObject(sowTrackResult), "Error", saveResult.Message, "", "");
+                        return Ok(new
+                        {
+                            status = false,
+                            message = saveResult.Message,
+                            data = saveResult.ValidationResult
+                        });
+                    }
                 }
             }
         }

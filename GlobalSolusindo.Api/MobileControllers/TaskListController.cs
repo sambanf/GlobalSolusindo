@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Business.TaskList.Queries;
 using Kairos;
+using Newtonsoft.Json;
 using System.Web.Http;
 
 namespace GlobalSolusindo.Api.Controllers
@@ -22,6 +23,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var taskListSearch = new TaskListSearch(Db))
             {
                 var data = taskListSearch.GetDataWithSPByFilter(filter);
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(data.Records);
             }
         } 

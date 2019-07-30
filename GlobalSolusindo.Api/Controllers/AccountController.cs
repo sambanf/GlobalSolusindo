@@ -9,6 +9,7 @@ namespace GlobalSolusindo.Api.Controllers
 {
     public class AccountController : ApiController
     {
+        ApiControllerBase apiControllerBase = new ApiControllerBase();
         public AccountController()
         {
         }
@@ -28,13 +29,18 @@ namespace GlobalSolusindo.Api.Controllers
             using (var loginManager = new LoginManager(new DataAccess.GlobalSolusindoDb()))
             {
                 var loginResult = loginManager.GrantAccess(loginDTO: login);
-                
+
                 if (loginResult.Success)
                 {
                     CreateSession(loginResult.Token, loginResult.Model);
+                    apiControllerBase.SaveLog(login.Username, "Login", "", "Success", "", "", "");
                     return Ok(loginResult);
                 }
-                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, loginResult.ValidationResult, loginResult.Message));
+                else
+                {
+                    apiControllerBase.SaveLog(login.Username, "Login", "", "Error", loginResult.Message, "", "");
+                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, loginResult.ValidationResult, loginResult.Message));
+                }
             }
         }
 

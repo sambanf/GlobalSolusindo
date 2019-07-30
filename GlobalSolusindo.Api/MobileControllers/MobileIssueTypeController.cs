@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Business.IssueType.Queries;
 using Kairos;
+using Newtonsoft.Json;
 using System.Web.Http;
 
 namespace GlobalSolusindo.Api.MobileControllers
@@ -18,7 +19,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             using (var issueTypeSearch = new IssueTypeSearch(Db))
             {
                 var data = issueTypeSearch.GetDataByFilter(filter);
-
+                SaveLog(ActiveUser.Username, "Mobile"+accessType, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(data.Records);
             }
         }

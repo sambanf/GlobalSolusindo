@@ -29,7 +29,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             using (SOWIssueQuery sowIssueQuery = new SOWIssueQuery(Db))
             {
                 var data = sowIssueQuery.GetByPrimaryKey(id);
-                SaveLog("SOWIssue", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -44,7 +44,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             using (SOWIssueEntryDataProvider sowIssueEntryDataProvider = new SOWIssueEntryDataProvider(Db, ActiveUser, AccessControl, new SOWIssueQuery(Db)))
             {
                 var data = sowIssueEntryDataProvider.Get(id);
-                SaveLog("SOWIssue", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -68,6 +68,7 @@ namespace GlobalSolusindo.Api.MobileControllers
                     content = x.Description,
                     photo = x.FilePhotoInBase64,
                 });
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(mobileResponse);
             }
         }
@@ -90,19 +91,26 @@ namespace GlobalSolusindo.Api.MobileControllers
                     var saveResult = sowIssueCreateHandler.Save(sowIssueDTO: sowIssue, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "MobileDoTaskreport_Input", JsonConvert.SerializeObject(sowIssue), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new
                         {
                             issueId = saveResult.Model.Model.SOWIssue_PK,
                             success = true,
                             msg = "Laporan kendala berhasil."
                         });
-                    return Ok(new
+                    }
+                    else
                     {
-                       
-                        status = false,
-                        msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
-                        validationResult = saveResult.ValidationResult
-                    });
+                        SaveLog(ActiveUser.Username, "MobileDoTaskreport_Input", JsonConvert.SerializeObject(sowIssue), "Error", saveResult.Message, "", "");
+                        return Ok(new
+                        {
+
+                            status = false,
+                            msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
+                            validationResult = saveResult.ValidationResult
+                        });
+                    }
                 }
             }
         }
@@ -119,6 +127,10 @@ namespace GlobalSolusindo.Api.MobileControllers
             if (sowIssue.SOWIssue_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            SOWIssueQuery sowIssueQuery = new SOWIssueQuery();
+            SOWIssueDTO valueOld = new SOWIssueDTO();
+            valueOld = sowIssueQuery.GetByPrimaryKey(sowIssue.SOWIssue_PK);
+
             using (var sowIssueUpdateHandler = new SOWIssueUpdateHandler(Db, ActiveUser, new SOWIssueValidator(), new SOWIssueFactory(Db, ActiveUser), new SOWIssueQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -126,18 +138,25 @@ namespace GlobalSolusindo.Api.MobileControllers
                     var saveResult = sowIssueUpdateHandler.Save(sowIssue, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "MobileDoTaskreport_Update", JsonConvert.SerializeObject(sowIssue), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new
                         {
                             issueId = saveResult.Model.Model.SOWIssue_PK,
                             success = true,
                             msg = "Update laporan kendala berhasil."
                         });
-                    return Ok(new
+                    }
+                    else
                     {
-                        status = false,
-                        msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
-                        validationResult = saveResult.ValidationResult
-                    });
+                        SaveLog(ActiveUser.Username, "MobileDoTaskreport_Update", JsonConvert.SerializeObject(sowIssue), "Error", saveResult.Message, "", "");
+                        return Ok(new
+                        {
+                            status = false,
+                            msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
+                            validationResult = saveResult.ValidationResult
+                        });
+                    }
                 }
             }
         }
@@ -163,7 +182,7 @@ namespace GlobalSolusindo.Api.MobileControllers
                         result.Add(sowIssueDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-
+                    SaveLog(ActiveUser.Username, "MobileDoTaskreport_Delete", JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

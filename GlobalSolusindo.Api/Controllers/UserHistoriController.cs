@@ -33,7 +33,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AsetHistoriQuery asetHistoriQuery = new AsetHistoriQuery(Db))
             {
                 var data = asetHistoriQuery.GetByPrimaryKey(id);
-                SaveLog("AsetHistori", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -47,7 +47,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AsetHistoriEntryDataProvider asetHistoriEntryDataProvider = new AsetHistoriEntryDataProvider(Db, ActiveUser, AccessControl, new AsetHistoriQuery(Db)))
             {
                 var data = asetHistoriEntryDataProvider.Get(id);
-                SaveLog("AsetHistori", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -63,6 +63,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var userHistoriSearch = new UserHistoriSearch(Db))
             {
                 var data = userHistoriSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -140,3 +141,4 @@ namespace GlobalSolusindo.Api.Controllers
         //}
     }
 }
+
