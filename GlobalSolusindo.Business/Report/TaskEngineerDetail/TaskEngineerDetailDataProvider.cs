@@ -5,6 +5,8 @@ using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
 using GlobalSolusindo.Identity.User.Queries;
+using GlobalSolusindo.Business.CheckIn.Queries;
+using GlobalSolusindo.Business.CheckIn;
 
 namespace GlobalSolusindo.Business.TaskEngineerDetail
 {
@@ -20,6 +22,7 @@ namespace GlobalSolusindo.Business.TaskEngineerDetail
         public TaskEngineerDetailDTO Get(int sowAssignPK)
         {
             TaskEngineerDetailDTO model = new TaskEngineerDetailDTO();
+            CheckInDTO modelCheckin = new CheckInDTO();
 
             model.SOWAssign = new SOWAssignQuery(Db).GetByPrimaryKey(sowAssignPK);
             if (model.SOWAssign != null)
@@ -29,6 +32,25 @@ namespace GlobalSolusindo.Business.TaskEngineerDetail
                 if (sow != null)
                 {
                     model.BTS = new BTSQuery(Db).GetByPrimaryKey(sow.BTS_FK);
+                    modelCheckin = new CheckInQuery(Db).GetBySOWAssign(sowAssignPK);
+
+                    model.CellIDStatus = null;
+
+                    if (model.BTS.CellID != null)
+                    {
+                        model.CellIDStatus = false;
+                        string[] bts = model.BTS.CellID.Split(',');
+
+                        for (int i = 0; i < bts.Length; i++)
+                        {
+                            if (modelCheckin.CellIDCheckIn == bts[i])
+                            {
+                                model.CellIDStatus = true;
+                                break;
+                            }
+
+                        }
+                    }
                 }
             }
 

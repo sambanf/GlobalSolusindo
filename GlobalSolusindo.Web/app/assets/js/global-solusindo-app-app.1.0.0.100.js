@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-29. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-30. 
 * @author Kairos
 */
 (function() {
@@ -2710,6 +2710,8 @@ angular.module('global-solusindo')
         function ShowDashboard(isDashboardViewAll) {
             if (isDashboardViewAll) {
 
+                document.getElementById("dashboard").style.display = 'inherit';
+                
                 db.TglMulai = '2019-01-01';
                 db.TglAkhir = '2019-06-30';
 
@@ -3155,7 +3157,7 @@ angular.module('global-solusindo')
 
             }
             else {
-
+                document.getElementById("dashboard").style.display = 'none';
                 $state.go('app.dashboardNull');
 
             }
@@ -9367,7 +9369,9 @@ angular.module('global-solusindo')
             var dt = ds.init("#checkIn", "checkIn/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 10,
+                    SortName:'checkIn_pk' ,
+                    SortDir:'desc'
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
@@ -9651,9 +9655,6 @@ angular.module('global-solusindo')
                             $uibModalInstance.close();
                         };
                     }
-                });
-                modalInstance.then(function (result) {
-                    console.log(result.remark);
                 });
             });
         };
@@ -10783,9 +10784,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('izinCutiDtService', izinCuti);
 
-    izinCuti.$inject = ['DatatableService','HttpService'];
+    izinCuti.$inject = ['DatatableService', 'HttpService', "userInfoService"];
 
-    function izinCuti(ds, http) {
+    function izinCuti(ds, http, userInfo) {
         var self = this;
         var controller = {};
 
@@ -10822,14 +10823,15 @@ angular.module('global-solusindo')
             }
             return role;
         }
-
+        var userId = JSON.parse(userInfo.getUserInfo()).user_pk;
         self.init = function (ctrl) {
             controller = ctrl;
             var tanggalColumnIndex = 5;
             var dt = ds.init("#izinCuti", "izinCuti/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 20,
+                    userId: userId
                 },
                 order: [tanggalColumnIndex, "desc"],
                 columns: [
@@ -13456,13 +13458,14 @@ angular.module('global-solusindo')
             controller = ctrl;
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
-                self.applyBinding(id).then(function (res) {
-                    if (res.success) {
-                        controller.model = res.data.model;
-                        controller.formControls = res.data.formControls;
-                    }
-                    resolve(res);
-                });
+                resolve(id);
+                //self.applyBinding(id).then(function (res) {
+                //    if (res.success) {
+                //        controller.model = res.data.model;
+                //        controller.formControls = res.data.formControls;
+                //    }
+                //    resolve(res);
+                //});
             });
         };
 
@@ -15158,6 +15161,9 @@ angular.module('global-solusindo')
 
         function getUsers() {
             select2Service.liveSearch("user/search", {
+                extendRequestData: {
+                    kategoriJabatan_fk: 7
+                },
                 selector: '#user_fk',
                 valueMember: 'user_pk',
                 displayMember: 'name',
@@ -15686,6 +15692,7 @@ angular.module('global-solusindo')
                     controller.sowAssign = res.data.sowAssign;
                     controller.user = res.data.user;
                     controller.bts = res.data.bts;
+                    controller.cellid = res.data.cellidstatus;
                     resolve(res);
                 });
             });

@@ -39,6 +39,10 @@ namespace GlobalSolusindo.Business.Project
                         from deliveryArea in deliveryAreaTemp.DefaultIfEmpty()
                         join vendor in Db.tblM_Vendor on project.Vendor_FK equals vendor.Vendor_PK into vendorTemp
                         from vendor in vendorTemp.DefaultIfEmpty()
+                        join user in Db.tblM_User on project.User_FK equals user.User_PK into userTemp
+                        from user in userTemp.DefaultIfEmpty()
+                        join userDetail in Db.tblM_UserDetail on user.UserDetail_FK equals userDetail.UserDetail_PK into userDetailTemp
+                        from userDetail in userDetailTemp.DefaultIfEmpty()
                         where
                         project.Status_FK != deleted
                         select new ProjectDTO
@@ -55,7 +59,8 @@ namespace GlobalSolusindo.Business.Project
                             UpdatedBy = project.UpdatedBy,
                             UpdatedDate = project.UpdatedDate,
                             User_FK = project.User_FK,
-                            Status_FK = project.Status_FK
+                            Status_FK = project.Status_FK,
+                            UserName = userDetail.Name
                         };
 
             return query;

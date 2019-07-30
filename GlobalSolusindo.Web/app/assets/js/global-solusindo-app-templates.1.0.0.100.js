@@ -2419,7 +2419,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "\r" +
     "\n" +
-    "<form ng-submit=\"$uibModalInstance.submit()\">\r" +
+    "<form ng-submit=\"submit()\">\r" +
     "\n" +
     "    <div class=\"modal-body\" id=\"modal-body\">\r" +
     "\n" +
@@ -2443,38 +2443,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "    <div class=\"modal-footer\">\r" +
     "\n" +
-    "        <button class=\"btn btn-danger\" id=\"rejectb\" type=\"button\" ng-click=\"$uibModalInstance.ok(mydata)\">Reject</button>\r" +
+    "        <button class=\"btn btn-danger\" id=\"rejectb\" type=\"button\" ng-click=\"console.log('hello')\">Reject</button>\r" +
     "\n" +
     "        <button class=\"btn btn-default\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
     "    </div>\r" +
     "\n" +
-    "</form>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "    <div class=\"modal-body\">\r" +
-    "\n" +
-    "        <label>Name</label>\r" +
-    "\n" +
-    "        <input type=\"text\" data-ng-model=\"mydata.name\">\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "    <div class=\"modal-footer\">\r" +
-    "\n" +
-    "        <button type=\"button\" class=\"btn\" data-ng-click=\"modalOptions.close()\">{{modalOptions.closeButtonText}}</button>\r" +
-    "\n" +
-    "        <button type=\"submit\" class=\"btn btn-primary\" data-ng-click=\"modalOptions.ok(mydata)\">{{modalOptions.actionButtonText}}</button>\r" +
-    "\n" +
-    "    </div>\r" +
-    "\n" +
-    "\r" +
-    "\n" +
-    "\r" +
-    "\n"
+    "</form>"
   );
 
 
@@ -2605,7 +2580,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
 
 
   $templateCache.put('app/modules/dashboard/dashboard.html',
-    "<div class=\"container-fluid animated fadeIn\">\r" +
+    "<div id=\"dashboard\" class=\"container-fluid animated fadeIn\" style=\"display:none\">\r" +
     "\n" +
     "    <div class=\"row card-header\">\r" +
     "\n" +
@@ -6058,19 +6033,25 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-3 text-right\">Project Name :</label><label class=\"col-sm-9\">{{ model.title }}</label>\r" +
+    "                <label class=\"control-label col-sm-3 text-right\">Operator:</label><label class=\"col-sm-9\">{{ model.operatorTitle }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-3 text-right\">Operator :</label><label class=\"col-sm-9\">{{ model.operatorTitle }}</label>\r" +
+    "                <label class=\"control-label col-sm-3 text-right\">Vendor:</label><label class=\"col-sm-9\">{{ model.vendorTitle }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-3 text-right\">Delivery Area :</label><label class=\"col-sm-9\">{{ model.deliveryAreaTitle }}</label>\r" +
+    "                <label class=\"control-label col-sm-3 text-right\">Delivery Area:</label><label class=\"col-sm-9\">{{ model.deliveryAreaTitle }}</label>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                <label class=\"control-label col-sm-3 text-right\">Project Manager:</label><label class=\"col-sm-9\">{{ model.userName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -6805,6 +6786,18 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                                <label class=\"control-label col-sm-2\">Location</label>\r" +
     "\n" +
     "                                                <label class=\"control-label col-sm-6\" id=\"location\" name=\"location\">{{vm.bts.location}}</label>\r" +
+    "\n" +
+    "                                            </div>\r" +
+    "\n" +
+    "                                            <div class=\"row\">\r" +
+    "\n" +
+    "                                                <label class=\"control-label col-sm-2\">Cell ID Status</label>\r" +
+    "\n" +
+    "                                                <label class=\"control-label col-sm-6\" ng-show=\"vm.cellid === true\" id=\"statuscellid\" name=\"statuscellid\">Ya (Cell ID CheckIn sesuai dengan BTS)</label>\r" +
+    "\n" +
+    "                                                <label class=\"control-label col-sm-6\" ng-show=\"vm.cellid === false\" id=\"statuscellid\" name=\"statuscellid\">Tidak (Cell ID CheckIn tidak sesuai dengan BTS)</label>\r" +
+    "\n" +
+    "                                                <label class=\"control-label col-sm-6\" ng-show=\"vm.cellid === null\" id=\"statuscellid\" name=\"statuscellid\">(Data Cell ID pada BTS tidak ada)</label>\r" +
     "\n" +
     "                                            </div>\r" +
     "\n" +
@@ -7587,7 +7580,15 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>SOW</th>\r" +
     "\n" +
+    "<<<<<<< HEAD\r" +
+    "\n" +
     "                                        <th>Site</th>\r" +
+    "\n" +
+    "=======\r" +
+    "\n" +
+    "                                        <th>Site Name</th>\r" +
+    "\n" +
+    ">>>>>>> cfc52ead20316957d5195379e154987e44db6268\r" +
     "\n" +
     "                                        <th>Tanggal</th>\r" +
     "\n" +
@@ -7897,7 +7898,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                                <option value=\"0\">None</option>\r" +
     "\n" +
-    "                                                <option value=\"1\">SSO</option>\r" +
+    "                                                <!--<option value=\"1\">SSO</option>-->\r" +
     "\n" +
     "                                                <option value=\"2\">SSV</option>\r" +
     "\n" +
@@ -7933,7 +7934,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                                <option value=\"1\">SSO</option>\r" +
     "\n" +
-    "                                                <option value=\"2\">SSV</option>\r" +
+    "                                                <!--<option value=\"2\">SSV</option>-->\r" +
     "\n" +
     "                                            </select>\r" +
     "\n" +
@@ -9428,6 +9429,20 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                <div class=\"col-sm-9\">\r" +
     "\n" +
     "                                    <input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\" ng-model=\"vm.model.name\" placeholder=\"Name\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Tanggal Lahir :</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" id=\"tglLahir\" name=\"tglLahir\" ng-model=\"vm.model.tglLahir\" class=\"form-control\" date-time-picker options=\"{ format: 'DD-MM-YYYY' }\" required />\r" +
     "\n" +
     "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
