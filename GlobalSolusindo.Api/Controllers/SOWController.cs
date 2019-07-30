@@ -233,5 +233,21 @@ namespace GlobalSolusindo.Api.Controllers
 
         }
 
+
+        [Route("sow/sowname")]
+        [HttpGet]
+        public IHttpActionResult Sowname([FromUri]SOWSearchFilter filter)
+        {
+            ThrowIfUserHasNoRole(readRole);
+
+            using (var sowSearch = new TaskListSearch(Db))
+            {
+                var data = sowSearch.GetSOWName(filter);
+
+                return Ok(new SuccessResponse(data));
+            }
+
+        }
+
     }
 }

@@ -47,6 +47,10 @@ namespace GlobalSolusindo.Business.SOWResult
             sowResult.UpdatedBy = sowResultDTO.UpdatedBy = User.Username;
             sowResult.UpdatedDate = sowResultDTO.UpdatedDate = dateStamp;
             sowResult.IsApproved = sowResultDTO.IsApproved;
+            if (sowResultDTO.IsApproved == false)
+            {
+                sowResult.Remark = sowResultDTO.remark;
+            }
 
             if (sowResult.IsApproved != null)
             {

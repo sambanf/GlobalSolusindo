@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-29. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-30. 
 * @author Kairos
 */
 (function() {
@@ -9610,9 +9610,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('CheckInSaveService', CheckInSaveService);
 
-    CheckInSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+    CheckInSaveService.$inject = ['$state', 'HttpService', 'uiService', 'validationService', '$uibModal'];
 
-    function CheckInSaveService($state, http, ui, validation) {
+    function CheckInSaveService($state, http, ui, validation, $uibModal) {
         var self = this;
         var controller;
 
@@ -9623,7 +9623,8 @@ angular.module('global-solusindo')
         self.approve = function (model, isApproved) {
             var request = {
                 "checkInID": model.checkIn_pk,
-                "isApproved": isApproved
+                "isApproved": isApproved,
+                "remark": remark
             };
             http.post('mobile/doCloseTask', request).then(function (res) {
                 if (res.status == true) {
@@ -9643,8 +9644,18 @@ angular.module('global-solusindo')
             angular.element('#approveButton').on('click', function () {
                 self.approve(controller.model, true);
             });
-            angular.element('#rejectButton').on('click', function () {
+            angular.element('#rejectb').on('click', function () {
                 self.approve(controller.model, false);
+            });
+            angular.element('#rejectButton').on('click', function () {
+                var modalInstance = $uibModal.open({
+                    templateUrl: 'app/modules/checkInEntry/checkinRemark.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                    }
+                });
             });
         };
 
@@ -10773,9 +10784,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('izinCutiDtService', izinCuti);
 
-    izinCuti.$inject = ['DatatableService','HttpService'];
+    izinCuti.$inject = ['DatatableService', 'HttpService', "userInfoService"];
 
-    function izinCuti(ds, http) {
+    function izinCuti(ds, http, userInfo) {
         var self = this;
         var controller = {};
 
@@ -10812,14 +10823,15 @@ angular.module('global-solusindo')
             }
             return role;
         }
-
+        var userId = JSON.parse(userInfo.getUserInfo()).user_pk;
         self.init = function (ctrl) {
             controller = ctrl;
             var tanggalColumnIndex = 5;
             var dt = ds.init("#izinCuti", "izinCuti/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 20,
+                    userId: userId
                 },
                 order: [tanggalColumnIndex, "desc"],
                 columns: [
@@ -15149,6 +15161,9 @@ angular.module('global-solusindo')
 
         function getUsers() {
             select2Service.liveSearch("user/search", {
+                extendRequestData: {
+                    kategoriJabatan_fk: 7
+                },
                 selector: '#user_fk',
                 valueMember: 'user_pk',
                 displayMember: 'name',
@@ -17017,9 +17032,9 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
-        var base_url = "http://gsapi.local/";
+        //var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        //var base_url = "http://localhost/GlobalAPI/";
+        var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
 
@@ -18195,7 +18210,6 @@ angular.module('global-solusindo')
             http.put('sow/approval', request).then(function (res) {
                 if (res.success) {
                     ui.alert.success("Data successfuly updated.");
-                    //$state.go('app.sowEntry', { id: res.data.model.sow_pk });
                     goToListPage();
                 } else {
                     ui.alert.error(res.message);
@@ -18568,6 +18582,19 @@ angular.module('global-solusindo')
             });
         }
 
+
+        function getSOWName() {
+            select2Service.liveSearch("sow/sowname", {
+                selector: '#sowname',
+                callback: function (data) {
+                    controller.formData.sowname = data;
+                },
+                onSelected: function (data) {
+                    controller.model.sowNames = data.sowNames;
+                }
+            });
+        }
+
         //function getUsers(jabatanFk, keyword) {
         //    http.get('user/search', {
         //        pageIndex: 1,
@@ -18585,6 +18612,7 @@ angular.module('global-solusindo')
                 getProjects();
                 getBTSs();
                 getTechnologies();
+                getSOWName();
                 //controller.getUsers = getUsers;
             });
         };

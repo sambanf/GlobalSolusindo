@@ -52,6 +52,10 @@ namespace GlobalSolusindo.Api.MobileControllers
             ThrowIfUserHasNoRole(accessType);
             if (sowResult == null)
                 throw new KairosException("Missing model parameter");
+            if (sowResult.IsApproved == false && sowResult.remark == "")
+            {
+                throw new KairosException("Need Remark to reject");
+            }
 
             using (var updateHandler = new SOWResultUpdateHandler(Db, ActiveUser, new SOWResultValidator(), new SOWResultFactory(Db, ActiveUser), new SOWResultQuery(Db), AccessControl))
             {

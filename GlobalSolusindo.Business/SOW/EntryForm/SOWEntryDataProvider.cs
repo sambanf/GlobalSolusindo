@@ -22,6 +22,10 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
 {
     public class SOWEntryFormData
     {
+
+        [JsonProperty("sownames")]
+        public List<SOWNameDTO> sownames { get; set; } = new List<SOWNameDTO>();
+
         [JsonProperty("btses")]
         public List<BTSDTO> BTSes { get; set; } = new List<BTSDTO>();
 
@@ -80,6 +84,11 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
 
             SOWEntryFormData formData = new SOWEntryFormData();
 
+            List<SOWNameDTO> sowname = new SOWQuery(this.Db).GetSOWName().ToList();
+            foreach (var name in sowname)
+            {
+                formData.sownames.Add(name);
+            }
             var project = new ProjectQuery(this.Db).GetByPrimaryKey(sowDTO.Project_FK);
             if (project != null)
                 formData.Projects.Add(project);
@@ -87,6 +96,7 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
             var bts = new BTSQuery(this.Db).GetByPrimaryKey(sowDTO.BTS_FK);
             if (bts != null)
                 formData.BTSes.Add(bts);
+
 
             foreach (var assign in sowDTO.SOWAssigns)
             {
@@ -218,6 +228,12 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
         private SOWEntryModel GetCreateStateModel()
         {
             SOWEntryFormData formData = CreateFormData(null);
+
+            List<SOWNameDTO> sowname = new SOWQuery(this.Db).GetSOWName().ToList();
+            foreach (var name in sowname)
+            {
+                formData.sownames.Add(name);
+            }
             List<Control> formControls = CreateFormControls(0);
             var model = CreateModel(0);
             return new SOWEntryModel()

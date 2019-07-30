@@ -195,6 +195,9 @@
     <Compile Include="tblM_RoleGroup.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="tblM_SOWName.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="tblM_Status.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>

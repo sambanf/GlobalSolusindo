@@ -40,6 +40,15 @@ namespace GlobalSolusindo.Business.SOW
         }
     }
 
+
+    public class SOWNameDTO
+    {
+        [JsonProperty("idsowname")]
+        public int id { get; set; }
+        [JsonProperty("sowNames")]
+        public string SOWName { get; set; }
+    }
+
     public class TaskListDTO
     {
         [JsonProperty("userId")]
