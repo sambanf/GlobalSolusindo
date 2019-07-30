@@ -35,6 +35,9 @@
 
         function getUsers() {
             select2Service.liveSearch("user/search", {
+                extendRequestData: {
+                    kategoriJabatan_fk: 7
+                },
                 selector: '#user_fk',
                 valueMember: 'user_pk',
                 displayMember: 'name',

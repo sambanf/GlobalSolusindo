@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-25. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-29. 
 * @author Kairos
 */
 (function() {
@@ -2710,6 +2710,8 @@ angular.module('global-solusindo')
         function ShowDashboard(isDashboardViewAll) {
             if (isDashboardViewAll) {
 
+                document.getElementById("dashboard").style.display = 'inherit';
+                
                 db.TglMulai = '2019-01-01';
                 db.TglAkhir = '2019-06-30';
 
@@ -3155,7 +3157,7 @@ angular.module('global-solusindo')
 
             }
             else {
-
+                document.getElementById("dashboard").style.display = 'none';
                 $state.go('app.dashboardNull');
 
             }
@@ -9367,7 +9369,9 @@ angular.module('global-solusindo')
             var dt = ds.init("#checkIn", "checkIn/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 10,
+                    SortName:'checkIn_pk' ,
+                    SortDir:'desc'
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
@@ -13442,13 +13446,14 @@ angular.module('global-solusindo')
             controller = ctrl;
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
-                self.applyBinding(id).then(function (res) {
-                    if (res.success) {
-                        controller.model = res.data.model;
-                        controller.formControls = res.data.formControls;
-                    }
-                    resolve(res);
-                });
+                resolve(id);
+                //self.applyBinding(id).then(function (res) {
+                //    if (res.success) {
+                //        controller.model = res.data.model;
+                //        controller.formControls = res.data.formControls;
+                //    }
+                //    resolve(res);
+                //});
             });
         };
 
@@ -15672,6 +15677,7 @@ angular.module('global-solusindo')
                     controller.sowAssign = res.data.sowAssign;
                     controller.user = res.data.user;
                     controller.bts = res.data.bts;
+                    controller.cellid = res.data.cellidstatus;
                     resolve(res);
                 });
             });
@@ -17011,9 +17017,9 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
-        //var base_url = "http://gsapi.local/";
+        var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        var base_url = "http://localhost/GlobalAPI/";
+        //var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
 

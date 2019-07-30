@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('izinCutiDtService', izinCuti);
 
-    izinCuti.$inject = ['DatatableService','HttpService'];
+    izinCuti.$inject = ['DatatableService', 'HttpService', "userInfoService"];
 
-    function izinCuti(ds, http) {
+    function izinCuti(ds, http, userInfo) {
         var self = this;
         var controller = {};
 
@@ -52,14 +52,15 @@
             }
             return role;
         }
-
+        var userId = JSON.parse(userInfo.getUserInfo()).user_pk;
         self.init = function (ctrl) {
             controller = ctrl;
             var tanggalColumnIndex = 5;
             var dt = ds.init("#izinCuti", "izinCuti/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10
+                    pageSize: 20,
+                    userId: userId
                 },
                 order: [tanggalColumnIndex, "desc"],
                 columns: [

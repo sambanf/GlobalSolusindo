@@ -118,7 +118,7 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
                 filter.SortName = "CheckIn_PK";
             CheckInQuery checkInQuery = new CheckInQuery(this.Db);
 
-            var unfilteredRecords = checkInQuery.GetQuery();
+            var unfilteredRecords = checkInQuery.GetQueryLatest();
             var filteredRecords = unfilteredRecords;
 
             //if (filter.UserId != 0)
