@@ -26,7 +26,7 @@ namespace GlobalSolusindo.Business.SOW
 
         [Required]
         [JsonProperty("sowName")]
-        [Unique(typeof(SOWQuery), nameof(SOW_PK))]
+        //[Unique(typeof(SOWQuery), nameof(SOW_PK))]
         public string SOWName { get; set; }
 
         [Required]

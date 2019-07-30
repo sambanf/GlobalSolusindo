@@ -148,6 +148,8 @@
     <Content Include="app\modules\aset\asetDtService.js" />
     <Content Include="app\modules\aset\asetRoute.js" />
     <Content Include="app\modules\aset\asetViewService.js" />
+    <Content Include="app\modules\bts\btsDetail.html" />
+    <Content Include="app\modules\checkInEntry\checkinRemark.html" />
     <Content Include="app\modules\checkInEntry\checkinMapService.js" />
     <Content Include="app\modules\dashboard\dashboardNullCtrl.js" />
     <Content Include="app\modules\dashboard\dashboardNull.html" />

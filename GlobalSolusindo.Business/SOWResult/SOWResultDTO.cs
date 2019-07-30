@@ -20,6 +20,10 @@ namespace GlobalSolusindo.Business.SOWResult
         [JsonProperty("isApproved")]
         public bool? IsApproved { get; set; }
 
+        [JsonProperty("remark")]
+        public string remark { get; set; }
+
+
         [JsonProperty("approvedBy")]
         public string ApprovedBy { get; set; }
 

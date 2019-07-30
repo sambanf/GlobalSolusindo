@@ -252,6 +252,19 @@ namespace GlobalSolusindo.Business.SOW
             return searchResult;
         }
 
+
+        public IQueryable<SOWNameDTO> GetSOWName()
+        {
+            var query = from sowname in Db.tblM_SOWName
+                        select new SOWNameDTO
+                        {
+                            id = sowname.SOWName_PK,
+                            SOWName = sowname.Title
+                        };
+
+            return query;
+        }
+
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {

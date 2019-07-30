@@ -104,6 +104,19 @@
             });
         }
 
+
+        function getSOWName() {
+            select2Service.liveSearch("sow/sowname", {
+                selector: '#sowname',
+                callback: function (data) {
+                    controller.formData.sowname = data;
+                },
+                onSelected: function (data) {
+                    controller.model.sowNames = data.sowNames;
+                }
+            });
+        }
+
         //function getUsers(jabatanFk, keyword) {
         //    http.get('user/search', {
         //        pageIndex: 1,
@@ -121,6 +134,7 @@
                 getProjects();
                 getBTSs();
                 getTechnologies();
+                getSOWName();
                 //controller.getUsers = getUsers;
             });
         };

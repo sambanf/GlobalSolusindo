@@ -226,5 +226,16 @@ namespace GlobalSolusindo.Business.TaskList.Queries
 
             return searchResult;
         }
+
+        public SearchResult<SOWNameDTO> GetSOWName(SOWSearchFilter filter)
+        {
+            var result = new SOWQuery(Db).GetSOWName().ToList();
+            
+            var searchResult = new SearchResult<SOWNameDTO>(filter);
+            searchResult.Filter = filter;
+            searchResult.Count.TotalFiltered = result.Count();
+            searchResult.Records = result;
+            return searchResult;
+        }
     }
 }

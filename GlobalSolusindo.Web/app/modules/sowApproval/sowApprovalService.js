@@ -31,7 +31,6 @@
             http.put('sow/approval', request).then(function (res) {
                 if (res.success) {
                     ui.alert.success("Data successfuly updated.");
-                    //$state.go('app.sowEntry', { id: res.data.model.sow_pk });
                     goToListPage();
                 } else {
                     ui.alert.error(res.message);

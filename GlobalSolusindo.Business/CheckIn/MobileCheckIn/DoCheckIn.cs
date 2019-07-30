@@ -1,6 +1,8 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.CheckIn.EntryForm;
 using GlobalSolusindo.Business.CheckIn.Queries;
+using GlobalSolusindo.Business.SOW;
 using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.Business.SOWTrack.Queries;
 using GlobalSolusindo.Business.SOWTrackResult;
@@ -10,6 +12,8 @@ using GlobalSolusindo.Identity.RoleGroup.Queries;
 using Kairos.Data;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Device.Location;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
@@ -20,6 +24,7 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
         private CheckInFactory checkInFactory;
         private CheckInQuery checkInQuery;
         private CheckInEntryDataProvider checkInEntryDataProvider;
+
 
         public DoCheckIn(GlobalSolusindoDb db, tblM_User user, CheckInValidator checkInValidator, CheckInFactory checkInFactory, CheckInQuery checkInQuery, AccessControl accessControl) : base(db, user)
         {
@@ -122,6 +127,24 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
                 Db.SaveChanges();
                 success = true;
                 model = checkInEntryDataProvider.Get(checkIn.CheckIn_PK);
+            }
+
+            BTSQuery bTSQuery = new BTSQuery(Db);
+            SOWQuery sOWQuery = new SOWQuery(Db);
+            SOWAssignQuery sOWAssignQuery = new SOWAssignQuery(Db);
+            int sowpk = sOWAssignQuery.GetByPrimaryKey(checkInDTO.SOWAssign_FK).SOW_FK;
+            int btspk = sOWQuery.GetByPrimaryKey(sowpk).BTS_FK;
+            var btslat = bTSQuery.GetByPrimaryKey(btspk).Latitude;
+            var btslong = bTSQuery.GetByPrimaryKey(btspk).Longitude;
+            bTSQuery.GetByPrimaryKey(10);
+
+            var sCoord = new GeoCoordinate(Convert.ToDouble(checkInDTO.LatitudeCheckIn), Convert.ToDouble(checkInDTO.LongitudeCheckIn));
+            var eCoord = new GeoCoordinate(Convert.ToDouble(btslat), Convert.ToDouble(btslong));
+            var distance = sCoord.GetDistanceTo(eCoord); // in Meters
+
+            if (distance>= Convert.ToDouble(ConfigurationManager.AppSettings["Distance"]))
+            {
+                throw new Kairos.KairosException($"Your CheckIn Distance is " + Math.Round(distance,2) + " meters from BTS, the minimum distance to check in is " + ConfigurationManager.AppSettings["Distance"] + " meters");
             }
 
             return new SaveResult<CheckInEntryModel>

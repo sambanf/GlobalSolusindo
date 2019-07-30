@@ -78,6 +78,7 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblT_LogActivity> tblT_LogActivity { get; set; }
         public virtual DbSet<vw_SOWViewAll> vw_SOWViewAll { get; set; }
         public virtual DbSet<vw_SOWLink> vw_SOWLink { get; set; }
+        public virtual DbSet<tblM_SOWName> tblM_SOWName { get; set; }
     
         public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
         {

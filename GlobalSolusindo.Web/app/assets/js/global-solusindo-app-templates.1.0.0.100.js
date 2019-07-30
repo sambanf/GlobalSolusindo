@@ -2410,6 +2410,74 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
   );
 
 
+  $templateCache.put('app/modules/checkInEntry/checkinRemark.html',
+    "<div class=\"modal-header\">\r" +
+    "\n" +
+    "    <h5 class=\"modal-title\" id=\"modal-title\">Remark</h5>\r" +
+    "\n" +
+    "</div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "<form ng-submit=\"$uibModalInstance.submit()\">\r" +
+    "\n" +
+    "    <div class=\"modal-body\" id=\"modal-body\">\r" +
+    "\n" +
+    "        <div class=\"row\">\r" +
+    "\n" +
+    "            <div class=\"col-md-10\">\r" +
+    "\n" +
+    "                <div class=\"row form-group\">\r" +
+    "\n" +
+    "                    <label class=\"control-label col-sm-1 text-right\"></label>\r" +
+    "\n" +
+    "                    <textarea rows=\"5\" class=\"col-sm-8\" id=\"remark\" data-ng-model=\"mydata.remark\"></textarea>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "            </div>\r" +
+    "\n" +
+    "        </div>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"modal-footer\">\r" +
+    "\n" +
+    "        <button class=\"btn btn-danger\" id=\"rejectb\" type=\"button\" ng-click=\"$uibModalInstance.ok(mydata)\">Reject</button>\r" +
+    "\n" +
+    "        <button class=\"btn btn-default\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "</form>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "    <div class=\"modal-body\">\r" +
+    "\n" +
+    "        <label>Name</label>\r" +
+    "\n" +
+    "        <input type=\"text\" data-ng-model=\"mydata.name\">\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "    <div class=\"modal-footer\">\r" +
+    "\n" +
+    "        <button type=\"button\" class=\"btn\" data-ng-click=\"modalOptions.close()\">{{modalOptions.closeButtonText}}</button>\r" +
+    "\n" +
+    "        <button type=\"submit\" class=\"btn btn-primary\" data-ng-click=\"modalOptions.ok(mydata)\">{{modalOptions.actionButtonText}}</button>\r" +
+    "\n" +
+    "    </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "\r" +
+    "\n"
+  );
+
+
   $templateCache.put('app/modules/costKategori/costKategori.html',
     "<div class=\"animated fadeIn\">\r" +
     "\n" +
@@ -7519,7 +7587,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>SOW</th>\r" +
     "\n" +
-    "                                        <th>BTS</th>\r" +
+    "                                        <th>Site</th>\r" +
     "\n" +
     "                                        <th>Tanggal</th>\r" +
     "\n" +
@@ -8002,7 +8070,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                    <input type=\"text\" id=\"sowName\" name=\"sowName\" class=\"form-control\" ng-model=\"vm.model.sowName\" placeholder=\"SOW Name\">\r" +
+    "                                    <select id=\"sowName\" name=\"sowName\" class=\"form-control input-lg\" ng-model=\"vm.model.sowName\" required>\r" +
+    "\n" +
+    "                                        <option ng-repeat=\"x in vm.formData.sownames\" ng-value=\"x.sowNames\">{{x.sowNames}}</option>\r" +
+    "\n" +
+    "                                    </select>\r" +
     "\n" +
     "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -8250,13 +8322,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                                    <select id=\"tipePekerjaan_fk1\" name=\"tipePekerjaan_fk1\" class=\"form-control\" ng-model=\"vm.model.sowTracks[0].tipePekerjaan_fk\" required>\r" +
+    "                                    <select id=\"tipePekerjaan_fk2\" name=\"tipePekerjaan_fk2\" class=\"form-control\" ng-model=\"vm.model.sowTracks[1].tipePekerjaan_fk\" required>\r" +
     "\n" +
     "                                        <option value=\"0\">None</option>\r" +
     "\n" +
     "                                        <option value=\"1\">SSO</option>\r" +
-    "\n" +
-    "                                        <option value=\"2\">SSV</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -8288,7 +8358,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                            <textarea ng-model=\"vm.model.sowTracks[0].route\" hidden></textarea>\r" +
+    "                            <textarea ng-model=\"vm.model.sowTracks[1].route\" hidden></textarea>\r" +
     "\n" +
     "                            <div id=\"map1\" style=\"border:1px solid gray; height:500px\">\r" +
     "\n" +
@@ -8306,11 +8376,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                                    <select id=\"tipePekerjaan_fk2\" name=\"tipePekerjaan_fk2\" class=\"form-control\" ng-model=\"vm.model.sowTracks[1].tipePekerjaan_fk\" required>\r" +
+    "                                    <select id=\"tipePekerjaan_fk1\" name=\"tipePekerjaan_fk1\" class=\"form-control\" ng-model=\"vm.model.sowTracks[0].tipePekerjaan_fk\" required>\r" +
     "\n" +
     "                                        <option value=\"0\">None</option>\r" +
-    "\n" +
-    "                                        <option value=\"1\">SSO</option>\r" +
     "\n" +
     "                                        <option value=\"2\">SSV</option>\r" +
     "\n" +
@@ -8344,7 +8412,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                            <textarea ng-model=\"vm.model.sowTracks[1].route\" hidden></textarea>\r" +
+    "                            <textarea ng-model=\"vm.model.sowTracks[0].route\" hidden></textarea>\r" +
     "\n" +
     "                            <div id=\"map2\" style=\"border:1px solid gray; height:500px\">\r" +
     "\n" +
