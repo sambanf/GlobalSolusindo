@@ -84,9 +84,18 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
 
         private bool JabatanIsHRDorEssarorBOD(tblM_KategoriJabatan jabatan)
         {
-            return jabatan.Title.ToLower().Contains("bod") ||
-                jabatan.Title.ToLower().Contains("hrd")
-                || jabatan.Title.ToLower().Contains("essar");
+            return jabatan.Title.ToLower().Contains("bod");
+                //|| jabatan.Title.ToLower().Contains("hrd")
+                //|| jabatan.Title.ToLower().Contains("essar");
+        }
+
+        private bool JabatanIsRFRNO(tblM_KategoriJabatan jabatan)
+        {
+            return jabatan.Title.ToLower().Contains("radio frequency") ||
+                jabatan.Title.ToLower().Contains("rf") ||
+                jabatan.Title.ToLower().Contains("radio network optimization") ||
+                jabatan.Title.ToLower().Contains("rno");
+            
         }
 
         public List<int> GetProjectIds(tblM_KategoriJabatan jabatan, tblM_User user)
@@ -143,9 +152,9 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
             }
             else
             {
-                //if (!JabatanIsHRDorEssarorBOD(jabatan))
-                //{
-                    if (JabatanIsProjectManager(jabatan) || JabatanIsTeamLead(jabatan))
+                if (!JabatanIsHRDorEssarorBOD(jabatan))
+                {
+                    if (JabatanIsProjectManager(jabatan) || JabatanIsTeamLead(jabatan) || JabatanIsRFRNO(jabatan))
                     {
                         var projectIds = GetProjectIds(jabatan, filter.User);
                         if (projectIds != null)
@@ -157,7 +166,7 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
                     {
                         filteredRecords = new List<CheckInDTO>().AsQueryable();
                     }
-                //}
+                }
             }
 
             var displayedRecords = filteredRecords.

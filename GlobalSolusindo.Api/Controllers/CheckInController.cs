@@ -2,12 +2,16 @@
 using GlobalSolusindo.Business.CheckIn.Queries;
 using Kairos;
 using Newtonsoft.Json;
+using System;
+using System.Transactions;
 using System.Web.Http;
 
 namespace GlobalSolusindo.Api.Controllers
 {
     public class CheckInController : ApiControllerBase
     {
+        ApiControllerBase apiControllerBase = new ApiControllerBase();
+
         public CheckInController()
         {
         }
@@ -21,7 +25,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (CheckInQuery checkInQuery = new CheckInQuery(Db))
             {
                 var data = checkInQuery.GetByPrimaryKey(id);
-                SaveLog("CheckIn", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, "TaskApproval_ViewAll", JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -36,7 +40,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (CheckInEntryDataProvider checkInEntryDataProvider = new CheckInEntryDataProvider(Db, ActiveUser, AccessControl, new CheckInQuery(Db)))
             {
                 var data = checkInEntryDataProvider.Get(id);
-                SaveLog("CheckIn", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, "TaskApproval_ViewAll", JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -58,6 +62,8 @@ namespace GlobalSolusindo.Api.Controllers
                 //var data = checkInSearch.GetDataByFilter(filter);
                 //return Ok(new SuccessResponse(data));
                 var data = checkInSearch.Search(filter);
+                SaveLog(ActiveUser.Username, "TaskApproval_ViewAll", JsonConvert.SerializeObject(filter), "Success", "", "", "");
+
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -75,6 +81,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 filter.UserId = ActiveUser.User_PK;
                 var data = checkInSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, "MyTaskList_ViewAll", JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }

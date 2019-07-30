@@ -35,7 +35,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (MappingRoleToRoleGroupEntryDataProvider mappingRoleToRoleGroupEntryDataProvider = new MappingRoleToRoleGroupEntryDataProvider(Db, ActiveUser, AccessControl, new MappingRoleToRoleGroupQuery(Db)))
             {
                 var data = mappingRoleToRoleGroupEntryDataProvider.Get(id);
-                SaveLog("MappingRoleToRoleGroup", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -51,6 +51,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var mappingRoleToRoleGroupSearch = new MappingRoleToRoleGroupSearch(Db))
             {
                 var data = mappingRoleToRoleGroupSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -70,6 +71,7 @@ namespace GlobalSolusindo.Api.Controllers
                 {
                     var saveResult = roleMappingCreateHandler.Save(roleMapping: roleMapping, dateStamp: DateTime.Now);
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(roleMapping), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                     return Ok(new SuccessResponse(saveResult, "SUCCESS"));
                 }
             }
@@ -95,6 +97,7 @@ namespace GlobalSolusindo.Api.Controllers
                     }
 
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

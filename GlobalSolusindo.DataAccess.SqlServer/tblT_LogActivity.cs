@@ -15,9 +15,14 @@ namespace GlobalSolusindo.DataAccess
     public partial class tblT_LogActivity
     {
         public int LogActivity_PK { get; set; }
-        public string CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
-        public string UpdatedBy { get; set; }
-        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public string UserName { get; set; }
+        public string IPAddress { get; set; }
+        public Nullable<System.DateTime> ActivityDateTime { get; set; }
+        public string ActivityName { get; set; }
+        public string ActivityKey { get; set; }
+        public string ActivityResult { get; set; }
+        public string ActivityDescription { get; set; }
+        public string ValueOld { get; set; }
+        public string ValueNew { get; set; }
     }
 }

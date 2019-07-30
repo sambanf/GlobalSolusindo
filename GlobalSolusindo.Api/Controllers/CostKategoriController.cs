@@ -33,7 +33,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (CostKategoriQuery costKategoriQuery = new CostKategoriQuery(Db))
             {
                 var data = costKategoriQuery.GetByPrimaryKey(id);
-                SaveLog("CostKategori", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -47,7 +47,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (CostKategoriEntryDataProvider costKategoriEntryDataProvider = new CostKategoriEntryDataProvider(Db, ActiveUser, AccessControl, new CostKategoriQuery(Db)))
             {
                 var data = costKategoriEntryDataProvider.Get(id);
-                SaveLog("CostKategori", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -63,6 +63,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var costKategoriSearch = new CostKategoriSearch(Db))
             {
                 var data = costKategoriSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -84,8 +85,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = costKategoriCreateHandler.Save(costKategoriDTO: costKategori, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(costKategori), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(costKategori), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -101,6 +109,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (costKategori.CostKategori_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            CostKategoriQuery costKategoriQuery = new CostKategoriQuery();
+            CostKategoriDTO valueOld = new CostKategoriDTO();
+            valueOld = costKategoriQuery.GetByPrimaryKey(costKategori.CostKategori_PK);
+
             using (var costKategoriUpdateHandler = new CostKategoriUpdateHandler(Db, ActiveUser, new CostKategoriValidator(), new CostKategoriFactory(Db, ActiveUser), new CostKategoriQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -108,8 +120,16 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = costKategoriUpdateHandler.Save(costKategori, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(costKategori), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(costKategori), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                        
                 }
             }
         }
@@ -134,6 +154,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(costKategoriDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

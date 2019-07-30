@@ -391,6 +391,7 @@
           </Key>
           <Property Name="TipePekerjaan_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Order" Type="int" />
           <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -538,10 +539,15 @@
             <PropertyRef Name="LogActivity_PK" />
           </Key>
           <Property Name="LogActivity_PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="UpdatedBy" Type="nvarchar" MaxLength="50" />
-          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IPAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="ActivityDateTime" Type="datetime" />
+          <Property Name="ActivityName" Type="nvarchar" MaxLength="500" />
+          <Property Name="ActivityKey" Type="nvarchar(max)" />
+          <Property Name="ActivityResult" Type="nvarchar" MaxLength="200" />
+          <Property Name="ActivityDescription" Type="nvarchar(max)" />
+          <Property Name="ValueOld" Type="nvarchar(max)" />
+          <Property Name="ValueNew" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="tblT_PO">
           <Key>
@@ -767,14 +773,14 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="AcceptedDate" Type="datetime" />
           <Property Name="Region" Type="nvarchar" MaxLength="200" />
           <Property Name="RNO" Type="nvarchar" MaxLength="200" />
-          <Property Name="LinkRNO" Type="varchar" MaxLength="50" />
+          <Property Name="LinkRNO" Type="varchar(max)" />
           <Property Name="RF" Type="nvarchar" MaxLength="200" />
-          <Property Name="LinkRF" Type="varchar" MaxLength="50" />
+          <Property Name="LinkRF" Type="varchar(max)" />
           <Property Name="Rigger" Type="nvarchar" MaxLength="200" />
-          <Property Name="LinkRigger" Type="varchar" MaxLength="50" />
+          <Property Name="LinkRigger" Type="varchar(max)" />
           <Property Name="DT" Type="nvarchar" MaxLength="200" />
-          <Property Name="SSVLink" Type="varchar" MaxLength="50" />
-          <Property Name="SSOLink" Type="varchar" MaxLength="50" />
+          <Property Name="SSVLink" Type="varchar(max)" />
+          <Property Name="SSOLink" Type="varchar(max)" />
           <Property Name="NoPo" Type="nvarchar" MaxLength="200" />
           <Property Name="Value" Type="int" />
           <Property Name="EsarSubmit1st" Type="datetime" />
@@ -1538,11 +1544,11 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
             <End Role="tblT_UserHistori" EntitySet="tblT_UserHistori" />
           </AssociationSet>
           <EntitySet Name="tblT_SOW" EntityType="GlobalSolusindoModel.tblT_SOW" />
-          <EntitySet Name="tblT_LogActivity" EntityType="GlobalSolusindoModel.tblT_LogActivity" />
           <FunctionImport Name="usp_GetSOWViewAll" ReturnType="Collection(GlobalSolusindoModel.usp_GetSOWViewAll_Result)" />
           <EntitySet Name="vw_SOWViewAll" EntityType="GlobalSolusindoModel.vw_SOWViewAll" />
           <EntitySet Name="vw_SOWLink" EntityType="GlobalSolusindoModel.vw_SOWLink" />
           <EntitySet Name="tblM_SOWName" EntityType="GlobalSolusindoModel.tblM_SOWName" />
+          <EntitySet Name="tblT_LogActivity" EntityType="GlobalSolusindoModel.tblT_LogActivity" />
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -2065,6 +2071,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
+          <Property Name="Order" Type="Int32" />
         </EntityType>
         <EntityType Name="tblM_User">
           <Key>
@@ -2640,16 +2647,6 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="LVDate" Type="DateTime" Precision="3" />
           <Property Name="AcceptedDate" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="tblT_LogActivity">
-          <Key>
-            <PropertyRef Name="LogActivity_PK" />
-          </Key>
-          <Property Name="LogActivity_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="UpdatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
-        </EntityType>
         <ComplexType Name="usp_GetSOWViewAll_Result">
           <Property Type="String" Name="PMOUniq" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="DUID" Nullable="true" MaxLength="200" />
@@ -2727,11 +2724,11 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="EsarStatus2nd" Type="Int32" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="LinkRNO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LinkRF" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LinkRigger" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SSVLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SSOLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LinkRNO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LinkRF" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="LinkRigger" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SSVLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SSOLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="vw_SOWLink">
           <Key>
@@ -2761,6 +2758,21 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UpdatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblT_LogActivity">
+          <Key>
+            <PropertyRef Name="LogActivity_PK" />
+          </Key>
+          <Property Name="LogActivity_PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IPAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityDateTime" Type="DateTime" Precision="3" />
+          <Property Name="ActivityName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityKey" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityResult" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ActivityDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValueOld" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ValueNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -3355,6 +3367,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <EntitySetMapping Name="tblM_TipePekerjaan">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblM_TipePekerjaan">
               <MappingFragment StoreEntitySet="tblM_TipePekerjaan">
+                <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
                 <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
@@ -3733,17 +3746,6 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblT_LogActivity">
-            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_LogActivity">
-              <MappingFragment StoreEntitySet="tblT_LogActivity">
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="LogActivity_PK" ColumnName="LogActivity_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="usp_GetSOWViewAll" FunctionName="GlobalSolusindoModel.Store.usp_GetSOWViewAll">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GlobalSolusindoModel.usp_GetSOWViewAll_Result">
@@ -3858,6 +3860,22 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="SOWName_PK" ColumnName="SOWName_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblT_LogActivity">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_LogActivity">
+              <MappingFragment StoreEntitySet="tblT_LogActivity">
+                <ScalarProperty Name="ValueNew" ColumnName="ValueNew" />
+                <ScalarProperty Name="ValueOld" ColumnName="ValueOld" />
+                <ScalarProperty Name="ActivityDescription" ColumnName="ActivityDescription" />
+                <ScalarProperty Name="ActivityResult" ColumnName="ActivityResult" />
+                <ScalarProperty Name="ActivityKey" ColumnName="ActivityKey" />
+                <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
+                <ScalarProperty Name="ActivityDateTime" ColumnName="ActivityDateTime" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LogActivity_PK" ColumnName="LogActivity_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

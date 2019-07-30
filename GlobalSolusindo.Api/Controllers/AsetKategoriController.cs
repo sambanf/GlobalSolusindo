@@ -33,7 +33,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AsetKategoriQuery asetKategoriQuery = new AsetKategoriQuery(Db))
             {
                 var data = asetKategoriQuery.GetByPrimaryKey(id);
-                SaveLog("AsetKategori", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -47,7 +47,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AsetKategoriEntryDataProvider asetKategoriEntryDataProvider = new AsetKategoriEntryDataProvider(Db, ActiveUser, AccessControl, new AsetKategoriQuery(Db)))
             {
                 var data = asetKategoriEntryDataProvider.Get(id);
-                SaveLog("AsetKategori", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -63,6 +63,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var asetKategoriSearch = new AsetKategoriSearch(Db))
             {
                 var data = asetKategoriSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -84,8 +85,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = asetKategoriCreateHandler.Save(asetKategoriDTO: asetKategori, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(asetKategori), "Success", "","",JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(asetKategori), "Error", JsonConvert.SerializeObject(saveResult.Message), "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -101,6 +109,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (asetKategori.AsetKategori_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            AsetKategoriQuery asetKategoriQuery = new AsetKategoriQuery();
+            AsetKategoriDTO valueOld = new AsetKategoriDTO();
+            valueOld = asetKategoriQuery.GetByPrimaryKey(asetKategori.AsetKategori_PK);
+
             using (var asetKategoriUpdateHandler = new AsetKategoriUpdateHandler(Db, ActiveUser, new AsetKategoriValidator(), new AsetKategoriFactory(Db, ActiveUser), new AsetKategoriQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -108,8 +120,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = asetKategoriUpdateHandler.Save(asetKategori, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(asetKategori), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(asetKategori), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -133,6 +152,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(asetKategoriDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

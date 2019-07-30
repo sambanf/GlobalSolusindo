@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Business.TimesheetDaily.Queries;
 using Kairos;
+using Newtonsoft.Json;
 using System.Web.Http;
 
 namespace GlobalSolusindo.Api.MobileControllers
@@ -18,7 +19,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             using (var timesheetDailySearch = new TimesheetDailySearch(Db))
             {
                 var data = timesheetDailySearch.GetDataByFilter(filter);
-
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(data.Records);
             }
         }

@@ -34,7 +34,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (OperatorQuery _operatorQuery = new OperatorQuery(Db))
             {
                 var data = _operatorQuery.GetByPrimaryKey(id);
-                SaveLog("Operator", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -49,7 +49,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (OperatorEntryDataProvider _operatorEntryDataProvider = new OperatorEntryDataProvider(Db, ActiveUser, AccessControl, new OperatorQuery(Db)))
             {
                 var data = _operatorEntryDataProvider.Get(id);
-                SaveLog("Operator", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -66,6 +66,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var _operatorSearch = new OperatorSearch(Db))
             {
                 var data = _operatorSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -88,8 +89,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = _operatorCreateHandler.Save(_operatorDTO: _operator, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "Operator_Input", JsonConvert.SerializeObject(_operator), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, "Operator_Input", JsonConvert.SerializeObject(_operator), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -106,6 +114,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (_operator.Operator_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            OperatorQuery operatorQuery = new OperatorQuery();
+            OperatorDTO valueOld = new OperatorDTO();
+            valueOld = operatorQuery.GetByPrimaryKey(_operator.Operator_PK);
+
             using (var _operatorUpdateHandler = new OperatorUpdateHandler(Db, ActiveUser, new OperatorValidator(), new OperatorFactory(Db, ActiveUser), new OperatorQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -113,8 +125,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = _operatorUpdateHandler.Save(_operator, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "Operator_Update", JsonConvert.SerializeObject(_operator), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, "Operator_Update", JsonConvert.SerializeObject(_operator), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -140,6 +159,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(_operatorDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, "Operator_Delete", JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

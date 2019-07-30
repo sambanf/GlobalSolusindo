@@ -33,7 +33,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (TechnologyQuery technologyQuery = new TechnologyQuery(Db))
             {
                 var data = technologyQuery.GetByPrimaryKey(id);
-                SaveLog("Technology", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -46,7 +46,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (TechnologyEntryDataProvider technologyEntryDataProvider = new TechnologyEntryDataProvider(Db, ActiveUser, AccessControl, new TechnologyQuery(Db)))
             {
                 var data = technologyEntryDataProvider.Get(id);
-                SaveLog("Technology", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -62,6 +62,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var technologySearch = new TechnologySearch(Db))
             {
                 var data = technologySearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -83,8 +84,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = technologyCreateHandler.Save(technologyDTO: technology, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(technology), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(technology), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -99,6 +107,9 @@ namespace GlobalSolusindo.Api.Controllers
 
             if (technology.Technology_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
+            TechnologyQuery technologyQuery = new TechnologyQuery();
+            TechnologyDTO valueOld = new TechnologyDTO();
+            valueOld = technologyQuery.GetByPrimaryKey(technology.Technology_PK);
 
             using (var technologyUpdateHandler = new TechnologyUpdateHandler(Db, ActiveUser, new TechnologyValidator(), new TechnologyFactory(Db, ActiveUser), new TechnologyQuery(Db), AccessControl))
             {
@@ -107,8 +118,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = technologyUpdateHandler.Save(technology, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(technology), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(technology), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -133,7 +151,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(technologyDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

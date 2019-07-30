@@ -33,7 +33,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (IssueTypeQuery issueTypeQuery = new IssueTypeQuery(Db))
             {
                 var data = issueTypeQuery.GetByPrimaryKey(id);
-                SaveLog("IssueType", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -47,7 +47,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (IssueTypeEntryDataProvider issueTypeEntryDataProvider = new IssueTypeEntryDataProvider(Db, ActiveUser, AccessControl, new IssueTypeQuery(Db)))
             {
                 var data = issueTypeEntryDataProvider.Get(id);
-                SaveLog("IssueType", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -63,6 +63,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var issueTypeSearch = new IssueTypeSearch(Db))
             {
                 var data = issueTypeSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -84,8 +85,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = issueTypeCreateHandler.Save(issueTypeDTO: issueType, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(issueType), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(issueType), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -101,6 +109,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (issueType.IssueType_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            IssueTypeQuery issueTypeQuery = new IssueTypeQuery();
+            IssueTypeDTO valueOld = new IssueTypeDTO();
+            valueOld = issueTypeQuery.GetByPrimaryKey(issueType.IssueType_PK);
+
             using (var issueTypeUpdateHandler = new IssueTypeUpdateHandler(Db, ActiveUser, new IssueTypeValidator(), new IssueTypeFactory(Db, ActiveUser), new IssueTypeQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -108,8 +120,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = issueTypeUpdateHandler.Save(issueType, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(issueType), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(issueType), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -133,7 +152,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(issueTypeDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

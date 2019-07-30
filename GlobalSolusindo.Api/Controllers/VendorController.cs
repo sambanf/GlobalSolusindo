@@ -31,7 +31,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (VendorQuery vendorQuery = new VendorQuery(Db))
             {
                 var data = vendorQuery.GetByPrimaryKey(id);
-                SaveLog("Vendor", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -44,7 +44,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (VendorEntryDataProvider vendorEntryDataProvider = new VendorEntryDataProvider(Db, ActiveUser, AccessControl, new VendorQuery(Db)))
             {
                 var data = vendorEntryDataProvider.Get(id);
-                SaveLog("Vendor", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -61,6 +61,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var vendorQuery = new VendorQuery(Db))
             {
                 var data = vendorQuery.Search(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -82,8 +83,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = vendorCreateHandler.Save(vendorDTO: vendor, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(vendor), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(vendor), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -99,6 +107,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (vendor.Vendor_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            VendorQuery vendorQuery = new VendorQuery();
+            VendorDTO valueOld = new VendorDTO();
+            valueOld = vendorQuery.GetByPrimaryKey(vendor.Vendor_PK);
+
             using (var vendorUpdateHandler = new VendorUpdateHandler(Db, ActiveUser, new VendorValidator(), new VendorFactory(Db, ActiveUser), new VendorQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -106,8 +118,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = vendorUpdateHandler.Save(vendor, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(vendor), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(vendor), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -131,7 +150,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(vendorDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

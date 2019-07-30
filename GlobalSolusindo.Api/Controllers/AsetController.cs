@@ -33,7 +33,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AsetQuery asetQuery = new AsetQuery(Db))
             {
                 var data = asetQuery.GetByPrimaryKey(id);
-                SaveLog("Aset", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -47,7 +47,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (AsetEntryDataProvider asetEntryDataProvider = new AsetEntryDataProvider(Db, ActiveUser, AccessControl, new AsetQuery(Db)))
             {
                 var data = asetEntryDataProvider.Get(id);
-                SaveLog("Aset", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -63,6 +63,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var asetSearch = new AsetSearch(Db))
             {
                 var data = asetSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -84,8 +85,16 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = asetCreateHandler.Save(asetDTO: aset, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(aset), "Success","","",JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(aset), "Error", saveResult.Message, "","");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    
                 }
             }
         }
@@ -101,6 +110,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (aset.Aset_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+                AsetQuery asetQuery = new AsetQuery();
+                AsetDTO valueOld = new AsetDTO();
+                valueOld = asetQuery.GetByPrimaryKey(aset.Aset_PK);
+
             using (var asetUpdateHandler = new AsetUpdateHandler(Db, ActiveUser, new AsetValidator(), new AsetFactory(Db, ActiveUser), new AsetQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -108,8 +121,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = asetUpdateHandler.Save(aset, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(aset), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(aset), "Error", JsonConvert.SerializeObject(saveResult.Message), "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -134,6 +154,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(asetDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

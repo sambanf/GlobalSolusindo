@@ -28,7 +28,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (BTSStatusQuery btsStatusQuery = new BTSStatusQuery(Db))
             {
                 var data = btsStatusQuery.GetByPrimaryKey(id);
-                SaveLog("BTSStatus", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -43,7 +43,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (BTSStatusEntryDataProvider btsStatusEntryDataProvider = new BTSStatusEntryDataProvider(Db, ActiveUser, AccessControl, new BTSStatusQuery(Db)))
             {
                 var data = btsStatusEntryDataProvider.Get(id);
-                SaveLog("BTSStatus", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -60,6 +60,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var btsStatusSearch = new BTSStatusSearch(Db))
             {
                 var data = btsStatusSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -82,8 +83,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = btsStatusCreateHandler.Save(btsStatusDTO: btsStatus, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "BTSStatus_Input", JsonConvert.SerializeObject(btsStatus), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, "BTSStatus_Input", JsonConvert.SerializeObject(btsStatus), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -100,6 +108,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (btsStatus.BTSStatus_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            BTSStatusQuery btsStatusQuery = new BTSStatusQuery();
+            BTSStatusDTO ValueOld = new BTSStatusDTO();
+            ValueOld = btsStatusQuery.GetByPrimaryKey(btsStatus.BTSStatus_PK);
+
             using (var btsStatusUpdateHandler = new BTSStatusUpdateHandler(Db, ActiveUser, new BTSStatusValidator(), new BTSStatusFactory(Db, ActiveUser), new BTSStatusQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -107,8 +119,16 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = btsStatusUpdateHandler.Save(btsStatus, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "BTSStatus_Edit", JsonConvert.SerializeObject(btsStatus), "Success", "", JsonConvert.SerializeObject(ValueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
+                        
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, "BTSStatus_Edit", JsonConvert.SerializeObject(btsStatus), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -134,6 +154,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(btsStatusDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, "BTSStatus_Delete", JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

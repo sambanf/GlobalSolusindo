@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.CheckIn.MobileCheckOut;
 using GlobalSolusindo.Business.CheckIn.Queries;
 using Kairos;
+using Newtonsoft.Json;
 using System;
 using System.Transactions;
 using System.Web.Http;
@@ -32,18 +33,25 @@ namespace GlobalSolusindo.Api.MobileControllers
                     var saveResult = doCheckIn.Save(checkInDTO: checkIn, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "Mobile_DoCheckIn", JsonConvert.SerializeObject(checkIn), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new
                         {
                             status = true,
                             msg = "Check in success.",
                             checkInID = saveResult.Model.Model.CheckIn_PK
                         });
-                    return Ok(new
+                    }
+                    else
                     {
-                        status = false,
-                        msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
-                        validationResult = saveResult.ValidationResult
-                    });
+                        SaveLog(ActiveUser.Username, "Mobile_DoCheckIn", JsonConvert.SerializeObject(checkIn), "Error", saveResult.Message, "", "");
+                        return Ok(new
+                        {
+                            status = false,
+                            msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
+                            validationResult = saveResult.ValidationResult
+                        });
+                    }
                 }
             }
         }
@@ -64,18 +72,25 @@ namespace GlobalSolusindo.Api.MobileControllers
                     var saveResult = doCheckOut.Save(checkOutDTO: checkOut, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "Mobile_DoCheckOut", JsonConvert.SerializeObject(checkOut), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new
                         {
                             status = true,
                             msg = "Check out success.",
                             checkInID = saveResult.Model.Model.CheckIn_PK
                         });
-                    return Ok(new
+                    }
+                    else
                     {
-                        status = false,
-                        msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
-                        validationResult = saveResult.ValidationResult
-                    });
+                        SaveLog(ActiveUser.Username, "Mobile_DoCheckOut", JsonConvert.SerializeObject(checkOut), "Error", saveResult.Message, "", "");
+                        return Ok(new
+                        {
+                            status = false,
+                            msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
+                            validationResult = saveResult.ValidationResult
+                        });
+                    }
                 }
             }
         }

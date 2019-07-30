@@ -32,7 +32,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (CabangQuery cabangQuery = new CabangQuery(Db))
             {
                 var data = cabangQuery.GetByPrimaryKey(id);
-                SaveLog("Cabang", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -46,7 +46,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (CabangEntryDataProvider cabangEntryDataProvider = new CabangEntryDataProvider(Db, ActiveUser, AccessControl, new CabangQuery(Db)))
             {
                 var data = cabangEntryDataProvider.Get(id);
-                SaveLog("Cabang", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -62,6 +62,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var cabangSearch = new CabangSearch(Db))
             {
                 var data = cabangSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -83,8 +84,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = cabangCreateHandler.Save(cabangDTO: cabang, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(cabang), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(cabang), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -100,6 +108,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (cabang.Cabang_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            CabangQuery cabangQuery = new CabangQuery();
+            CabangDTO valueOld = new CabangDTO();
+            valueOld = cabangQuery.GetByPrimaryKey(cabang.Cabang_PK);
+
             using (var cabangUpdateHandler = new CabangUpdateHandler(Db, ActiveUser, new CabangValidator(), new CabangFactory(Db, ActiveUser), new CabangQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -107,8 +119,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = cabangUpdateHandler.Save(cabang, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(cabang), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {   
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(cabang), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -133,6 +152,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(cabangDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

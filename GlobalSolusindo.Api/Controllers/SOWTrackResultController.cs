@@ -26,7 +26,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (SOWTrackResultQuery sowTrackResultQuery = new SOWTrackResultQuery(Db))
             {
                 var data = sowTrackResultQuery.GetByPrimaryKey(id);
-                SaveLog("SOWTrackResult", "Get", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, "SOWTrackResult_ViewAll", JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -41,7 +41,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (SOWTrackResultEntryDataProvider sowTrackResultEntryDataProvider = new SOWTrackResultEntryDataProvider(Db, ActiveUser, AccessControl, new SOWTrackResultQuery(Db)))
             {
                 var data = sowTrackResultEntryDataProvider.Get(id);
-                SaveLog("SOWTrackResult", "GetForm", JsonConvert.SerializeObject(new { primaryKey = id }));
+                SaveLog(ActiveUser.Username, "SOWTrackResult_ViewAll", JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -58,6 +58,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var sowTrackResultQuery = new SOWTrackResultQuery(Db))
             {
                 var data = sowTrackResultQuery.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, "SOWTrackResult_ViewAll", JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -80,8 +81,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = sowTrackResultCreateHandler.Save(sowTrackResultDTO: sowTrackResult, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "SOWTrackResult_Input", JsonConvert.SerializeObject(sowTrackResult), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, "SOW_TrackResult_Input", JsonConvert.SerializeObject(sowTrackResult), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -98,6 +106,10 @@ namespace GlobalSolusindo.Api.Controllers
             if (sowTrackResult.SOWTrackResult_PK == 0)
                 throw new KairosException("Put method is not allowed because the requested primary key is '0' (zero) .");
 
+            SOWTrackResultQuery sowTrackResultQuery = new SOWTrackResultQuery();
+            SOWTrackResultDTO valueOld = new SOWTrackResultDTO();
+            valueOld = sowTrackResultQuery.GetByPrimaryKey(sowTrackResult.SOWTrackResult_PK);
+
             using (var sowTrackResultUpdateHandler = new SOWTrackResultUpdateHandler(Db, ActiveUser, new SOWTrackResultValidator(), new SOWTrackResultFactory(Db, ActiveUser), new SOWTrackResultQuery(Db), AccessControl))
             {
                 using (var transaction = new TransactionScope())
@@ -105,8 +117,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = sowTrackResultUpdateHandler.Save(sowTrackResult, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "SOWTrackResult_Update", JsonConvert.SerializeObject(sowTrackResult), "Success", "", JsonConvert.SerializeObject(valueOld), JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, "SOWTrackResult_Update", JsonConvert.SerializeObject(sowTrackResult), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -132,7 +151,7 @@ namespace GlobalSolusindo.Api.Controllers
                         result.Add(sowTrackResultDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
                     }
                     transaction.Complete();
-                    
+                    SaveLog(ActiveUser.Username, "SOWTrackResult_Delete", JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
             }

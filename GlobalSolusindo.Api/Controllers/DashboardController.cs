@@ -38,7 +38,6 @@ namespace GlobalSolusindo.Api.Controllers
         public IHttpActionResult IsDashboardViewAll(string dashboard)
         {
             var data = false;
-            //ThrowIfUserHasNoRole(readRole);
             var isSuperAdministrator = AccessControl.UserHasRole("Full_Access");
             if (isSuperAdministrator)
             {
@@ -49,7 +48,6 @@ namespace GlobalSolusindo.Api.Controllers
                 data = isDashboardView;
             }
             
-            
             return Ok(new SuccessResponse(data));
             
         }
@@ -58,10 +56,6 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetGoalCompletion(string start, string end, int project)
         {
-            //string accessType = "PO_ViewAll";
-            //ThrowIfUserHasNoRole(accessType);
-            //if (filter == null)
-            //    throw new KairosException("Missing search filter parameter");
             ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
@@ -69,6 +63,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var poQuery = new POQuery(Db))
             {
                 var data = poQuery.GetDashboardGoalCompletion(startDate, endDate, project);
+                SaveLog(ActiveUser.Username, "GetGoalCompletion", JsonConvert.SerializeObject(new { startDate = start, endDate = end, project = project }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -77,10 +72,6 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetDashboardValue(string start, string end, int project)
         {
-            //string accessType = "PO_ViewAll";
-            //ThrowIfUserHasNoRole(accessType);
-            //if (filter == null)
-            //    throw new KairosException("Missing search filter parameter");
             ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
@@ -88,6 +79,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var poQuery = new POQuery(Db))
             {
                 var data = poQuery.GetDashboardValue(startDate, endDate, project);
+                SaveLog(ActiveUser.Username, "GetDashboardCardValue", JsonConvert.SerializeObject(new { startDate = start, endDate = end, project = project }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -95,10 +87,6 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetRevenueCost(string start, string end, int project)
         {
-            //string accessType = "PO_ViewAll";
-            //ThrowIfUserHasNoRole(accessType);
-            //if (filter == null)
-            //    throw new KairosException("Missing search filter parameter");
             ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
@@ -106,6 +94,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var poQuery = new POQuery(Db))
             {
                 var data = poQuery.GetRevenueCost(startDate, endDate, project);
+                SaveLog(ActiveUser.Username, "GetRevenueCost", JsonConvert.SerializeObject(new { startDate = start, endDate = end, project = project }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -113,10 +102,6 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetRevenueCostProfit(string start, string end, int project)
         {
-            //string accessType = "PO_ViewAll";
-            //ThrowIfUserHasNoRole(accessType);
-            //if (filter == null)
-            //    throw new KairosException("Missing search filter parameter");
             ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
@@ -124,6 +109,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var poQuery = new POQuery(Db))
             {
                 var data = poQuery.GetRevenueCostProfit(startDate, endDate, project);
+                SaveLog(ActiveUser.Username, "GetRevenueCostProvit", JsonConvert.SerializeObject(new { startDate = start, endDate = end, project = project }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -132,10 +118,6 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpGet]
         public IHttpActionResult GetSalesReport(string start, string end, int vendor)
         {
-            //string accessType = "PO_ViewAll";
-            //ThrowIfUserHasNoRole(accessType);
-            //if (filter == null)
-            //    throw new KairosException("Missing search filter parameter");
             ThrowIfUserHasNoRole(readRole);
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
@@ -143,6 +125,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var poQuery = new POQuery(Db))
             {
                 var data = poQuery.GetSalesReport(startDate, endDate, vendor);
+                SaveLog(ActiveUser.Username, "GetSalesReport", JsonConvert.SerializeObject(new { startDate = start, endDate = end, vendor = vendor }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }

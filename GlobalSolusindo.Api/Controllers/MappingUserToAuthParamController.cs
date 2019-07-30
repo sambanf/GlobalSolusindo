@@ -30,7 +30,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (MappingUserToAuthParamQuery mappingUserToAuthParamQuery = new MappingUserToAuthParamQuery(Db))
             {
                 var data = mappingUserToAuthParamQuery.GetByPrimaryKey(userRoleMapPK.AuthParamPK, userRoleMapPK.UserPK);
-                SaveLog("MappingUserToAuthParam", "Get", JsonConvert.SerializeObject(new { primaryKey = userRoleMapPK.AuthParamPK }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(userRoleMapPK), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -44,7 +44,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (MappingUserToAuthParamEntryDataProvider mappingUserToAuthParamEntryDataProvider = new MappingUserToAuthParamEntryDataProvider(Db, ActiveUser, AccessControl, new MappingUserToAuthParamQuery(Db)))
             {
                 var data = mappingUserToAuthParamEntryDataProvider.Get(userRoleMapPK.AuthParamPK, userRoleMapPK.UserPK);
-                SaveLog("MappingUserToAuthParam", "GetForm", JsonConvert.SerializeObject(new { primaryKey = userRoleMapPK.AuthParamPK }));
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(userRoleMapPK), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -60,6 +60,7 @@ namespace GlobalSolusindo.Api.Controllers
             using (var mappingUserToAuthParamSearch = new MappingUserToAuthParamSearch(Db))
             {
                 var data = mappingUserToAuthParamSearch.GetDataByFilter(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
@@ -79,8 +80,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = mappingUserToAuthParamCreateHandler.Save(mappingUserToAuthParamDTO: mappingUserToAuthParam, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(mappingUserToAuthParam), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, createRole, JsonConvert.SerializeObject(mappingUserToAuthParam), "Error", saveResult.Message, "", "");
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -91,7 +99,11 @@ namespace GlobalSolusindo.Api.Controllers
         {
             ThrowIfUserHasNoRole(updateRole);
             if (mappingUserToAuthParam == null)
-                throw new KairosException("Missing model parameter"); 
+                throw new KairosException("Missing model parameter");
+
+            //MappingUserToAuthParamQuery mappingUserToAuthParamQuery = new MappingUserToAuthParamQuery();
+            //MappingUserToAuthParamDTO valueOld = new MappingUserToAuthParamDTO();
+            //valueOld = mappingUserToAuthParamQuery.GetByPrimaryKey(mappingUserToAuthParam.AuthParam_PK, mappingUserToAuthParam.User_PK);
 
             using (var mappingUserToAuthParamUpdateHandler = new MappingUserToAuthParamUpdateHandler(Db, ActiveUser, new MappingUserToAuthParamValidator(), new MappingUserToAuthParamFactory(Db, ActiveUser), new MappingUserToAuthParamQuery(Db), AccessControl))
             {
@@ -100,8 +112,15 @@ namespace GlobalSolusindo.Api.Controllers
                     var saveResult = mappingUserToAuthParamUpdateHandler.Save(mappingUserToAuthParam, DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(mappingUserToAuthParam), "Error", saveResult.Message, "", "");
                         return Ok(new SuccessResponse(saveResult.Model, saveResult.Message));
-                    return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
+                    else
+                    {
+                        SaveLog(ActiveUser.Username, updateRole, JsonConvert.SerializeObject(mappingUserToAuthParam), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
+                        return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, saveResult.ValidationResult, saveResult.Message));
+                    }
                 }
             }
         }
@@ -121,6 +140,7 @@ namespace GlobalSolusindo.Api.Controllers
                 {
                     var result =   mappingUserToAuthParamDeleteHandler.Execute(keys.AuthParamPK, keys.UserPK, Base.DeleteMethod.Hard);
                     transaction.Complete();
+                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(keys), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, "Data deleted."));
                 }
             }

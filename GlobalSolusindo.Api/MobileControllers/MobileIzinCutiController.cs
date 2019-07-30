@@ -67,18 +67,25 @@ namespace GlobalSolusindo.Api.MobileControllers
                     var saveResult = izinCutiCreateHandler.Save(izinCutiDTO: izinCuti, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
+                    {
+                        SaveLog(ActiveUser.Username, "MobileDoLeave_Input", JsonConvert.SerializeObject(izinCutiRequest), "Success", "", "", JsonConvert.SerializeObject(saveResult.Model.Model));
+                        
                         return Ok(new
                         {
                             success = true,
                             msg = "Pengajuan berhasil."
                         });
-
-                    return Ok(new
+                    }
+                    else
                     {
-                        success = false,
-                        msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
-                        validationResult = saveResult.ValidationResult
-                    });
+                        SaveLog(ActiveUser.Username, "MobileDoLeave_Inpput", JsonConvert.SerializeObject(izinCutiRequest), "Error", saveResult.Message, "", "");
+                        return Ok(new
+                        {
+                            success = false,
+                            msg = saveResult.ValidationResult.Errors.Count > 0 ? saveResult.ValidationResult.Errors[0].Message : saveResult.Message,
+                            validationResult = saveResult.ValidationResult
+                        });
+                    }
                 }
             }
         }
@@ -112,7 +119,7 @@ namespace GlobalSolusindo.Api.MobileControllers
                                           statusName = records.IzinCutiStatusTitle
                                       })
                                       .ToList();
-
+                SaveLog(ActiveUser.Username, "Mobile"+accessType, JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(mobileResponse);
             }
         }
