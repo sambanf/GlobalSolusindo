@@ -56,6 +56,9 @@
     <Compile Include="DocumentNumber.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetAsetAvaible_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetDashboardGoalCompletionByProject_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
@@ -78,6 +81,9 @@
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="GetDashboardValue_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GetDropdownlistTipePekerjaanBySowAssign_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
     <Compile Include="GetGoalCompetionByProject_Result.cs">

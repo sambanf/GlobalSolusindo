@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-30. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-31. 
 * @author Kairos
 */
 (function() {
@@ -9615,12 +9615,11 @@ angular.module('global-solusindo')
     function CheckInSaveService($state, http, ui, validation, $uibModal) {
         var self = this;
         var controller;
-
         function goToListPage() {
             $state.go('app.checkInList');
         }
 
-        self.approve = function (model, isApproved) {
+        self.approve = function (model, isApproved, remark) {
             var request = {
                 "checkInID": model.checkIn_pk,
                 "isApproved": isApproved,
@@ -9642,20 +9641,24 @@ angular.module('global-solusindo')
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element('#approveButton').on('click', function () {
-                self.approve(controller.model, true);
-            });
-            angular.element('#rejectb').on('click', function () {
-                self.approve(controller.model, false);
+                self.approve(controller.model, true, '');
             });
             angular.element('#rejectButton').on('click', function () {
-                var modalInstance = $uibModal.open({
-                    templateUrl: 'app/modules/checkInEntry/checkinRemark.html',
-                    controller: function ($scope, $uibModalInstance) {
-                        $scope.close = function () {
-                            $uibModalInstance.close();
-                        };
-                    }
-                });
+                var modalInstance =
+                    $uibModal.open({
+                        templateUrl: 'app/modules/checkInEntry/checkinRemark.html',
+                        controller: function ($scope, $uibModalInstance) {
+                            $scope.close = function () {
+                                $uibModalInstance.close();
+                            };
+                            $scope.ok = function (remark) {
+                                $uibModalInstance.close($scope.remark);
+                                self.approve(controller.model, false, document.getElementById('remark').value);
+                            };
+                        }
+                    }).result.then(function (result) {
+                        $scope.remark = result;
+                    });
             });
         };
 

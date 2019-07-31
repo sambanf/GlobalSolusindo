@@ -1029,6 +1029,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Parameter Name="star" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
         </Function>
+        <Function Name="GetAsetAvaible" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetDashboardGoalCompletion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
@@ -1065,6 +1066,9 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
           <Parameter Name="project" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetDropdownlistTipePekerjaanBySowAssign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sowAssign_PK" Type="int" Mode="In" />
         </Function>
         <Function Name="GetGoalCompetionByProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start" Type="date" Mode="In" />
@@ -1549,6 +1553,10 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <EntitySet Name="vw_SOWLink" EntityType="GlobalSolusindoModel.vw_SOWLink" />
           <EntitySet Name="tblM_SOWName" EntityType="GlobalSolusindoModel.tblM_SOWName" />
           <EntitySet Name="tblT_LogActivity" EntityType="GlobalSolusindoModel.tblT_LogActivity" />
+          <FunctionImport Name="GetDropdownlistTipePekerjaanBySowAssign" ReturnType="Collection(GlobalSolusindoModel.GetDropdownlistTipePekerjaanBySowAssign_Result)">
+          <Parameter Name="sowAssign_PK" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAsetAvaible" ReturnType="Collection(GlobalSolusindoModel.GetAsetAvaible_Result)" />
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -2774,6 +2782,31 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="ValueOld" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ValueNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="GetDropdownlistTipePekerjaanBySowAssign_Result">
+          <Property Type="Int32" Name="CheckIn_PK" Nullable="false" />
+          <Property Type="Int32" Name="TipePekerjaan_FK" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="200" />
+        </ComplexType>
+        <ComplexType Name="GetAsetAvaible_Result">
+          <Property Type="Int32" Name="Aset_PK" Nullable="false" />
+          <Property Type="Int32" Name="KategoriAset_FK" Nullable="false" />
+          <Property Type="String" Name="AsetID" Nullable="false" MaxLength="500" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="500" />
+          <Property Type="Binary" Name="FilePhoto" Nullable="true" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="CreatedBy" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="UpdatedBy" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Status_FK" Nullable="false" />
+          <Property Type="Int32" Name="AsetKategori_PK" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CreatedBy1" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate1" Nullable="false" Precision="23" />
+          <Property Type="String" Name="UpdatedBy1" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="UpdatedDate1" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Status_FK1" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3879,6 +3912,39 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetDropdownlistTipePekerjaanBySowAssign" FunctionName="GlobalSolusindoModel.Store.GetDropdownlistTipePekerjaanBySowAssign">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDropdownlistTipePekerjaanBySowAssign_Result">
+                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
+                <ScalarProperty Name="TipePekerjaan_FK" ColumnName="TipePekerjaan_FK" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAsetAvaible" FunctionName="GlobalSolusindoModel.Store.GetAsetAvaible">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetAsetAvaible_Result">
+                <ScalarProperty Name="Aset_PK" ColumnName="Aset_PK" />
+                <ScalarProperty Name="KategoriAset_FK" ColumnName="KategoriAset_FK" />
+                <ScalarProperty Name="AsetID" ColumnName="AsetID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FilePhoto" ColumnName="FilePhoto" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="AsetKategori_PK" ColumnName="AsetKategori_PK" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CreatedBy1" ColumnName="CreatedBy1" />
+                <ScalarProperty Name="CreatedDate1" ColumnName="CreatedDate1" />
+                <ScalarProperty Name="UpdatedBy1" ColumnName="UpdatedBy1" />
+                <ScalarProperty Name="UpdatedDate1" ColumnName="UpdatedDate1" />
+                <ScalarProperty Name="Status_FK1" ColumnName="Status_FK1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

@@ -3,6 +3,7 @@ using GlobalSolusindo.DataAccess;
 using Kairos.Imaging;
 using Kairos.Linq;
 using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
@@ -48,6 +49,29 @@ namespace GlobalSolusindo.Business.Aset.Queries
                         };
 
             return query;
+        }
+
+        public IQueryable<AsetDTO> GetQueryAvaible()
+        {
+            var DataAset = Db.GetAsetAvaible().ToList();
+
+            var query = from aset in DataAset
+                        select new AsetDTO
+                        {
+                            Aset_PK = aset.Aset_PK,
+                            KategoriAset_FK = aset.KategoriAset_FK,
+                            KategoriAsetName = aset.Title,
+                            AsetID = aset.AsetID,
+                            Name = aset.Name,
+                            Description = aset.Description,
+                            CreatedBy = aset.CreatedBy,
+                            CreatedDate = aset.CreatedDate,
+                            UpdatedBy = aset.UpdatedBy,
+                            UpdatedDate = aset.UpdatedDate,
+                            Status_FK = aset.Status_FK
+                        };
+
+            return query.AsQueryable();
         }
 
         private void GetPhoto(AsetDTO record)

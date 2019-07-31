@@ -244,7 +244,7 @@ namespace GlobalSolusindo.Api.Controllers
             string accessType = "SOW_ViewAll";
             ThrowIfUserHasNoRole(accessType);
             SOWExport SOWExport = new SOWExport();
-            SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(filter), "Success", "", "", "");
+            //SaveLog(ActiveUser.Username, accessType, JsonConvert.SerializeObject(filter), "Success", "", "", "");
             return SOWExport.ExportViewAll(Db, ActiveUser, "SOWViewAll", filter);
         }
 
