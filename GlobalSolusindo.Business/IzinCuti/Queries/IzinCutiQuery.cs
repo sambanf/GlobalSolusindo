@@ -44,6 +44,7 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
                             IzinCuti_PK = izinCuti.IzinCuti_PK,
                             User_FK = izinCuti.User_FK,
                             UserIzinCutiName = userDetailIzinCuti.Name,
+                            KategoriJabatan_FK = jabatan.KategoriJabatan_PK,
                             UserIzinCutiJabatanTitle = jabatan.Title,
                             TglMulai = izinCuti.TglMulai,
                             TglSelesai = izinCuti.TglSelesai,
