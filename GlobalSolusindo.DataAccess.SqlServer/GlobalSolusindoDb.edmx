@@ -1066,6 +1066,9 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Parameter Name="end" Type="date" Mode="In" />
           <Parameter Name="project" Type="int" Mode="In" />
         </Function>
+        <Function Name="GetDropdownlistTipePekerjaanBySowAssign" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sowAssign_PK" Type="int" Mode="In" />
+        </Function>
         <Function Name="GetGoalCompetionByProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
@@ -1549,6 +1552,9 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <EntitySet Name="vw_SOWLink" EntityType="GlobalSolusindoModel.vw_SOWLink" />
           <EntitySet Name="tblM_SOWName" EntityType="GlobalSolusindoModel.tblM_SOWName" />
           <EntitySet Name="tblT_LogActivity" EntityType="GlobalSolusindoModel.tblT_LogActivity" />
+          <FunctionImport Name="GetDropdownlistTipePekerjaanBySowAssign" ReturnType="Collection(GlobalSolusindoModel.GetDropdownlistTipePekerjaanBySowAssign_Result)">
+          <Parameter Name="sowAssign_PK" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -2774,6 +2780,11 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="ValueOld" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ValueNew" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="GetDropdownlistTipePekerjaanBySowAssign_Result">
+          <Property Type="Int32" Name="CheckIn_PK" Nullable="false" />
+          <Property Type="Int32" Name="TipePekerjaan_FK" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="200" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3879,6 +3890,15 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetDropdownlistTipePekerjaanBySowAssign" FunctionName="GlobalSolusindoModel.Store.GetDropdownlistTipePekerjaanBySowAssign">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetDropdownlistTipePekerjaanBySowAssign_Result">
+                <ScalarProperty Name="CheckIn_PK" ColumnName="CheckIn_PK" />
+                <ScalarProperty Name="TipePekerjaan_FK" ColumnName="TipePekerjaan_FK" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

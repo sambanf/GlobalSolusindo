@@ -208,7 +208,7 @@ namespace GlobalSolusindo.Api.Controllers
             //if (filter == null)
             //    throw new KairosException("Missing search filter parameter");
             UserExport userExport = new UserExport();
-            SaveLog(ActiveUser.Username, exportRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
+            //SaveLog(ActiveUser.Username, exportRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
             return userExport.Export(Db,ActiveUser, "UserUpload", filter);
         }
 
