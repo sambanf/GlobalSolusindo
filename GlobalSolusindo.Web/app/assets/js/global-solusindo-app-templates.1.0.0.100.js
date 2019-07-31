@@ -2431,7 +2431,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <label class=\"control-label col-sm-1 text-right\"></label>\r" +
     "\n" +
-    "                    <textarea rows=\"5\" class=\"col-sm-8\" id=\"remark\" data-ng-model=\"mydata.remark\"></textarea>\r" +
+    "                    <textarea rows=\"5\" class=\"col-sm-8\" id=\"remark\" ng-model=\"data.remark\"></textarea>\r" +
     "\n" +
     "                </div>\r" +
     "\n" +
@@ -2443,7 +2443,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "    <div class=\"modal-footer\">\r" +
     "\n" +
-    "        <button class=\"btn btn-danger\" id=\"rejectb\" type=\"button\" ng-click=\"console.log('hello')\">Reject</button>\r" +
+    "        <button class=\"btn btn-danger\" id=\"rejectb\" type=\"button\" ng-click=\"ok(document.getElementById('remark').value)\">Reject</button>\r" +
     "\n" +
     "        <button class=\"btn btn-default\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
     "\n" +
@@ -7580,15 +7580,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>SOW</th>\r" +
     "\n" +
-    "<<<<<<< HEAD\r" +
-    "\n" +
     "                                        <th>Site</th>\r" +
-    "\n" +
-    "=======\r" +
-    "\n" +
-    "                                        <th>Site Name</th>\r" +
-    "\n" +
-    ">>>>>>> cfc52ead20316957d5195379e154987e44db6268\r" +
     "\n" +
     "                                        <th>Tanggal</th>\r" +
     "\n" +
