@@ -126,6 +126,7 @@
     <Compile Include="Controllers\POController.cs" />
     <Compile Include="Controllers\GenderController.cs" />
     <Compile Include="Controllers\ReligionController.cs" />
+    <Compile Include="Controllers\TipePekerjaanController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\CheckInController.cs" />
     <Compile Include="Controllers\SOWTrackResultController.cs" />
