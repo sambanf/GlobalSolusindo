@@ -23,7 +23,7 @@
             formControlService.setFormControl(self);
             saveService.init(self);
             
-            select2Service.liveSearch("aset/search", {
+            select2Service.liveSearch("aset/searchAvaible", {
                 selector: '#aset_fk',
                 valueMember: 'aset_pk',
                 displayMember: 'name',

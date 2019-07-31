@@ -45,5 +45,36 @@ namespace GlobalSolusindo.Business.Aset.Queries
 
             return searchResult;
         }
+
+        public SearchResult<AsetDTO> GetDataByFilterAvaible(AsetSearchFilter filter)
+        {
+            if (string.IsNullOrEmpty(filter.SortName))
+                filter.SortName = "Aset_PK";
+            AsetQuery asetQuery = new AsetQuery(this.Db);
+
+            var filteredRecords =
+                asetQuery.GetQueryAvaible()
+                .Where(aset =>
+                    aset.AsetID.Contains(filter.Keyword)
+                    ||
+                    aset.KategoriAsetName.Contains(filter.Keyword)
+                    ||
+                    aset.Description.Contains(filter.Keyword));
+
+            var displayedRecords = filteredRecords.
+                SortBy(filter.SortName, filter.SortDir)
+                .Skip(filter.Skip)
+                .Take(filter.PageSize)
+                .ToList();
+
+            var searchResult = new SearchResult<AsetDTO>(filter);
+            searchResult.Filter = filter;
+            searchResult.Count.TotalRecords = asetQuery.GetTotalRecords();
+            searchResult.Count.TotalFiltered = filteredRecords.Count();
+            searchResult.Count.TotalDisplayed = displayedRecords.Count();
+            searchResult.Records = displayedRecords;
+
+            return searchResult;
+        }
     }
 }

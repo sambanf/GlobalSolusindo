@@ -66,6 +66,7 @@
                 });
                 modalInstance.result.then(function (selectedItem) { }, function () { });
             });
+            
         };
 
         return self;
