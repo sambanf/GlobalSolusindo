@@ -428,5 +428,14 @@ namespace GlobalSolusindo.DataAccess
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<usp_GetSOWViewAll_Result>("usp_GetSOWViewAll");
         }
+    
+        public virtual ObjectResult<GetDropdownlistTipePekerjaanBySowAssign_Result> GetDropdownlistTipePekerjaanBySowAssign(Nullable<int> sowAssign_PK)
+        {
+            var sowAssign_PKParameter = sowAssign_PK.HasValue ?
+                new ObjectParameter("sowAssign_PK", sowAssign_PK) :
+                new ObjectParameter("sowAssign_PK", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDropdownlistTipePekerjaanBySowAssign_Result>("GetDropdownlistTipePekerjaanBySowAssign", sowAssign_PKParameter);
+        }
     }
 }
