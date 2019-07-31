@@ -1,6 +1,10 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.CategoryContract.Queries;
+using GlobalSolusindo.Identity.Gender.Queries;
 using GlobalSolusindo.Identity.KategoriJabatan.Queries;
+using GlobalSolusindo.Identity.MaritalStatus.Queries;
+using GlobalSolusindo.Identity.Religion.Queries;
 using GlobalSolusindo.Identity.User.Queries;
 using Kairos;
 using Kairos.UI;
@@ -65,6 +69,43 @@ namespace GlobalSolusindo.Identity.User.EntryForm
             if (project != null)
             {
                 formData.Projects.Add(project);
+            }
+
+            if (userDTO.Religion.HasValue)
+            {
+                var religion = new ReligionQuery(this.Db).GetByPrimaryKey(userDTO.Religion.Value);
+                if (religion != null)
+                {
+                    formData.Religions.Add(religion);
+                }
+            }
+
+
+            if (userDTO.CategoryContract.HasValue)
+            {
+                var categoryContract = new CategoryContractQuery(this.Db).GetByPrimaryKey(userDTO.CategoryContract.Value);
+                if (categoryContract != null)
+                {
+                    formData.CategoryContracts.Add(categoryContract);
+                }
+            }
+
+            if (userDTO.Gender.HasValue)
+            {
+                var gender = new GenderQuery(this.Db).GetByPrimaryKey(userDTO.Gender.Value);
+                if (gender != null)
+                {
+                    formData.Genders.Add(gender);
+                }
+            }
+
+            if (userDTO.MaritalStatus.HasValue)
+            {
+                var maritalStatus = new MaritalStatusQuery(this.Db).GetByPrimaryKey(userDTO.MaritalStatus.Value);
+                if (maritalStatus != null)
+                {
+                    formData.MaritalStatuses.Add(maritalStatus);
+                }
             }
 
             return new UserEntryModel()

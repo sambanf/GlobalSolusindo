@@ -65,11 +65,71 @@
             });
         }
 
+        function getReligions() {
+            select2Service.liveSearch("religion/search", {
+                selector: '#religion',
+                valueMember: 'religion_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.religions = data;
+                },
+                onSelected: function (data) {
+                    controller.model.religion = data.religion_pk;
+                }
+            });
+        }
+
+        function getMaritalStatuses() {
+            select2Service.liveSearch("maritalStatus/search", {
+                selector: '#maritalStatus',
+                valueMember: 'maritalStatus_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.maritalStatuses = data;
+                },
+                onSelected: function (data) {
+                    controller.model.maritalStatus = data.maritalStatus_pk;
+                }
+            });
+        }
+
+        function getGenders() {
+            select2Service.liveSearch("gender/search", {
+                selector: '#gender',
+                valueMember: 'gender_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.genders = data;
+                },
+                onSelected: function (data) {
+                    controller.model.gender = data.gender_pk;
+                }
+            });
+        }
+
+        function getCategoryContracts() {
+            select2Service.liveSearch("categoryContract/search", {
+                selector: '#categoryContract',
+                valueMember: 'categoryContract_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.categoryContracts = data;
+                },
+                onSelected: function (data) {
+                    controller.model.categoryContract = data.categoryContract_pk;
+                }
+            });
+        }
+
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element(document).ready(function () {
                 getKategoriJabatans();
                 getProjects();
+                getReligions();
+                getCategoryContracts();
+                getMaritalStatuses();
+                getGenders();
             });
         };
 

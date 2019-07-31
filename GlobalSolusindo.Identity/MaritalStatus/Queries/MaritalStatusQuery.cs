@@ -29,7 +29,7 @@ namespace GlobalSolusindo.Identity.MaritalStatus.Queries
             var query = from MaritalStatus in Db.tblM_MaritalStatus
                         select new MaritalStatusDTO
                         {
-                            MaritalStatus_PK = MaritalStatus.MaritalPK,
+                            MaritalPK = MaritalStatus.MaritalPK,
                             Name = MaritalStatus.Name
                         };
 
@@ -43,7 +43,7 @@ namespace GlobalSolusindo.Identity.MaritalStatus.Queries
 
         public MaritalStatusDTO GetByPrimaryKey(int primaryKey)
         {
-            MaritalStatusDTO record = GetQuery().FirstOrDefault(MaritalStatus => MaritalStatus.MaritalStatus_PK == primaryKey);
+            MaritalStatusDTO record = GetQuery().FirstOrDefault(MaritalStatus => MaritalStatus.MaritalPK == primaryKey);
             return record;
         }
 
@@ -51,7 +51,7 @@ namespace GlobalSolusindo.Identity.MaritalStatus.Queries
         public object GetByPrimaryKey(params object[] primaryKeys)
         {
             int primaryKey = Convert.ToInt32(primaryKeys[0]);
-            return GetQuery().FirstOrDefault(x => x.MaritalStatus_PK == primaryKey);
+            return GetQuery().FirstOrDefault(x => x.MaritalPK == primaryKey);
         }
 
         public int CountBy(string fieldName, string value)
