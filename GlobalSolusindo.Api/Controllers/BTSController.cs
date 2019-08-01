@@ -181,7 +181,7 @@ namespace GlobalSolusindo.Api.Controllers
         public HttpResponseMessage Export([FromBody]BTSStatusSearchFilter filter)
         {
             BTSExport userExport = new BTSExport();
-            SaveLog(ActiveUser.Username, "BTS_Export", JsonConvert.SerializeObject(filter), "Success", "", "", "");
+            //SaveLog(ActiveUser.Username, "BTS_Export", JsonConvert.SerializeObject(filter), "Success", "", "", "");
             return userExport.Export(Db, "BTSUpload", filter);
         }
     }
