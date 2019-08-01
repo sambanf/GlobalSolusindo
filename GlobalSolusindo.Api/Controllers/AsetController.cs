@@ -68,6 +68,22 @@ namespace GlobalSolusindo.Api.Controllers
             }
         }
 
+        [Route("aset/searchAvaible")]
+        [HttpGet]
+        public IHttpActionResult SearchAvaible([FromUri]AsetSearchFilter filter)
+        {
+            ThrowIfUserHasNoRole(readRole);
+            if (filter == null)
+                throw new KairosException("Missing search filter parameter");
+
+            using (var asetSearch = new AsetSearch(Db))
+            {
+                var data = asetSearch.GetDataByFilterAvaible(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
+                return Ok(new SuccessResponse(data));
+            }
+        }
+
         [Route("aset")]
         [HttpPost]
         public IHttpActionResult Create([FromBody]AsetDTO aset)

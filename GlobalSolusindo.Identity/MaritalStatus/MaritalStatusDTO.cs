@@ -8,12 +8,12 @@ namespace GlobalSolusindo.Identity.MaritalStatus
 {
     public class MaritalStatusDTO : DTO
     {
-        [JsonProperty("MaritalStatus_pk")]
-        public int MaritalStatus_PK { get; set; } 
+        [JsonProperty("maritalStatus_pk")]
+        public int MaritalPK { get; set; } 
 
         [Required]
-        [JsonProperty("Name")]
-        [Unique(typeof(MaritalStatusQuery), nameof(MaritalStatus_PK))]
+        [JsonProperty("name")]
+        [Unique(typeof(MaritalStatusQuery), nameof(MaritalPK))]
         public string Name { get; set; } 
     }
 }

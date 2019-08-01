@@ -8,12 +8,12 @@ namespace GlobalSolusindo.Identity.Religion
 {
     public class ReligionDTO : DTO
     {
-        [JsonProperty("Religion_pk")]
-        public int Religion_PK { get; set; } 
+        [JsonProperty("religion_pk")]
+        public int ReligionPK { get; set; } 
 
         [Required]
-        [JsonProperty("Name")]
-        [Unique(typeof(ReligionQuery), nameof(Religion_PK))]
+        [JsonProperty("name")]
+        [Unique(typeof(ReligionQuery), nameof(ReligionPK))]
         public string Name { get; set; } 
     }
 }

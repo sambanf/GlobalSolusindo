@@ -183,13 +183,13 @@ namespace GlobalSolusindo.Api.Models
                             {
                                 validationTableReligion.Columns.Add(item.Name);
                             }
-                            var dataReligion = ReligionQuery.GetQuery().Select(c => new ReligionDTO { Religion_PK = c.Religion_PK, Name = c.Name }).ToList();
+                            var dataReligion = ReligionQuery.GetQuery().Select(c => new ReligionDTO { ReligionPK = c.ReligionPK, Name = c.Name }).ToList();
                             DataRow drReligion;
                             startcell = 2; endcell = 2;
                             foreach (var item in dataReligion)
                             {
                                 drReligion = validationTableReligion.NewRow();
-                                drReligion["Id"] = item.Religion_PK;
+                                drReligion["Id"] = item.ReligionPK;
                                 drReligion["Name"] = item.Name;
                                 validationTableReligion.Rows.Add(drReligion);
                                 endcell++;
@@ -210,13 +210,13 @@ namespace GlobalSolusindo.Api.Models
                                 {
                                     validationTableMaritalStatus.Columns.Add(item.Name);
                                 }
-                                var dataMaritalStatus = MaritalStatusQuery.GetQuery().Select(c => new MaritalStatusDTO { MaritalStatus_PK = c.MaritalStatus_PK, Name = c.Name }).ToList();
+                                var dataMaritalStatus = MaritalStatusQuery.GetQuery().Select(c => new MaritalStatusDTO { MaritalPK = c.MaritalPK, Name = c.Name }).ToList();
                                 DataRow drMaritalStatus;
                                 startcell = 2; endcell = 2;
                                 foreach (var item in dataMaritalStatus)
                                 {
                                     drMaritalStatus = validationTableMaritalStatus.NewRow();
-                                    drMaritalStatus["Id"] = item.MaritalStatus_PK;
+                                    drMaritalStatus["Id"] = item.MaritalPK;
                                     drMaritalStatus["Name"] = item.Name;
                                     validationTableMaritalStatus.Rows.Add(drMaritalStatus);
                                     endcell++;
@@ -237,13 +237,13 @@ namespace GlobalSolusindo.Api.Models
                                     {
                                         validationTableCategoryContract.Columns.Add(item.Name);
                                     }
-                                    var dataCategoryContract = CategoryContractQuery.GetQuery().Select(c => new CategoryContractDTO { CategoryContract_PK = c.CategoryContract_PK, Name = c.Name }).ToList();
+                                    var dataCategoryContract = CategoryContractQuery.GetQuery().Select(c => new CategoryContractDTO { CategoryContractPK = c.CategoryContractPK, Name = c.Name }).ToList();
                                     DataRow drCategoryContract;
                                     startcell = 2; endcell = 2;
                                     foreach (var item in dataCategoryContract)
                                     {
                                         drCategoryContract = validationTableCategoryContract.NewRow();
-                                        drCategoryContract["Id"] = item.CategoryContract_PK;
+                                        drCategoryContract["Id"] = item.CategoryContractPK;
                                         drCategoryContract["Name"] = item.Name;
                                         validationTableCategoryContract.Rows.Add(drCategoryContract);
                                         endcell++;

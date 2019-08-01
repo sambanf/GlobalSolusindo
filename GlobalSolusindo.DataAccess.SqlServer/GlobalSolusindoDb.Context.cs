@@ -437,5 +437,10 @@ namespace GlobalSolusindo.DataAccess
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetDropdownlistTipePekerjaanBySowAssign_Result>("GetDropdownlistTipePekerjaanBySowAssign", sowAssign_PKParameter);
         }
+    
+        public virtual ObjectResult<GetAsetAvaible_Result> GetAsetAvaible()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAsetAvaible_Result>("GetAsetAvaible");
+        }
     }
 }

@@ -120,8 +120,13 @@
     <Compile Include="ApiResponse.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\CategoryContractController.cs" />
+    <Compile Include="Controllers\MaritalStatusController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\POController.cs" />
+    <Compile Include="Controllers\GenderController.cs" />
+    <Compile Include="Controllers\ReligionController.cs" />
+    <Compile Include="Controllers\TipePekerjaanController.cs" />
     <Compile Include="Controllers\VendorController.cs" />
     <Compile Include="Controllers\CheckInController.cs" />
     <Compile Include="Controllers\SOWTrackResultController.cs" />

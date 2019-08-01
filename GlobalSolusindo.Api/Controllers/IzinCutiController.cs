@@ -63,6 +63,7 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (var izinCutiSearch = new IzinCutiSearch(Db))
             {
+                filter.User = ActiveUser;
                 var data = izinCutiSearch.GetDataByFilter(filter);
                 SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));

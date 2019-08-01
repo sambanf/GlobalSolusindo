@@ -29,7 +29,7 @@ namespace GlobalSolusindo.Identity.Religion.Queries
             var query = from Religion in Db.tblM_Religion
                         select new ReligionDTO
                         {
-                            Religion_PK = Religion.ReligionPK,
+                            ReligionPK = Religion.ReligionPK,
                             Name = Religion.Name
                         };
 
@@ -43,7 +43,7 @@ namespace GlobalSolusindo.Identity.Religion.Queries
 
         public ReligionDTO GetByPrimaryKey(int primaryKey)
         {
-            ReligionDTO record = GetQuery().FirstOrDefault(Religion => Religion.Religion_PK == primaryKey);
+            ReligionDTO record = GetQuery().FirstOrDefault(Religion => Religion.ReligionPK == primaryKey);
             return record;
         }
 
@@ -51,7 +51,7 @@ namespace GlobalSolusindo.Identity.Religion.Queries
         public object GetByPrimaryKey(params object[] primaryKeys)
         {
             int primaryKey = Convert.ToInt32(primaryKeys[0]);
-            return GetQuery().FirstOrDefault(x => x.Religion_PK == primaryKey);
+            return GetQuery().FirstOrDefault(x => x.ReligionPK == primaryKey);
         }
 
         public int CountBy(string fieldName, string value)

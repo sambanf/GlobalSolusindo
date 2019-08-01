@@ -89,13 +89,21 @@
                         "data": "description"
                     },
                     {
+                        "data": "tglSelesai",
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            //return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            //    "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
-                            ////"<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                            if (data == null) { return "<button id='return' rel='tooltip' title='return' data-placement='left' class='btn btn-success'><i class='fa fa-arrow-left'></i></button> " }
+                            else
+                            { return "" }
+
+                        }
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show + "'><i class='fa fa-info'></i></button> " +
                                 "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
                                 "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                                

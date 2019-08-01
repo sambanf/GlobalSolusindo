@@ -31,9 +31,32 @@
             });
         }
 
+        function returnAset(data) {
+
+            //var date = new Date();
+
+            data.tglSelesai = data.updatedDate;
+
+            return http.put('asetHistori', data).then(function (res) {
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message, 'popup');
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.return = function (data) {
+            ui.alert.confirm("Are you sure want to return aset histori '" + data.asetName + "'?", function () {
+                return returnAset(data);
+            });
+        };
+
+
         self.delete = function (data) {
             var ids = [data.asetHistori_pk];
-            ui.alert.confirm("Are you sure want to delete aset histori '" + data.title + "'?", function () {
+            ui.alert.confirm("Are you sure want to delete aset histori '" + data.asetName + "'?", function () {
                 return deleteRecords(ids);
             });
         };
@@ -58,7 +81,12 @@
             //Row delete button event
             $('#asetHistori tbody').on('click', '#delete', function () {
                 var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
-                self.delete(selectedRecord);
+                self.kembali(selectedRecord);
+            });
+
+            $('#asetHistori tbody').on('click', '#return', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.return(selectedRecord);
             });
 
             //Toolbar delete button event
