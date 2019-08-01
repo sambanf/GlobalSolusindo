@@ -77,6 +77,7 @@ namespace GlobalSolusindo.Business.SOW
         public int? Technology_FK { get; set; }
 
         [JsonProperty("duid")]
+        [Unique(typeof(SOWQuery), nameof(DUID))]
         public string DUID { get; set; }
         [JsonProperty("lvdate")]
         public DateTime? LVDate { get; set; }

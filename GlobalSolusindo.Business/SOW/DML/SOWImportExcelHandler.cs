@@ -200,7 +200,7 @@ namespace GlobalSolusindo.Business.SOW.DML
                 {
                     SOWName = sowname,
                     PMOUniq = pmouniq,
-                    BTS_FK = bts == "" ? 0 : Convert.ToInt16(project.Split('-')[0]),
+                    BTS_FK = bts == "" ? 0 : btsquery.GetByTowerID(bts.Split('-')[0]).BTS_PK,
                     Project_FK = project == "" ? 0 : Convert.ToInt16(project.Split('-')[0]),
                     Technology_FK = tech == "" ? 0 : technologyQuery.GetByTitle(tech).Technology_PK,
                     TglMulai = DateTime.Parse(codate),
@@ -208,7 +208,7 @@ namespace GlobalSolusindo.Business.SOW.DML
                     LVDate = DateTime.Parse(lvdate),
                     AcceptedDate = DateTime.Parse(accdate),
                     StatusSOW_FK = 1,
-                    SOWAssigns = sowAssign
+                    SOWAssigns = sowAssign.Count == 0? null :  sowAssign
 
                 });
             }
