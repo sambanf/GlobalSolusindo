@@ -165,8 +165,9 @@ namespace GlobalSolusindo.Business.SOW
 
         private bool JabatanIsHRDorEssarorBOD(tblM_KategoriJabatan jabatan)
         {
-            return jabatan.Title.ToLower().Contains("bod") ||
-                jabatan.Title.ToLower().Contains("hrd")
+            return jabatan.Title.ToLower().Contains("bod")
+                || jabatan.Title.ToLower().Contains("direktur")
+                || jabatan.Title.ToLower().Contains("hrd")
                 || jabatan.Title.ToLower().Contains("essar");
         }
 

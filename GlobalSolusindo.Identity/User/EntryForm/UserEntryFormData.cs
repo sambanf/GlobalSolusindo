@@ -1,5 +1,9 @@
 ﻿using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Identity.CategoryContract;
+using GlobalSolusindo.Identity.Gender;
 using GlobalSolusindo.Identity.KategoriJabatan;
+using GlobalSolusindo.Identity.MaritalStatus;
+using GlobalSolusindo.Identity.Religion;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +17,18 @@ namespace GlobalSolusindo.Identity.User.EntryForm
 
         [JsonProperty("projects")]
         public List<Project> Projects { get; set; } = new List<Project>();
+
+        [JsonProperty("religions")]
+        public List<ReligionDTO> Religions { get; set; } = new List<ReligionDTO>();
+
+        [JsonProperty("categoryContracts")]
+        public List<CategoryContractDTO> CategoryContracts { get; set; } = new List<CategoryContractDTO>();
+
+        [JsonProperty("genders")]
+        public List<GenderDTO> Genders { get; set; } = new List<GenderDTO>();
+
+        [JsonProperty("maritalStatuses")]
+        public List<MaritalStatusDTO> MaritalStatuses { get; set; } = new List<MaritalStatusDTO>();
     }
 
     public class Project

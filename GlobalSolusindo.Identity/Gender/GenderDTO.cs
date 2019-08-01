@@ -12,7 +12,7 @@ namespace GlobalSolusindo.Identity.Gender
         public int Gender_PK { get; set; } 
 
         [Required]
-        [JsonProperty("Name")]
+        [JsonProperty("name")]
         [Unique(typeof(GenderQuery), nameof(Gender_PK))]
         public string Name { get; set; } 
     }

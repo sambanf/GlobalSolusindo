@@ -19,6 +19,8 @@ namespace GlobalSolusindo.Business.IzinCuti
         [ForeignKey(typeof(UserQuery), "User_PK", true)]
         public int User_FK { get; set; }
 
+        public int KategoriJabatan_FK { get; set; }
+
         [JsonProperty("userIzinCutiName")]
         public string UserIzinCutiName { get; set; }
 

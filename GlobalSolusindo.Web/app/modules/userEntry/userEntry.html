@@ -128,12 +128,7 @@
                                 <label class="control-label col-sm-3">Religion:</label>
                                 <div class="col-sm-9">
                                     <select id="religion" name="religion" class="form-control input-lg" size="0" ng-model="vm.model.religion" required>
-                                        <option value="Buddha">Buddha</option>
-                                        <option value="Hindu">Hindu</option>
-                                        <option value="Islam">Islam</option>
-                                        <option value="Katolik">Katolik</option>
-                                        <option value="Protestan">Protestan</option>
-                                        <option value="Lainnya">Lainnya</option>
+                                        <option ng-repeat="x in vm.formData.religions" ng-value="x.religion_pk">{{x.name}}</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -143,8 +138,7 @@
                                 <label class="control-label col-sm-3">Category Contract:</label>
                                 <div class="col-sm-9">
                                     <select id="categoryContract" name="categoryContract" class="form-control input-lg" size="0" ng-model="vm.model.categoryContract" required>
-                                        <option value="C">C</option>
-                                        <option value="P">P</option>
+                                        <option ng-repeat="x in vm.formData.categoryContracts" ng-value="x.categoryContract_pk">{{x.name}}</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -154,8 +148,7 @@
                                 <label class="control-label col-sm-3">Gender:</label>
                                 <div class="col-sm-9">
                                     <select id="gender" name="gender" class="form-control input-lg" size="0" ng-model="vm.model.gender" required>
-                                        <option value="L">Laki-Laki</option>
-                                        <option value="P">Perempuan</option>
+                                        <option ng-repeat="x in vm.formData.genders" ng-value="x.gender_pk">{{x.name}}</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -163,12 +156,10 @@
 
 
                             <div class="row form-group">
-                                <label class="control-label col-sm-3">Marital Status:</label>
+                                <label class="control-label col-sm-3">Religion:</label>
                                 <div class="col-sm-9">
                                     <select id="maritalStatus" name="maritalStatus" class="form-control input-lg" size="0" ng-model="vm.model.maritalStatus" required>
-                                        <option value="Kawin">Kawin</option>
-                                        <option value="Tidak Kawin">Tidak Kawin</option>
-                                        <option value="Cerai">Cerai</option>
+                                        <option ng-repeat="x in vm.formData.maritalStatuses" ng-value="x.maritalStatus_pk">{{x.name}}</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>

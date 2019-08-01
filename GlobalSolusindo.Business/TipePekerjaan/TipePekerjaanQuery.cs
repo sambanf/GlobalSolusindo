@@ -34,6 +34,7 @@ namespace GlobalSolusindo.Business.TipePekerjaan
             var query = from tipePekerjaan in Db.tblM_TipePekerjaan
                         where
                         tipePekerjaan.Status_FK != deleted
+                        orderby tipePekerjaan.Order
                         select new TipePekerjaanDTO
                         {
                             TipePekerjaan_PK = tipePekerjaan.TipePekerjaan_PK,
@@ -72,6 +73,21 @@ namespace GlobalSolusindo.Business.TipePekerjaan
             searchResult.Records = displayedRecords;
 
             return searchResult;
+        }
+
+        public IQueryable<TipePekerjaanDropdownDTO> GetDropdownBySowAssign(int sowAssignPK)
+        {
+            var DropdownlistTipePekerjaan = Db.GetDropdownlistTipePekerjaanBySowAssign(sowAssignPK).ToList();
+            
+            var query = from Data in DropdownlistTipePekerjaan
+                        select new TipePekerjaanDropdownDTO
+                        {
+                            TipePekerjaan_PK = Data.TipePekerjaan_FK,
+                            Title = Data.Title,
+                            Checkin_Fk = Data.CheckIn_PK
+                        };
+
+            return query.AsQueryable();
         }
 
         public TipePekerjaanDTO GetByPrimaryKey(int primaryKey)

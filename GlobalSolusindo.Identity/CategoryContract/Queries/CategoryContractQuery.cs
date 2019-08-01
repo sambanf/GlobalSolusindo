@@ -29,7 +29,7 @@ namespace GlobalSolusindo.Identity.CategoryContract.Queries
             var query = from CategoryContract in Db.tblM_CategoryContract
                         select new CategoryContractDTO
                         {
-                            CategoryContract_PK = CategoryContract.CategoryContractPK,
+                            CategoryContractPK = CategoryContract.CategoryContractPK,
                             Name = CategoryContract.Name
                         };
 
@@ -43,7 +43,7 @@ namespace GlobalSolusindo.Identity.CategoryContract.Queries
 
         public CategoryContractDTO GetByPrimaryKey(int primaryKey)
         {
-            CategoryContractDTO record = GetQuery().FirstOrDefault(CategoryContract => CategoryContract.CategoryContract_PK == primaryKey);
+            CategoryContractDTO record = GetQuery().FirstOrDefault(CategoryContract => CategoryContract.CategoryContractPK == primaryKey);
             return record;
         }
 
@@ -51,7 +51,7 @@ namespace GlobalSolusindo.Identity.CategoryContract.Queries
         public object GetByPrimaryKey(params object[] primaryKeys)
         {
             int primaryKey = Convert.ToInt32(primaryKeys[0]);
-            return GetQuery().FirstOrDefault(x => x.CategoryContract_PK == primaryKey);
+            return GetQuery().FirstOrDefault(x => x.CategoryContractPK == primaryKey);
         }
 
         public int CountBy(string fieldName, string value)

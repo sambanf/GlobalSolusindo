@@ -8,12 +8,12 @@ namespace GlobalSolusindo.Identity.CategoryContract
 {
     public class CategoryContractDTO : DTO
     {
-        [JsonProperty("CategoryContract_pk")]
-        public int CategoryContract_PK { get; set; } 
+        [JsonProperty("categoryContract_pk")]
+        public int CategoryContractPK { get; set; } 
 
         [Required]
-        [JsonProperty("Name")]
-        [Unique(typeof(CategoryContractQuery), nameof(CategoryContract_PK))]
+        [JsonProperty("name")]
+        [Unique(typeof(CategoryContractQuery), nameof(CategoryContractPK))]
         public string Name { get; set; } 
     }
 }

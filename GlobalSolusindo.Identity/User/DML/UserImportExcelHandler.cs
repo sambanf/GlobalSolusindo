@@ -328,13 +328,13 @@ namespace GlobalSolusindo.Identity.User.DML
                     BankName = bankName,
                     BPJS = bpjs,
                     ////WAIT
-                    CategoryContract = categoryContract == "" ? 0 : categoryContractQuery.GetByName(categoryContract).CategoryContract_PK,
+                    CategoryContract = categoryContract == "" ? 0 : categoryContractQuery.GetByName(categoryContract).CategoryContractPK,
                     Gender = gender == "" ? 0 : genderQuery.GetByName(gender).Gender_PK,
                     JoinDate = joinDate,
-                    MaritalStatus = maritalStatus == "" ? 0 : maritalStatusQuery.GetByName(maritalStatus).MaritalStatus_PK,
+                    MaritalStatus = maritalStatus == "" ? 0 : maritalStatusQuery.GetByName(maritalStatus).MaritalPK,
                     NPWP = npwp,
                     Project = project == "" ? 0 : Convert.ToInt16(project.Split('-')[0]),
-                    Religion = religion == "" ? 0 : religionQuery.GetByName(religion).Religion_PK,
+                    Religion = religion == "" ? 0 : religionQuery.GetByName(religion).ReligionPK,
                     Salary = salary
                 };
 
