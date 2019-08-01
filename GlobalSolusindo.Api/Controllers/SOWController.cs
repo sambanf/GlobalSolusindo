@@ -216,7 +216,7 @@ namespace GlobalSolusindo.Api.Controllers
         [HttpPost]
         public IHttpActionResult Import([FromBody]SOWImportDTO SOWImportDTO)
         {
-            ThrowIfUserHasNoRole(importRole);
+            //ThrowIfUserHasNoRole(importRole);
 
             if (SOWImportDTO == null)
                 throw new KairosException("Missing model parameter");
