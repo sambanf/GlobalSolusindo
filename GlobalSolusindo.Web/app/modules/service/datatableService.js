@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('DatatableService', DtService);
 
-    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state', 'uiService'];
+    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state', 'uiService', '$rootScope'];
 
-    function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui) {
+    function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui, $rootScope) {
         var self = this;
         self.param = {};
         var dtRequestData = {};
@@ -188,6 +188,15 @@
 
             $('.dataTables_filter input[type=search]').val('').change();
             dt.requestData = dtRequestData;
+             
+            $(window).resize(function () {
+                dt.columns.adjust();
+            });
+            angular.element('ui-view').on('resize', function () {
+                alert('hello')
+                dt.columns.adjust();
+            });
+
             return dt;
         };
 

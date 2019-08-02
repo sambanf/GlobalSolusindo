@@ -1,15 +1,15 @@
-<header class="app-header navbar">
+<header class="app-header navbar" ng-controller="NavBarCtrl as nav">
     <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">
         <span class="navbar-toggler-icon"></span>
     </button>
     <ul class="nav navbar-nav d-md-down-none">
         <li class="nav-item">
             <a class="nav-link navbar-toggler sidebar-toggler" href="#">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon" ng-click="nav.resizeDt()"></span>
             </a>
         </li>
     </ul>
-    <div class="nav navbar-nav ml-auto" uib-dropdown ng-controller="NavBarCtrl as nav">
+    <div class="nav navbar-nav ml-auto" uib-dropdown>
         <div class="btn-transparent" uib-dropdown-toggle="" ng-disabled="disabled" aria-haspopup="true" aria-expanded="false">
             <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                 <img id="photoProfile" src="app/assets/images/default.png" class="img-avatar" alt="">

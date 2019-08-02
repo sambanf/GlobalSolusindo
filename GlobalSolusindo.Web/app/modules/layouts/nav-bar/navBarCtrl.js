@@ -13,7 +13,7 @@
         .module('global-solusindo')
         .controller('NavBarCtrl', NavBarCtrl);
 
-    NavBarCtrl.$inject = ['MenuService', '$cookies', '$localStorage', '$state', '$window', 'HttpService', 'uiService'];
+    NavBarCtrl.$inject = ['MenuService', '$cookies', '$localStorage', '$state', '$window', 'HttpService', 'uiService', '$scope', '$rootScope'];
 
 	/*
 	 * recommend
@@ -21,13 +21,18 @@
 	 * and bindable members up top.
 	 */
 
-    function NavBarCtrl(MenuService, $cookies, localStorage, state, $window, http, ui) {
+    function NavBarCtrl(MenuService, $cookies, localStorage, state, $window, http, ui, $scope, $rootScope) {
 
         /*jshint validthis: true */
         var nav = this;
         var user = JSON.parse($window.localStorage.getItem('user'));
         nav.model = user;
-
+ 
+        nav.resizeDt = function () {
+            console.log($rootScope);
+            $rootScope.dt.columns.adjust();
+        }
+    
         function setImage(data) { 
             document.getElementById("photoProfile").src = data;
         }
