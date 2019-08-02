@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-07-31. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-02. 
 * @author Kairos
 */
 (function() {
@@ -2011,7 +2011,7 @@ angular.module('global-solusindo')
             formControlService.setFormControl(self);
             saveService.init(self);
             
-            select2Service.liveSearch("aset/search", {
+            select2Service.liveSearch("aset/searchAvaible", {
                 selector: '#aset_fk',
                 valueMember: 'aset_pk',
                 displayMember: 'name',
@@ -6824,9 +6824,32 @@ angular.module('global-solusindo')
             });
         }
 
+        function returnAset(data) {
+
+            //var date = new Date();
+
+            data.tglSelesai = data.updatedDate;
+
+            return http.put('asetHistori', data).then(function (res) {
+                if (res.success) {
+                    controller.datatable.draw();
+                    ui.alert.success(res.message, 'popup');
+                } else {
+                    ui.alert.error(res.message);
+                }
+            });
+        }
+
+        self.return = function (data) {
+            ui.alert.confirm("Are you sure want to return aset histori '" + data.asetName + "'?", function () {
+                return returnAset(data);
+            });
+        };
+
+
         self.delete = function (data) {
             var ids = [data.asetHistori_pk];
-            ui.alert.confirm("Are you sure want to delete aset histori '" + data.title + "'?", function () {
+            ui.alert.confirm("Are you sure want to delete aset histori '" + data.asetName + "'?", function () {
                 return deleteRecords(ids);
             });
         };
@@ -6851,7 +6874,12 @@ angular.module('global-solusindo')
             //Row delete button event
             $('#asetHistori tbody').on('click', '#delete', function () {
                 var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
-                self.delete(selectedRecord);
+                self.kembali(selectedRecord);
+            });
+
+            $('#asetHistori tbody').on('click', '#return', function () {
+                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                self.return(selectedRecord);
             });
 
             //Toolbar delete button event
@@ -6966,13 +6994,21 @@ angular.module('global-solusindo')
                         "data": "description"
                     },
                     {
+                        "data": "tglSelesai",
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            //return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning'><i class='fas fa-pencil-alt'></i></button> " +
-                            //    "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger'><i class='fa fa-trash-alt'></i></button>";
-                            ////"<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success'><i class='fa fa-info'></i></button> " +
-                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
+                            if (data == null) { return "<button id='return' rel='tooltip' title='return' data-placement='left' class='btn btn-success'><i class='fa fa-arrow-left'></i></button> " }
+                            else
+                            { return "" }
+
+                        }
+                    },
+                    {
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='show' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show + "'><i class='fa fa-info'></i></button> " +
                                 "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
                                 "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
                                
@@ -7060,6 +7096,7 @@ angular.module('global-solusindo')
                 });
                 modalInstance.result.then(function (selectedItem) { }, function () { });
             });
+            
         };
 
         return self;
@@ -17035,9 +17072,9 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
-        //var base_url = "http://gsapi.local/";
+        var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        var base_url = "http://localhost/GlobalAPI/";
+        //var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
 
@@ -20154,11 +20191,71 @@ angular.module('global-solusindo')
             });
         }
 
+        function getReligions() {
+            select2Service.liveSearch("religion/search", {
+                selector: '#religion',
+                valueMember: 'religion_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.religions = data;
+                },
+                onSelected: function (data) {
+                    controller.model.religion = data.religion_pk;
+                }
+            });
+        }
+
+        function getMaritalStatuses() {
+            select2Service.liveSearch("maritalStatus/search", {
+                selector: '#maritalStatus',
+                valueMember: 'maritalStatus_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.maritalStatuses = data;
+                },
+                onSelected: function (data) {
+                    controller.model.maritalStatus = data.maritalStatus_pk;
+                }
+            });
+        }
+
+        function getGenders() {
+            select2Service.liveSearch("gender/search", {
+                selector: '#gender',
+                valueMember: 'gender_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.genders = data;
+                },
+                onSelected: function (data) {
+                    controller.model.gender = data.gender_pk;
+                }
+            });
+        }
+
+        function getCategoryContracts() {
+            select2Service.liveSearch("categoryContract/search", {
+                selector: '#categoryContract',
+                valueMember: 'categoryContract_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    controller.formData.categoryContracts = data;
+                },
+                onSelected: function (data) {
+                    controller.model.categoryContract = data.categoryContract_pk;
+                }
+            });
+        }
+
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element(document).ready(function () {
                 getKategoriJabatans();
                 getProjects();
+                getReligions();
+                getCategoryContracts();
+                getMaritalStatuses();
+                getGenders();
             });
         };
 

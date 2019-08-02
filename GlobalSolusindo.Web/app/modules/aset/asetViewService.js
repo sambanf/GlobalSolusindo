@@ -37,7 +37,12 @@
                 var modalInstance = $uibModal.open({
                     templateUrl: 'app/modules/aset/asetDetail.html',
                     controller: function ($scope, $uibModalInstance) {
-                        $scope.model = data;
+                        http.get('aset/form/' + data.aset_pk).then(function (res) {
+                            $scope.model = res.data.model;
+                            if ($scope.model && $scope.model.filePhotoInBase64) {
+                                document.getElementById("photo").src = $scope.model.filePhotoInBase64;
+                            }
+                        });
                         $scope.close = function () {
                             $uibModalInstance.close();
                         };
@@ -56,7 +61,12 @@
                 var modalInstance = $uibModal.open({
                     templateUrl: 'app/modules/aset/asetDetail.html',
                     controller: function ($scope, $uibModalInstance) {
-                        $scope.model = data;
+                        http.get('aset/form/' + data.aset_pk).then(function (res) { 
+                            $scope.model = res.data.model;
+                            if ($scope.model && $scope.model.filePhotoInBase64) {
+                                document.getElementById("photo").src = $scope.model.filePhotoInBase64;
+                            }
+                        });
                         $scope.close = function () {
                             $uibModalInstance.close();
                         };
