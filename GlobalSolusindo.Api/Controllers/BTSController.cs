@@ -11,6 +11,7 @@ using Kairos.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Transactions;
 using System.Web.Http;
@@ -38,6 +39,19 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 var data = btsQuery.GetByPrimaryKey(id);
                 SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
+                return Ok(new SuccessResponse(data));
+            }
+        }
+
+        [Route("bts/coordinates")]
+        [HttpGet]
+        public IHttpActionResult GetAllCoordinates()
+        {
+            ThrowIfUserHasNoRole(readRole);
+            using (BTSQuery btsQuery = new BTSQuery(Db))
+            {
+                var data = btsQuery.GetQuery().ToList();
+                SaveLog(ActiveUser.Username, readRole, null, "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
         }
