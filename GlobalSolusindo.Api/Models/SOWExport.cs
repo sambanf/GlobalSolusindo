@@ -135,7 +135,7 @@ namespace GlobalSolusindo.Api.Models
                         worksheet.Column(5).SetDataValidation().List(worksheetTechnology.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
                     }
 
-
+                    //USER VALIDATION
                     using (var UserQuery = new UserQuery())
                     {
                         //SETUP TABLE Teamlead
@@ -159,7 +159,7 @@ namespace GlobalSolusindo.Api.Models
                             endcell++;
                         }
                         var worksheetUser = workbook.AddWorksheet(validationTableUser);
-                        worksheet.Column(12).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                        worksheet.Column(13).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
                         //SETUP TABLE PLOQC
                         DataTable validationTableUserPLOQC = new DataTable();
@@ -181,7 +181,7 @@ namespace GlobalSolusindo.Api.Models
                             endcell++;
                         }
                         var worksheetUserPLOQC = workbook.AddWorksheet(validationTableUserPLOQC);
-                        worksheet.Column(13).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                        worksheet.Column(14).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
                         //SETUP TABLE RF
                         DataTable validationTableUserRF = new DataTable();
@@ -203,7 +203,7 @@ namespace GlobalSolusindo.Api.Models
                             endcell++;
                         }
                         var worksheetUserRF = workbook.AddWorksheet(validationTableUserRF);
-                        worksheet.Column(14).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                        worksheet.Column(15).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
                         //SETUP TABLE Rigger
                         DataTable validationTableUserRigger = new DataTable();
@@ -225,7 +225,7 @@ namespace GlobalSolusindo.Api.Models
                             endcell++;
                         }
                         var worksheetUserRigger = workbook.AddWorksheet(validationTableUserRigger);
-                        worksheet.Column(15).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                        worksheet.Column(16).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
                         //SETUP TABLE DT
                         DataTable validationTableUserDT = new DataTable();
@@ -247,7 +247,7 @@ namespace GlobalSolusindo.Api.Models
                             endcell++;
                         }
                         var worksheetUserDT = workbook.AddWorksheet(validationTableUserDT);
-                        worksheet.Column(16).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                        worksheet.Column(17).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
                     }
 
@@ -311,6 +311,7 @@ namespace GlobalSolusindo.Api.Models
                         dr["Long"] = item.Long;
                         dr["lat"] = item.lat;
                         dr["CODate"] = item.CODate;
+                        dr["AssignDate"] = item.AssignDate;
                         //DT Date
                         dr["SSVDate"] = item.SSVDate;
                         dr["SSODate"] = item.SSODate;
@@ -402,6 +403,7 @@ namespace GlobalSolusindo.Api.Models
                         dr["Long"] = item.Long;
                         dr["lat"] = item.lat;
                         dr["CODate"] = item.CODate;
+                        dr["AssignDate"] = item.AssignDate;
                         //DT Date
                         dr["SSVDate"] = item.SSVDate;
                         dr["SSODate"] = item.SSODate;

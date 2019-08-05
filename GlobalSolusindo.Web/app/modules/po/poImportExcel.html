@@ -25,11 +25,9 @@
                 <div class="card">
                     <div class="card-title">Upload result</div>
                     <div style="overflow:auto">
-
                         <div class="row">
                             <div class="col-md-12">
-
-                                <table class="table table-striped" id="user" >
+                                <table class="table table-striped" id="poview">
                                     <thead>
                                         <tr>
                                             <th>Id</th>
@@ -48,66 +46,9 @@
                                             <th>Shipment No</th>
                                             <th>Qty</th>
                                             <th>PO Status</th>
-                                            <!--<th>Payment Term</th>
-                                            <th>Work Status</th>
-                                            <th>OA Date</th>
-                                            <th>SSV Date</th>
-                                            <th>SSV App Date</th>
-                                            <th>SOM SSV Date</th>
-                                            <th>QC Acc Date</th>
-                                            <th>PAC Cluster ID</th>
-                                            <th>PAC Cluster Status</th>
-                                            <th>SOM PAC Cluster</th>
-                                            <th>Doc Status</th>
-                                            <th>ESAR 1ST Status</th>
-                                            <th>ESAR 2ND Status</th>
-                                            <th>Remarks</th>
-                                            <th>Created By</th>
-                                            <th>Created Date</th>
-                                            <th>Updated By</th>
-                                            <th>Updated Date</th>-->
                                             <th>Status</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr ng-repeat="po in vm.uploadResults">
-                                            <td><label>{{po.PO_PK}}</label></td>
-                                            <td><label>{{po.Account}}</label></td>
-                                            <td><label>{{po.ProjectCode}}</label></td>
-                                            <td><label>{{po.SiteIDImp}}</label></td>
-                                            <td><label>{{po.SiteID}}</label></td>
-                                            <td><label>{{po.SiteName}}</label></td>
-                                            <td><label>{{po.DUID}}</label></td>
-                                            <td><label>{{po.PMOUniq}}</label></td>
-                                            <td><label>{{po.SOWAct}}</label></td>
-                                            <td><label>{{po.System}}</label></td>
-                                            <td><label>{{po.SOWPO}}</label></td>
-                                            <td><label>{{po.ItemDesc}}</label></td>
-                                            <td><label>{{po.PONo}}</label></td>
-                                            <td><label>{{po.ShipmentNo}}</label></td>
-                                            <td><label>{{po.Qty}}</label></td>
-                                            <td><label>{{po.POStatus == 1 ? 'On Progress' : 'Done'}}</label></td>
-                                            <!--<td><label>{{po.PaymentTerm}}</label></td>
-                                            <td><label>{{po.WorkStatus}}</label></td>
-                                            <td><label>{{po.OADate}}</label></td>
-                                            <td><label>{{po.SSVDate}}</label></td>
-                                            <td><label>{{po.SSVAppDate}}</label></td>
-                                            <td><label>{{po.SOMSSVDate}}</label></td>
-                                            <td><label>{{po.QCAccDate}}</label></td>
-                                            <td><label>{{po.PACClusterID}}</label></td>
-                                            <td><label>{{po.PACClusterStatus}}</label></td>
-                                            <td><label>{{po.SOMPACCluster}}</label></td>
-                                            <td><label>{{po.DocStatus}}</label></td>
-                                            <td><label>{{po.ESAR1stStatus}}</label></td>
-                                            <td><label>{{po.ESAR2ndStatus}}</label></td>
-                                            <td><label>{{po.Remarks}}</label></td>
-                                            <td><label>{{po.CreatedBy}}</label></td>
-                                            <td><label>{{po.CreatedDate}}</label></td>
-                                            <td><label>{{po.UpdatedBy}}</label></td>
-                                            <td><label>{{po.UpdatedDate}}</label></td>-->
-                                            <td><label>{{po.Status_FK}}</label></td>
-                                        </tr>
-                                    </tbody>
                                 </table>
                             </div>
                         </div>

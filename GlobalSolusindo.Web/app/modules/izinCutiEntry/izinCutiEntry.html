@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-title">Pengajuan Izin Cuti</div>
+                    <div class="card-title">Permit/Leave Submission</div>
                     <div class="col-md-12">
                         <div class="row form-group">
                             <label class="control-label col-sm-2" hidden>User fk:</label>
@@ -12,23 +12,23 @@
                                 <div class="invalid-feedback"></div>
                             </div>
 
-                            <label class="control-label col-sm-2">Nama Pengaju:</label>
+                            <label class="control-label col-sm-2">Requestor Name:</label>
                             <div class="col-sm-3">
-                                <input type="text" id="userIzinCutiName" name="userIzinCutiName" class="form-control" ng-model="vm.model.userIzinCutiName" placeholder="Nama Pengaju" disabled>
+                                <input type="text" id="userIzinCutiName" name="userIzinCutiName" class="form-control" ng-model="vm.model.userIzinCutiName" placeholder="Requestor Name" disabled>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
 
                         <div class="row form-group">
-                            <label class="control-label col-sm-2">Posisi:</label>
+                            <label class="control-label col-sm-2">Position:</label>
                             <div class="col-sm-2">
-                                <input type="text" id="userIzinCutiJabatan" name="userIzinCutiJabatan" class="form-control" ng-model="vm.model.userIzinCutiJabatan" placeholder="Posisi" disabled>
+                                <input type="text" id="userIzinCutiJabatan" name="userIzinCutiJabatan" class="form-control" ng-model="vm.model.userIzinCutiJabatan" placeholder="Position" disabled>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
 
                         <div class="row form-group">
-                            <label class="control-label col-sm-2">Tanggal Mulai:</label>
+                            <label class="control-label col-sm-2">Start Date:</label>
                             <div class="col-sm-2">
                                 <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
                                 <div class="invalid-feedback"></div>
@@ -36,7 +36,7 @@
                         </div>
 
                         <div class="row form-group">
-                            <label class="control-label col-sm-2">Tanggal Selesai:</label>
+                            <label class="control-label col-sm-2">End Date:</label>
                             <div class="col-sm-2">
                                 <input type="text" id="tglSelesai" name="tglSelesai" ng-model="vm.model.tglSelesai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" required />
                                 <div class="invalid-feedback"></div>
@@ -44,17 +44,17 @@
                         </div>
 
                         <div class="row form-group">
-                            <label class="control-label col-sm-2">Alasan:</label>
+                            <label class="control-label col-sm-2">Reason:</label>
                             <div class="col-sm-8">
-                                <textarea id="alasan" name="alasan" class="form-control" ng-model="vm.model.alasan" placeholder="Alasan"></textarea>
+                                <textarea id="alasan" name="alasan" class="form-control" ng-model="vm.model.alasan" placeholder="Reason"></textarea>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-8">
-                                <button class="btn btn-success" id="saveButton">Simpan</button>
-                                <button class="btn btn-default ml-1" ui-sref="app.izinCutiList">Kembali</button>
+                                <button class="btn btn-success" id="saveButton">Save</button>
+                                <button class="btn btn-default ml-1" ui-sref="app.izinCutiList">Back</button>
                             </div>
                         </div>
                     </div>

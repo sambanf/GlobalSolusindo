@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-title">Tambah SOW</div>
+                    <div class="card-title">Add SOW</div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row form-group">
@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <label class="control-label col-sm-3">BTS:</label>
+                                <label class="control-label col-sm-3">Site:</label>
                                 <div class="col-sm-6">
                                     <select id="bts_fk" name="bts_fk" class="form-control input-lg" ng-model="vm.model.bts_fk" required>
                                         <option ng-repeat="x in vm.formData.btses" ng-value="x.bts_pk">{{x.name}}</option>
@@ -119,8 +119,8 @@
                     </div>
                     <div class="row form-group">
                         <div class="col-md-8">
-                            <button class="btn btn-success" id="saveButton">Simpan</button>
-                            <button class="btn btn-default ml-1" ui-sref="app.sowList">Kembali</button>
+                            <button class="btn btn-success" id="saveButton">Save</button>
+                            <button class="btn btn-default ml-1" ui-sref="app.sowList">Back</button>
                         </div>
                     </div>
                 </div>

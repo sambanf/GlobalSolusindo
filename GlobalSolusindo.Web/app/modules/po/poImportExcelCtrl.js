@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .controller('POImportExcelCtrl', poImportExcelCtrl);
 
-    poImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'POImportExcelUploadService', 'POImportExcelBindingService', 'FormControlService','HttpService'];
+    poImportExcelCtrl.$inject = ['$scope', '$stateParams', '$state', 'POImportExcelUploadService', 'POImportExcelBindingService', 'FormControlService', 'HttpService', 'poviewDtService'];
 
-    function poImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService, http) {
+    function poImportExcelCtrl($scope, sParam, $state, uploadService, bindingService, formControlService, http, poview) {
         var self = this;
         self.stateParam = sParam;
 
@@ -50,6 +50,7 @@
 
         bindingService.init(self);
         uploadService.init(self);
+        poview.init(self);
 
         
         http.get('dashboard/getRole', {

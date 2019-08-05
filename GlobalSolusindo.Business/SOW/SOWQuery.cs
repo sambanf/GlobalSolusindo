@@ -85,6 +85,7 @@ namespace GlobalSolusindo.Business.SOW
                             Long = sowpo.Long,
                             lat = sowpo.Lat,
                             CODate = sowpo.CODate,
+                            AssignDate = sowpo.AssignDate,
                             SSVDate = sowpo.SSVDate,
                             SSODate = sowpo.SSODate,
                             LVDate = sowpo.LVDate,

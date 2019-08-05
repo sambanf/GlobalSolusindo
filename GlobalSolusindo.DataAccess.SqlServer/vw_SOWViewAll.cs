@@ -22,36 +22,37 @@ namespace GlobalSolusindo.DataAccess
         public string SOW { get; set; }
         public string Long { get; set; }
         public string Lat { get; set; }
-        public System.DateTime CODate { get; set; }
+        public Nullable<System.DateTime> CODate { get; set; }
+        public Nullable<System.DateTime> AssignDate { get; set; }
         public Nullable<System.DateTime> SSVDate { get; set; }
         public Nullable<System.DateTime> SSODate { get; set; }
         public Nullable<System.DateTime> LVDate { get; set; }
         public Nullable<System.DateTime> AcceptedDate { get; set; }
         public string Region { get; set; }
         public string RNO { get; set; }
+        public string LinkRNO { get; set; }
         public string RF { get; set; }
+        public string LinkRF { get; set; }
         public string Rigger { get; set; }
+        public string LinkRigger { get; set; }
         public string DT { get; set; }
+        public string SSVLink { get; set; }
+        public string SSOLink { get; set; }
         public string NoPo { get; set; }
         public Nullable<int> Value { get; set; }
+        public Nullable<decimal> Quantity1st { get; set; }
+        public Nullable<decimal> Quantity2nd { get; set; }
         public Nullable<System.DateTime> EsarSubmit1st { get; set; }
         public Nullable<System.DateTime> VsSubmit1st { get; set; }
-        public Nullable<decimal> Quantity1st { get; set; }
         public Nullable<System.DateTime> InvoiceSubmit1st { get; set; }
         public Nullable<System.DateTime> PaidDate1st { get; set; }
         public Nullable<int> EsarStatus1st { get; set; }
         public Nullable<System.DateTime> EsarSubmit2nd { get; set; }
         public Nullable<System.DateTime> VsSubmit2nd { get; set; }
-        public Nullable<decimal> Quantity2nd { get; set; }
         public Nullable<System.DateTime> InvoiceSubmit2nd { get; set; }
         public Nullable<System.DateTime> PaidDate2nd { get; set; }
         public Nullable<int> EsarStatus2nd { get; set; }
-        public int Status_FK { get; set; }
         public string Remarks { get; set; }
-        public string LinkRNO { get; set; }
-        public string LinkRF { get; set; }
-        public string LinkRigger { get; set; }
-        public string SSVLink { get; set; }
-        public string SSOLink { get; set; }
+        public int Status_FK { get; set; }
     }
 }

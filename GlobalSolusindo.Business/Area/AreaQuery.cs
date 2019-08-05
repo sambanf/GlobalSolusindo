@@ -10,6 +10,7 @@ namespace GlobalSolusindo.Business.Area
 {
     public class AreaSearchFilter : SearchFilter
     {
+        public bool forexcel { get; set; }
     }
 
     public class AreaQuery : QueryBase, IUniqueQuery
@@ -58,12 +59,15 @@ namespace GlobalSolusindo.Business.Area
                 .Where(area =>
                     area.Title.Contains(filter.Keyword));
 
-            var displayedRecords = filteredRecords.
+            var displayedRecords = filteredRecords.ToList();
+            if (!filter.forexcel)
+            {
+                displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)
                 .Skip(filter.Skip)
                 .Take(filter.PageSize)
                 .ToList();
-
+            }
             var searchResult = new SearchResult<AreaDTO>(filter);
             searchResult.Filter = filter;
             searchResult.Count.TotalRecords = GetTotalRecords();

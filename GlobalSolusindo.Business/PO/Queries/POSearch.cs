@@ -12,6 +12,7 @@ namespace GlobalSolusindo.Business.PO.Queries
         [JsonProperty("po_pk")]
         public int PO_PK { get; set; }
        
+        public bool forexcel  { get; set; }
     }
 
     public class POSearch : QueryBase
@@ -45,21 +46,26 @@ namespace GlobalSolusindo.Business.PO.Queries
                     user.PO_PK == (int)filter.PO_PK);
             }
 
-            var displayedRecords = filteredRecords.
-                SortBy(filter.SortName, filter.SortDir)
-                .Skip(filter.Skip)
-                .Take(filter.PageSize)
-                .ToList();
-
             var searchResult = new SearchResult<PODTO>(filter);
             searchResult.Filter = filter;
             searchResult.Count.TotalRecords = query.GetTotalRecords();
             searchResult.Count.TotalFiltered = filteredRecords.Count();
+            var displayedRecords = filteredRecords.ToList();
+            if (!filter.forexcel)
+            {
+                displayedRecords = filteredRecords.
+               SortBy(filter.SortName, filter.SortDir)
+               .Skip(filter.Skip)
+               .Take(filter.PageSize)
+               .ToList();
+            }
             searchResult.Count.TotalDisplayed = displayedRecords.Count();
             searchResult.Records = displayedRecords;
 
             return searchResult;
         }
+
+
 
        
     }

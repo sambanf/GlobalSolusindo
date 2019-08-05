@@ -35,7 +35,7 @@ namespace GlobalSolusindo.Api.Models
             _fileName = fileName;
             //CREATE WORKBOOK
             var workbook = new XLWorkbook();
-            DataTable bts = new DataTable("BTSUpload"); //DataTable Name = Worksheet Name
+            DataTable bts = new DataTable("SiteUpload"); //DataTable Name = Worksheet Name
             BTSExportDTO obj = new BTSExportDTO();
             //Setup Column Names
             foreach (var item in obj.GetType().GetProperties())
@@ -54,7 +54,7 @@ namespace GlobalSolusindo.Api.Models
                 DataTable validationTable = new DataTable();
                 validationTable.Columns.Add("StatusBTSFK");
                 validationTable.Columns.Add("StatusBTS");
-                validationTable.TableName = "StatusBTS";
+                validationTable.TableName = "StatusSite";
                 var data = BTSStatusSearch.GetDataByFilter(filter);
                 var dataExport = data.Records.Select(c => new tblM_BTSStatus
                 {
@@ -82,6 +82,7 @@ namespace GlobalSolusindo.Api.Models
                 validationTable2.TableName = "Operator";
                 //Operator
                 OperatorSearchFilter a = new OperatorSearchFilter();
+                a.forexcel = true;
                 using (var OperatorSearch = new OperatorSearch(Db))
                 {
                     var data2 = OperatorSearch.GetDataByFilter(a);
@@ -112,6 +113,7 @@ namespace GlobalSolusindo.Api.Models
                     validationTable3.TableName = "Area";
                     //Operator
                     AreaSearchFilter b = new AreaSearchFilter();
+                    b.forexcel = true;
                     using (var AreaSearch = new AreaQuery(Db))
                     {
                         var data3 = AreaSearch.Search(b);
@@ -142,13 +144,6 @@ namespace GlobalSolusindo.Api.Models
 
             
             }
-
-
-
-            //worksheet.Column(5).SetDataValidation().List(worksheet2.Range("B2:B4"), true);
-
-
-
 
             MemoryStream memoryStream = GetStream(workbook);
             var response = new HttpResponseMessage(HttpStatusCode.OK)

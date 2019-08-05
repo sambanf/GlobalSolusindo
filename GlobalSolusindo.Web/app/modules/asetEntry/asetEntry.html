@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-title">Tambah Aset</div>
+                    <div class="card-title">Add Aset</div>
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="row col-sm-12 form-group">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="col-md-8">
                             <div class="row form-group">
-                                <label class="control-label col-sm-2">Kategory Asset :</label>
+                                <label class="control-label col-sm-2">Asset Category :</label>
                                 <div class="col-sm-6">
                                     <select id="kategoriAset_fk" name="kategoriAset_fk" class="form-control input-lg" size="0" ng-model="asetVm.model.kategoriAset_fk" required>
                                         <option ng-repeat="x in asetVm.formData.asetKategoris" ng-value="x.asetKategori_pk">{{x.title}}</option>
@@ -39,7 +39,7 @@
                             </div>
 
                             <div class="row form-group">
-                                <label class="control-label col-sm-2">Nama Asset :</label>
+                                <label class="control-label col-sm-2">Asset Name :</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="name" name="name" class="form-control" ng-model="asetVm.model.name" required />
                                     <div class="invalid-feedback"></div>
@@ -47,7 +47,7 @@
                             </div>
  
                             <div class="row form-group">
-                                <label class="control-label col-sm-2">Deskripsi :</label>
+                                <label class="control-label col-sm-2">Description :</label>
                                 <div class="col-sm-6">
                                     <textarea id="description" name="description" class="form-control" ng-model="asetVm.model.description"></textarea>
                                     <div class="invalid-feedback"></div>
@@ -58,8 +58,8 @@
                     <hr />
                     <div class="row">
                         <div class="col-md-9">
-                            <button class="btn btn-success" id="saveButton">Simpan</button>
-                            <button class="btn btn-default ml-1" ui-sref="app.asetList">Kembali</button>
+                            <button class="btn btn-success" id="saveButton">Save</button>
+                            <button class="btn btn-default ml-1" ui-sref="app.asetList">Back</button>
                         </div>
                     </div>
                 </div>

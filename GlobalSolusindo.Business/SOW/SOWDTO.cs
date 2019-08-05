@@ -44,6 +44,10 @@ namespace GlobalSolusindo.Business.SOW
 
         //[JsonProperty("projectTitle")]
         //public string ProjectTitle { get; set; }
+        [JsonProperty("codate")]
+        //[JsonConverter(typeof(CustomDateTimeConverter))]
+        public DateTime? CODate { get; set; }
+
 
         [Required]
         [JsonProperty("tglMulai")]
@@ -77,7 +81,6 @@ namespace GlobalSolusindo.Business.SOW
         public int? Technology_FK { get; set; }
 
         [JsonProperty("duid")]
-        [Unique(typeof(SOWQuery), nameof(DUID))]
         public string DUID { get; set; }
         [JsonProperty("lvdate")]
         public DateTime? LVDate { get; set; }

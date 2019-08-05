@@ -12,7 +12,7 @@
                                     <label class="control-label col-sm-6" id="sowName" name="sowName">{{vm.model.sowName}}</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="control-label col-sm-3">Tanggal:</label>
+                                    <label class="control-label col-sm-3">Date :</label>
                                     <label class="control-label col-sm-6" id="tglMulai" name="tglMulai">{{vm.model.tglMulai | date: 'dd-MM-yyyy'}}</label>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                         <label class="control-label col-sm-6" id="cabangTitle" name="cabangTitle">{{vm.model.btsInfo.cabangTitle}}</label>
                                     </div>-->
                                     <div class="row">
-                                        <label class="control-label col-sm-3">Alamat</label>
+                                        <label class="control-label col-sm-3">Address</label>
                                         <label class="control-label col-sm-6" id="alamat" name="alamat">{{vm.model.btsInfo.alamat}}</label>
                                     </div>
                                 </div>
@@ -106,7 +106,7 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button class="btn btn-default" ui-sref="app.sowList">Kembali</button>
+                                    <button class="btn btn-default" ui-sref="app.sowList">Back</button>
                                 </div>
                             </div>
                         </div>
@@ -168,10 +168,10 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Kategori</th>
+                                                <th>Category</th>
                                                 <th>Nominal</th>
-                                                <th>Deskripsi</th>
-                                                <th>Tanggal Input</th>
+                                                <th>Description</th>
+                                                <th>Input Date</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -186,7 +186,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="col-md-12">
-                                <button class="btn btn-default" ui-sref="app.sowList">Kembali</button>
+                                <button class="btn btn-default" ui-sref="app.sowList">Back</button>
                                 <!--<button class="btn btn-success float-right" id="approveButton" ng-show="vm.model.sowResults.length>=3 || vm.model.statusSow_fk != 3">Approve</button>
                                 <button class="btn btn-danger float-right" id="rejectButton" ng-show="vm.model.sowResults.length>=3 || vm.model.statusSow_fk != 4">Reject</button>-->
                                 <button class="btn btn-success float-right" id="approveButton" ng-hide="vm.model.statusSow_fk == 3 || vm.model.statusSow_fk == 4">Approve</button>

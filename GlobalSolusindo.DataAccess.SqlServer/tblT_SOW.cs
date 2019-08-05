@@ -31,5 +31,6 @@ namespace GlobalSolusindo.DataAccess
         public string PMOUniq { get; set; }
         public Nullable<System.DateTime> LVDate { get; set; }
         public Nullable<System.DateTime> AcceptedDate { get; set; }
+        public Nullable<System.DateTime> CODate { get; set; }
     }
 }

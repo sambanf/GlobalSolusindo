@@ -26,15 +26,15 @@
                         </div>
                     </div>
                     <div class="row form-group col-md-2 radio">
-                        <label><input type="radio" name="optradio" value="1"> Jangka Waktu</label>
+                        <label><input type="radio" name="optradio" value="1">Timespan</label>
                     </div>
                     <div class="row form-group">
-                        <label class="control-label col-sm-1">Tgl Mulai</label>
+                        <label class="control-label col-sm-1">Start Date</label>
                         <div class="col-sm-2">
                             <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
                         </div>
-                        <label class="control-label col-sm-1">Tgl Akhir</label>
+                        <label class="control-label col-sm-1">End Date</label>
                         <div class="col-sm-2">
                             <input type="text" id="tglAkhir" name="tglAkhir" ng-model="vm.model.tglAkhir" class="form-control" date-time-picker options="{ format: 'DD/MM/YYYY' }" />
                             <div class="invalid-feedback"></div>
@@ -42,10 +42,10 @@
                     </div>
 
                     <div class="row form-group col-md-2 radio">
-                        <label><input type="radio" name="optradio" value="1"> Periode Waktu</label>
+                        <label><input type="radio" name="optradio" value="1">Period</label>
                     </div>
                     <div class="row form-group">
-                        <label class="control-label col-sm-1">Periode</label>
+                        <label class="control-label col-sm-1">Period</label>
                         <div class="col-sm-2">
                             <select id="bulan_fk" name="bulan_fk" class="form-control input-lg" size="0" ng-model="vm.model.bulan_fk" required>
                                 <option ng-repeat="x in vm.formData.bulans" ng-value="x.bulan_pk">{{x.title}}</option>
