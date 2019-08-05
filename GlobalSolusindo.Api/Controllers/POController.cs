@@ -131,6 +131,7 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (var poSearch = new POSearch(Db))
             {
+                filter.forexcel = true;
                 var data = poSearch.GetDataByFilter(filter);
                 AbstractDataExportBridge expor = new AbstractDataExportBridge();
                 //expor.WriteData<PODTO>(data.Records);

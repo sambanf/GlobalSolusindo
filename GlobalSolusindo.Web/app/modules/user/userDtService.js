@@ -97,6 +97,9 @@
                         "data": "noHP"
                     },
                     {
+                        "data": "email"
+                    },
+                    {
                         "data": "status_fk",
                         "render": function (status) {
                             switch (status) {

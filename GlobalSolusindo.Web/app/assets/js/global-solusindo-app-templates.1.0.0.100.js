@@ -506,6 +506,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th></th>\r" +
     "\n" +
+    "                                        <th></th>\r" +
+    "\n" +
     "                                    </tr>\r" +
     "\n" +
     "                                </thead>\r" +
@@ -5682,15 +5684,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div style=\"overflow:auto\">\r" +
     "\n" +
-    "\r" +
-    "\n" +
     "                        <div class=\"row\">\r" +
     "\n" +
     "                            <div class=\"col-md-12\">\r" +
     "\n" +
-    "\r" +
-    "\n" +
-    "                                <table class=\"table table-striped\" id=\"user\" >\r" +
+    "                                <table class=\"table table-striped\" id=\"poview\">\r" +
     "\n" +
     "                                    <thead>\r" +
     "\n" +
@@ -5728,125 +5726,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                            <th>PO Status</th>\r" +
     "\n" +
-    "                                            <!--<th>Payment Term</th>\r" +
-    "\n" +
-    "                                            <th>Work Status</th>\r" +
-    "\n" +
-    "                                            <th>OA Date</th>\r" +
-    "\n" +
-    "                                            <th>SSV Date</th>\r" +
-    "\n" +
-    "                                            <th>SSV App Date</th>\r" +
-    "\n" +
-    "                                            <th>SOM SSV Date</th>\r" +
-    "\n" +
-    "                                            <th>QC Acc Date</th>\r" +
-    "\n" +
-    "                                            <th>PAC Cluster ID</th>\r" +
-    "\n" +
-    "                                            <th>PAC Cluster Status</th>\r" +
-    "\n" +
-    "                                            <th>SOM PAC Cluster</th>\r" +
-    "\n" +
-    "                                            <th>Doc Status</th>\r" +
-    "\n" +
-    "                                            <th>ESAR 1ST Status</th>\r" +
-    "\n" +
-    "                                            <th>ESAR 2ND Status</th>\r" +
-    "\n" +
-    "                                            <th>Remarks</th>\r" +
-    "\n" +
-    "                                            <th>Created By</th>\r" +
-    "\n" +
-    "                                            <th>Created Date</th>\r" +
-    "\n" +
-    "                                            <th>Updated By</th>\r" +
-    "\n" +
-    "                                            <th>Updated Date</th>-->\r" +
-    "\n" +
     "                                            <th>Status</th>\r" +
     "\n" +
     "                                        </tr>\r" +
     "\n" +
     "                                    </thead>\r" +
-    "\n" +
-    "                                    <tbody>\r" +
-    "\n" +
-    "                                        <tr ng-repeat=\"po in vm.uploadResults\">\r" +
-    "\n" +
-    "                                            <td><label>{{po.PO_PK}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.Account}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.ProjectCode}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.SiteIDImp}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.SiteID}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.SiteName}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.DUID}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.PMOUniq}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.SOWAct}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.System}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.SOWPO}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.ItemDesc}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.PONo}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.ShipmentNo}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.Qty}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.POStatus == 1 ? 'On Progress' : 'Done'}}</label></td>\r" +
-    "\n" +
-    "                                            <!--<td><label>{{po.PaymentTerm}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.WorkStatus}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.OADate}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.SSVDate}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.SSVAppDate}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.SOMSSVDate}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.QCAccDate}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.PACClusterID}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.PACClusterStatus}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.SOMPACCluster}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.DocStatus}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.ESAR1stStatus}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.ESAR2ndStatus}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.Remarks}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.CreatedBy}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.CreatedDate}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.UpdatedBy}}</label></td>\r" +
-    "\n" +
-    "                                            <td><label>{{po.UpdatedDate}}</label></td>-->\r" +
-    "\n" +
-    "                                            <td><label>{{po.Status_FK}}</label></td>\r" +
-    "\n" +
-    "                                        </tr>\r" +
-    "\n" +
-    "                                    </tbody>\r" +
     "\n" +
     "                                </table>\r" +
     "\n" +
@@ -8890,7 +8774,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                    <table id=\"link\">\r" +
+    "                                    <table id=\"powview\">\r" +
     "\n" +
     "                                        <thead>\r" +
     "\n" +
@@ -9248,6 +9132,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                                        <!--<th>Role</th>-->\r" +
     "\n" +
     "                                        <th>Phone Number</th>\r" +
+    "\n" +
+    "                                        <th>E-Mail</th>\r" +
     "\n" +
     "                                        <th>Status</th>\r" +
     "\n" +
@@ -9608,17 +9494,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <select id=\"religion\" name=\"religion\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.religion\" required>\r" +
     "\n" +
-    "                                        <option value=\"Buddha\">Buddha</option>\r" +
-    "\n" +
-    "                                        <option value=\"Hindu\">Hindu</option>\r" +
-    "\n" +
-    "                                        <option value=\"Islam\">Islam</option>\r" +
-    "\n" +
-    "                                        <option value=\"Katolik\">Katolik</option>\r" +
-    "\n" +
-    "                                        <option value=\"Protestan\">Protestan</option>\r" +
-    "\n" +
-    "                                        <option value=\"Lainnya\">Lainnya</option>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.religions\" ng-value=\"x.religion_pk\">{{x.name}}</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -9638,9 +9514,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <select id=\"categoryContract\" name=\"categoryContract\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.categoryContract\" required>\r" +
     "\n" +
-    "                                        <option value=\"C\">C</option>\r" +
-    "\n" +
-    "                                        <option value=\"P\">P</option>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.categoryContracts\" ng-value=\"x.categoryContract_pk\">{{x.name}}</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -9660,9 +9534,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <select id=\"gender\" name=\"gender\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.gender\" required>\r" +
     "\n" +
-    "                                        <option value=\"L\">Laki-Laki</option>\r" +
-    "\n" +
-    "                                        <option value=\"P\">Perempuan</option>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.genders\" ng-value=\"x.gender_pk\">{{x.name}}</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -9678,17 +9550,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"row form-group\">\r" +
     "\n" +
-    "                                <label class=\"control-label col-sm-3\">Marital Status:</label>\r" +
+    "                                <label class=\"control-label col-sm-3\">Religion:</label>\r" +
     "\n" +
     "                                <div class=\"col-sm-9\">\r" +
     "\n" +
     "                                    <select id=\"maritalStatus\" name=\"maritalStatus\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.maritalStatus\" required>\r" +
     "\n" +
-    "                                        <option value=\"Kawin\">Kawin</option>\r" +
-    "\n" +
-    "                                        <option value=\"Tidak Kawin\">Tidak Kawin</option>\r" +
-    "\n" +
-    "                                        <option value=\"Cerai\">Cerai</option>\r" +
+    "                                        <option ng-repeat=\"x in vm.formData.maritalStatuses\" ng-value=\"x.maritalStatus_pk\">{{x.name}}</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +

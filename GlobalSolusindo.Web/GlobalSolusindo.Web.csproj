@@ -170,6 +170,7 @@
     <Content Include="app\modules\po\poImportExcelBindingService.js" />
     <Content Include="app\modules\po\poImportExcelCtrl.js" />
     <Content Include="app\modules\po\poImportExcelRoute.js" />
+    <Content Include="app\modules\po\poviewDtService.js" />
     <Content Include="app\modules\po\userImportExcelUploadService.js" />
     <Content Include="app\modules\changePasswordEntry\changePasswordEntry.html" />
     <Content Include="app\modules\changePasswordEntry\changePasswordEntryCtrl.js" />

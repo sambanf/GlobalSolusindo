@@ -310,7 +310,7 @@ namespace GlobalSolusindo.Api.Models
                         dr["SOW"] = item.SOW;
                         dr["Long"] = item.Long;
                         dr["lat"] = item.lat;
-                        dr["CODate"] = item.CODate;
+                        dr["AssignDate"] = item.AssignDate;
                         //DT Date
                         dr["SSVDate"] = item.SSVDate;
                         dr["SSODate"] = item.SSODate;
@@ -401,7 +401,7 @@ namespace GlobalSolusindo.Api.Models
                         dr["SOW"] = item.SOW;
                         dr["Long"] = item.Long;
                         dr["lat"] = item.lat;
-                        dr["CODate"] = item.CODate;
+                        dr["AssignDate"] = item.AssignDate;
                         //DT Date
                         dr["SSVDate"] = item.SSVDate;
                         dr["SSODate"] = item.SSODate;

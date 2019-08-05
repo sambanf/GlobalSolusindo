@@ -59,12 +59,14 @@ namespace GlobalSolusindo.Business.SOW.DML
         {
             if (sowDTO == null)
                 throw new ArgumentNullException("SOW model is null.");
-
-            foreach (var sowAssignDTO in sowDTO.SOWAssigns)
+            if (sowDTO.SOWAssigns != null)
             {
-                sowAssignDTO.SOW_FK = sowDTO.SOW_PK;
-                tblT_SOWAssign sowAssign = SOWAssignFactory.CreateFromDTO(sowAssignDTO, dateStamp);
-                Db.tblT_SOWAssign.Add(sowAssign);
+                foreach (var sowAssignDTO in sowDTO.SOWAssigns)
+                {
+                    sowAssignDTO.SOW_FK = sowDTO.SOW_PK;
+                    tblT_SOWAssign sowAssign = SOWAssignFactory.CreateFromDTO(sowAssignDTO, dateStamp);
+                    Db.tblT_SOWAssign.Add(sowAssign);
+                }
             }
         }
 

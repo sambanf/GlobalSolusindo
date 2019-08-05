@@ -13,7 +13,7 @@ namespace GlobalSolusindo.Api.Models
         public string SiteIDPO { get; set; }
         public string System { get; set; }
         public string SOW { get; set; }
-        public DateTime CODate { get; set; }
+        public DateTime AssignDate { get; set; }
         public DateTime LVDate { get; set; }
         public DateTime AcceptedDate { get; set; }
         public string TP { get; set; }
