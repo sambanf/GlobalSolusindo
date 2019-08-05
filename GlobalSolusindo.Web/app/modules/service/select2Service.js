@@ -31,16 +31,17 @@
             $(param.selector).select2({
                 ajax: {
                     delay: 300,
+                    dataType: 'json',
                     data: function (params) {
                         return {
-                            q: params.term,
+                            q: params.term || '',
                             page: params.page || 1
                         };
                     },
-                    transport: function (params, success, failure) {
+                    transport: function (params, success, failure) { 
                         var defaultRequestData = {
                             "pageIndex": params.data.page,
-                            "pageSize": 5,
+                            "pageSize": 10,
                             "sortName": param.displayMember,
                             "sortDir": "asc",
                             "keyword": typeof (params.data.q) === 'undefined' ? '' : params.data.q
@@ -91,14 +92,15 @@
 
                             return {
                                 results: data,
-                                //pagination: {
-                                //    more: (params.page * 5) < response.data.count.totalFiltered
-                                //}
+                                pagination: {
+                                    more: (params.page * 10) < response.data.count.totalFiltered
+                                }
                             };
                         }
                         return { results: [] };
                     }
                 },
+                cache: true,
                 dropdownAutoWidth: true,
                 placeholder: (param.placeholder) ? param.placeholder : 'Search..',
                 allowClear: true,
