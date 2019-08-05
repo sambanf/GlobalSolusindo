@@ -7,6 +7,7 @@ namespace GlobalSolusindo.Business.Operator.Queries
 {
     public class OperatorSearchFilter : SearchFilter
     {
+        public bool forexcel { get; set; }
     }
 
     public class OperatorSearch : QueryBase
@@ -26,11 +27,15 @@ namespace GlobalSolusindo.Business.Operator.Queries
                 .Where(_operator =>
                     _operator.Title.Contains(filter.Keyword));
 
-            var displayedRecords = filteredRecords.
-                SortBy(filter.SortName, filter.SortDir)
+            var displayedRecords = filteredRecords.ToList();
+            if (!filter.forexcel)
+            {
+                displayedRecords = filteredRecords.SortBy(filter.SortName, filter.SortDir)
                 .Skip(filter.Skip)
                 .Take(filter.PageSize)
                 .ToList();
+
+            }
 
             var searchResult = new SearchResult<OperatorDTO>(filter);
             searchResult.Filter = filter;

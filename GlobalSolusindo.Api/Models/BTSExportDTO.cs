@@ -23,7 +23,7 @@ namespace GlobalSolusindo.Api.Models
         [Description("Alamat")]
         public string Alamat { get; set; }
         [Description("StatusBTS")]
-        public string StatusBts { get; set; }
+        public string StatusSite { get; set; }
 
         [Description("Technology")]
         public string Technology { get; set; }

@@ -48,6 +48,7 @@ namespace GlobalSolusindo.DataAccess
         public string UpdatedBy { get; set; }
         public System.DateTime UpdatedDate { get; set; }
         public int Status_FK { get; set; }
+        public Nullable<System.DateTime> EndDate { get; set; }
     
         public virtual tblM_Status tblM_Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

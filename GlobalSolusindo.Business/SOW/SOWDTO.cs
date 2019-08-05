@@ -44,6 +44,10 @@ namespace GlobalSolusindo.Business.SOW
 
         //[JsonProperty("projectTitle")]
         //public string ProjectTitle { get; set; }
+        [JsonProperty("codate")]
+        //[JsonConverter(typeof(CustomDateTimeConverter))]
+        public DateTime? CODate { get; set; }
+
 
         [Required]
         [JsonProperty("tglMulai")]

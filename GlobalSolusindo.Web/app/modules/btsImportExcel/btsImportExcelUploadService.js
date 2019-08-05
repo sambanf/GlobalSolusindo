@@ -45,7 +45,7 @@
                     var url = window.URL.createObjectURL(blob);
 
                     linkElement.setAttribute('href', url);
-                    linkElement.setAttribute("download", "BTSUpload.xlsx");
+                    linkElement.setAttribute("download", "SiteUpload.xlsx");
 
                     var clickEvent = new MouseEvent("click", {
                         "view": window,

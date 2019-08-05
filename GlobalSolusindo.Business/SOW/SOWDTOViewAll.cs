@@ -17,7 +17,8 @@ namespace GlobalSolusindo.Business.SOW
         public string SOW { get; set; }
         public string Long { get; set; }
         public string lat { get; set; }
-        public DateTime AssignDate { get; set; }
+        public DateTime? CODate { get; set; }
+        public DateTime? AssignDate { get; set; }
         public DateTime? SSVDate { get; set; }
         public DateTime? SSODate { get; set; }
         public DateTime? LVDate { get; set; }

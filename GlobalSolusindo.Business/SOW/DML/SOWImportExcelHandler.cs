@@ -166,15 +166,16 @@ namespace GlobalSolusindo.Business.SOW.DML
                 var tech = row.Cell(5).Value.ToString();
                 var sowname = row.Cell(6).Value.ToString();
                 var codate = row.Cell(7).Value.ToString();
-                var lvdate = row.Cell(8).Value.ToString();
-                var accdate = row.Cell(9).Value.ToString();
-                var tp = row.Cell(10).Value.ToString();
-                var rtp = row.Cell(11).Value.ToString();
-                var teamlead = row.Cell(12).Value.ToString();
-                var ploqc = row.Cell(13).Value.ToString();
-                var rf = row.Cell(14).Value.ToString();
-                var rigger = row.Cell(15).Value.ToString();
-                var dt = row.Cell(16).Value.ToString();
+                var assigndate = row.Cell(8).Value.ToString();
+                var lvdate = row.Cell(9).Value.ToString();
+                var accdate = row.Cell(10).Value.ToString();
+                var tp = row.Cell(11).Value.ToString();
+                var rtp = row.Cell(12).Value.ToString();
+                var teamlead = row.Cell(13).Value.ToString();
+                var ploqc = row.Cell(14).Value.ToString();
+                var rf = row.Cell(15).Value.ToString();
+                var rigger = row.Cell(16).Value.ToString();
+                var dt = row.Cell(17).Value.ToString();
 
                 if (teamlead != "")
                 {
@@ -196,7 +197,15 @@ namespace GlobalSolusindo.Business.SOW.DML
                 {
                     sowAssign.Add(new SOWAssignDTO() { User_FK = userQuery.GetByUsername(dt).User_PK });
                 }
-                
+                DateTime? codatee;
+                if (codate == "")
+                {
+                    codatee = null;
+                }
+                else
+                {
+                    codatee = DateTime.Parse(codate);
+                }
 
                 SOWList.Add(new SOWDTO()
                 {
@@ -205,7 +214,8 @@ namespace GlobalSolusindo.Business.SOW.DML
                     BTS_FK = bts == "" ? 0 : btsquery.GetByTowerID(bts.Split('-')[0]).BTS_PK,
                     Project_FK = project == "" ? 0 : Convert.ToInt16(project.Split('-')[0]),
                     Technology_FK = tech == "" ? 0 : technologyQuery.GetByTitle(tech).Technology_PK,
-                    TglMulai = DateTime.Parse(codate),
+                    CODate = codatee,
+                    TglMulai = DateTime.Parse(assigndate),
                     DUID = duid,
                     LVDate = DateTime.Parse(lvdate),
                     AcceptedDate = DateTime.Parse(accdate),

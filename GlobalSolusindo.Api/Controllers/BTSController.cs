@@ -182,7 +182,7 @@ namespace GlobalSolusindo.Api.Controllers
         {
             BTSExport userExport = new BTSExport();
             //SaveLog(ActiveUser.Username, "BTS_Export", JsonConvert.SerializeObject(filter), "Success", "", "", "");
-            return userExport.Export(Db, "BTSUpload", filter);
+            return userExport.Export(Db, "SiteUpload", filter);
         }
     }
 }
