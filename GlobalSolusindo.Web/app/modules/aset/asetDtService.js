@@ -83,6 +83,15 @@
                         "data": "name"
                     },
                     {
+                        "data": "status",
+                        "render": function (data) {
+                            if(data.length>0)
+                                return "Not Available"
+                            else
+                                return "Available"
+                        }
+                    },
+                    {
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {

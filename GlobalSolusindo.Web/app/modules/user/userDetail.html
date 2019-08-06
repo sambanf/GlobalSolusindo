@@ -7,12 +7,20 @@
             <img id="photo" src="{{model.filePhotoInBase64 == null ? '/app/assets/images/default-large.png' : model.filePhotoInBase64}}" style="width:150px;margin:0 auto" class="img-fluid" />
         </div>
         <div class="col-md-9">
-
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">User ID :</label><label class="col-sm-8">{{ model.userCode }}</label>
+            </div>
             <div class="row form-group">
                 <label class="control-label col-sm-4 text-right">Name :</label><label class="col-sm-8">{{ model.name }}</label>
             </div>
             <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Tanggal Lahir :</label><label class="col-sm-8">{{ model.tglLahir | date: 'dd/MM/yyyy' }}</label>
+            </div>
+            <div class="row form-group">
                 <label class="control-label col-sm-4 text-right">Position :</label><label class="col-sm-8">{{ model.kategoriJabatanTitle }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Project :</label><label class="col-sm-8">{{ model.project }}</label>
             </div>
             <div class="row form-group">
                 <label class="control-label col-sm-4 text-right">Phone :</label><label class="col-sm-8">{{ model.noHP }}</label>
@@ -25,6 +33,30 @@
             </div>
             <div class="row form-group">
                 <label class="control-label col-sm-4 text-right">Description :</label><label class="col-sm-8">{{ model.description }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Religion :</label><label class="col-sm-8">{{ model.religion }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Category Contract :</label><label class="col-sm-8">{{ model.categoryContract }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Gender :</label><label class="col-sm-8">{{ model.gender }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Marital Status :</label><label class="col-sm-8">{{ model.maritalStatus }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">NPWP :</label><label class="col-sm-8">{{ model.npwp }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">BPJS :</label><label class="col-sm-8">{{ model.bpjs }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">Join Date :</label><label class="col-sm-8">{{ model.joinDate | date: 'dd/MM/yyyy' }}</label>
+            </div>
+            <div class="row form-group">
+                <label class="control-label col-sm-4 text-right">End Date :</label><label class="col-sm-8">{{ model.endDate | date: 'dd/MM/yyyy' }}</label>
             </div>
         </div>
     </div>

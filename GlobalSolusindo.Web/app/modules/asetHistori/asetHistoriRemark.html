@@ -1,0 +1,20 @@
+﻿<div class="modal-header">
+    <h5 class="modal-title" id="modal-title">Remark</h5>
+</div>
+
+<form ng-submit="submit()">
+    <div class="modal-body" id="modal-body">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="row form-group">
+                    <label class="control-label col-sm-1 text-right"></label>
+                    <textarea rows="5" class="col-sm-8" id="remark" ng-model="data.remark"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" id="rejectb" type="button" ng-click="ok(document.getElementById('remark').value)">Return</button>
+        <button class="btn btn-default" type="button" ng-click="close()">Kembali</button>
+    </div>
+</form>

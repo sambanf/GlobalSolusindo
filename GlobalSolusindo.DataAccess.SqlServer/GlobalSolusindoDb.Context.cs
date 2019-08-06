@@ -442,5 +442,10 @@ namespace GlobalSolusindo.DataAccess
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAsetAvaible_Result>("GetAsetAvaible");
         }
+    
+        public virtual ObjectResult<GetTaskApprovalListLatest_Result> GetTaskApprovalListLatest()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskApprovalListLatest_Result>("GetTaskApprovalListLatest");
+        }
     }
 }

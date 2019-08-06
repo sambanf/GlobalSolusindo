@@ -114,5 +114,9 @@ namespace GlobalSolusindo.Business.CheckIn
 
         public List<SOWTrackResultDTO> SOWTrackResults { get; set; } = new List<SOWTrackResultDTO>();
         public int Project_FK { get; internal set; }
+
+        [JsonProperty("tipePekerjaan")]
+        public int? TipePekerjaan{ get; set; }
+
     }
 }

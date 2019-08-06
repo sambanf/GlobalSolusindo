@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Business.AsetHistori;
 using Kairos.Imaging;
 using Kairos.Linq;
 using System;
@@ -40,6 +41,27 @@ namespace GlobalSolusindo.Business.Aset.Queries
                             KategoriAsetName = asetKategori.Title,
                             AsetID = aset.AsetID,
                             Name = aset.Name,
+                            Status = (from asetHistori in Db.tblT_AsetHistori
+                                      where asetHistori.Aset_FK == aset.Aset_PK
+                                      && asetHistori.TglSelesai == null
+                                      select new AsetHistoriDTO
+                                      {
+                                          AsetHistori_PK = asetHistori.AsetHistori_PK,
+                                          User_FK = asetHistori.User_FK,
+                                          Aset_FK = asetHistori.Aset_FK,
+                                          AsetID = aset.AsetID,
+                                          AsetName = aset.Name,
+                                          AsetKategoriTitle = asetKategori.Title,
+                                          TglMulai = asetHistori.TglMulai,
+                                          TglSelesai = asetHistori.TglSelesai,
+                                          CreatedBy = asetHistori.CreatedBy,
+                                          CreatedDate = asetHistori.CreatedDate,
+                                          UpdatedBy = asetHistori.UpdatedBy,
+                                          UpdatedDate = asetHistori.UpdatedDate,
+                                          Status_FK = asetHistori.Status_FK,
+                                          Description = asetHistori.Description
+
+                                      }).ToList(),
                             Description = aset.Description,
                             CreatedBy = aset.CreatedBy,
                             CreatedDate = aset.CreatedDate,

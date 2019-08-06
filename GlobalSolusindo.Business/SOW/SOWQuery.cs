@@ -171,7 +171,10 @@ namespace GlobalSolusindo.Business.SOW
                 || jabatan.Title.ToLower().Contains("hrd")
                 || jabatan.Title.ToLower().Contains("essar");
         }
-
+        private bool JabatanIsDTCoor(tblM_KategoriJabatan jabatan)
+        {
+            return jabatan.Title.ToLower().Contains("dt coordinator");
+        }
         public List<int> GetProjectIds(tblM_KategoriJabatan jabatan, tblM_User user)
         {
             if (JabatanIsTeamLead(jabatan))
@@ -189,6 +192,15 @@ namespace GlobalSolusindo.Business.SOW
                 var projectIds = Db.tblM_Project
                     .Where(x => x.User_FK == user.User_PK)
                     .Select(x => x.Project_PK)
+                    .ToList();
+
+                return projectIds;
+            }
+            if (JabatanIsDTCoor(jabatan))
+            {
+                var projectIds = Db.tblM_UserDetail
+                    .Where(x => x.Project != null && x.UserDetail_PK == user.UserDetail_FK)
+                    .Select(x => x.Project.Value)
                     .ToList();
 
                 return projectIds;
@@ -222,7 +234,7 @@ namespace GlobalSolusindo.Business.SOW
             {
                 if (!JabatanIsHRDorEssarorBOD(jabatan))
                 {
-                    if (JabatanIsProjectManager(jabatan) || JabatanIsTeamLead(jabatan))
+                    if (JabatanIsProjectManager(jabatan) || JabatanIsTeamLead(jabatan) || JabatanIsDTCoor(jabatan))
                     {
                         var projectIds = GetProjectIds(jabatan, filter.User);
                         if (projectIds != null)
