@@ -63,7 +63,9 @@
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10,
-                    user_fk: $stateParams.user_fk
+                    user_fk: $stateParams.user_fk,
+                    SortName:'tglSelesai',
+                    SortDir:'ASC'
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [

@@ -25,7 +25,9 @@
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10,
-                    aset_fk: $stateParams.aset_fk
+                    aset_fk: $stateParams.aset_fk,
+                    SortName: 'tglSelesai',
+                    SortDir: 'DESC'
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [

@@ -36,7 +36,23 @@ namespace GlobalSolusindo.Identity.User.Queries
                         //from roleGroup in roleGroupTemp.DefaultIfEmpty()
                         join jabatan in Db.tblM_KategoriJabatan on user.KategoriJabatan_FK equals jabatan.KategoriJabatan_PK into jabatanTemp
                         from jabatan in jabatanTemp.DefaultIfEmpty()
-
+                        join project in Db.tblM_Project on userDetail.Project equals project.Project_PK into projectTemp
+                        from project in projectTemp.DefaultIfEmpty()
+                        join _operator in Db.tblM_Operator on project.Operator_FK equals _operator.Operator_PK into _operatorTemp
+                        from _operator in _operatorTemp.DefaultIfEmpty()
+                        join deliveryArea in Db.tblM_DeliveryArea on project.DeliveryArea_FK equals deliveryArea.DeliveryArea_PK into deliveryAreaTemp
+                        from deliveryArea in deliveryAreaTemp.DefaultIfEmpty()
+                        join vendor in Db.tblM_Vendor on project.Vendor_FK equals vendor.Vendor_PK into vendorTemp
+                        from vendor in vendorTemp.DefaultIfEmpty()
+                        join categoryContract in Db.tblM_CategoryContract on userDetail.CategoryContract equals categoryContract.CategoryContractPK into categoryContractTemp
+                        from categoryContract in categoryContractTemp.DefaultIfEmpty()
+                        join religion in Db.tblM_Religion on userDetail.Religion equals religion.ReligionPK into religionTemp
+                        from religion in religionTemp.DefaultIfEmpty()
+                        join gender in Db.tblM_Gender on userDetail.Gender equals gender.Gender_PK into genderTemp
+                        from gender in genderTemp.DefaultIfEmpty()
+                        join maritalStatus in Db.tblM_MaritalStatus on userDetail.MaritalStatus equals maritalStatus.MaritalPK into maritalStatusTemp
+                        from maritalStatus in maritalStatusTemp.DefaultIfEmpty()
+                        
                         where
                         user.Status_FK != deleted
                         select new UserDTO
@@ -67,13 +83,18 @@ namespace GlobalSolusindo.Identity.User.Queries
                             BankName = userDetail.BankName,
                             BPJS = userDetail.BPJS,
                             CategoryContract = userDetail.CategoryContract,
+                            CategoryContractName = categoryContract.Name,
                             Gender = userDetail.Gender,
+                            GenderName = gender.Name,
                             JoinDate = userDetail.JoinDate,
                             EndDate = userDetail.EndDate,
                             MaritalStatus = userDetail.MaritalStatus,
+                            MaritalStatusName = maritalStatus.Name,
                             NPWP = userDetail.NPWP,
                             Project = userDetail.Project,
+                            ProjectName = _operator.Title + " " + deliveryArea.Title +" "+ vendor.Title,
                             Religion = userDetail.Religion,
+                            ReligionName = religion.Name,
                             Salary = userDetail.Salary,
                             AccountNumber = userDetail.AccountNumber
                         };
