@@ -7487,7 +7487,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"col-md-6 text-right\">\r" +
+    "                        <div class=\"col-md-6 text-right\" id=\"exportButtons\">\r" +
     "\n" +
     "                            <button class=\"btn btn-default\" id=\"downloadButtonViewall\">Download Tracker</button>\r" +
     "\n" +
