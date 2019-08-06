@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-02. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-06. 
 * @author Kairos
 */
 (function() {
@@ -3758,7 +3758,7 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('NavBarCtrl', NavBarCtrl);
 
-    NavBarCtrl.$inject = ['MenuService', '$cookies', '$localStorage', '$state', '$window', 'HttpService', 'uiService'];
+    NavBarCtrl.$inject = ['MenuService', '$cookies', '$localStorage', '$state', '$window', 'HttpService', 'uiService', '$scope', '$rootScope'];
 
 	/*
 	 * recommend
@@ -3766,13 +3766,18 @@ angular.module('global-solusindo')
 	 * and bindable members up top.
 	 */
 
-    function NavBarCtrl(MenuService, $cookies, localStorage, state, $window, http, ui) {
+    function NavBarCtrl(MenuService, $cookies, localStorage, state, $window, http, ui, $scope, $rootScope) {
 
         /*jshint validthis: true */
         var nav = this;
         var user = JSON.parse($window.localStorage.getItem('user'));
         nav.model = user;
-
+ 
+        nav.resizeDt = function () {
+            console.log($rootScope);
+            $rootScope.dt.columns.adjust();
+        }
+    
         function setImage(data) { 
             document.getElementById("photoProfile").src = data;
         }
@@ -5450,6 +5455,12 @@ angular.module('global-solusindo')
             }
         });
 
+
+
+
+
+
+
         return self;
     }
 })();
@@ -6579,6 +6590,15 @@ angular.module('global-solusindo')
                         "data": "name"
                     },
                     {
+                        "data": "status",
+                        "render": function (data) {
+                            if(data.length>0)
+                                return "Not Available"
+                            else
+                                return "Available"
+                        }
+                    },
+                    {
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
@@ -6638,7 +6658,12 @@ angular.module('global-solusindo')
                 var modalInstance = $uibModal.open({
                     templateUrl: 'app/modules/aset/asetDetail.html',
                     controller: function ($scope, $uibModalInstance) {
-                        $scope.model = data;
+                        http.get('aset/form/' + data.aset_pk).then(function (res) {
+                            $scope.model = res.data.model;
+                            if ($scope.model && $scope.model.filePhotoInBase64) {
+                                document.getElementById("photo").src = $scope.model.filePhotoInBase64;
+                            }
+                        });
                         $scope.close = function () {
                             $uibModalInstance.close();
                         };
@@ -6657,7 +6682,12 @@ angular.module('global-solusindo')
                 var modalInstance = $uibModal.open({
                     templateUrl: 'app/modules/aset/asetDetail.html',
                     controller: function ($scope, $uibModalInstance) {
-                        $scope.model = data;
+                        http.get('aset/form/' + data.aset_pk).then(function (res) { 
+                            $scope.model = res.data.model;
+                            if ($scope.model && $scope.model.filePhotoInBase64) {
+                                document.getElementById("photo").src = $scope.model.filePhotoInBase64;
+                            }
+                        });
                         $scope.close = function () {
                             $uibModalInstance.close();
                         };
@@ -6807,9 +6837,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('asetHistoriDeleteService', asetHistori);
 
-    asetHistori.$inject = ['HttpService', 'uiService'];
+    asetHistori.$inject = ['HttpService', 'uiService', '$uibModal'];
 
-    function asetHistori(http, ui) {
+    function asetHistori(http, ui, $uibModal) {
         var self = this;
         var controller;
 
@@ -6825,12 +6855,10 @@ angular.module('global-solusindo')
             });
         }
 
-        function returnAset(data) {
-
-            //var date = new Date();
-
+        function returnAset(data, remark) {
+            
             data.tglSelesai = data.updatedDate;
-
+            data.description = remark;
             return http.put('asetHistori', data).then(function (res) {
                 if (res.success) {
                     controller.datatable.draw();
@@ -6839,12 +6867,25 @@ angular.module('global-solusindo')
                     ui.alert.error(res.message);
                 }
             });
+            
         }
 
         self.return = function (data) {
-            ui.alert.confirm("Are you sure want to return aset histori '" + data.asetName + "'?", function () {
-                return returnAset(data);
-            });
+            var modalInstance =
+                $uibModal.open({
+                    templateUrl: 'app/modules/asetHistori/asetHistoriRemark.html',
+                    controller: function ($scope, $uibModalInstance) {
+                        $scope.close = function () {
+                            $uibModalInstance.close();
+                        };
+                        $scope.ok = function (remark) {
+                            $uibModalInstance.close($scope.remark);
+                            returnAset(data, document.getElementById('remark').value);
+;                        };
+                    }
+                }).result.then(function (result) {
+                    $scope.remark = result;
+                });
         };
 
 
@@ -8855,7 +8896,7 @@ angular.module('global-solusindo')
                     var url = window.URL.createObjectURL(blob);
 
                     linkElement.setAttribute('href', url);
-                    linkElement.setAttribute("download", "BTSUpload.xlsx");
+                    linkElement.setAttribute("download", "SiteUpload.xlsx");
 
                     var clickEvent = new MouseEvent("click", {
                         "view": window,
@@ -16886,9 +16927,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('DatatableService', DtService);
 
-    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state', 'uiService'];
+    DtService.$inject = ['DTOptionsBuilder', 'DTColumnBuilder', '$compile', 'HttpService', '$cookies', '$state', 'uiService', '$rootScope'];
 
-    function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui) {
+    function DtService(DTOptionsBuilder, DTColumnBuilder, $compile, http, $cookies, $state, ui, $rootScope) {
         var self = this;
         self.param = {};
         var dtRequestData = {};
@@ -17061,6 +17102,15 @@ angular.module('global-solusindo')
 
             $('.dataTables_filter input[type=search]').val('').change();
             dt.requestData = dtRequestData;
+             
+            $(window).resize(function () {
+                dt.columns.adjust();
+            });
+            angular.element('ui-view').on('resize', function () {
+                alert('hello')
+                dt.columns.adjust();
+            });
+
             return dt;
         };
 
@@ -17165,9 +17215,9 @@ angular.module('global-solusindo')
 
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
-        var base_url = "http://gsapi.local/";
+        //var base_url = "http://gsapi.local/";
         //var base_url = "http://globaloneapi.kairos-it.com/";
-        //var base_url = "http://localhost/GlobalAPI/";
+        var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
 
@@ -17582,16 +17632,17 @@ angular.module('global-solusindo')
             $(param.selector).select2({
                 ajax: {
                     delay: 300,
+                    dataType: 'json',
                     data: function (params) {
                         return {
-                            q: params.term,
+                            q: params.term || '',
                             page: params.page || 1
                         };
                     },
-                    transport: function (params, success, failure) {
+                    transport: function (params, success, failure) { 
                         var defaultRequestData = {
                             "pageIndex": params.data.page,
-                            "pageSize": 5,
+                            "pageSize": 10,
                             "sortName": param.displayMember,
                             "sortDir": "asc",
                             "keyword": typeof (params.data.q) === 'undefined' ? '' : params.data.q
@@ -17642,14 +17693,15 @@ angular.module('global-solusindo')
 
                             return {
                                 results: data,
-                                //pagination: {
-                                //    more: (params.page * 5) < response.data.count.totalFiltered
-                                //}
+                                pagination: {
+                                    more: (params.page * 10) < response.data.count.totalFiltered
+                                }
                             };
                         }
                         return { results: [] };
                     }
                 },
+                cache: true,
                 dropdownAutoWidth: true,
                 placeholder: (param.placeholder) ? param.placeholder : 'Search..',
                 allowClear: true,

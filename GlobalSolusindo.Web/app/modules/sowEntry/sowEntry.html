@@ -36,12 +36,12 @@
                             <div class="row form-group">
                                 <label class="control-label col-sm-3">CO date :</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="CoDate" name="CoDate" class="form-control" />
+                                    <input type="text" id="codate" name="codate" ng-model="vm.model.codate" class="form-control" date-time-picker options="{ format: 'DD-MM-YYYY' }" required />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <label class="control-label col-sm-3">Assignment Date :</label>
+                                <label class="control-label col-sm-3">Assignment Date:</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="tglMulai" name="tglMulai" ng-model="vm.model.tglMulai" class="form-control" date-time-picker options="{ format: 'DD-MM-YYYY' }" required />
                                     <div class="invalid-feedback"></div>
