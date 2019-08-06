@@ -123,6 +123,7 @@
     <Content Include="app\modules\asetHistori\asetHistoriDeleteService.js" />
     <Content Include="app\modules\asetHistori\asetHistoriDetail.html" />
     <Content Include="app\modules\asetHistori\asetHistoriDtService.js" />
+    <Content Include="app\modules\asetHistori\asetHistoriRemark.html" />
     <Content Include="app\modules\asetHistori\asetHistoriRoute.js" />
     <Content Include="app\modules\asetHistori\asetHistoriViewService.js" />
     <Content Include="app\modules\asetEntry\asetEntry.html" />

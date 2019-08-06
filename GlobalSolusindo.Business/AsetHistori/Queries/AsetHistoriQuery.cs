@@ -66,6 +66,12 @@ namespace GlobalSolusindo.Business.AsetHistori.Queries
             return record;
         }
 
+        public AsetHistoriDTO GetByAsetFk(int primaryKey)
+        {
+            AsetHistoriDTO record = GetQuery().FirstOrDefault(asetHistori => asetHistori.Aset_FK == primaryKey && asetHistori.TglSelesai == null);
+            return record;
+        }
+
         public List<AsetHistoriDTO> GetUserDetailFK(int userDetailFK)
         {
             var records = GetQuery().Where(asetHistori => asetHistori.User_FK == userDetailFK).ToList();

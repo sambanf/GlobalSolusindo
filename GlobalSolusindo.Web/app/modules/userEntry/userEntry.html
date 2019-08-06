@@ -156,7 +156,7 @@
 
 
                             <div class="row form-group">
-                                <label class="control-label col-sm-3">Religion:</label>
+                                <label class="control-label col-sm-3">Marital Status:</label>
                                 <div class="col-sm-9">
                                     <select id="maritalStatus" name="maritalStatus" class="form-control input-lg" size="0" ng-model="vm.model.maritalStatus" required>
                                         <option ng-repeat="x in vm.formData.maritalStatuses" ng-value="x.maritalStatus_pk">{{x.name}}</option>
@@ -185,6 +185,14 @@
                                 <label class="control-label col-sm-3">Join Date :</label>
                                 <div class="col-sm-6">
                                     <input type="text" id="joinDate" name="joinDate" ng-model="vm.model.joinDate" class="form-control" date-time-picker options="{ format: 'DD-MM-YYYY' }" required />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">End Date :</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="endDate" name="endDate" ng-model="vm.model.endDate" class="form-control" date-time-picker options="{ format: 'DD-MM-YYYY' }" required />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>

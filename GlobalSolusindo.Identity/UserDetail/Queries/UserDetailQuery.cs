@@ -54,6 +54,7 @@ namespace GlobalSolusindo.Identity.UserDetail.Queries
                             CategoryContract = userDetail.CategoryContract,
                             Gender = userDetail.Gender,
                             JoinDate = userDetail.JoinDate,
+                            EndDate = userDetail.EndDate,
                             MaritalStatus = userDetail.MaritalStatus,
                             NPWP = userDetail.NPWP,
                             Project = userDetail.Project,

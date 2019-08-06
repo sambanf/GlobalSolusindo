@@ -87,6 +87,9 @@ namespace GlobalSolusindo.Identity.UserDetail
         [JsonProperty("joinDate")]
         public DateTime? JoinDate { get; set; }
 
+        [JsonProperty("endDate")]
+        public DateTime? EndDate { get; set; }
+
         [JsonProperty("bankName")]
         public string BankName { get; set; }
 

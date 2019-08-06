@@ -4,6 +4,8 @@ using GlobalSolusindo.Business.AsetKategori.Queries;
 using Kairos.DataAnnotations;
 using Newtonsoft.Json;
 using System.ComponentModel.DataAnnotations;
+using GlobalSolusindo.Business.AsetHistori;
+using System.Collections.Generic;
 
 namespace GlobalSolusindo.Business.Aset
 {
@@ -28,6 +30,9 @@ namespace GlobalSolusindo.Business.Aset
         [JsonProperty("name")]
         [Unique(typeof(AsetQuery), nameof(Aset_PK))]
         public string Name { get; set; }
+
+        [JsonProperty("status")]
+        public List<AsetHistoriDTO> Status { get; set; } = new List<AsetHistoriDTO>();
 
         [JsonProperty("filePhotoInBase64")]
         public string FilePhotoInBase64 { get; set; }
