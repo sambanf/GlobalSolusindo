@@ -38,6 +38,7 @@ namespace GlobalSolusindo.Business.AsetHistori.Queries
                         from asetKategori in asetKategoriTemp.DefaultIfEmpty()
                         where
                         asetHistori.Status_FK != deleted
+                        orderby asetHistori.TglSelesai
                         select new AsetHistoriDTO
                         {
                             AsetHistori_PK = asetHistori.AsetHistori_PK,
