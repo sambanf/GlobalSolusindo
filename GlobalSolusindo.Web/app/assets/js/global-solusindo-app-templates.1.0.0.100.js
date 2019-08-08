@@ -6758,9 +6758,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <div class=\"row\">\r" +
     "\n" +
-    "                                            <label class=\"control-label col-sm-3\">Problem Cause </label>\r" +
+    "                                            <label class=\"control-label col-sm-3\">Issue Cause </label>\r" +
     "\n" +
-    "                                            <label class=\"control-label col-sm-9\" id=\"userId\" name=\"userId\">{{vm.user.sebabKendala}}</label>\r" +
+    "                                            <label class=\"control-label col-sm-9\" id=\"userId\" name=\"userId\">{{vm.sOWIssue.issuename}}</label>\r" +
     "\n" +
     "                                        </div>\r" +
     "\n" +
@@ -6768,7 +6768,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                            <label class=\"control-label col-sm-3\">Reason</label>\r" +
     "\n" +
-    "                                            <label class=\"control-label col-sm-9\" id=\"alasan\" name=\"alasan\">{{vm.user.alasan}}</label>\r" +
+    "                                            <label class=\"control-label col-sm-9\" id=\"alasan\" name=\"alasan\">{{vm.sOWIssue.description}}</label>\r" +
     "\n" +
     "                                        </div>\r" +
     "\n" +
@@ -9268,7 +9268,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Project :</label><label class=\"col-sm-8\">{{ model.project }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Project :</label><label class=\"col-sm-8\">{{ model.projectName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -9298,25 +9298,25 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Religion :</label><label class=\"col-sm-8\">{{ model.religion }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Religion :</label><label class=\"col-sm-8\">{{ model.religionName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Category Contract :</label><label class=\"col-sm-8\">{{ model.categoryContract }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Category Contract :</label><label class=\"col-sm-8\">{{ model.categoryContractName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Gender :</label><label class=\"col-sm-8\">{{ model.gender }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Gender :</label><label class=\"col-sm-8\">{{ model.genderName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Marital Status :</label><label class=\"col-sm-8\">{{ model.maritalStatus }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Marital Status :</label><label class=\"col-sm-8\">{{ model.maritalStatusName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +

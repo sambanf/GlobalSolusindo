@@ -94,6 +94,12 @@ namespace GlobalSolusindo.Business.SOWIssue.Queries
             return record;
         }
 
+        public SOWIssueDTO GetBySOWAssignFK(int saf)
+        {
+            SOWIssueDTO record = GetQuery().FirstOrDefault(sowIssue => sowIssue.SOWAssign_FK == saf);
+            return record;
+        }
+
         public SearchResult<SOWIssueDTO> Search(SOWIssueSearchFilter filter)
         {
             if (string.IsNullOrEmpty(filter.SortName))

@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-06. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-08. 
 * @author Kairos
 */
 (function() {
@@ -7010,7 +7010,9 @@ angular.module('global-solusindo')
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10,
-                    user_fk: $stateParams.user_fk
+                    user_fk: $stateParams.user_fk,
+                    SortName:'tglSelesai',
+                    SortDir:'ASC'
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
@@ -15867,6 +15869,7 @@ angular.module('global-solusindo')
                     controller.user = res.data.user;
                     controller.bts = res.data.bts;
                     controller.cellid = res.data.cellidstatus;
+                    controller.sOWIssue = res.data.sOWIssue;
                     resolve(res);
                 });
             });
@@ -20438,7 +20441,9 @@ angular.module('global-solusindo')
                 extendRequestData: {
                     pageIndex: 1,
                     pageSize: 10,
-                    aset_fk: $stateParams.aset_fk
+                    aset_fk: $stateParams.aset_fk,
+                    SortName: 'tglSelesai',
+                    SortDir: 'DESC'
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
