@@ -19,6 +19,69 @@
         var self = this;
         self.stateParam = sParam;
 
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var isTL = setRole(res.data, "SOW_Edit_IsTL");
+            var isDTCoor = setRole(res.data, "SOW_Edit_IsDTCoor");
+
+            if (isTL == true) {
+                document.getElementById('sowName').disabled = false;
+                document.getElementById('project_fk').disabled = false;
+                document.getElementById('bts_fk').disabled = false;
+                document.getElementById('codate').disabled = false;
+                document.getElementById('tglMulai').disabled = false;
+                document.getElementById('technology_fk').disabled = false;
+                document.getElementById('duid').disabled = false;
+                document.getElementById('tipePekerjaan_fk2').disabled = false;
+                document.getElementById('tipePekerjaan_fk1').disabled = false;
+                document.getElementById('kmlFile1').disabled = false;
+                document.getElementById('kmlFile2').disabled = false;
+            }
+            else if (isDTCoor == true) {
+                document.getElementById('sowName').disabled = true;
+                document.getElementById('project_fk').disabled = true;
+                document.getElementById('bts_fk').disabled = true;
+                document.getElementById('codate').disabled = true;
+                document.getElementById('tglMulai').disabled = true;
+                document.getElementById('technology_fk').disabled = true;
+                document.getElementById('duid').disabled = true;
+                document.getElementById('tipePekerjaan_fk2').disabled = true;
+                document.getElementById('tipePekerjaan_fk1').disabled = true;
+                document.getElementById('kmlFile1').disabled = true;
+                document.getElementById('kmlFile2').disabled = true;
+            }
+            else {
+                document.getElementById('sowName').disabled = false;
+                document.getElementById('project_fk').disabled = false;
+                document.getElementById('bts_fk').disabled = false;
+                document.getElementById('codate').disabled = false;
+                document.getElementById('tglMulai').disabled = false;
+                document.getElementById('technology_fk').disabled = false;
+                document.getElementById('duid').disabled = false;
+                document.getElementById('tipePekerjaan_fk2').disabled = false;
+                document.getElementById('tipePekerjaan_fk1').disabled = false;
+                document.getElementById('kmlFile1').disabled = false;
+                document.getElementById('kmlFile2').disabled = false;
+            }
+        })
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+
+            return role
+        }
+
         function readFile1() {
             if (this.files && this.files[0]) {
                 var FR = new FileReader();

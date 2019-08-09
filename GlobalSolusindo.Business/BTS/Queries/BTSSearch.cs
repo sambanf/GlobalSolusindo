@@ -7,12 +7,14 @@ namespace GlobalSolusindo.Business.BTS.Queries
 {
     public class BTSSearchFilter : SearchFilter
     {
+        public bool forMaps { get; set; }
     }
 
     public class BTSSearch : QueryBase
     {
         public BTSSearch(GlobalSolusindoDb db) : base(db)
         {
+
         }
 
         public SearchResult<BTSDTO> GetDataByFilter(BTSSearchFilter filter)
@@ -30,12 +32,15 @@ namespace GlobalSolusindo.Business.BTS.Queries
                     || bts.CellID.Contains(filter.Keyword)
                     || bts.Alamat.Contains(filter.Keyword)
                     );
-
-            var displayedRecords = filteredRecords.
+            var displayedRecords = filteredRecords.ToList();
+            if (!filter.forMaps)
+            {
+                displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)
                 .Skip(filter.Skip)
                 .Take(filter.PageSize)
                 .ToList();
+            }
 
             var searchResult = new SearchResult<BTSDTO>(filter);
             searchResult.Filter = filter;

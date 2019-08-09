@@ -132,6 +132,11 @@ namespace GlobalSolusindo.Business.Project
             return record;
         }
 
+        public ProjectDTO GetByDeliveryArea(int primaryKey)
+        {
+            ProjectDTO record = GetQuery().FirstOrDefault(project => project.DeliveryArea_FK == primaryKey);
+            return record;
+        }
         #region IUniqueQuery Member
         public object GetByPrimaryKey(params object[] primaryKeys)
         {
