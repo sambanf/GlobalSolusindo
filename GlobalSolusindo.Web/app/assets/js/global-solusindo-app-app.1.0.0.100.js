@@ -2270,14 +2270,42 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('BTSCtrl', BTSCtrl);
 
-    BTSCtrl.$inject = ['$scope', '$state', 'btsDtService', 'btsDeleteService', 'btsViewService','HttpService'];
+    BTSCtrl.$inject = ['$scope', '$state', 'btsDtService', 'btsDeleteService', 'btsViewService', 'HttpService','btsMapService'];
 
-    function BTSCtrl($scope, $state, dtService, deleteService, viewService, http) {
+    function BTSCtrl($scope, $state, dtService, deleteService, viewService, http, mapService) {
         var self = this;
          
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self); 
+        setMap();
+
+        function setMap() {
+            http.get('bts/search', {
+                keyword: '',
+                forMaps: true
+            }, true).then(function (response) {
+                //console.log(res);
+                var cities = [];
+                var marker = [];
+
+                if (response && response.data && response.data.records) {
+                    response.data.records.forEach(function (bts) {
+
+                        marker.push(bts.name);
+                        marker.push(parseFloat(bts.latitude));
+                        marker.push(parseFloat(bts.longitude));
+                        marker.push(5);
+                        marker.push(bts.operatorTitle);
+                        marker.push(bts.statusBtsTitle);
+                        cities.push(marker);
+                        marker = [];
+                    });
+
+                    mapService.init(cities);
+                }
+            })
+        }
 
         http.get('dashboard/getRole', {
             dashboard: ''
@@ -2316,6 +2344,7 @@ angular.module('global-solusindo')
             }
 
         }
+
 
         return self;
     }
@@ -3774,8 +3803,9 @@ angular.module('global-solusindo')
         nav.model = user;
  
         nav.resizeDt = function () {
-            console.log($rootScope);
-            $rootScope.dt.columns.adjust();
+            //console.log($rootScope);
+            $('.dataTables_scrollHeadInner').width('100%');
+            //console.log(header);
         }
     
         function setImage(data) { 
@@ -5353,6 +5383,69 @@ angular.module('global-solusindo')
         var self = this;
         self.stateParam = sParam;
 
+        http.get('dashboard/getRole', {
+            dashboard: ''
+        }, true).then(function (res) {
+
+            var isTL = setRole(res.data, "SOW_Edit_IsTL");
+            var isDTCoor = setRole(res.data, "SOW_Edit_IsDTCoor");
+
+            if (isTL == true) {
+                document.getElementById('sowName').disabled = false;
+                document.getElementById('project_fk').disabled = false;
+                document.getElementById('bts_fk').disabled = false;
+                document.getElementById('codate').disabled = false;
+                document.getElementById('tglMulai').disabled = false;
+                document.getElementById('technology_fk').disabled = false;
+                document.getElementById('duid').disabled = false;
+                document.getElementById('tipePekerjaan_fk2').disabled = false;
+                document.getElementById('tipePekerjaan_fk1').disabled = false;
+                document.getElementById('kmlFile1').disabled = false;
+                document.getElementById('kmlFile2').disabled = false;
+            }
+            else if (isDTCoor == true) {
+                document.getElementById('sowName').disabled = true;
+                document.getElementById('project_fk').disabled = true;
+                document.getElementById('bts_fk').disabled = true;
+                document.getElementById('codate').disabled = true;
+                document.getElementById('tglMulai').disabled = true;
+                document.getElementById('technology_fk').disabled = true;
+                document.getElementById('duid').disabled = true;
+                document.getElementById('tipePekerjaan_fk2').disabled = true;
+                document.getElementById('tipePekerjaan_fk1').disabled = true;
+                document.getElementById('kmlFile1').disabled = true;
+                document.getElementById('kmlFile2').disabled = true;
+            }
+            else {
+                document.getElementById('sowName').disabled = false;
+                document.getElementById('project_fk').disabled = false;
+                document.getElementById('bts_fk').disabled = false;
+                document.getElementById('codate').disabled = false;
+                document.getElementById('tglMulai').disabled = false;
+                document.getElementById('technology_fk').disabled = false;
+                document.getElementById('duid').disabled = false;
+                document.getElementById('tipePekerjaan_fk2').disabled = false;
+                document.getElementById('tipePekerjaan_fk1').disabled = false;
+                document.getElementById('kmlFile1').disabled = false;
+                document.getElementById('kmlFile2').disabled = false;
+            }
+        })
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+
+            return role
+        }
+
         function readFile1() {
             if (this.files && this.files[0]) {
                 var FR = new FileReader();
@@ -5611,7 +5704,6 @@ angular.module('global-solusindo')
             sowissueDtService.init(self);
             try {
                 map.init(self);
-
             } catch (e) {
 
             }
@@ -5769,7 +5861,7 @@ angular.module('global-solusindo')
 
         })
 
-
+        
 
         function setRole(roles, control, roleName) {
 
@@ -8230,7 +8322,7 @@ angular.module('global-solusindo')
 
         self.delete = function (data) {
             var ids = [data.bts_pk];
-            ui.alert.confirm("Are you sure want to delete Site '" + data.title + "'?", function () {
+            ui.alert.confirm("Are you sure want to delete Site '" + data.name + "'?", function () {
                 return deleteRecords(ids);
             });
         };
@@ -8337,7 +8429,7 @@ angular.module('global-solusindo')
             }
             return role;
         }
-
+        
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
             var dt = ds.init("#bts", "bts/search", {
@@ -8378,24 +8470,24 @@ angular.module('global-solusindo')
                     title: "Site"
                 },
                 ajaxCallback: function (response) {
-                    var cities = [];
-                    var marker = [];
+                    //var cities = [];
+                    //var marker = [];
 
-                    if (response && response.data && response.data.records) {
-                        response.data.records.forEach(function (bts) {
+                    //if (response && response.data && response.data.records) {
+                    //    response.data.records.forEach(function (bts) {
                              
-                            marker.push(bts.name);
-                            marker.push(parseFloat(bts.latitude));
-                            marker.push(parseFloat(bts.longitude));
-                            marker.push(5);
-                            marker.push(bts.operatorTitle);
-                            marker.push(bts.statusBtsTitle);
-                            cities.push(marker);
-                            marker = [];
-                        });
+                    //        marker.push(bts.name);
+                    //        marker.push(parseFloat(bts.latitude));
+                    //        marker.push(parseFloat(bts.longitude));
+                    //        marker.push(5);
+                    //        marker.push(bts.operatorTitle);
+                    //        marker.push(bts.statusBtsTitle);
+                    //        cities.push(marker);
+                    //        marker = [];
+                    //    });
 
-                        mapService.init(cities);
-                    }
+                    //    mapService.init(cities);
+                    //}
                 }
             });
 
@@ -18444,14 +18536,65 @@ angular.module('global-solusindo')
         var self = this;
         var controller = {};
 
-        self.applyBinding = function (id) {
-            return http.get('sow/form/' + id);
-        };
+        var isTL; 
+        var isDTCoor;
+
+        //function setRoles() {
+            self.applyBinding = function (id) {
+                return http.get('sow/form/' + id);
+            };
+
+            http.get('dashboard/getRole', {
+                dashboard: ''
+            }, true).then(function (res) {
+                isTL = setRole(res.data, "SOW_Edit_IsTL");
+                isDTCoor = setRole(res.data, "SOW_Edit_IsDTCoor");
+
+            });
+        //}
+
+        function setRole(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+
+            return role
+        }
 
         function applyConversion(model) {
             if (model && model.sowTracks) {
                 model.sowTracks.forEach(function (sowTrack, index) {
                     sowTrack.tipePekerjaan_fk = sowTrack.tipePekerjaan_fk + '';
+                });
+            }
+            if (model && model.sowAssigns) {
+                model.sowAssigns.forEach(function (sowAssign, index) {
+                    if (isDTCoor == true) {
+                        if (index < 3) {
+                            sowAssign.createdBy = true;
+                        }
+                        else {
+                            sowAssign.createdBy = false;
+                        }
+                    }
+                    else if (isTL == true) {
+                        if (index > 0) {
+                            sowAssign.createdBy = false;
+                        }
+                        else {
+                            sowAssign.createdBy = true;
+                        }
+                    }
+                    else {
+                        sowAssign.createdBy = false;
+                    }
                 });
             }
         }
@@ -18462,6 +18605,7 @@ angular.module('global-solusindo')
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
                     controller.formData = res.data.formData;
+
                     applyConversion(res.data.model);
                     controller.model = res.data.model;
                     controller.formData.users = [];
@@ -18946,7 +19090,7 @@ angular.module('global-solusindo')
             return http.delete('cost', ids).then(function (response) {
                 var res = response;
                 if (res.success) {
-                    controller.datatable.draw();
+                    controller.costDt.draw();
                     ui.alert.success(res.message, 'popup');
                 } else {
                     ui.alert.error(res.message);
@@ -18966,7 +19110,7 @@ angular.module('global-solusindo')
 
             //Row delete button event
             $('#cost tbody').on('click', '#delete', function () {
-                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                var selectedRecord = controller.costDt.row($(this).parents('tr')).data();
                 self.delete(selectedRecord);
             }); 
         };
@@ -19028,6 +19172,10 @@ angular.module('global-solusindo')
             return role;
         }
 
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
         self.init = function (ctrl) {
             controller = ctrl;
             var titleColumnIndex = 1;
@@ -19045,8 +19193,14 @@ angular.module('global-solusindo')
                 {
                     "data": "kategoriCostTitle"
                 },
+                //{
+                //    "data": "nominal"
+                //},
                 {
-                    "data": "nominal"
+                    "data": "nominal",
+                    "render": function (data) {
+                        return numberWithCommas(data);
+                    }
                 },
                 {
                     "data": "deskripsi"
@@ -19064,7 +19218,8 @@ angular.module('global-solusindo')
                 }
                 ]
             });
-            controller.datatable = dt;
+            //controller.datatable = dt;
+            controller.costDt = dt;
             return dt;
         };
 
@@ -19171,6 +19326,7 @@ angular.module('global-solusindo')
         var self = this;
         var controller;
 
+        
         self.create = function (model) {
             http.post('cost', model).then(function (res) {
                 if (res.success) {
@@ -19187,6 +19343,7 @@ angular.module('global-solusindo')
             http.put('cost', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    controller.modalInstance.close();
                 } else {
                     ui.alert.error(res.message);
                     validation.serverValidation(res.data.errors);
@@ -19248,7 +19405,8 @@ angular.module('global-solusindo')
                 }
             });
             modalInstance.result.then(function (data) {
-                controller.datatable.draw();
+                //controller.datatable.draw();
+                controller.costDt.draw();
             }, function () { });
 
             return modalInstance;
@@ -19262,7 +19420,7 @@ angular.module('global-solusindo')
 
             //Row delete button event
             $('#cost tbody').on('click', '#view', function () {
-                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                var selectedRecord = controller.costDt.row($(this).parents('tr')).data();
                 openModal(selectedRecord.cost_pk);
             });
         };
@@ -19328,7 +19486,7 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('sowissueDtService', sowissueDtService);
 
-    sowissueDtService.$inject = ['DatatableService','HttpService'];
+    sowissueDtService.$inject = ['DatatableService', 'HttpService'];
 
     function sowissueDtService(ds, http) {
         var self = this;
@@ -19339,12 +19497,12 @@ angular.module('global-solusindo')
             var titleColumnIndex = 1;
             var dt = ds.init("#sowissue", "sow/issue", {
                 extendRequestData: {
-                    pageIndex: 1,
-                    pageSize: 10,
                     sow_fk: controller.stateParam.id
                 },
-                order: [titleColumnIndex, "asc"],
                 columns: [{
+                    "data": "jabatan"
+                },
+                {
                     "data": "jabatan"
                 },
                 {
@@ -19376,7 +19534,7 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('sowlinkDtService', sowlinkDtService);
 
-    sowlinkDtService.$inject = ['DatatableService','HttpService'];
+    sowlinkDtService.$inject = ['DatatableService', 'HttpService'];
 
     function sowlinkDtService(ds, http) {
         var self = this;
@@ -19391,8 +19549,10 @@ angular.module('global-solusindo')
                     pageSize: 10,
                     sow_fk: controller.stateParam.id
                 },
-                order: [titleColumnIndex, "asc"],
                 columns: [{
+                    "data": "nama"
+                },
+                {
                     "data": "jabatan"
                 },
                 {

@@ -34,6 +34,13 @@
                 self.view(data.user_fk, data.bulan, data.bulanName);
             });
 
+            $('#timesheetEngineerDetail tbody').on('click', '#download', function () {
+                var data = controller.datatable.row($(this).parents('tr')).data();
+                self.view(data.user_fk, data.bulan, data.bulanName);
+            });
+
+
+
             $("#timesheetEngineerDetail tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();
                 var user_fk = data["user_fk"];
@@ -41,6 +48,7 @@
                 var bulanName = data["bulanName"];
                 self.view(user_fk, bulan, bulanName);
             });
+
         };
 
         return self;
