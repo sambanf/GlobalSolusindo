@@ -57,7 +57,6 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblM_User> tblM_User { get; set; }
         public virtual DbSet<tblM_Vendor> tblM_Vendor { get; set; }
         public virtual DbSet<tblT_AsetHistori> tblT_AsetHistori { get; set; }
-        public virtual DbSet<tblT_CheckIn> tblT_CheckIn { get; set; }
         public virtual DbSet<tblT_Cost> tblT_Cost { get; set; }
         public virtual DbSet<tblT_IzinCuti> tblT_IzinCuti { get; set; }
         public virtual DbSet<tblT_PO> tblT_PO { get; set; }
@@ -75,10 +74,12 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblM_Religion> tblM_Religion { get; set; }
         public virtual DbSet<tblM_UserDetail> tblM_UserDetail { get; set; }
         public virtual DbSet<tblT_SOW> tblT_SOW { get; set; }
-        public virtual DbSet<vw_SOWLink> vw_SOWLink { get; set; }
         public virtual DbSet<tblM_SOWName> tblM_SOWName { get; set; }
         public virtual DbSet<tblT_LogActivity> tblT_LogActivity { get; set; }
         public virtual DbSet<vw_SOWViewAll> vw_SOWViewAll { get; set; }
+        public virtual DbSet<vw_SOWIssue> vw_SOWIssue { get; set; }
+        public virtual DbSet<tblT_CheckIn> tblT_CheckIn { get; set; }
+        public virtual DbSet<vw_SOWLink> vw_SOWLink { get; set; }
     
         public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
         {
@@ -446,6 +447,16 @@ namespace GlobalSolusindo.DataAccess
         public virtual ObjectResult<GetTaskApprovalListLatest_Result> GetTaskApprovalListLatest()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskApprovalListLatest_Result>("GetTaskApprovalListLatest");
+        }
+    
+        public virtual ObjectResult<GetTaskApprovalLatest_Result> GetTaskApprovalLatest()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskApprovalLatest_Result>("GetTaskApprovalLatest");
+        }
+    
+        public virtual ObjectResult<GetTaskListLatest_Result> GetTaskListLatest()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskListLatest_Result>("GetTaskListLatest");
         }
     }
 }

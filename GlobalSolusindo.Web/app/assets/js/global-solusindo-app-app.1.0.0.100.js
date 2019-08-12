@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-08. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-12. 
 * @author Kairos
 */
 (function() {
@@ -5597,9 +5597,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .controller('SOWInfoCtrl', SOWInfoCtrl);
 
-    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService', 'costDtService', 'costShowModalService', 'costDeleteService', 'sowMapService', 'sowlinkDtService'];
+    SOWInfoCtrl.$inject = ['$scope', '$stateParams', '$state', 'SOWInfoBindingService', 'HttpService', 'costDtService', 'costShowModalService', 'costDeleteService', 'sowMapService', 'sowlinkDtService', 'sowissueDtService'];
 
-    function SOWInfoCtrl($scope, sParam, $state, bindingService, http, costDtService, costShowModalService, costDeleteService, map, sowlinkDtService) {
+    function SOWInfoCtrl($scope, sParam, $state, bindingService, http, costDtService, costShowModalService, costDeleteService, map, sowlinkDtService, sowissueDtService) {
         var self = this;
         self.stateParam = sParam;
 
@@ -5608,6 +5608,7 @@ angular.module('global-solusindo')
             costShowModalService.init(self);
             costDeleteService.init(self);
             sowlinkDtService.init(self);
+            sowissueDtService.init(self);
             try {
                 map.init(self);
 
@@ -16113,7 +16114,8 @@ angular.module('global-solusindo')
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view +"'>Detail</button>";
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view + "'>Detail</button>";
+                            return "<button id='download' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view + "'>Download</button>"
                         }
                     }
                 ],
@@ -19306,6 +19308,54 @@ angular.module('global-solusindo')
                 });
             });
         };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('sowissueDtService', sowissueDtService);
+
+    sowissueDtService.$inject = ['DatatableService','HttpService'];
+
+    function sowissueDtService(ds, http) {
+        var self = this;
+        var controller = {};
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            var titleColumnIndex = 1;
+            var dt = ds.init("#sowissue", "sow/issue", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10,
+                    sow_fk: controller.stateParam.id
+                },
+                order: [titleColumnIndex, "asc"],
+                columns: [{
+                    "data": "jabatan"
+                },
+                {
+                    "data": "issuename"
+                }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
+        };
+
 
         return self;
     }

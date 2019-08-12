@@ -62,12 +62,35 @@ namespace GlobalSolusindo.Business.TaskList.Queries
         {
         }
 
-        public SearchResult<SOWLinkDTO> GetLink(CostSearchFilter filter)
-        {
-            TaskListQuery costQuery = new TaskListQuery(this.Db);
+        public SearchResult<SOWIssueDTO> GetIssue(CostSearchFilter filter) {
+            TaskListQuery taskListQuery = new TaskListQuery(this.Db);
 
             UserQuery userQuery = new UserQuery(this.Db);
-            var data = costQuery.GetSOWLinks().Where(x=>x.SOW_PK == filter.SOW_FK).FirstOrDefault();
+            var data = taskListQuery.GetSOWIssues().Where(x => x.SOW_FK == filter.SOW_FK).OrderByDescending(x=>x.KJabatan).ToList();
+            var result = new List<SOWIssueDTO>();
+
+            foreach (var item in data)
+            {
+                var issuedto = new SOWIssueDTO();
+                issuedto.KJabatan = item.KJabatan == 6? "RNO": item.KJabatan == 5 ? "RF" : item.KJabatan == 3 ? "Rigger" : "DT";
+                issuedto.IssueName = item.IssueName;
+                result.Add(issuedto);
+            }
+            
+
+            var searchResult = new SearchResult<SOWIssueDTO>(filter);
+            searchResult.Filter = filter;
+            searchResult.Count.TotalDisplayed = result.Count();
+            searchResult.Records = result;
+
+            return searchResult;
+        }
+        public SearchResult<SOWLinkDTO> GetLink(CostSearchFilter filter)
+        {
+            TaskListQuery taskListQuery = new TaskListQuery(this.Db);
+
+            UserQuery userQuery = new UserQuery(this.Db);
+            var data = taskListQuery.GetSOWLinks().Where(x=>x.SOW_PK == filter.SOW_FK).FirstOrDefault();
             var result = new List<SOWLinkDTO>();
             //RNO
             var resultfill = new SOWLinkDTO()

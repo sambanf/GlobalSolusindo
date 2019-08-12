@@ -6300,7 +6300,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                        </div>sq\r" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -6748,7 +6748,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                    <div class=\"card-title\">Problem</div>\r" +
+    "                                    <div class=\"card-title\">Issue</div>\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -8621,7 +8621,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-md-6\">\r" +
     "\n" +
-    "                                    <label class=\"control-label col-sm-3\">Tanggal:</label>\r" +
+    "                                    <label class=\"control-label col-sm-3\">Assign Date:</label>\r" +
     "\n" +
     "                                    <label class=\"control-label col-sm-6\" id=\"tglMulai\" name=\"tglMulai\">{{vm.model.tglMulai | date: 'dd-MM-yyyy'}}</label>\r" +
     "\n" +
@@ -8719,7 +8719,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <div class=\"row\">\r" +
     "\n" +
-    "                                        <label class=\"control-label col-sm-3\">Alamat</label>\r" +
+    "                                        <label class=\"control-label col-sm-3\">Address</label>\r" +
     "\n" +
     "                                        <label class=\"control-label col-sm-6\" id=\"alamat\" name=\"alamat\">{{vm.model.btsInfo.alamat}}</label>\r" +
     "\n" +
@@ -8829,25 +8829,65 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"card\">\r" +
     "\n" +
-    "                            <div class=\"card-title\">Link Pekerjaan</div>\r" +
+    "                            <div class=\"card-title\">Task Link</div>\r" +
     "\n" +
     "                            <div class=\"row\">\r" +
     "\n" +
     "                                <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                    <table id=\"powview\">\r" +
+    "                                    <table id=\"link\">\r" +
     "\n" +
     "                                        <thead>\r" +
     "\n" +
     "                                            <tr>\r" +
     "\n" +
-    "                                                <th>Jabatan</th>\r" +
+    "                                                <th>Position</th>\r" +
     "\n" +
-    "                                                <th>Nama</th>\r" +
+    "                                                <th>Name</th>\r" +
     "\n" +
     "                                                <th>Link / SSO</th>\r" +
     "\n" +
     "                                                <th>SSV</th>\r" +
+    "\n" +
+    "                                            </tr>\r" +
+    "\n" +
+    "                                        </thead>\r" +
+    "\n" +
+    "                                    </table>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"row\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">Issue List</div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <table id=\"sowissue\">\r" +
+    "\n" +
+    "                                        <thead>\r" +
+    "\n" +
+    "                                            <tr>\r" +
+    "\n" +
+    "                                                <th>Position</th>\r" +
+    "\n" +
+    "                                                <th>Issue</th>\r" +
     "\n" +
     "                                            </tr>\r" +
     "\n" +

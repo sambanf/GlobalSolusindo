@@ -21,6 +21,20 @@ namespace GlobalSolusindo.Business.SOW.Queries
         {
         }
 
+        public IQueryable<SOWIssueDT> GetSOWIssues()
+        {
+            var query = from sow in Db.vw_SOWIssue
+                        select new SOWIssueDT
+                        {
+                            SOW_FK = sow.SOW_FK,
+                            IssueName = sow.IssueName,
+                            User_FK = sow.User_FK,
+                            KJabatan = sow.KategoriJabatan_PK
+                        };
+
+            return query;
+        }
+
         public IQueryable<SOWLinkDT> GetSOWLinks()
         {
             var query = from sow in Db.vw_SOWLink
@@ -41,6 +55,8 @@ namespace GlobalSolusindo.Business.SOW.Queries
 
             return query;
         }
+
+
 
         public IQueryable<TaskListDTO> GetQuery()
         {

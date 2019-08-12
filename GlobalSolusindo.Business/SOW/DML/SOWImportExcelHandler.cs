@@ -33,7 +33,7 @@ namespace GlobalSolusindo.Business.SOW.DML
         private SOWEntryDataProvider SOWEntryDataProvider;
         SOWAssignFactory SOWAssignFactory;
 
-        public SOWImportExcelHandler(GlobalSolusindoDb db, tblM_User user, SOWValidator SOWValidator, SOWFactory SOWFactory,SOWAssignFactory sOWAssignFactory, SOWQuery SOWQuery, AccessControl accessControl) : base(db, user)
+        public SOWImportExcelHandler(GlobalSolusindoDb db, tblM_User user, SOWValidator SOWValidator, SOWFactory SOWFactory, SOWAssignFactory sOWAssignFactory, SOWQuery SOWQuery, AccessControl accessControl) : base(db, user)
         {
             this.SOWValidator = SOWValidator;
             this.SOWFactory = SOWFactory;
@@ -197,32 +197,22 @@ namespace GlobalSolusindo.Business.SOW.DML
                 {
                     sowAssign.Add(new SOWAssignDTO() { User_FK = userQuery.GetByUsername(dt).User_PK });
                 }
-                DateTime? codatee;
-                if (codate == "")
-                {
-                    codatee = null;
-                }
-                else
-                {
-                    codatee = DateTime.Parse(codate);
-                }
+                DateTime? nulldate = null;
 
-                SOWList.Add(new SOWDTO()
-                {
-                    SOWName = sowname,
-                    PMOUniq = pmouniq,
-                    BTS_FK = bts == "" ? 0 : btsquery.GetByTowerID(bts.Split('-')[0]).BTS_PK,
-                    Project_FK = project == "" ? 0 : Convert.ToInt16(project.Split('-')[0]),
-                    Technology_FK = tech == "" ? 0 : technologyQuery.GetByTitle(tech).Technology_PK,
-                    CODate = codatee,
-                    TglMulai = DateTime.Parse(assigndate),
-                    DUID = duid,
-                    LVDate = DateTime.Parse(lvdate),
-                    AcceptedDate = DateTime.Parse(accdate),
-                    StatusSOW_FK = 1,
-                    SOWAssigns = sowAssign.Count == 0? null :  sowAssign
-
-                });
+                SOWDTO sowdto = new SOWDTO();
+                sowdto.SOWName = sowname;
+                sowdto.PMOUniq = pmouniq;
+                sowdto.BTS_FK = bts == "" ? 0 : btsquery.GetByTowerID(bts.Split('-')[0]).BTS_PK;
+                sowdto.Project_FK = project == "" ? 0 : Convert.ToInt16(project.Split('-')[0]);
+                sowdto.Technology_FK = tech == "" ? 0 : technologyQuery.GetByTitle(tech).Technology_PK;
+                sowdto.CODate = codate == "" ? nulldate : DateTime.Parse(codate);
+                sowdto.TglMulai = assigndate == "" ? nulldate : DateTime.Parse(assigndate);
+                sowdto.DUID = duid;
+                sowdto.LVDate = lvdate == "" ? nulldate : DateTime.Parse(lvdate);
+                sowdto.AcceptedDate = accdate == "" ? nulldate : DateTime.Parse(accdate);
+                sowdto.StatusSOW_FK = 1;
+                sowdto.SOWAssigns = sowAssign.Count == 0 ? null : sowAssign;
+                SOWList.Add(sowdto);
             }
 
             return SOWList;

@@ -67,6 +67,8 @@
     <Compile Include="LogActivity\Queries\LogActivityQuery.cs" />
     <Compile Include="SOW\DML\SOWImportExcelHandler.cs" />
     <Compile Include="SOW\SOWDTOViewAll.cs" />
+    <Compile Include="SOW\SOWIssueDTO.cs" />
+    <Compile Include="SOW\SOWIssueDT.cs" />
     <Compile Include="SOW\SOWLinkDT.cs" />
     <Compile Include="SOW\SOWLinkDTO.cs" />
     <Compile Include="TipePekerjaan\TipePekerjaanDropdownDTO.cs" />

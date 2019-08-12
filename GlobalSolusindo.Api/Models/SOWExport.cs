@@ -458,6 +458,7 @@ namespace GlobalSolusindo.Api.Models
             }
             var worksheet = workbook.AddWorksheet(SOW);
             worksheet.Columns().Width = 15;
+            worksheet.Columns(7,10).CellsUsed().SetDataType(XLDataType.DateTime);
 
 
             MemoryStream memoryStream = GetStream(workbook);
