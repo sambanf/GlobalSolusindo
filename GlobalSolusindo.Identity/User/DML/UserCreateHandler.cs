@@ -63,12 +63,18 @@ namespace GlobalSolusindo.Identity.User.DML
 
         private void MapJabatanToRoleGroup()
         {
-            jabatanRoleGroupMapping.Add(1, 7);
-            jabatanRoleGroupMapping.Add(2, 13);
-            jabatanRoleGroupMapping.Add(3, 14);
-            jabatanRoleGroupMapping.Add(4, 8);
-            jabatanRoleGroupMapping.Add(5, 12);
-            jabatanRoleGroupMapping.Add(6, 15);
+            jabatanRoleGroupMapping.Add(1, 4);
+            jabatanRoleGroupMapping.Add(2, 9);
+            jabatanRoleGroupMapping.Add(3, 7);
+            jabatanRoleGroupMapping.Add(4, 1);
+            jabatanRoleGroupMapping.Add(5, 10);
+            jabatanRoleGroupMapping.Add(6, 6);
+            jabatanRoleGroupMapping.Add(7, 5);
+            jabatanRoleGroupMapping.Add(8, 8);
+            jabatanRoleGroupMapping.Add(9, 2);
+            jabatanRoleGroupMapping.Add(10, 3);
+            jabatanRoleGroupMapping.Add(11, 11);
+            jabatanRoleGroupMapping.Add(13, 12);
         }
 
         public tblM_User Insert(UserDTO userDTO, DateTime dateStamp)

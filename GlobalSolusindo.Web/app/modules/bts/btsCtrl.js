@@ -4,14 +4,42 @@
     angular.module('global-solusindo')
         .controller('BTSCtrl', BTSCtrl);
 
-    BTSCtrl.$inject = ['$scope', '$state', 'btsDtService', 'btsDeleteService', 'btsViewService','HttpService'];
+    BTSCtrl.$inject = ['$scope', '$state', 'btsDtService', 'btsDeleteService', 'btsViewService', 'HttpService','btsMapService'];
 
-    function BTSCtrl($scope, $state, dtService, deleteService, viewService, http) {
+    function BTSCtrl($scope, $state, dtService, deleteService, viewService, http, mapService) {
         var self = this;
          
         self.datatable = dtService.init(self);
         deleteService.init(self);
         viewService.init(self); 
+        setMap();
+
+        function setMap() {
+            http.get('bts/search', {
+                keyword: '',
+                forMaps: true
+            }, true).then(function (response) {
+                //console.log(res);
+                var cities = [];
+                var marker = [];
+
+                if (response && response.data && response.data.records) {
+                    response.data.records.forEach(function (bts) {
+
+                        marker.push(bts.name);
+                        marker.push(parseFloat(bts.latitude));
+                        marker.push(parseFloat(bts.longitude));
+                        marker.push(5);
+                        marker.push(bts.operatorTitle);
+                        marker.push(bts.statusBtsTitle);
+                        cities.push(marker);
+                        marker = [];
+                    });
+
+                    mapService.init(cities);
+                }
+            })
+        }
 
         http.get('dashboard/getRole', {
             dashboard: ''
@@ -50,6 +78,7 @@
             }
 
         }
+
 
         return self;
     }

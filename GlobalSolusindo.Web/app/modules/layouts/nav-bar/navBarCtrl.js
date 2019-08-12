@@ -29,8 +29,9 @@
         nav.model = user;
  
         nav.resizeDt = function () {
-            console.log($rootScope);
-            $rootScope.dt.columns.adjust();
+            //console.log($rootScope);
+            $('.dataTables_scrollHeadInner').width('100%');
+            //console.log(header);
         }
     
         function setImage(data) { 

@@ -101,7 +101,7 @@
                                             <div class="invalid-feedback"></div>
                                         </td>
                                         <td>
-                                            <ui-select id="user_fk" name="user_fk" ng-model="sowAssign.user_fk" size="0" theme="select2" ng-disabled="vm.disabled" title="Find user"
+                                            <ui-select id="user_fk" name="user_fk" ng-model="sowAssign.user_fk" size="0" theme="select2" ng-disabled="sowAssign.createdBy" title="Find user"
                                                        required style="width:200px">
                                                 <ui-select-match placeholder="Find user">{{$select.selected.name}}</ui-select-match>
                                                 <ui-select-choices refresh="vm.getUsers(sowAssign.kategoriJabatan_fk, $select.search)" refresh-delay="0" repeat="user.user_pk as user in vm.formData.users">

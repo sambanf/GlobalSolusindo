@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.DeliveryArea.DML;
 using GlobalSolusindo.Business.DeliveryArea.EntryForm;
 using GlobalSolusindo.Business.DeliveryArea.Queries;
+using GlobalSolusindo.Business.Project;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -141,20 +142,39 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            using (var deliveryAreaDeleteHandler = new DeliveryAreaDeleteHandler(Db, ActiveUser))
+            ProjectQuery projectQuery = new ProjectQuery();
+            bool isUse = false;
+            foreach (var id in ids)
             {
-                using (var transaction = new TransactionScope())
+                int countRow = projectQuery.CountBy("DeliveryArea_FK", id.ToString());
+                if (countRow > 0)
                 {
-                    var result = new List<DeleteResult<tblM_DeliveryArea>>();
-
-                    foreach (var id in ids)
-                    {
-                        result.Add(deliveryAreaDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                    }
-                    transaction.Complete();
-                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
-                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    isUse = true;
+                    break;
                 }
+            }
+
+            if (!isUse)
+            {
+                using (var deliveryAreaDeleteHandler = new DeliveryAreaDeleteHandler(Db, ActiveUser))
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                        var result = new List<DeleteResult<tblM_DeliveryArea>>();
+
+                        foreach (var id in ids)
+                        {
+                            result.Add(deliveryAreaDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        }
+                        transaction.Complete();
+                        SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
+                        return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    }
+                }
+            }
+            else
+            {
+                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, "", "Delivery Area has been use in master project"));
             }
         }
     }

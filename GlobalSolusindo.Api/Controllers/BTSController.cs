@@ -77,9 +77,14 @@ namespace GlobalSolusindo.Api.Controllers
             ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
-
+            
+            
             using (var btsSearch = new BTSSearch(Db))
             {
+                if (filter.forMaps)
+                    filter.forMaps = true;
+                else filter.forMaps = false;
+
                 var data = btsSearch.GetDataByFilter(filter);
                 SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));

@@ -56,7 +56,7 @@
             }
             return role;
         }
-
+        
         self.init = function (ctrl) {
             var titleColumnIndex = 1;
             var dt = ds.init("#bts", "bts/search", {
@@ -97,24 +97,24 @@
                     title: "Site"
                 },
                 ajaxCallback: function (response) {
-                    var cities = [];
-                    var marker = [];
+                    //var cities = [];
+                    //var marker = [];
 
-                    if (response && response.data && response.data.records) {
-                        response.data.records.forEach(function (bts) {
+                    //if (response && response.data && response.data.records) {
+                    //    response.data.records.forEach(function (bts) {
                              
-                            marker.push(bts.name);
-                            marker.push(parseFloat(bts.latitude));
-                            marker.push(parseFloat(bts.longitude));
-                            marker.push(5);
-                            marker.push(bts.operatorTitle);
-                            marker.push(bts.statusBtsTitle);
-                            cities.push(marker);
-                            marker = [];
-                        });
+                    //        marker.push(bts.name);
+                    //        marker.push(parseFloat(bts.latitude));
+                    //        marker.push(parseFloat(bts.longitude));
+                    //        marker.push(5);
+                    //        marker.push(bts.operatorTitle);
+                    //        marker.push(bts.statusBtsTitle);
+                    //        cities.push(marker);
+                    //        marker = [];
+                    //    });
 
-                        mapService.init(cities);
-                    }
+                    //    mapService.init(cities);
+                    //}
                 }
             });
 
