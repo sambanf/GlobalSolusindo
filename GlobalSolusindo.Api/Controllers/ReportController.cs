@@ -1,10 +1,12 @@
-﻿using GlobalSolusindo.Business.Activities.Queries;
+﻿using GlobalSolusindo.Api.Models;
+using GlobalSolusindo.Business.Activities.Queries;
 using GlobalSolusindo.Business.DailyTask.Queries;
 using GlobalSolusindo.Business.TaskEngineer.Queries;
 using GlobalSolusindo.Business.TaskEngineerDetail;
 using GlobalSolusindo.Business.TimesheetDetail.Queries;
 using Kairos;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Web.Http;
 
 namespace GlobalSolusindo.Api.Controllers
@@ -35,6 +37,24 @@ namespace GlobalSolusindo.Api.Controllers
                 SaveLog(ActiveUser.Username, "ReportTimeSheetDetail_ViewAll", JsonConvert.SerializeObject(new { primaryKey = filter }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
+        }
+
+        [Route("report/activitydl")]
+        [HttpPost]
+        public HttpResponseMessage SearchActivityforExcel([FromUri]ActivitiesSearchFilter filter)
+        {
+            ThrowIfUserHasNoRole(readRole);
+            if (filter == null)
+                throw new KairosException("Missing search filter parameter");
+
+            using (var activitiesSearch = new ActivitiesSearch(Db))
+            {
+                var data = activitiesSearch.GetDataByFilter(filter);
+                ActivityExport activityExport = new ActivityExport();
+                SaveLog(ActiveUser.Username, "ReportActivities_ViewAll", JsonConvert.SerializeObject(filter), "Success", "", "", "");
+                return activityExport.Export(Db, ActiveUser, "Activity", filter, data);
+            }
+           
         }
 
         [Route("report/activities")]

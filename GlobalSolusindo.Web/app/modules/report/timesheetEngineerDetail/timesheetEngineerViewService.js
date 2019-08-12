@@ -36,10 +36,31 @@
 
             $('#timesheetEngineerDetail tbody').on('click', '#download', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
-                self.view(data.user_fk, data.bulan, data.bulanName);
+                var user_fk = data["user_fk"];
+                var bulan = data["bulan"];
+                var bulanName = data["bulanName"];
+                var tahun = data["tahun"];
+                http.downloadFile('report/activitydl?User_FK='+user_fk+'&Bulan='+bulan, { keyword: '' }).then(function (data) {
+                    var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+                    var linkElement = document.createElement('a');
+                    try {
+                        var blob = new Blob([data], { type: contentType });
+                        var url = window.URL.createObjectURL(blob);
+
+                        linkElement.setAttribute('href', url);
+                        linkElement.setAttribute("download", "TimesheetDetail "+bulanName + " " + tahun+".xlsx");
+
+                        var clickEvent = new MouseEvent("click", {
+                            "view": window,
+                            "bubbles": true,
+                            "cancelable": false
+                        });
+                        linkElement.dispatchEvent(clickEvent);
+                    } catch (ex) {
+                        console.log(ex);
+                    }
+                });
             });
-
-
 
             $("#timesheetEngineerDetail tbody").on("dblclick", "tr", function () {
                 var data = controller.datatable.row(this).data();

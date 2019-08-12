@@ -7050,6 +7050,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                                <th>Detail</th>\r" +
     "\n" +
+    "                                                <th>Download</th>\r" +
+    "\n" +
     "                                            </tr>\r" +
     "\n" +
     "                                        </thead>\r" +

@@ -248,11 +248,7 @@ namespace GlobalSolusindo.Api.Models
                         }
                         var worksheetUserDT = workbook.AddWorksheet(validationTableUserDT);
                         worksheet.Column(17).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
-
                     }
-
-
-
                 }
 
             }
