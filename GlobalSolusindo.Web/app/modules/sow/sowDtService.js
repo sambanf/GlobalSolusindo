@@ -104,11 +104,7 @@
                             return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval +"'>Approval</button>";
                         }
                     }
-                ],
-                exportButtons: {
-                    columns: [1, 2, 3, 4],
-                    title: "Scope of Work (SOW)"
-                }
+                ]
             });
             controller.datatable = dt;
             return dt;
