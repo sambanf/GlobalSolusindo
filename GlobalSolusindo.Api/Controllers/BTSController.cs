@@ -6,6 +6,7 @@ using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.BTSStatus.Queries;
 using GlobalSolusindo.Business.BTSTechnology;
 using GlobalSolusindo.DataAccess;
+using GlobalSolusindo.Business.SOW;
 using Kairos;
 using Kairos.Data;
 using Newtonsoft.Json;
@@ -165,20 +166,41 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            using (var btsDeleteHandler = new BTSDeleteHandler(Db, ActiveUser))
+            SOWQuery sowQuery = new SOWQuery();
+            bool isUse = false;
+            foreach (var id in ids)
             {
-                using (var transaction = new TransactionScope())
+                int countRow = sowQuery.CountBy("BTS_FK", id.ToString());
+                if (countRow > 0)
                 {
-                    var result = new List<DeleteResult<tblM_BTS>>();
-
-                    foreach (var id in ids)
-                    {
-                        result.Add(btsDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                    }
-                    transaction.Complete();
-                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
-                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    isUse = true;
+                    break;
                 }
+            }
+
+            if (!isUse)
+            {
+
+
+                using (var btsDeleteHandler = new BTSDeleteHandler(Db, ActiveUser))
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                        var result = new List<DeleteResult<tblM_BTS>>();
+
+                        foreach (var id in ids)
+                        {
+                            result.Add(btsDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        }
+                        transaction.Complete();
+                        SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
+                        return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    }
+                }
+            }
+            else
+            {
+                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, "", "Site has been use in Master SOW"));
             }
         }
 

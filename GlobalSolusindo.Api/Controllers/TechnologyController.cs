@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.Technology.DML;
 using GlobalSolusindo.Business.Technology.EntryForm;
 using GlobalSolusindo.Business.Technology.Queries;
+using GlobalSolusindo.Business.BTSTechnology.Queries;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -140,20 +141,40 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            using (var technologyDeleteHandler = new TechnologyDeleteHandler(Db, ActiveUser))
+            BTSTechnologyQuery btsTechnologyQuery = new BTSTechnologyQuery();
+            bool isUse = false;
+            foreach (var id in ids)
             {
-                using (var transaction = new TransactionScope())
+                int countRow = btsTechnologyQuery.CountBy("Technology_FK", id.ToString());
+                if (countRow > 0)
                 {
-                    var result = new List<DeleteResult<tblM_Technology>>();
-
-                    foreach (var id in ids)
-                    {
-                        result.Add(technologyDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                    }
-                    transaction.Complete();
-                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
-                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    isUse = true;
+                    break;
                 }
+            }
+
+            if (!isUse)
+            {
+
+                using (var technologyDeleteHandler = new TechnologyDeleteHandler(Db, ActiveUser))
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                        var result = new List<DeleteResult<tblM_Technology>>();
+
+                        foreach (var id in ids)
+                        {
+                            result.Add(technologyDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        }
+                        transaction.Complete();
+                        SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
+                        return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    }
+                }
+            }
+            else
+            {
+                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, "", "Technology has been use in Site"));
             }
         }
     }

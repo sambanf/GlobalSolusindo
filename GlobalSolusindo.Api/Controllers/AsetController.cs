@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.Aset.DML;
 using GlobalSolusindo.Business.Aset.EntryForm;
 using GlobalSolusindo.Business.Aset.Queries;
+using GlobalSolusindo.Business.AsetHistori.Queries;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -159,20 +160,40 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            using (var asetDeleteHandler = new AsetDeleteHandler(Db, ActiveUser))
+            AsetHistoriQuery asetHistoriQuery = new AsetHistoriQuery();
+            bool isUse = false;
+            foreach (var id in ids)
             {
-                using (var transaction = new TransactionScope())
+                int countRow = asetHistoriQuery.CountBy("Aset_FK", id.ToString());
+                if (countRow > 0)
                 {
-                    var result = new List<DeleteResult<tblM_Aset>>();
-
-                    foreach (var id in ids)
-                    {
-                        result.Add(asetDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                    }
-                    transaction.Complete();
-                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
-                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    isUse = true;
+                    break;
                 }
+            }
+
+            if (!isUse)
+            {
+
+                using (var asetDeleteHandler = new AsetDeleteHandler(Db, ActiveUser))
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                        var result = new List<DeleteResult<tblM_Aset>>();
+
+                        foreach (var id in ids)
+                        {
+                            result.Add(asetDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        }
+                        transaction.Complete();
+                        SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
+                        return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    }
+                }
+            }
+            else
+            {
+                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, "", "Asset has been use in Asset History"));
             }
         }
     }

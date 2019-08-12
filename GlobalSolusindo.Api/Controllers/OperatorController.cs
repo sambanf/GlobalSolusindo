@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.Operator.DML;
 using GlobalSolusindo.Business.Operator.EntryForm;
 using GlobalSolusindo.Business.Operator.Queries;
+using GlobalSolusindo.Business.Project;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -148,20 +149,39 @@ namespace GlobalSolusindo.Api.Controllers
             string accessType = "";
             ThrowIfUserHasNoRole(accessType);
 
-            using (var _operatorDeleteHandler = new OperatorDeleteHandler(Db, ActiveUser))
+            ProjectQuery projectQuery = new ProjectQuery();
+            bool isUse = false;
+            foreach (var id in ids)
             {
-                using (var transaction = new TransactionScope())
+                int countRow = projectQuery.CountBy("Operator_FK", id.ToString());
+                if (countRow > 0)
                 {
-                    var result = new List<DeleteResult<tblM_Operator>>();
-
-                    foreach (var id in ids)
-                    {
-                        result.Add(_operatorDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                    }
-                    transaction.Complete();
-                    SaveLog(ActiveUser.Username, "Operator_Delete", JsonConvert.SerializeObject(ids), "Success", "", "", "");
-                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    isUse = true;
+                    break;
                 }
+            }
+
+            if (!isUse)
+            {
+                using (var _operatorDeleteHandler = new OperatorDeleteHandler(Db, ActiveUser))
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                        var result = new List<DeleteResult<tblM_Operator>>();
+
+                        foreach (var id in ids)
+                        {
+                            result.Add(_operatorDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        }
+                        transaction.Complete();
+                        SaveLog(ActiveUser.Username, "Operator_Delete", JsonConvert.SerializeObject(ids), "Success", "", "", "");
+                        return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    }
+                }
+            }
+            else
+            {
+                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, "", "Operator has been use in project"));
             }
         }
     }

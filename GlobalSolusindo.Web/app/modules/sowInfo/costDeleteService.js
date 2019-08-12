@@ -23,7 +23,7 @@
             return http.delete('cost', ids).then(function (response) {
                 var res = response;
                 if (res.success) {
-                    controller.datatable.draw();
+                    controller.costDt.draw();
                     ui.alert.success(res.message, 'popup');
                 } else {
                     ui.alert.error(res.message);
@@ -43,7 +43,7 @@
 
             //Row delete button event
             $('#cost tbody').on('click', '#delete', function () {
-                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                var selectedRecord = controller.costDt.row($(this).parents('tr')).data();
                 self.delete(selectedRecord);
             }); 
         };
