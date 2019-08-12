@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.CostKategori.DML;
 using GlobalSolusindo.Business.CostKategori.EntryForm;
 using GlobalSolusindo.Business.CostKategori.Queries;
+using GlobalSolusindo.Business.Cost.Queries;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -143,20 +144,40 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            using (var costKategoriDeleteHandler = new CostKategoriDeleteHandler(Db, ActiveUser))
+            CostQuery costQuery = new CostQuery();
+            bool isUse = false;
+            foreach (var id in ids)
             {
-                using (var transaction = new TransactionScope())
+                int countRow = costQuery.CountBy("KategoriCost_FK", id.ToString());
+                if (countRow > 0)
                 {
-                    var result = new List<DeleteResult<tblM_CostKategori>>();
-
-                    foreach (var id in ids)
-                    {
-                        result.Add(costKategoriDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                    }
-                    transaction.Complete();
-                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
-                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    isUse = true;
+                    break;
                 }
+            }
+
+            if (!isUse)
+            {
+
+                using (var costKategoriDeleteHandler = new CostKategoriDeleteHandler(Db, ActiveUser))
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                        var result = new List<DeleteResult<tblM_CostKategori>>();
+
+                        foreach (var id in ids)
+                        {
+                            result.Add(costKategoriDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        }
+                        transaction.Complete();
+                        SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
+                        return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    }
+                }
+            }
+            else
+            {
+                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, "", "Cost Category has been use in Cost"));
             }
         }
     }
