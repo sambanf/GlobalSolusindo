@@ -51,6 +51,10 @@
             return role;
         }
 
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
         self.init = function (ctrl) {
             controller = ctrl;
             var titleColumnIndex = 1;
@@ -68,8 +72,14 @@
                 {
                     "data": "kategoriCostTitle"
                 },
+                //{
+                //    "data": "nominal"
+                //},
                 {
-                    "data": "nominal"
+                    "data": "nominal",
+                    "render": function (data) {
+                        return numberWithCommas(data);
+                    }
                 },
                 {
                     "data": "deskripsi"
@@ -87,7 +97,8 @@
                 }
                 ]
             });
-            controller.datatable = dt;
+            //controller.datatable = dt;
+            controller.costDt = dt;
             return dt;
         };
 

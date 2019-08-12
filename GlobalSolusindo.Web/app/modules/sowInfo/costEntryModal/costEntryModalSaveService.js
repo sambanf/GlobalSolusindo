@@ -19,6 +19,7 @@
         var self = this;
         var controller;
 
+        
         self.create = function (model) {
             http.post('cost', model).then(function (res) {
                 if (res.success) {
@@ -35,6 +36,7 @@
             http.put('cost', model).then(function (res) {
                 if (res.success) {
                     ui.alert.success(res.message);
+                    controller.modalInstance.close();
                 } else {
                     ui.alert.error(res.message);
                     validation.serverValidation(res.data.errors);

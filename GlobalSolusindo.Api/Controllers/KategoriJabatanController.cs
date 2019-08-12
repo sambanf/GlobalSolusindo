@@ -3,6 +3,7 @@ using GlobalSolusindo.Identity.KategoriJabatan;
 using GlobalSolusindo.Identity.KategoriJabatan.DML;
 using GlobalSolusindo.Identity.KategoriJabatan.EntryForm;
 using GlobalSolusindo.Identity.KategoriJabatan.Queries;
+using GlobalSolusindo.Identity.User.Queries;
 using Kairos;
 using Kairos.Data;
 using Newtonsoft.Json;
@@ -142,20 +143,40 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            using (var kategoriJabatanDeleteHandler = new KategoriJabatanDeleteHandler(Db, ActiveUser))
+            UserQuery userQuery = new UserQuery();
+            bool isUse = false;
+            foreach (var id in ids)
             {
-                using (var transaction = new TransactionScope())
+                int countRow = userQuery.CountBy("KategoriJabatan_FK", id.ToString());
+                if (countRow > 0)
                 {
-                    var result = new List<DeleteResult<tblM_KategoriJabatan>>();
-
-                    foreach (var id in ids)
-                    {
-                        result.Add(kategoriJabatanDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                    }
-                    transaction.Complete();
-                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
-                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    isUse = true;
+                    break;
                 }
+            }
+
+            if (!isUse)
+            {
+
+                using (var kategoriJabatanDeleteHandler = new KategoriJabatanDeleteHandler(Db, ActiveUser))
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                        var result = new List<DeleteResult<tblM_KategoriJabatan>>();
+
+                        foreach (var id in ids)
+                        {
+                            result.Add(kategoriJabatanDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        }
+                        transaction.Complete();
+                        SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
+                        return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    }
+                }
+            }
+            else
+            {
+                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, "", "Kategory Jabatan has been use in Master User"));
             }
         }
     }

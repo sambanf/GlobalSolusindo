@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.IssueType.DML;
 using GlobalSolusindo.Business.IssueType.EntryForm;
 using GlobalSolusindo.Business.IssueType.Queries;
+using GlobalSolusindo.Business.SOWIssue.Queries;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -141,20 +142,40 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            using (var issueTypeDeleteHandler = new IssueTypeDeleteHandler(Db, ActiveUser))
+            IssueTypeQuery issueQuery = new IssueTypeQuery();
+            bool isUse = false;
+            foreach (var id in ids)
             {
-                using (var transaction = new TransactionScope())
+                int countRow = issueQuery.CountBy("IssueType_FK", id.ToString());
+                if (countRow > 0)
                 {
-                    var result = new List<DeleteResult<tblM_IssueType>>();
-
-                    foreach (var id in ids)
-                    {
-                        result.Add(issueTypeDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                    }
-                    transaction.Complete();
-                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
-                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    isUse = true;
+                    break;
                 }
+            }
+
+            if (!isUse)
+            {
+
+                using (var issueTypeDeleteHandler = new IssueTypeDeleteHandler(Db, ActiveUser))
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                        var result = new List<DeleteResult<tblM_IssueType>>();
+
+                        foreach (var id in ids)
+                        {
+                            result.Add(issueTypeDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        }
+                        transaction.Complete();
+                        SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
+                        return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    }
+                }
+            }
+            else
+            {
+                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, "", "Issue has been use in SOW Issue"));
             }
         }
     }

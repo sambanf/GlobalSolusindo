@@ -32,7 +32,8 @@
                 }
             });
             modalInstance.result.then(function (data) {
-                controller.datatable.draw();
+                //controller.datatable.draw();
+                controller.costDt.draw();
             }, function () { });
 
             return modalInstance;
@@ -46,7 +47,7 @@
 
             //Row delete button event
             $('#cost tbody').on('click', '#view', function () {
-                var selectedRecord = controller.datatable.row($(this).parents('tr')).data();
+                var selectedRecord = controller.costDt.row($(this).parents('tr')).data();
                 openModal(selectedRecord.cost_pk);
             });
         };

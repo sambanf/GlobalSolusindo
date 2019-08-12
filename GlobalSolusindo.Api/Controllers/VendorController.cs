@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Business.Vendor;
 using GlobalSolusindo.Business.Vendor.EntryForm;
+using GlobalSolusindo.Business.Project;
 using GlobalSolusindo.DataAccess;
 using Kairos;
 using Kairos.Data;
@@ -139,20 +140,40 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            using (var vendorDeleteHandler = new VendorDeleteHandler(Db, ActiveUser))
+            ProjectQuery projectQuery = new ProjectQuery();
+            bool isUse = false;
+            foreach (var id in ids)
             {
-                using (var transaction = new TransactionScope())
+                int countRow = projectQuery.CountBy("Vendor_FK", id.ToString());
+                if (countRow > 0)
                 {
-                    var result = new List<DeleteResult<tblM_Vendor>>();
-
-                    foreach (var id in ids)
-                    {
-                        result.Add(vendorDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
-                    }
-                    transaction.Complete();
-                    SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
-                    return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    isUse = true;
+                    break;
                 }
+            }
+
+            if (!isUse)
+            {
+
+                using (var vendorDeleteHandler = new VendorDeleteHandler(Db, ActiveUser))
+                {
+                    using (var transaction = new TransactionScope())
+                    {
+                        var result = new List<DeleteResult<tblM_Vendor>>();
+
+                        foreach (var id in ids)
+                        {
+                            result.Add(vendorDeleteHandler.Execute(id, Base.DeleteMethod.Soft));
+                        }
+                        transaction.Complete();
+                        SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
+                        return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
+                    }
+                }
+            }
+            else
+            {
+                return Ok(new ErrorResponse(ServiceStatusCode.ValidationError, "", "Vendor has been use in project"));
             }
         }
     }
