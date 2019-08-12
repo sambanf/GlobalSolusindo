@@ -178,8 +178,10 @@
     <Compile Include="MobileControllers\TimesheetMonthlyController.cs" />
     <Compile Include="Models\AbstractDataExport.cs" />
     <Compile Include="Models\AbstractDataExportBridge.cs" />
+    <Compile Include="Models\ActivityDTO.cs" />
     <Compile Include="Models\LOVDTO.cs" />
     <Compile Include="Models\BTSExport.cs" />
+    <Compile Include="Models\ActivityExport.cs" />
     <Compile Include="Models\SOWExport.cs" />
     <Compile Include="Models\SOWExportDTOViewNonPO.cs" />
     <Compile Include="Models\SOWExportDTOViewAll.cs" />

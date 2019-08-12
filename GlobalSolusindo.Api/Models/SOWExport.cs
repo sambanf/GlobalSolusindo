@@ -248,11 +248,7 @@ namespace GlobalSolusindo.Api.Models
                         }
                         var worksheetUserDT = workbook.AddWorksheet(validationTableUserDT);
                         worksheet.Column(17).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
-
                     }
-
-
-
                 }
 
             }
@@ -281,7 +277,7 @@ namespace GlobalSolusindo.Api.Models
             _fileName = fileName;
             //CREATE WORKBOOK
             var workbook = new XLWorkbook();
-            DataTable SOW = new DataTable("SOWUpload"); //DataTable Name = Worksheet Name
+            DataTable SOW = new DataTable("SOWTracker"); //DataTable Name = Worksheet Name
 
             AccessControl ac = new AccessControl(Db, user);
             if (ac.UserHasRole("SOWPO_View"))
@@ -458,7 +454,6 @@ namespace GlobalSolusindo.Api.Models
             }
             var worksheet = workbook.AddWorksheet(SOW);
             worksheet.Columns().Width = 15;
-            worksheet.Columns(7,10).CellsUsed().SetDataType(XLDataType.DateTime);
 
 
             MemoryStream memoryStream = GetStream(workbook);

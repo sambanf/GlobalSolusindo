@@ -16,6 +16,7 @@ namespace GlobalSolusindo.Api.Models
         public string SOW { get; set; }
         public string Long { get; set; }
         public string lat { get; set; }
+        public string CODate { get; set; }
         public string AssignDate { get; set; }
         public string SSVDate { get; set; }
         public string SSODate { get; set; }
