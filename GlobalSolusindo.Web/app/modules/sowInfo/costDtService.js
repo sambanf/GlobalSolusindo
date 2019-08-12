@@ -13,7 +13,7 @@
         .module('global-solusindo')
         .factory('costDtService', costDtService);
 
-    costDtService.$inject = ['DatatableService','HttpService'];
+    costDtService.$inject = ['DatatableService', 'HttpService'];
 
     function costDtService(ds, http) {
         var self = this;
@@ -36,7 +36,7 @@
                 dlt = 'visible';
             }
         })
-        
+
         function setRole(roles, roleName) {
 
             var role = false;
@@ -72,9 +72,9 @@
                 {
                     "data": "kategoriCostTitle"
                 },
-                //{
-                //    "data": "nominal"
-                //},
+                {
+                    "data": "tanggal"
+                },
                 {
                     "data": "nominal",
                     "render": function (data) {
@@ -85,14 +85,11 @@
                     "data": "deskripsi"
                 },
                 {
-                    "data": "tanggal"
-                },
-                {
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
+                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view + "'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt + "'><i class='fa fa-trash-alt'></i></button>"
                     }
                 }
                 ]
