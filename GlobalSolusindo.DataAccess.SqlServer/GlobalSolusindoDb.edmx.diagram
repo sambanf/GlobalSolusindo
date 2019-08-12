@@ -35,7 +35,6 @@
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_User" Width="1.5" PointX="5.25" PointY="29" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Vendor" Width="1.5" PointX="11.75" PointY="12.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_AsetHistori" Width="1.5" PointX="7.5" PointY="24.625" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_CheckIn" Width="1.5" PointX="13.75" PointY="4.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_Cost" Width="1.5" PointX="13.75" PointY="10.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_IzinCuti" Width="1.5" PointX="13.75" PointY="14.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_PO" Width="1.5" PointX="15.75" PointY="0.75" />
@@ -71,10 +70,12 @@
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_User_UserDetail_FK" />
         <AssociationConnector Association="GlobalSolusindoModel.FK_tblM_UserHistori_UserDetail_FK" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_SOW" Width="1.5" PointX="12.375" PointY="19.75" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.vw_SOWLink" Width="1.5" PointX="21.375" PointY="10.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_SOWName" Width="1.5" PointX="21.375" PointY="14.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_LogActivity" Width="1.5" PointX="19.375" PointY="18.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.vw_SOWViewAll" Width="1.5" PointX="20.375" PointY="0.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.vw_SOWIssue" Width="1.5" PointX="14.375" PointY="21.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_CheckIn" Width="1.5" PointX="16.375" PointY="21.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.vw_SOWLink" Width="1.5" PointX="21.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Business.BTS;
 using GlobalSolusindo.Business.SOWAssign;
+using GlobalSolusindo.Business.SOWIssue;
 using GlobalSolusindo.Identity.User;
 using Newtonsoft.Json;
 
@@ -18,5 +19,8 @@ namespace GlobalSolusindo.Business.TaskEngineerDetail
 
         [JsonProperty("cellidstatus")]
         public bool? CellIDStatus { get; set; }
+
+        [JsonProperty("sOWIssue")]
+        public SOWIssueDTO sOWIssue { get; set; }
     }
 }

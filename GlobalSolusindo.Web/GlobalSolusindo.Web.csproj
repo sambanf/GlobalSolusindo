@@ -182,6 +182,7 @@
     <Content Include="app\modules\sowImportExcel\sowImportExcelCtrl.js" />
     <Content Include="app\modules\sowImportExcel\sowImportExcelRoute.js" />
     <Content Include="app\modules\sowImportExcel\sowImportExcelUploadService.js" />
+    <Content Include="app\modules\sowInfo\sowIssueDtService.js" />
     <Content Include="app\modules\sowInfo\sowlinkDtService.js" />
     <Content Include="app\modules\userHistory\userHistoryDetail.html" />
     <Content Include="app\modules\userHistory\userHistory.html" />

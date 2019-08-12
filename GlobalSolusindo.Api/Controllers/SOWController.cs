@@ -264,6 +264,21 @@ namespace GlobalSolusindo.Api.Controllers
 
         }
 
+        [Route("sow/issue")]
+        [HttpGet]
+        public IHttpActionResult Issue([FromUri]CostSearchFilter filter)
+        {
+            ThrowIfUserHasNoRole(readRole);
+
+            using (var sowSearch = new TaskListSearch(Db))
+            {
+                var data = sowSearch.GetIssue(filter);
+                SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(filter), "Success", "", "", "");
+                return Ok(new SuccessResponse(data));
+            }
+
+        }
+
 
         [Route("sow/sowname")]
         [HttpGet]

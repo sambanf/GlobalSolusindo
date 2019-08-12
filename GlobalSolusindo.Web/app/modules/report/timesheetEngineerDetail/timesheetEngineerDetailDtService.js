@@ -79,7 +79,8 @@
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view +"'>Detail</button>";
+                            return "<button id='view' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view + "'>Detail</button>";
+                            return "<button id='download' rel='tooltip' title='Detail' data-placement='left' class='btn btn-info' style='visibility:" + view + "'>Download</button>"
                         }
                     }
                 ],

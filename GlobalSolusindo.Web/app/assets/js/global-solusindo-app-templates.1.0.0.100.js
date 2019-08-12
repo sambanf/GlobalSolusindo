@@ -6300,7 +6300,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                        </div>sq\r" +
+    "                        </div>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -6748,7 +6748,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                    <div class=\"card-title\">Problem</div>\r" +
+    "                                    <div class=\"card-title\">Issue</div>\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -6758,9 +6758,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <div class=\"row\">\r" +
     "\n" +
-    "                                            <label class=\"control-label col-sm-3\">Problem Cause </label>\r" +
+    "                                            <label class=\"control-label col-sm-3\">Issue Cause </label>\r" +
     "\n" +
-    "                                            <label class=\"control-label col-sm-9\" id=\"userId\" name=\"userId\">{{vm.user.sebabKendala}}</label>\r" +
+    "                                            <label class=\"control-label col-sm-9\" id=\"userId\" name=\"userId\">{{vm.sOWIssue.issuename}}</label>\r" +
     "\n" +
     "                                        </div>\r" +
     "\n" +
@@ -6768,7 +6768,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                            <label class=\"control-label col-sm-3\">Reason</label>\r" +
     "\n" +
-    "                                            <label class=\"control-label col-sm-9\" id=\"alasan\" name=\"alasan\">{{vm.user.alasan}}</label>\r" +
+    "                                            <label class=\"control-label col-sm-9\" id=\"alasan\" name=\"alasan\">{{vm.sOWIssue.description}}</label>\r" +
     "\n" +
     "                                        </div>\r" +
     "\n" +
@@ -8621,7 +8621,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-md-6\">\r" +
     "\n" +
-    "                                    <label class=\"control-label col-sm-3\">Tanggal:</label>\r" +
+    "                                    <label class=\"control-label col-sm-3\">Assign Date:</label>\r" +
     "\n" +
     "                                    <label class=\"control-label col-sm-6\" id=\"tglMulai\" name=\"tglMulai\">{{vm.model.tglMulai | date: 'dd-MM-yyyy'}}</label>\r" +
     "\n" +
@@ -8719,7 +8719,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <div class=\"row\">\r" +
     "\n" +
-    "                                        <label class=\"control-label col-sm-3\">Alamat</label>\r" +
+    "                                        <label class=\"control-label col-sm-3\">Address</label>\r" +
     "\n" +
     "                                        <label class=\"control-label col-sm-6\" id=\"alamat\" name=\"alamat\">{{vm.model.btsInfo.alamat}}</label>\r" +
     "\n" +
@@ -8829,25 +8829,65 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"card\">\r" +
     "\n" +
-    "                            <div class=\"card-title\">Link Pekerjaan</div>\r" +
+    "                            <div class=\"card-title\">Task Link</div>\r" +
     "\n" +
     "                            <div class=\"row\">\r" +
     "\n" +
     "                                <div class=\"col-md-12\">\r" +
     "\n" +
-    "                                    <table id=\"powview\">\r" +
+    "                                    <table id=\"link\">\r" +
     "\n" +
     "                                        <thead>\r" +
     "\n" +
     "                                            <tr>\r" +
     "\n" +
-    "                                                <th>Jabatan</th>\r" +
+    "                                                <th>Position</th>\r" +
     "\n" +
-    "                                                <th>Nama</th>\r" +
+    "                                                <th>Name</th>\r" +
     "\n" +
     "                                                <th>Link / SSO</th>\r" +
     "\n" +
     "                                                <th>SSV</th>\r" +
+    "\n" +
+    "                                            </tr>\r" +
+    "\n" +
+    "                                        </thead>\r" +
+    "\n" +
+    "                                    </table>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                    </div>\r" +
+    "\n" +
+    "                </div>\r" +
+    "\n" +
+    "\r" +
+    "\n" +
+    "                <div class=\"row\">\r" +
+    "\n" +
+    "                    <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                        <div class=\"card\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">Issue List</div>\r" +
+    "\n" +
+    "                            <div class=\"row\">\r" +
+    "\n" +
+    "                                <div class=\"col-md-12\">\r" +
+    "\n" +
+    "                                    <table id=\"sowissue\">\r" +
+    "\n" +
+    "                                        <thead>\r" +
+    "\n" +
+    "                                            <tr>\r" +
+    "\n" +
+    "                                                <th>Position</th>\r" +
+    "\n" +
+    "                                                <th>Issue</th>\r" +
     "\n" +
     "                                            </tr>\r" +
     "\n" +
@@ -9268,7 +9308,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Project :</label><label class=\"col-sm-8\">{{ model.project }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Project :</label><label class=\"col-sm-8\">{{ model.projectName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
@@ -9298,25 +9338,25 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Religion :</label><label class=\"col-sm-8\">{{ model.religion }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Religion :</label><label class=\"col-sm-8\">{{ model.religionName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Category Contract :</label><label class=\"col-sm-8\">{{ model.categoryContract }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Category Contract :</label><label class=\"col-sm-8\">{{ model.categoryContractName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Gender :</label><label class=\"col-sm-8\">{{ model.gender }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Gender :</label><label class=\"col-sm-8\">{{ model.genderName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +
     "            <div class=\"row form-group\">\r" +
     "\n" +
-    "                <label class=\"control-label col-sm-4 text-right\">Marital Status :</label><label class=\"col-sm-8\">{{ model.maritalStatus }}</label>\r" +
+    "                <label class=\"control-label col-sm-4 text-right\">Marital Status :</label><label class=\"col-sm-8\">{{ model.maritalStatusName }}</label>\r" +
     "\n" +
     "            </div>\r" +
     "\n" +

@@ -13,7 +13,7 @@
         .module('global-solusindo')
         .factory('sowlinkDtService', sowlinkDtService);
 
-    sowlinkDtService.$inject = ['DatatableService','HttpService'];
+    sowlinkDtService.$inject = ['DatatableService', 'HttpService'];
 
     function sowlinkDtService(ds, http) {
         var self = this;
@@ -28,8 +28,10 @@
                     pageSize: 10,
                     sow_fk: controller.stateParam.id
                 },
-                order: [titleColumnIndex, "asc"],
                 columns: [{
+                    "data": "nama"
+                },
+                {
                     "data": "jabatan"
                 },
                 {

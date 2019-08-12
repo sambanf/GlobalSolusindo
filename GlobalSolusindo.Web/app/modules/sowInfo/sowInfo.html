@@ -12,7 +12,7 @@
                                     <label class="control-label col-sm-6" id="sowName" name="sowName">{{vm.model.sowName}}</label>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="control-label col-sm-3">Tanggal:</label>
+                                    <label class="control-label col-sm-3">Assign Date:</label>
                                     <label class="control-label col-sm-6" id="tglMulai" name="tglMulai">{{vm.model.tglMulai | date: 'dd-MM-yyyy'}}</label>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                             <label class="control-label col-sm-6" id="cabangTitle" name="cabangTitle">{{vm.model.btsInfo.cabangTitle}}</label>
                         </div>-->
                                     <div class="row">
-                                        <label class="control-label col-sm-3">Alamat</label>
+                                        <label class="control-label col-sm-3">Address</label>
                                         <label class="control-label col-sm-6" id="alamat" name="alamat">{{vm.model.btsInfo.alamat}}</label>
                                     </div>
                                 </div>
@@ -116,16 +116,38 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-title">Link Pekerjaan</div>
+                            <div class="card-title">Task Link</div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <table id="powview">
+                                    <table id="link">
                                         <thead>
                                             <tr>
-                                                <th>Jabatan</th>
-                                                <th>Nama</th>
+                                                <th>Id</th>
+                                                <th>Position</th>
+                                                <th>Name</th>
                                                 <th>Link / SSO</th>
                                                 <th>SSV</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-title">Issue List</div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table id="sowissue">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Position</th>
+                                                <th>Issue</th>
                                             </tr>
                                         </thead>
                                     </table>

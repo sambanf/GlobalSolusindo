@@ -32,6 +32,7 @@
                     controller.user = res.data.user;
                     controller.bts = res.data.bts;
                     controller.cellid = res.data.cellidstatus;
+                    controller.sOWIssue = res.data.sOWIssue;
                     resolve(res);
                 });
             });

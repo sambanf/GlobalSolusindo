@@ -22,6 +22,9 @@ namespace GlobalSolusindo.Business.SOWIssue
         [ForeignKey(typeof(IssueTypeQuery), "IssueType_PK")]
         public int? IssueType_FK { get; set; }
 
+        [JsonProperty("issuename")]
+        public string Issuename { get; set; }
+
         [Required]
         [JsonProperty("description")] 
         public string Description { get; set; }
