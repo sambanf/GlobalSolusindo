@@ -30,7 +30,8 @@ namespace GlobalSolusindo.Business.DailyTask.Queries
                 Status = x.Status,
                 UserId = x.UserId,
                 UserName = x.UserName,
-                User_FK = x.User_FK
+                User_FK = x.User_FK,
+                Project_FK = x.Project_FK
             });
             return records.ToList();
         }

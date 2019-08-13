@@ -80,7 +80,8 @@ namespace GlobalSolusindo.Api.Controllers
             ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
-
+                var user = ActiveUser;
+                filter.User = user;
             using (var taskEngineerSearch = new TaskEngineerSearch(Db))
             {
                 var data = taskEngineerSearch.GetDataByFilter(filter);
@@ -109,7 +110,8 @@ namespace GlobalSolusindo.Api.Controllers
             ThrowIfUserHasNoRole(readRole);
             if (filter == null)
                 throw new KairosException("Missing search filter parameter");
-
+                var user = ActiveUser;
+                filter.User = user;
             using (var dailyTaskSearch = new DailyTaskSearch(Db))
             {
                 var data = dailyTaskSearch.GetDataByFilter(filter);

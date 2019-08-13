@@ -17,6 +17,7 @@ namespace GlobalSolusindo.DataAccess
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string KategoriJabatanTitle { get; set; }
+        public int Project_FK { get; set; }
         public string Status { get; set; }
     }
 }

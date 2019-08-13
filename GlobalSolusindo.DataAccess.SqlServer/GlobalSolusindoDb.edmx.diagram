@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f5a9a44fc50b4cf2ba757bd6dea45af3" Name="Diagram1" ZoomLevel="67">
+      <Diagram DiagramId="f5a9a44fc50b4cf2ba757bd6dea45af3" Name="Diagram1" ZoomLevel="133">
         <EntityTypeShape EntityType="GlobalSolusindoModel.DocumentNumber" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Area" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_Aset" Width="1.5" PointX="5.25" PointY="33.25" />
@@ -73,9 +73,9 @@
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblM_SOWName" Width="1.5" PointX="21.375" PointY="14.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_LogActivity" Width="1.5" PointX="19.375" PointY="18.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.vw_SOWViewAll" Width="1.5" PointX="20.375" PointY="0.75" />
-        <EntityTypeShape EntityType="GlobalSolusindoModel.vw_SOWIssue" Width="1.5" PointX="14.375" PointY="21.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.tblT_CheckIn" Width="1.5" PointX="16.375" PointY="21.75" />
         <EntityTypeShape EntityType="GlobalSolusindoModel.vw_SOWLink" Width="1.5" PointX="21.375" PointY="10.75" />
+        <EntityTypeShape EntityType="GlobalSolusindoModel.vw_SOWIssue" Width="1.5" PointX="21.375" PointY="18.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

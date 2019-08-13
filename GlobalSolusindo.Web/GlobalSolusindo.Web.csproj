@@ -84,12 +84,14 @@
     <Content Include="app\assets\images\avatars\8.jpg" />
     <Content Include="app\assets\images\avatars\9.jpg" />
     <Content Include="app\assets\images\avatars\default.png" />
+    <Content Include="app\assets\images\blank-img.jpg" />
     <Content Include="app\assets\images\caret-right.png" />
     <Content Include="app\assets\images\cd-icons.svg" />
     <Content Include="app\assets\images\chart-1.png" />
     <Content Include="app\assets\images\chart-2.png" />
     <Content Include="app\assets\images\chart-3.png" />
     <Content Include="app\assets\images\chart-4.png" />
+    <Content Include="app\assets\images\default-large.png" />
     <Content Include="app\assets\images\default.png" />
     <Content Include="app\assets\images\favicon.ico" />
     <Content Include="app\assets\images\favicon.png" />
