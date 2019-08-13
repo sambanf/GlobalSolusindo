@@ -23,30 +23,6 @@
         var view = 'hidden';
         var dlt = 'hidden';
         var approval = 'hidden';
-
-        http.get('dashboard/getRole', {
-            dashboard: ''
-        }, true).then(function (res) {
-
-            var readRole = "SOW_ViewAll";
-            var updateRole = "SOW_Edit";
-            var deleteRole = "SOW_Delete";
-            var approvalRole = "SOW_Approval";
-
-            if (setRole(res.data, updateRole)) {
-                view = 'visible';
-            }
-            if (setRole(res.data, deleteRole)) {
-                dlt = 'visible';
-            }
-            if (setRole(res.data, readRole)) {
-                show = 'visible';
-            }
-            if (setRole(res.data, approvalRole)) {
-                approval = 'visible';
-            }
-        })
-        
         function setRole(roles, roleName) {
 
             var role = false;
@@ -62,52 +38,77 @@
         }
 
         self.init = function (ctrl) {
-            controller = ctrl;
-            var sortColumnIndex = 3;
-            var dt = ds.init("#sow", "sow/search", {
-                extendRequestData: {
-                    pageIndex: 1,
-                    pageSize: 10
-                },
-                order: [sortColumnIndex, "desc"],
-                columns: [
-                    {
-                        "orderable": false,
-                        "data": "sow_pk"
+
+            http.get('dashboard/getRole', {
+                dashboard: ''
+            }, true).then(function (res) {
+
+                var readRole = "SOW_ViewAll";
+                var updateRole = "SOW_Edit";
+                var deleteRole = "SOW_Delete";
+                var approvalRole = "SOW_Approval";
+
+                if (setRole(res.data, updateRole)) {
+                    view = 'visible';
+                }
+                if (setRole(res.data, deleteRole)) {
+                    dlt = 'visible';
+                }
+                if (setRole(res.data, readRole)) {
+                    show = 'visible';
+                }
+                if (setRole(res.data, approvalRole)) {
+                    approval = 'visible';
+                }
+
+                controller = ctrl;
+                var sortColumnIndex = 3;
+                var dt = ds.init("#sow", "sow/search", {
+                    extendRequestData: {
+                        pageIndex: 1,
+                        pageSize: 10
                     },
-                    {
-                        "data": "sowName"
-                    },
-                    {
-                        "data": "btsName"
-                    },
-                    {
-                        "data": "tglMulai",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
-                    },
-                    {
-                        "data": "sowStatusTitle"
-                    },
-                    {
-                        "orderable": false,
-                        "className": "text-center",
-                        "render": function (data) {
-                            return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
+                    order: [sortColumnIndex, "desc"],
+                    columns: [
+                        {
+                            "orderable": false,
+                            "data": "sow_pk"
+                        },
+                        {
+                            "data": "sowName"
+                        },
+                        {
+                            "data": "btsName"
+                        },
+                        {
+                            "data": "tglMulai",
+                            "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
+                        },
+                        {
+                            "data": "sowStatusTitle"
+                        },
+                        {
+                            "orderable": false,
+                            "className": "text-center",
+                            "render": function (data) {
+                                return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show + "'><i class='fa fa-info'></i></button> " +
+                                    "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view + "'><i class='fas fa-pencil-alt'></i></button> " +
+                                    "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt + "'><i class='fa fa-trash-alt'></i></button>"
+                            }
+                        },
+                        {
+                            "orderable": false,
+                            "className": "text-center",
+                            "render": function (data) {
+                                return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval + "'>Approval</button>";
+                            }
                         }
-                    },
-                    {
-                        "orderable": false,
-                        "className": "text-center",
-                        "render": function (data) {
-                            return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval +"'>Approval</button>";
-                        }
-                    }
-                ]
-            });
-            controller.datatable = dt;
-            return dt;
+                    ]
+                });
+                controller.datatable = dt;
+                return dt;
+            })
+
         };
 
         return self;

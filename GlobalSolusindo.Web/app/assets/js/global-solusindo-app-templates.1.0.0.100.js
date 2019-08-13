@@ -5992,7 +5992,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Back</button>\r" +
     "\n" +
     "</div>\r" +
     "\n" +
@@ -7267,7 +7267,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "<div class=\"modal-footer\">\r" +
     "\n" +
-    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Kembali</button>\r" +
+    "    <button class=\"btn btn-warning\" type=\"button\" ng-click=\"close()\">Back</button>\r" +
     "\n" +
     "</div>"
   );
@@ -8649,7 +8649,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <div class=\"row\">\r" +
     "\n" +
-    "                                        <label class=\"control-label col-sm-3\">Tower ID</label>\r" +
+    "                                        <label class=\"control-label col-sm-3\">Site ID PO</label>\r" +
     "\n" +
     "                                        <label class=\"control-label col-sm-6\" id=\"towerId\" name=\"towerId\">{{vm.model.btsInfo.towerId}}</label>\r" +
     "\n" +
@@ -9027,13 +9027,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                                <th>No</th>\r" +
     "\n" +
-    "                                                <th>Kategori</th>\r" +
+    "                                                <th>Category</th>\r" +
+    "\n" +
+    "                                                <th>Input Date</th>\r" +
     "\n" +
     "                                                <th>Nominal</th>\r" +
     "\n" +
-    "                                                <th>Deskripsi</th>\r" +
-    "\n" +
-    "                                                <th>Tanggal Input</th>\r" +
+    "                                                <th>Description</th>\r" +
     "\n" +
     "                                                <th>Action</th>\r" +
     "\n" +
