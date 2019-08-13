@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-12. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-13. 
 * @author Kairos
 */
 (function() {
@@ -2318,8 +2318,6 @@ angular.module('global-solusindo')
             document.getElementById("addButton").style.visibility = "hidden";
             document.getElementById("deleteButton").style.visibility = "hidden";
             document.getElementById("importButton").style.visibility = "hidden";
-            document.getElementById("exportButtons").style.visibility = "visible";
-            
 
             setRole(res.data, "addButton", createRole);
             setRole(res.data, "deleteButton", deleteRole);
@@ -3894,10 +3892,12 @@ angular.module('global-solusindo')
     */
 
     function LoginCtrl($scope, $state, serverError, localStorage, $cookies, ui, http, $window, userInfoService) {
+        window.location.reload(true)
         /*jshint validthis: true */
         var self = this;
 
         self.model = {};
+
 
         function setTokenInfo(token) {
             $cookies.put('token', token);
@@ -8540,7 +8540,6 @@ angular.module('global-solusindo')
         function setMarkers(map) {
             for (var i = 0; i < cities.length; i++) {
                 var city = cities[i];
-                console.log(city);
                 var name = city[0];
                 var operator = city[4];
                 var status = city[5];
@@ -17104,7 +17103,10 @@ angular.module('global-solusindo')
                         title: title
                     }
                 ]
-            }).container().appendTo($('#exportButtons'));
+            }).container();
+
+            buttons.appendTo($('#exportButtons'));
+            $("<p>Test</p>").appendTo("#exportButtons");
 
             $('#exportButtons')[0].childNodes[1].classList.remove("dt-buttons");
 
@@ -17350,8 +17352,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
         //var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
-        var base_url = "http://localhost/GlobalAPI/";
+        var base_url = "http://globaloneapidev.kairos-it.com/";
+        //var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
 
@@ -19167,7 +19169,7 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('costDtService', costDtService);
 
-    costDtService.$inject = ['DatatableService','HttpService'];
+    costDtService.$inject = ['DatatableService', 'HttpService'];
 
     function costDtService(ds, http) {
         var self = this;
@@ -19190,7 +19192,7 @@ angular.module('global-solusindo')
                 dlt = 'visible';
             }
         })
-        
+
         function setRole(roles, roleName) {
 
             var role = false;
@@ -19226,9 +19228,9 @@ angular.module('global-solusindo')
                 {
                     "data": "kategoriCostTitle"
                 },
-                //{
-                //    "data": "nominal"
-                //},
+                {
+                    "data": "tanggal"
+                },
                 {
                     "data": "nominal",
                     "render": function (data) {
@@ -19239,14 +19241,11 @@ angular.module('global-solusindo')
                     "data": "deskripsi"
                 },
                 {
-                    "data": "tanggal"
-                },
-                {
                     "orderable": false,
                     "className": "text-center",
                     "render": function (data) {
-                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
-                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
+                        return "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view + "'><i class='fas fa-pencil-alt'></i></button> " +
+                            "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt + "'><i class='fa fa-trash-alt'></i></button>"
                     }
                 }
                 ]

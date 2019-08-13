@@ -51,6 +51,7 @@
         nav.logout = function () {
             http.post('/logout', {}).then(function (response) {
                 state.go('login');
+                window.location.reload(true);
             });
             resetApplicationData();
         }

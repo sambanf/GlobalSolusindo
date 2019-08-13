@@ -64,6 +64,7 @@
         }
 
         self.init = function dt(selector, apiUrl, param) {
+            
             var defaultDom = "lftip";
 
             var dt = $(selector).DataTable({
@@ -76,7 +77,7 @@
                 scrolly: true,
                 scrollX: true,
                 scrollCollapse: true,
-                stateSave: param.stateSave === undefined ? true : param.stateSave,
+                stateSave: param.stateSave,
                 stateLoadParams: function (settings, data) {
                     data.search.search = "";
                 },
