@@ -32,7 +32,9 @@
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
-                        validation.serverValidation(res.data.errors);
+                        var error = changeValueValidation(res.data.errors)
+                        validation.serverValidation(error);
+                        //validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -45,7 +47,8 @@
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
-                        validation.serverValidation(res.data.errors);
+                        var error = changeValueValidation(res.data.errors)
+                        validation.serverValidation(error);
                 }
             });
         };
@@ -65,6 +68,25 @@
                 self.save(controller.model);
             });
         };
+
+        function changeValueValidation(data)
+        {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].propertyName == 'Operator_FK'){
+                    data[i].message = 'The Operator field is required'
+                }
+                if (data[i].propertyName == 'Vendor_FK') {
+                    data[i].message = 'The Vendor field is required'
+                }
+                if (data[i].propertyName == 'DeliveryArea_FK') {
+                    data[i].message = 'The Delivery Area field is required'
+                }
+                if (data[i].propertyName == 'User_FK') {
+                    data[i].message = 'The User field is required'
+                }
+            }
+            return data;
+        }
 
         return self;
     }

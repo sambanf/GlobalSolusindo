@@ -32,7 +32,8 @@
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
-                        validation.serverValidation(res.data.errors);
+                    var error = changeValueValidation(res.data.errors);
+                    validation.serverValidation(error);
                 }
             });
         };
@@ -45,7 +46,8 @@
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
-                        validation.serverValidation(res.data.errors);
+                    var error = changeValueValidation(res.data.errors);
+                    validation.serverValidation(error);
                 }
             });
         };
@@ -65,6 +67,15 @@
                 self.save(controller.model);
             });
         };
+
+        function changeValueValidation(data) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].propertyName == 'Alasan') {
+                    data[i].message = 'The Reason field is required'
+                }
+            }
+            return data;
+        }
 
         return self;
     }

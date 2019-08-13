@@ -38,6 +38,7 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
                         assign.Status_FK != deleted
                         && assign.User_FK != 0
                         && assign.User_FK != null
+                        && (user.KategoriJabatan_FK == 1 || user.KategoriJabatan_FK == 2 || user.KategoriJabatan_FK == 3 || user.KategoriJabatan_FK == 5 || user.KategoriJabatan_FK == 6)
                         select new TaskEngineerDTO
                         {
                             SOWAssign_FK = assign.SOWAssign_PK,
@@ -50,12 +51,13 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
                             KategoriJabatanTitle = jabatan.Title,
                             BTS_FK = sow.BTS_FK,
                             BTSName = bts.Name,
-                            TaskStatus = "N/A",
+                            TaskStatus = "Waiting Task",
                             CreatedBy = assign.CreatedBy,
                             CreatedDate = assign.CreatedDate,
                             UpdatedBy = assign.UpdatedBy,
                             UpdatedDate = assign.UpdatedDate,
-                            Status_FK = assign.Status_FK
+                            Status_FK = assign.Status_FK,
+                            Project_FK = sow.Project_FK ?? 0
                         };
 
             return query;

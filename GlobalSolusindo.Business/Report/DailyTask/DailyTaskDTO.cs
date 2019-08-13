@@ -17,9 +17,12 @@ namespace GlobalSolusindo.Business.DailyTask
          
         [JsonProperty("kategoriJabatanTitle")]
         public string KategoriJabatanTitle { get; set; }
-         
+
+        [JsonProperty("project_fk")]
+        public int Project_FK { get; set; }
 
         [JsonProperty("status")]
         public string Status { get; set; }
+
     }
 }

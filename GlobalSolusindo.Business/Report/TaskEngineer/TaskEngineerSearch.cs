@@ -3,6 +3,7 @@ using GlobalSolusindo.DataAccess;
 using Kairos.Data;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace GlobalSolusindo.Business.TaskEngineer.Queries
@@ -35,6 +36,8 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
 
         [JsonProperty("timeFilter")]
         public TaskEngineerTimeFilter TimeFilter { get; set; }
+
+        public tblM_User User { get; set; }
     }
 
     public class TaskEngineerSearch : QueryBase
@@ -105,6 +108,49 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
                     break;
             }
 
+
+            var jabatan = GetJabatan(filter.User);
+            if (jabatan == null)
+            {
+                filteredRecords =
+                taskEngineerQuery.GetQuery()
+                .Where(taskEngineer =>
+                    taskEngineer.AssignNumber.Contains(filter.Keyword)
+                    || taskEngineer.UserId.Contains(filter.Keyword)
+                    || taskEngineer.UserName.Contains(filter.Keyword)
+                    || taskEngineer.KategoriJabatanTitle.Contains(filter.Keyword)
+                    || taskEngineer.BTSName.Contains(filter.Keyword)
+                    );
+            }
+            else
+            {
+                if (!JabatanIsHRDorEssarorBOD(jabatan))
+                {
+                    if (JabatanIsProjectManager(jabatan) || JabatanIsTeamLead(jabatan) || JabatanIsDTCoor(jabatan))
+                    {
+                        var projectIds = GetProjectIds(jabatan, filter.User);
+                        if (projectIds != null)
+                        {
+                            filteredRecords = filteredRecords.Where(x => projectIds.Contains(x.Project_FK));
+                        }
+                    }
+                    else
+                    {
+                        filteredRecords =
+                        taskEngineerQuery.GetQuery()
+                        .Where(taskEngineer =>
+                            taskEngineer.AssignNumber.Contains(filter.Keyword)
+                            || taskEngineer.UserId.Contains(filter.Keyword)
+                            || taskEngineer.UserName.Contains(filter.Keyword)
+                            || taskEngineer.KategoriJabatanTitle.Contains(filter.Keyword)
+                            || taskEngineer.BTSName.Contains(filter.Keyword)
+                            );
+                            }
+                }
+            }
+
+
+
             var displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)
                 .Skip(filter.Skip)
@@ -119,6 +165,66 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
             searchResult.Records = displayedRecords;
 
             return searchResult;
+        }
+
+        private tblM_KategoriJabatan GetJabatan(tblM_User user)
+        {
+            var jabatan = Db.tblM_KategoriJabatan.Find(user.KategoriJabatan_FK);
+            return jabatan;
+        }
+
+        private bool JabatanIsProjectManager(tblM_KategoriJabatan jabatan)
+        {
+            return jabatan.Title.ToLower().Contains("pm") ||
+                jabatan.Title.ToLower().Contains("project manager");
+        }
+
+        private bool JabatanIsTeamLead(tblM_KategoriJabatan jabatan)
+        {
+            return jabatan.Title.ToLower().Contains("tl") ||
+                jabatan.Title.ToLower().Contains("team lead");
+        }
+
+        private bool JabatanIsHRDorEssarorBOD(tblM_KategoriJabatan jabatan)
+        {
+            return jabatan.Title.ToLower().Contains("bod")
+                || jabatan.Title.ToLower().Contains("hrd");
+        }
+        private bool JabatanIsDTCoor(tblM_KategoriJabatan jabatan)
+        {
+            return jabatan.Title.ToLower().Contains("dt coordinator");
+        }
+        public List<int> GetProjectIds(tblM_KategoriJabatan jabatan, tblM_User user)
+        {
+            if (JabatanIsTeamLead(jabatan))
+            {
+                var projectIds = Db.tblM_UserDetail
+                    .Where(x => x.Project != null && x.UserDetail_PK == user.UserDetail_FK)
+                    .Select(x => x.Project.Value)
+                    .ToList();
+
+                return projectIds;
+            }
+
+            if (JabatanIsProjectManager(jabatan))
+            {
+                var projectIds = Db.tblM_Project
+                    .Where(x => x.User_FK == user.User_PK)
+                    .Select(x => x.Project_PK)
+                    .ToList();
+
+                return projectIds;
+            }
+            if (JabatanIsDTCoor(jabatan))
+            {
+                var projectIds = Db.tblM_UserDetail
+                    .Where(x => x.Project != null && x.UserDetail_PK == user.UserDetail_FK)
+                    .Select(x => x.Project.Value)
+                    .ToList();
+
+                return projectIds;
+            }
+            return null;
         }
     }
 }
