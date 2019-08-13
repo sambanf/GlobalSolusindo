@@ -2318,6 +2318,8 @@ angular.module('global-solusindo')
             document.getElementById("addButton").style.visibility = "hidden";
             document.getElementById("deleteButton").style.visibility = "hidden";
             document.getElementById("importButton").style.visibility = "hidden";
+            document.getElementById("exportButtons").style.visibility = "visible";
+            
 
             setRole(res.data, "addButton", createRole);
             setRole(res.data, "deleteButton", deleteRole);
@@ -16271,7 +16273,7 @@ angular.module('global-solusindo')
                 var bulan = data["bulan"];
                 var bulanName = data["bulanName"];
                 var tahun = data["tahun"];
-                http.downloadFile('report/activitydl?User_FK=' + user_fk + '& Bulan=' + bulan, { keyword: '' }).then(function (data) {
+                http.downloadFile('report/activitydl?User_FK='+user_fk+'&Bulan='+bulan, { keyword: '' }).then(function (data) {
                     var contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
                     var linkElement = document.createElement('a');
                     try {
@@ -18369,11 +18371,7 @@ angular.module('global-solusindo')
                             return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval +"'>Approval</button>";
                         }
                     }
-                ],
-                exportButtons: {
-                    columns: [1, 2, 3, 4],
-                    title: "Scope of Work (SOW)"
-                }
+                ]
             });
             controller.datatable = dt;
             return dt;

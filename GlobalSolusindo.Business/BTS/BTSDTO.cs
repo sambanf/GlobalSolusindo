@@ -50,9 +50,11 @@ namespace GlobalSolusindo.Business.BTS
         public string StatusBtsTitle { get; set; }
 
         [JsonProperty("longitude")]
+        [Required]
         public string Longitude { get; set; }
 
         [JsonProperty("latitude")]
+        [Required]
         public string Latitude { get; set; }
 
         [Required]

@@ -39,7 +39,6 @@
         function setMarkers(map) {
             for (var i = 0; i < cities.length; i++) {
                 var city = cities[i];
-                console.log(city);
                 var name = city[0];
                 var operator = city[4];
                 var status = city[5];
