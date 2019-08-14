@@ -65,6 +65,34 @@
                 document.getElementById('kmlFile1').disabled = false;
                 document.getElementById('kmlFile2').disabled = false;
             }
+
+            bindingService.init(self, isDTCoor, isTL).then(function (res) {
+                formControlService.setFormControl(self);
+                saveService.init(self);
+                SOWSelect2Service.init(self);
+
+                self.getUsers = function (jabatanFk, keyword) {
+                    var requestData = {
+                        pageIndex: 1,
+                        pageSize: 10000,
+                        keyword: keyword,
+                        kategoriJabatan_fk: jabatanFk
+                    };
+
+                    http.get('user/search', requestData)
+                        .then(function (response) {
+                            self.formData.users = response.data.records;
+                        });
+                };
+
+                try {
+                    addEventListenerOnImageChanged1();
+                    addEventListenerOnImageChanged2();
+                    map.init(self);
+                } catch (e) {
+                    console.log(e);
+                }
+            });
         })
 
         function setRole(roles, roleName) {
@@ -156,39 +184,7 @@
             document.getElementById("kmlFile2").addEventListener("change", readFile2);
         }
 
-        bindingService.init(self).then(function (res) {
-            formControlService.setFormControl(self);
-            saveService.init(self);
-            SOWSelect2Service.init(self);
-
-            self.getUsers = function (jabatanFk, keyword) {
-                var requestData = {
-                    pageIndex: 1,
-                    pageSize: 10000,
-                    keyword: keyword,
-                    kategoriJabatan_fk: jabatanFk
-                };
-
-                http.get('user/search', requestData)
-                    .then(function (response) {
-                        self.formData.users = response.data.records;
-                    });
-            };
-
-            try {
-                addEventListenerOnImageChanged1();
-                addEventListenerOnImageChanged2();
-                map.init(self);
-            } catch (e) {
-                console.log(e);
-            }
-        });
-
-
-
-
-
-
+        
 
         return self;
     }

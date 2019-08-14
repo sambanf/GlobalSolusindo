@@ -79,9 +79,6 @@
                         "data": "sowAssign_fk"
                     },
                     {
-                        "data": "assignNumber"
-                    },
-                    {
                         "data": "userId"
                     },
                     {
