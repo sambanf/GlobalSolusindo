@@ -33,13 +33,13 @@ namespace GlobalSolusindo.Identity.UserDetail
         [Unique(typeof(UserDetailQuery), nameof(UserDetail_PK), true)]
         public string NoKTP { get; set; }
 
-        //[Required(ErrorMessage = "Phone number is required.")]
+        [Required(ErrorMessage = "Phone number is required.")]
         [PhoneNumber(true)]
         [JsonProperty("noHP")]
         [Unique(typeof(UserDetailQuery), nameof(UserDetail_PK), true)]
         public string NoHP { get; set; }
 
-        //[Required]
+        [Required(ErrorMessage = "Email is required.")]
         [Email(true)]
         [JsonProperty("email")]
         [Unique(typeof(UserDetailQuery), nameof(UserDetail_PK), true)]
