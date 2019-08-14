@@ -28,7 +28,7 @@ namespace GlobalSolusindo.Business.Aset
 
         [Required]
         [JsonProperty("name")]
-        [Unique(typeof(AsetQuery), nameof(Aset_PK))]
+        //[Unique(typeof(AsetQuery), nameof(Aset_PK))]
         public string Name { get; set; }
 
         [JsonProperty("status")]
