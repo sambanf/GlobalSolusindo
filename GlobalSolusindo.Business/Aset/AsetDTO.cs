@@ -39,5 +39,8 @@ namespace GlobalSolusindo.Business.Aset
 
         [JsonProperty("description")]
         public string Description { get; set; }
+
+        [JsonProperty("remark")]
+        public List<string> Remark { get; set; }
     }
 }

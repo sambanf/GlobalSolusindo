@@ -77,6 +77,9 @@
                         "data": "asetKategoriTitle"
                     },
                     {
+                        "data": "asetID"
+                    },
+                    {
                         "data": "asetName"
                     },
                     {

@@ -63,6 +63,12 @@ namespace GlobalSolusindo.Business.Aset.Queries
 
                                       }).ToList(),
                             Description = aset.Description,
+                            Remark = (from asetHistori in Db.tblT_AsetHistori
+                                      where asetHistori.Aset_FK == aset.Aset_PK
+                                      select new List<string>
+                                      {
+                                          asetHistori.Description
+                                      }).FirstOrDefault().ToList(),
                             CreatedBy = aset.CreatedBy,
                             CreatedDate = aset.CreatedDate,
                             UpdatedBy = aset.UpdatedBy,

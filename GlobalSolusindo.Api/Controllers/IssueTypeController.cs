@@ -142,7 +142,7 @@ namespace GlobalSolusindo.Api.Controllers
             if (ids == null)
                 throw new KairosException("Missing parameter: 'ids'");
 
-            IssueTypeQuery issueQuery = new IssueTypeQuery();
+            SOWIssueQuery issueQuery = new SOWIssueQuery();
             bool isUse = false;
             foreach (var id in ids)
             {
