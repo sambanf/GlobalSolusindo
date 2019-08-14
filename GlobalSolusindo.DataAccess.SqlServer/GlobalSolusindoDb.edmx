@@ -1598,9 +1598,9 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <FunctionImport Name="GetTaskApprovalListLatest" ReturnType="Collection(GlobalSolusindoModel.GetTaskApprovalListLatest_Result)" />
           <FunctionImport Name="GetTaskApprovalLatest" ReturnType="Collection(GlobalSolusindoModel.GetTaskApprovalLatest_Result)" />
           <FunctionImport Name="GetTaskListLatest" ReturnType="Collection(GlobalSolusindoModel.GetTaskListLatest_Result)" />
-          <EntitySet Name="vw_SOWIssue" EntityType="GlobalSolusindoModel.vw_SOWIssue" />
           <EntitySet Name="tblT_CheckIn" EntityType="GlobalSolusindoModel.tblT_CheckIn" />
           <EntitySet Name="vw_SOWLink" EntityType="GlobalSolusindoModel.vw_SOWLink" />
+          <EntitySet Name="vw_SOWIssue" EntityType="GlobalSolusindoModel.vw_SOWIssue" />
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -1650,6 +1650,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Type="String" Name="UserId" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="UserName" Nullable="false" MaxLength="200" />
           <Property Type="String" Name="KategoriJabatanTitle" Nullable="true" MaxLength="200" />
+		  <Property Type="Int32" Name="Project_FK" Nullable="false" />
           <Property Type="String" Name="Status" Nullable="false" MaxLength="10" />
         </ComplexType>
         <ComplexType Name="usp_GetNetworkTask_Result">
@@ -2914,20 +2915,6 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Type="Int32" Name="Project_PK" Nullable="true" />
           <Property Type="Int32" Name="TipePekerjaan" Nullable="true" />
         </ComplexType>
-        <EntityType Name="vw_SOWIssue">
-          <Key>
-            <PropertyRef Name="SOWAssign_PK" />
-            <PropertyRef Name="KategoriJabatan_PK" />
-            <PropertyRef Name="Title" />
-          </Key>
-          <Property Name="SOWAssign_PK" Type="Int32" Nullable="false" />
-          <Property Name="IssueType_FK" Type="Int32" />
-          <Property Name="IssueName" Type="String" MaxLength="703" FixedLength="false" Unicode="true" />
-          <Property Name="SOW_FK" Type="Int32" />
-          <Property Name="User_FK" Type="Int32" />
-          <Property Name="KategoriJabatan_PK" Type="Int32" Nullable="false" />
-          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="tblT_CheckIn">
           <Key>
             <PropertyRef Name="CheckIn_PK" />
@@ -2971,6 +2958,20 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="SSVLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="SSOLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vw_SOWIssue">
+          <Key>
+            <PropertyRef Name="SOWAssign_PK" />
+            <PropertyRef Name="KategoriJabatan_PK" />
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="SOWAssign_PK" Type="Int32" Nullable="false" />
+          <Property Name="IssueType_FK" Type="Int32" />
+          <Property Name="IssueName" Type="String" MaxLength="703" FixedLength="false" Unicode="true" />
+          <Property Name="SOW_FK" Type="Int32" />
+          <Property Name="User_FK" Type="Int32" />
+          <Property Name="KategoriJabatan_PK" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -4185,19 +4186,6 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="vw_SOWIssue">
-            <EntityTypeMapping TypeName="GlobalSolusindoModel.vw_SOWIssue">
-              <MappingFragment StoreEntitySet="vw_SOWIssue">
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="KategoriJabatan_PK" ColumnName="KategoriJabatan_PK" />
-                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
-                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
-                <ScalarProperty Name="IssueName" ColumnName="IssueName" />
-                <ScalarProperty Name="IssueType_FK" ColumnName="IssueType_FK" />
-                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblT_CheckIn">
             <EntityTypeMapping TypeName="GlobalSolusindoModel.tblT_CheckIn">
               <MappingFragment StoreEntitySet="tblT_CheckIn">
@@ -4240,6 +4228,19 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
                 <ScalarProperty Name="LinkRNO" ColumnName="LinkRNO" />
                 <ScalarProperty Name="RNO" ColumnName="RNO" />
                 <ScalarProperty Name="SOW_PK" ColumnName="SOW_PK" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_SOWIssue">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.vw_SOWIssue">
+              <MappingFragment StoreEntitySet="vw_SOWIssue">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="KategoriJabatan_PK" ColumnName="KategoriJabatan_PK" />
+                <ScalarProperty Name="User_FK" ColumnName="User_FK" />
+                <ScalarProperty Name="SOW_FK" ColumnName="SOW_FK" />
+                <ScalarProperty Name="IssueName" ColumnName="IssueName" />
+                <ScalarProperty Name="IssueType_FK" ColumnName="IssueType_FK" />
+                <ScalarProperty Name="SOWAssign_PK" ColumnName="SOWAssign_PK" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
