@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-13. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-14. 
 * @author Kairos
 */
 (function() {
@@ -3825,6 +3825,7 @@ angular.module('global-solusindo')
         nav.logout = function () {
             http.post('/logout', {}).then(function (response) {
                 state.go('login');
+                window.location.reload(true);
             });
             resetApplicationData();
         }
@@ -3892,12 +3893,10 @@ angular.module('global-solusindo')
     */
 
     function LoginCtrl($scope, $state, serverError, localStorage, $cookies, ui, http, $window, userInfoService) {
-        window.location.reload(true)
         /*jshint validthis: true */
         var self = this;
 
         self.model = {};
-
 
         function setTokenInfo(token) {
             $cookies.put('token', token);
@@ -11462,7 +11461,8 @@ angular.module('global-solusindo')
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
-                        validation.serverValidation(res.data.errors);
+                    var error = changeValueValidation(res.data.errors);
+                    validation.serverValidation(error);
                 }
             });
         };
@@ -11475,7 +11475,8 @@ angular.module('global-solusindo')
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
-                        validation.serverValidation(res.data.errors);
+                    var error = changeValueValidation(res.data.errors);
+                    validation.serverValidation(error);
                 }
             });
         };
@@ -11495,6 +11496,15 @@ angular.module('global-solusindo')
                 self.save(controller.model);
             });
         };
+
+        function changeValueValidation(data) {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].propertyName == 'Alasan') {
+                    data[i].message = 'The Reason field is required'
+                }
+            }
+            return data;
+        }
 
         return self;
     }
@@ -15356,7 +15366,9 @@ angular.module('global-solusindo')
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
-                        validation.serverValidation(res.data.errors);
+                        var error = changeValueValidation(res.data.errors)
+                        validation.serverValidation(error);
+                        //validation.serverValidation(res.data.errors);
                 }
             });
         };
@@ -15369,7 +15381,8 @@ angular.module('global-solusindo')
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
-                        validation.serverValidation(res.data.errors);
+                        var error = changeValueValidation(res.data.errors)
+                        validation.serverValidation(error);
                 }
             });
         };
@@ -15389,6 +15402,25 @@ angular.module('global-solusindo')
                 self.save(controller.model);
             });
         };
+
+        function changeValueValidation(data)
+        {
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].propertyName == 'Operator_FK'){
+                    data[i].message = 'The Operator field is required'
+                }
+                if (data[i].propertyName == 'Vendor_FK') {
+                    data[i].message = 'The Vendor field is required'
+                }
+                if (data[i].propertyName == 'DeliveryArea_FK') {
+                    data[i].message = 'The Delivery Area field is required'
+                }
+                if (data[i].propertyName == 'User_FK') {
+                    data[i].message = 'The User field is required'
+                }
+            }
+            return data;
+        }
 
         return self;
     }
@@ -17103,10 +17135,7 @@ angular.module('global-solusindo')
                         title: title
                     }
                 ]
-            }).container();
-
-            buttons.appendTo($('#exportButtons'));
-            $("<p>Test</p>").appendTo("#exportButtons");
+            }).container().appendTo($('#exportButtons'));
 
             $('#exportButtons')[0].childNodes[1].classList.remove("dt-buttons");
 
@@ -17114,6 +17143,7 @@ angular.module('global-solusindo')
         }
 
         self.init = function dt(selector, apiUrl, param) {
+            
             var defaultDom = "lftip";
 
             var dt = $(selector).DataTable({
@@ -17126,7 +17156,7 @@ angular.module('global-solusindo')
                 scrolly: true,
                 scrollX: true,
                 scrollCollapse: true,
-                stateSave: param.stateSave === undefined ? true : param.stateSave,
+                stateSave: param.stateSave,
                 stateLoadParams: function (settings, data) {
                     data.search.search = "";
                 },
@@ -17352,8 +17382,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
         //var base_url = "http://gsapi.local/";
-        var base_url = "http://globaloneapidev.kairos-it.com/";
-        //var base_url = "http://localhost/GlobalAPI/";
+        //var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
 
@@ -18292,30 +18322,6 @@ angular.module('global-solusindo')
         var view = 'hidden';
         var dlt = 'hidden';
         var approval = 'hidden';
-
-        http.get('dashboard/getRole', {
-            dashboard: ''
-        }, true).then(function (res) {
-
-            var readRole = "SOW_ViewAll";
-            var updateRole = "SOW_Edit";
-            var deleteRole = "SOW_Delete";
-            var approvalRole = "SOW_Approval";
-
-            if (setRole(res.data, updateRole)) {
-                view = 'visible';
-            }
-            if (setRole(res.data, deleteRole)) {
-                dlt = 'visible';
-            }
-            if (setRole(res.data, readRole)) {
-                show = 'visible';
-            }
-            if (setRole(res.data, approvalRole)) {
-                approval = 'visible';
-            }
-        })
-        
         function setRole(roles, roleName) {
 
             var role = false;
@@ -18331,52 +18337,77 @@ angular.module('global-solusindo')
         }
 
         self.init = function (ctrl) {
-            controller = ctrl;
-            var sortColumnIndex = 3;
-            var dt = ds.init("#sow", "sow/search", {
-                extendRequestData: {
-                    pageIndex: 1,
-                    pageSize: 10
-                },
-                order: [sortColumnIndex, "desc"],
-                columns: [
-                    {
-                        "orderable": false,
-                        "data": "sow_pk"
+
+            http.get('dashboard/getRole', {
+                dashboard: ''
+            }, true).then(function (res) {
+
+                var readRole = "SOW_ViewAll";
+                var updateRole = "SOW_Edit";
+                var deleteRole = "SOW_Delete";
+                var approvalRole = "SOW_Approval";
+
+                if (setRole(res.data, updateRole)) {
+                    view = 'visible';
+                }
+                if (setRole(res.data, deleteRole)) {
+                    dlt = 'visible';
+                }
+                if (setRole(res.data, readRole)) {
+                    show = 'visible';
+                }
+                if (setRole(res.data, approvalRole)) {
+                    approval = 'visible';
+                }
+
+                controller = ctrl;
+                var sortColumnIndex = 3;
+                var dt = ds.init("#sow", "sow/search", {
+                    extendRequestData: {
+                        pageIndex: 1,
+                        pageSize: 10
                     },
-                    {
-                        "data": "sowName"
-                    },
-                    {
-                        "data": "btsName"
-                    },
-                    {
-                        "data": "tglMulai",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
-                    },
-                    {
-                        "data": "sowStatusTitle"
-                    },
-                    {
-                        "orderable": false,
-                        "className": "text-center",
-                        "render": function (data) {
-                            return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show +"'><i class='fa fa-info'></i></button> " +
-                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view +"'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt +"'><i class='fa fa-trash-alt'></i></button>"
+                    order: [sortColumnIndex, "desc"],
+                    columns: [
+                        {
+                            "orderable": false,
+                            "data": "sow_pk"
+                        },
+                        {
+                            "data": "sowName"
+                        },
+                        {
+                            "data": "btsName"
+                        },
+                        {
+                            "data": "tglMulai",
+                            "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
+                        },
+                        {
+                            "data": "sowStatusTitle"
+                        },
+                        {
+                            "orderable": false,
+                            "className": "text-center",
+                            "render": function (data) {
+                                return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show + "'><i class='fa fa-info'></i></button> " +
+                                    "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view + "'><i class='fas fa-pencil-alt'></i></button> " +
+                                    "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt + "'><i class='fa fa-trash-alt'></i></button>"
+                            }
+                        },
+                        {
+                            "orderable": false,
+                            "className": "text-center",
+                            "render": function (data) {
+                                return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval + "'>Approval</button>";
+                            }
                         }
-                    },
-                    {
-                        "orderable": false,
-                        "className": "text-center",
-                        "render": function (data) {
-                            return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval +"'>Approval</button>";
-                        }
-                    }
-                ]
-            });
-            controller.datatable = dt;
-            return dt;
+                    ]
+                });
+                controller.datatable = dt;
+                return dt;
+            })
+
         };
 
         return self;

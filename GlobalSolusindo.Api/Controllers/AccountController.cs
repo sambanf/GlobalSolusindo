@@ -16,7 +16,7 @@ namespace GlobalSolusindo.Api.Controllers
 
         private void CreateSession(string token, UserDTO user)
         { 
-            TokenSessionManager.Add(token, user);
+            TokenSessionManager.AddAndReplaceUser(token, user);
         }
 
         [Route("token")]

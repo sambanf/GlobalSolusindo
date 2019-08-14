@@ -34,7 +34,7 @@ namespace GlobalSolusindo.Api.MobileControllers
 
         private void CreateSession(string token, UserDTO user)
         {
-            TokenSessionManager.Add(token, user);
+            TokenSessionManager.AddAndReplaceUser(token, user);
         }
 
         [Route("mobile/doLogin")]
