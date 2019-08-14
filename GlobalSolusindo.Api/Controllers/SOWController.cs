@@ -103,6 +103,7 @@ namespace GlobalSolusindo.Api.Controllers
             {
                 using (var transaction = new TransactionScope())
                 {
+                    sow.StatusSOW_FK = 1;
                     var saveResult = sowCreateHandler.Save(sowDTO: sow, dateStamp: DateTime.Now);
                     transaction.Complete();
                     if (saveResult.Success)
