@@ -55,6 +55,7 @@ namespace GlobalSolusindo.Business.SOW
                             Project_FK = sow.Project_FK.Value,
                             DUID = sow.DUID,
                             Technology_FK = sow.Technology_FK,
+                            CODate = sow.CODate,
                             TglMulai = sow.TglMulai,
                             TglSelesai = sow.TglSelesai,
                             StatusSOW_FK = sow.StatusSOW_FK,
