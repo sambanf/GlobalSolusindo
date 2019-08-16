@@ -117,17 +117,6 @@
             });
         }
 
-        //function getUsers(jabatanFk, keyword) {
-        //    http.get('user/search', {
-        //        pageIndex: 1,
-        //        pageSize: 5,
-        //        keyword: keyword,
-        //        kategoriJabatan_fk: jabatanFk
-        //    }).then(function (response) {
-        //        controller.formData.users = response.data.records;
-        //    });
-        //};
-
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element(document).ready(function () {
@@ -135,7 +124,6 @@
                 getBTSs();
                 getTechnologies();
                 getSOWName();
-                //controller.getUsers = getUsers;
             });
         };
 

@@ -24,7 +24,7 @@ namespace GlobalSolusindo.Business.Activities.Queries
         }
 
         public List<ActivitiesDTO> GetQuery(int userFK)
-        { 
+        {
             var records = Db.usp_GetActivities(userFK).Select(x => new ActivitiesDTO
             {
                 Aktifitas = x.Aktifitas,

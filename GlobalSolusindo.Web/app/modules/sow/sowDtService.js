@@ -59,7 +59,7 @@
                         "orderable": false,
                         "className": "text-center",
                         "render": function (data) {
-                            return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval + "'>Approval</button>";
+                            return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval + "'>Close</button>";
                         }
                     }
                 ]

@@ -59,7 +59,7 @@ namespace GlobalSolusindo.Business.SOW
                             TglMulai = sow.TglMulai,
                             TglSelesai = sow.TglSelesai,
                             StatusSOW_FK = sow.StatusSOW_FK,
-                            SOWStatusTitle = sowStatus.Title == null? "Waiting Approval" : sowStatus.Title,
+                            SOWStatusTitle = sowStatus.Title,
                             CreatedBy = sow.CreatedBy,
                             CreatedDate = sow.CreatedDate,
                             UpdatedBy = sow.UpdatedBy,

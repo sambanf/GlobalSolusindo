@@ -195,5 +195,43 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
 
             return searchResult;
         }
+
+        public SearchResult<IzinCutiDTO> GetDataByFilterMobile(IzinCutiSearchFilter filter)
+        {
+            if (string.IsNullOrEmpty(filter.SortName))
+                filter.SortName = "IzinCuti_PK";
+            IzinCutiQuery izinCutiQuery = new IzinCutiQuery(this.Db);
+
+            var filteredRecords =
+                izinCutiQuery.GetQuery()
+                .Where(izinCuti =>
+                    izinCuti.UserIzinCutiName.Contains(filter.Keyword)
+                    || izinCuti.ApprovedByUserName.Contains(filter.Keyword)
+                    || izinCuti.Alasan.Contains(filter.Keyword)
+                    || izinCuti.UserIzinCutiJabatanTitle.Contains(filter.Keyword)
+                    );
+
+            if (filter.UserId != 0)
+            {
+                filteredRecords = filteredRecords
+                    .Where(x =>
+                    x.User_FK == filter.UserId);
+            }
+
+            var displayedRecords = filteredRecords.
+                SortBy(filter.SortName, filter.SortDir)
+                .Skip(filter.Skip)
+                .Take(filter.PageSize)
+                .ToList();
+
+            var searchResult = new SearchResult<IzinCutiDTO>(filter);
+            searchResult.Filter = filter;
+            searchResult.Count.TotalRecords = izinCutiQuery.GetTotalRecords();
+            searchResult.Count.TotalFiltered = filteredRecords.Count();
+            searchResult.Count.TotalDisplayed = displayedRecords.Count();
+            searchResult.Records = displayedRecords;
+
+            return searchResult;
+        }
     }
 }
