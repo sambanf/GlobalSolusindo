@@ -218,6 +218,22 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
                     x.User_FK == filter.UserId);
             }
 
+            if (filter.Status != 0)
+            {
+                if (filter.Status == 1)
+                {
+                    filteredRecords = filteredRecords
+                                 .Where(x =>
+                                 x.IzinCutiStatus_FK == filter.Status || x.IzinCutiStatus_FK == null);
+                }
+                else
+                {
+                    filteredRecords = filteredRecords
+                                     .Where(x =>
+                                     x.IzinCutiStatus_FK == filter.Status);
+                }
+            }
+
             var displayedRecords = filteredRecords.
                 SortBy(filter.SortName, filter.SortDir)
                 .Skip(filter.Skip)
