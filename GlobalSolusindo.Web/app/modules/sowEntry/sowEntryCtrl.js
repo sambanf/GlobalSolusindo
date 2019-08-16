@@ -72,11 +72,13 @@
                 SOWSelect2Service.init(self);
 
                 self.getUsers = function (jabatanFk, keyword) {
+                    var pfk = document.getElementById('project_fk').value.split(':')[1];
                     var requestData = {
                         pageIndex: 1,
                         pageSize: 10000,
                         keyword: keyword,
-                        kategoriJabatan_fk: jabatanFk
+                        kategoriJabatan_fk: jabatanFk,
+                        project_fk: pfk
                     };
 
                     http.get('user/search', requestData)
