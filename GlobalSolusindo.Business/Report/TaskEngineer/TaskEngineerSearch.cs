@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GlobalSolusindo.Business.Report.TaskEngineer;
 
 namespace GlobalSolusindo.Business.TaskEngineer.Queries
 {
@@ -32,7 +33,7 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
         public DateTime? TglSelesai { get; set; }
 
         [JsonProperty("periode")]
-        public int Periode { get; set; }
+        public DateTime Periode { get; set; }
 
         [JsonProperty("timeFilter")]
         public TaskEngineerTimeFilter TimeFilter { get; set; }
@@ -40,10 +41,44 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
         public tblM_User User { get; set; }
     }
 
+    //public class PeriodDTO : DTO
+    //{
+    //    [JsonProperty("value")]
+    //    public DateTime? value { get; set; }
+
+    //    [JsonProperty("name")]
+    //    public string name { get; set; }
+    //}
+
+
     public class TaskEngineerSearch : QueryBase
     {
         public TaskEngineerSearch(GlobalSolusindoDb db) : base(db)
         {
+        }
+
+        public SearchResult<PeriodDTO> GetPeriod(TaskEngineerSearchFilter filter)
+        {
+            if (string.IsNullOrEmpty(filter.SortName))
+                filter.SortName = "value";
+            TaskEngineerQuery taskEngineerQuery = new TaskEngineerQuery(this.Db);
+
+            var filteredRecords =
+                taskEngineerQuery.GetPeriod();
+            var displayedRecords = filteredRecords.
+                SortBy(filter.SortName, filter.SortDir)
+                .Skip(filter.Skip)
+                .Take(filter.PageSize)
+                .ToList();
+
+            var searchResult = new SearchResult<PeriodDTO>(filter);
+            searchResult.Filter = filter;
+            searchResult.Count.TotalRecords = taskEngineerQuery.GetTotalRecords();
+            searchResult.Count.TotalFiltered = filteredRecords.Count();
+            searchResult.Count.TotalDisplayed = displayedRecords.Count();
+            searchResult.Records = displayedRecords;
+
+            return searchResult;
         }
 
         public SearchResult<TaskEngineerDTO> GetDataByFilter(TaskEngineerSearchFilter filter)
@@ -91,16 +126,19 @@ namespace GlobalSolusindo.Business.TaskEngineer.Queries
                     {
                         filteredRecords = filteredRecords
                             .Where(x =>
-                                x.BTS_FK == filter.BTS_FK
+                                x.AssignTglMulai >= filter.TglMulai && x.AssignTglMulai <= filter.TglSelesai
                                 );
                     }
                     break;
                 case TaskEngineerTimeFilter.Periode:
-                    if (filter.Periode != 0)
+                    if (filter.Periode != null)
                     {
+                        DateTime NewDate = filter.Periode;
+                        DateTime EndDate = filter.Periode.AddMonths(1).AddDays(-1);
+                        
                         filteredRecords = filteredRecords
-                            .Where(x => 
-                                x.AssignTglMulai.Value.Date.Month >= filter.Periode && x.AssignTglSelesai.Value.Date.Month <= filter.Periode
+                            .Where(x =>
+                                x.AssignTglMulai >= NewDate && x.AssignTglMulai <= EndDate
                                 );
                     }
                     break;

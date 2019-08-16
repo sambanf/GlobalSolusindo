@@ -90,6 +90,22 @@ namespace GlobalSolusindo.Api.Controllers
             }
         }
 
+        [Route("taskEngineer/getPeriod")]
+        [HttpGet]
+        public IHttpActionResult getPeriod([FromUri]TaskEngineerSearchFilter filter)
+        {
+            //ThrowIfUserHasNoRole(readRole);
+            //if (filter == null)
+            //    throw new KairosException("Missing search filter parameter");
+            //var user = ActiveUser;
+            //filter.User = user;
+            using (var taskEngineerSearch = new TaskEngineerSearch(Db))
+            {
+                var data = taskEngineerSearch.GetPeriod(filter);
+                return Ok(new SuccessResponse(data));
+            }
+        }
+
         [Route("taskEngineerDetail/{sowAssign_fk}")]
         [HttpGet]
         public IHttpActionResult TaskEngineerDetail(int sowAssign_fk)

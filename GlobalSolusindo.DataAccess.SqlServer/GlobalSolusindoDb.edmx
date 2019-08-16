@@ -1104,6 +1104,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
         </Function>
+        <Function Name="GetPeriodeTaskEngineer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="GetSalesReportByProject" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
@@ -1601,6 +1602,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <EntitySet Name="tblT_CheckIn" EntityType="GlobalSolusindoModel.tblT_CheckIn" />
           <EntitySet Name="vw_SOWLink" EntityType="GlobalSolusindoModel.vw_SOWLink" />
           <EntitySet Name="vw_SOWIssue" EntityType="GlobalSolusindoModel.vw_SOWIssue" />
+          <FunctionImport Name="GetPeriodeTaskEngineer" ReturnType="Collection(GlobalSolusindoModel.GetPeriodeTaskEngineer_Result)" />
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -1657,6 +1659,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Type="Int32" Name="CheckIn_PK" Nullable="false" />
           <Property Type="String" Name="Type" Nullable="false" MaxLength="200" />
           <Property Type="Int32" Name="Status" Nullable="false" />
+		  <Property Type="Int32" Name="IsSubmitted" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_GetSowAssign_Result">
           <Property Type="Int32" Name="SOWAssign_PK" Nullable="false" />
@@ -2973,6 +2976,10 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="KategoriJabatan_PK" Type="Int32" Nullable="false" />
           <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="GetPeriodeTaskEngineer_Result">
+          <Property Type="DateTime" Name="Value" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="63" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4244,6 +4251,14 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPeriodeTaskEngineer" FunctionName="GlobalSolusindoModel.Store.GetPeriodeTaskEngineer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetPeriodeTaskEngineer_Result">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

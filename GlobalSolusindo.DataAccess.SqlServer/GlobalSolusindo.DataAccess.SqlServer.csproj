@@ -92,6 +92,9 @@
     <Compile Include="GetGoalCompletion_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>
+    <Compile Include="GetPeriodeTaskEngineer_Result.cs">
+      <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
+    </Compile>
     <Compile Include="GetSalesReportByProject_Result.cs">
       <DependentUpon>GlobalSolusindoDb.tt</DependentUpon>
     </Compile>

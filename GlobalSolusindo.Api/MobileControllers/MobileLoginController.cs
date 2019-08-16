@@ -57,7 +57,7 @@ namespace GlobalSolusindo.Api.MobileControllers
                     {
                         isDtvar = true;
                     }
-                    apicontrollerBase.SaveLog(request.Email, "Mobile_Login", JsonConvert.SerializeObject(request), "Success", "", "", "");
+                    apicontrollerBase.SaveLog(request.Email, "Mobile_Login", "", "Success", "", "", "");
                     return Ok(
                         new
                         {
@@ -76,7 +76,7 @@ namespace GlobalSolusindo.Api.MobileControllers
                 }
                 else
                 {
-                    apicontrollerBase.SaveLog(request.Email, "Mobile_Login", JsonConvert.SerializeObject(request), "Error", loginResult.Message, "", "");
+                    apicontrollerBase.SaveLog(request.Email, "Mobile_Login", "", "Error", loginResult.Message, "", "");
                     return Ok(
                     new
                     {

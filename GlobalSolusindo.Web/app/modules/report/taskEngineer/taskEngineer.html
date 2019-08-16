@@ -5,18 +5,19 @@
                 <div class="card">
                     <div class="card-title">List Task Engineer</div>
                     <div class="row form-group" >
-                        <label class="control-label col-sm-1">User ID</label>
+                        <label class="control-label col-sm-1">Name</label>
                         <div class="col-sm-2">
-                            <select id="user_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="vm.model.user_fk" required>
-                                <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.username}}</option>
+                            <select id="user_fk" name="user_fk" class="form-control input-lg" size="0" ng-model="vm.model.user_fk">
+                                <option value="0">All</option>
+                                <option ng-repeat="x in vm.formData.users" ng-value="x.user_pk">{{x.name}}</option>
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <label class="control-label col-sm-1">Name</label>
+                        <!--<label class="control-label col-sm-1">Name</label>
                         <div class="col-sm-2">
                             <input type="text" id="username" name="username" class="form-control" ng-model="vm.model.username" disabled>
                             <div class="invalid-feedback"></div>
-                        </div>
+                        </div>-->
                         <label class="control-label col-sm-1">Site</label>
                         <div class="col-sm-2">
                             <select id="bts_fk" name="bts_fk" class="form-control input-lg" size="0" ng-model="vm.model.bts_fk" required>
@@ -26,7 +27,7 @@
                         </div>
                     </div>
                     <div class="row form-group col-md-2 radio">
-                        <label><input type="radio" name="optradio" value="1">Timespan</label>
+                        <label><input type="radio" name="optradio" value="1" ng-model="vm.model.timePeriod">Timespan</label>
                     </div>
                     <div class="row form-group">
                         <label class="control-label col-sm-1">Start Date</label>
@@ -42,19 +43,20 @@
                     </div>
 
                     <div class="row form-group col-md-2 radio">
-                        <label><input type="radio" name="optradio" value="1">Period</label>
+                        <label><input type="radio" name="optradio" value="2" ng-model="vm.model.timePeriod">Period</label>
                     </div>
                     <div class="row form-group">
                         <label class="control-label col-sm-1">Period</label>
                         <div class="col-sm-2">
                             <select id="bulan_fk" name="bulan_fk" class="form-control input-lg" size="0" ng-model="vm.model.bulan_fk" required>
-                                <option ng-repeat="x in vm.formData.bulans" ng-value="x.bulan_pk">{{x.title}}</option>
+                                <option ng-repeat="x in vm.formData.bulans" ng-value="x.value">{{x.name}}</option>
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="row form-group col-md-2" >
-                        <button id="searchButton" style="border-radius: 20px" ng-click="vm.search()" class="btn btn-success">Cari</button>
+                        <!--<button id="searchButton" style="border-radius: 20px" ng-click="vm.search()" class="btn btn-success">Cari</button>-->
+                        <button id="searchButton" type="button" class="btn btn-success" style="border-radius: 20px" ng-click="vm.search()">Cari</button>
                     </div>
                     <div class="row form-group col-md-12" style="margin-left: -1px; margin-right: -1px; border-bottom: 1px solid #ccc;">
                     </div>

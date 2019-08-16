@@ -11,11 +11,9 @@ namespace GlobalSolusindo.DataAccess
 {
     using System;
     
-    public partial class usp_GetNetworkTask_Result
+    public partial class GetPeriodeTaskEngineer_Result
     {
-        public int CheckIn_PK { get; set; }
-        public string Type { get; set; }
-        public int Status { get; set; }
-        public int IsSubmitted { get; set; }
+        public Nullable<System.DateTime> Value { get; set; }
+        public string Name { get; set; }
     }
 }

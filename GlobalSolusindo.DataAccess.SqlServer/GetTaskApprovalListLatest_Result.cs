@@ -13,7 +13,7 @@ namespace GlobalSolusindo.DataAccess
     
     public partial class GetTaskApprovalListLatest_Result
     {
-        public int CheckIn_PK { get; set; }
+        public Nullable<int> CheckIn_PK { get; set; }
         public Nullable<int> SOWAssign_FK { get; set; }
         public Nullable<int> SOW_FK { get; set; }
         public Nullable<System.DateTime> TglMulai { get; set; }
@@ -39,12 +39,12 @@ namespace GlobalSolusindo.DataAccess
         public string LatitudeCheckOut { get; set; }
         public string CellIDCheckOut { get; set; }
         public string CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public Nullable<System.DateTime> CreatedDate { get; set; }
         public string UpdatedBy { get; set; }
-        public DateTime UpdatedDate { get; set; }
-        public int Status_FK { get; set; }
+        public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public Nullable<int> Status_FK { get; set; }
         public string FileUrl { get; set; }
-        public int Project_PK { get; set; }
+        public Nullable<int> Project_PK { get; set; }
         public Nullable<int> TipePekerjaan { get; set; }
     }
 }

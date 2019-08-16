@@ -458,5 +458,10 @@ namespace GlobalSolusindo.DataAccess
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskListLatest_Result>("GetTaskListLatest");
         }
+    
+        public virtual ObjectResult<GetPeriodeTaskEngineer_Result> GetPeriodeTaskEngineer()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPeriodeTaskEngineer_Result>("GetPeriodeTaskEngineer");
+        }
     }
 }

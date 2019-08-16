@@ -14,6 +14,9 @@ namespace GlobalSolusindo.Business.SOW
         [JsonProperty("status")]
         public int Status { get; set; }
 
+        [JsonProperty("isSubmitted")]
+        public bool? IsSubmitted { get; set; }
+
         [JsonProperty("statusName")]
         public string StatusName
         {
