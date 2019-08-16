@@ -179,6 +179,7 @@
     <Content Include="app\modules\changePasswordEntry\changePasswordEntryCtrl.js" />
     <Content Include="app\modules\changePasswordEntry\changePasswordEntryRoute.js" />
     <Content Include="app\modules\changePasswordEntry\changePasswordSaveService.js" />
+    <Content Include="app\modules\report\taskEngineer\taskEngineerSearchService.js" />
     <Content Include="app\modules\sowImportExcel\sowImportExcel.html" />
     <Content Include="app\modules\sowImportExcel\sowImportExcelBindingService.js" />
     <Content Include="app\modules\sowImportExcel\sowImportExcelCtrl.js" />

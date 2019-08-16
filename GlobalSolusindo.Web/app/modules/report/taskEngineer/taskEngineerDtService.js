@@ -13,9 +13,9 @@
         .module('global-solusindo')
         .factory('taskEngineerDtService', taskEngineerDtService);
 
-    taskEngineerDtService.$inject = ['DatatableService','HttpService'];
+    taskEngineerDtService.$inject = ['DatatableService', 'HttpService', 'taskEngineerSearchService'];
 
-    function taskEngineerDtService(ds, http) {
+    function taskEngineerDtService(ds, http, search) {
         var self = this;
         var controller = {};
 
@@ -55,22 +55,23 @@
 
         self.init = function (ctrl) {
             controller = ctrl;
-
-            console.log(controller.model);
-            controller.search = function (){
-                if(controller.model){
-                    self.dtService.param.user_fk = controller.model.user_fk;
-                }
-                // console.log(self.dtService.param);
-                controller.datatable.draw();
-            }
+            //console.log(controller);
+            //console.log(controller.model);
+            //controller.search = function (ctrl) {
+            //    controller = ctrl;
+            //    console.log(controller);
+            //    if (controller.model) {
+            //        console.log(controller.model.user_fk);
+            //        self.dtService.param.user_fk = controller.model.user_fk;
+            //    }
+            //    // console.log(self.dtService.param);
+            //    controller.datatable.draw();
+            //}
             var titleColumnIndex = 1;
             var dt = ds.init("#taskEngineer", "taskEngineer/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10,
-                    userId: self.userId,
-                    name:self.name
+                    pageSize: 10
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
@@ -91,8 +92,25 @@
                         "data": "btsName"
                     },
                     {
-                        "data": "taskStatus"
+                        data: 'taskStatus', defaultContent: "",
+                        render: function (data, type, row) {
+                            if (row.taskStatus == true ) {
+                                return "Approve";
+                            }
+                            else if (row.taskStatus == false) {
+                                return "Reject";
+                            }
+                            else if (!row.taskStatus && !row.checkin_fk) {
+                                return "New";
+                            }
+                            else {
+                                return "Waiting Approval";
+                            }
+                        }
                     },
+                    //{
+                    //    "data": "taskStatus"
+                    //},
                     {
                         "orderable": false,
                         "className": "text-center",

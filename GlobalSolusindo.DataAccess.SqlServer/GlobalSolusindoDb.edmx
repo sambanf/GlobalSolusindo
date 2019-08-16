@@ -550,12 +550,6 @@
           <Property Name="ValueOld" Type="nvarchar(max)" />
           <Property Name="ValueNew" Type="nvarchar(max)" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'GlobalSolusindo.dbo.tblT_Mapping' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="tblT_Mapping">
-          <Property Name="ID" Type="int" />
-          <Property Name="ID2" Type="int" />
-        </EntityType>-->
         <EntityType Name="tblT_PO">
           <Key>
             <PropertyRef Name="PO_PK" />
@@ -1673,6 +1667,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Type="Int32" Name="CheckIn_PK" Nullable="false" />
           <Property Type="String" Name="Type" Nullable="false" MaxLength="200" />
           <Property Type="Int32" Name="Status" Nullable="false" />
+		  <Property Type="Int32" Name="IsSubmitted" Nullable="false" />
         </ComplexType>
         <ComplexType Name="usp_GetSowAssign_Result">
           <Property Type="Int32" Name="SOWAssign_PK" Nullable="false" />
@@ -4265,6 +4260,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_SOWStatusUpdate" FunctionName="GlobalSolusindoModel.Store.sp_SOWStatusUpdate" />
+
           <FunctionImportMapping FunctionImportName="GetPeriodeTaskEngineer" FunctionName="GlobalSolusindoModel.Store.GetPeriodeTaskEngineer">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetPeriodeTaskEngineer_Result">

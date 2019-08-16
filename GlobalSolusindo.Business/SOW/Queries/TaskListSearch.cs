@@ -235,7 +235,8 @@ namespace GlobalSolusindo.Business.TaskList.Queries
                                       {
                                           CheckIn_PK = x.CheckIn_PK,
                                           Status = x.Status,
-                                          Type = x.Type
+                                          Type = x.Type,
+                                          IsSubmitted = x.IsSubmitted == 1? true : false
                                       }).ToList()
                                   };
             var displayedRecords = filteredRecords;

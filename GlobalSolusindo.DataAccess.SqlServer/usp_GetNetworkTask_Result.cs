@@ -16,5 +16,6 @@ namespace GlobalSolusindo.DataAccess
         public int CheckIn_PK { get; set; }
         public string Type { get; set; }
         public int Status { get; set; }
+        public int IsSubmitted { get; set; }
     }
 }

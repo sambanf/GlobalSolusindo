@@ -36,10 +36,13 @@ namespace GlobalSolusindo.Business.TaskEngineer
         [JsonProperty("project_fk")]
         public int Project_FK { get; set; }
 
+        [JsonProperty("checkin_fk")]
+        public int? CheckIn_FK { get; set; }
+
         [JsonProperty("btsName")]
         public string BTSName { get; set; }
 
         [JsonProperty("taskStatus")]
-        public string TaskStatus { get; set; }
+        public bool? TaskStatus { get; set; }
     }
 }

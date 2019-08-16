@@ -40,6 +40,7 @@
                         }
                     }
                     else if (isTL == true) {
+
                         if (index > 0) {
                             sowAssign.createdBy = false;
                         }

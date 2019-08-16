@@ -122,7 +122,7 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
             var query = from Data in taskListLatest
                         select new CheckInDTO
                         {
-                            CheckIn_PK = Data.CheckIn_PK,
+                            CheckIn_PK = Data.CheckIn_PK??0,
                             SOWAssign_FK = Data.SOWAssign_FK,
                             SOW_FK = Data.SOW_FK,
                             SOWDate = Data.TglMulai,
@@ -148,12 +148,12 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
                             LatitudeCheckOut = Data.LatitudeCheckOut,
                             CellIDCheckOut = Data.CellIDCheckOut,
                             CreatedBy = Data.CreatedBy,
-                            CreatedDate = Data.CreatedDate,
+                            CreatedDate = Data.CreatedDate??DateTime.Now,
                             UpdatedBy = Data.UpdatedBy,
-                            UpdatedDate = Data.UpdatedDate,
-                            Status_FK = Data.Status_FK,
+                            UpdatedDate = Data.UpdatedDate ?? DateTime.Now,
+                            Status_FK = Data.Status_FK??0,
                             FileSubmitted = Data.FileUrl,
-                            Project_FK = Data.Project_PK,
+                            Project_FK = Data.Project_PK??0,
                             TipePekerjaan = Data.TipePekerjaan
                         };
 
