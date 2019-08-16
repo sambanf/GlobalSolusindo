@@ -53,7 +53,16 @@ namespace GlobalSolusindo.Api.Controllers
 
             using (SOWEntryDataProvider sowEntryDataProvider = new SOWEntryDataProvider(Db, ActiveUser, AccessControl, new SOWQuery(Db)))
             {
-                var data = sowEntryDataProvider.Get(id);
+                SOWEntryModel data;
+                if (ActiveUser.KategoriJabatan_FK == 1)
+                {
+                    data = sowEntryDataProvider.GetTL(id, ActiveUser);
+                }
+                else
+                {
+                    data = sowEntryDataProvider.Get(id);
+                }
+                
                 SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }

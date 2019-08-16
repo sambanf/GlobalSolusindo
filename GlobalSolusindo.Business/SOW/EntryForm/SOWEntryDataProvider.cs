@@ -224,6 +224,114 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
             return sowDTO;
         }
 
+        private SOWDTO CreateModelTL(int pk, UserDTO user)
+        {
+            var jabatanQuery = new KategoriJabatanQuery(Db);
+            var now = DateTime.Now;
+            if (pk > 0)
+            {
+                SOWDTO sow = sowQuery.GetByPrimaryKey(pk);
+                if (sow != null)
+                {
+                    var unOrderedassigns = new SOWAssignQuery(Db).GetWithSP_BySOW_FK(pk);
+
+                    var orderedAssigns = new List<SOWAssignDTO>();
+                    var teamLead = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 1);
+                    var rno = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 6);
+                    rno.KategoriJabatanTitle = "RNO";
+                    var rf = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 5);
+                    var dt = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 2);
+                    var rigger = unOrderedassigns.FirstOrDefault(x => x.KategoriJabatan_FK == 3);
+
+                    orderedAssigns.Add(teamLead);
+                    orderedAssigns.Add(rno);
+                    orderedAssigns.Add(rf);
+                    orderedAssigns.Add(dt);
+                    orderedAssigns.Add(rigger);
+
+                    sow.SOWAssigns = orderedAssigns;
+                }
+                return sow;
+            }
+            SOWDTO sowDTO = new SOWDTO()
+            {
+                TglMulai = now,
+                //TglSelesai = now
+            };
+
+            List<SOWAssignDTO> sowAssigns = new List<SOWAssignDTO>();
+
+            //Team leader
+            sowAssigns.Add(new SOWAssignDTO()
+            {
+                SOWAssign_PK = 0,
+                SOW_FK = sowDTO.SOW_PK,
+                SOWName = sowDTO.SOWName,
+                KategoriJabatanTitle = jabatanQuery.GetByPrimaryKey(1).Title,
+                KategoriJabatan_FK = 1,
+                User_FK = user.User_PK,
+                UserName = user.Username,
+                TglMulai = now,
+            });
+
+            //RNO
+            sowAssigns.Add(new SOWAssignDTO()
+            {
+                SOWAssign_PK = 0,
+                SOW_FK = sowDTO.SOW_PK,
+                SOWName = sowDTO.SOWName,
+                KategoriJabatanTitle = "RNO",//jabatanQuery.GetByPrimaryKey(6).Title,
+                KategoriJabatan_FK = 6,
+                User_FK = 0,
+                UserName = "",
+                TglMulai = now,
+            });
+
+            //RF
+            sowAssigns.Add(new SOWAssignDTO()
+            {
+                SOWAssign_PK = 0,
+                SOW_FK = sowDTO.SOW_PK,
+                SOWName = sowDTO.SOWName,
+                KategoriJabatanTitle = jabatanQuery.GetByPrimaryKey(5).Title,
+                KategoriJabatan_FK = 5,
+                User_FK = 0,
+                UserName = "",
+                TglMulai = now,
+            });
+
+            //DT
+            sowAssigns.Add(new SOWAssignDTO()
+            {
+                SOWAssign_PK = 0,
+                SOW_FK = sowDTO.SOW_PK,
+                SOWName = sowDTO.SOWName,
+                KategoriJabatanTitle = jabatanQuery.GetByPrimaryKey(2).Title,
+                KategoriJabatan_FK = 2,
+                User_FK = 0,
+                UserName = "",
+                TglMulai = now,
+            });
+
+            //Rigger
+            sowAssigns.Add(new SOWAssignDTO()
+            {
+                SOWAssign_PK = 0,
+                SOW_FK = sowDTO.SOW_PK,
+                SOWName = sowDTO.SOWName,
+                KategoriJabatanTitle = jabatanQuery.GetByPrimaryKey(3).Title,
+                KategoriJabatan_FK = 3,
+                User_FK = 0,
+                UserName = "",
+                TglMulai = now,
+            });
+
+
+            sowDTO.SOWAssigns = sowAssigns;
+
+            return sowDTO;
+        }
+
 
         private SOWEntryModel GetCreateStateModel()
         {
@@ -243,6 +351,25 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
                 Model = model
             };
         }
+        private SOWEntryModel GetCreateStateModelTL(UserDTO user)
+        {
+            SOWEntryFormData formData = CreateFormData(null);
+
+            List<SOWNameDTO> sowname = new SOWQuery(this.Db).GetSOWName().ToList();
+            foreach (var name in sowname)
+            {
+                formData.sownames.Add(name);
+            }
+            List<Control> formControls = CreateFormControls(0);
+            var model = CreateModelTL(0, user);
+            return new SOWEntryModel()
+            {
+                FormData = formData,
+                FormControls = formControls,
+                Model = model
+            };
+        }
+
 
         private SOWEntryModel GetUpdateStateModel(int sowPK)
         {
@@ -270,5 +397,17 @@ namespace GlobalSolusindo.Business.SOW.EntryForm
             }
             return GetUpdateStateModel(sowPK);
         }
+
+        public SOWEntryModel GetTL(int sowPK, tblM_User u)
+        {
+            UserQuery userq = new UserQuery();
+            UserDTO user = userq.GetByPrimaryKey(u.User_PK);
+            if (sowPK == 0)
+            {
+                return GetCreateStateModelTL(user);
+            }
+            return GetUpdateStateModel(sowPK);
+        }
+
     }
 }
