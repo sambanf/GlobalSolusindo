@@ -27,7 +27,7 @@ namespace GlobalSolusindo.Identity.User.Queries
         public int KategoriJabatan_FK { get; set; }
 
         [JsonProperty("project_fk")]
-        public int project_fk{ get; set; }
+        public int project_fk { get; set; } = 0;
     }
 
 
@@ -74,9 +74,16 @@ namespace GlobalSolusindo.Identity.User.Queries
 
             if ((UserKategoriJabatanFilter)filter.KategoriJabatan_FK != UserKategoriJabatanFilter.All)
             {
-                filteredRecords = filteredRecords
+               filteredRecords = filteredRecords
                     .Where(user =>
-                    user.KategoriJabatan_FK == (int)filter.KategoriJabatan_FK && user.Project == (int)filter.project_fk);
+                    user.KategoriJabatan_FK == (int)filter.KategoriJabatan_FK);
+                if (filter.project_fk != 0)
+                {
+                    filteredRecords = filteredRecords
+                    .Where(user =>
+                    user.Project == (int)filter.project_fk);
+                    
+                }
             }
 
             if (us.KategoriJabatan_FK == 7)
@@ -143,7 +150,14 @@ namespace GlobalSolusindo.Identity.User.Queries
             {
                 filteredRecords = filteredRecords
                     .Where(user =>
-                    user.KategoriJabatan_FK == (int)filter.KategoriJabatan_FK && user.Project == (int)filter.project_fk);
+                    user.KategoriJabatan_FK == (int)filter.KategoriJabatan_FK);
+                if (filter.project_fk != 0)
+                {
+                    filteredRecords = filteredRecords
+                    .Where(user =>
+                    user.Project == (int)filter.project_fk);
+                    
+                }
             }
 
             if (filter.User_PK > 0)
