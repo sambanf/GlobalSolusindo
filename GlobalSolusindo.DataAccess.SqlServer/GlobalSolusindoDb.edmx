@@ -1147,6 +1147,10 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Parameter Name="start" Type="date" Mode="In" />
           <Parameter Name="end" Type="date" Mode="In" />
         </Function>
+        <Function Name="sp_SOWStatusUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SOWAssignPK" Type="int" Mode="In" />
+          <Parameter Name="UserFK" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_GetActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="User_FK" Type="int" Mode="In" />
         </Function>
@@ -1601,6 +1605,10 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <EntitySet Name="tblT_CheckIn" EntityType="GlobalSolusindoModel.tblT_CheckIn" />
           <EntitySet Name="vw_SOWLink" EntityType="GlobalSolusindoModel.vw_SOWLink" />
           <EntitySet Name="vw_SOWIssue" EntityType="GlobalSolusindoModel.vw_SOWIssue" />
+          <FunctionImport Name="sp_SOWStatusUpdate" ReturnType="Collection(Int32)">
+          <Parameter Name="SOWAssignPK" Mode="In" Type="Int32" />
+            <Parameter Name="UserFK" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -4244,6 +4252,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_SOWStatusUpdate" FunctionName="GlobalSolusindoModel.Store.sp_SOWStatusUpdate" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

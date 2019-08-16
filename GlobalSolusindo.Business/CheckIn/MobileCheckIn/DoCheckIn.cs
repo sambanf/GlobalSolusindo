@@ -127,6 +127,9 @@ namespace GlobalSolusindo.Business.CheckIn.MobileCheckIn
                 Db.SaveChanges();
                 success = true;
                 model = checkInEntryDataProvider.Get(checkIn.CheckIn_PK);
+
+                Db.sp_SOWStatusUpdate(checkInDTO.SOWAssign_FK, checkInDTO.UserId);
+
             }
 
             BTSQuery bTSQuery = new BTSQuery(Db);
