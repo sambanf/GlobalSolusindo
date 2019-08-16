@@ -106,7 +106,7 @@ namespace GlobalSolusindo.Api.MobileControllers
 
             using (var izinCutiSearch = new IzinCutiSearch(Db))
             {
-                var data = izinCutiSearch.GetDataByFilter(filter);
+                var data = izinCutiSearch.GetDataByFilterMobile(filter);
                 var mobileResponse = (from records in data.Records.AsQueryable()
                                       select new
                                       {
