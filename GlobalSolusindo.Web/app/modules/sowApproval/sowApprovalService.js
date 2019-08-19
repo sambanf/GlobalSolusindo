@@ -42,7 +42,7 @@
 
         self.init = function (ctrl) {
             controller = ctrl;
-            angular.element('#approveButton').on('click', function () {
+            angular.element('#closebutton').on('click', function () {
                 self.approve(controller.model, 4);
             });
         };
