@@ -202,7 +202,7 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
                     x.User_FK == filter.UserId);
             }
 
-            if (filter.Status != null || filter.Status != 0)
+            if (filter.Status == 1 || filter.Status == 2 || filter.Status == 3)
             {
                     filteredRecords = filteredRecords
                                      .Where(x =>
