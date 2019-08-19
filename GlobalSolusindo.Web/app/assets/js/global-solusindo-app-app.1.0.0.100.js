@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-14. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-19. 
 * @author Kairos
 */
 (function() {
@@ -4883,32 +4883,83 @@ angular.module('global-solusindo')
     angular.module('global-solusindo')
         .controller('TaskEngineerCtrl', TaskEngineerCtrl);
 
-    TaskEngineerCtrl.$inject = ['$scope', '$state', 'taskEngineerDtService', 'taskEngineerDeleteService', 'taskEngineerViewService', 'HttpService', 'select2Service'];
+    TaskEngineerCtrl.$inject = ['$scope', '$state', 'taskEngineerDtService', 'taskEngineerDeleteService', 'taskEngineerViewService', 'HttpService', 'select2Service', 'taskEngineerSearchService'];
 
-    function TaskEngineerCtrl($scope, $state, dtService, deleteService, viewService, http, select2Service) {
+    function TaskEngineerCtrl($scope, $state, dtService, deleteService, viewService, http, select2Service, search) {
         var self = this;
         self.formData = {};
-        self.formData.users = [
-            { user_fk:0, username: "ALL" }
-        ];
+        //self.formData.users = [
+        //    { user_fk:0, username: "ALL" }
+        //];
+        self.model = {
+            user_fk: 0,
+            bts_fk: 0
+        };
 
         dtService.init(self);
         deleteService.init(self);
         viewService.init(self);
-        function getUsers(jabatanFk, keyword) {
-            http.get('user/search', {
-                pageIndex: 1,
-                pageSize: 10,
-                keyword: keyword
-            }).then(function (response) {
-                response.data.records.forEach(function(item){
-                    self.formData.users.push(item);
-                });
-                console.log(self.formData.users);
-                // console.log(response);
+        //function getUsers(jabatanFk, keyword) {
+        //    http.get('user/search', {
+        //        pageIndex: 1,
+        //        pageSize: 10,
+        //        keyword: keyword
+        //    }).then(function (response) {
+        //        response.data.records.forEach(function(item){
+        //            self.formData.users.push(item);
+        //        });
+        //        console.log(self.formData.users);
+        //        // console.log(response);
+        //    });
+        //};
+        function getUsers() {
+            select2Service.liveSearch("user/search", {
+                selector: '#user_fk',
+                valueMember: 'user_pk',
+                displayMember: 'name',
+                callback: function (data) {
+                    self.formData.users = [];
+                    data.forEach(function (user) {
+                        self.formData.users.push(user);
+                    });
+                },
+                onSelected: function (data) {
+                    self.model.user_fk = data.user_pk;
+                }
             });
-        };
-        
+        }
+
+        //function getBulans() {
+        //    select2Service.liveSearch("taskEngineer/getPeriod", {
+        //        selector: '#bulan_fk',
+        //        valueMember: 'value',
+        //        displayMember: 'name',
+        //        callback: function (data) {
+        //            console.log(data);
+        //            self.formData.bulans = data;
+        //            console.log(data);
+        //        },
+        //        onSelected: function (data) {
+        //            self.model.bulan_pk = data.value;
+        //        }
+        //    });
+        //}
+
+        function getBulans() {
+            select2Service.liveSearch("taskEngineer/getPeriod", {
+                selector: '#bulan_fk',
+                valueMember: 'value',
+                displayMember: 'name',
+                callback: function (data) {
+                    self.formData.bulans = data;
+                    //console.log(data);
+                },
+                onSelected: function (data) {
+                    self.model.bulans_fk = data.value;
+                }
+            });
+        }
+
         function getBTSs() {
             select2Service.liveSearch("bts/search", {
                 selector: '#bts_fk',
@@ -4916,7 +4967,7 @@ angular.module('global-solusindo')
                 displayMember: 'name',
                 callback: function (data) {
                     self.formData.btses = data;
-                    console.log(data);
+                    //console.log(data);
                 },
                 onSelected: function (data) {
                     self.model.bts_fk = data.bts_pk;
@@ -4924,8 +4975,14 @@ angular.module('global-solusindo')
             });
         }
 
+        angular.element('#searchButton').on('click', function () {
+            search.search(self);
+        });
+
         getUsers();
         getBTSs();
+        getBulans();
+        console.log(self);
 
         return self;
     }
@@ -5260,11 +5317,7 @@ angular.module('global-solusindo')
 
     function SOWCtrl($scope, $state, dtService, deleteService, viewService, http) {
         var self = this;
-
-        dtService.init(self);
-        deleteService.init(self);
-        viewService.init(self);
-
+        
         http.get('dashboard/getRole', {
             dashboard: ''
         }, true).then(function (res) {
@@ -5272,6 +5325,9 @@ angular.module('global-solusindo')
             var createRole = "SOW_Input";
             var deleteRole = "SOW_Delete";
             var importRole = "SOW_Import";
+            var readRole = "SOW_ViewAll";
+            var updateRole = "SOW_Edit";
+            var approvalRole = "SOW_Approval";
 
             document.getElementById("addButton").style.visibility = "hidden";
             document.getElementById("importButton").style.visibility = "hidden";
@@ -5281,8 +5337,44 @@ angular.module('global-solusindo')
             setRole(res.data, "importButton", importRole);
             setRole(res.data, "deleteButton", deleteRole);
 
+            var show = 'hidden';
+            var view = 'hidden';
+            var dlt = 'hidden';
+            var approval = 'hidden';
+
+            if (setRoleTable(res.data, updateRole)) {
+                view = 'visible';
+            }
+            if (setRoleTable(res.data, deleteRole)) {
+                dlt = 'visible';
+            }
+            if (setRoleTable(res.data, readRole)) {
+                show = 'visible';
+            }
+            if (setRoleTable(res.data, approvalRole)) {
+                approval = 'visible';
+            }
+
+            dtService.init(self, show, view, dlt, approval);
+            deleteService.init(self);
+            viewService.init(self);
+
         })
-        
+
+        function setRoleTable(roles, roleName) {
+
+            var role = false;
+
+            for (var i = 0; i < roles.length; i++) {
+                if (roleName == roles[i].title) {
+
+                    role = true;
+                    break;
+                }
+            }
+            return role;
+        }
+
         function setRole(roles, control, roleName) {
 
             var role = false;
@@ -5430,6 +5522,36 @@ angular.module('global-solusindo')
                 document.getElementById('kmlFile1').disabled = false;
                 document.getElementById('kmlFile2').disabled = false;
             }
+
+            bindingService.init(self, isDTCoor, isTL).then(function (res) {
+                formControlService.setFormControl(self);
+                saveService.init(self);
+                SOWSelect2Service.init(self);
+
+                self.getUsers = function (jabatanFk, keyword) {
+                    var pfk = document.getElementById('project_fk').value.split(':')[1];
+                    var requestData = {
+                        pageIndex: 1,
+                        pageSize: 10000,
+                        keyword: keyword,
+                        kategoriJabatan_fk: jabatanFk,
+                        project_fk: pfk
+                    };
+
+                    http.get('user/search', requestData)
+                        .then(function (response) {
+                            self.formData.users = response.data.records;
+                        });
+                };
+
+                try {
+                    addEventListenerOnImageChanged1();
+                    addEventListenerOnImageChanged2();
+                    map.init(self);
+                } catch (e) {
+                    console.log(e);
+                }
+            });
         })
 
         function setRole(roles, roleName) {
@@ -5521,39 +5643,7 @@ angular.module('global-solusindo')
             document.getElementById("kmlFile2").addEventListener("change", readFile2);
         }
 
-        bindingService.init(self).then(function (res) {
-            formControlService.setFormControl(self);
-            saveService.init(self);
-            SOWSelect2Service.init(self);
-
-            self.getUsers = function (jabatanFk, keyword) {
-                var requestData = {
-                    pageIndex: 1,
-                    pageSize: 10000,
-                    keyword: keyword,
-                    kategoriJabatan_fk: jabatanFk
-                };
-
-                http.get('user/search', requestData)
-                    .then(function (response) {
-                        self.formData.users = response.data.records;
-                    });
-            };
-
-            try {
-                addEventListenerOnImageChanged1();
-                addEventListenerOnImageChanged2();
-                map.init(self);
-            } catch (e) {
-                console.log(e);
-            }
-        });
-
-
-
-
-
-
+        
 
         return self;
     }
@@ -7116,6 +7206,9 @@ angular.module('global-solusindo')
                     },
                     {
                         "data": "asetKategoriTitle"
+                    },
+                    {
+                        "data": "asetID"
                     },
                     {
                         "data": "asetName"
@@ -11354,9 +11447,9 @@ angular.module('global-solusindo')
         self.init = function (ctrl) {
             controller = ctrl;
 
-            var approved = 1;
-            var rejected = 2;
-            var waiting = 3;
+            var approved = 2;
+            var rejected = 3;
+            var waiting = 1;
 
             angular.element('#approveButton').on('click', function () {
                 self.approve({
@@ -14878,6 +14971,7 @@ angular.module('global-solusindo')
 
                 if (res.success) {
                     ui.alert.success('Upload process complete.');
+                    window.location.reload();
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
@@ -15816,9 +15910,9 @@ angular.module('global-solusindo')
         .module('global-solusindo')
         .factory('taskEngineerDtService', taskEngineerDtService);
 
-    taskEngineerDtService.$inject = ['DatatableService','HttpService'];
+    taskEngineerDtService.$inject = ['DatatableService', 'HttpService', 'taskEngineerSearchService'];
 
-    function taskEngineerDtService(ds, http) {
+    function taskEngineerDtService(ds, http, search) {
         var self = this;
         var controller = {};
 
@@ -15858,31 +15952,29 @@ angular.module('global-solusindo')
 
         self.init = function (ctrl) {
             controller = ctrl;
-
-            console.log(controller.model);
-            controller.search = function (){
-                if(controller.model){
-                    self.dtService.param.user_fk = controller.model.user_fk;
-                }
-                // console.log(self.dtService.param);
-                controller.datatable.draw();
-            }
+            //console.log(controller);
+            //console.log(controller.model);
+            //controller.search = function (ctrl) {
+            //    controller = ctrl;
+            //    console.log(controller);
+            //    if (controller.model) {
+            //        console.log(controller.model.user_fk);
+            //        self.dtService.param.user_fk = controller.model.user_fk;
+            //    }
+            //    // console.log(self.dtService.param);
+            //    controller.datatable.draw();
+            //}
             var titleColumnIndex = 1;
             var dt = ds.init("#taskEngineer", "taskEngineer/search", {
                 extendRequestData: {
                     pageIndex: 1,
-                    pageSize: 10,
-                    userId: self.userId,
-                    name:self.name
+                    pageSize: 10
                 },
                 order: [titleColumnIndex, "asc"],
                 columns: [
                     {
                         "orderable": false,
                         "data": "sowAssign_fk"
-                    },
-                    {
-                        "data": "assignNumber"
                     },
                     {
                         "data": "userId"
@@ -15897,8 +15989,25 @@ angular.module('global-solusindo')
                         "data": "btsName"
                     },
                     {
-                        "data": "taskStatus"
+                        data: 'taskStatus', defaultContent: "",
+                        render: function (data, type, row) {
+                            if (row.taskStatus == true ) {
+                                return "Approve";
+                            }
+                            else if (row.taskStatus == false) {
+                                return "Reject";
+                            }
+                            else if (!row.taskStatus && !row.checkin_fk) {
+                                return "New";
+                            }
+                            else {
+                                return "Waiting Approval";
+                            }
+                        }
                     },
+                    //{
+                    //    "data": "taskStatus"
+                    //},
                     {
                         "orderable": false,
                         "className": "text-center",
@@ -15910,6 +16019,56 @@ angular.module('global-solusindo')
             });
             controller.datatable = dt;
             return dt;
+        };
+
+        return self;
+    }
+
+})();
+(function () {
+    'use strict';
+
+    /**
+     * @ngdoc function
+     * @name app.service:dashboardService
+     * @description
+     * # dashboardService
+     * Service of the app
+     */
+
+    angular
+        .module('global-solusindo')
+        .factory('taskEngineerSearchService', tasksearchService);
+
+    tasksearchService.$inject = ['$state', 'HttpService', 'uiService', 'validationService'];
+
+    function tasksearchService($state, http, ui, validation) {
+        var self = this;
+        var controller;
+
+        //function goToListPage() {
+        //    $state.go('app.role-list');
+        //}
+
+        
+
+        self.search = function (ctrl) {
+            controller = ctrl;
+            console.log(controller);
+            //user_fk, bts_fk, tglMulai, tglSelesai, periode, timeFilter
+            controller.datatable.requestData.user_fk = controller.model.user_fk;
+            controller.datatable.requestData.bts_fk = controller.model.bts_fk;
+            controller.datatable.requestData.tglMulai = controller.model.tglMulai;
+            controller.datatable.requestData.tglSelesai = controller.model.tglAkhir;
+            controller.datatable.requestData.timeFilter = controller.model.timePeriod;
+            controller.datatable.requestData.periode = controller.model.bulan_fk;
+            controller.datatable.draw();
+        }
+
+        self.init = function (ctrl) {
+            controller = ctrl;
+            angular.element('#searchButton').on('click', function () {
+            });
         };
 
         return self;
@@ -16312,7 +16471,7 @@ angular.module('global-solusindo')
                         var url = window.URL.createObjectURL(blob);
 
                         linkElement.setAttribute('href', url);
-                        linkElement.setAttribute("download", "TimesheetDetail "+bulanName + " " + tahun+".xlsx");
+                        linkElement.setAttribute("download", document.getElementById('userId').innerText +"TimesheetDetail "+bulanName + " " + tahun+".xlsx");
 
                         var clickEvent = new MouseEvent("click", {
                             "view": window,
@@ -18317,97 +18476,57 @@ angular.module('global-solusindo')
     function sow(ds, http) {
         var self = this;
         var controller = {};
-
-        var show = 'hidden';
-        var view = 'hidden';
-        var dlt = 'hidden';
-        var approval = 'hidden';
-        function setRole(roles, roleName) {
-
-            var role = false;
-
-            for (var i = 0; i < roles.length; i++) {
-                if (roleName == roles[i].title) {
-
-                    role = true;
-                    break;
-                }
-            }
-            return role;
-        }
-
-        self.init = function (ctrl) {
-
-            http.get('dashboard/getRole', {
-                dashboard: ''
-            }, true).then(function (res) {
-
-                var readRole = "SOW_ViewAll";
-                var updateRole = "SOW_Edit";
-                var deleteRole = "SOW_Delete";
-                var approvalRole = "SOW_Approval";
-
-                if (setRole(res.data, updateRole)) {
-                    view = 'visible';
-                }
-                if (setRole(res.data, deleteRole)) {
-                    dlt = 'visible';
-                }
-                if (setRole(res.data, readRole)) {
-                    show = 'visible';
-                }
-                if (setRole(res.data, approvalRole)) {
-                    approval = 'visible';
-                }
-
-                controller = ctrl;
-                var sortColumnIndex = 3;
-                var dt = ds.init("#sow", "sow/search", {
-                    extendRequestData: {
-                        pageIndex: 1,
-                        pageSize: 10
+        
+        self.init = function (ctrl, show, view, dlt, approval) {
+            controller = ctrl;
+            var sortColumnIndex = 3;
+            var tempview;
+            var dt = ds.init("#sow", "sow/search", {
+                extendRequestData: {
+                    pageIndex: 1,
+                    pageSize: 10
+                },
+                order: [sortColumnIndex, "desc"],
+                columns: [
+                    {
+                        "orderable": false,
+                        "data": "sow_pk"
                     },
-                    order: [sortColumnIndex, "desc"],
-                    columns: [
-                        {
-                            "orderable": false,
-                            "data": "sow_pk"
-                        },
-                        {
-                            "data": "sowName"
-                        },
-                        {
-                            "data": "btsName"
-                        },
-                        {
-                            "data": "tglMulai",
-                            "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
-                        },
-                        {
-                            "data": "sowStatusTitle"
-                        },
-                        {
-                            "orderable": false,
-                            "className": "text-center",
-                            "render": function (data) {
-                                return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show + "'><i class='fa fa-info'></i></button> " +
-                                    "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + view + "'><i class='fas fa-pencil-alt'></i></button> " +
-                                    "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt + "'><i class='fa fa-trash-alt'></i></button>"
-                            }
-                        },
-                        {
-                            "orderable": false,
-                            "className": "text-center",
-                            "render": function (data) {
-                                return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + approval + "'>Approval</button>";
-                            }
+                    {
+                        "data": "sowName"
+                    },
+                    {
+                        "data": "btsName"
+                    },
+                    {
+                        "data": "tglMulai",
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY") : "-"; }
+                    },
+                    {
+                        "data": "sowStatusTitle"
+                    },
+                    {
+                        "data": "statusSow_fk",
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show + "'><i class='fa fa-info'></i></button> " +
+                                "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + (data == '4'? 'hidden' : view) + "'><i class='fas fa-pencil-alt'></i></button> " +
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt + "'><i class='fa fa-trash-alt'></i></button>"
                         }
-                    ]
-                });
-                controller.datatable = dt;
-                return dt;
-            })
-
+                    },
+                    {
+                        "data": "statusSow_fk",
+                        "orderable": false,
+                        "className": "text-center",
+                        "render": function (data) {
+                            return "<button id='approval' rel='tooltip' title='Approval' data-placement='left' class='btn btn-info' style='visibility:" + (data == '3' ? approval : 'hidden') + "'>Close</button>";
+                        }
+                    }
+                ]
+            });
+            controller.datatable = dt;
+            return dt;
         };
 
         return self;
@@ -18570,9 +18689,6 @@ angular.module('global-solusindo')
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element('#approveButton').on('click', function () {
-                self.approve(controller.model, 3);
-            });
-            angular.element('#rejectButton').on('click', function () {
                 self.approve(controller.model, 4);
             });
         };
@@ -18601,40 +18717,12 @@ angular.module('global-solusindo')
     function SOWBindingService(http, $state) {
         var self = this;
         var controller = {};
-
-        var isTL; 
-        var isDTCoor;
-
-        //function setRoles() {
-            self.applyBinding = function (id) {
-                return http.get('sow/form/' + id);
-            };
-
-            http.get('dashboard/getRole', {
-                dashboard: ''
-            }, true).then(function (res) {
-                isTL = setRole(res.data, "SOW_Edit_IsTL");
-                isDTCoor = setRole(res.data, "SOW_Edit_IsDTCoor");
-
-            });
-        //}
-
-        function setRole(roles, roleName) {
-
-            var role = false;
-
-            for (var i = 0; i < roles.length; i++) {
-                if (roleName == roles[i].title) {
-
-                    role = true;
-                    break;
-                }
-            }
-
-            return role
-        }
-
-        function applyConversion(model) {
+        
+        self.applyBinding = function (id) {
+            return http.get('sow/form/' + id);
+        };
+        
+        function applyConversion(model, isDTCoor, isTL) {
             if (model && model.sowTracks) {
                 model.sowTracks.forEach(function (sowTrack, index) {
                     sowTrack.tipePekerjaan_fk = sowTrack.tipePekerjaan_fk + '';
@@ -18651,6 +18739,7 @@ angular.module('global-solusindo')
                         }
                     }
                     else if (isTL == true) {
+
                         if (index > 0) {
                             sowAssign.createdBy = false;
                         }
@@ -18665,14 +18754,14 @@ angular.module('global-solusindo')
             }
         }
 
-        self.init = function (ctrl) {
+        self.init = function (ctrl, isDTCoor, isTL) {
             controller = ctrl;
             var id = ctrl.stateParam.id;
             return new Promise(function (resolve, reject) {
                 self.applyBinding(id).then(function (res) {
                     controller.formData = res.data.formData;
 
-                    applyConversion(res.data.model);
+                    applyConversion(res.data.model, isDTCoor, isTL);
                     controller.model = res.data.model;
                     controller.formData.users = [];
                     controller.formControls = res.data.formControls;
@@ -18995,17 +19084,6 @@ angular.module('global-solusindo')
             });
         }
 
-        //function getUsers(jabatanFk, keyword) {
-        //    http.get('user/search', {
-        //        pageIndex: 1,
-        //        pageSize: 5,
-        //        keyword: keyword,
-        //        kategoriJabatan_fk: jabatanFk
-        //    }).then(function (response) {
-        //        controller.formData.users = response.data.records;
-        //    });
-        //};
-
         self.init = function (ctrl) {
             controller = ctrl;
             angular.element(document).ready(function () {
@@ -19013,7 +19091,6 @@ angular.module('global-solusindo')
                 getBTSs();
                 getTechnologies();
                 getSOWName();
-                //controller.getUsers = getUsers;
             });
         };
 

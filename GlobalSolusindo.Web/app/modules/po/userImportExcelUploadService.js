@@ -27,6 +27,7 @@
 
                 if (res.success) {
                     ui.alert.success('Upload process complete.');
+                    window.location.reload();
                 } else {
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)

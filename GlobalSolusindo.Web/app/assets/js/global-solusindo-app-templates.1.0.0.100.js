@@ -498,6 +498,8 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Asset Category</th>\r" +
     "\n" +
+    "                                        <th>Asset Code</th>\r" +
+    "\n" +
     "                                        <th>Asset Name</th>\r" +
     "\n" +
     "                                        <th>Borrow Date</th>\r" +
@@ -6411,13 +6413,15 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row form-group\" >\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-1\">User ID</label>\r" +
+    "                        <label class=\"control-label col-sm-1\">Name</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
-    "                            <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\" required>\r" +
+    "                            <select id=\"user_fk\" name=\"user_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.user_fk\">\r" +
     "\n" +
-    "                                <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.username}}</option>\r" +
+    "                                <option value=\"0\">All</option>\r" +
+    "\n" +
+    "                                <option ng-repeat=\"x in vm.formData.users\" ng-value=\"x.user_pk\">{{x.name}}</option>\r" +
     "\n" +
     "                            </select>\r" +
     "\n" +
@@ -6425,7 +6429,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-1\">Name</label>\r" +
+    "                        <!--<label class=\"control-label col-sm-1\">Name</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
@@ -6433,7 +6437,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                        </div>-->\r" +
     "\n" +
     "                        <label class=\"control-label col-sm-1\">Site</label>\r" +
     "\n" +
@@ -6453,7 +6457,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row form-group col-md-2 radio\">\r" +
     "\n" +
-    "                        <label><input type=\"radio\" name=\"optradio\" value=\"1\">Timespan</label>\r" +
+    "                        <label><input type=\"radio\" name=\"optradio\" value=\"1\" ng-model=\"vm.model.timePeriod\">Timespan</label>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -6485,7 +6489,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row form-group col-md-2 radio\">\r" +
     "\n" +
-    "                        <label><input type=\"radio\" name=\"optradio\" value=\"1\">Period</label>\r" +
+    "                        <label><input type=\"radio\" name=\"optradio\" value=\"2\" ng-model=\"vm.model.timePeriod\">Period</label>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -6497,7 +6501,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <select id=\"bulan_fk\" name=\"bulan_fk\" class=\"form-control input-lg\" size=\"0\" ng-model=\"vm.model.bulan_fk\" required>\r" +
     "\n" +
-    "                                <option ng-repeat=\"x in vm.formData.bulans\" ng-value=\"x.bulan_pk\">{{x.title}}</option>\r" +
+    "                                <option ng-repeat=\"x in vm.formData.bulans\" ng-value=\"x.value\">{{x.name}}</option>\r" +
     "\n" +
     "                            </select>\r" +
     "\n" +
@@ -6509,7 +6513,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row form-group col-md-2\" >\r" +
     "\n" +
-    "                        <button id=\"searchButton\" style=\"border-radius: 20px\" ng-click=\"vm.search()\" class=\"btn btn-success\">Cari</button>\r" +
+    "                        <!--<button id=\"searchButton\" style=\"border-radius: 20px\" ng-click=\"vm.search()\" class=\"btn btn-success\">Cari</button>-->\r" +
+    "\n" +
+    "                        <button id=\"searchButton\" type=\"button\" class=\"btn btn-success\" style=\"border-radius: 20px\" ng-click=\"vm.search()\">Cari</button>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -6531,7 +6537,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>No</th>\r" +
     "\n" +
-    "                                        <th>Assign Number</th>\r" +
+    "                                        <!--<th>Assign Number</th>-->\r" +
     "\n" +
     "                                        <th>User ID</th>\r" +
     "\n" +
@@ -6809,7 +6815,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"card-title\">Timesheet Engineer</div>\r" +
     "\n" +
-    "                    <div class=\"row form-group\" style=\"margin-left: -1px; margin-right: -1px; border-bottom: 1px solid #ccc;\">\r" +
+    "                    <div class=\"row form-group\" style=\"margin-left: -1px; margin-right: -1px; border-bottom: 1px solid #ccc; display:none\">\r" +
     "\n" +
     "                        <label class=\"control-label col-sm-1\">User ID</label>\r" +
     "\n" +
@@ -7949,9 +7955,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <button class=\"btn btn-danger float-right\" id=\"rejectButton\" ng-show=\"vm.model.sowResults.length>=3 || vm.model.statusSow_fk != 4\">Reject</button>-->\r" +
     "\n" +
-    "                                <button class=\"btn btn-success float-right\" id=\"approveButton\" ng-hide=\"vm.model.statusSow_fk == 3 || vm.model.statusSow_fk == 4\">Approve</button>\r" +
+    "                                <!--<button class=\"btn btn-success float-right\" id=\"approveButton\" ng-hide=\"vm.model.statusSow_fk == 3 || vm.model.statusSow_fk == 4\">Approve</button>-->\r" +
     "\n" +
-    "                                <button class=\"btn btn-danger float-right\" id=\"rejectButton\" ng-hide=\"vm.model.statusSow_fk == 3 || vm.model.statusSow_fk == 4\">Reject</button>\r" +
+    "                                <button class=\"btn btn-danger float-right\" id=\"approveButton\" ng-hide=\"vm.model.statusSow_fk == 4\">Close</button>\r" +
     "\n" +
     "                            </div>\r" +
     "\n" +

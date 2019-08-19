@@ -48,7 +48,7 @@
                         var url = window.URL.createObjectURL(blob);
 
                         linkElement.setAttribute('href', url);
-                        linkElement.setAttribute("download", "TimesheetDetail "+bulanName + " " + tahun+".xlsx");
+                        linkElement.setAttribute("download", document.getElementById('userId').innerText +"TimesheetDetail "+bulanName + " " + tahun+".xlsx");
 
                         var clickEvent = new MouseEvent("click", {
                             "view": window,
