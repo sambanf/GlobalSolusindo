@@ -38,6 +38,7 @@ namespace GlobalSolusindo.Business.IzinCuti.DML
             IzinCutiEntryModel model = null;
             if (validationResult.IsValid)
             {
+                izinCutiDTO.IzinCutiStatus_FK = 1;
                 tblT_IzinCuti izinCuti = Insert(izinCutiDTO, dateStamp);
                 Db.SaveChanges();
 

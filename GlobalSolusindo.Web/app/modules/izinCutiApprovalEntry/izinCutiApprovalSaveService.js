@@ -52,9 +52,9 @@
         self.init = function (ctrl) {
             controller = ctrl;
 
-            var approved = 1;
-            var rejected = 2;
-            var waiting = 3;
+            var approved = 2;
+            var rejected = 3;
+            var waiting = 1;
 
             angular.element('#approveButton').on('click', function () {
                 self.approve({

@@ -38,7 +38,7 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
                         join izinCutiStatus in Db.tblM_IzinCutiStatus on izinCuti.IzinCutiStatus_FK equals izinCutiStatus.IzinCutiStatus_PK into izinCutiStatusTemp
                         from izinCutiStatus in izinCutiStatusTemp.DefaultIfEmpty()
                         where
-                        izinCuti.Status_FK != deleted
+                        izinCuti.Status_FK != deleted && izinCuti.IzinCutiStatus_FK != null
                         select new IzinCutiDTO
                         {
                             IzinCuti_PK = izinCuti.IzinCuti_PK,
@@ -52,7 +52,7 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
                             ApprovalUserDetail_FK = izinCuti.ApprovalUserDetail_FK,
                             ApprovedByUserName = userDetailApproval.Name ?? "N/A",
                             IzinCutiStatus_FK = izinCuti.IzinCutiStatus_FK,
-                            IzinCutiStatusTitle = izinCutiStatus.Title ?? "Waiting",
+                            IzinCutiStatusTitle = izinCutiStatus.Title,
                             CreatedBy = izinCuti.CreatedBy,
                             CreatedDate = izinCuti.CreatedDate,
                             UpdatedBy = izinCuti.UpdatedBy,

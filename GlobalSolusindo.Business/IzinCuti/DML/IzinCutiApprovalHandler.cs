@@ -12,9 +12,10 @@ namespace GlobalSolusindo.Business.IzinCuti.DML
 {
     public enum IzinCutiStatus
     {
-        Approved = 1,
-        Rejected = 2,
-        Waiting = 3
+        Waiting = 1,
+        Approved = 2,
+        Rejected = 3
+        
     }
 
     public class IzinCutiApprovalModel
