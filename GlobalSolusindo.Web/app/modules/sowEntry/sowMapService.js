@@ -79,7 +79,8 @@
             if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[0]) {
                 var xmlString = sowCtrl.model.sowTracks[0].route;
                 var routes = kml.createRoutes(xmlString);
-                self.setRoute1(routes);
+                //self.setRoute1(routes);
+                self.setRoute2(routes);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[0]) {
@@ -91,13 +92,15 @@
                         lng: coordinate.longitude
                     });
                 });
-                self.setRoute1(routeResult);
+                //self.setRoute1(routeResult);
+                self.setRoute2(routeResult);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[1]) {
                 xmlString = sowCtrl.model.sowTracks[1].route;
                 routes = kml.createRoutes(xmlString);
-                self.setRoute2(routes);
+                //self.setRoute2(routes);
+                self.setRoute1(routes);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[1]) {
@@ -109,7 +112,8 @@
                         lng: coordinate.longitude
                     });
                 });
-                self.setRoute2(routeResult);
+                //self.setRoute2(routeResult);
+                self.setRoute1(routeResult);
             }
         };
 
