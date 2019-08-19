@@ -29,6 +29,15 @@
                     sowTrack.tipePekerjaan_fk = sowTrack.tipePekerjaan_fk + '';
                 });
             }
+            if (model && model.sowTracks) {
+
+                if (model.sowTracks[0].tipePekerjaan_fk == 2)
+                {
+                    var newValuesowTracks = model.sowTracks[0];
+                    model.sowTracks[1] = newValuesowTracks;
+                    model.sowTracks[0] = null;
+                }
+            }
             if (model && model.sowAssigns) {
                 model.sowAssigns.forEach(function (sowAssign, index) {
                     if (isDTCoor == true) {
