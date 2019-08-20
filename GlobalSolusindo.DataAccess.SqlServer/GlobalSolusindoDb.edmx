@@ -1628,6 +1628,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Type="String" Name="ReportedValue" Nullable="true" MaxLength="4000" />
           <Property Type="Boolean" Name="IsClose" Nullable="true" />
           <Property Type="Boolean" Name="IsSubmitted" Nullable="true" />
+		  <Property Type="Boolean" Name="IsCheckOut" Nullable="true" />
         </ComplexType>
         <ComplexType Name="GetTimesheetDaily_Result">
           <Property Type="String" Name="Name" Nullable="false" MaxLength="200" />

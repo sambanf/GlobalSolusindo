@@ -119,6 +119,9 @@ namespace GlobalSolusindo.Business.SOW
         [JsonProperty("isSubmitted")]
         public bool? IsSubmitted { get; set; }
 
+        [JsonProperty("isCheckOut")]
+        public bool? IsCheckOut { get; set; }
+
         [JsonProperty("network")]
         public List<NetworkType> Network { get; set; } = new List<NetworkType>();
     }
