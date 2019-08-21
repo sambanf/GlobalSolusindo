@@ -49,7 +49,7 @@ namespace GlobalSolusindo.Business.SOWResult
                 Db.SaveChanges();
                 model = sowResultEntryDataProvider.Get(sowResultDTO.SOWResult_PK);
 
-                Db.sp_SOWStatusUpdateApprove(sowResultDTO.SOWResult_PK, user.User_PK)
+                Db.sp_SOWStatusUpdateApprove(sowResultDTO.SOWResult_PK, user.User_PK);
             }
 
             return new SaveResult<SOWResultEntryModel>
