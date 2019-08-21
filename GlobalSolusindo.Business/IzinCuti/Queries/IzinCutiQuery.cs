@@ -77,8 +77,16 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
             {
                 var izinCuti = Db.tblT_IzinCuti.Find(record.IzinCuti_PK);
                 if (izinCuti != null)
-                    record.FilePhotoInBase64 = new WebImageConverter().GetBase64FromBytes(izinCuti.FilePendukung);
+                    record.bytePhoto = izinCuti.FilePendukung;
             }
+        }
+        
+        public byte[] GetFileImage(int primaryKey)
+        {
+            IzinCutiDTO record = GetQuery().FirstOrDefault(izinCuti => izinCuti.IzinCuti_PK == primaryKey);
+            GetPhoto(record);
+            byte[] file = record.bytePhoto;
+            return file;
         }
 
         #region IUniqueQuery Member

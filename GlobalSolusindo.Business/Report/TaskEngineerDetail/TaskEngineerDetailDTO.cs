@@ -22,5 +22,8 @@ namespace GlobalSolusindo.Business.TaskEngineerDetail
 
         [JsonProperty("sOWIssue")]
         public SOWIssueDTO sOWIssue { get; set; }
+
+        [JsonProperty("remark")]
+        public string remark { get; set; }
     }
 }

@@ -48,6 +48,7 @@ namespace GlobalSolusindo.Business.SOW
                         sow.Status_FK != deleted
                         select new SOWDTO
                         {
+                            PMOUniq = sow.PMOUniq,
                             SOW_PK = sow.SOW_PK,
                             SOWName = sow.SOWName,
                             BTS_FK = sow.BTS_FK.Value,
@@ -60,6 +61,8 @@ namespace GlobalSolusindo.Business.SOW
                             TglSelesai = sow.TglSelesai,
                             StatusSOW_FK = sow.StatusSOW_FK,
                             SOWStatusTitle = sowStatus.Title,
+                            LVDate = sow.LVDate,
+                            AcceptedDate = sow.AcceptedDate,
                             CreatedBy = sow.CreatedBy,
                             CreatedDate = sow.CreatedDate,
                             UpdatedBy = sow.UpdatedBy,

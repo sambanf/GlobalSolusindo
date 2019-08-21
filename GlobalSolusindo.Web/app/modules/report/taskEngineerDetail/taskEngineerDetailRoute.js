@@ -13,7 +13,7 @@ angular.module('global-solusindo')
 
         $stateProvider
             .state('app.taskEngineerDetail', {
-                url: '/taskEngineerDetail/:id',
+                url: '/taskEngineerDetail/:id:checkIn_fk',
                 templateUrl: 'app/modules/report/taskEngineerDetail/taskEngineerDetail.html',
                 controller: 'TaskEngineerDetailCtrl',
                 controllerAs: 'vm',

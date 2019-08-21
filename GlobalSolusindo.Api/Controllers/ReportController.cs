@@ -106,14 +106,14 @@ namespace GlobalSolusindo.Api.Controllers
             }
         }
 
-        [Route("taskEngineerDetail/{sowAssign_fk}")]
+        [Route("taskEngineerDetail/{sowAssign_fk}/{checkIn_fk}")]
         [HttpGet]
-        public IHttpActionResult TaskEngineerDetail(int sowAssign_fk)
+        public IHttpActionResult TaskEngineerDetail(int sowAssign_fk, int checkIn_fk)
         {
             ThrowIfUserHasNoRole(readRole);
             using (var taskEngineerDetailDataProvider = new TaskEngineerDetailDataProvider(Db, ActiveUser, AccessControl))
             {
-                var data = taskEngineerDetailDataProvider.Get(sowAssign_fk);
+                var data = taskEngineerDetailDataProvider.Get(sowAssign_fk, checkIn_fk);
                 SaveLog(ActiveUser.Username, "ReportTaskEngineerDetail_ViewAll", JsonConvert.SerializeObject(new { primaryKey = sowAssign_fk }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }

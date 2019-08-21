@@ -9,6 +9,7 @@ using GlobalSolusindo.Business.CheckIn.Queries;
 using GlobalSolusindo.Business.CheckIn;
 using GlobalSolusindo.Business.SOWIssue.Queries;
 using GlobalSolusindo.Business.IssueType.Queries;
+using GlobalSolusindo.Business.SOWResult;
 
 namespace GlobalSolusindo.Business.TaskEngineerDetail
 {
@@ -21,7 +22,7 @@ namespace GlobalSolusindo.Business.TaskEngineerDetail
             this.accessControl = accessControl;
         }
 
-        public TaskEngineerDetailDTO Get(int sowAssignPK)
+        public TaskEngineerDetailDTO Get(int sowAssignPK, int checkIn_fk)
         {
             TaskEngineerDetailDTO model = new TaskEngineerDetailDTO();
             CheckInDTO modelCheckin = new CheckInDTO();
@@ -60,9 +61,13 @@ namespace GlobalSolusindo.Business.TaskEngineerDetail
                         }
                     }
                 }
+                if (checkIn_fk != 0)
+                {
+                    SOWResultQuery sOWResultQuery = new SOWResultQuery();
+                    model.remark = sOWResultQuery.GetByCheckInFk(checkIn_fk).remark;
+                }
             }
-
-
+            
             return model;
         }
     }

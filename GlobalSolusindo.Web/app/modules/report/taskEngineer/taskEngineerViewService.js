@@ -19,9 +19,10 @@
         var self = this;
         var controller;
 
-        self.view = function (data) {
+        self.view = function (data, datacheckIn_fk) {
             $state.go('app.taskEngineerDetail', {
-                id: data
+                id: data,
+                checkIn_fk: datacheckIn_fk
             });
         };
 
@@ -29,7 +30,9 @@
             controller = ctrl;
             $('#taskEngineer tbody').on('click', '#view', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
-                self.view(data.sowAssign_fk);
+                var checkIn_fk = data.checkin_fk;
+                if (!checkIn_fk) { checkIn_fk = 0 }
+                self.view(data.sowAssign_fk, checkIn_fk);
             });
 
             $("#taskEngineer tbody").on("dblclick", "tr", function () {

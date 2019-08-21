@@ -2,6 +2,7 @@
 using GlobalSolusindo.Business.SOWResult;
 using GlobalSolusindo.Business.SOWTrackResult;
 using GlobalSolusindo.DataAccess;
+using Kairos.Imaging;
 using Kairos.Linq;
 using System;
 using System.Data.SqlClient;
@@ -104,6 +105,29 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
                 {
                     record.SOWTrackResults = sowTrackResults;
                 }
+            }
+            return record;
+        }
+
+        public CheckInDTO GetByPrimaryKeyPhoto(int checkInPrimaryKey)
+        {
+            CheckInDTO record = GetQuery().FirstOrDefault(checkIn => checkIn.CheckIn_PK == checkInPrimaryKey);
+            if (record != null)
+            {
+                var sowResult = new SOWResultQuery(Db).GetByCheckinFK(checkInPrimaryKey);
+                if (sowResult != null)
+                {
+                    record.SOWResult = sowResult;
+                }
+
+                var sowTrackResults = new SOWTrackResultQuery(Db).GetByCheckinFK(checkInPrimaryKey);
+                if (sowTrackResults != null)
+                {
+                    record.SOWTrackResults = sowTrackResults;
+                }
+                var checkIn = Db.tblT_CheckIn.Find(record.CheckIn_PK);
+                if (checkIn != null)
+                    record.FilePhotoInBase64 = new WebImageConverter().GetBase64FromBytes(checkIn.File);
             }
             return record;
         }

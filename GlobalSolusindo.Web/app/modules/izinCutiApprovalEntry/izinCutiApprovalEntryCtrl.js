@@ -58,6 +58,53 @@
 
         }
 
+        angular.element('#download').on('click', function () {
+            var id = self.stateParam.id;
+            //http.get('izinCuti/DownloadImage/' + id, true).then(function (res) {
+            //    var contentType = 'image/jpeg';
+            //    var linkElement = document.createElement('a');
+            //    try {
+            //        var blob = new Blob([data], { type: contentType });
+            //        var url = window.URL.createObjectURL(blob);
+
+            //        linkElement.setAttribute('href', url);
+            //        linkElement.setAttribute("download", "filePhoto.jpg");
+
+            //        var clickEvent = new MouseEvent("click", {
+            //            "view": window,
+            //            "bubbles": true,
+            //            "cancelable": false
+            //        });
+            //        linkElement.dispatchEvent(clickEvent);
+            //    } catch (ex) {
+            //        console.log(ex);
+            //    }
+            //});
+            http.downloadFile('izinCuti/DownloadImage/' + id).then(function (data) {
+                var contentType = 'image/jpeg';
+                var linkElement = document.createElement('a');
+                try {
+                    var blob = new Blob([data], { type: contentType });
+                    var url = window.URL.createObjectURL(blob);
+
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute("download", "testPhoto.JPG");
+
+                    var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+            //alert('download');
+        });
+
+        //izinCuti / DownloadImage / { id }
+
         return self;
     }
 })();

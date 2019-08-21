@@ -8,8 +8,15 @@ using Kairos.Data;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Transactions;
 using System.Web.Http;
+using System.Web.Http.Results;
 
 namespace GlobalSolusindo.Api.Controllers
 {
@@ -190,6 +197,36 @@ namespace GlobalSolusindo.Api.Controllers
                     SaveLog(ActiveUser.Username, deleteRole, JsonConvert.SerializeObject(ids), "Success", "", "", "");
                     return Ok(new SuccessResponse(result, DeleteMessageBuilder.BuildMessage(result)));
                 }
+            }
+        }
+
+        [Route("izinCuti/DownloadImage/{id}")]
+        [HttpPost]
+        public HttpResponseMessage DownloadImage(int id)
+        {
+            if (id > 0)
+                ThrowIfUserHasNoRole(readRole);
+
+            IzinCutiQuery izinCutiQuery = new IzinCutiQuery();
+
+            Image image;
+            using (MemoryStream ms = new MemoryStream(izinCutiQuery.GetFileImage(id)))
+            {
+                image = Image.FromStream(ms);
+
+                var response = new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new ByteArrayContent(ms.ToArray())
+                };
+
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue
+                       ("image/jpeg");
+                response.Content.Headers.ContentDisposition =
+                       new ContentDispositionHeaderValue("attachment")
+                       {
+                           FileName = "Test.JPG"
+                       };
+                return response;
             }
         }
     }

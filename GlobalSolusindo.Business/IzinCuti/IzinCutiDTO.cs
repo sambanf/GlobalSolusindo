@@ -57,5 +57,8 @@ namespace GlobalSolusindo.Business.IzinCuti
 
         [JsonProperty("photo")]
         public string FilePhotoInBase64 { get; set; }
+
+        [JsonProperty("bytephoto")]
+        public byte[] bytePhoto { get; set; }
     }
 }
