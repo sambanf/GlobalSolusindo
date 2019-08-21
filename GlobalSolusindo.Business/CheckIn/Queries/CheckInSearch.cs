@@ -135,13 +135,22 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
             //    filteredRecords = filteredRecords.Where(x => x.UserId == filter.UserId);
             //}
 
+            //filteredRecords =
+            //  filteredRecords
+            //  .Where(checkIn =>
+            //      checkIn.SOWName.Contains(filter.Keyword)
+            //      || checkIn.UserName.Contains(filter.Keyword)
+            //      || checkIn.BTSName.Contains(filter.Keyword)
+            //      || checkIn.BTSAddress.Contains(filter.Keyword)
+            //      || checkIn.KategoriJabatanTitle.Contains(filter.Keyword)
+            //      );
             filteredRecords =
               filteredRecords
               .Where(checkIn =>
                   checkIn.SOWName.Contains(filter.Keyword)
                   || checkIn.UserName.Contains(filter.Keyword)
                   || checkIn.BTSName.Contains(filter.Keyword)
-                  || checkIn.BTSAddress.Contains(filter.Keyword)
+                  //|| checkIn.BTSAddress.Contains(filter.Keyword)
                   || checkIn.KategoriJabatanTitle.Contains(filter.Keyword)
                   );
 

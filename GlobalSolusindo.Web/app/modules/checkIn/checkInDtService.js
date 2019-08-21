@@ -52,11 +52,11 @@
                     },
                     {
                         "data": "checkInTime",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM")  : "-"; }
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:mm")  : "-"; }
                     },
                     {
                         "data": "waktuCheckOut",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM") : "-"; }
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:mm") : "-"; }
                     },
                     {
                         "data": "fileSubmitted"
