@@ -32,6 +32,7 @@
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
                         validation.serverValidation(res.data.errors);
+                    window.location.reload();
                 }
             });
         };
