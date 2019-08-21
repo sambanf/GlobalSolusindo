@@ -227,6 +227,7 @@ namespace GlobalSolusindo.Business.TaskList.Queries
                                       Reported = taskList_Result.Reported.Value,
                                       IsClose = taskList_Result.IsClose,
                                       IsSubmitted = taskList_Result.IsSubmitted,
+                                      IsCheckOut = taskList_Result.IsCheckOut,
                                       ReportedValue = taskList_Result.ReportedValue,
                                       SOWName = taskList_Result.SOWName,
                                       TowerID = taskList_Result.TowerID,

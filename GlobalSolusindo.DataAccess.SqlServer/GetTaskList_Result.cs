@@ -28,5 +28,6 @@ namespace GlobalSolusindo.DataAccess
         public string ReportedValue { get; set; }
         public Nullable<bool> IsClose { get; set; }
         public Nullable<bool> IsSubmitted { get; set; }
+        public Nullable<bool> IsCheckOut { get; set; }
     }
 }

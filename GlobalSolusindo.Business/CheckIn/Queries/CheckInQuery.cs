@@ -120,6 +120,7 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
 
             var taskListLatest = Db.GetTaskApprovalListLatest().ToList();
             var query = from Data in taskListLatest
+                        where Data.FileUrl == "Yes"
                         select new CheckInDTO
                         {
                             CheckIn_PK = Data.CheckIn_PK??0,

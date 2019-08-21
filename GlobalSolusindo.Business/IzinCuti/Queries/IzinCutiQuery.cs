@@ -1,5 +1,6 @@
 ﻿using GlobalSolusindo.Base;
 using GlobalSolusindo.DataAccess;
+using Kairos.Imaging;
 using Kairos.Linq;
 using System;
 using System.Data.SqlClient;
@@ -66,7 +67,18 @@ namespace GlobalSolusindo.Business.IzinCuti.Queries
         public IzinCutiDTO GetByPrimaryKey(int primaryKey)
         {
             IzinCutiDTO record = GetQuery().FirstOrDefault(izinCuti => izinCuti.IzinCuti_PK == primaryKey);
+            GetPhoto(record);
             return record;
+        }
+
+        private void GetPhoto(IzinCutiDTO record)
+        {
+            if (record != null)
+            {
+                var izinCuti = Db.tblT_IzinCuti.Find(record.IzinCuti_PK);
+                if (izinCuti != null)
+                    record.FilePhotoInBase64 = new WebImageConverter().GetBase64FromBytes(izinCuti.FilePendukung);
+            }
         }
 
         #region IUniqueQuery Member
