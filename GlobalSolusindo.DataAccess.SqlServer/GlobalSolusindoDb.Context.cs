@@ -76,10 +76,10 @@ namespace GlobalSolusindo.DataAccess
         public virtual DbSet<tblT_SOW> tblT_SOW { get; set; }
         public virtual DbSet<tblM_SOWName> tblM_SOWName { get; set; }
         public virtual DbSet<tblT_LogActivity> tblT_LogActivity { get; set; }
-        public virtual DbSet<vw_SOWViewAll> vw_SOWViewAll { get; set; }
         public virtual DbSet<tblT_CheckIn> tblT_CheckIn { get; set; }
         public virtual DbSet<vw_SOWLink> vw_SOWLink { get; set; }
         public virtual DbSet<vw_SOWIssue> vw_SOWIssue { get; set; }
+        public virtual DbSet<vw_SOWViewAll> vw_SOWViewAll { get; set; }
     
         public virtual ObjectResult<GetTaskList_Result> GetTaskList(Nullable<int> userID, Nullable<int> statusSOW)
         {
@@ -475,6 +475,19 @@ namespace GlobalSolusindo.DataAccess
         public virtual ObjectResult<GetPeriodeTaskEngineer_Result> GetPeriodeTaskEngineer()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPeriodeTaskEngineer_Result>("GetPeriodeTaskEngineer");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> sp_SOWStatusUpdateApprove(Nullable<int> sOWResultPK, Nullable<int> userFK)
+        {
+            var sOWResultPKParameter = sOWResultPK.HasValue ?
+                new ObjectParameter("SOWResultPK", sOWResultPK) :
+                new ObjectParameter("SOWResultPK", typeof(int));
+    
+            var userFKParameter = userFK.HasValue ?
+                new ObjectParameter("UserFK", userFK) :
+                new ObjectParameter("UserFK", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_SOWStatusUpdateApprove", sOWResultPKParameter, userFKParameter);
         }
     }
 }

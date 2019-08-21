@@ -73,7 +73,7 @@ namespace GlobalSolusindo.Api.MobileControllers
             {
                 using (var transaction = new TransactionScope())
                 {
-                    var saveResult = updateHandler.Save(sowResultDTO: sowResult, dateStamp: DateTime.Now);
+                    var saveResult = updateHandler.Save(sowResultDTO: sowResult, dateStamp: DateTime.Now, ActiveUser);
                     transaction.Complete();
                     if (saveResult.Success)
                     {

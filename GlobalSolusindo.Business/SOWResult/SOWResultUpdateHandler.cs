@@ -1,4 +1,5 @@
 ﻿using GlobalSolusindo.Base;
+using GlobalSolusindo.Business.SOWAssign.Queries;
 using GlobalSolusindo.Business.SOWResult.EntryForm;
 using GlobalSolusindo.DataAccess;
 using GlobalSolusindo.Identity;
@@ -35,7 +36,7 @@ namespace GlobalSolusindo.Business.SOWResult
             tblT_SOWResult sowResult = sowResultFactory.CreateFromDbAndUpdateFromDTO(sowResultDTO, dateStamp);
         }
 
-        public SaveResult<SOWResultEntryModel> Save(SOWResultDTO sowResultDTO, DateTime dateStamp)
+        public SaveResult<SOWResultEntryModel> Save(SOWResultDTO sowResultDTO, DateTime dateStamp, tblM_User user)
         {
             ModelValidationResult validationResult = sowResultValidator.Validate(sowResultDTO);
             bool success = false;
@@ -47,6 +48,8 @@ namespace GlobalSolusindo.Business.SOWResult
                 Update(sowResultDTO, dateStamp);
                 Db.SaveChanges();
                 model = sowResultEntryDataProvider.Get(sowResultDTO.SOWResult_PK);
+
+                Db.sp_SOWStatusUpdateApprove(sowResultDTO.SOWResult_PK, user.User_PK);
             }
 
             return new SaveResult<SOWResultEntryModel>

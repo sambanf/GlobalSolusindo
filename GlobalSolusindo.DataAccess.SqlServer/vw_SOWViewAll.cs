@@ -38,6 +38,7 @@ namespace GlobalSolusindo.DataAccess
         public string DT { get; set; }
         public string SSVLink { get; set; }
         public string SSOLink { get; set; }
+        public string StatusSOW { get; set; }
         public string NoPo { get; set; }
         public Nullable<int> Value { get; set; }
         public Nullable<decimal> Quantity1st { get; set; }

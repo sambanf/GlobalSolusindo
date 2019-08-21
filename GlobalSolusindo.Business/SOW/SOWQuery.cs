@@ -101,6 +101,7 @@ namespace GlobalSolusindo.Business.SOW
                             DT = sowpo.DT,
                             LinkSSV = sowpo.SSVLink,
                             LinkSSO = sowpo.SSOLink,
+                            SOWStatus = sowpo.StatusSOW,
                             NOPO = sowpo.NoPo,
                             Value = sowpo.Value.ToString(),
                             Esarsubmit = sowpo.EsarSubmit1st,

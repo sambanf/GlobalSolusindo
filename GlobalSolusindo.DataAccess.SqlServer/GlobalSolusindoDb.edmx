@@ -799,6 +799,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Name="DT" Type="nvarchar" MaxLength="200" />
           <Property Name="SSVLink" Type="varchar(max)" />
           <Property Name="SSOLink" Type="varchar(max)" />
+          <Property Name="StatusSOW" Type="nvarchar" MaxLength="200" />
           <Property Name="NoPo" Type="nvarchar" MaxLength="200" />
           <Property Name="Value" Type="int" />
           <Property Name="Quantity1st" Type="decimal" Precision="38" Scale="1" />
@@ -1152,6 +1153,10 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Parameter Name="SOWAssignPK" Type="int" Mode="In" />
           <Parameter Name="UserFK" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_SOWStatusUpdateApprove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SOWResultPK" Type="int" Mode="In" />
+          <Parameter Name="UserFK" Type="int" Mode="In" />
+        </Function>
         <Function Name="usp_GetActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="User_FK" Type="int" Mode="In" />
         </Function>
@@ -1273,6 +1278,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
     [vw_SOWViewAll].[DT] AS [DT], 
     [vw_SOWViewAll].[SSVLink] AS [SSVLink], 
     [vw_SOWViewAll].[SSOLink] AS [SSOLink], 
+    [vw_SOWViewAll].[StatusSOW] AS [StatusSOW], 
     [vw_SOWViewAll].[NoPo] AS [NoPo], 
     [vw_SOWViewAll].[Value] AS [Value], 
     [vw_SOWViewAll].[Quantity1st] AS [Quantity1st], 
@@ -1599,7 +1605,6 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Parameter Name="sowAssign_PK" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetAsetAvaible" ReturnType="Collection(GlobalSolusindoModel.GetAsetAvaible_Result)" />
-          <EntitySet Name="vw_SOWViewAll" EntityType="GlobalSolusindoModel.vw_SOWViewAll" />
           <FunctionImport Name="GetTaskApprovalListLatest" ReturnType="Collection(GlobalSolusindoModel.GetTaskApprovalListLatest_Result)" />
           <FunctionImport Name="GetTaskApprovalLatest" ReturnType="Collection(GlobalSolusindoModel.GetTaskApprovalLatest_Result)" />
           <FunctionImport Name="GetTaskListLatest" ReturnType="Collection(GlobalSolusindoModel.GetTaskListLatest_Result)" />
@@ -1611,6 +1616,11 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
             <Parameter Name="UserFK" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="GetPeriodeTaskEngineer" ReturnType="Collection(GlobalSolusindoModel.GetPeriodeTaskEngineer_Result)" />
+          <EntitySet Name="vw_SOWViewAll" EntityType="GlobalSolusindoModel.vw_SOWViewAll" />
+          <FunctionImport Name="sp_SOWStatusUpdateApprove" ReturnType="Collection(Int32)">
+            <Parameter Name="SOWResultPK" Mode="In" Type="Int32" />
+            <Parameter Name="UserFK" Mode="In" Type="Int32" />
+          </FunctionImport>
           </EntityContainer>
         <ComplexType Name="GetTaskList_Result">
           <Property Type="Int32" Name="User_FK" Nullable="true" />
@@ -2777,51 +2787,6 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Type="DateTime" Name="UpdatedDate1" Nullable="false" Precision="23" />
           <Property Type="Int32" Name="Status_FK1" Nullable="false" />
         </ComplexType>
-        <EntityType Name="vw_SOWViewAll">
-          <Key>
-            <PropertyRef Name="Status_FK" />
-          </Key>
-          <Property Name="PMOUniq" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="DUID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SiteIDPO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="SiteNamePO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="System" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SOW" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Long" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Lat" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CODate" Type="DateTime" Precision="3" />
-          <Property Name="AssignDate" Type="DateTime" Precision="3" />
-          <Property Name="SSVDate" Type="DateTime" Precision="3" />
-          <Property Name="SSODate" Type="DateTime" Precision="3" />
-          <Property Name="LVDate" Type="DateTime" Precision="3" />
-          <Property Name="AcceptedDate" Type="DateTime" Precision="3" />
-          <Property Name="Region" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="RNO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LinkRNO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="RF" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LinkRF" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Rigger" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="LinkRigger" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="DT" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="SSVLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="SSOLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="NoPo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="Value" Type="Int32" />
-          <Property Name="Quantity1st" Type="Decimal" Precision="38" Scale="1" />
-          <Property Name="Quantity2nd" Type="Decimal" Precision="38" Scale="1" />
-          <Property Name="EsarSubmit1st" Type="DateTime" Precision="3" />
-          <Property Name="VsSubmit1st" Type="DateTime" Precision="3" />
-          <Property Name="InvoiceSubmit1st" Type="DateTime" Precision="3" />
-          <Property Name="PaidDate1st" Type="DateTime" Precision="3" />
-          <Property Name="EsarStatus1st" Type="Int32" />
-          <Property Name="EsarSubmit2nd" Type="DateTime" Precision="3" />
-          <Property Name="VsSubmit2nd" Type="DateTime" Precision="3" />
-          <Property Name="InvoiceSubmit2nd" Type="DateTime" Precision="3" />
-          <Property Name="PaidDate2nd" Type="DateTime" Precision="3" />
-          <Property Name="EsarStatus2nd" Type="Int32" />
-          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Status_FK" Type="Int32" Nullable="false" />
-        </EntityType>
         <ComplexType Name="GetTaskApprovalListLatest_Result">
           <Property Type="Int32" Name="CheckIn_PK" Nullable="true" />
           <Property Type="Int32" Name="SOWAssign_FK" Nullable="true" />
@@ -2989,6 +2954,52 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Property Type="DateTime" Name="Value" Nullable="true" />
           <Property Type="String" Name="Name" Nullable="true" MaxLength="63" />
         </ComplexType>
+        <EntityType Name="vw_SOWViewAll">
+          <Key>
+            <PropertyRef Name="Status_FK" />
+          </Key>
+          <Property Name="PMOUniq" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DUID" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SiteIDPO" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="SiteNamePO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="System" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SOW" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Long" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Lat" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CODate" Type="DateTime" Precision="3" />
+          <Property Name="AssignDate" Type="DateTime" Precision="3" />
+          <Property Name="SSVDate" Type="DateTime" Precision="3" />
+          <Property Name="SSODate" Type="DateTime" Precision="3" />
+          <Property Name="LVDate" Type="DateTime" Precision="3" />
+          <Property Name="AcceptedDate" Type="DateTime" Precision="3" />
+          <Property Name="Region" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RNO" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LinkRNO" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RF" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LinkRF" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Rigger" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LinkRigger" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="DT" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="SSVLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="SSOLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StatusSOW" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="NoPo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="Int32" />
+          <Property Name="Quantity1st" Type="Decimal" Precision="38" Scale="1" />
+          <Property Name="Quantity2nd" Type="Decimal" Precision="38" Scale="1" />
+          <Property Name="EsarSubmit1st" Type="DateTime" Precision="3" />
+          <Property Name="VsSubmit1st" Type="DateTime" Precision="3" />
+          <Property Name="InvoiceSubmit1st" Type="DateTime" Precision="3" />
+          <Property Name="PaidDate1st" Type="DateTime" Precision="3" />
+          <Property Name="EsarStatus1st" Type="Int32" />
+          <Property Name="EsarSubmit2nd" Type="DateTime" Precision="3" />
+          <Property Name="VsSubmit2nd" Type="DateTime" Precision="3" />
+          <Property Name="InvoiceSubmit2nd" Type="DateTime" Precision="3" />
+          <Property Name="PaidDate2nd" Type="DateTime" Precision="3" />
+          <Property Name="EsarStatus2nd" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status_FK" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -4039,52 +4050,6 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="vw_SOWViewAll">
-            <EntityTypeMapping TypeName="GlobalSolusindoModel.vw_SOWViewAll">
-              <MappingFragment StoreEntitySet="vw_SOWViewAll">
-                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="EsarStatus2nd" ColumnName="EsarStatus2nd" />
-                <ScalarProperty Name="PaidDate2nd" ColumnName="PaidDate2nd" />
-                <ScalarProperty Name="InvoiceSubmit2nd" ColumnName="InvoiceSubmit2nd" />
-                <ScalarProperty Name="VsSubmit2nd" ColumnName="VsSubmit2nd" />
-                <ScalarProperty Name="EsarSubmit2nd" ColumnName="EsarSubmit2nd" />
-                <ScalarProperty Name="EsarStatus1st" ColumnName="EsarStatus1st" />
-                <ScalarProperty Name="PaidDate1st" ColumnName="PaidDate1st" />
-                <ScalarProperty Name="InvoiceSubmit1st" ColumnName="InvoiceSubmit1st" />
-                <ScalarProperty Name="VsSubmit1st" ColumnName="VsSubmit1st" />
-                <ScalarProperty Name="EsarSubmit1st" ColumnName="EsarSubmit1st" />
-                <ScalarProperty Name="Quantity2nd" ColumnName="Quantity2nd" />
-                <ScalarProperty Name="Quantity1st" ColumnName="Quantity1st" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="NoPo" ColumnName="NoPo" />
-                <ScalarProperty Name="SSOLink" ColumnName="SSOLink" />
-                <ScalarProperty Name="SSVLink" ColumnName="SSVLink" />
-                <ScalarProperty Name="DT" ColumnName="DT" />
-                <ScalarProperty Name="LinkRigger" ColumnName="LinkRigger" />
-                <ScalarProperty Name="Rigger" ColumnName="Rigger" />
-                <ScalarProperty Name="LinkRF" ColumnName="LinkRF" />
-                <ScalarProperty Name="RF" ColumnName="RF" />
-                <ScalarProperty Name="LinkRNO" ColumnName="LinkRNO" />
-                <ScalarProperty Name="RNO" ColumnName="RNO" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="AcceptedDate" ColumnName="AcceptedDate" />
-                <ScalarProperty Name="LVDate" ColumnName="LVDate" />
-                <ScalarProperty Name="SSODate" ColumnName="SSODate" />
-                <ScalarProperty Name="SSVDate" ColumnName="SSVDate" />
-                <ScalarProperty Name="AssignDate" ColumnName="AssignDate" />
-                <ScalarProperty Name="CODate" ColumnName="CODate" />
-                <ScalarProperty Name="Lat" ColumnName="Lat" />
-                <ScalarProperty Name="Long" ColumnName="Long" />
-                <ScalarProperty Name="SOW" ColumnName="SOW" />
-                <ScalarProperty Name="System" ColumnName="System" />
-                <ScalarProperty Name="SiteNamePO" ColumnName="SiteNamePO" />
-                <ScalarProperty Name="SiteIDPO" ColumnName="SiteIDPO" />
-                <ScalarProperty Name="DUID" ColumnName="DUID" />
-                <ScalarProperty Name="PMOUniq" ColumnName="PMOUniq" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="GetTaskApprovalListLatest" FunctionName="GlobalSolusindoModel.Store.GetTaskApprovalListLatest">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GlobalSolusindoModel.GetTaskApprovalListLatest_Result">
@@ -4270,6 +4235,54 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="vw_SOWViewAll">
+            <EntityTypeMapping TypeName="GlobalSolusindoModel.vw_SOWViewAll">
+              <MappingFragment StoreEntitySet="vw_SOWViewAll">
+                <ScalarProperty Name="Status_FK" ColumnName="Status_FK" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="EsarStatus2nd" ColumnName="EsarStatus2nd" />
+                <ScalarProperty Name="PaidDate2nd" ColumnName="PaidDate2nd" />
+                <ScalarProperty Name="InvoiceSubmit2nd" ColumnName="InvoiceSubmit2nd" />
+                <ScalarProperty Name="VsSubmit2nd" ColumnName="VsSubmit2nd" />
+                <ScalarProperty Name="EsarSubmit2nd" ColumnName="EsarSubmit2nd" />
+                <ScalarProperty Name="EsarStatus1st" ColumnName="EsarStatus1st" />
+                <ScalarProperty Name="PaidDate1st" ColumnName="PaidDate1st" />
+                <ScalarProperty Name="InvoiceSubmit1st" ColumnName="InvoiceSubmit1st" />
+                <ScalarProperty Name="VsSubmit1st" ColumnName="VsSubmit1st" />
+                <ScalarProperty Name="EsarSubmit1st" ColumnName="EsarSubmit1st" />
+                <ScalarProperty Name="Quantity2nd" ColumnName="Quantity2nd" />
+                <ScalarProperty Name="Quantity1st" ColumnName="Quantity1st" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="NoPo" ColumnName="NoPo" />
+                <ScalarProperty Name="StatusSOW" ColumnName="StatusSOW" />
+                <ScalarProperty Name="SSOLink" ColumnName="SSOLink" />
+                <ScalarProperty Name="SSVLink" ColumnName="SSVLink" />
+                <ScalarProperty Name="DT" ColumnName="DT" />
+                <ScalarProperty Name="LinkRigger" ColumnName="LinkRigger" />
+                <ScalarProperty Name="Rigger" ColumnName="Rigger" />
+                <ScalarProperty Name="LinkRF" ColumnName="LinkRF" />
+                <ScalarProperty Name="RF" ColumnName="RF" />
+                <ScalarProperty Name="LinkRNO" ColumnName="LinkRNO" />
+                <ScalarProperty Name="RNO" ColumnName="RNO" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="AcceptedDate" ColumnName="AcceptedDate" />
+                <ScalarProperty Name="LVDate" ColumnName="LVDate" />
+                <ScalarProperty Name="SSODate" ColumnName="SSODate" />
+                <ScalarProperty Name="SSVDate" ColumnName="SSVDate" />
+                <ScalarProperty Name="AssignDate" ColumnName="AssignDate" />
+                <ScalarProperty Name="CODate" ColumnName="CODate" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="SOW" ColumnName="SOW" />
+                <ScalarProperty Name="System" ColumnName="System" />
+                <ScalarProperty Name="SiteNamePO" ColumnName="SiteNamePO" />
+                <ScalarProperty Name="SiteIDPO" ColumnName="SiteIDPO" />
+                <ScalarProperty Name="DUID" ColumnName="DUID" />
+                <ScalarProperty Name="PMOUniq" ColumnName="PMOUniq" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_SOWStatusUpdateApprove" FunctionName="GlobalSolusindoModel.Store.sp_SOWStatusUpdateApprove" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
