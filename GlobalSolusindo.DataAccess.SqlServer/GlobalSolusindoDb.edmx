@@ -1154,7 +1154,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <Parameter Name="UserFK" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_SOWStatusUpdateApprove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="SOWResultPK" Type="int" Mode="In" />
+          <Parameter Name="checkinpk" Type="int" Mode="In" />
           <Parameter Name="UserFK" Type="int" Mode="In" />
         </Function>
         <Function Name="usp_GetActivities" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -1618,7 +1618,7 @@ warning 6002: The table/view 'GlobalSolusindo.dbo.vw_SOWViewAll' does not have a
           <FunctionImport Name="GetPeriodeTaskEngineer" ReturnType="Collection(GlobalSolusindoModel.GetPeriodeTaskEngineer_Result)" />
           <EntitySet Name="vw_SOWViewAll" EntityType="GlobalSolusindoModel.vw_SOWViewAll" />
           <FunctionImport Name="sp_SOWStatusUpdateApprove" ReturnType="Collection(Int32)">
-            <Parameter Name="SOWResultPK" Mode="In" Type="Int32" />
+            <Parameter Name="checkinpk" Mode="In" Type="Int32" />
             <Parameter Name="UserFK" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>

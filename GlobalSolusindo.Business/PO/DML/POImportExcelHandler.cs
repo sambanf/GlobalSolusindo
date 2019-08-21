@@ -241,9 +241,18 @@ namespace GlobalSolusindo.Business.PO.DML
             for (int i = 2; i < nonEmptyRowCount; i++)
             {
                 var row = sheet.Row(i);
+                try
+                {
+                    var newPO = CreatePODTO(row);
+                    poList.Add(newPO);
+                }
+                catch (Exception)
+                {
 
-                var newPO = CreatePODTO(row);
-                poList.Add(newPO);
+                    throw new ArgumentException("Semua data tidak terupload karena kesalahan data pada row ke - " + i.ToString());
+                }
+                
+                
             }
 
             return poList;
