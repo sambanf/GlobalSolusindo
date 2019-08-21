@@ -118,5 +118,8 @@ namespace GlobalSolusindo.Business.CheckIn
         [JsonProperty("tipePekerjaan")]
         public int? TipePekerjaan{ get; set; }
 
+        [JsonProperty("photo")]
+        public string FilePhotoInBase64 { get; set; }
+
     }
 }

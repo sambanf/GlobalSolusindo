@@ -7,6 +7,13 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row form-group">
+                                <label class="control-label col-sm-3">PMOUniq:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="pmouniq" name="pmouniq" class="form-control" ng-model="vm.model.pmouniq">
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
                                 <label class="control-label col-sm-3">SOW (PO):</label>
                                 <div class="col-sm-6">
                                     <select id="sowName" name="sowName" class="form-control input-lg" ng-model="vm.model.sowName" required>
@@ -59,11 +66,24 @@
                             <div class="row form-group">
                                 <label class="control-label col-sm-3">DUID:</label>
                                 <div class="col-sm-6">
-                                    <input type="text" id="duid" name="duid" class="form-control" ng-model="vm.model.duid" placeholder="DUID">
+                                    <input type="text" id="duid" name="duid" class="form-control" ng-model="vm.model.duid" placeholder="DUID" required>
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
-
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">LV Date:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="lvdate" name="lvdate" ng-model="vm.model.lvdate" class="form-control" date-time-picker options="{ format: 'DD-MM-YYYY' }" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <label class="control-label col-sm-3">Accepted Date:</label>
+                                <div class="col-sm-6">
+                                    <input type="text" id="accdate" name="accdate" ng-model="vm.model.accdate" class="form-control" date-time-picker options="{ format: 'DD-MM-YYYY' }" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">

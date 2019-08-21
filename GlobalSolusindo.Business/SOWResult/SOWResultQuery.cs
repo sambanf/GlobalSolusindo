@@ -41,6 +41,7 @@ namespace GlobalSolusindo.Business.SOWResult
                             ApprovedBy = sowResult.ApprovedBy,
                             ApprovedDate = sowResult.ApprovedDate,
                             FileUrl = sowResult.FileUrl,
+                            remark = sowResult.Remark,
                             CreatedBy = sowResult.CreatedBy,
                             CreatedDate = sowResult.CreatedDate,
                             UpdatedBy = sowResult.UpdatedBy,
@@ -80,6 +81,12 @@ namespace GlobalSolusindo.Business.SOWResult
         public SOWResultDTO GetByPrimaryKey(int primaryKey)
         {
             SOWResultDTO record = GetQuery().FirstOrDefault(sowResult => sowResult.SOWResult_PK == primaryKey);
+            return record;
+        }
+
+        public SOWResultDTO GetByCheckInFk(int primaryKey)
+        {
+            SOWResultDTO record = GetQuery().FirstOrDefault(sowResult => sowResult.CheckIn_FK == primaryKey);
             return record;
         }
 

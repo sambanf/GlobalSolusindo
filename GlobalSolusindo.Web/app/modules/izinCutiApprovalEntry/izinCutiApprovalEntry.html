@@ -27,6 +27,10 @@
                             <label class="control-label col-sm-8">{{vm.model.alasan}}</label>
                         </div>
                         <div class="row">
+                            <label class="control-label col-sm-2"></label>
+                            <button class="btn btn-info control" id="download">Download File</button>
+                        </div>
+                        <div class="row" hidden>
                             <label class="control-label col-sm-2">Photo:</label>
                             <label class="control-label col-sm-8"><img id="photo" src="{{vm.model.photo == null ? '/app/assets/images/blank-img.jpg' : vm.model.photo}}" style="width:300px;margin:0 auto" class="img-fluid" /></label>
                         </div>

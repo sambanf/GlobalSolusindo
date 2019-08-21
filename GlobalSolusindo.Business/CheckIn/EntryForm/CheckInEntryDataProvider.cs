@@ -50,7 +50,7 @@ namespace GlobalSolusindo.Business.CheckIn.EntryForm
         {
             CheckInEntryFormData formData = new CheckInEntryFormData();
             List<Control> formControls = CreateFormControls(checkInPK);
-            CheckInDTO checkInDTO = checkInQuery.GetByPrimaryKey(checkInPK);
+            CheckInDTO checkInDTO = checkInQuery.GetByPrimaryKeyPhoto(checkInPK);
 
             if (checkInDTO == null)
                 throw new KairosException($"Record with primary key '{checkInDTO.CheckIn_PK}' is not found.");

@@ -20,11 +20,17 @@
                         </div>
                     </div>
                     <div class="row col-md-12">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="card-title">CheckIn Photo</div>
+                            <div class="row form-group">
+                                <img id="photo" src="{{vm.model.photo == null ? '/app/assets/images/blank-img.jpg' : vm.model.photo}}" style="width:300px;margin:0 auto" class="img-fluid" />
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="card-title">CheckIn Info</div>
                             <div class="row form-group">
                                 <label class="control-label col-sm-3">CheckIn Time</label>
-                                <label class="control-label col-sm-9">{{vm.model.checkInTime | date: 'dd-MM-yyyy'}}</label>
+                                <label class="control-label col-sm-9">{{vm.model.checkInTime | date: 'dd-MM-yyyy HH:mm'}}</label>
 
                                 <label class="control-label col-sm-3">Longitude:</label>
                                 <label class="control-label col-sm-9">{{vm.model.longitudeCheckIn}}</label>
@@ -45,11 +51,11 @@
                                 <label class="control-label col-sm-9">{{vm.model.cellIDCheckIn}}</label>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="card-title">CheckOut Info</div>
                             <div class="row form-group">
                                 <label class="control-label col-sm-3">CheckOut Time</label>
-                                <label class="control-label col-sm-9">{{vm.model.waktuCheckOut | date: 'dd-MM-yyyy'}}</label>
+                                <label class="control-label col-sm-9">{{vm.model.waktuCheckOut | date: 'dd-MM-yyyy HH:mm'}}</label>
 
                                 <label class="control-label col-sm-3">Longitude:</label>
                                 <label class="control-label col-sm-9">{{vm.model.longitudeCheckOut}}</label>
