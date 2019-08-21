@@ -476,5 +476,18 @@ namespace GlobalSolusindo.DataAccess
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetPeriodeTaskEngineer_Result>("GetPeriodeTaskEngineer");
         }
+    
+        public virtual ObjectResult<Nullable<int>> sp_SOWStatusUpdateApprove(Nullable<int> sOWResultPK, Nullable<int> userFK)
+        {
+            var sOWResultPKParameter = sOWResultPK.HasValue ?
+                new ObjectParameter("SOWResultPK", sOWResultPK) :
+                new ObjectParameter("SOWResultPK", typeof(int));
+    
+            var userFKParameter = userFK.HasValue ?
+                new ObjectParameter("UserFK", userFK) :
+                new ObjectParameter("UserFK", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("sp_SOWStatusUpdateApprove", sOWResultPKParameter, userFKParameter);
+        }
     }
 }
