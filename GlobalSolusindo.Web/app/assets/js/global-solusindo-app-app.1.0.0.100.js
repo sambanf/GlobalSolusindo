@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-19. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-21. 
 * @author Kairos
 */
 (function() {
@@ -1295,7 +1295,7 @@ angular.module('global-solusindo')
 
         $stateProvider
             .state('app.taskEngineerDetail', {
-                url: '/taskEngineerDetail/:id',
+                url: '/taskEngineerDetail/:id:checkIn_fk',
                 templateUrl: 'app/modules/report/taskEngineerDetail/taskEngineerDetail.html',
                 controller: 'TaskEngineerDetailCtrl',
                 controllerAs: 'vm',
@@ -3521,6 +3521,53 @@ angular.module('global-solusindo')
             }
 
         }
+
+        angular.element('#download').on('click', function () {
+            var id = self.stateParam.id;
+            //http.get('izinCuti/DownloadImage/' + id, true).then(function (res) {
+            //    var contentType = 'image/jpeg';
+            //    var linkElement = document.createElement('a');
+            //    try {
+            //        var blob = new Blob([data], { type: contentType });
+            //        var url = window.URL.createObjectURL(blob);
+
+            //        linkElement.setAttribute('href', url);
+            //        linkElement.setAttribute("download", "filePhoto.jpg");
+
+            //        var clickEvent = new MouseEvent("click", {
+            //            "view": window,
+            //            "bubbles": true,
+            //            "cancelable": false
+            //        });
+            //        linkElement.dispatchEvent(clickEvent);
+            //    } catch (ex) {
+            //        console.log(ex);
+            //    }
+            //});
+            http.downloadFile('izinCuti/DownloadImage/' + id).then(function (data) {
+                var contentType = 'image/jpeg';
+                var linkElement = document.createElement('a');
+                try {
+                    var blob = new Blob([data], { type: contentType });
+                    var url = window.URL.createObjectURL(blob);
+
+                    linkElement.setAttribute('href', url);
+                    linkElement.setAttribute("download", "testPhoto.JPG");
+
+                    var clickEvent = new MouseEvent("click", {
+                        "view": window,
+                        "bubbles": true,
+                        "cancelable": false
+                    });
+                    linkElement.dispatchEvent(clickEvent);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+            //alert('download');
+        });
+
+        //izinCuti / DownloadImage / { id }
 
         return self;
     }
@@ -9663,11 +9710,11 @@ angular.module('global-solusindo')
                     },
                     {
                         "data": "checkInTime",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM")  : "-"; }
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:mm")  : "-"; }
                     },
                     {
                         "data": "waktuCheckOut",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM") : "-"; }
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:mm") : "-"; }
                     },
                     {
                         "data": "fileSubmitted"
@@ -14310,11 +14357,11 @@ angular.module('global-solusindo')
                     },
                     {
                         "data": "checkInTime",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM") : "-"; }
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:mm") : "-"; }
                     },
                     {
                         "data": "waktuCheckOut",
-                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:MM") : "-"; }
+                        "render": function (data) { return data ? moment(data).format("DD-MM-YYYY HH:mm") : "-"; }
                     },
                     {
                         "data": "fileSubmitted"
@@ -14976,6 +15023,7 @@ angular.module('global-solusindo')
                     ui.alert.error(res.message);
                     if (res.data && res.data.errors)
                         validation.serverValidation(res.data.errors);
+                    window.location.reload();
                 }
             });
         };
@@ -16096,9 +16144,10 @@ angular.module('global-solusindo')
         var self = this;
         var controller;
 
-        self.view = function (data) {
+        self.view = function (data, datacheckIn_fk) {
             $state.go('app.taskEngineerDetail', {
-                id: data
+                id: data,
+                checkIn_fk: datacheckIn_fk
             });
         };
 
@@ -16106,7 +16155,9 @@ angular.module('global-solusindo')
             controller = ctrl;
             $('#taskEngineer tbody').on('click', '#view', function () {
                 var data = controller.datatable.row($(this).parents('tr')).data();
-                self.view(data.sowAssign_fk);
+                var checkIn_fk = data.checkin_fk;
+                if (!checkIn_fk) { checkIn_fk = 0 }
+                self.view(data.sowAssign_fk, checkIn_fk);
             });
 
             $("#taskEngineer tbody").on("dblclick", "tr", function () {
@@ -16141,20 +16192,22 @@ angular.module('global-solusindo')
         var self = this;
         var controller = {};
 
-        self.applyBinding = function (id) {
-            return http.get('taskEngineerDetail/' + id);
+        self.applyBinding = function (id, checkIn_fk) {
+            return http.get('taskEngineerDetail/' + id + '/'+checkIn_fk);
         };
 
         self.init = function (ctrl) {
             controller = ctrl;
             var id = ctrl.stateParam.id;
+            var checkIn_fk = ctrl.stateParam.checkIn_fk;
             return new Promise(function (resolve, reject) {
-                self.applyBinding(id).then(function (res) {
+                self.applyBinding(id, checkIn_fk).then(function (res) {
                     controller.sowAssign = res.data.sowAssign;
                     controller.user = res.data.user;
                     controller.bts = res.data.bts;
                     controller.cellid = res.data.cellidstatus;
                     controller.sOWIssue = res.data.sOWIssue;
+                    controller.remark = res.data.remark;
                     resolve(res);
                 });
             });
@@ -17541,7 +17594,7 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
         //var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://globaloneapidev.kairos-it.com/";
         var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
@@ -18730,12 +18783,14 @@ angular.module('global-solusindo')
             }
             if (model && model.sowTracks) {
 
-                if (model.sowTracks[0].tipePekerjaan_fk == 2)
-                {
-                    var newValuesowTracks = model.sowTracks[0];
-                    model.sowTracks[1] = newValuesowTracks;
-                    model.sowTracks[0] = null;
+                if (model.sowTracks.length > 0) {
+                    if (model.sowTracks[0].tipePekerjaan_fk == 2) {
+                        var newValuesowTracks = model.sowTracks[0];
+                        model.sowTracks[1] = newValuesowTracks;
+                        model.sowTracks[0] = null;
+                    }
                 }
+                
             }
             if (model && model.sowAssigns) {
                 model.sowAssigns.forEach(function (sowAssign, index) {
@@ -19079,12 +19134,7 @@ angular.module('global-solusindo')
                     if (controller.model.sowTracks && controller.model.sowTracks[0]) {
                         controller.model.sowTracks[0].technology_fk = data.technology_pk;
                     }
-                },
-                ready: function (data) {
-                    controller.model.technology_fk = data.technology_pk;
-                    if (controller.model.sowTracks && controller.model.sowTracks[0]) {
-                        controller.model.sowTracks[0].technology_fk = data.technology_pk;
-                    }
+
                 }
             });
         }

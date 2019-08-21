@@ -2243,7 +2243,19 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row col-md-12\">\r" +
     "\n" +
-    "                        <div class=\"col-md-6\">\r" +
+    "                        <div class=\"col-md-4\">\r" +
+    "\n" +
+    "                            <div class=\"card-title\">CheckIn Photo</div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <img id=\"photo\" src=\"{{vm.model.photo == null ? '/app/assets/images/blank-img.jpg' : vm.model.photo}}\" style=\"width:300px;margin:0 auto\" class=\"img-fluid\" />\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"col-md-4\">\r" +
     "\n" +
     "                            <div class=\"card-title\">CheckIn Info</div>\r" +
     "\n" +
@@ -2251,7 +2263,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <label class=\"control-label col-sm-3\">CheckIn Time</label>\r" +
     "\n" +
-    "                                <label class=\"control-label col-sm-9\">{{vm.model.checkInTime | date: 'dd-MM-yyyy'}}</label>\r" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.checkInTime | date: 'dd-MM-yyyy HH:mm'}}</label>\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -2293,7 +2305,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        </div>\r" +
     "\n" +
-    "                        <div class=\"col-md-6\">\r" +
+    "                        <div class=\"col-md-4\">\r" +
     "\n" +
     "                            <div class=\"card-title\">CheckOut Info</div>\r" +
     "\n" +
@@ -2301,7 +2313,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <label class=\"control-label col-sm-3\">CheckOut Time</label>\r" +
     "\n" +
-    "                                <label class=\"control-label col-sm-9\">{{vm.model.waktuCheckOut | date: 'dd-MM-yyyy'}}</label>\r" +
+    "                                <label class=\"control-label col-sm-9\">{{vm.model.waktuCheckOut | date: 'dd-MM-yyyy HH:mm'}}</label>\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -3562,6 +3574,22 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "                            <label class=\"control-label col-sm-2\">Reason:</label>\r" +
     "\n" +
     "                            <label class=\"control-label col-sm-8\">{{vm.model.alasan}}</label>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\">\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\"></label>\r" +
+    "\n" +
+    "                            <button class=\"btn btn-info control\" id=\"download\">Download File</button>\r" +
+    "\n" +
+    "                        </div>\r" +
+    "\n" +
+    "                        <div class=\"row\" hidden>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-2\">Photo:</label>\r" +
+    "\n" +
+    "                            <label class=\"control-label col-sm-8\"><img id=\"photo\" src=\"{{vm.model.photo == null ? '/app/assets/images/blank-img.jpg' : vm.model.photo}}\" style=\"width:300px;margin:0 auto\" class=\"img-fluid\" /></label>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -6778,6 +6806,14 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        </div>\r" +
     "\n" +
+    "                                        <div class=\"row\">\r" +
+    "\n" +
+    "                                            <label class=\"control-label col-sm-3\">Remark </label>\r" +
+    "\n" +
+    "                                            <label class=\"control-label col-sm-9\" id=\"remark\" name=\"remark\">{{vm.remark}}</label>\r" +
+    "\n" +
+    "                                        </div>\r" +
+    "\n" +
     "                                    </div>\r" +
     "\n" +
     "                                </div>\r" +
@@ -7996,6 +8032,20 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"row form-group\">\r" +
     "\n" +
+    "                                <label class=\"control-label col-sm-3\">PMOUniq:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" id=\"pmouniq\" name=\"pmouniq\" class=\"form-control\" ng-model=\"vm.model.pmouniq\">\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
     "                                <label class=\"control-label col-sm-3\">SOW (PO):</label>\r" +
     "\n" +
     "                                <div class=\"col-sm-6\">\r" +
@@ -8100,7 +8150,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-6\">\r" +
     "\n" +
-    "                                    <input type=\"text\" id=\"duid\" name=\"duid\" class=\"form-control\" ng-model=\"vm.model.duid\" placeholder=\"DUID\">\r" +
+    "                                    <input type=\"text\" id=\"duid\" name=\"duid\" class=\"form-control\" ng-model=\"vm.model.duid\" placeholder=\"DUID\" required>\r" +
     "\n" +
     "                                    <div class=\"invalid-feedback\"></div>\r" +
     "\n" +
@@ -8108,7 +8158,33 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "\r" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">LV Date:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" id=\"lvdate\" name=\"lvdate\" ng-model=\"vm.model.lvdate\" class=\"form-control\" date-time-picker options=\"{ format: 'DD-MM-YYYY' }\" />\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
+    "\n" +
+    "                            <div class=\"row form-group\">\r" +
+    "\n" +
+    "                                <label class=\"control-label col-sm-3\">Accepted Date:</label>\r" +
+    "\n" +
+    "                                <div class=\"col-sm-6\">\r" +
+    "\n" +
+    "                                    <input type=\"text\" id=\"accdate\" name=\"accdate\" ng-model=\"vm.model.accdate\" class=\"form-control\" date-time-picker options=\"{ format: 'DD-MM-YYYY' }\" />\r" +
+    "\n" +
+    "                                    <div class=\"invalid-feedback\"></div>\r" +
+    "\n" +
+    "                                </div>\r" +
+    "\n" +
+    "                            </div>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
