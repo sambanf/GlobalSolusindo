@@ -8272,7 +8272,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <option value=\"0\">None</option>\r" +
     "\n" +
-    "                                        <option value=\"1\">SSO</option>\r" +
+    "                                        <option value=\"2\">SSO</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -8326,7 +8326,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <option value=\"0\">None</option>\r" +
     "\n" +
-    "                                        <option value=\"2\">SSV</option>\r" +
+    "                                        <option value=\"1\">SSV</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +

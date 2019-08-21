@@ -45,6 +45,7 @@ namespace GlobalSolusindo.Api.Models
         public string DT { get; set; }
         public string LinkSSV { get; set; }
         public string LinkSSO { get; set; }
+        public string SOWStatus { get; set; }
         public string NOPO { get; set; }
         public string Value { get; set; }
         public string Esarsubmit { get; set; }

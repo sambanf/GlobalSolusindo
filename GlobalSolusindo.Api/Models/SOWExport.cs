@@ -331,6 +331,7 @@ namespace GlobalSolusindo.Api.Models
                         dr = SOW.NewRow();
                         dr["PMOUniq"] = item.PMOUniq;
                         dr["PLOUniq"] = item.PLOUniq;
+                        dr["DUID"] = item.DUID;
                         dr["SiteIDPO"] = item.SiteIDPO;
                         dr["SiteNamePO"] = item.SiteNamePO;
                         dr["System"] = item.System;
@@ -381,7 +382,7 @@ namespace GlobalSolusindo.Api.Models
                         dr["DT"] = item.DT == null ? "" : userQuery.GetByUsername(item.DT).Name;
                         dr["LinkSSO"] = item.LinkSSO;
                         dr["LinkSSV"] = item.LinkSSV;
-
+                        dr["SOWStatus"] = item.SOWStatus;
                         //PO :3
                         dr["NOPO"] = item.NOPO;
                         dr["Esarsubmit"] = item.Esarsubmit;
@@ -423,6 +424,7 @@ namespace GlobalSolusindo.Api.Models
                         dr = SOW.NewRow();
                         dr["PMOUniq"] = item.PMOUniq;
                         dr["PLOUniq"] = item.PLOUniq;
+                        dr["DUID"] = item.DUID;
                         dr["SiteIDPO"] = item.SiteIDPO;
                         dr["SiteNamePO"] = item.SiteNamePO;
                         dr["System"] = item.System;
@@ -473,11 +475,12 @@ namespace GlobalSolusindo.Api.Models
                         dr["DT"] = item.DT == null ? "" : userQuery.GetByUsername(item.DT).Name;
                         dr["LinkSSO"] = item.LinkSSO;
                         dr["LinkSSV"] = item.LinkSSV;
+                        dr["SOWStatus"] = item.SOWStatus;
                         //PO :3
                         dr["NOPO"] = item.NOPO;
                         dr["Esarstatus1"] = item.Esarstatus1;
                         dr["Esarstatus2"] = item.Esarstatus2;
-                        dr["StatusPO"] = (item.Quantity == "" ? 0 : Convert.ToDecimal(item.Quantity)) + (item.Quantity2 == "" ? 0 : Convert.ToDecimal(item.Quantity2)) < 1 && ((item.Esarstatus1 != "2") || (item.Esarstatus2 != "2")) ? "On Progress" : "Done";
+                        dr["StatusPO"] = item.NOPO == null?"Waiting PO" : (item.Quantity == "" ? 0 : Convert.ToDecimal(item.Quantity)) + (item.Quantity2 == "" ? 0 : Convert.ToDecimal(item.Quantity2)) < 1 && ((item.Esarstatus1 != "2") || (item.Esarstatus2 != "2")) ? "On Progress" : "Done";
                         SOW.Rows.Add(dr);
                     }
 

@@ -5586,8 +5586,8 @@ angular.module('global-solusindo')
                         document.getElementById("fileName1").innerHTML = fileName;
 
                         //setSowTracksModel; 
-                        if (self.model.sowTracks[0].tipePekerjaan_fk) {
-                            self.model.sowTracks[0].route = e.target.result;
+                        if (self.model.sowTracks[1].tipePekerjaan_fk) {
+                            self.model.sowTracks[1].route = e.target.result;
 
                             $scope.$apply();
                         }
@@ -5629,7 +5629,7 @@ angular.module('global-solusindo')
                         document.getElementById("fileName2").innerHTML = fileName;
 
                         //setSowTracksModel; 
-                        self.model.sowTracks[1].route = e.target.result; 
+                        self.model.sowTracks[0].route = e.target.result; 
                         $scope.$apply();
                     } catch (e) {
                         console.log(e);
@@ -18512,7 +18512,7 @@ angular.module('global-solusindo')
                         "render": function (data) {
                             return "<button id='info' rel='tooltip' title='Detail' data-placement='left' class='btn btn-success' style='visibility:" + show + "'><i class='fa fa-info'></i></button> " +
                                 "<button id='view' rel='tooltip' title='Edit' data-placement='left' class='btn btn-warning' style='visibility:" + (data == '4'? 'hidden' : view) + "'><i class='fas fa-pencil-alt'></i></button> " +
-                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + dlt + "'><i class='fa fa-trash-alt'></i></button>"
+                                "<button id='delete' rel='tooltip' title='Delete' data-placement='left' class='btn btn-danger' style='visibility:" + (data == '4' ? 'hidden' : dlt) + "'><i class='fa fa-trash-alt'></i></button>"
                         }
                     },
                     {
@@ -18728,6 +18728,15 @@ angular.module('global-solusindo')
                     sowTrack.tipePekerjaan_fk = sowTrack.tipePekerjaan_fk + '';
                 });
             }
+            if (model && model.sowTracks) {
+
+                if (model.sowTracks[0].tipePekerjaan_fk == 2)
+                {
+                    var newValuesowTracks = model.sowTracks[0];
+                    model.sowTracks[1] = newValuesowTracks;
+                    model.sowTracks[0] = null;
+                }
+            }
             if (model && model.sowAssigns) {
                 model.sowAssigns.forEach(function (sowAssign, index) {
                     if (isDTCoor == true) {
@@ -18855,7 +18864,8 @@ angular.module('global-solusindo')
             if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[0]) {
                 var xmlString = sowCtrl.model.sowTracks[0].route;
                 var routes = kml.createRoutes(xmlString);
-                self.setRoute1(routes);
+                //self.setRoute1(routes);
+                self.setRoute2(routes);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[0]) {
@@ -18867,13 +18877,15 @@ angular.module('global-solusindo')
                         lng: coordinate.longitude
                     });
                 });
-                self.setRoute1(routeResult);
+                //self.setRoute1(routeResult);
+                self.setRoute2(routeResult);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[1]) {
                 xmlString = sowCtrl.model.sowTracks[1].route;
                 routes = kml.createRoutes(xmlString);
-                self.setRoute2(routes);
+                //self.setRoute2(routes);
+                self.setRoute1(routes);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[1]) {
@@ -18885,7 +18897,8 @@ angular.module('global-solusindo')
                         lng: coordinate.longitude
                     });
                 });
-                self.setRoute2(routeResult);
+                //self.setRoute2(routeResult);
+                self.setRoute1(routeResult);
             }
         };
 
@@ -19066,7 +19079,12 @@ angular.module('global-solusindo')
                     if (controller.model.sowTracks && controller.model.sowTracks[0]) {
                         controller.model.sowTracks[0].technology_fk = data.technology_pk;
                     }
-
+                },
+                ready: function (data) {
+                    controller.model.technology_fk = data.technology_pk;
+                    if (controller.model.sowTracks && controller.model.sowTracks[0]) {
+                        controller.model.sowTracks[0].technology_fk = data.technology_pk;
+                    }
                 }
             });
         }
