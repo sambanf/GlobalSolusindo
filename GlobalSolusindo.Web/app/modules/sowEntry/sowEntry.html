@@ -163,9 +163,9 @@
                             <div class="row form-group">
                                 <label class="control-label col-sm-3">Job Type:</label>
                                 <div class="col-sm-9">
-                                    <select id="tipePekerjaan_fk2" name="tipePekerjaan_fk2" class="form-control" ng-model="vm.model.sowTracks[1].tipePekerjaan_fk" required>
+                                    <select id="tipePekerjaan_fk2" name="tipePekerjaan_fk2" class="form-control" ng-model="vm.model.sowTracks[0].tipePekerjaan_fk" required>
                                         <option value="0">None</option>
-                                        <option value="2">SSO</option>
+                                        <option value="1">SSV</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -181,7 +181,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <textarea ng-model="vm.model.sowTracks[1].route" hidden></textarea>
+                            <textarea ng-model="vm.model.sowTracks[0].route" hidden></textarea>
                             <div id="map1" style="border:1px solid gray; height:500px">
                             </div>
                         </div>
@@ -190,9 +190,9 @@
                             <div class="row form-group">
                                 <label class="control-label col-sm-3">Job Type:</label>
                                 <div class="col-sm-9">
-                                    <select id="tipePekerjaan_fk1" name="tipePekerjaan_fk1" class="form-control" ng-model="vm.model.sowTracks[0].tipePekerjaan_fk" required>
+                                    <select id="tipePekerjaan_fk1" name="tipePekerjaan_fk1" class="form-control" ng-model="vm.model.sowTracks[1].tipePekerjaan_fk" required>
                                         <option value="0">None</option>
-                                        <option value="1">SSV</option>
+                                        <option value="2">SSO</option>
                                     </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
@@ -208,7 +208,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <textarea ng-model="vm.model.sowTracks[0].route" hidden></textarea>
+                            <textarea ng-model="vm.model.sowTracks[1].route" hidden></textarea>
                             <div id="map2" style="border:1px solid gray; height:500px">
                             </div>
                         </div>
