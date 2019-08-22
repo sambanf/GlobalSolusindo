@@ -129,8 +129,8 @@
                         document.getElementById("fileName1").innerHTML = fileName;
 
                         //setSowTracksModel; 
-                        if (self.model.sowTracks[1].tipePekerjaan_fk) {
-                            self.model.sowTracks[1].route = e.target.result;
+                        if (self.model.sowTracks[0].tipePekerjaan_fk) {
+                            self.model.sowTracks[0].route = e.target.result;
 
                             $scope.$apply();
                         }
@@ -172,7 +172,7 @@
                         document.getElementById("fileName2").innerHTML = fileName;
 
                         //setSowTracksModel; 
-                        self.model.sowTracks[0].route = e.target.result; 
+                        self.model.sowTracks[1].route = e.target.result; 
                         $scope.$apply();
                     } catch (e) {
                         console.log(e);
