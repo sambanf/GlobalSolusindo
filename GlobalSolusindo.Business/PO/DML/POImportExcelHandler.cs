@@ -249,7 +249,7 @@ namespace GlobalSolusindo.Business.PO.DML
                 catch (Exception)
                 {
 
-                    throw new ArgumentException("Semua data tidak terupload karena kesalahan data pada row ke - " + i.ToString());
+                    throw new ArgumentException("All data not uploaded, cause data type error at row - " + i.ToString());
                 }
                 
                 

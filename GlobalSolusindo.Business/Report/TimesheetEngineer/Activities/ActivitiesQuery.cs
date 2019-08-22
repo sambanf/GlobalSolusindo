@@ -30,7 +30,7 @@ namespace GlobalSolusindo.Business.Activities.Queries
             var records = Db.usp_GetActivities(userFK).Select(x => new ActivitiesDTO
             {
                 Aktifitas = x.Aktifitas,
-                ApprovedBy = userq.GetByUsername(x.ApprovedBy).Name,
+                ApprovedBy = x.ApprovedBy == "-"? "" : userq.GetByUsername(x.ApprovedBy).Name,
                 CheckInTime = x.CheckInTime,
                 CheckOutTime = x.CheckOutTime,
                 Tanggal = x.Tanggal,

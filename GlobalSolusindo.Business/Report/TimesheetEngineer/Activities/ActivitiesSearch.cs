@@ -41,9 +41,9 @@ namespace GlobalSolusindo.Business.Activities.Queries
 
             var filteredRecords =
                 activitiesQuery.GetQuery(filter.User_FK)
-                //.Where(activities =>
-                //    activities.Aktifitas.Contains(filter.Keyword)
-                //    )
+                    //.Where(activities =>
+                    //    activities.Aktifitas.Contains(filter.Keyword)
+                    //    )
                     .AsQueryable();
 
             if (filter.Bulan != 0)
@@ -63,7 +63,6 @@ namespace GlobalSolusindo.Business.Activities.Queries
             searchResult.Count.TotalDisplayed = displayedRecords.Count();
             searchResult.Records = displayedRecords;
             searchResult.User = new UserQuery(Db).GetByPrimaryKey(filter.User_FK);
-
             return searchResult;
         }
     }
