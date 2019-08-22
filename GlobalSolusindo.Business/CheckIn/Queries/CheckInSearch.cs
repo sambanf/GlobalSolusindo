@@ -127,7 +127,7 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
                 filter.SortName = "CheckIn_PK";
             CheckInQuery checkInQuery = new CheckInQuery(this.Db);
 
-            var unfilteredRecords = checkInQuery.GetQueryLatest();
+            var unfilteredRecords = checkInQuery.GetQueryLatest(filter.Keyword);
             var filteredRecords = unfilteredRecords;
 
             //if (filter.UserId != 0)
@@ -144,15 +144,15 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
             //      || checkIn.BTSAddress.Contains(filter.Keyword)
             //      || checkIn.KategoriJabatanTitle.Contains(filter.Keyword)
             //      );
-            filteredRecords =
-              filteredRecords
-              .Where(checkIn =>
-                  checkIn.SOWName.Contains(filter.Keyword)
-                  || checkIn.UserName.Contains(filter.Keyword)
-                  || checkIn.BTSName.Contains(filter.Keyword)
-                  //|| checkIn.BTSAddress.Contains(filter.Keyword)
-                  || checkIn.KategoriJabatanTitle.Contains(filter.Keyword)
-                  );
+            //filteredRecords =
+            //  filteredRecords
+            //  .Where(checkIn =>
+            //      checkIn.SOWName.Contains(filter.Keyword)
+            //      || checkIn.UserName.Contains(filter.Keyword)
+            //      || checkIn.BTSName.Contains(filter.Keyword)
+            //      //|| checkIn.BTSAddress.Contains(filter.Keyword)
+            //      || checkIn.KategoriJabatanTitle.Contains(filter.Keyword)
+            //      );
 
             var jabatan = GetJabatan(filter.User);
             if (jabatan == null)
