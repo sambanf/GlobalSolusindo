@@ -36,7 +36,7 @@ namespace GlobalSolusindo.Business.SOWResult
             tblT_SOWResult sowResult = sowResultFactory.CreateFromDbAndUpdateFromDTO(sowResultDTO, dateStamp);
         }
 
-        public SaveResult<SOWResultEntryModel> Save(SOWResultDTO sowResultDTO, DateTime dateStamp)
+        public SaveResult<SOWResultEntryModel> Save(SOWResultDTO sowResultDTO, DateTime dateStamp, tblM_User user)
         {
             ModelValidationResult validationResult = sowResultValidator.Validate(sowResultDTO);
             bool success = false;
@@ -49,7 +49,7 @@ namespace GlobalSolusindo.Business.SOWResult
                 Db.SaveChanges();
                 model = sowResultEntryDataProvider.Get(sowResultDTO.SOWResult_PK);
 
-                Db.sp_SOWStatusUpdateApprove(sowResultDTO.CheckIn_FK, 0);
+                Db.sp_SOWStatusUpdateApprove(sowResultDTO.CheckIn_FK, user.User_PK);
             }
 
             return new SaveResult<SOWResultEntryModel>

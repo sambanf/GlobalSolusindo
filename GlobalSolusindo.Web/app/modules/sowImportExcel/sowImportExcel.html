@@ -31,8 +31,10 @@
                             <table class="table table-striped" id="sow" style="line-height: 0;">
                                 <thead>
                                     <tr>
-                                        <th>PMOUniq</th>
+                                        <th>No.</th>
+                                        <th>Project</th>
                                         <th>DUID</th>
+                                        <th>BTSName</th>
                                         <th>SOWName</th>
                                         <th>CODate</th>
                                         <th>LVDate</th>
@@ -43,9 +45,10 @@
                                     </tr>
                                     <tr ng-repeat="sow in vm.uploadResults">
                                         <td><label>{{$index + 1}}</label></td>
-                                        <td><label>{{sow.model.pmouniq}}</label></td>
+                                        <td><label>{{sow.model.projectname}}</label></td>
                                         <td><label>{{sow.model.duid}}</label></td>
-                                        <td><label>{{sow.model.sowname}}</label></td>
+                                        <td><label>{{sow.model.btsName}}</label></td>
+                                        <td><label>{{sow.model.sowName}}</label></td>
                                         <td><label>{{sow.model.codate}}</label></td>
                                         <td><label>{{sow.model.lvdate}}</label></td>
                                         <td><label>{{sow.model.accdate}}</label></td>

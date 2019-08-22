@@ -42,6 +42,9 @@ namespace GlobalSolusindo.Business.SOW
         [ForeignKey(typeof(ProjectQuery), "Project_PK")]
         public int Project_FK { get; set; }
 
+        [JsonProperty("projectname")]
+        public string ProjectName { get; set; }
+
         //[JsonProperty("projectTitle")]
         //public string ProjectTitle { get; set; }
         [JsonProperty("codate")]
@@ -75,7 +78,7 @@ namespace GlobalSolusindo.Business.SOW
         [JsonProperty("sowTrackResults")]
         public List<SOWTrackResultDTO> SOWTrackResults { get; set; } = new List<SOWTrackResultDTO>();
 
-        //[Required(ErrorMessage = "This field is required")]
+        [Required(ErrorMessage = "This field is required")]
         [JsonProperty("technology_fk")]
         [ForeignKey(typeof(TechnologyQuery), "Technology_PK", true)]
         public int? Technology_FK { get; set; }

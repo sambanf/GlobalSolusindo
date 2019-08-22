@@ -16,6 +16,7 @@ using System.Transactions;
 using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.SOWAssign;
 using GlobalSolusindo.Identity.User.Queries;
+using GlobalSolusindo.Business.Project;
 
 namespace GlobalSolusindo.Business.SOW.DML
 {
@@ -92,21 +93,22 @@ namespace GlobalSolusindo.Business.SOW.DML
         {
             var validationResults = Validate(SOWList);
             List<SaveResult<SOWDTO>> saveResults = new List<SaveResult<SOWDTO>>();
-
+            BTSQuery bTSQuery = new BTSQuery(Db);
+            ProjectQuery projectQuery = new ProjectQuery(Db);
             foreach (var validationResult in validationResults)
             {
-                var SOWDTO = (SOWDTO)validationResult.GetModel();
+                var sowdto = (SOWDTO)validationResult.GetModel();
 
                 if (validationResult.IsValid)
                 {
-
-                    AddSOW(SOWDTO, dateStamp);
-                    AddSowAssign(SOWDTO, dateStamp);
-
+                    AddSOW(sowdto, dateStamp);
+                    AddSowAssign(sowdto, dateStamp);
+                    sowdto.BTSName = bTSQuery.GetByPrimaryKey(sowdto.BTS_FK).Name;
+                    sowdto.ProjectName = projectQuery.GetByPrimaryKey(sowdto.Project_FK).OperatorTitle +" "+ projectQuery.GetByPrimaryKey(sowdto.Project_FK).VendorTitle + " " + projectQuery.GetByPrimaryKey(sowdto.Project_FK).DeliveryAreaTitle;
                     var saveResult = new SaveResult<SOWDTO>()
                     {
                         Message = "SUCCESS",
-                        Model = SOWDTO,
+                        Model = sowdto,
                         Success = true,
                         ValidationResult = validationResult,
                     };
@@ -117,7 +119,7 @@ namespace GlobalSolusindo.Business.SOW.DML
                     var saveResult = new SaveResult<SOWDTO>()
                     {
                         Message = "FAILED",
-                        Model = SOWDTO,
+                        Model = sowdto,
                         Success = false,
                         ValidationResult = validationResult,
                     };
