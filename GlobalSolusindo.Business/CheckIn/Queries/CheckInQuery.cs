@@ -139,10 +139,10 @@ namespace GlobalSolusindo.Business.CheckIn.Queries
             return record;
         }
 
-        public IQueryable<CheckInDTO> GetQueryLatest()
+        public IQueryable<CheckInDTO> GetQueryLatest(string keyword)
         {
 
-            var taskListLatest = Db.GetTaskApprovalListLatest().ToList();
+            var taskListLatest = Db.GetTaskApprovalListLatest(keyword).ToList();
             var query = from Data in taskListLatest
                         where Data.FileUrl == "Yes"
                         select new CheckInDTO

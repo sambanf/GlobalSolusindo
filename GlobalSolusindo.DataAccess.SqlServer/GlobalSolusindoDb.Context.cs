@@ -444,9 +444,12 @@ namespace GlobalSolusindo.DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetAsetAvaible_Result>("GetAsetAvaible");
         }
     
-        public virtual ObjectResult<GetTaskApprovalListLatest_Result> GetTaskApprovalListLatest()
+        public virtual ObjectResult<GetTaskApprovalListLatest_Result> GetTaskApprovalListLatest(string keyword)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskApprovalListLatest_Result>("GetTaskApprovalListLatest");
+            var keywordParameter = keyword != null ?
+                new ObjectParameter("keyword", keyword) :
+                new ObjectParameter("keyword", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetTaskApprovalListLatest_Result>("GetTaskApprovalListLatest", keywordParameter);
         }
     
         public virtual ObjectResult<GetTaskApprovalLatest_Result> GetTaskApprovalLatest()
