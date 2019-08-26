@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-21. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-26. 
 * @author Kairos
 */
 (function() {
@@ -5633,8 +5633,8 @@ angular.module('global-solusindo')
                         document.getElementById("fileName1").innerHTML = fileName;
 
                         //setSowTracksModel; 
-                        if (self.model.sowTracks[1].tipePekerjaan_fk) {
-                            self.model.sowTracks[1].route = e.target.result;
+                        if (self.model.sowTracks[0].tipePekerjaan_fk) {
+                            self.model.sowTracks[0].route = e.target.result;
 
                             $scope.$apply();
                         }
@@ -5676,7 +5676,7 @@ angular.module('global-solusindo')
                         document.getElementById("fileName2").innerHTML = fileName;
 
                         //setSowTracksModel; 
-                        self.model.sowTracks[0].route = e.target.result; 
+                        self.model.sowTracks[1].route = e.target.result; 
                         $scope.$apply();
                     } catch (e) {
                         console.log(e);
@@ -17594,8 +17594,8 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
         //var base_url = "http://gsapi.local/";
-        //var base_url = "http://globaloneapidev.kairos-it.com/";
-        var base_url = "http://localhost/GlobalAPI/";
+        var base_url = "http://globaloneapi.kairos-it.com/";
+        //var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";
 
@@ -18919,8 +18919,8 @@ angular.module('global-solusindo')
             if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[0]) {
                 var xmlString = sowCtrl.model.sowTracks[0].route;
                 var routes = kml.createRoutes(xmlString);
-                //self.setRoute1(routes);
-                self.setRoute2(routes);
+                self.setRoute1(routes);
+                //self.setRoute2(routes);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[0]) {
@@ -18932,15 +18932,15 @@ angular.module('global-solusindo')
                         lng: coordinate.longitude
                     });
                 });
-                //self.setRoute1(routeResult);
-                self.setRoute2(routeResult);
+                self.setRoute1(routeResult);
+                //self.setRoute2(routeResult);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.sowTracks && sowCtrl.model.sowTracks[1]) {
                 xmlString = sowCtrl.model.sowTracks[1].route;
                 routes = kml.createRoutes(xmlString);
-                //self.setRoute2(routes);
-                self.setRoute1(routes);
+                self.setRoute2(routes);
+                //self.setRoute1(routes);
             }
 
             if (sowCtrl && sowCtrl.model && sowCtrl.model.SOWTrackResults && sowCtrl.model.SOWTrackResults[1]) {
@@ -18952,8 +18952,8 @@ angular.module('global-solusindo')
                         lng: coordinate.longitude
                     });
                 });
-                //self.setRoute2(routeResult);
-                self.setRoute1(routeResult);
+                self.setRoute2(routeResult);
+                //self.setRoute1(routeResult);
             }
         };
 

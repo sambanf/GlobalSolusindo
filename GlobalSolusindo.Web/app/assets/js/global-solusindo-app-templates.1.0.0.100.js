@@ -8344,11 +8344,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                                    <select id=\"tipePekerjaan_fk2\" name=\"tipePekerjaan_fk2\" class=\"form-control\" ng-model=\"vm.model.sowTracks[1].tipePekerjaan_fk\" required>\r" +
+    "                                    <select id=\"tipePekerjaan_fk2\" name=\"tipePekerjaan_fk2\" class=\"form-control\" ng-model=\"vm.model.sowTracks[0].tipePekerjaan_fk\" required>\r" +
     "\n" +
     "                                        <option value=\"0\">None</option>\r" +
     "\n" +
-    "                                        <option value=\"2\">SSO</option>\r" +
+    "                                        <option value=\"1\">SSV</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -8380,7 +8380,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                            <textarea ng-model=\"vm.model.sowTracks[1].route\" hidden></textarea>\r" +
+    "                            <textarea ng-model=\"vm.model.sowTracks[0].route\" hidden></textarea>\r" +
     "\n" +
     "                            <div id=\"map1\" style=\"border:1px solid gray; height:500px\">\r" +
     "\n" +
@@ -8398,11 +8398,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                <div class=\"col-sm-9\">\r" +
     "\n" +
-    "                                    <select id=\"tipePekerjaan_fk1\" name=\"tipePekerjaan_fk1\" class=\"form-control\" ng-model=\"vm.model.sowTracks[0].tipePekerjaan_fk\" required>\r" +
+    "                                    <select id=\"tipePekerjaan_fk1\" name=\"tipePekerjaan_fk1\" class=\"form-control\" ng-model=\"vm.model.sowTracks[1].tipePekerjaan_fk\" required>\r" +
     "\n" +
     "                                        <option value=\"0\">None</option>\r" +
     "\n" +
-    "                                        <option value=\"1\">SSV</option>\r" +
+    "                                        <option value=\"2\">SSO</option>\r" +
     "\n" +
     "                                    </select>\r" +
     "\n" +
@@ -8434,7 +8434,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                            <textarea ng-model=\"vm.model.sowTracks[0].route\" hidden></textarea>\r" +
+    "                            <textarea ng-model=\"vm.model.sowTracks[1].route\" hidden></textarea>\r" +
     "\n" +
     "                            <div id=\"map2\" style=\"border:1px solid gray; height:500px\">\r" +
     "\n" +
@@ -8523,9 +8523,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                    <tr>\r" +
     "\n" +
-    "                                        <th>PMOUniq</th>\r" +
+    "                                        <th>No.</th>\r" +
+    "\n" +
+    "                                        <th>Project</th>\r" +
     "\n" +
     "                                        <th>DUID</th>\r" +
+    "\n" +
+    "                                        <th>SiteName</th>\r" +
     "\n" +
     "                                        <th>SOWName</th>\r" +
     "\n" +
@@ -8547,11 +8551,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <td><label>{{$index + 1}}</label></td>\r" +
     "\n" +
-    "                                        <td><label>{{sow.model.pmouniq}}</label></td>\r" +
+    "                                        <td><label>{{sow.model.projectname}}</label></td>\r" +
     "\n" +
     "                                        <td><label>{{sow.model.duid}}</label></td>\r" +
     "\n" +
-    "                                        <td><label>{{sow.model.sowname}}</label></td>\r" +
+    "                                        <td><label>{{sow.model.btsName}}</label></td>\r" +
+    "\n" +
+    "                                        <td><label>{{sow.model.sowName}}</label></td>\r" +
     "\n" +
     "                                        <td><label>{{sow.model.codate}}</label></td>\r" +
     "\n" +
