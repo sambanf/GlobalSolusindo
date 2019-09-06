@@ -50,11 +50,11 @@ namespace GlobalSolusindo.Api.Models
         [Description("Contact Number")]
         public string ContactNumber { get; set; }
 
-        [Description("G1 Email ID")]
-        public string G1EmailID { get; set; }
+        [Description("PersonalEmail")]
+        public string Email { get; set; }
 
-        [Description("Email Personal")]
-        public string PersonalEmail { get; set; }
+        [Description("G1Email")]
+        public string G1Email { get; set; }
 
         [Description("Address")]
         public string Address { get; set; }

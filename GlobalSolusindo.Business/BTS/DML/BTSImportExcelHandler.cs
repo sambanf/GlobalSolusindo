@@ -81,7 +81,6 @@ namespace GlobalSolusindo.Business.BTS.DML
             if (btsDTO == null)
                 throw new ArgumentNullException("BTS model is null.");
             tblM_BTS bts = btsFactory.CreateFromDbAndUpdateFromDTO(btsDTO, dateStamp);
-            
         }
 
         public List<SaveResult<BTSDTO>> GetSaveResults(List<BTSDTO> btsList, DateTime dateStamp)
@@ -93,48 +92,16 @@ namespace GlobalSolusindo.Business.BTS.DML
             foreach (var validationResult in validationResults)
             {
                 var btsDTO = (BTSDTO)validationResult.GetModel();
-                bool check = true;
-                foreach (var item in btsDTO.BTSTechnologies)
-                {
-                    if (item.Technology_FK == 0)
-                    {
-                        check = false;
-                    }
-                }
 
-                if (validationResult.IsValid && (check == true))
+                if (validationResult.IsValid)
                 {
                     if (btsDTO.BTS_PK > 0)
                     {
                         UpdateBTS(btsDTO, dateStamp);
-                        List<BTSTechnologyDTO> list = btstechnoQuery.GetByBTSFK(btsDTO.BTS_PK);
-                        
-                        foreach (var item in btsDTO.BTSTechnologies)
-                        {
-                            item.BTS_FK = btsDTO.BTS_PK;
-                            bool ada = false;
-                            foreach (var item2 in list)
-                            {
-                                if (item.Technology_FK == item2.Technology_FK)
-                                {
-                                    ada = true;
-                                }
-                            }
-                            if (ada == false)
-                            {
-                                
-                                AddBTSTechno(item, dateStamp);
-                            }
-                        }
                     }
                     else
                     {
                         AddBTS(btsDTO, dateStamp);
-                        foreach (var item in btsDTO.BTSTechnologies)
-                        {
-                            item.BTS_FK = btsDTO.BTS_PK;
-                            AddBTSTechno(item, dateStamp);
-                        }
                     }
 
                     var saveResult = new SaveResult<BTSDTO>()
@@ -178,7 +145,7 @@ namespace GlobalSolusindo.Business.BTS.DML
             var base64 = importDTO.File;
             base64 = base64.Replace("data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,", "");
             var wb = ExcelConverter.FromBase64(base64);
-            var sheet = wb.Worksheet("BTSUpload");
+            var sheet = wb.Worksheet("SiteUpload");
 
             var nonEmptyRowCount = sheet.RowsUsed().Count() + 1;
             var areaQuery = new AreaQuery(Db);
@@ -222,24 +189,6 @@ namespace GlobalSolusindo.Business.BTS.DML
                 var address = row.Cell(8).Value.ToString();
                 var status = row.Cell(9).Value.ToString();
 
-                List<BTSTechnologyDTO> techno = new List<BTSTechnologyDTO>();
-                
-                var technology = row.Cell(10).Value.ToString().Split(';').ToList();
-                foreach (var item in technology)
-                {
-                    BTSTechnologyDTO itemtech = new BTSTechnologyDTO();
-                    try
-                    {
-                        
-                        itemtech.Technology_FK = technologyQuery.GetByTitle(item).Technology_PK;
-                    }
-                    catch (Exception)
-                    {
-                        itemtech.Technology_FK = 0;
-                    }
-                    techno.Add(itemtech);
-                }
-
                 
 
                 btsList.Add(new BTSDTO()
@@ -256,8 +205,7 @@ namespace GlobalSolusindo.Business.BTS.DML
                     Operator_FK = operatorId,
                     Status_FK = 1,
                     TowerID = towerId,
-                    StatusBTS_FK = 1,
-                    BTSTechnologies = techno
+                    StatusBTS_FK = 1
                 });
             }
 

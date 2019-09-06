@@ -1637,9 +1637,9 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "\r" +
     "\n" +
-    "\r" +
+    "                        <!-- UNCOMMENT IF TECHNOLOGY ON SITE NEEDED -->\r" +
     "\n" +
-    "                        <div class=\"\">\r" +
+    "                        <!--<div class=\"\">\r" +
     "\n" +
     "                            <ul class=\"nav nav-tabs\" id=\"myTab\" role=\"tablist\">\r" +
     "\n" +
@@ -1735,7 +1735,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            </div>\r" +
     "\n" +
-    "                        </div>\r" +
+    "                        </div>-->\r" +
     "\n" +
     "\r" +
     "\n" +
@@ -7647,11 +7647,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"row\">\r" +
     "\n" +
-    "                                <!--BTS Info-->\r" +
+    "                                <!--Site Info-->\r" +
     "\n" +
     "                                <div class=\"col-md-6\">\r" +
     "\n" +
-    "                                    <div class=\"card-title\">BTS Info</div>\r" +
+    "                                    <div class=\"card-title\">Site Info</div>\r" +
     "\n" +
     "                                    <!--<div class=\"row\">\r" +
     "\n" +
@@ -8721,11 +8721,11 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                            <div class=\"row\">\r" +
     "\n" +
-    "                                <!--BTS Info-->\r" +
+    "                                <!--Site Info-->\r" +
     "\n" +
     "                                <div class=\"col-md-6\">\r" +
     "\n" +
-    "                                    <div class=\"card-title\">BTS Info</div>\r" +
+    "                                    <div class=\"card-title\">Site Info</div>\r" +
     "\n" +
     "                                    <!--<div class=\"row\">\r" +
     "\n" +

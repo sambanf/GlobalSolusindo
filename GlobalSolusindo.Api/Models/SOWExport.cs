@@ -56,229 +56,247 @@ namespace GlobalSolusindo.Api.Models
 
 
             //Validation Table
+
             using (var BTSQuery = new BTSQuery())
             {
                 using (var ProjectQuery2 = new ProjectQuery())
                 {
                     using (var UserQuery = new UserQuery())
                     {
-                        //SETUP TABLE PROJECT
-                        DataTable validationTableProject = new DataTable();
-                        validationTableProject.TableName = "Project";
-                        //SETUP COLUMN
-                        LOVDTO objProject = new LOVDTO();
-                        foreach (var item in objProject.GetType().GetProperties())
+                        using (SOWQuery sOWQuery = new SOWQuery())
                         {
-                            validationTableProject.Columns.Add(item.Name);
-                        }
-                        IQueryable<ProjectDTO> dataProject = null;
-                        if (user.KategoriJabatan_FK == 1)
-                        {
-                            var teamlead = UserQuery.GetByPrimaryKey(user.User_PK);
-                            dataProject = ProjectQuery2.GetQuery().Where(x => x.Project_PK == teamlead.Project);
-                        }
-                        else if (user.KategoriJabatan_FK == 7)
-                        {
-                            dataProject = ProjectQuery2.GetProjectByPM(user.User_PK);
-                        }
-
-                        DataRow drProject;
-                        int startcell = 2, endcell = 2;
-                        if (dataProject != null)
-                        {
-                            foreach (var item in dataProject)
-                            {
-                                drProject = validationTableProject.NewRow();
-                                drProject["Id"] = item.Project_PK;
-                                drProject["Name"] = item.Project_PK + "-" + item.OperatorTitle + "-" + item.VendorTitle + "-" + item.DeliveryAreaTitle;
-                                validationTableProject.Rows.Add(drProject);
-                                endcell++;
-                            }
-                        }
-
-                        var worksheetProject = workbook.AddWorksheet(validationTableProject);
-                        worksheet.Column(2).SetDataValidation().List(worksheetProject.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
 
-                        //SETUP TABLE VALIDATION BTS
-                        //SETUP TABLE BTS
-                        DataTable validationTableBTS = new DataTable();
-                        validationTableBTS.TableName = "BTS";
-                        //SETUP COLUMN
-                        LOVDTO objBTS = new LOVDTO();
-                        foreach (var item in objBTS.GetType().GetProperties())
-                        {
-                            validationTableBTS.Columns.Add(item.Name);
-                        }
-                        var dataBTS = BTSQuery.GetQuery();
-                        DataRow drBTS;
-                        startcell = 2; endcell = 2;
-                        foreach (var item in dataBTS)
-                        {
-                            drBTS = validationTableBTS.NewRow();
-                            drBTS["Id"] = item.BTS_PK;
-                            drBTS["Name"] = item.TowerID + "-" + item.Name;
-                            validationTableBTS.Rows.Add(drBTS);
-                            endcell++;
-                        }
-                        var worksheetBTS = workbook.AddWorksheet(validationTableBTS);
-                        worksheet.Column(4).SetDataValidation().List(worksheetBTS.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
-
-
-                        //SETUP TABLE TECHNOLOGY
-                        using (var TechnologyQuery = new TechnologyQuery())
-                        {
-                            //SETUP TABLE Technology
-                            DataTable validationTableTechnology = new DataTable();
-                            validationTableTechnology.TableName = "Technology";
+                            //SETUP TABLE PROJECT
+                            DataTable validationTableProject = new DataTable();
+                            validationTableProject.TableName = "Project";
                             //SETUP COLUMN
-                            LOVDTO objTechnology = new LOVDTO();
-                            foreach (var item in objTechnology.GetType().GetProperties())
+                            LOVDTO objProject = new LOVDTO();
+                            foreach (var item in objProject.GetType().GetProperties())
                             {
-                                validationTableTechnology.Columns.Add(item.Name);
+                                validationTableProject.Columns.Add(item.Name);
                             }
-                            var dataTechnology = TechnologyQuery.GetQuery();
-                            DataRow drTechnology;
-                            startcell = 2; endcell = 2;
-                            foreach (var item in dataTechnology)
+                            IQueryable<ProjectDTO> dataProject = null;
+                            if (user.KategoriJabatan_FK == 1)
                             {
-                                drTechnology = validationTableTechnology.NewRow();
-                                drTechnology["Id"] = item.Technology_PK;
-                                drTechnology["Name"] = item.Title;
-                                validationTableTechnology.Rows.Add(drTechnology);
+                                var teamlead = UserQuery.GetByPrimaryKey(user.User_PK);
+                                dataProject = ProjectQuery2.GetQuery().Where(x => x.Project_PK == teamlead.Project);
+                            }
+                            else if (user.KategoriJabatan_FK == 7)
+                            {
+                                dataProject = ProjectQuery2.GetProjectByPM(user.User_PK);
+                            }
+
+                            DataRow drProject;
+                            int startcell = 2, endcell = 2;
+                            if (dataProject != null)
+                            {
+                                foreach (var item in dataProject)
+                                {
+                                    drProject = validationTableProject.NewRow();
+                                    drProject["Id"] = item.Project_PK;
+                                    drProject["Name"] = item.Project_PK + "-" + item.OperatorTitle + "-" + item.VendorTitle + "-" + item.DeliveryAreaTitle;
+                                    validationTableProject.Rows.Add(drProject);
+                                    endcell++;
+                                }
+                            }
+
+                            var worksheetProject = workbook.AddWorksheet(validationTableProject);
+                            worksheet.Column(2).SetDataValidation().List(worksheetProject.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+
+
+                            //SETUP TABLE VALIDATION SOWName
+                            //SETUP TABLE SOWNAME
+                            DataTable validationTableSOWName = new DataTable();
+                            validationTableSOWName.TableName = "SOWName";
+                            //SETUP COLUMN
+                            LOVDTO objSOWName = new LOVDTO();
+                            foreach (var item in objSOWName.GetType().GetProperties())
+                            {
+                                validationTableSOWName.Columns.Add(item.Name);
+                            }
+                            var dataSOWName = sOWQuery.GetSOWName().ToList();
+                            DataRow drSOWName;
+                            startcell = 2; endcell = 2;
+                            foreach (var item in dataSOWName)
+                            {
+                                drSOWName = validationTableSOWName.NewRow();
+                                drSOWName["Id"] = item.id;
+                                drSOWName["Name"] = item.SOWName;
+                                validationTableSOWName.Rows.Add(drSOWName);
                                 endcell++;
                             }
-                            var worksheetTechnology = workbook.AddWorksheet(validationTableTechnology);
-                            worksheet.Column(5).SetDataValidation().List(worksheetTechnology.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
-                        }
+                            var worksheetSOWName = workbook.AddWorksheet(validationTableSOWName);
+                            worksheet.Column(6).SetDataValidation().List(worksheetSOWName.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
-                        //USER VALIDATION
 
-                        //SETUP TABLE Teamlead
-                        DataTable validationTableUser = new DataTable();
-                        validationTableUser.TableName = "Teamlead";
-                        //SETUP COLUMN
-                        LOVDTO objUser = new LOVDTO();
-                        foreach (var item in objUser.GetType().GetProperties())
-                        {
-                            validationTableUser.Columns.Add(item.Name);
-                        }
-                       
-                        DataRow drUser;
-                        if (user.KategoriJabatan_FK == 1)
-                        {
-                            var teamlead = UserQuery.GetByPrimaryKey(user.User_PK);
-                            drUser = validationTableUser.NewRow();
-                            drUser["Id"] = teamlead.User_PK;
-                            drUser["Name"] = teamlead.Name;
-                            validationTableUser.Rows.Add(drUser);
-                            endcell++;
-                        }
-                        else
-                        {
+
+                            //SETUP TABLE VALIDATION BTS
+                            //SETUP TABLE BTS
+                            DataTable validationTableBTS = new DataTable();
+                            validationTableBTS.TableName = "Site";
+                            //SETUP COLUMN
+                            LOVDTO objBTS = new LOVDTO();
+                            foreach (var item in objBTS.GetType().GetProperties())
+                            {
+                                validationTableBTS.Columns.Add(item.Name);
+                            }
+                            var dataBTS = BTSQuery.GetQuery();
+                            DataRow drBTS;
+                            startcell = 2; endcell = 2;
+                            foreach (var item in dataBTS)
+                            {
+                                drBTS = validationTableBTS.NewRow();
+                                drBTS["Id"] = item.BTS_PK;
+                                drBTS["Name"] = item.TowerID + "-" + item.Name;
+                                validationTableBTS.Rows.Add(drBTS);
+                                endcell++;
+                            }
+                            var worksheetBTS = workbook.AddWorksheet(validationTableBTS);
+                            worksheet.Column(4).SetDataValidation().List(worksheetBTS.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+
+
+                            //SETUP TABLE TECHNOLOGY
+                            using (var TechnologyQuery = new TechnologyQuery())
+                            {
+                                //SETUP TABLE Technology
+                                DataTable validationTableTechnology = new DataTable();
+                                validationTableTechnology.TableName = "Technology";
+                                //SETUP COLUMN
+                                LOVDTO objTechnology = new LOVDTO();
+                                foreach (var item in objTechnology.GetType().GetProperties())
+                                {
+                                    validationTableTechnology.Columns.Add(item.Name);
+                                }
+                                var dataTechnology = TechnologyQuery.GetQuery();
+                                DataRow drTechnology;
+                                startcell = 2; endcell = 2;
+                                foreach (var item in dataTechnology)
+                                {
+                                    drTechnology = validationTableTechnology.NewRow();
+                                    drTechnology["Id"] = item.Technology_PK;
+                                    drTechnology["Name"] = item.Title;
+                                    validationTableTechnology.Rows.Add(drTechnology);
+                                    endcell++;
+                                }
+                                var worksheetTechnology = workbook.AddWorksheet(validationTableTechnology);
+                                worksheet.Column(5).SetDataValidation().List(worksheetTechnology.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                            }
+
+                            //USER VALIDATION
+
+                            //SETUP TABLE Teamlead
+                            DataTable validationTableUser = new DataTable();
+                            validationTableUser.TableName = "Teamlead";
+                            //SETUP COLUMN
+                            LOVDTO objUser = new LOVDTO();
+                            foreach (var item in objUser.GetType().GetProperties())
+                            {
+                                validationTableUser.Columns.Add(item.Name);
+                            }
+
+                            DataRow drUser;
                             var dataUser = UserQuery.GetByJabatanAndProject(1, user.User_PK);
                             startcell = 2; endcell = 2;
                             foreach (var item in dataUser)
                             {
                                 drUser = validationTableUser.NewRow();
                                 drUser["Id"] = item.User_PK;
-                                drUser["Name"] = item.Name;
+                                drUser["Name"] = item.Name +"-"+ item.User_PK;
                                 validationTableUser.Rows.Add(drUser);
                                 endcell++;
                             }
-                        }
+                            var worksheetUser = workbook.AddWorksheet(validationTableUser);
+                            worksheet.Column(13).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
-                        
-                        var worksheetUser = workbook.AddWorksheet(validationTableUser);
-                        worksheet.Column(13).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                            //SETUP TABLE PLOQC
+                            DataTable validationTableUserPLOQC = new DataTable();
+                            validationTableUserPLOQC.TableName = "RNO";
+                            //SETUP COLUMN
+                            foreach (var item in objUser.GetType().GetProperties())
+                            {
+                                validationTableUserPLOQC.Columns.Add(item.Name);
+                            }
+                            var dataUserPLOQC = UserQuery.GetByJabatanAndProject(6, user.User_PK); // PLOQC JABATAN???
+                            DataRow drUserPLOQC;
+                            startcell = 2; endcell = 2;
+                            foreach (var item in dataUserPLOQC)
+                            {
+                                drUserPLOQC = validationTableUserPLOQC.NewRow();
+                                drUserPLOQC["Id"] = item.User_PK;
+                                drUserPLOQC["Name"] = item.Name + "-" + item.User_PK;
+                                validationTableUserPLOQC.Rows.Add(drUserPLOQC);
+                                endcell++;
+                            }
+                            var worksheetUserPLOQC = workbook.AddWorksheet(validationTableUserPLOQC);
+                            worksheet.Column(14).SetDataValidation().List(worksheetUserPLOQC.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
-                        //SETUP TABLE PLOQC
-                        DataTable validationTableUserPLOQC = new DataTable();
-                        validationTableUserPLOQC.TableName = "RNO";
-                        //SETUP COLUMN
-                        foreach (var item in objUser.GetType().GetProperties())
-                        {
-                            validationTableUserPLOQC.Columns.Add(item.Name);
-                        }
-                        var dataUserPLOQC = UserQuery.GetByJabatanAndProject(6, user.User_PK); // PLOQC JABATAN???
-                        DataRow drUserPLOQC;
-                        startcell = 2; endcell = 2;
-                        foreach (var item in dataUserPLOQC)
-                        {
-                            drUserPLOQC = validationTableUserPLOQC.NewRow();
-                            drUserPLOQC["Id"] = item.User_PK;
-                            drUserPLOQC["Name"] = item.Name;
-                            validationTableUserPLOQC.Rows.Add(drUserPLOQC);
-                            endcell++;
-                        }
-                        var worksheetUserPLOQC = workbook.AddWorksheet(validationTableUserPLOQC);
-                        worksheet.Column(14).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                            //SETUP TABLE RF
+                            DataTable validationTableUserRF = new DataTable();
+                            validationTableUserRF.TableName = "RF";
+                            //SETUP COLUMN
+                            foreach (var item in objUser.GetType().GetProperties())
+                            {
+                                validationTableUserRF.Columns.Add(item.Name);
+                            }
+                            var dataUserRF = UserQuery.GetByJabatanAndProject(5, user.User_PK);
+                            DataRow drUserRF;
+                            startcell = 2; endcell = 2;
+                            foreach (var item in dataUserRF)
+                            {
+                                drUserRF = validationTableUserRF.NewRow();
+                                drUserRF["Id"] = item.User_PK;
+                                drUserRF["Name"] = item.Name + "-" + item.User_PK;
+                                validationTableUserRF.Rows.Add(drUserRF);
+                                endcell++;
+                            }
+                            var worksheetUserRF = workbook.AddWorksheet(validationTableUserRF);
+                            worksheet.Column(15).SetDataValidation().List(worksheetUserRF.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
-                        //SETUP TABLE RF
-                        DataTable validationTableUserRF = new DataTable();
-                        validationTableUserRF.TableName = "RF";
-                        //SETUP COLUMN
-                        foreach (var item in objUser.GetType().GetProperties())
-                        {
-                            validationTableUserRF.Columns.Add(item.Name);
-                        }
-                        var dataUserRF = UserQuery.GetByJabatanAndProject(5, user.User_PK);
-                        DataRow drUserRF;
-                        startcell = 2; endcell = 2;
-                        foreach (var item in dataUserRF)
-                        {
-                            drUserRF = validationTableUserRF.NewRow();
-                            drUserRF["Id"] = item.User_PK;
-                            drUserRF["Name"] = item.Name;
-                            validationTableUserRF.Rows.Add(drUserRF);
-                            endcell++;
-                        }
-                        var worksheetUserRF = workbook.AddWorksheet(validationTableUserRF);
-                        worksheet.Column(15).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
+                            //SETUP TABLE Rigger
+                            DataTable validationTableUserRigger = new DataTable();
+                            validationTableUserRigger.TableName = "Rigger";
+                            //SETUP COLUMN
+                            foreach (var item in objUser.GetType().GetProperties())
+                            {
+                                validationTableUserRigger.Columns.Add(item.Name);
+                            }
+                            var dataUserRigger = UserQuery.GetByJabatanAndProject(3, user.User_PK);
+                            DataRow drUserRigger;
+                            startcell = 2; endcell = 2;
+                            foreach (var item in dataUserRigger)
+                            {
+                                drUserRigger = validationTableUserRigger.NewRow();
+                                drUserRigger["Id"] = item.User_PK;
+                                drUserRigger["Name"] = item.Name + "-" + item.User_PK;
+                                validationTableUserRigger.Rows.Add(drUserRigger);
+                                endcell++;
+                            }
+                            var worksheetUserRigger = workbook.AddWorksheet(validationTableUserRigger);
+                            worksheet.Column(16).SetDataValidation().List(worksheetUserRigger.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
 
-                        //SETUP TABLE Rigger
-                        DataTable validationTableUserRigger = new DataTable();
-                        validationTableUserRigger.TableName = "Rigger";
-                        //SETUP COLUMN
-                        foreach (var item in objUser.GetType().GetProperties())
-                        {
-                            validationTableUserRigger.Columns.Add(item.Name);
+                            //SETUP TABLE DT
+                            DataTable validationTableUserDT = new DataTable();
+                            validationTableUserDT.TableName = "DriveTester";
+                            //SETUP COLUMN
+                            foreach (var item in objUser.GetType().GetProperties())
+                            {
+                                validationTableUserDT.Columns.Add(item.Name);
+                            }
+                            var dataUserDT = UserQuery.GetByJabatanAndProject(2, user.User_PK);
+                            DataRow drUserDT;
+                            startcell = 2; endcell = 2;
+                            foreach (var item in dataUserDT)
+                            {
+                                drUserDT = validationTableUserDT.NewRow();
+                                drUserDT["Id"] = item.User_PK;
+                                drUserDT["Name"] = item.Name + "-" + item.User_PK;
+                                validationTableUserDT.Rows.Add(drUserDT);
+                                endcell++;
+                            }
+                            var worksheetUserDT = workbook.AddWorksheet(validationTableUserDT);
+                            worksheet.Column(17).SetDataValidation().List(worksheetUserDT.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
                         }
-                        var dataUserRigger = UserQuery.GetByJabatanAndProject(3, user.User_PK);
-                        DataRow drUserRigger;
-                        startcell = 2; endcell = 2;
-                        foreach (var item in dataUserRigger)
-                        {
-                            drUserRigger = validationTableUserRigger.NewRow();
-                            drUserRigger["Id"] = item.User_PK;
-                            drUserRigger["Name"] = item.Name;
-                            validationTableUserRigger.Rows.Add(drUserRigger);
-                            endcell++;
-                        }
-                        var worksheetUserRigger = workbook.AddWorksheet(validationTableUserRigger);
-                        worksheet.Column(16).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
-
-                        //SETUP TABLE DT
-                        DataTable validationTableUserDT = new DataTable();
-                        validationTableUserDT.TableName = "DriveTester";
-                        //SETUP COLUMN
-                        foreach (var item in objUser.GetType().GetProperties())
-                        {
-                            validationTableUserDT.Columns.Add(item.Name);
-                        }
-                        var dataUserDT = UserQuery.GetByJabatanAndProject(2, user.User_PK);
-                        DataRow drUserDT;
-                        startcell = 2; endcell = 2;
-                        foreach (var item in dataUserDT)
-                        {
-                            drUserDT = validationTableUserDT.NewRow();
-                            drUserDT["Id"] = item.User_PK;
-                            drUserDT["Name"] = item.Name;
-                            validationTableUserDT.Rows.Add(drUserDT);
-                            endcell++;
-                        }
-                        var worksheetUserDT = workbook.AddWorksheet(validationTableUserDT);
-                        worksheet.Column(17).SetDataValidation().List(worksheetUser.Range("B" + startcell.ToString() + ":B" + endcell.ToString()), true);
                     }
                 }
 
@@ -480,7 +498,7 @@ namespace GlobalSolusindo.Api.Models
                         dr["NOPO"] = item.NOPO;
                         dr["Esarstatus1"] = item.Esarstatus1;
                         dr["Esarstatus2"] = item.Esarstatus2;
-                        dr["StatusPO"] = item.NOPO == null?"Waiting PO" : (item.Quantity == "" ? 0 : Convert.ToDecimal(item.Quantity)) + (item.Quantity2 == "" ? 0 : Convert.ToDecimal(item.Quantity2)) < 1 && ((item.Esarstatus1 != "2") || (item.Esarstatus2 != "2")) ? "On Progress" : "Done";
+                        dr["StatusPO"] = item.NOPO == null ? "Waiting PO" : (item.Quantity == "" ? 0 : Convert.ToDecimal(item.Quantity)) + (item.Quantity2 == "" ? 0 : Convert.ToDecimal(item.Quantity2)) < 1 && ((item.Esarstatus1 != "2") || (item.Esarstatus2 != "2")) ? "On Progress" : "Done";
                         SOW.Rows.Add(dr);
                     }
 

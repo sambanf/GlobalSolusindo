@@ -289,7 +289,12 @@ namespace GlobalSolusindo.Identity.User.Queries
             GetPhoto(record);
             return record;
         }
-
+        public UserDTO GetByFullname(string fullname)
+        {
+            UserDTO record = GetQuery().FirstOrDefault(user => user.Status_FK != 3 && user.Name == fullname);
+            GetPhoto(record);
+            return record;
+        }
         public UserDTO GetByEmail(string email)
         {
             UserDTO record = GetQuery().FirstOrDefault(user => user.Email == email);

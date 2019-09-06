@@ -1,5 +1,5 @@
 /*!
-* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-08-26. 
+* global-solusindo-app - v1.0.0 - MIT LICENSE 2019-09-03. 
 * @author Kairos
 */
 (function() {
@@ -391,7 +391,7 @@ angular.module('global-solusindo')
                 controller: 'BTSImportExcelCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'Import BTS'
+                    label: 'Import Site'
                 }
             });
     }]);
@@ -17594,7 +17594,7 @@ angular.module('global-solusindo')
     function Http($http, $state, $cookies, $q, $httpParamSerializerJQLike, PendingRequest, $httpParamSerializer, ui, tokenService) {
         var debugMode = false;
         //var base_url = "http://gsapi.local/";
-        var base_url = "http://globaloneapi.kairos-it.com/";
+        var base_url = "http://globaloneapidev.kairos-it.com/";
         //var base_url = "http://localhost/GlobalAPI/";
 
         var base_host = "";

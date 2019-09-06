@@ -25,8 +25,5 @@ namespace GlobalSolusindo.Api.Models
         [Description("StatusBTS")]
         public string StatusSite { get; set; }
 
-        [Description("Technology")]
-        public string Technology { get; set; }
-
     }
 }

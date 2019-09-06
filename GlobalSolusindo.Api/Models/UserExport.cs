@@ -64,8 +64,8 @@ namespace GlobalSolusindo.Api.Models
                     NPWP = c.NPWP,//?
                     BPJS = c.BPJS,//?
                     ContactNumber = c.NoHP,
-                    G1EmailID = c.Email,
-                    PersonalEmail = c.PersonalEmail,
+                    Email = c.Email,
+                    G1Email = c.PersonalEmail,
                     Address = c.Address,
                     NamaBank = c.BankName,//?
                     NoRekening = c.AccountNumber,//?
@@ -100,8 +100,8 @@ namespace GlobalSolusindo.Api.Models
                     dr["BPJS"] = item.BPJS;
                     dr["JoinDate"] = item.JoinDate;
                     dr["ContactNumber"] = item.ContactNumber;
-                    dr["G1EmailID"] = item.G1EmailID;
-                    dr["PersonalEmail"] = item.PersonalEmail;
+                    dr["Email"] = item.Email;
+                    dr["G1Email"] = item.G1Email;
                     dr["Address"] = item.Address;
                     dr["NamaBank"] = item.NamaBank;
                     dr["NoRekening"] = item.NoRekening;

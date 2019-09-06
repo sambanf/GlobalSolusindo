@@ -17,6 +17,7 @@ using GlobalSolusindo.Business.BTS.Queries;
 using GlobalSolusindo.Business.SOWAssign;
 using GlobalSolusindo.Identity.User.Queries;
 using GlobalSolusindo.Business.Project;
+using GlobalSolusindo.Identity.User;
 
 namespace GlobalSolusindo.Business.SOW.DML
 {
@@ -89,6 +90,7 @@ namespace GlobalSolusindo.Business.SOW.DML
 
         }
 
+
         public List<SaveResult<SOWDTO>> GetSaveResults(List<SOWDTO> SOWList, DateTime dateStamp)
         {
             var validationResults = Validate(SOWList);
@@ -101,8 +103,11 @@ namespace GlobalSolusindo.Business.SOW.DML
 
                 if (validationResult.IsValid)
                 {
-                    AddSOW(sowdto, dateStamp);
+                    tblT_SOW sow = AddSOW(sowdto, dateStamp);
+                    SaveChanges();
+                    sowdto.SOW_PK = sow.SOW_PK;
                     AddSowAssign(sowdto, dateStamp);
+                    SaveChanges();
                     sowdto.BTSName = bTSQuery.GetByPrimaryKey(sowdto.BTS_FK).Name;
                     sowdto.ProjectName = projectQuery.GetByPrimaryKey(sowdto.Project_FK).OperatorTitle +" "+ projectQuery.GetByPrimaryKey(sowdto.Project_FK).VendorTitle + " " + projectQuery.GetByPrimaryKey(sowdto.Project_FK).DeliveryAreaTitle;
                     var saveResult = new SaveResult<SOWDTO>()
@@ -156,7 +161,6 @@ namespace GlobalSolusindo.Business.SOW.DML
             var technologyQuery = new TechnologyQuery(Db);
             var SOWQuery = new SOWQuery(Db);
             List<SOWDTO> SOWList = new List<SOWDTO>();
-            List<SOWAssignDTO> sowAssign = new List<SOWAssignDTO>();
             //first index is 1, and the first one is header title
             for (int i = 2; i < nonEmptyRowCount; i++)
             {
@@ -179,25 +183,34 @@ namespace GlobalSolusindo.Business.SOW.DML
                 var rigger = row.Cell(16).Value.ToString();
                 var dt = row.Cell(17).Value.ToString();
 
+                List<SOWAssignDTO> sowAssign = new List<SOWAssignDTO>();
                 if (teamlead != "")
                 {
-                    sowAssign.Add(new SOWAssignDTO() { User_FK = userQuery.GetByUsername(teamlead).User_PK });
+                    string[] user = teamlead.Split('-');
+                    sowAssign.Add(new SOWAssignDTO() { User_FK = int.Parse(user[1]) , KategoriJabatan_FK = 1});
                 }
                 if (ploqc != "")
                 {
-                    sowAssign.Add(new SOWAssignDTO() { User_FK = userQuery.GetByUsername(ploqc).User_PK });
+                    string[] user = ploqc.Split('-');
+                    sowAssign.Add(new SOWAssignDTO() { User_FK = int.Parse(user[1]), KategoriJabatan_FK = 6 });
                 }
                 if (rf != "")
-                {
-                    sowAssign.Add(new SOWAssignDTO() { User_FK = userQuery.GetByUsername(rf).User_PK });
+                {   
+                    string[] user = rf.Split('-');
+                    sowAssign.Add(new SOWAssignDTO() { User_FK = int.Parse(user[1]), KategoriJabatan_FK = 5 });
                 }
                 if (rigger != "")
                 {
-                    sowAssign.Add(new SOWAssignDTO() { User_FK = userQuery.GetByUsername(rigger).User_PK });
+                    string[] user = rigger.Split('-');
+                    sowAssign.Add(new SOWAssignDTO() { User_FK = int.Parse(user[1]), KategoriJabatan_FK = 3 });
                 }
                 if (dt != "")
                 {
-                    sowAssign.Add(new SOWAssignDTO() { User_FK = userQuery.GetByUsername(dt).User_PK });
+                    string[] user = dt.Split('-');
+                    sowAssign.Add(new SOWAssignDTO() { User_FK = int.Parse(user[1]), KategoriJabatan_FK = 2 });
+                    //Old Algorithm
+                    //UserDTO user = userQuery.GetByFullname(dt);
+                    //sowAssign.Add(new SOWAssignDTO() { User_FK = user.User_PK, KategoriJabatan_FK = user.KategoriJabatan_FK });
                 }
                 DateTime? nulldate = null;
 

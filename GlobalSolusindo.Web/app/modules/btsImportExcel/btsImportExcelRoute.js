@@ -18,7 +18,7 @@ angular.module('global-solusindo')
                 controller: 'BTSImportExcelCtrl',
                 controllerAs: 'vm',
                 ncyBreadcrumb: {
-                    label: 'Import BTS'
+                    label: 'Import Site'
                 }
             });
     }]);
