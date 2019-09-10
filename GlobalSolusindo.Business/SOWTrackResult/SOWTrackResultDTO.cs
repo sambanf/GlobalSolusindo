@@ -14,7 +14,7 @@ namespace GlobalSolusindo.Business.SOWTrackResult
         public int SOWTrackResult_PK { get; set; }
 
         [JsonProperty("sowTrack_fk")]
-        [ForeignKey(typeof(SOWTrackResultQuery), "SOWTrack_PK", true)]
+        [ForeignKey(typeof(SOWTrackResultQuery), "SOWTrack_FK", true)]
         public int? SOWTrack_FK { get; set; }
 
         [Required]

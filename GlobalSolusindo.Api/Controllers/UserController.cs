@@ -53,6 +53,12 @@ namespace GlobalSolusindo.Api.Controllers
             using (UserEntryDataProvider userEntryDataProvider = new UserEntryDataProvider(Db, ActiveUser, AccessControl, new UserQuery(Db)))
             {
                 var data = userEntryDataProvider.Get(id);
+                if (!AccessControl.UserHasRole(updateRole))
+                {
+                    data.Model.Salary = null;
+                    data.Model.BankName = null;
+                    data.Model.AccountNumber = null;
+                }
                 SaveLog(ActiveUser.Username, readRole, JsonConvert.SerializeObject(new { primaryKey = id }), "Success", "", "", "");
                 return Ok(new SuccessResponse(data));
             }
