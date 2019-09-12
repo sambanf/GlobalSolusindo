@@ -3425,7 +3425,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Position</th>\r" +
     "\n" +
-    "                                        <th>Keterangan</th>\r" +
+    "                                        <th>Information</th>\r" +
     "\n" +
     "                                        <th>Permit/Leave Date</th>\r" +
     "\n" +
@@ -3488,7 +3488,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Position</th>\r" +
     "\n" +
-    "                                        <th>Keterangan</th>\r" +
+    "                                        <th>Information</th>\r" +
     "\n" +
     "                                        <th>Permit/Leave Date</th>\r" +
     "\n" +
@@ -3496,7 +3496,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Approval By</th>\r" +
     "\n" +
-    "                                        <th>Detail</th>\r" +
+    "                                        <th>Details</th>\r" +
     "\n" +
     "                                    </tr>\r" +
     "\n" +
@@ -5035,7 +5035,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                        <th>Name</th>\r" +
     "\n" +
-    "                                        <th>Kategori Jabatan</th>\r" +
+    "                                        <th>Position Category</th>\r" +
     "\n" +
     "                                        <th></th>\r" +
     "\n" +
@@ -5595,7 +5595,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.operatorEntry({ id: '0'})\">Tambah Operator</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.operatorEntry({ id: '0'})\">Add Operator</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
@@ -6251,13 +6251,13 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                                                <th>No</th>\r" +
     "\n" +
-    "                                                <th>Tanggal</th>\r" +
+    "                                                <th>Date</th>\r" +
     "\n" +
     "                                                <th>Checkin Time</th>\r" +
     "\n" +
     "                                                <th>Checkout Time</th>\r" +
     "\n" +
-    "                                                <th>Aktifitas</th>\r" +
+    "                                                <th>Activity</th>\r" +
     "\n" +
     "                                                <th>Approved By</th>\r" +
     "\n" +
@@ -6304,7 +6304,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-12\">\r" +
     "\n" +
-    "                            <h5>Keterangan</h5>\r" +
+    "                            <h5>Details</h5>\r" +
     "\n" +
     "                            <div class=\"legend-item\">\r" +
     "\n" +
@@ -6336,7 +6336,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                    <div class=\"row form-group\" style=\"margin-top: 2%;\">\r" +
     "\n" +
-    "                        <label class=\"control-label col-sm-2\" style=\"top: 8px\">Nama Pekerja</label>\r" +
+    "                        <label class=\"control-label col-sm-2\" style=\"top: 8px\">Employee Name</label>\r" +
     "\n" +
     "                        <div class=\"col-sm-2\">\r" +
     "\n" +
@@ -6368,7 +6368,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-2\">\r" +
     "\n" +
-    "                            <button id=\"searchButton\" type=\"button\" class=\"btn btn-success\" style=\"border-radius: 20px\" ng-click=\"vm.search()\">Cari</button>\r" +
+    "                            <button id=\"searchButton\" type=\"button\" class=\"btn btn-success\" style=\"border-radius: 20px\" ng-click=\"vm.search()\">Search</button>\r" +
     "\n" +
     "                        </div>\r" +
     "\n" +
@@ -6543,7 +6543,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <!--<button id=\"searchButton\" style=\"border-radius: 20px\" ng-click=\"vm.search()\" class=\"btn btn-success\">Cari</button>-->\r" +
     "\n" +
-    "                        <button id=\"searchButton\" type=\"button\" class=\"btn btn-success\" style=\"border-radius: 20px\" ng-click=\"vm.search()\">Cari</button>\r" +
+    "                        <button id=\"searchButton\" type=\"button\" class=\"btn btn-success\" style=\"border-radius: 20px\" ng-click=\"vm.search()\">Search</button>\r" +
     "\n" +
     "                    </div>\r" +
     "\n" +
@@ -7332,7 +7332,7 @@ angular.module('global-solusindo-app').run(['$templateCache', function($template
     "\n" +
     "                        <div class=\"form-group col-md-6\">\r" +
     "\n" +
-    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.roleGroupEntry({ id: '0'})\">Tambah Role Group</button>\r" +
+    "                            <button id=\"addButton\" class=\"btn btn-success\" ui-sref=\"app.roleGroupEntry({ id: '0'})\">Add Role Group</button>\r" +
     "\n" +
     "                            <button id=\"deleteButton\" class=\"btn btn-danger\">Delete Selected</button>\r" +
     "\n" +
